@@ -30,13 +30,31 @@ for f in a.files:
     if not os.path.isfile(f):
         raise SystemExit(f'not a file: {f}')
     mb = os.path.getsize(f) / 1e6
+    src = f
+    entry = {}
+    if mb > a.max_mb and f.endswith('.npy'):
+        # try a lossless downcast of integer arrays (e.g. int64 pools -> int8/int16)
+        try:
+            arr = np.load(f)
+            if np.issubdtype(arr.dtype, np.integer):
+                for dt in (np.int8, np.int16, np.int32):
+                    if arr.min() >= np.iinfo(dt).min and arr.max() <= np.iinfo(dt).max:
+                        small = os.path.join(dest, os.path.basename(f))
+                        np.save(small, arr.astype(dt)); src = small
+                        entry['downcast_from'] = str(arr.dtype); break
+        except Exception as e:
+            entry['npy_note'] = f'downcast failed: {e}'
+        mb = os.path.getsize(src) / 1e6
     if mb > a.max_mb:
-        raise SystemExit(f'{f} is {mb:.1f} MB > {a.max_mb} MB: attach it to a GitHub Release instead')
-    shutil.copy2(f, dest)
-    entry = {'bytes': os.path.getsize(f), 'sha256': hashlib.sha256(open(f, 'rb').read()).hexdigest()}
+        print(f'SKIPPED {f}: {mb:.1f} MB > {a.max_mb} MB -- attach it to a GitHub Release instead')
+        man['files'][os.path.basename(f)] = {'skipped': f'{mb:.1f} MB > limit; attach to a Release'}
+        continue
+    if src == f:
+        shutil.copy2(f, dest)
+    entry.update({'bytes': os.path.getsize(src), 'sha256': hashlib.sha256(open(src, 'rb').read()).hexdigest()})
     if f.endswith('.npy'):
         try:
-            arr = np.load(f, allow_pickle=True)
+            arr = np.load(src, allow_pickle=True)
             if isinstance(arr, np.ndarray) and arr.ndim == 2 and np.issubdtype(arr.dtype, np.integer):
                 A = arr.astype(np.int64)
                 entry['rows'] = int(A.shape[0])
@@ -44,8 +62,12 @@ for f in a.files:
             elif isinstance(arr, np.ndarray) and arr.dtype == object:
                 S = arr.item()
                 if isinstance(S, dict) and 'reps' in S:
-                    entry['orbits'] = len(S['reps']); entry['expanded'] = len(S.get('done', []))
-                    entry['skipped'] = len(S.get('skipped', []))
+                    if S.get('format') == 2:
+                        entry['orbits'] = int(len(S['reps'])); entry['expanded'] = int(np.sum(S['done']))
+                        entry['skipped'] = int(np.sum(S['skipped'])); entry['state_format'] = 2
+                    else:
+                        entry['orbits'] = len(S['reps']); entry['expanded'] = len(S.get('done', []))
+                        entry['skipped'] = len(S.get('skipped', [])); entry['state_format'] = 1
         except Exception as e:
             entry['npy_note'] = f'not summarised: {e}'
     man['files'][os.path.basename(f)] = entry

@@ -9,7 +9,9 @@ lift, on-the-spot rank-30 certification, BFS over ray orbits), generalised to:
 Usage:
   python3 scripts/s4c_qlr.py --init data/qlr_seeds60.npy --state qlr_adj.npy
   python3 scripts/s4c_qlr.py --state qlr_adj.npy --budget 3600 --rep-timeout 1800
-State is saved after every expansion; giants are skipped (reported) on timeout.
+State (format 2: compact int16/int32 representatives + done/skipped flags; legacy
+R15/R17 states are converted on load) is saved after every expansion / chunk;
+giants are skipped (reported) on timeout.
 A growth curve is appended to <state>.growth.csv (one row per expansion).
 --workers N solves N vertex figures in parallel (fork + one lrs each); the budget
 is checked between chunks of 4N figures, so wall time may overrun by one chunk.
@@ -43,26 +45,46 @@ if a.init:
     A = np.unique(A // g[:, None], axis=0)
     A = A[((H @ A.T) >= 0).all(axis=0)]
     cb, reps = core.class_reps(A, perms, offset=0, width='u16')
-    S = {'reps': {bytes(k): A[i].tolist() for k, i in reps.items()}, 'done': [], 'skipped': [], 'key_width': 'u16'}
+    R0 = np.stack([A[i] for i in reps.values()]).astype(np.int32)
+    S = {'format': 2, 'key_width': 'u16', 'reps': R0,
+         'done': np.zeros(R0.shape[0], dtype=bool), 'skipped': np.zeros(R0.shape[0], dtype=bool)}
     np.save(a.state, S, allow_pickle=True)
     print(f'init: {A.shape[0]} rays -> {len(reps)} {a.sym.upper()} orbits -> {a.state}')
     sys.exit(0)
 
 S = np.load(a.state, allow_pickle=True).item()
-reps = {bytes(k): np.array(v, dtype=np.int64) for k, v in S['reps'].items()}
-done = set(bytes(x) for x in S['done'])
-skipped = set(bytes(x) for x in S.get('skipped', []))
-if S.get('key_width') != 'u16':
-    # legacy u8-keyed state (R15): re-key everything with the u16 encoding
-    old2new = {k: canon(v) for k, v in reps.items()}
-    reps = {old2new[k]: v for k, v in reps.items()}
-    done = {old2new[k] for k in done if k in old2new}
-    skipped = {old2new[k] for k in skipped if k in old2new}
-    print(f're-keyed legacy state to u16 encoding: {len(reps)} orbits', flush=True)
+tl = time.time()
+if S.get('format') == 2:
+    R0 = np.asarray(S['reps'], dtype=np.int64)
+    keys0, _ = core.class_reps(R0, perms, offset=0, width='u16')
+    reps = {k: R0[i] for i, k in enumerate(keys0)}
+    done = {keys0[i] for i in np.nonzero(S['done'])[0]}
+    skipped = {keys0[i] for i in np.nonzero(S['skipped'])[0]}
+    order_keys = list(keys0)
+else:
+    # legacy dict-of-lists state (R15/R17): convert, re-keying with the u16 encoding
+    legacy = {bytes(k): np.array(v, dtype=np.int64) for k, v in S['reps'].items()}
+    old2new = {k: canon(v) for k, v in legacy.items()}
+    reps = {old2new[k]: v for k, v in legacy.items()}
+    done = {old2new[k] for k in (bytes(x) for x in S['done']) if k in old2new}
+    skipped = {old2new[k] for k in (bytes(x) for x in S.get('skipped', [])) if k in old2new}
+    order_keys = list(reps.keys())
+    print(f'converted legacy state to format 2 (u16 keys): {len(reps)} orbits', flush=True)
+print(f'state loaded in {time.time()-tl:.0f}s', flush=True)
 
 def save():
-    np.save(a.state, {'reps': {k: v.tolist() for k, v in reps.items()},
-                      'done': list(done), 'skipped': list(skipped), 'key_width': 'u16'}, allow_pickle=True)
+    """compact format 2: int16 (or int32) representatives + boolean done/skipped flags."""
+    for k in reps:
+        if k not in _pos:
+            _pos[k] = len(order_keys); order_keys.append(k)
+    R0 = np.stack([reps[k] for k in order_keys])
+    R0 = R0.astype(np.int16) if np.abs(R0).max() <= 32767 else R0.astype(np.int32)
+    np.save(a.state, {'format': 2, 'key_width': 'u16', 'reps': R0,
+                      'done': np.array([k in done for k in order_keys], dtype=bool),
+                      'skipped': np.array([k in skipped for k in order_keys], dtype=bool)},
+            allow_pickle=True)
+
+_pos = {k: i for i, k in enumerate(order_keys)}
 
 def neighbors(r):
     T = H[(H @ r) == 0]
@@ -145,10 +167,10 @@ if a.workers <= 1:
             print(f'tight={nt}: figure timeout -> skipped', flush=True); continue
         merge(k, nt, nb); save()
 else:
-    from multiprocessing import Pool
+    from multiprocessing import get_context
     chunk = 4 * a.workers
     i = 0
-    with Pool(a.workers) as pool:
+    with get_context('fork').Pool(a.workers) as pool:   # explicit: Python >= 3.14 defaults to forkserver
         while i < len(queue) and time.time() - t0 <= a.budget:
             items = queue[i:i + chunk]; i += chunk
             for k, nt, nb, err in pool.imap_unordered(_work, items):

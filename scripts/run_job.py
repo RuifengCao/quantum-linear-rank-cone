@@ -2,7 +2,8 @@
 """run_job: uniform runner for the jobs registered in jobs.json.
 
   python3 scripts/run_job.py --list
-  python3 scripts/run_job.py run <job-id> [--smoke] [--tag TAG] [--no-stage]
+  python3 scripts/run_job.py run <job-id> [--smoke] [--tag TAG] [--no-stage] [--no-resume] [-- EXTRA ARGS]
+  e.g. python3 scripts/run_job.py run a1-campaign -- --budget 7200 --workers 12
 
 What it does (the hand-off protocol between the analysis sandbox and a server):
   1. preflight: python deps, gcc / lrs / mplrs as declared by the job
@@ -37,7 +38,9 @@ ap.add_argument('job', nargs='?')
 ap.add_argument('--smoke', action='store_true')
 ap.add_argument('--tag', default=None)
 ap.add_argument('--no-stage', action='store_true')
-a = ap.parse_args()
+ap.add_argument('--no-resume', action='store_true')
+a, unknown = ap.parse_known_args()   # unknown options (e.g. -- --budget 7200) are appended to the command
+extra = ' '.join(x for x in unknown if x != '--')
 
 if a.list or not a.job:
     for k, j in REG.items():
@@ -48,7 +51,7 @@ j = REG[a.job]
 mode = 'smoke' if a.smoke else 'full'
 if a.smoke and 'smoke' not in j:
     raise SystemExit(f'{a.job} has no smoke variant')
-cmd = j['smoke'] if a.smoke else j['cmd']
+cmd = j['smoke'] if a.smoke else (j['cmd'] + (' ' + extra if extra else ''))
 
 # 1. preflight
 missing = []
@@ -65,7 +68,7 @@ if missing:
     print('preflight (smoke): missing ' + ', '.join(missing) + ' -- continuing where possible')
 
 # 2. resume
-if j.get('resume') and not a.smoke:
+if j.get('resume') and not a.smoke and not a.no_resume:
     src = latest_results_file(j['resume'])
     dst = j['resume']
     if src and (not os.path.exists(dst) or os.path.getmtime(src) > os.path.getmtime(dst)):
@@ -77,11 +80,18 @@ if j.get('resume') and not a.smoke:
 log = f'{a.job}{"-smoke" if a.smoke else ""}.log'
 t0 = time.time(); start = datetime.datetime.now(datetime.timezone.utc).strftime('%Y-%m-%dT%H:%M:%SZ')
 print(f'== run_job {a.job} [{mode}] on {socket.gethostname()} ({os.cpu_count()} cpus) ==\n$ {cmd}', flush=True)
+interrupted = False
 with open(log, 'w') as lf:
     p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
-    for line in p.stdout:
-        sys.stdout.write(line); lf.write(line)
+    try:
+        for line in p.stdout:
+            sys.stdout.write(line); lf.write(line)
+    except KeyboardInterrupt:
+        interrupted = True
+        lf.write('\n[run_job] interrupted by user; waiting for the child to save its state\n')
     rc = p.wait()
+    if interrupted and rc == 0:
+        rc = 130
 elapsed = time.time() - t0
 
 # 4. status
@@ -94,9 +104,11 @@ print(f'== exit {rc} after {elapsed:.0f}s; checks to eyeball: {j.get("checks",""
 # 5. stage
 if not a.no_stage and not a.smoke:
     tag = a.tag or j.get('tag', a.job)
-    files = [f for f in j.get('outputs', []) if os.path.isfile(f)] if rc == 0 else []
+    files = [f for f in j.get('outputs', []) if os.path.isfile(f)]   # partial outputs are worth keeping
     files += [log, 'JOB_STATUS.json']
-    if rc != 0:
+    if interrupted:
+        tag += '-interrupted'
+    elif rc != 0:
         tag += '-failed'
     subprocess.run([sys.executable, 'scripts/s13_results_commit.py', '--tag', tag,
                     '--note', f'run_job {a.job} exit {rc} on {socket.gethostname()}'] + files, check=False)

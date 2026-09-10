@@ -170,6 +170,7 @@ registry, `jobs.json`:
 python3 scripts/run_job.py --list                 # registry with tiers and runtimes
 python3 scripts/run_job.py run a1-campaign --smoke  # sandbox check of an X job (minutes)
 python3 scripts/run_job.py run a1-campaign          # the real thing, on the server
+python3 scripts/run_job.py run a1-campaign -- --budget 7200 --workers 12   # override any engine option
 ```
 
 `run_job.py` does the preflight (Python deps, gcc / lrs / mplrs as declared),
@@ -177,8 +178,12 @@ copies the latest resume file from `results/` when the job declares one,
 captures the log and the exit code directly (no `tee` pitfall), writes
 `JOB_STATUS.json` (host, cores, timings, exit code) and stages the declared
 outputs + log + status into `results/<date>_<tag>/` through
-`s13_results_commit.py`; a failed run is staged under `<tag>-failed` so that
-the failure itself is committable and readable on the other side.
+`s13_results_commit.py`; a failed run is staged under `<tag>-failed` and an
+interrupted one (Ctrl-C) under `<tag>-interrupted` — partial outputs (e.g. a
+campaign state) are staged in every case, so nothing is lost. Oversized `.npy`
+outputs are downcast losslessly (int64 → int8/int16) before staging; anything
+still above 50 MB is skipped with a note in the manifest (attach it to a
+GitHub Release instead).
 
 | Job | Tier | Runtime | Smoke variant (sandbox) |
 | --- | :-: | --- | --- |
@@ -315,8 +320,10 @@ seconds and checks the sha.
 §2-C; resume from `results/2026-09-10_a1-batch2/qlr_adj.npy` (copy it to the
 repository root first). The goal is not closure (out of reach) but a tighter
 lower bound, more small-coordinate test cases and the growth curve
-(`<state>.growth.csv`, one row per expansion, written automatically); stage
-the state and the growth log with `s13_results_commit.py` and commit. Per the project
+(`<state>.growth.csv`, one row per expansion, written automatically). The
+state file uses the compact format 2 (int16/int32 representatives + done /
+skipped flags; older R15/R17 states are converted on load). `run_job.py`
+stages the state and the growth log automatically; commit `results/`. Per the project
 plan's stop-loss clause, A1 is restated as **A1′: certified partial catalogue +
 lower bound + structural statistics.**
 

@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## R19 (2026-09-10) -- pre-server code review
+- `s4c_qlr.py`: explicit `fork` multiprocessing context (Python >= 3.14 would
+  default to forkserver and lose the inherited globals); compact state
+  format 2 (int16/int32 representatives + boolean done/skipped flags, ~half
+  the size, scales to 10^5+ orbits) with automatic conversion of legacy states.
+- `s13_results_commit.py`: oversized `.npy` outputs are downcast losslessly
+  before staging (107 MB int64 pool -> 13 MB int8) and anything still above
+  the limit is skipped with a manifest note instead of aborting the staging;
+  summarises format-2 states.
+- `run_job.py`: `-- EXTRA` pass-through of engine options, `--no-resume`,
+  Ctrl-C handling (`-interrupted` staging), partial outputs staged on failure;
+  fixed an argument-parsing bug (REMAINDER swallowed `--smoke`).
+- Sandbox tests: legacy state -> format 2 round trip (18,985 -> 21,215 orbits
+  over two short runs), s13 downcast, smoke and pass-through runs; 20 gates.
+
 ## R18 (2026-09-10)
 - **Hand-off protocol.** `jobs.json` registry (tier S sandbox / tier X server,
   each X job with a smoke variant) and `scripts/run_job.py` (preflight, resume
