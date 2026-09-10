@@ -52,6 +52,14 @@ for f in a.files:
     if src == f:
         shutil.copy2(f, dest)
     entry.update({'bytes': os.path.getsize(src), 'sha256': hashlib.sha256(open(src, 'rb').read()).hexdigest()})
+    if f.endswith('.npz'):
+        try:
+            Z = np.load(src)
+            if 'reps' in Z:
+                entry.update({'orbits': int(Z['reps'].shape[0]), 'expanded': int(Z['done'].sum()),
+                              'skipped': int(Z['skipped'].sum()), 'state_format': 'npz'})
+        except Exception as e:
+            entry['npz_note'] = f'not summarised: {e}'
     if f.endswith('.npy'):
         try:
             arr = np.load(src, allow_pickle=True)

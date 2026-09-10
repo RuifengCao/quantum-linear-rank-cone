@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## R20 (2026-09-10) -- one-shot server session
+- `scripts/run_session.py` + `session` job: self-test → A1 campaign (budget =
+  hours − 1.5 h, workers = cpus − 1, `--max-orbits`) → `s7-pools` (50 M GF(2)
+  samples + full F₃) → `SESSION_SUMMARY.md`; every step staged on its own;
+  sandbox rehearsal `run session --smoke` (~2 min) passed end to end.
+- `s4c_qlr.py`: compressed `.npz` state (×2.9 smaller; ~22 MB per 10⁶ orbits),
+  vectorised canonicalisation in the merge step (the main process no longer
+  throttles 24 workers on light figures), `--max-orbits` safety valve;
+  legacy `.npy` states still load. `s13` summarises `.npz` states.
+- New job `s7-pools` (unconditional GF(2) pool at 50 M samples + F₃ layer,
+  downcast to int8 on staging) to enlarge the realisability witness pools for
+  the S7 test set.
+- Sandbox batch 3 (2 workers, 110 s, new merge): 18,985 → **32,106 orbits**;
+  staged as `results/2026-09-10_a1-batch3/qlr_adj.npz` = the server's resume
+  point. The `data/` catalogue stays at 18,985 until the session returns.
+
 ## R19 (2026-09-10) -- pre-server code review
 - `s4c_qlr.py`: explicit `fork` multiprocessing context (Python >= 3.14 would
   default to forkserver and lose the inherited globals); compact state

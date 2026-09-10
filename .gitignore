@@ -8,7 +8,10 @@ __pycache__/
 /s7_out/
 /*.log
 /*_state.json
-/qlr_adj*.npy
+/qlr_adj*
+/smoke_adj*
+/SESSION_SUMMARY.md
+/JOB_STATUS.json
 /adj_state*.npy
 /s8_certs*.npz
 /pure_facet_classes.npz

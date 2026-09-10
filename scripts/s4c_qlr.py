@@ -7,8 +7,8 @@ lift, on-the-spot rank-30 certification, BFS over ray orbits), generalised to:
           irredundant; 10,860 facet instances of the 31 classes)
   --sym   s5 | s6   (QLR_5 has the full S_6 purification symmetry -> fewer orbits)
 Usage:
-  python3 scripts/s4c_qlr.py --init data/qlr_seeds60.npy --state qlr_adj.npy
-  python3 scripts/s4c_qlr.py --state qlr_adj.npy --budget 3600 --rep-timeout 1800
+  python3 scripts/s4c_qlr.py --init data/qlr_seeds60.npy --state qlr_adj.npz
+  python3 scripts/s4c_qlr.py --state qlr_adj.npz --budget 3600 --rep-timeout 1800 --workers 24 --max-orbits 1500000
 State (format 2: compact int16/int32 representatives + done/skipped flags; legacy
 R15/R17 states are converted on load) is saved after every expansion / chunk;
 giants are skipped (reported) on timeout.
@@ -30,6 +30,7 @@ ap.add_argument('--budget', type=float, default=600)
 ap.add_argument('--rep-timeout', type=float, default=600)
 ap.add_argument('--max-tight', type=int, default=None, help='skip figures larger than this (triage)')
 ap.add_argument('--workers', type=int, default=1, help='parallel vertex-figure solves (fork; lrs per worker)')
+ap.add_argument('--max-orbits', type=int, default=None, help='stop cleanly once the catalogue reaches this many orbits (safety valve for file size)')
 a = ap.parse_args()
 
 H = np.load(a.H).astype(np.int64)
@@ -39,6 +40,16 @@ NP = perms.shape[0]
 def canon(v):
     return core.class_reps(v[None, :], perms, offset=0, width='u16')[0][0]
 
+def write_state(path, R0, done_arr, skipped_arr):
+    """compressed .npz (recommended: ~3x smaller, ~22 MB per 10^6 orbits) or legacy .npy format 2."""
+    R0 = R0.astype(np.int16) if np.abs(R0).max() <= 32767 else R0.astype(np.int32)
+    if path.endswith('.npz'):
+        np.savez_compressed(path, reps=R0, done=done_arr, skipped=skipped_arr,
+                            meta=np.array(['format=2;key_width=u16']))
+    else:
+        np.save(path, {'format': 2, 'key_width': 'u16', 'reps': R0, 'done': done_arr,
+                       'skipped': skipped_arr}, allow_pickle=True)
+
 if a.init:
     A = np.unique(np.vstack([np.load(f).astype(np.int64) for f in a.init]), axis=0)
     g = np.gcd.reduce(np.abs(A), axis=1); g[g == 0] = 1
@@ -46,14 +57,16 @@ if a.init:
     A = A[((H @ A.T) >= 0).all(axis=0)]
     cb, reps = core.class_reps(A, perms, offset=0, width='u16')
     R0 = np.stack([A[i] for i in reps.values()]).astype(np.int32)
-    S = {'format': 2, 'key_width': 'u16', 'reps': R0,
-         'done': np.zeros(R0.shape[0], dtype=bool), 'skipped': np.zeros(R0.shape[0], dtype=bool)}
-    np.save(a.state, S, allow_pickle=True)
+    write_state(a.state, R0, np.zeros(R0.shape[0], dtype=bool), np.zeros(R0.shape[0], dtype=bool))
     print(f'init: {A.shape[0]} rays -> {len(reps)} {a.sym.upper()} orbits -> {a.state}')
     sys.exit(0)
 
-S = np.load(a.state, allow_pickle=True).item()
 tl = time.time()
+if a.state.endswith('.npz'):
+    Z = np.load(a.state)
+    S = {'format': 2, 'reps': Z['reps'], 'done': Z['done'], 'skipped': Z['skipped']}
+else:
+    S = np.load(a.state, allow_pickle=True).item()
 if S.get('format') == 2:
     R0 = np.asarray(S['reps'], dtype=np.int64)
     keys0, _ = core.class_reps(R0, perms, offset=0, width='u16')
@@ -78,11 +91,8 @@ def save():
         if k not in _pos:
             _pos[k] = len(order_keys); order_keys.append(k)
     R0 = np.stack([reps[k] for k in order_keys])
-    R0 = R0.astype(np.int16) if np.abs(R0).max() <= 32767 else R0.astype(np.int32)
-    np.save(a.state, {'format': 2, 'key_width': 'u16', 'reps': R0,
-                      'done': np.array([k in done for k in order_keys], dtype=bool),
-                      'skipped': np.array([k in skipped for k in order_keys], dtype=bool)},
-            allow_pickle=True)
+    write_state(a.state, R0, np.array([k in done for k in order_keys], dtype=bool),
+                np.array([k in skipped for k in order_keys], dtype=bool))
 
 _pos = {k: i for i, k in enumerate(order_keys)}
 
@@ -133,15 +143,18 @@ def growth(nt, nb_count, new):
         gl.write(f'{time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())},{nt},{nb_count},{new},{len(reps)},{len(done)},{len(skipped)}\n')
 
 def merge(k, nt, nb):
-    """canonicalise + certify candidates from one expanded representative (main process)."""
+    """canonicalise (vectorised over all candidates) + certify new ones (main process)."""
     new = bad = 0
-    for cand in nb:
-        cand = np.asarray(cand, dtype=np.int64)
-        cb = canon(cand)
-        if cb not in reps:
+    if nb:
+        C = np.asarray(nb, dtype=np.int64)
+        keys, _ = core.class_reps(C, perms, offset=0, width='u16')
+        seen = set()
+        for cand, cb in zip(C, keys):
+            if cb in reps or cb in seen:
+                continue
             if core.rank_mod_p(H[(H @ cand) == 0]) != 30:
                 bad += 1; continue
-            reps[cb] = cand; new += 1
+            reps[cb] = cand; seen.add(cb); new += 1
     done.add(k); growth(nt, len(nb), new)
     print(f'tight={nt}: {len(nb)} neighbors, +{new} orbits, total {len(reps)}, expanded {len(done)}'
           + (f' (bad {bad})' if bad else ''), flush=True)
@@ -158,7 +171,7 @@ def _work(item):
 queue = [(k, nt, reps[k].tolist()) for nt, k in order if not (a.max_tight and nt > a.max_tight)]
 if a.workers <= 1:
     for k, nt, v in queue:
-        if time.time() - t0 > a.budget:
+        if time.time() - t0 > a.budget or (a.max_orbits and len(reps) >= a.max_orbits):
             break
         try:
             nb, _ = neighbors(reps[k])
@@ -171,7 +184,7 @@ else:
     chunk = 4 * a.workers
     i = 0
     with get_context('fork').Pool(a.workers) as pool:   # explicit: Python >= 3.14 defaults to forkserver
-        while i < len(queue) and time.time() - t0 <= a.budget:
+        while i < len(queue) and time.time() - t0 <= a.budget and not (a.max_orbits and len(reps) >= a.max_orbits):
             items = queue[i:i + chunk]; i += chunk
             for k, nt, nb, err in pool.imap_unordered(_work, items):
                 if err:

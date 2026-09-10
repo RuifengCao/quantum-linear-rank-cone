@@ -142,9 +142,8 @@ sh scripts/run_b_batch.sh
 #     automatic escalation to the conditional layer, labelled) -> s10 (facet classes N +
 #     redundant M = 84) -> s11 packaging.  Commit or push the s11 tarball afterwards.
 
-# ---- C. A1 campaign on the QLR5 cone (hours; resumable) ----
-python3 scripts/s4c_qlr.py --init data/qlr_seeds60.npy --state qlr_adj.npy
-python3 scripts/s4c_qlr.py --state qlr_adj.npy --budget 14400 --rep-timeout 1800 --max-tight 400
+# ---- C. Server: one session runs everything pending (see §2b) ----
+python3 scripts/run_job.py run session -- --hours 8
 
 # ---- D. Optional reinforcement: vector-by-vector diff against DFZ's rays5 ----
 python3 scripts/s5b_diff_rays.py rays5     # expect the last line to read MATCH
@@ -163,40 +162,47 @@ batches until closure.
 Work is split by cost. **Tier S** jobs run in the analysis sandbox (one CPU,
 minutes, no MPI): the self-test, the core verification, small analyses and
 short campaign batches. **Tier X** jobs (parallel, hours, MPI or large
-memory) are handed to a server. Both sides use the same runner and the same
-registry, `jobs.json`:
+memory) are handed to a server — and, because server time is rented, they are
+bundled into **one session** that runs everything pending end to end:
 
 ```
-python3 scripts/run_job.py --list                 # registry with tiers and runtimes
-python3 scripts/run_job.py run a1-campaign --smoke  # sandbox check of an X job (minutes)
-python3 scripts/run_job.py run a1-campaign          # the real thing, on the server
-python3 scripts/run_job.py run a1-campaign -- --budget 7200 --workers 12   # override any engine option
+python3 scripts/run_job.py --list                    # registry with tiers and runtimes
+python3 scripts/run_job.py run session --smoke       # sandbox rehearsal of the whole session (~2 min)
+python3 scripts/run_job.py run session -- --hours 8  # the real thing, once, on the server
 ```
+
+`run_session.py` runs, in order: the full self-test (aborts if not green),
+the A1 campaign (budget = hours − 1.5 h, `--workers` = cpus − 1, safety valve
+`--max-orbits 1.5 M` ≈ 33 MB of state), the pool job `s7-pools` (50 M GF(2)
+samples + the full F₃ layer, ~1 h on 25 cores), and finally writes
+`SESSION_SUMMARY.md`. Every step goes through `run_job.py`, so each one is
+staged into its own `results/<date>_<tag>/` folder (also on failure or
+Ctrl-C, with partial outputs), and the session continues past a failed step.
+Commit `results/` once at the end.
 
 `run_job.py` does the preflight (Python deps, gcc / lrs / mplrs as declared),
 copies the latest resume file from `results/` when the job declares one,
 captures the log and the exit code directly (no `tee` pitfall), writes
 `JOB_STATUS.json` (host, cores, timings, exit code) and stages the declared
-outputs + log + status into `results/<date>_<tag>/` through
-`s13_results_commit.py`; a failed run is staged under `<tag>-failed` and an
-interrupted one (Ctrl-C) under `<tag>-interrupted` — partial outputs (e.g. a
-campaign state) are staged in every case, so nothing is lost. Oversized `.npy`
+outputs + log + status through `s13_results_commit.py`. Oversized `.npy`
 outputs are downcast losslessly (int64 → int8/int16) before staging; anything
-still above 50 MB is skipped with a note in the manifest (attach it to a
-GitHub Release instead).
+still above 50 MB is skipped with a manifest note (attach it to a GitHub
+Release instead). Engine options can be overridden after `--`.
 
 | Job | Tier | Runtime | Smoke variant (sandbox) |
 | --- | :-: | --- | --- |
 | `selftest` | S | ~40 s | — |
 | `verify-core` | S | ~1 min | — |
-| `a1-campaign` | X | hours, resumable, `--workers 24` | 2 workers, 40 s budget from the seeds |
-| `server-batch` | X | ~25 min on 25 vCPU | s7 with small samples + s10 first 2 classes (~1 min) |
+| **`session`** | X | one rented session, default 8 h | self-test + both smokes below (~2 min) |
+| `a1-campaign` | X | hours, resumable, compressed `.npz` state | 2 workers, 30 s budget from the seeds |
+| `s7-pools` | X | ~1 h on 25 cores | small samples (~1 min) |
+| `server-batch` | X | ~25 min (only if s8/s10 must be redone) | s7 small samples + s10 first 2 classes |
 | `mplrs-completeness` | X | days, MPI (optional luxury) | prepare the `.ine` only |
 
 **Rule:** every tier-X job is handed over only after its smoke variant has
 passed in the sandbox (and, optionally, in the manual CI workflow
-`.github/workflows/smoke.yml`). The server side then runs the full job,
-commits `results/` with GitHub Desktop, and the analysis side pulls `main`.
+`.github/workflows/smoke.yml`). The analysis side then pulls `main`, reads
+`results/`, and refreshes the catalogue assets in `data/` at milestones.
 
 ## 3. Pipeline stages
 
@@ -316,9 +322,9 @@ seconds and checks the sha.
 
 ## 7. What next, and how
 
-**⓪ A1 campaign on the QLR₅ cone (server, hours, resumable).** Commands in
-§2-C; resume from `results/2026-09-10_a1-batch2/qlr_adj.npy` (copy it to the
-repository root first). The goal is not closure (out of reach) but a tighter
+**⓪ A1 campaign on the QLR₅ cone (server, hours, resumable).** Run it as
+part of `session` (§2b); the campaign resumes automatically from the latest
+`results/*/qlr_adj.npz` (currently `2026-09-10_a1-batch3`: 32,106 orbits). The goal is not closure (out of reach) but a tighter
 lower bound, more small-coordinate test cases and the growth curve
 (`<state>.growth.csv`, one row per expansion, written automatically). The
 state file uses the compact format 2 (int16/int32 representatives + done /

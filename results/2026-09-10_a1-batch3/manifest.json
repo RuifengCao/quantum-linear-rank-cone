@@ -1,0 +1,19 @@
+{
+ "date": "2026-09-10",
+ "tag": "a1-batch3",
+ "note": "sandbox, 2 workers, npz state format; resume point for the server session",
+ "files": {
+  "qlr_adj.npz": {
+   "bytes": 697466,
+   "sha256": "0447cd03062d76f4d1b81aaf4e11ed502dae6a732c89f87fbd3b7cab2a50e131",
+   "orbits": 32106,
+   "expanded": 3691,
+   "skipped": 1,
+   "state_format": "npz"
+  },
+  "qlr_adj.npz.growth.csv": {
+   "bytes": 87075,
+   "sha256": "2717d6d34ddd61ea037796c8b604b4d55fda426ca9295826912a8126feaee40b"
+  }
+ }
+}

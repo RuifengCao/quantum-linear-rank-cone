@@ -1,25 +1,100 @@
 {
-  "_doc": "Job registry. tier S = sandbox (single CPU, minutes, run by the analysis side); tier X = server (parallel / hours / large memory, run by the user). Every X job has a smoke variant that must pass in the sandbox before hand-off.",
-  "jobs": {
-    "selftest": {"tier": "S", "runtime": "~40 s", "cmd": "python3 selftest.py --full", "outputs": [], "checks": "ALL PASS (20 gates)"},
-    "verify-core": {"tier": "S", "runtime": "~1 min",
-      "cmd": "python3 scripts/s1_build_qlr.py --variant pure28 --workers 4 && python3 scripts/s2_judge.py QLR_H_pure28.npy && python3 scripts/s3_rank19.py QLR_H_pure28.npy && python3 scripts/s12_dfz_reconcile.py",
-      "outputs": [], "checks": "s2 violated 0; s3 18/19 with only #19 at rank 29; s12 PSITIP-INCOMPLETE"},
-    "a1-campaign": {"tier": "X", "runtime": "hours (resumable); 25 workers recommended", "needs": ["lrs"],
-      "resume": "qlr_adj.npy",
-      "cmd": "python3 scripts/s4c_qlr.py --state qlr_adj.npy --budget 14400 --rep-timeout 1800 --max-tight 400 --workers 24",
-      "smoke": "python3 scripts/s4c_qlr.py --init data/qlr_seeds60.npy --state smoke_adj.npy && python3 scripts/s4c_qlr.py --state smoke_adj.npy --budget 40 --rep-timeout 30 --max-tight 120 --workers 2",
-      "outputs": ["qlr_adj.npy", "qlr_adj.npy.growth.csv"], "tag": "a1-campaign",
-      "checks": "growth.csv rows increase; STATE line printed; no 'bad' counts; all new orbits certified on the spot"},
-    "server-batch": {"tier": "X", "runtime": "~25 min on 25 vCPU", "needs": ["gcc"],
-      "cmd": "sh scripts/run_b_batch.sh",
-      "smoke": "python3 scripts/s1_build_qlr.py --variant pure28 --workers 4 && python3 scripts/s7_expand_realizable.py --H QLR_H_pure28.npy --f3-limit 20000 --gf2-samples 200000 && python3 scripts/s10_facets.py --H QLR_H_pure28.npy --limit 2",
-      "outputs": ["s7_out/realizable_gf2_12v.npy", "s7_out/realizable_f3_conditional.npy", "s8_certs.npz", "pure_facet_classes.npz", "s7.log", "s8.log", "s10.log"], "tag": "server-batch",
-      "checks": "s7 pure violations 0 twice; s10 facet classes 31 redundant 53"},
-    "mplrs-completeness": {"tier": "X", "runtime": "days; MPI", "needs": ["mplrs", "mpirun"],
-      "cmd": "python3 scripts/s4_clr_prepare.py && mpirun -np 25 mplrs clr5.ine clr5.mplrs.out",
-      "smoke": "python3 scripts/s4_clr_prepare.py && head -3 clr5.ine",
-      "outputs": ["clr5.mplrs.out"], "tag": "mplrs",
-      "checks": "then python3 scripts/s5_orbits.py clr5.mplrs.out --expect 162 -> MATCH (optional luxury)"}
+ "_doc": "Job registry. tier S = sandbox (single CPU, minutes, run by the analysis side); tier X = server (parallel / hours / large memory, run by the user). Every X job has a smoke variant that must pass in the sandbox before hand-off.",
+ "jobs": {
+  "selftest": {
+   "tier": "S",
+   "runtime": "~40 s",
+   "cmd": "python3 selftest.py --full",
+   "outputs": [],
+   "checks": "ALL PASS (20 gates)"
+  },
+  "verify-core": {
+   "tier": "S",
+   "runtime": "~1 min",
+   "cmd": "python3 scripts/s1_build_qlr.py --variant pure28 --workers 4 && python3 scripts/s2_judge.py QLR_H_pure28.npy && python3 scripts/s3_rank19.py QLR_H_pure28.npy && python3 scripts/s12_dfz_reconcile.py",
+   "outputs": [],
+   "checks": "s2 violated 0; s3 18/19 with only #19 at rank 29; s12 PSITIP-INCOMPLETE"
+  },
+  "session": {
+   "tier": "X",
+   "runtime": "one rented-server session, default 8 h",
+   "needs": [
+    "lrs",
+    "gcc"
+   ],
+   "cmd": "python3 scripts/run_session.py --hours 8",
+   "smoke": "python3 scripts/run_session.py --smoke",
+   "outputs": [
+    "SESSION_SUMMARY.md"
+   ],
+   "tag": "session-runner",
+   "checks": "SESSION_SUMMARY.md: every step exit 0; then commit results/ once"
+  },
+  "a1-campaign": {
+   "tier": "X",
+   "runtime": "hours (resumable); workers = cpus-1",
+   "needs": [
+    "lrs"
+   ],
+   "resume": "qlr_adj.npz",
+   "cmd": "python3 scripts/s4c_qlr.py --state qlr_adj.npz --budget 14400 --rep-timeout 1800 --max-tight 400 --workers 24 --max-orbits 1500000",
+   "smoke": "python3 scripts/s4c_qlr.py --init data/qlr_seeds60.npy --state smoke_adj.npz && python3 scripts/s4c_qlr.py --state smoke_adj.npz --budget 30 --rep-timeout 15 --max-tight 100 --workers 2",
+   "outputs": [
+    "qlr_adj.npz",
+    "qlr_adj.npz.growth.csv"
+   ],
+   "tag": "a1-campaign",
+   "checks": "growth.csv rows increase; STATE line printed; no 'bad' counts"
+  },
+  "s7-pools": {
+   "tier": "X",
+   "runtime": "~1 h on 25 cores (50 M GF(2) samples + full F_3)",
+   "needs": [
+    "gcc"
+   ],
+   "cmd": "python3 scripts/s1_build_qlr.py --variant pure28 --workers 8 && python3 scripts/s7_expand_realizable.py --H QLR_H_pure28.npy --gf2-samples 50000000",
+   "smoke": "python3 scripts/s1_build_qlr.py --variant pure28 --workers 4 && python3 scripts/s7_expand_realizable.py --H QLR_H_pure28.npy --f3-limit 20000 --gf2-samples 200000",
+   "outputs": [
+    "s7_out/realizable_gf2_12v.npy",
+    "s7_out/realizable_f3_conditional.npy"
+   ],
+   "tag": "s7-pools",
+   "checks": "pure violations 0 for both layers; pools are downcast to int8 on staging"
+  },
+  "server-batch": {
+   "tier": "X",
+   "runtime": "~25 min on 25 vCPU",
+   "needs": [
+    "gcc"
+   ],
+   "cmd": "sh scripts/run_b_batch.sh",
+   "smoke": "python3 scripts/s1_build_qlr.py --variant pure28 --workers 4 && python3 scripts/s7_expand_realizable.py --H QLR_H_pure28.npy --f3-limit 20000 --gf2-samples 200000 && python3 scripts/s10_facets.py --H QLR_H_pure28.npy --limit 2",
+   "outputs": [
+    "s7_out/realizable_gf2_12v.npy",
+    "s7_out/realizable_f3_conditional.npy",
+    "s8_certs.npz",
+    "pure_facet_classes.npz",
+    "s7.log",
+    "s8.log",
+    "s10.log"
+   ],
+   "tag": "server-batch",
+   "checks": "s7 pure violations 0 twice; s10 facet classes 31 redundant 53"
+  },
+  "mplrs-completeness": {
+   "tier": "X",
+   "runtime": "days; MPI",
+   "needs": [
+    "mplrs",
+    "mpirun"
+   ],
+   "cmd": "python3 scripts/s4_clr_prepare.py && mpirun -np 25 mplrs clr5.ine clr5.mplrs.out",
+   "smoke": "python3 scripts/s4_clr_prepare.py && head -3 clr5.ine",
+   "outputs": [
+    "clr5.mplrs.out"
+   ],
+   "tag": "mplrs",
+   "checks": "then python3 scripts/s5_orbits.py clr5.mplrs.out --expect 162 -> MATCH (optional luxury)"
   }
+ }
 }
