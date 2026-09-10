@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## R18 (2026-09-10)
+- **Hand-off protocol.** `jobs.json` registry (tier S sandbox / tier X server,
+  each X job with a smoke variant) and `scripts/run_job.py` (preflight, resume
+  from the latest `results/` folder, direct exit-code capture, `JOB_STATUS.json`,
+  automatic staging into `results/<date>_<tag>/`, `-failed` staging on error).
+  README §2b documents the split; manual CI workflow `smoke.yml` runs the smokes.
+- **Parallel campaign engine.** `s4c_qlr.py --workers N` solves N vertex
+  figures concurrently (fork + one lrs each; merge, canonicalisation and
+  certification stay in the main process; budget checked between chunks of 4N).
+  Sandbox smokes passed: a1-campaign (2 workers) and server-batch (s7 small
+  samples 0 violations; s10 first classes).
+
 ## R17 (2026-09-10)
 - **Workflow.** `.gitignore` now ignores scratch files at the repository root
   only and always commits `results/`; new `results/README.md` convention

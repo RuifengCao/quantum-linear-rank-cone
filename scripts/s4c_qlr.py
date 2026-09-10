@@ -11,6 +11,8 @@ Usage:
   python3 scripts/s4c_qlr.py --state qlr_adj.npy --budget 3600 --rep-timeout 1800
 State is saved after every expansion; giants are skipped (reported) on timeout.
 A growth curve is appended to <state>.growth.csv (one row per expansion).
+--workers N solves N vertex figures in parallel (fork + one lrs each); the budget
+is checked between chunks of 4N figures, so wall time may overrun by one chunk.
 """
 import argparse, os, subprocess, sys, time
 import numpy as np
@@ -25,6 +27,7 @@ ap.add_argument('--sym', default='s6', choices=['s5', 's6'])
 ap.add_argument('--budget', type=float, default=600)
 ap.add_argument('--rep-timeout', type=float, default=600)
 ap.add_argument('--max-tight', type=int, default=None, help='skip figures larger than this (triage)')
+ap.add_argument('--workers', type=int, default=1, help='parallel vertex-figure solves (fork; lrs per worker)')
 a = ap.parse_args()
 
 H = np.load(a.H).astype(np.int64)
@@ -99,31 +102,60 @@ def neighbors(r):
 
 t0 = time.time()
 order = sorted((int((H @ v == 0).sum()), k) for k, v in reps.items() if k not in done and k not in skipped)
-print(f'resume: {len(reps)} orbits, {len(done)} expanded, {len(skipped)} skipped, {len(order)} queued; tight range {order[0][0] if order else "-"}..{order[-1][0] if order else "-"}', flush=True)
-for nt, k in order:
-    if time.time() - t0 > a.budget:
-        break
-    if a.max_tight and nt > a.max_tight:
-        continue
-    try:
-        nb, _ = neighbors(reps[k])
-    except subprocess.TimeoutExpired:
-        skipped.add(k); save()
-        print(f'tight={nt}: figure timeout -> skipped', flush=True); continue
-    new = 0; bad = 0
+print(f'resume: {len(reps)} orbits, {len(done)} expanded, {len(skipped)} skipped, {len(order)} queued; tight range {order[0][0] if order else "-"}..{order[-1][0] if order else "-"}; workers {a.workers}', flush=True)
+
+def growth(nt, nb_count, new):
+    with open(a.state + '.growth.csv', 'a') as gl:
+        if gl.tell() == 0:
+            gl.write('utc,tight,neighbors,new_orbits,total_orbits,expanded,skipped\n')
+        gl.write(f'{time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())},{nt},{nb_count},{new},{len(reps)},{len(done)},{len(skipped)}\n')
+
+def merge(k, nt, nb):
+    """canonicalise + certify candidates from one expanded representative (main process)."""
+    new = bad = 0
     for cand in nb:
+        cand = np.asarray(cand, dtype=np.int64)
         cb = canon(cand)
         if cb not in reps:
             if core.rank_mod_p(H[(H @ cand) == 0]) != 30:
                 bad += 1; continue
             reps[cb] = cand; new += 1
-    done.add(k); save()
-    with open(a.state + '.growth.csv', 'a') as gl:
-        if gl.tell() == 0:
-            gl.write('utc,tight,neighbors,new_orbits,total_orbits,expanded,skipped\n')
-        gl.write(f'{time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())},{nt},{len(nb)},{new},{len(reps)},{len(done)},{len(skipped)}\n')
+    done.add(k); growth(nt, len(nb), new)
     print(f'tight={nt}: {len(nb)} neighbors, +{new} orbits, total {len(reps)}, expanded {len(done)}'
           + (f' (bad {bad})' if bad else ''), flush=True)
+
+def _work(item):
+    """worker: vertex figure of one representative (globals H, a inherited by fork)."""
+    k, nt, v = item
+    try:
+        nb, _ = neighbors(np.array(v, dtype=np.int64))
+        return k, nt, [c.tolist() for c in nb], None
+    except subprocess.TimeoutExpired:
+        return k, nt, None, 'timeout'
+
+queue = [(k, nt, reps[k].tolist()) for nt, k in order if not (a.max_tight and nt > a.max_tight)]
+if a.workers <= 1:
+    for k, nt, v in queue:
+        if time.time() - t0 > a.budget:
+            break
+        try:
+            nb, _ = neighbors(reps[k])
+        except subprocess.TimeoutExpired:
+            skipped.add(k); save()
+            print(f'tight={nt}: figure timeout -> skipped', flush=True); continue
+        merge(k, nt, nb); save()
+else:
+    from multiprocessing import Pool
+    chunk = 4 * a.workers
+    i = 0
+    with Pool(a.workers) as pool:
+        while i < len(queue) and time.time() - t0 <= a.budget:
+            items = queue[i:i + chunk]; i += chunk
+            for k, nt, nb, err in pool.imap_unordered(_work, items):
+                if err:
+                    skipped.add(k); print(f'tight={nt}: figure timeout -> skipped', flush=True); continue
+                merge(k, nt, nb)
+            save()
 save()
 print(f'STATE: {len(reps)} orbits, {len(done)} expanded, {len(skipped)} skipped'
       + ('  == FULL CLOSURE ==' if len(done) == len(reps) else ''))

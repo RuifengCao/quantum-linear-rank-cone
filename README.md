@@ -158,6 +158,41 @@ repository (gate G12); there is no need to rerun it. Optional re-derivation
 path: `s4_clr_prepare` → a short `s4b` (lrs) run for seeds → `s4c_adjacency`
 batches until closure.
 
+## 2b. Job tiers and the hand-off protocol (sandbox vs. server)
+
+Work is split by cost. **Tier S** jobs run in the analysis sandbox (one CPU,
+minutes, no MPI): the self-test, the core verification, small analyses and
+short campaign batches. **Tier X** jobs (parallel, hours, MPI or large
+memory) are handed to a server. Both sides use the same runner and the same
+registry, `jobs.json`:
+
+```
+python3 scripts/run_job.py --list                 # registry with tiers and runtimes
+python3 scripts/run_job.py run a1-campaign --smoke  # sandbox check of an X job (minutes)
+python3 scripts/run_job.py run a1-campaign          # the real thing, on the server
+```
+
+`run_job.py` does the preflight (Python deps, gcc / lrs / mplrs as declared),
+copies the latest resume file from `results/` when the job declares one,
+captures the log and the exit code directly (no `tee` pitfall), writes
+`JOB_STATUS.json` (host, cores, timings, exit code) and stages the declared
+outputs + log + status into `results/<date>_<tag>/` through
+`s13_results_commit.py`; a failed run is staged under `<tag>-failed` so that
+the failure itself is committable and readable on the other side.
+
+| Job | Tier | Runtime | Smoke variant (sandbox) |
+| --- | :-: | --- | --- |
+| `selftest` | S | ~40 s | — |
+| `verify-core` | S | ~1 min | — |
+| `a1-campaign` | X | hours, resumable, `--workers 24` | 2 workers, 40 s budget from the seeds |
+| `server-batch` | X | ~25 min on 25 vCPU | s7 with small samples + s10 first 2 classes (~1 min) |
+| `mplrs-completeness` | X | days, MPI (optional luxury) | prepare the `.ine` only |
+
+**Rule:** every tier-X job is handed over only after its smoke variant has
+passed in the sandbox (and, optionally, in the manual CI workflow
+`.github/workflows/smoke.yml`). The server side then runs the full job,
+commits `results/` with GitHub Desktop, and the analysis side pulls `main`.
+
 ## 3. Pipeline stages
 
 | Stage | Command essentials | Purpose / expectation |
@@ -167,7 +202,7 @@ batches until closure.
 | s2 | `s2_judge.py <H.npy>` | 760 graph-state judge; `pure*` variants must give 0 violations |
 | s3 | `s3_rank19.py <H.npy> [--extra-rows X]` | tight-rank test of the 19 HEC rays; pure28 → 18/19 |
 | s4 | **`s4c_adjacency.py`** (`--init` seeds → `--state` batches) | CLR₅ extreme-ray enumeration engine (symmetry-aware adjacency decomposition; 162 orbits in R7); `s4b` (lrs) / `s4` (Normaliz) for seeds and cross-validation |
-| s4c_qlr | **`s4c_qlr.py`** (`--H`, `--sym s6`, `--max-tight`) | the same engine on the QLR₅ cone (A1 campaign) |
+| s4c_qlr | **`s4c_qlr.py`** (`--H`, `--sym s6`, `--max-tight`, `--workers N`) | the same engine on the QLR₅ cone (A1 campaign); parallel vertex-figure solves |
 | s5 | `s5_orbits.py clr5.out [--raw] [--expect 162]` | rays → S₅ orbits; reconcile against 162 |
 | s5b | `s5b_diff_rays.py rays5` | one-command cross-check against DFZ's published ray list |
 | s6 | `s6_sweep_clr_orbits.py reps.npy --H pure28` | CLR rays through the quantum cone; ledger count 40 |
