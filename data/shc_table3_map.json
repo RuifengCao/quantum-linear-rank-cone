@@ -1,0 +1,24 @@
+{
+ "paper_to_ours": {
+  "1": 1,
+  "2": 2,
+  "3": 3,
+  "4": 9,
+  "5": 10,
+  "6": 12,
+  "7": 13,
+  "8": 4,
+  "9": 11,
+  "10": 8,
+  "11": 14,
+  "12": 7,
+  "13": 6,
+  "14": 15,
+  "15": 17,
+  "16": 5,
+  "17": 16,
+  "18": 19,
+  "19": 18
+ },
+ "note": "SHC 1903.09148 Table 3 (lex-by-size, machine-parsed R12) vs kit hec5_rays_maskorder; S6-orbit-level bijection; paper #18 == our #19 (the certified non-extreme ray)."
+}

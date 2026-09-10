@@ -1,0 +1,7 @@
+ineq_id,subset,coeff
+# EXAMPLE ONLY (this is 6-subsystem SSA, already contained in the pure build).
+# Transcribe real 6-variable LR inequalities from DFZ 0910.0284 and successors.
+ssa_example,AB,1
+ssa_example,AC,1
+ssa_example,ABC,-1
+ssa_example,A,-1

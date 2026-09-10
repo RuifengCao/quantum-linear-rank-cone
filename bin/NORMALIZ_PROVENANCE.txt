@@ -1,0 +1,3 @@
+Normaliz 3.11.1 static Linux x86_64 binary, unmodified, from
+https://github.com/Normaliz/Normaliz/releases/tag/v3.11.1 (normaliz-3.11.1-Linux64.zip)
+License: GPL-3 (see NORMALIZ_LICENSE). Bundled 2026-08-12 for EPR-1 R4 kit.

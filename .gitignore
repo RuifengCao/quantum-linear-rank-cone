@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+/QLR_H_pure28.npy
+/QLR_H_pure2*.npy
+s7_out/
+*.log
+*_state.json
+qlr_adj*.npy
+adj_state*.npy
+*.tar.gz
+*.zip
+s8_certs*.npz
+pure_facet_classes.npz

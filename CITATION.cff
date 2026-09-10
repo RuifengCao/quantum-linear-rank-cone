@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+title: "EPR-1 kit: machine-certified data for the five-party quantum linear rank cone"
+authors:
+  - family-names: Cao
+    given-names: Ruifeng
+  - family-names: Song
+    given-names: Xidan
+version: R15
+date-released: 2026-09-10
+repository-code: "TBD"
