@@ -92,11 +92,16 @@
   "sha256": "6ebd723d550a28e2a7425bc2690103b66c6b987c2cfa0a5022c775847f7bccb3"
  },
  "qlr5_orbits_partial": {
-  "rows": 1924,
-  "sha256_int16": "c911009d1d7ada2496b75097d6046363b4b65f464659fb476b7f7459df5d9fd2"
+  "rows": 18985,
+  "sha256_int16": "370d608c523f59e3161468eddb5f4aef37d8a504dd572b6e859875f1b42c1a4e",
+  "s6_distinct": true,
+  "all_rank30": true,
+  "orbit_size_sum": 13147989,
+  "max_coord": 256,
+  "expanded_figures": 1627
  },
  "qlr5_new_small200": {
   "rows": 200,
-  "sha256": "acfb1124cb4cb1c3a1c5c42866c6e258da12a1fd77f09c62f5e79e8a9d35b1a9"
+  "sha256": "374a9505dac488e600fe203615f304faaaea05c2ccd6978b8a173381cbdbfa80"
  }
 }

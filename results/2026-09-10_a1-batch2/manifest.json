@@ -1,0 +1,18 @@
+{
+ "date": "2026-09-10",
+ "tag": "a1-batch2",
+ "note": "container run; resume from qlr_adj.npy (u16 keys); growth curve per expansion",
+ "files": {
+  "qlr_adj.npy": {
+   "bytes": 2495841,
+   "sha256": "ccf12f5419860275b4ea76238672eab0f572cfa66a66ac6d426e4b5aaa5296db",
+   "orbits": 18985,
+   "expanded": 1627,
+   "skipped": 1
+  },
+  "qlr_adj.npy.growth.csv": {
+   "bytes": 66469,
+   "sha256": "9a7dc60ba0464b4a715f2378ba9daf600c78515cf9ceac814eac2423e2d92102"
+  }
+ }
+}

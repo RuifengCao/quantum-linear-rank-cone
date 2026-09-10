@@ -10,6 +10,7 @@ Usage:
   python3 scripts/s4c_qlr.py --init data/qlr_seeds60.npy --state qlr_adj.npy
   python3 scripts/s4c_qlr.py --state qlr_adj.npy --budget 3600 --rep-timeout 1800
 State is saved after every expansion; giants are skipped (reported) on timeout.
+A growth curve is appended to <state>.growth.csv (one row per expansion).
 """
 import argparse, os, subprocess, sys, time
 import numpy as np
@@ -31,15 +32,15 @@ perms = core.perms31_s6() if a.sym == 's6' else core.perms31_s5()
 NP = perms.shape[0]
 
 def canon(v):
-    return core.class_reps(v[None, :], perms, offset=0)[0][0]
+    return core.class_reps(v[None, :], perms, offset=0, width='u16')[0][0]
 
 if a.init:
     A = np.unique(np.vstack([np.load(f).astype(np.int64) for f in a.init]), axis=0)
     g = np.gcd.reduce(np.abs(A), axis=1); g[g == 0] = 1
     A = np.unique(A // g[:, None], axis=0)
     A = A[((H @ A.T) >= 0).all(axis=0)]
-    cb, reps = core.class_reps(A, perms, offset=0)
-    S = {'reps': {bytes(k): A[i].tolist() for k, i in reps.items()}, 'done': [], 'skipped': []}
+    cb, reps = core.class_reps(A, perms, offset=0, width='u16')
+    S = {'reps': {bytes(k): A[i].tolist() for k, i in reps.items()}, 'done': [], 'skipped': [], 'key_width': 'u16'}
     np.save(a.state, S, allow_pickle=True)
     print(f'init: {A.shape[0]} rays -> {len(reps)} {a.sym.upper()} orbits -> {a.state}')
     sys.exit(0)
@@ -48,10 +49,17 @@ S = np.load(a.state, allow_pickle=True).item()
 reps = {bytes(k): np.array(v, dtype=np.int64) for k, v in S['reps'].items()}
 done = set(bytes(x) for x in S['done'])
 skipped = set(bytes(x) for x in S.get('skipped', []))
+if S.get('key_width') != 'u16':
+    # legacy u8-keyed state (R15): re-key everything with the u16 encoding
+    old2new = {k: canon(v) for k, v in reps.items()}
+    reps = {old2new[k]: v for k, v in reps.items()}
+    done = {old2new[k] for k in done if k in old2new}
+    skipped = {old2new[k] for k in skipped if k in old2new}
+    print(f're-keyed legacy state to u16 encoding: {len(reps)} orbits', flush=True)
 
 def save():
     np.save(a.state, {'reps': {k: v.tolist() for k, v in reps.items()},
-                      'done': list(done), 'skipped': list(skipped)}, allow_pickle=True)
+                      'done': list(done), 'skipped': list(skipped), 'key_width': 'u16'}, allow_pickle=True)
 
 def neighbors(r):
     T = H[(H @ r) == 0]
@@ -110,6 +118,10 @@ for nt, k in order:
                 bad += 1; continue
             reps[cb] = cand; new += 1
     done.add(k); save()
+    with open(a.state + '.growth.csv', 'a') as gl:
+        if gl.tell() == 0:
+            gl.write('utc,tight,neighbors,new_orbits,total_orbits,expanded,skipped\n')
+        gl.write(f'{time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())},{nt},{len(nb)},{new},{len(reps)},{len(done)},{len(skipped)}\n')
     print(f'tight={nt}: {len(nb)} neighbors, +{new} orbits, total {len(reps)}, expanded {len(done)}'
           + (f' (bad {bad})' if bad else ''), flush=True)
 save()

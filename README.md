@@ -45,23 +45,27 @@ and the changelog is explained in the glossary at the end.
   exactly 3 weak-monotonicity classes are valid but redundant; the remaining
   **31 coincide, as a set, with the 31 facet classes of pure28**. No new
   transcription was needed.
-- [~] **A1 campaign, day one (R15, 2026-09-10).** `scripts/s4c_qlr.py` runs a
+- [~] **A1 campaign (R15–R17, 2026-09-10).** `scripts/s4c_qlr.py` runs a
   symmetry-aware adjacency decomposition on the exact irredundant
   H-representation of QLR₅ (`qlr5_H_facets10860`, 10,860 rows = the facet
-  instance count found in R11), seeded with the 59 known orbits plus q₂. In
-  170 s, expanding the 12 lightest vertex figures, it reached **1,924 certified
-  extreme-ray orbits** — far from saturation (91 % of the last figure's 1,067
-  neighbours were new orbits; coordinates up to 162). **Conclusion on scale:
-  QLR₅ has orders of magnitude more extreme rays than CLR₅, and full
-  enumeration is out of reach for this engine** — which is why BCHS reported
-  the enumeration as computationally infeasible in 2021. Statable results: a
-  **lower bound of ≥ 1,924 orbits (59 previously known)**, the certified partial
-  catalogue `qlr5_orbits_partial` (gate G17), and the S7 priority test set
-  `qlr5_new_small200` (the 200 new orbits with the smallest coordinates,
-  maximum coordinate 3..13). **Interpretation guard:** none of the 1,864 new
-  orbits is witnessed by any known realisable pool — this only says that the
-  pools' entropy scale (≤ 12) cannot reach rays with coordinates up to 162;
-  **it is not evidence about the S7 conjecture.**
+  instance count found in R11), seeded with the 59 known orbits plus q₂.
+  Day one (170 s, 12 figures) gave 1,924 orbits; the second batch (165 s,
+  1,615 light figures with 34–39 tight rows each) took the catalogue to
+  **18,985 certified extreme-ray orbits, i.e. at least 13,147,989 extreme
+  rays** (orbit sizes summed), every orbit certified rank 30 and S₆-distinct;
+  coordinates up to 256. New-orbit yield per expansion fell from 91 % to
+  10–40 %, a first sign of saturation in the "generic" (low-degeneracy)
+  region only. **Conclusion on scale: QLR₅ has orders of magnitude more
+  extreme rays than CLR₅ (162 orbits / 7,943 rays), and full enumeration is
+  out of reach for this engine** — which is why BCHS reported the enumeration
+  as computationally infeasible in 2021. Statable results: **lower bounds of
+  ≥ 18,985 orbits and ≥ 13.1 M rays (59 orbits previously known)**, the
+  certified partial catalogue `qlr5_orbits_partial` (gate G17), and the S7
+  priority test set `qlr5_new_small200` (the 200 new orbits with the smallest
+  coordinates; 89 new orbits have maximum coordinate ≤ 5). **Interpretation
+  guard:** none of the new orbits is witnessed by the known realisable pools —
+  this only says that the pools' entropy scale (≤ 12) cannot reach rays with
+  coordinates in the hundreds; **it is not evidence about the S7 conjecture.**
 - [x] **The 59 = 40 + 17 + 2 ledger reproduced end to end (R13).** Under the
   S₆ (purification) symmetry the overlap between HEC and CLR orbits is exactly
   HEC #1; among the 26 S₆-orbits of six-qubit graph-state vectors exactly 2 are
@@ -262,7 +266,7 @@ batches until closure.
 | `shc_table3_rays.npy` + `shc_table3_map.json` | 19 | Table 3 of the PRD letter, machine-parsed, with the orbit-level bijection to our numbering (gate G15) |
 | `qlr5_H_facets10860.npy` | 10,860 | exact irredundant H-representation of QLR₅ (all facet instances of the 31 classes) |
 | `qlr_seeds60.npy` | 60 | A1 seeds: the 59 known orbits + q₂ |
-| `qlr5_orbits_partial.npy` | **1,924** | certified partial catalogue of QLR₅ extreme-ray orbits (A1 day one; gate G17; wide int16 sha) |
+| `qlr5_orbits_partial.npy` | **18,985** | certified partial catalogue of QLR₅ extreme-ray orbits (int16; all rank 30, S₆-distinct, ≥ 13.1 M rays; gate G17; wide int16 sha) |
 | `qlr5_new_small200.npy` | 200 | S7 priority test set: new orbits with the smallest coordinates |
 | `sixvar_template.csv` | — | transcription template for s9 |
 | `manifest_shas.json` | — | canonical sha256 of every row family (`sha_rows`; `sha_rows_wide` for wide coordinates) |
@@ -273,9 +277,11 @@ seconds and checks the sha.
 ## 7. What next, and how
 
 **⓪ A1 campaign on the QLR₅ cone (server, hours, resumable).** Commands in
-§2-C. The goal is not closure (out of reach) but a tighter lower bound, more
-small-coordinate test cases and a growth curve (record "total orbits vs.
-expanded" per batch); commit the `qlr_adj.npy` state file. Per the project
+§2-C; resume from `results/2026-09-10_a1-batch2/qlr_adj.npy` (copy it to the
+repository root first). The goal is not closure (out of reach) but a tighter
+lower bound, more small-coordinate test cases and the growth curve
+(`<state>.growth.csv`, one row per expansion, written automatically); stage
+the state and the growth log with `s13_results_commit.py` and commit. Per the project
 plan's stop-loss clause, A1 is restated as **A1′: certified partial catalogue +
 lower bound + structural statistics.**
 
@@ -339,8 +345,15 @@ This repository is public at
   should go to Git LFS or to release assets; small results can be committed to
   a `results/` branch.
 - **Server workflow:** `git clone` → `pip install -r requirements.txt` →
-  `sh scripts/run_b_batch.sh` or the A1 campaign commands → commit the state
-  and log files.
+  `sh scripts/run_b_batch.sh` or the A1 campaign commands → stage the
+  keepers with `python3 scripts/s13_results_commit.py --tag <tag> <files>`
+  (creates `results/<date>_<tag>/` with a manifest) → commit and push.
+- **Round trip with GitHub Desktop:** the analysis side delivers a zip of
+  changed files with relative paths; unzip over the local clone, Desktop
+  lists the changes, commit with the suggested message, push. Results flow
+  back through `results/` (never through chat uploads). `.gitignore` ignores
+  scratch files at the repository root only; everything under `results/` is
+  committed. Files above 50 MB go to GitHub Releases.
 - **Citing:** `CITATION.cff` holds the metadata; a Zenodo DOI will be attached
   to the first tagged release.
 - **Licences:** code MIT, data CC-BY-4.0, `bin/normaliz` is an unmodified

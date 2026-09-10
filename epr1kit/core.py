@@ -62,13 +62,30 @@ def perms31_s6():
         out.append(arr)
     return np.stack(out)
 
-def class_reps(rows, perms, offset=64):
-    """S-orbit canonical forms. Returns (list of canonical bytes per row, dict canon->first row idx)."""
+def class_reps(rows, perms, offset=64, width=None):
+    """S-orbit canonical forms. Returns (list of canonical bytes per row, dict canon->first row idx).
+
+    width: 'u8' (values+offset in 0..255, the historical encoding), 'u16'
+    (0..65535, big-endian so byte order == numeric order), or None = auto
+    (u8 when it fits, else u16).  Keys from different widths are NOT
+    comparable: callers that persist keys (s4c_qlr) fix width='u16'."""
     R64 = np.asarray(rows, dtype=np.int64)
-    if R64.size and not (0 <= int(R64.min()) + offset and int(R64.max()) + offset <= 255):
-        raise ValueError(f'class_reps: values+offset outside uint8 (min {R64.min()}, '
-                         f'max {R64.max()}, offset {offset})')
-    R = (R64 + offset).astype(np.uint8)
+    lo = int(R64.min()) + offset if R64.size else 0
+    hi = int(R64.max()) + offset if R64.size else 0
+    if width is None:
+        width = 'u8' if (0 <= lo and hi <= 255) else 'u16'
+    if width == 'u8':
+        if R64.size and not (0 <= lo and hi <= 255):
+            raise ValueError(f'class_reps: values+offset outside uint8 (min {R64.min()}, '
+                             f'max {R64.max()}, offset {offset})')
+        R = (R64 + offset).astype(np.uint8)
+    elif width == 'u16':
+        if R64.size and not (0 <= lo and hi <= 65535):
+            raise ValueError(f'class_reps: values+offset outside uint16 (min {R64.min()}, '
+                             f'max {R64.max()}, offset {offset})')
+        R = (R64 + offset).astype('>u2')
+    else:
+        raise ValueError('class_reps: width must be u8, u16 or None')
     best = [None] * R.shape[0]
     for k in range(perms.shape[0]):
         blk = R[:, perms[k]]

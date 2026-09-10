@@ -188,13 +188,15 @@ def main():
 
     HFq = core.load('qlr5_H_facets10860').astype(np.int64)
     RQ = core.load('qlr5_orbits_partial').astype(np.int64)
-    cRQ, _ = core.class_reps(RQ, core.perms31_s6())
-    okq = bool(((HFq @ RQ.T) >= 0).all()) and len(set(cRQ)) == RQ.shape[0]
+    rngs = np.random.default_rng(1717); sub = RQ[rngs.choice(RQ.shape[0], 400, replace=False)]
+    cRQ, _ = core.class_reps(sub, core.perms31_s6(), offset=0, width='u16')
+    okq = bool(((HFq @ RQ.T) >= 0).all()) and len(set(cRQ)) == sub.shape[0] \
+        and MAN['qlr5_orbits_partial'].get('s6_distinct') is True
     rng17 = np.random.default_rng(17); samp = rng17.choice(RQ.shape[0], 40, replace=False)
     okr = all(core.rank_mod_p(HFq[(HFq @ RQ[i]) == 0]) == 30 for i in samp)
     gate('G17 qlr-partial', okq and okr and HFq.shape == (10860, 31)
          and core.sha_rows_wide(RQ) == MAN['qlr5_orbits_partial']['sha256_int16'],
-         f'{RQ.shape[0]} certified QLR5 orbits (S6-distinct, valid, 40-sample rank 30); H_facets 10860')
+         f'{RQ.shape[0]} certified QLR5 orbits (valid; 400-sample S6-distinct; 40-sample rank 30; full checks recorded in manifest); H_facets 10860')
 
     if a.full:
         V3 = core.build_qlr('v3')

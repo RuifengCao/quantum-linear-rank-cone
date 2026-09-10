@@ -1,13 +1,19 @@
+# Python
 __pycache__/
 *.pyc
+# rebuildable build products (root only)
 /QLR_H_pure28.npy
 /QLR_H_pure2*.npy
-s7_out/
-*.log
-*_state.json
-qlr_adj*.npy
-adj_state*.npy
+# scratch outputs of server sessions (root only) -- move keepers into results/
+/s7_out/
+/*.log
+/*_state.json
+/qlr_adj*.npy
+/adj_state*.npy
+/s8_certs*.npz
+/pure_facet_classes.npz
+# archives are never committed (use GitHub Releases for large assets)
 *.tar.gz
 *.zip
-s8_certs*.npz
-pure_facet_classes.npz
+# results/ is always committed
+!results/**

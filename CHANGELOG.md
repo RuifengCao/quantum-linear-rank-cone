@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## R17 (2026-09-10)
+- **Workflow.** `.gitignore` now ignores scratch files at the repository root
+  only and always commits `results/`; new `results/README.md` convention
+  (`results/<date>_<tag>/` + `manifest.json`) and `scripts/s13_results_commit.py`
+  to stage result files with sha256 / row-family shas and a suggested commit
+  message. Round trip with GitHub Desktop documented in README §9.
+- **Engine.** `core.class_reps` gains a `width` parameter (`u8` historical,
+  `u16` big-endian for coordinates up to 65,535, `None` = auto); the uint8
+  guard correctly stopped the campaign at a coordinate of 256.
+  `s4c_qlr.py` keys its state with `u16` (legacy states are re-keyed on load)
+  and appends a growth curve to `<state>.growth.csv`.
+- **A1 campaign, batch 2.** 165 s, 1,615 light vertex figures →
+  **18,985 orbits, all certified rank 30, S₆-distinct; orbit sizes sum to
+  13,147,989 extreme rays**; max coordinate 256; 89 new orbits with maximum
+  coordinate ≤ 5. Catalogue stored as int16; manifest records the full
+  checks; gate G17 samples S₆-distinctness (400 rows) to stay fast.
+  State and growth log committed under `results/2026-09-10_a1-batch2/`.
+
 Round-by-round history of the kit. Errata are numbered C3–C5 (C1/C2 live in
 the round reports of the internal project). Rounds are dated by their actual
 production date; see erratum C5 for the rounds that were originally mislabelled.
