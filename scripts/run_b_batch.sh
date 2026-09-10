@@ -7,9 +7,9 @@
 # is labelled accordingly in the log.
 set -e
 python3 -c "import numpy, scipy" 2>/dev/null || {
-  echo "缺依赖: 先跑  pip install -r requirements.txt"; exit 1; }
-command -v gcc >/dev/null || { echo "缺 gcc: apt install build-essential"; exit 1; }
-step_ok() { [ -e "$1" ] || { echo "步骤失败: 未见产物 $1 (查对应 .log)"; exit 1; }; }
+  echo "Missing dependencies: run  pip install -r requirements.txt  first"; exit 1; }
+command -v gcc >/dev/null || { echo "Missing gcc: apt install build-essential"; exit 1; }
+step_ok() { [ -e "$1" ] || { echo "Step failed: expected output $1 not found (see the corresponding .log)"; exit 1; }; }
 H=QLR_H_pure28.npy
 [ -f "$H" ] || python3 scripts/s1_build_qlr.py --variant pure28 --workers "$(nproc)"
 echo "== s7 expand (full) =="

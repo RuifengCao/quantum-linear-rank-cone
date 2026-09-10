@@ -1,133 +1,196 @@
 # CHANGELOG
 
+Round-by-round history of the kit. Errata are numbered C3–C5 (C1/C2 live in
+the round reports of the internal project). Rounds are dated by their actual
+production date; see erratum C5 for the rounds that were originally mislabelled.
+
+## R16 (2026-09-10)
+- Repository made English-only: README and CHANGELOG rewritten in English,
+  Chinese comment lines in `data/dfz_ref28.csv` and messages in
+  `scripts/run_b_batch.sh` translated; `CITATION.cff` now points at the public
+  repository. No code or data semantics changed; all 20 gates unchanged.
+
 ## R15 (2026-09-10)
-- 【A1 战役首日】新引擎 scripts/s4c_qlr.py (参数化 H, S6 规范化, 巨图跳过与
-  --max-tight 分诊); QLR5 不可冗余 H 表示 data/qlr5_H_facets10860 (=R11 facet
-  实例数); 60 种子 (59+q2); 170 s 扩展 12 图 → 1,924 认证极轨道 (远未饱和,
-  坐标最大 162)。量级结论: 全量枚举按当前引擎不可及 (BCHS 失败成因);
-  A1 按计划 §5.1 改述为 A1' (认证部分目录 + 下界 + 结构统计)。
-- 资产: qlr5_orbits_partial (1,924; G17 守护, 采用 sha_rows_wide int16 编码),
-  qlr5_new_small200 (S7 优先测试集); core.sha_rows_wide 新增 (int8 护栏拦住
-  了 162 的坐标 —— 护栏按设计工作)。
-- 解读护栏写入 README: 新轨道零见证 ≠ S7 证据 (池的熵尺度够不到)。
-- 仓库脚手架: .gitignore / .github/workflows/selftest.yml / LICENSE / CITATION.cff;
-  README §9 GitHub 工作流 (建议开私有库)。
-- 【勘误 C5】R4–R13 的报告与包标注日期 "2026-08-13" 系惯性沿用, 实际产出日
-  为 2026-08-19 (转录时间戳为证); R13 的两个文件已改名为 08-19, 其余历史
-  文件保持原名作为记录, 以本条为准。
+- **A1 campaign, day one.** New engine `scripts/s4c_qlr.py` (parameterised
+  H-representation, S₆ canonicalisation, giant figures skipped, `--max-tight`
+  triage); exact irredundant H-representation of QLR₅
+  `data/qlr5_H_facets10860` (= the facet instance count found in R11);
+  60 seeds (the 59 known orbits + q₂); 170 s / 12 vertex figures →
+  **1,924 certified extreme-ray orbits** (far from saturation; coordinates up
+  to 162). Conclusion on scale: full enumeration is out of reach for this
+  engine (the cause of the BCHS 2021 failure); A1 restated as A1′ (certified
+  partial catalogue + lower bound + structural statistics) per the plan's
+  stop-loss clause.
+- Assets: `qlr5_orbits_partial` (1,924; gate G17; canonical sha via the new
+  int16 `sha_rows_wide`), `qlr5_new_small200` (S7 priority test set).
+  `core.sha_rows_wide` added — the int8 guard of `sha_rows` correctly rejected
+  coordinates of 162.
+- Interpretation guard written into the README: zero realisable-pool witnesses
+  among the new orbits is **not** evidence about S7 (the pools' entropy scale
+  cannot reach them).
+- Repository scaffolding: `.gitignore`, `.github/workflows/selftest.yml`,
+  `LICENSE`, `CITATION.cff`; README §9 repository workflow.
+- **Erratum C5.** The reports and packages of rounds R4–R13 were labelled
+  "2026-08-13" by inertia; the actual production date was 2026-08-19 (transcript
+  timestamps). The two R13 files were renamed to 08-19; the other historical
+  files keep their names as a record, and this entry is authoritative.
 
-## R13 (2026-08-13)
-- 【59 台账全链条独立复现】S6 口径下 HEC×CLR 重叠恰为 #1 (→17 净增);
-  图态 26 个 S6 轨道中恰 2 条新 QLR 极轨道 (→+2, 即 G11 与 G15);
-  40+17+2 = 59 组装为 data/qlr59_reps.npy (S6 互异, 全部秩30极认证)。
-- 【A3 资产】BCHS 分离不等式 (4.4) 转录入包 (a3_hyp_ineq44), 三重行为学
-  校验: G15 全轨道最小 -1 (与论文逐字吻合), G11 为 +1, 7943 条 CLR 射线
-  最小恰 0; 不平衡分量 C/D/E 各 +2 (论文脚注举 E 为证)。
-- 【定理注记】31↔31 facet 集合相等 ⇒ **pure28 锥 = QLR_5** (R12 已挣得,
-  本轮明示); q2 (违反全部五条经典单调、避开 43 万可实现向量) 确认为
-  QLR_5 真极射线 = **S7 猜想 (稳定子=QLR) 的具体试金石**。
-- G16 关卡 (19 关卡全绿)。
+## R13 (2026-08-19)
+- **The 59-ray ledger reproduced end to end.** Under the S₆ symmetry the
+  overlap between the HEC orbits and the CLR orbits is exactly #1 (→ 17 net new
+  orbits); among the 26 S₆-orbits of graph-state vectors exactly 2 are new
+  QLR-extreme orbits (→ +2, namely G11 and G15); 40 + 17 + 2 = 59 assembled as
+  `data/qlr59_reps.npy` (S₆-distinct, all certified rank 30).
+- **A3 asset.** The BCHS separating inequality (4.4) transcribed
+  (`a3_hyp_ineq44`) and validated behaviourally three ways: minimum −1 over the
+  full orbit of G15 (verbatim agreement with the paper), +1 for G11, and
+  minimum exactly 0 over the 7,943 CLR rays; unbalanced components C/D/E each
+  +2 (the paper's footnote cites E as the witness).
+- **Theorem notes.** Equality of the 31 facet classes ⇒ **cone(pure28) =
+  QLR₅** (earned in R12, stated here); q₂ (violates all five classical
+  monotonicity inequalities, evades 431,950 realisable vectors) confirmed as a
+  genuine extreme ray of QLR₅ = **a concrete test case for the S7 conjecture**
+  (stabilizer = QLR).
+- Gate G16 (19 gates, all green).
 
-## R12 (2026-08-13)
-- 【文献解码】BCHS 2006.16292 原文钉出: 59=40+17+2 台账公式全解
-  (40 CLR∩QLR + HEC 除"[2] Table 3 第 18 条"后与 40 重叠 1 余 17 + 图态
-  11/15); "31 QLR 不等式"出处 = DFZ 清单换弱单调; 图态 Table 2 印证。
-- 【31↔31 机器认证】DFZ28+SUB+WM 的 S6 类 = 34 (= R2 之谜的 34), 其中
-  3 个 WM 类有效但冗余, 余 31 = 恰为我们 pure28 的 31 个 facet 类
-  (集合级相等) —— ⑥ 之谜全解。
-- 【#18 悬案裁决】SHC Table 3 机器解析 + S6 轨道级双射: **论文第 18 条
-  = 我们的 #19** —— 与 R11 精确证书完美衔接; 仓库序与论文序在 18/19
-  互换是历史担忧的根源。数据 shc_table3_rays/map 入包, G15 关卡 (18 关卡)。
+## R12 (2026-08-19)
+- **Literature decoding.** BCHS arXiv:2006.16292 pinned verbatim: the
+  59 = 40 + 17 + 2 ledger formula fully explained (40 CLR∩QLR + HEC orbits
+  except "the 18th of Table 3 of [2]", one of which overlaps the 40, leaving
+  17 + graph states 11 and 15); the "31 QLR inequalities" = the DFZ list with
+  weak monotonicity; graph-state Table 2 corroborated.
+- **31 ↔ 31 machine certification.** The S₆-classes of DFZ28 + SUB + WM number
+  34 (the "34" of the R2 mystery); 3 WM classes are valid but redundant; the
+  remaining 31 coincide as a set with the 31 facet classes of pure28 —
+  mystery ⑥ fully resolved.
+- **The "18th ray" question settled.** Machine parse of SHC Table 3 +
+  S₆-orbit-level bijection: **the paper's ray 18 = our #19** — interlocking
+  with the R11 exact certificate; the HEC database and Table 3 swap rows 18/19,
+  which was the root of the historical worry. Data `shc_table3_rays` /
+  `shc_table3_map` added, gate G15 (18 gates).
 
-## R11 (2026-08-13)
-- 服务器 R10 批跑复盘: s7 完美(GF2 431,950 / F3 1,130, 双层 0 违反);
-  s8/s10 因环境缺 scipy 崩溃, 且 tee 吞退出码使 set -e 失效带病跑完 ——
-  批跑脚本加固: 依赖预检(scipy/gcc) + 每步产物检查。
-- 容器补跑并升级 s8: #19 所在面维数=2, 两条棱 q1,q2 精确求出(各秩30),
-  **r19 = 1*q1 + 2*q2 精确整数分解** = 无条件定理级非极性证书;
-  q1 == HEC 射线 #4; q2 不在任何可实现池(A2/A3 侧观察)。资产
-  data/cert19_exact.npz + G14 关卡(17 关卡)。
-- 容器补跑 s10: **facet 类 = 31, 与 BCHS 31 精确相等**(冗余 53 类;
-  facet 实例 10,860, 冗余率 54%) —— R2 诚实清单⑥ 32/34 之谜在计数层解决。
-  资产 data/pure28_facet31_reps.npy。
-- 【勘误 C4】R7 报告称 rank_exact_gram 已入 core —— 该补丁静默未命中
-  (str.replace 锚点不匹配无报错), 包内一直缺失; 既有结果不受影响
-  (关卡走 Bareiss 精确路径)。本轮真正加入, G14 暴露并修复。
+## R11 (2026-08-19)
+- Post-mortem of the R10 server batch: s7 perfect (GF(2) 431,950 / F₃ 1,130
+  vectors, 0 violations in both layers); s8/s10 crashed because the environment
+  lacked scipy, and `tee` swallowed the exit codes so `set -e` did not stop the
+  batch — the batch script now checks dependencies (scipy/gcc) up front and
+  verifies each step's output.
+- s8 rerun in the container and upgraded: the face containing #19 is
+  two-dimensional; both edges q₁, q₂ computed exactly (rank 30 each);
+  **r₁₉ = 1·q₁ + 2·q₂ exactly** = an unconditional, theorem-grade non-extremality
+  certificate; q₁ == HEC ray #4; q₂ is in no realisable pool (an A2/A3-side
+  observation). Asset `data/cert19_exact.npz` + gate G14 (17 gates).
+- s10 rerun in the container: **31 facet classes, exactly the BCHS count**
+  (53 redundant classes; 10,860 facet instances, 54 % redundancy) — the 32/34
+  mystery of the R2 honesty list resolved at the count level. Asset
+  `data/pure28_facet31_reps.npy`.
+- **Erratum C4.** The R7 report claimed that `rank_exact_gram` had entered
+  `core`; the patch had silently missed (a `str.replace` anchor that did not
+  match raised no error) and the function was absent from the package. No
+  existing result is affected (the gates take the exact Bareiss path). Added
+  for real in this round; exposed and fixed by G14.
 
-## R10 (2026-08-13)
-- s8 支持多池 (--pool 可给多个 npy, 自动合并去重)。
-- 新增 scripts/run_b_batch.sh: 服务器会话一条命令 (s7→s8→s10→s11 + 日志
-  tee + s11 自动打包); s8 证书策略: 无条件 GF(2) 池优先, 失败才合并
-  F_3 条件层且证书另存 s8_certs_conditional.npz 并标注前提。
-- 修正: F_3 层实际文件名为 realizable_f3_conditional.npy (文档此前笔误
-  为 realizable_f3.npy, 会导致批跑崩溃)。
-- README: §0 消除 R9 前残留 (完备性闭环打勾, rays5 降级), §2-B 换一条命令。
+## R10 (2026-08-19)
+- s8 accepts several pools (`--pool` takes multiple `.npy` files, merged and
+  deduplicated).
+- New `scripts/run_b_batch.sh`: one-command server session
+  (s7 → s8 → s10 → s11 with logs and automatic packaging); s8 certificate
+  policy: unconditional GF(2) pool first, the F₃ conditional layer is merged in
+  only on failure, with the certificate stored separately as
+  `s8_certs_conditional.npz` and the premise noted.
+- Fix: the F₃ layer file is `realizable_f3_conditional.npy` (the documentation
+  previously said `realizable_f3.npy`, which would crash the batch).
+- README: §0 cleaned of pre-R9 leftovers (completeness closure ticked, rays5
+  downgraded), §2-B replaced by the one-command batch.
 
-## R9 (2026-08-13)
-- rays5 获取受阻(用户网络到 UCSD 80 端口不通)→ 解决方式升维: 钉出 DFZ §4
-  计数原句(7,943 条/162 轨道), 由"极射线集合唯一性 + 我们的精确证书 +
-  文献计数"完成完备性互证的逻辑闭环; 逐向量 diff 判定为冗余, rays5 文件
-  降级为可选加固。
-- 抽验: 论文印出的三个具体射线例(F³ 五子空间/U24/U25)逐坐标命中我们的
-  7,943 集 3/3。README §7① 重写; 迭代9报告含致 Zeger 邮件模板。
+## R9 (2026-08-19)
+- The rays5 download was blocked (user's network cannot reach UCSD on port 80).
+  Resolution by moving up a level: DFZ §4 states the counts verbatim
+  (7,943 rays / 162 orbits); "uniqueness of the extreme-ray set + our exact
+  certificates + the published count" closes the completeness
+  cross-certification logically; the vector-by-vector diff is redundant and the
+  rays5 file is downgraded to an optional reinforcement.
+- Spot check: the three explicit rays printed in the paper (F³ five-subspace
+  example / U₂,₄ / U₂,₅) hit our 7,943-ray set 3/3. README §7① rewritten.
 
-## R8 (2026-08-13)
-- 文档切换到"162 之后"时代：§2 快速开始重写为 验证/当前工作/rays5 互证
-  三块（删除已被 C3 判死的 lrs 全量引导）；§5 坑 3 改为三次引擎裁决史；
-  §7 重写为"做什么怎么做"（含 s8 无证书时的三级升级方案与宋博士抽查名单）。
-- 新增 scripts/s5b_diff_rays.py：rays5 一键互证（鲁棒解析 + 集合级比对 +
-  轨道计数；演练输出 MATCH）；selftest 新增 G13（解析关卡），共 16 关卡。
-- §1 lrs 需求降级为可选；§6 数据清单补 162/7943 两行。
+## R8 (2026-08-19)
+- Documentation switched to the "after the 162" era: §2 quick start rewritten
+  as verification / current work / rays5 cross-check (the lrs full-run
+  guidance condemned by C3 removed); pitfall 3 rewritten as the engine-history
+  verdict; §7 rewritten as "what and how" (including the three-level
+  escalation when s8 finds no certificate and the human spot-check list).
+- New `scripts/s5b_diff_rays.py`: one-command rays5 cross-check (robust
+  parser + set-level comparison + orbit counts; rehearsal prints MATCH);
+  selftest gate G13 (parser), 16 gates in total.
+- §1 lrs downgraded to optional; §6 data inventory gains the 162 / 7,943 rows.
 
-## R7 (2026-08-13)
-- 【结果】162 CLR₅ 极射线轨道全部找到, Σ轨道 = 7,943 与文献双口径吻合;
-  s6 台账 40/162 QLR-extreme 精确认证 (非极秩分布 25×56/26×25/27×18/28×23)。
-- 【勘误 C3】R5 的 lrs 树规模估计在极不平衡树上低估 68 倍
-  (服务器 12.7 h / 97,026,210 基 / 935 射线被中断; 中断正确)。
-- 新引擎 scripts/s4c_adjacency.py (带对称邻接分解, lrs 做顶点图子求解,
-  整数比率提升, 逐代表落盘续跑); 数据资产 clr5_orbit_reps162 /
-  clr5_rays7943 入包, G12 关卡守护 (15 关卡)。
-- core.rank_exact_gram: 31×31 格拉姆精确秩 (毫秒级), tight_rank_report
-  的精确确认换用之 (Bareiss 保留作交叉核对)。
-- README: 状态速览/路线图/坑清单按 R7 重写 (坑 #9 估计器、#10 巨型图)。
+## R7 (2026-08-19)
+- **Result.** All 162 CLR₅ extreme-ray orbits found; orbit sizes sum to 7,943,
+  matching the literature on both counts; s6 ledger: 40 / 162 QLR-extreme,
+  exactly certified (non-extreme rank distribution 25×56 / 26×25 / 27×18 /
+  28×23).
+- **Erratum C3.** The R5 lrs tree-size estimate underestimated by a factor 68
+  on a highly unbalanced tree (server: 12.7 h / 97,026,210 bases / 935 rays
+  before interruption; interrupting was right).
+- New engine `scripts/s4c_adjacency.py` (symmetry-aware adjacency
+  decomposition, lrs as the vertex-figure sub-solver, exact integer ratio-test
+  lift, state saved after every representative); data assets
+  `clr5_orbit_reps162` / `clr5_rays7943`, gate G12 (15 gates).
+- (Claimed here: `core.rank_exact_gram`; see erratum C4 — it did not actually
+  enter the package until R11.)
+- README: status, roadmap and pitfalls rewritten (pitfall 9 estimator, 10
+  giant figures).
 
 ## R6 (2026-08-12)
-- 文档全面翻新：状态速览改为已裁决/待办清单；新增 §7 下一步路线图
-  （九项，标注归属与判据）；坑清单新增 #9（小时级任务只在服务器跑，
-  交互式容器会在轮次间收割后台进程——R5 实测两次）；关卡数 13→14 修正。
-- s4b 完成标志说明（end + *Totals 行）；部分流预检记录（125/125 真极射线，
-  覆盖 51/162 轨道）。
+- Documentation overhaul: status section as decided / to-do lists; new §7
+  roadmap (nine items with owners and criteria); pitfall 9 (hour-scale jobs
+  only on a server: interactive containers reap background processes between
+  turns — observed twice in R5); gate count corrected 13 → 14.
+- s4b completion markers documented (`end` + `*Totals` line); partial-stream
+  pre-check recorded (125/125 genuine extreme rays covering 51/162 orbits).
 
 ## R5 (2026-08-12)
-- 诊断 R4 服务器 s4 事故：Normaliz primal 路径中间超平面爆炸（gen 62/1905 时
-  91.5M 条、~1.31×/gen）；输入经 sha 复核无误，1905 行恰为文献 facet 清单。
-- 新增 s4b_run_lrs.sh 为 s4 主引擎（lrs 反向搜索；estimate 模式先估树规模；
-  实测估计 ~1.4M 基 / ~1 h / MB 级内存）；s4_run_normaliz.sh 增加 dual 模式
-  第三参，降级为交叉验证。
-- s5 自动识别 lrs V 表示输出（跳过 '*' 注释与原点顶点行），全路径 gcd 原始化。
-- selftest 14 关卡：新增 G11（lrs 解析器单元测试，无需 lrs 二进制）。
-- README：快速开始与坑清单按真实事故更新；Normaliz 版本固定用法说明。
+- Diagnosis of the R4 server s4 incident: Normaliz primal mode exploded in the
+  intermediate hyperplane count (91.5 M at generator 62/1905, ~1.31× per
+  generator); inputs verified by sha, the 1,905 rows are exactly the
+  literature's facet list.
+- New `s4b_run_lrs.sh` as the s4 engine (lrs reverse search; `estimate` mode
+  first; measured estimate ~1.4 M bases / ~1 h / MB-scale memory — later
+  found wrong, see C3); `s4_run_normaliz.sh` gains a `dual` mode and is
+  downgraded to cross-validation.
+- s5 auto-detects lrs V-representation output (skips `*` comments and the
+  origin vertex), gcd-primitive normalisation on all paths.
+- selftest 14 gates: G11 (lrs parser unit test, no lrs binary needed).
+- README: quick start and pitfalls updated after the real incident; Normaliz
+  version pinning documented.
 
 ## R4 (2026-08-12)
-- 捆绑 Normaliz 3.11.1 静态二进制（bin/，含 GPL-3 许可与来源说明）；
-  s4_run_normaliz.sh 增加 $NORMALIZ → PATH → 捆绑件解析链与缺失报错。
-- 新增 data/targets1.npy（射线 #19），s8 默认目标由 targets3 改为 targets1。
-- 断言加固：sha_rows 与代入构建的 int8 越界检查、class_reps 的 uint8 域检查、
-  精确 Bareiss 的整除性校验（防浮层截断静默出错）。
-- selftest 8→13 关卡：新增 G0（分片断点续跑冒烟）、G2b（CLR_H_fixed sha）、
-  G9 扩展（REF28 sha、ing39 轨道一致性、targets1 一致性）。
-- s7：gcc 缺失明确报错、OpenMP 缺失降级警告、--f3-limit 冒烟参数。
-- s10：--limit 冒烟参数、死代码清理、文案更新。
-- s12：文档串重写为"已裁决/复验"口径，删除死函数。
-- 全部脚本 --help 输出模块文档；s1 文档串转义修复；s5 数值域校验；
-  s6 帮助口径 pure28；并行层 ETA 首两秒显示 --。
-- README 全面重写（状态速览 / 快速开始 / 阶段表 / 常见坑 / 数据清单）；
-  新增 requirements.txt、VERSION、CHANGELOG.md。
+- Bundled static Normaliz 3.11.1 (`bin/`, with the GPL-3 licence and a
+  provenance note); `s4_run_normaliz.sh` resolves `$NORMALIZ` → PATH → bundled
+  binary and fails explicitly when none is found.
+- New `data/targets1.npy` (ray #19); s8 default target changed from targets3
+  to targets1.
+- Assertion hardening: int8 range checks in `sha_rows` and the substitution
+  builder, uint8 domain check in `class_reps`, divisibility check in exact
+  Bareiss (prevents silent float truncation errors).
+- selftest 8 → 13 gates: G0 (shard checkpoint/resume smoke test), G2b
+  (`CLR_H_fixed` sha), G9 extended (REF28 sha, ing39 orbit consistency,
+  targets1 consistency).
+- s7: explicit error without gcc, downgrade warning without OpenMP,
+  `--f3-limit` smoke parameter. s10: `--limit` smoke parameter, dead code
+  removed. s12: docstrings rewritten as "decided / re-verify", dead function
+  removed.
+- Every script prints its module docstring under `--help`; s1 docstring
+  escape fix; s5 value-range validation; s6 help wording for pure28; the
+  parallel layer shows `--` as ETA for the first two seconds.
+- README rewritten (status / quick start / stage table / pitfalls / data
+  inventory); `requirements.txt`, `VERSION`, `CHANGELOG.md` added.
 
 ## R3 (2026-08-12)
-- s12 裁决：PSITIP-INCOMPLETE，缺 Ingleton(39)；CLR_H_fixed、templates28、
-  pure28（18/19）入包；dfz_ref28.csv 转录（双源交叉 + 四重校验）。
-- 进度输出（pmap/分片/C 工具）；s12 判决尾句修正。
+- s12 verdict: PSITIP-INCOMPLETE, missing Ingleton(39); `CLR_H_fixed`,
+  `templates28`, pure28 (18/19) bundled; `dfz_ref28.csv` transcribed
+  (two sources cross-checked, four-fold validation).
+- Progress output (pmap / shards / C tools); s12 verdict wording corrected.
 
-## R2/R1
-- 见对应轮次执行报告。
+## R2 / R1
+- See the corresponding round reports of the internal project.

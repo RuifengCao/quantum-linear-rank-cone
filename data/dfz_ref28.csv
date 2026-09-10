@@ -1,12 +1,12 @@
-# DFZ 五变元线性秩不等式参考族: 24 条 (arXiv 0910.0284 式(1)-(24)) + 4 个 Ingleton 形式 (式(36)-(39))
-# 生成方式: 机器解析 psitip 源码内嵌 dfz_linear_ineq (作者 Cheuk Ting Li 对 DFZ 的独立转录),
-#   Ingleton 四形式按论文 PDF 原文转录; 全程无人工抄写系数.
-# 校验(2026-08-12, 本容器): 逐变元平衡 28/28; 2,400 个真实子空间秩向量 (F2/F3/F_p) 零违反;
-#   S5 类互异 28/28; 与 PDF 抽取件可核对的 17 条逐项一致 (source=psitip+pdf);
-#   其余 11 条为单源 (dfz10,11,13,14,15,16,19,20,21,22,23), 请对照论文式(10)-(23)人工抽查.
-# 双向锥裁决 (s12): 28 类中唯一不被 (M_LR+Shannon) 蕴含的是 ing39; 我们 27 类全部被参考锥蕴含.
-#   判决: PSITIP-INCOMPLETE, 缺失类 = Ingleton(39) (四槽位全含 A 的重叠形式; psitip 的
-#   ingleton_bound 只做互斥子集代入, 结构上生不出它).
+# DFZ five-variable linear rank inequality reference family: 24 inequalities (arXiv:0910.0284 eqs. (1)-(24)) + 4 Ingleton forms (eqs. (36)-(39))
+# Generation: machine parse of the dfz_linear_ineq table embedded in the psitip source (author Cheuk Ting Li's independent transcription of DFZ);
+#   the four Ingleton forms transcribed from the paper PDF; no coefficient was hand-copied.
+# Validation (2026-08-12, container): per-variable balance 28/28; 2,400 genuine subspace rank vectors (F2/F3/F_p) with zero violations;
+#   S5 classes pairwise distinct 28/28; the 17 lines checkable against the PDF extraction agree item by item (source=psitip+pdf);
+#   the remaining 11 lines are single-source (dfz10,11,13,14,15,16,19,20,21,22,23) -- please spot-check by hand against eqs. (10)-(23).
+# Two-way cone verdict (s12): among the 28 classes the only one not implied by (M_LR + Shannon) is ing39; all 27 of our classes are implied by the reference cone.
+#   Verdict: PSITIP-INCOMPLETE, missing class = Ingleton(39) (the overlapping form with A in all four slots; psitip's
+#   ingleton_bound only substitutes disjoint subsets, so it structurally cannot generate it).
 ineq_id,subset,coeff
 # dfz01  [DFZ(1)]  source=psitip+pdf  original: I(A&B&C) <= I(A&B|D)+I(C&D|E)+I(A&E)
 dfz01,B,-1
