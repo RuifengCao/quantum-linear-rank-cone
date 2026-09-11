@@ -211,6 +211,14 @@ def main():
     gate('G18 witness35+small', okw and oks and int((W35['source'] != 'F3cond').sum()) == 33,
          f"35 witnessed new orbits re-verified exactly ({int((W35['source'] != 'F3cond').sum())} unconditional); small catalogue {SMo.shape[0]} valid, S6-distinct")
 
+    from epr1kit import chordal as _ch
+    hecr = core.load('hec5_rays_maskorder').astype(np.int64)
+    res19 = [_ch.analyse(v) for v in hecr]
+    n_ch = sum(1 for r in res19 if r['chordal']); n_ci = sum(1 for r in res19 if r['chordal'] and r['irreducible'])
+    n_ver = sum(1 for r in res19 if r['verified'])
+    gate('G19 chordal', n_ch == 9 and n_ci == 6 and n_ver == 6 and all(r['sa_ssa'] for r in res19),
+         f'HEC5 rays: chordal {n_ch} (expect 9), chordal&irreducible {n_ci} (6), simple trees verified by min-cut {n_ver}/6')
+
     if a.full:
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)

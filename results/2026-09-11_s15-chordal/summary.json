@@ -1,0 +1,13 @@
+{
+ "catalogue_small_orbits": 15183,
+ "chordal_total": 9,
+ "chordal_new": 0,
+ "chordal_all_HEC_seeds": true,
+ "hec19": {
+  "chordal": 9,
+  "irreducible": 16,
+  "chordal_irreducible": 6,
+  "trees_verified": "6/6"
+ },
+ "note": "Theorem 1 (HR 2512.24490): chordal <=> simple-forest realizable; zero new small-coordinate orbits chordal -> new rays need non-tree models if stabilizer-realizable"
+}

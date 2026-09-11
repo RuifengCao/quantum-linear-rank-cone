@@ -65,6 +65,20 @@ and the changelog is explained in the glossary at the end.
   coordinate ≤ 12) and the S7 priority set (`qlr5_new_small200`) are bundled.
   **Interpretation guard:** an unwitnessed orbit is not an unrealisable one —
   the pools are random samples.
+- [x] **A2 pipeline, node 1: the Hubeny–Rota chordality filter (R22).**
+  `epr1kit/chordal.py` implements the correlation hypergraph, the chordality
+  test of its line graph (Theorem 1 of arXiv:2512.24490: chordal ⟺
+  realisable by a holographic simple forest ⟹ inside the stabilizer cone) and
+  Algorithm 1 (simple-tree construction) with an independent min-cut
+  re-computation as certificate. Sanity: of the 19 HEC₅ rays, 9 are chordal,
+  6 irreducible-chordal, and all 6 constructed trees reproduce the ray exactly
+  (gate G19). **Result on the catalogue: of the 15,183 small-coordinate
+  orbits only the 9 HEC seeds are chordal — none of the 15,123 new orbits
+  is.** So the new extreme rays of QLR₅ (including the 35 realised by
+  12-qubit graph states) are not simple-forest-holographic; if they are
+  stabilizer-realisable at all, non-tree models or non-holographic stabilizer
+  states are needed. The shortcut therefore adds no new S7-positive verdicts;
+  the next A2 tool is a targeted (non-tree) stabilizer search.
 - [x] **First positive evidence for the S7 conjecture at scale (R21).** With
   the 50 M-sample GF(2) pool (1,130,413 realisable vectors) the witness scan
   (`s14_witness.py`) finds **35 of the newly discovered small-coordinate
@@ -224,6 +238,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | s4 | **`s4c_adjacency.py`** (`--init` seeds → `--state` batches) | CLR₅ extreme-ray enumeration engine (symmetry-aware adjacency decomposition; 162 orbits in R7); `s4b` (lrs) / `s4` (Normaliz) for seeds and cross-validation |
 | s4c_qlr | **`s4c_qlr.py`** (`--H`, `--sym s6`, `--max-tight`, `--workers N`) | the same engine on the QLR₅ cone (A1 campaign); parallel vertex-figure solves |
 | s14 | `s14_witness.py --state <npz> --gf2 <pool> --f3 <pool>` | S7 witness scan of the small-coordinate orbits against the realisable pools; exact re-verification of hits |
+| s15 | `s15_chordal.py <rays.npy> [--skip-sa] [--out models.npz]` | Hubeny–Rota chordality filter + Algorithm 1 simple-tree construction with min-cut certificate |
 | s5 | `s5_orbits.py clr5.out [--raw] [--expect 162]` | rays → S₅ orbits; reconcile against 162 |
 | s5b | `s5b_diff_rays.py rays5` | one-command cross-check against DFZ's published ray list |
 | s6 | `s6_sweep_clr_orbits.py reps.npy --H pure28` | CLR rays through the quantum cone; ledger count 40 |

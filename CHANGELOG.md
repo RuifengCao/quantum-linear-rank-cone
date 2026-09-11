@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## R22 (2026-09-11) -- chordality filter (A2 node 1)
+- `epr1kit/chordal.py` + `scripts/s15_chordal.py`: correlation hypergraph,
+  line-graph chordality (MCS + perfect elimination), irreducibility,
+  Hubeny-Rota Algorithm 1 (clique tree -> simple tree -> weights) and an
+  independent min-cut re-computation of the entropy vector as certificate.
+- Sanity (gate G19, 22 gates): HEC5 rays -> 9 chordal, 6 irreducible-chordal,
+  6/6 trees verified.  Catalogue: 15,183 small-coordinate orbits -> only the 9
+  HEC seeds are chordal; 0 of the 15,123 new orbits (summary in
+  `results/2026-09-11_s15-chordal/`).  Implication: the new QLR5 extreme rays
+  are not simple-forest-holographic; A2 needs a non-tree stabilizer search.
+
 ## R21 (2026-09-11) -- first server session analysed
 - **Session results** (208-core server, 207 workers): catalogue 32,106 →
   **1,136,210 certified orbits** (≥ 810,354,812 rays), all valid, 2,000-sample
