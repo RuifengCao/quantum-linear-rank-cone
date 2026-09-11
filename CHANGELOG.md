@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## R21 (2026-09-11) -- first server session analysed
+- **Session results** (208-core server, 207 workers): catalogue 32,106 →
+  **1,136,210 certified orbits** (≥ 810,354,812 rays), all valid, 2,000-sample
+  extremality 100 %, max coordinate 583; pools: 50 M GF(2) samples →
+  1,130,413 realisable vectors (0 violations), F₃ 1,130.
+- **S7 evidence.** New `scripts/s14_witness.py` (hash scan + exact
+  re-verification): 35 newly found small-coordinate extreme-ray orbits are
+  stabilizer-realisable (33 unconditional, 2 conditional); assets
+  `qlr5_new_witnessed35`, `qlr5_small_orbits` (15,183), refreshed
+  `qlr5_new_small200`; gate G18 (21 gates).
+- **Design flaw fixed.** The campaign queue was built once at start-up, so the
+  1.1 M orbits found during the session were never expanded and the session
+  idled for 4.4 of its 6.5 h. The queue is now rebuilt whenever it runs dry
+  (`queue round n` lines in the log). Not the operator's fault.
+- `run_job` honours `"stage": false` (the `session` wrapper no longer stages a
+  duplicate folder); `--max-orbits` default 1.9 M (~40 MB compressed state,
+  keeps the file under the 50 MB commit limit).
+
 ## R20 (2026-09-10) -- one-shot server session
 - `scripts/run_session.py` + `session` job: self-test → A1 campaign (budget =
   hours − 1.5 h, workers = cpus − 1, `--max-orbits`) → `s7-pools` (50 M GF(2)

@@ -1,0 +1,15 @@
+{
+ "date": "2026-09-11",
+ "tag": "selftest",
+ "note": "run_job selftest exit 0 on autodl-container-bb334d9c5a-281f5dd8",
+ "files": {
+  "selftest.log": {
+   "bytes": 1811,
+   "sha256": "f45f2006bd507faad0ecde4a8da97ec09c1d2edb02b901bff3f91abf271f43a6"
+  },
+  "JOB_STATUS.json": {
+   "bytes": 286,
+   "sha256": "af59a78c0139873d8cd1e4babf40774a5efe0166d27c2cba48676e9b178e9ac6"
+  }
+ }
+}

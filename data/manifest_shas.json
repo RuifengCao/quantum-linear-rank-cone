@@ -102,6 +102,25 @@
  },
  "qlr5_new_small200": {
   "rows": 200,
-  "sha256": "374a9505dac488e600fe203615f304faaaea05c2ccd6978b8a173381cbdbfa80"
+  "sha256": "35f8477393983c55a4e0ac0791d81a461e894bfde565333d9cd5ecf370ef3aaf"
+ },
+ "qlr5_small_orbits": {
+  "rows": 15183,
+  "sha256": "607eb72bb38d38b2da62c1e27f05b724249cd01ba100e056c0f6954a8ba0fb47",
+  "note": "all catalogue orbits with max coordinate <= 12 (from results/2026-09-11_a1-campaign)"
+ },
+ "qlr5_new_witnessed35": {
+  "rows": 35,
+  "sha256": "257a1bdd7205f76105c2a2944043a5a4ae3cf86a108d7218a5e10ed854c934e9",
+  "unconditional": 33,
+  "conditional_f3": 2
+ },
+ "qlr5_campaign_2026-09-11": {
+  "orbits": 1136210,
+  "rays_lower_bound": 810354812,
+  "max_coord": 583,
+  "expanded": 31724,
+  "skipped": 326,
+  "where": "results/2026-09-11_a1-campaign/qlr_adj.npz"
  }
 }

@@ -15,6 +15,8 @@ giants are skipped (reported) on timeout.
 A growth curve is appended to <state>.growth.csv (one row per expansion).
 --workers N solves N vertex figures in parallel (fork + one lrs each); the budget
 is checked between chunks of 4N figures, so wall time may overrun by one chunk.
+The queue is rebuilt from the current catalogue whenever it runs dry (R21: the
+first server session idled 4.4 h because newly found orbits were never queued).
 """
 import argparse, os, subprocess, sys, time
 import numpy as np
@@ -168,29 +170,42 @@ def _work(item):
     except subprocess.TimeoutExpired:
         return k, nt, None, 'timeout'
 
-queue = [(k, nt, reps[k].tolist()) for nt, k in order if not (a.max_tight and nt > a.max_tight)]
-if a.workers <= 1:
-    for k, nt, v in queue:
-        if time.time() - t0 > a.budget or (a.max_orbits and len(reps) >= a.max_orbits):
-            break
-        try:
-            nb, _ = neighbors(reps[k])
-        except subprocess.TimeoutExpired:
-            skipped.add(k); save()
-            print(f'tight={nt}: figure timeout -> skipped', flush=True); continue
-        merge(k, nt, nb); save()
-else:
-    from multiprocessing import get_context
-    chunk = 4 * a.workers
-    i = 0
-    with get_context('fork').Pool(a.workers) as pool:   # explicit: Python >= 3.14 defaults to forkserver
-        while i < len(queue) and time.time() - t0 <= a.budget and not (a.max_orbits and len(reps) >= a.max_orbits):
-            items = queue[i:i + chunk]; i += chunk
-            for k, nt, nb, err in pool.imap_unordered(_work, items):
-                if err:
-                    skipped.add(k); print(f'tight={nt}: figure timeout -> skipped', flush=True); continue
-                merge(k, nt, nb)
-            save()
+def build_queue():
+    order = sorted((int((H @ v == 0).sum()), k) for k, v in reps.items() if k not in done and k not in skipped)
+    return [(k, nt, reps[k].tolist()) for nt, k in order if not (a.max_tight and nt > a.max_tight)]
+
+def budget_left():
+    return time.time() - t0 <= a.budget and not (a.max_orbits and len(reps) >= a.max_orbits)
+
+rounds = 0
+while budget_left():
+    queue = build_queue()
+    if not queue:
+        print('queue exhausted (every orbit within --max-tight expanded or skipped)', flush=True); break
+    rounds += 1
+    print(f'queue round {rounds}: {len(queue)} figures (tight {queue[0][1]}..{queue[-1][1]})', flush=True)
+    if a.workers <= 1:
+        for k, nt, v in queue:
+            if not budget_left():
+                break
+            try:
+                nb, _ = neighbors(reps[k])
+            except subprocess.TimeoutExpired:
+                skipped.add(k); save()
+                print(f'tight={nt}: figure timeout -> skipped', flush=True); continue
+            merge(k, nt, nb); save()
+    else:
+        from multiprocessing import get_context
+        chunk = 4 * a.workers
+        i = 0
+        with get_context('fork').Pool(a.workers) as pool:   # explicit: Python >= 3.14 defaults to forkserver
+            while i < len(queue) and budget_left():
+                items = queue[i:i + chunk]; i += chunk
+                for k, nt, nb, err in pool.imap_unordered(_work, items):
+                    if err:
+                        skipped.add(k); print(f'tight={nt}: figure timeout -> skipped', flush=True); continue
+                    merge(k, nt, nb)
+                save()
 save()
 print(f'STATE: {len(reps)} orbits, {len(done)} expanded, {len(skipped)} skipped'
       + ('  == FULL CLOSURE ==' if len(done) == len(reps) else ''))

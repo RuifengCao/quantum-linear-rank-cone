@@ -15,6 +15,13 @@
    "outputs": [],
    "checks": "s2 violated 0; s3 18/19 with only #19 at rank 29; s12 PSITIP-INCOMPLETE"
   },
+  "s7-witness": {
+   "tier": "S",
+   "runtime": "~3 min in the sandbox (hash scan of the small-coordinate orbits against the pools)",
+   "cmd": "python3 scripts/s14_witness.py --state results/LATEST/qlr_adj.npz --gf2 results/LATEST/realizable_gf2_12v.npy --f3 results/LATEST/realizable_f3_conditional.npy",
+   "outputs": [],
+   "checks": "prints witnessed counts per pool; exact re-verification of every hit"
+  },
   "session": {
    "tier": "X",
    "runtime": "one rented-server session, default 8 h",
@@ -22,13 +29,14 @@
     "lrs",
     "gcc"
    ],
-   "cmd": "python3 scripts/run_session.py --hours 8",
+   "cmd": "python3 scripts/run_session.py --hours 8 --max-orbits 1900000",
    "smoke": "python3 scripts/run_session.py --smoke",
    "outputs": [
     "SESSION_SUMMARY.md"
    ],
    "tag": "session-runner",
-   "checks": "SESSION_SUMMARY.md: every step exit 0; then commit results/ once"
+   "checks": "SESSION_SUMMARY.md: every step exit 0; then commit results/ once",
+   "stage": false
   },
   "a1-campaign": {
    "tier": "X",
@@ -37,7 +45,7 @@
     "lrs"
    ],
    "resume": "qlr_adj.npz",
-   "cmd": "python3 scripts/s4c_qlr.py --state qlr_adj.npz --budget 14400 --rep-timeout 1800 --max-tight 400 --workers 24 --max-orbits 1500000",
+   "cmd": "python3 scripts/s4c_qlr.py --state qlr_adj.npz --budget 14400 --rep-timeout 1800 --max-tight 400 --workers 24 --max-orbits 1900000",
    "smoke": "python3 scripts/s4c_qlr.py --init data/qlr_seeds60.npy --state smoke_adj.npz && python3 scripts/s4c_qlr.py --state smoke_adj.npz --budget 30 --rep-timeout 15 --max-tight 100 --workers 2",
    "outputs": [
     "qlr_adj.npz",

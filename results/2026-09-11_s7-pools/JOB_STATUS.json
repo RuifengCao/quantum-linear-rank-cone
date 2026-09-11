@@ -1,0 +1,12 @@
+{
+ "job": "s7-pools",
+ "mode": "full",
+ "host": "autodl-container-bb334d9c5a-281f5dd8",
+ "nproc": 208,
+ "start_utc": "2026-09-11T05:37:12Z",
+ "end_utc": "2026-09-11T05:59:02Z",
+ "elapsed_s": 1310.3,
+ "exit_code": 0,
+ "cmd": "python3 scripts/s1_build_qlr.py --variant pure28 --workers 8 && python3 scripts/s7_expand_realizable.py --H QLR_H_pure28.npy --gf2-samples 50000000",
+ "checks": "pure violations 0 for both layers; pools are downcast to int8 on staging"
+}

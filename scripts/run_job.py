@@ -102,7 +102,7 @@ json.dump(status, open('JOB_STATUS.json', 'w'), indent=1)
 print(f'== exit {rc} after {elapsed:.0f}s; checks to eyeball: {j.get("checks","")} ==')
 
 # 5. stage
-if not a.no_stage and not a.smoke:
+if not a.no_stage and not a.smoke and j.get('stage', True):
     tag = a.tag or j.get('tag', a.job)
     files = [f for f in j.get('outputs', []) if os.path.isfile(f)]   # partial outputs are worth keeping
     files += [log, 'JOB_STATUS.json']

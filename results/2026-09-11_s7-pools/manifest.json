@@ -1,0 +1,28 @@
+{
+ "date": "2026-09-11",
+ "tag": "s7-pools",
+ "note": "run_job s7-pools exit 0 on autodl-container-bb334d9c5a-281f5dd8",
+ "files": {
+  "realizable_gf2_12v.npy": {
+   "downcast_from": "int64",
+   "bytes": 35042931,
+   "sha256": "54780c5517b25790188dbd6bd4c0d95529c0e04a0fc419c2052b5d4b29e0d86f",
+   "rows": 1130413,
+   "sha_rows": "05b08db5921d7337576ea8da68b164084201b96e4fe3f4572769058c8e33b341"
+  },
+  "realizable_f3_conditional.npy": {
+   "bytes": 280368,
+   "sha256": "fe47d2c93d3a31c04fda3075b731cd217fded18d1a189c0e7ef580fd3f7677c8",
+   "rows": 1130,
+   "sha_rows": "69bff43e23b1887ea9215b79ba07a3c61d604862a5537abf3a87ed9bca5e70f1"
+  },
+  "s7-pools.log": {
+   "bytes": 2327,
+   "sha256": "368b9c6115877ae6e7ea50eb86ec0b8d690daccba14f8d29ce6c82bdc17f483c"
+  },
+  "JOB_STATUS.json": {
+   "bytes": 462,
+   "sha256": "ca13d348dda5bc8ff9fd83b8d0614013f2328c6cf11bd786335ce45be30b2435"
+  }
+ }
+}
