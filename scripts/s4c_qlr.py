@@ -15,7 +15,9 @@ giants are skipped (reported) on timeout.
 A growth curve is appended to <state>.growth.csv (one row per expansion).
 --order coord / --queue-max-coord C focus the expansion on the small-coordinate (S7 front line)
 representatives; --save-every throttles state writes (large catalogues take ~10 s per save).
---workers N solves N vertex figures in parallel (fork + one lrs each); the budget
+--workers N solves N vertex figures in parallel (fork + one lrs each); workers also
+canonicalise and pre-certify candidates against their fork-time snapshot, so the
+main process only merges (R25: the main process was the bottleneck in focus mode); the budget
 is checked between chunks of 4N figures, so wall time may overrun by one chunk.
 The queue is rebuilt from the current catalogue whenever it runs dry (R21: the
 first server session idled 4.4 h because newly found orbits were never queued).
@@ -38,6 +40,7 @@ ap.add_argument('--max-orbits', type=int, default=None, help='stop cleanly once 
 ap.add_argument('--order', default='tight', choices=['tight', 'coord'], help='queue order: tight rows ascending (default) or max coordinate ascending then tight')
 ap.add_argument('--queue-max-coord', type=int, default=None, help='only expand representatives whose max coordinate is <= this (S7 front line)')
 ap.add_argument('--save-every', type=float, default=120, help='seconds between state saves (final save always happens)')
+ap.add_argument('--max-rounds', type=int, default=None, help='stop after this many queue rounds (controlled experiments)')
 a = ap.parse_args()
 
 H = np.load(a.H).astype(np.int64)
@@ -174,13 +177,26 @@ def merge(k, nt, nb):
           + (f' (bad {bad})' if bad else ''), flush=True)
 
 def _work(item):
-    """worker: vertex figure of one representative (globals H, a inherited by fork)."""
+    """worker: vertex figure of one representative, then canonicalise + pre-certify the
+    candidates against the fork-time snapshot of `reps` (globals H, perms, reps inherited
+    by fork).  Returns only candidates unknown to the snapshot, with their keys and
+    rank verdicts, so the main process does dictionary work only."""
     k, nt, v = item
     try:
         nb, _ = neighbors(np.array(v, dtype=np.int64))
-        return k, nt, [c.tolist() for c in nb], None
     except subprocess.TimeoutExpired:
         return k, nt, None, 'timeout'
+    if not nb:
+        return k, nt, [], None
+    C = np.asarray(nb, dtype=np.int64)
+    keys, _ = core.class_reps(C, perms, offset=0, width='u16')
+    out = []; seen = set()
+    for cand, cb in zip(C, keys):
+        if cb in reps or cb in seen:
+            continue
+        seen.add(cb)
+        out.append((cb, cand.tolist(), core.rank_mod_p(H[(H @ cand) == 0]) == 30))
+    return k, nt, (len(nb), out), None
 
 def build_queue():
     """vectorised: tight counts by chunked BLAS matmul; optional coordinate filter and ordering."""
@@ -211,6 +227,8 @@ while budget_left():
     queue = build_queue()
     if not queue:
         print('queue exhausted (every orbit within --max-tight expanded or skipped)', flush=True); break
+    if a.max_rounds and rounds >= a.max_rounds:
+        print(f'max rounds ({a.max_rounds}) reached', flush=True); break
     rounds += 1
     print(f'queue round {rounds}: {len(queue)} figures (tight {queue[0][1]}..{queue[-1][1]})', flush=True)
     if a.workers <= 1:
@@ -230,10 +248,20 @@ while budget_left():
         with get_context('fork').Pool(a.workers) as pool:   # explicit: Python >= 3.14 defaults to forkserver
             while i < len(queue) and budget_left():
                 items = queue[i:i + chunk]; i += chunk
-                for k, nt, nb, err in pool.imap_unordered(_work, items):
+                for k, nt, payload, err in pool.imap_unordered(_work, items):
                     if err:
                         skipped.add(k); print(f'tight={nt}: figure timeout -> skipped', flush=True); continue
-                    merge(k, nt, nb)
+                    n_nb, cands = payload if payload else (0, [])
+                    new = bad = 0
+                    for cb, cand, ok in cands:
+                        if cb in reps:
+                            continue
+                        if not ok:
+                            bad += 1; continue
+                        reps[cb] = np.asarray(cand, dtype=np.int64); new += 1
+                    done.add(k); growth(nt, n_nb, new)
+                    print(f'tight={nt}: {n_nb} neighbors, +{new} orbits, total {len(reps)}, expanded {len(done)}'
+                          + (f' (bad {bad})' if bad else ''), flush=True)
                 save()
 save(force=True)
 print(f'STATE: {len(reps)} orbits, {len(done)} expanded, {len(skipped)} skipped'

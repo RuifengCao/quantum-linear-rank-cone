@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## R25 (2026-09-11) -- pre-session rehearsal on the real state
+- Rehearsal on the 1,136,210-orbit state: canonicalisation throughput ~3,100
+  orbits/s (load ~6 min, peak ~1.3 GB); the main process was found to be the
+  bottleneck in focus mode (heavy figures, hundreds of candidates each, all
+  canonicalised in one process while 207 workers wait).
+- `s4c_qlr.py`: workers now canonicalise and pre-certify their candidates
+  against the fork-time snapshot of the catalogue and return only unknown
+  ones with keys and rank verdicts; the main process does dictionary work
+  only.  Sequential and parallel runs verified to produce identical orbit
+  sets (2,635 orbits over two controlled rounds, `--max-rounds`).
+- `--max-rounds N` for controlled experiments.
+
 ## R24 (2026-09-11) -- hand-off fix
 - `run_job.py`: pass-through arguments are shell-quoted (`shlex.quote`), so
   values with spaces such as `--engine-args="--order coord --queue-max-coord 20"`
