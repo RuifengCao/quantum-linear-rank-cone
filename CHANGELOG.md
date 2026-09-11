@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## R23 (2026-09-11) -- second-session tuning
+- `s4c_qlr.py`: `--order coord` and `--queue-max-coord C` (expand small-coordinate
+  representatives first / only: in a sandbox smoke 46 % of the new orbits had
+  max coordinate <= 12 versus 1.3 % in the unfocused catalogue); queue
+  construction vectorised (chunked BLAS tight counts instead of a Python loop
+  over 10^6 representatives, which cost ~6 min per queue round); state saves
+  throttled (`--save-every`, default 120 s; final save always forced).
+- `run_session.py --engine-args "..."` forwards engine options to the campaign.
+- Recommended second session: `run session -- --hours 6 --skip s7-pools
+  --engine-args "--order coord --queue-max-coord 20"` (README §2b).
+
 ## R22 (2026-09-11) -- chordality filter (A2 node 1)
 - `epr1kit/chordal.py` + `scripts/s15_chordal.py`: correlation hypergraph,
   line-graph chordality (MCS + perfect elimination), irreducibility,

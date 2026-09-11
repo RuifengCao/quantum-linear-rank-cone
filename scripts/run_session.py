@@ -24,6 +24,7 @@ ap.add_argument('--hours', type=float, default=8.0, help='total wall-clock budge
 ap.add_argument('--workers', type=int, default=max(1, (os.cpu_count() or 2) - 1))
 ap.add_argument('--max-orbits', type=int, default=1900000, help='~40 MB of compressed state: keeps the file committable')
 ap.add_argument('--skip', nargs='*', default=[], help='job ids to skip, e.g. --skip s7-pools')
+ap.add_argument('--engine-args', default='', help="extra s4c_qlr options for the campaign, e.g. '--order coord --queue-max-coord 20'")
 ap.add_argument('--smoke', action='store_true')
 a = ap.parse_args()
 
@@ -55,7 +56,7 @@ if rc != 0:
 if 'a1-campaign' not in a.skip:
     budget = int(max(600, (a.hours - 1.5) * 3600))
     rc, el = run('a1-campaign', ['--budget', str(budget), '--workers', str(a.workers),
-                                 '--max-orbits', str(a.max_orbits)], smoke=a.smoke)
+                                 '--max-orbits', str(a.max_orbits)] + a.engine_args.split(), smoke=a.smoke)
     log = 'a1-campaign-smoke.log' if a.smoke else 'a1-campaign.log'
     steps.append(('a1-campaign', rc, el, last_match(log, r'STATE: .*')))
 # 3. pools

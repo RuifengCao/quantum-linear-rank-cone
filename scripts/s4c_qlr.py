@@ -13,6 +13,8 @@ State (format 2: compact int16/int32 representatives + done/skipped flags; legac
 R15/R17 states are converted on load) is saved after every expansion / chunk;
 giants are skipped (reported) on timeout.
 A growth curve is appended to <state>.growth.csv (one row per expansion).
+--order coord / --queue-max-coord C focus the expansion on the small-coordinate (S7 front line)
+representatives; --save-every throttles state writes (large catalogues take ~10 s per save).
 --workers N solves N vertex figures in parallel (fork + one lrs each); the budget
 is checked between chunks of 4N figures, so wall time may overrun by one chunk.
 The queue is rebuilt from the current catalogue whenever it runs dry (R21: the
@@ -33,6 +35,9 @@ ap.add_argument('--rep-timeout', type=float, default=600)
 ap.add_argument('--max-tight', type=int, default=None, help='skip figures larger than this (triage)')
 ap.add_argument('--workers', type=int, default=1, help='parallel vertex-figure solves (fork; lrs per worker)')
 ap.add_argument('--max-orbits', type=int, default=None, help='stop cleanly once the catalogue reaches this many orbits (safety valve for file size)')
+ap.add_argument('--order', default='tight', choices=['tight', 'coord'], help='queue order: tight rows ascending (default) or max coordinate ascending then tight')
+ap.add_argument('--queue-max-coord', type=int, default=None, help='only expand representatives whose max coordinate is <= this (S7 front line)')
+ap.add_argument('--save-every', type=float, default=120, help='seconds between state saves (final save always happens)')
 a = ap.parse_args()
 
 H = np.load(a.H).astype(np.int64)
@@ -87,7 +92,14 @@ else:
     print(f'converted legacy state to format 2 (u16 keys): {len(reps)} orbits', flush=True)
 print(f'state loaded in {time.time()-tl:.0f}s', flush=True)
 
-def save():
+_last_save = [0.0]
+
+def save(force=False):
+    if not force and time.time() - _last_save[0] < a.save_every:
+        return
+    save_now(); _last_save[0] = time.time()
+
+def save_now():
     """compact format 2: int16 (or int32) representatives + boolean done/skipped flags."""
     for k in reps:
         if k not in _pos:
@@ -171,8 +183,25 @@ def _work(item):
         return k, nt, None, 'timeout'
 
 def build_queue():
-    order = sorted((int((H @ v == 0).sum()), k) for k, v in reps.items() if k not in done and k not in skipped)
-    return [(k, nt, reps[k].tolist()) for nt, k in order if not (a.max_tight and nt > a.max_tight)]
+    """vectorised: tight counts by chunked BLAS matmul; optional coordinate filter and ordering."""
+    keys = [k for k in reps if k not in done and k not in skipped]
+    if not keys:
+        return []
+    R0 = np.stack([reps[k] for k in keys])
+    mxc = R0.max(axis=1)
+    if a.queue_max_coord:
+        sel = mxc <= a.queue_max_coord
+        keys = [k for k, s_ in zip(keys, sel) if s_]; R0 = R0[sel]; mxc = mxc[sel]
+        if not keys:
+            return []
+    Hf = H.astype(np.float64); nt = np.empty(R0.shape[0], dtype=np.int64)
+    for i in range(0, R0.shape[0], 20000):
+        nt[i:i + 20000] = (np.abs(Hf @ R0[i:i + 20000].astype(np.float64).T) < 0.5).sum(axis=0)
+    if a.max_tight:
+        sel = nt <= a.max_tight
+        keys = [k for k, s_ in zip(keys, sel) if s_]; R0 = R0[sel]; nt = nt[sel]; mxc = mxc[sel]
+    idx = np.lexsort((nt, mxc)) if a.order == 'coord' else np.lexsort((mxc, nt))
+    return [(keys[i], int(nt[i]), R0[i].tolist()) for i in idx]
 
 def budget_left():
     return time.time() - t0 <= a.budget and not (a.max_orbits and len(reps) >= a.max_orbits)
@@ -206,6 +235,6 @@ while budget_left():
                         skipped.add(k); print(f'tight={nt}: figure timeout -> skipped', flush=True); continue
                     merge(k, nt, nb)
                 save()
-save()
+save(force=True)
 print(f'STATE: {len(reps)} orbits, {len(done)} expanded, {len(skipped)} skipped'
       + ('  == FULL CLOSURE ==' if len(done) == len(reps) else ''))

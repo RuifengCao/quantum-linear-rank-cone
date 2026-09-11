@@ -192,6 +192,8 @@ bundled into **one session** that runs everything pending end to end:
 python3 scripts/run_job.py --list                    # registry with tiers and runtimes
 python3 scripts/run_job.py run session --smoke       # sandbox rehearsal of the whole session (~2 min)
 python3 scripts/run_job.py run session -- --hours 8  # the real thing, once, on the server
+# second session (R23 recommendation): focus the ceiling-limited growth on the S7 front line
+python3 scripts/run_job.py run session -- --hours 6 --skip s7-pools --engine-args "--order coord --queue-max-coord 20"
 ```
 
 `run_session.py` runs, in order: the full self-test (aborts if not green),
@@ -236,7 +238,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | s2 | `s2_judge.py <H.npy>` | 760 graph-state judge; `pure*` variants must give 0 violations |
 | s3 | `s3_rank19.py <H.npy> [--extra-rows X]` | tight-rank test of the 19 HEC rays; pure28 → 18/19 |
 | s4 | **`s4c_adjacency.py`** (`--init` seeds → `--state` batches) | CLR₅ extreme-ray enumeration engine (symmetry-aware adjacency decomposition; 162 orbits in R7); `s4b` (lrs) / `s4` (Normaliz) for seeds and cross-validation |
-| s4c_qlr | **`s4c_qlr.py`** (`--H`, `--sym s6`, `--max-tight`, `--workers N`) | the same engine on the QLR₅ cone (A1 campaign); parallel vertex-figure solves |
+| s4c_qlr | **`s4c_qlr.py`** (`--H`, `--sym s6`, `--max-tight`, `--workers N`, `--order coord`, `--queue-max-coord C`) | the same engine on the QLR₅ cone (A1 campaign); parallel vertex-figure solves; optional focus on small-coordinate representatives |
 | s14 | `s14_witness.py --state <npz> --gf2 <pool> --f3 <pool>` | S7 witness scan of the small-coordinate orbits against the realisable pools; exact re-verification of hits |
 | s15 | `s15_chordal.py <rays.npy> [--skip-sa] [--out models.npz]` | Hubeny–Rota chordality filter + Algorithm 1 simple-tree construction with min-cut certificate |
 | s5 | `s5_orbits.py clr5.out [--raw] [--expect 162]` | rays → S₅ orbits; reconcile against 162 |
