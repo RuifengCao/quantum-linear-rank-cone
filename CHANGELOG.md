@@ -1,5 +1,17 @@
 # CHANGELOG
 
+## R24 (2026-09-11) -- hand-off fix
+- `run_job.py`: pass-through arguments are shell-quoted (`shlex.quote`), so
+  values with spaces such as `--engine-args="--order coord --queue-max-coord 20"`
+  reach the session intact (previously the quotes were dropped and argparse
+  rejected the fragments). Both `--engine-args=...` and `--engine-args "..."`
+  now work; the manual uses the `=` form.
+- `run_session.py --dry-run`: prints the step commands the session would run
+  and exits — use it before spending server time.
+- Diagnosis of the failed second-session attempt: the server was on a pre-R21
+  tree (no `--engine-args`, session still staged a `session-runner` folder);
+  the manual now makes `cat VERSION` a hard gate.
+
 ## R23 (2026-09-11) -- second-session tuning
 - `s4c_qlr.py`: `--order coord` and `--queue-max-coord C` (expand small-coordinate
   representatives first / only: in a sandbox smoke 46 % of the new orbits had

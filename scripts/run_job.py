@@ -4,6 +4,8 @@
   python3 scripts/run_job.py --list
   python3 scripts/run_job.py run <job-id> [--smoke] [--tag TAG] [--no-stage] [--no-resume] [-- EXTRA ARGS]
   e.g. python3 scripts/run_job.py run a1-campaign -- --budget 7200 --workers 12
+  e.g. python3 scripts/run_job.py run session -- --hours 6 --skip s7-pools --engine-args="--order coord --queue-max-coord 20"
+  (values that start with "--" must use the = form)
 
 What it does (the hand-off protocol between the analysis sandbox and a server):
   1. preflight: python deps, gcc / lrs / mplrs as declared by the job
@@ -40,7 +42,8 @@ ap.add_argument('--tag', default=None)
 ap.add_argument('--no-stage', action='store_true')
 ap.add_argument('--no-resume', action='store_true')
 a, unknown = ap.parse_known_args()   # unknown options (e.g. -- --budget 7200) are appended to the command
-extra = ' '.join(x for x in unknown if x != '--')
+import shlex
+extra = ' '.join(shlex.quote(x) for x in unknown if x != '--')   # keep quoted values intact, e.g. --engine-args="--order coord"
 
 if a.list or not a.job:
     for k, j in REG.items():

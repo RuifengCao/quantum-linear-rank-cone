@@ -26,6 +26,7 @@ ap.add_argument('--max-orbits', type=int, default=1900000, help='~40 MB of compr
 ap.add_argument('--skip', nargs='*', default=[], help='job ids to skip, e.g. --skip s7-pools')
 ap.add_argument('--engine-args', default='', help="extra s4c_qlr options for the campaign, e.g. '--order coord --queue-max-coord 20'")
 ap.add_argument('--smoke', action='store_true')
+ap.add_argument('--dry-run', action='store_true', help='print the planned step commands and exit')
 a = ap.parse_args()
 
 def run(job, extra=None, smoke=False):
@@ -34,6 +35,8 @@ def run(job, extra=None, smoke=False):
         cmd += ['--'] + extra
     t0 = time.time()
     print(f'\n##### session step: {" ".join(cmd[2:])}', flush=True)
+    if a.dry_run:
+        return 0, 0.0
     rc = subprocess.call(cmd)
     return rc, time.time() - t0
 
@@ -47,7 +50,7 @@ def last_match(path, pattern):
 steps = []
 t_session = time.time()
 # 1. self-test (fast in smoke mode, full otherwise)
-rc, el = run('selftest', smoke=False) if not a.smoke else (subprocess.call([sys.executable, 'selftest.py']), 0)
+rc, el = (run('selftest', smoke=False) if not a.smoke else ((0, 0.0) if a.dry_run else (subprocess.call([sys.executable, 'selftest.py']), 0)))
 steps.append(('selftest', rc, el, 'ALL PASS' if rc == 0 else 'FAILED'))
 if rc != 0:
     print('self-test failed -- session aborted (fix the environment first)')
@@ -73,6 +76,9 @@ for name, rc, el, key in steps:
     lines.append(f'| {name} | {rc} | {el/60:.1f} min | {key} |')
 lines += ['', f'total elapsed: {(time.time()-t_session)/3600:.2f} h', '',
           'Next: commit `results/` (all folders created by this session) and push.']
+if a.dry_run:
+    print('\n[dry run] no step executed; commands above are what the session would run')
+    sys.exit(0)
 open('SESSION_SUMMARY.md', 'w').write('\n'.join(lines) + '\n')
 print('\n'.join(lines))
 if not a.smoke:
