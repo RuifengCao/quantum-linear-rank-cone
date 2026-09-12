@@ -1,5 +1,18 @@
 # CHANGELOG
 
+## R26 (2026-09-12) -- second server session analysed; A1' closed
+- Session 2 (207 workers, coordinate-focused queue, 228 min): 1,136,210 →
+  **1,917,706 certified orbits (≥ 1,368,353,902 rays)**, all valid,
+  1,500-sample extremality 100 %; stopped at the 1.9 M ceiling (39.9 MB state).
+- Focus-mode lesson: 1.1 % of the 781k new orbits have max coordinate ≤ 12
+  (38 with ≤ 5) — no better than the unfocused session per orbit and ~30×
+  costlier per figure; the sandbox smoke's 46 % was a small-sample artefact.
+  A1' is declared closed; further server time goes to A2 tools.
+- Witness scan of the 8,538 new small-coordinate orbits: +2 unconditional
+  (GF(2)); merged asset `qlr5_new_witnessed` (37; 35 unconditional), small
+  catalogue `qlr5_small_orbits` 23,721, refreshed `qlr5_new_small200`;
+  gate G18 now reads its expectations from the manifest.
+
 ## R25 (2026-09-11) -- pre-session rehearsal on the real state
 - Rehearsal on the 1,136,210-orbit state: canonicalisation throughput ~3,100
   orbits/s (load ~6 min, peak ~1.3 GB); the main process was found to be the

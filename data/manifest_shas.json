@@ -102,12 +102,12 @@
  },
  "qlr5_new_small200": {
   "rows": 200,
-  "sha256": "35f8477393983c55a4e0ac0791d81a461e894bfde565333d9cd5ecf370ef3aaf"
+  "sha256": "420690faab40396804744703024951ee5690ac45abb6d3619f53ac6cc85b34fa"
  },
  "qlr5_small_orbits": {
-  "rows": 15183,
-  "sha256": "607eb72bb38d38b2da62c1e27f05b724249cd01ba100e056c0f6954a8ba0fb47",
-  "note": "all catalogue orbits with max coordinate <= 12 (from results/2026-09-11_a1-campaign)"
+  "rows": 23721,
+  "sha256": "1b7ee6e6ee31c0ab19bc9a95e0518f500933d6422dff060a9bd7bde9a658a751",
+  "note": "all catalogue orbits with max coordinate <= 12 (from results/2026-09-12_a1-campaign)"
  },
  "qlr5_new_witnessed35": {
   "rows": 35,
@@ -122,5 +122,20 @@
   "expanded": 31724,
   "skipped": 326,
   "where": "results/2026-09-11_a1-campaign/qlr_adj.npz"
+ },
+ "qlr5_new_witnessed": {
+  "rows": 37,
+  "sha256": "e5d937d54dde1cde5d28b66d7dd17a090d4c821f802c658d750d9d47b5385dea",
+  "unconditional": 35,
+  "conditional_f3": 2
+ },
+ "qlr5_campaign_2026-09-12": {
+  "orbits": 1917706,
+  "rays_lower_bound": 1368353902,
+  "max_coord": 583,
+  "expanded": 37842,
+  "skipped": 832,
+  "where": "results/2026-09-12_a1-campaign/qlr_adj.npz",
+  "note": "ceiling --max-orbits 1900000 reached; A1-prime campaign closed"
  }
 }

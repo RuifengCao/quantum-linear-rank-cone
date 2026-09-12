@@ -1,0 +1,12 @@
+{
+ "job": "a1-campaign",
+ "mode": "full",
+ "host": "autodl-container-bb334d9c5a-281f5dd8",
+ "nproc": 208,
+ "start_utc": "2026-09-11T15:54:13Z",
+ "end_utc": "2026-09-11T19:42:28Z",
+ "elapsed_s": 13694.8,
+ "exit_code": 0,
+ "cmd": "python3 scripts/s4c_qlr.py --state qlr_adj.npz --budget 14400 --rep-timeout 1800 --max-tight 400 --workers 24 --max-orbits 1900000 --budget 16200 --workers 207 --max-orbits 1900000 --order coord --queue-max-coord 20",
+ "checks": "growth.csv rows increase; STATE line printed; no 'bad' counts"
+}

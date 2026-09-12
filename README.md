@@ -45,26 +45,28 @@ and the changelog is explained in the glossary at the end.
   exactly 3 weak-monotonicity classes are valid but redundant; the remaining
   **31 coincide, as a set, with the 31 facet classes of pure28**. No new
   transcription was needed.
-- [~] **A1 campaign (R15–R21).** `scripts/s4c_qlr.py` runs a symmetry-aware
-  adjacency decomposition on the exact irredundant H-representation of QLR₅
-  (`qlr5_H_facets10860`), seeded with the 59 known orbits plus q₂. Sandbox
-  batches reached 32,106 orbits; the **first server session (2026-09-11,
-  207 workers, 119 min)** took the catalogue to **1,136,210 certified
-  extreme-ray orbits = at least 810,354,812 extreme rays** (orbit sizes
-  summed; 98.2 % of the orbits are free S₆-orbits of size 720), all valid,
-  2,000-sample extremality 100 %, coordinates up to 583. Growth structure:
-  the generic region (30–38 tight rows) is near saturation (≈ 6–8 new orbits
-  per figure), while figures with 43–115 tight rows still yield ≈ 100 new
-  orbits each — the mass sits in the more degenerate region, far from
-  saturation. The session stopped after 119 min because the queue was built
-  once at start-up (design flaw, fixed in R21: the queue is now rebuilt
-  whenever it runs dry). Statable results: **lower bounds of ≥ 1.14 M orbits
-  and ≥ 810 M rays (59 orbits previously known)**; the full catalogue lives in
-  `results/2026-09-11_a1-campaign/qlr_adj.npz` (23.7 MB, compressed); the
-  small-coordinate part (`qlr5_small_orbits`, 15,183 orbits with maximum
-  coordinate ≤ 12) and the S7 priority set (`qlr5_new_small200`) are bundled.
-  **Interpretation guard:** an unwitnessed orbit is not an unrealisable one —
-  the pools are random samples.
+- [x] **A1′ campaign closed (R15–R26).** `scripts/s4c_qlr.py` (symmetry-aware
+  adjacency decomposition on the exact irredundant H-representation of QLR₅,
+  seeded with the 59 known orbits plus q₂) ran in two server sessions
+  (207 workers): 2026-09-11 → 1,136,210 orbits; 2026-09-12 (coordinate-focused
+  queue) → **1,917,706 certified extreme-ray orbits = at least 1,368,353,902
+  extreme rays** (orbit sizes summed; 98.2 % free S₆-orbits), all valid,
+  extremality sampled 100 %, coordinates up to 583; the second session stopped
+  at the `--max-orbits 1.9 M` ceiling (state file 39.9 MB, the largest we
+  commit). **Statable results: ≥ 1.92 M orbits and ≥ 1.37 B rays (59 orbits
+  previously known); full catalogue in `results/2026-09-12_a1-campaign/qlr_adj.npz`;
+  the small-coordinate part `qlr5_small_orbits` (23,721 orbits with maximum
+  coordinate ≤ 12; 389 with ≤ 5) and the S7 priority set `qlr5_new_small200`
+  are bundled.** Growth structure: the generic region saturates quickly while
+  degenerate figures (43–200 tight rows) yield ~100 new orbits each.
+  **Lesson from the focused session:** expanding small-coordinate
+  representatives first does not harvest small-coordinate orbits efficiently —
+  only 1.1 % of the 781k new orbits had maximum coordinate ≤ 12 (38 with ≤ 5),
+  the same rate as the unfocused session, at ~30× the cost per figure (the
+  46 % seen in a sandbox smoke was a small-sample artefact). Further growth of
+  the catalogue has diminishing scientific value; the A1′ campaign is closed
+  and server time goes to A2 tools from here on. **Interpretation guard:** an
+  unwitnessed orbit is not an unrealisable one.
 - [x] **A2 pipeline, node 1: the Hubeny–Rota chordality filter (R22).**
   `epr1kit/chordal.py` implements the correlation hypergraph, the chordality
   test of its line graph (Theorem 1 of arXiv:2512.24490: chordal ⟺
@@ -79,16 +81,16 @@ and the changelog is explained in the glossary at the end.
   stabilizer-realisable at all, non-tree models or non-holographic stabilizer
   states are needed. The shortcut therefore adds no new S7-positive verdicts;
   the next A2 tool is a targeted (non-tree) stabilizer search.
-- [x] **First positive evidence for the S7 conjecture at scale (R21).** With
-  the 50 M-sample GF(2) pool (1,130,413 realisable vectors) the witness scan
-  (`s14_witness.py`) finds **35 of the newly discovered small-coordinate
-  extreme-ray orbits realised by stabilizer states** — 33 by 12-qubit graph
-  states (unconditional), 2 via the conditional F₃ layer — every hit
-  re-verified coordinate by coordinate (`qlr5_new_witnessed35`, gate G18).
-  All 35 have maximum coordinate ≤ 5 (two of them ≤ 2). The ledger of known
-  realisable extreme-ray orbits of QLR₅ grows from 59 to **94**; 263 further
-  orbits with maximum coordinate ≤ 5 remain unwitnessed and are the S7 front
-  line.
+- [x] **Positive evidence for the S7 conjecture at scale (R21, R26).** With the
+  50 M-sample GF(2) pool (1,130,413 realisable vectors) the witness scan
+  (`s14_witness.py`) finds **37 newly discovered small-coordinate extreme-ray
+  orbits realised by stabilizer states** — 35 by 12-qubit graph states
+  (unconditional), 2 via the conditional F₃ layer — every hit re-verified
+  coordinate by coordinate (`qlr5_new_witnessed`, gate G18). All have maximum
+  coordinate ≤ 5. The ledger of known realisable extreme-ray orbits of QLR₅
+  grows from 59 to **96**; the remaining 292 orbits with maximum coordinate
+  ≤ 5 are unwitnessed (random pools cannot decide them) and form the S7 front
+  line for the targeted non-tree search (A2).
 - [x] **The 59 = 40 + 17 + 2 ledger reproduced end to end (R13).** Under the
   S₆ (purification) symmetry the overlap between HEC and CLR orbits is exactly
   HEC #1; among the 26 S₆-orbits of six-qubit graph-state vectors exactly 2 are
@@ -341,8 +343,8 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | `qlr_seeds60.npy` | 60 | A1 seeds: the 59 known orbits + q₂ |
 | `qlr5_orbits_partial.npy` | **18,985** | certified partial catalogue of QLR₅ extreme-ray orbits (int16; all rank 30, S₆-distinct, ≥ 13.1 M rays; gate G17; wide int16 sha) |
 | `qlr5_new_small200.npy` | 200 | S7 priority test set: new orbits with the smallest coordinates (max coordinate 2..5) |
-| `qlr5_small_orbits.npy` | **15,183** | all catalogue orbits with maximum coordinate ≤ 12 (int8; S₆-distinct; from the 2026-09-11 session) |
-| `qlr5_new_witnessed35.npz` | 35 | new extreme-ray orbits witnessed realisable (rep, witness vector, multiple, permutation, source pool; 33 unconditional; gate G18) |
+| `qlr5_small_orbits.npy` | **23,721** | all catalogue orbits with maximum coordinate ≤ 12 (int8; S₆-distinct; from the 2026-09-12 session) |
+| `qlr5_new_witnessed.npz` | 37 | new extreme-ray orbits witnessed realisable (rep, witness vector, multiple, permutation, source pool; 35 unconditional; gate G18). `qlr5_new_witnessed35.npz` is the R21 snapshot |
 | `sixvar_template.csv` | — | transcription template for s9 |
 | `manifest_shas.json` | — | canonical sha256 of every row family (`sha_rows`; `sha_rows_wide` for wide coordinates) |
 

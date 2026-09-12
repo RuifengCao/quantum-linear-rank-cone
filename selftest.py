@@ -198,7 +198,7 @@ def main():
          and core.sha_rows_wide(RQ) == MAN['qlr5_orbits_partial']['sha256_int16'],
          f'{RQ.shape[0]} certified QLR5 orbits (valid; 400-sample S6-distinct; 40-sample rank 30; full checks recorded in manifest); H_facets 10860')
 
-    W35 = np.load(os.path.join(core.DATA, 'qlr5_new_witnessed35.npz'))
+    W35 = np.load(os.path.join(core.DATA, 'qlr5_new_witnessed.npz'))
     p6w = core.perms31_s6()
     okw = all(np.array_equal(W35['rep'][t].astype(np.int64)[p6w[int(W35['perm'][t])]] * int(W35['mult'][t]),
                              W35['witness'][t].astype(np.int64)) for t in range(W35['rep'].shape[0]))
@@ -206,10 +206,10 @@ def main():
         and all(core.rank_mod_p(HFq[(HFq @ W35['rep'][t].astype(np.int64)) == 0]) == 30 for t in range(W35['rep'].shape[0]))
     SMo = core.load('qlr5_small_orbits').astype(np.int64)
     ksm, _ = core.class_reps(SMo, p6w, offset=0, width='u16')
-    oks = SMo.shape[0] == 15183 and len(set(ksm)) == SMo.shape[0] and bool(((HFq @ SMo.T) >= 0).all()) \
+    oks = SMo.shape[0] == MAN['qlr5_small_orbits']['rows'] and len(set(ksm)) == SMo.shape[0] and bool(((HFq @ SMo.T) >= 0).all()) \
         and core.sha_rows(SMo) == MAN['qlr5_small_orbits']['sha256']
-    gate('G18 witness35+small', okw and oks and int((W35['source'] != 'F3cond').sum()) == 33,
-         f"35 witnessed new orbits re-verified exactly ({int((W35['source'] != 'F3cond').sum())} unconditional); small catalogue {SMo.shape[0]} valid, S6-distinct")
+    gate('G18 witness+small', okw and oks and int((W35['source'] != 'F3cond').sum()) == MAN['qlr5_new_witnessed']['unconditional'],
+         f"{W35['rep'].shape[0]} witnessed new orbits re-verified exactly ({int((W35['source'] != 'F3cond').sum())} unconditional); small catalogue {SMo.shape[0]} valid, S6-distinct")
 
     from epr1kit import chordal as _ch
     hecr = core.load('hec5_rays_maskorder').astype(np.int64)

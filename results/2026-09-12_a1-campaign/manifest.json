@@ -1,0 +1,27 @@
+{
+ "date": "2026-09-12",
+ "tag": "a1-campaign",
+ "note": "run_job a1-campaign exit 0 on autodl-container-bb334d9c5a-281f5dd8",
+ "files": {
+  "qlr_adj.npz": {
+   "bytes": 39862606,
+   "sha256": "37ef6411403e2bffc16f775ddfeb7cfc551690f24f1d647eed7ff3ad44ca440c",
+   "orbits": 1917706,
+   "expanded": 37842,
+   "skipped": 832,
+   "state_format": "npz"
+  },
+  "qlr_adj.npz.growth.csv": {
+   "bytes": 1530899,
+   "sha256": "efb7f7d54237be1b12306a4dd8953759a4424a0f458bb3ab3a0c7982d3e6758f"
+  },
+  "a1-campaign.log": {
+   "bytes": 426016,
+   "sha256": "746df798b5745a8cbdda93c1a95d7a0dce62f4071ae4cb2021ee534c3aef672d"
+  },
+  "JOB_STATUS.json": {
+   "bytes": 523,
+   "sha256": "aa99b956957047a6b2f72e2310562ce5cf7bf276da1433eb4b04f2db56a67d04"
+  }
+ }
+}
