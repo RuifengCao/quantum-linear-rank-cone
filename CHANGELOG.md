@@ -1,5 +1,39 @@
 # CHANGELOG
 
+## R27 (2026-09-30) -- A2: the five-party stabilizer cone is strictly smaller than QLR5
+- **Main result.** Single-common-information LP tests (`scripts/s17_ci_test.py`)
+  on the 300 frontier rays find 139 rays of QLR5 that are not in the stabilizer
+  cone; each exclusion has an exact rational certificate (`scripts/s17_certify.py`,
+  `data/s17_exclusions.json`) re-derived by an independent checker
+  (`epr1kit/stabcert.py`, gate G20). The certificates are six-variable linear rank
+  inequalities with the purifier as a variable (60 classes up to S6; 16 certified
+  facets of the qubit stabilizer cone). Screening the 1.9M-orbit A1' catalogue with
+  them excludes 1,794,496 orbits (93.6 %; `results/2026-09-30_s17-screen/`). This
+  contradicts the coincidence of the stabilizer and QLR cones at five parties
+  suggested by BCHS (arXiv:2006.16292). Validation: zero violations on 1,130,413
+  + 760 + 1,130 pool vectors, 200,000 random graph states with arbitrary party
+  sizes, and all realisation certificates.
+- **Targeted stabilizer search.** `cc/s16_anneal.c` + `scripts/s16_stab_search.py`
+  (normal-form qubit graph states, annealing, independent re-verification) and
+  `cc/s16_exhaust.c` (exhaustive, small N). Frontier: 144 realised (lambda 1/2/3:
+  126/17/1), 139 excluded, 17 undecided (`data/a2_frontier_status.json`). Controls:
+  37/37 pool witnesses re-realised; the two F3-conditional ones are now realised by
+  qubit graph states at lambda = 2 (all 37 unconditional).
+- **q2 is stabilizer-realisable**: 2*q2 is the entropy vector of a 12-qubit graph
+  state (checked also by state-vector SVD); q2 itself (lambda = 1) is not
+  (exhaustive: the 760 six-vertex graph-state vectors, recomputed independently).
+- New data: `s16_realisations.npz`, `s17_exclusions.json`, `s17_ineq_classes.npy`,
+  `s17_ineq_tight_rank.npy`, `a2_frontier300.npy`, `a2_frontier_status.json`;
+  gate G20 (24 gate lines in `--full`); jobs `a2-frontier` (X) and `s17-ci` (S).
+- **Erratum C6.** R26 stated that 292 unwitnessed orbits with maximum coordinate
+  <= 5 remain; the correct number is 299 (only 53 of the 60 seeds have maximum
+  coordinate <= 5; the R26 figure subtracted all 60).
+- **Erratum C7.** Rounds R14-R26 listed the machine verification of inequality
+  (4.4) ("64-row contraction table") as overdue. It was completed in R1 with a
+  self-produced contraction certificate (SAT-CEGAR, exhaustive check of
+  119,877,472 tuples) plus the exhaustive -1 violation by graph states; only the
+  optional transcription of the printed table remains.
+
 ## R26 (2026-09-12) -- second server session analysed; A1' closed
 - Session 2 (207 workers, coordinate-focused queue, 228 min): 1,136,210 →
   **1,917,706 certified orbits (≥ 1,368,353,902 rays)**, all valid,

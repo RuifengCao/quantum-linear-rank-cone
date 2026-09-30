@@ -137,5 +137,28 @@
   "skipped": 832,
   "where": "results/2026-09-12_a1-campaign/qlr_adj.npz",
   "note": "ceiling --max-orbits 1900000 reached; A1-prime campaign closed"
+ },
+ "s16_realisations": {
+  "rows": 181,
+  "frontier_realised": 144,
+  "sha256_rep": "bc0c272ad389e5cca2189cd66a507c94f890eb0aea34e7c68e3f01fef3059756"
+ },
+ "s17_exclusions": {
+  "rows": 139,
+  "sha256_rays": "b4e686ce7d4ca98ba38765ec9e14ed949ae27779daf19f26df047b643150aa1a"
+ },
+ "s17_ineq_classes": {
+  "rows": 60,
+  "sha256": "1ecca1f2c1d1ba544f02aa3f0b25cef95d8ede96439c5d1dea14301e194c4e81",
+  "certified_facets_qubit": 16
+ },
+ "a2_frontier300": {
+  "rows": 300,
+  "sha256": "755fbfc54d9e2613c2f48cc03a1207e8525038d57e90a44a6c70b6c4f38e8258"
+ },
+ "a2_catalogue_screen": {
+  "orbits": 1917706,
+  "excluded_by_60_classes": 1794496,
+  "where": "results/2026-09-30_s17-screen/"
  }
 }

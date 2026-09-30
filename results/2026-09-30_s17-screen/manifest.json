@@ -1,0 +1,15 @@
+{
+ "date": "2026-09-30",
+ "tag": "s17-screen",
+ "note": "sandbox; float32 screen of the 1.9M-orbit catalogue against 38,880 inequality images",
+ "files": {
+  "catalogue_cut_packed.npy": {
+   "bytes": 239842,
+   "sha256": "662124ef8fd4400c9ec6592552409cd3a4c30113c2c2cab8ed142b7074c40765"
+  },
+  "summary.json": {
+   "bytes": 376,
+   "sha256": "c47aa9534f482161add749c32074b63d80ff5a454d4d29ed744d83d83c1ea6e1"
+  }
+ }
+}

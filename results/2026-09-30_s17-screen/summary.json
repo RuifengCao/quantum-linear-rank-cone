@@ -1,0 +1,13 @@
+{
+ "catalogue": "results/2026-09-12_a1-campaign/qlr_adj.npz (reps order)",
+ "orbits": 1917706,
+ "excluded": 1794496,
+ "fraction": 0.935751,
+ "inequalities": "data/s17_ineq_classes.npy (60 classes, all 720 S6 images = 38,880 rows)",
+ "unpack": "np.unpackbits(np.load(...))[:1917706].astype(bool)",
+ "min_value_histogram_top": {
+  "-3": 16914,
+  "-2": 546000,
+  "-1": 29877
+ }
+}

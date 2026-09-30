@@ -103,6 +103,25 @@
    ],
    "tag": "mplrs",
    "checks": "then python3 scripts/s5_orbits.py clr5.mplrs.out --expect 162 -> MATCH (optional luxury)"
+  },
+  "a2-frontier": {
+   "tier": "X",
+   "runtime": "~1 h on 25 cores (17 undecided rays x lambda 2..4, 10 min each)",
+   "cmd": "python3 -c \"import json,numpy as np; s=json.load(open('data/a2_frontier_status.json')); np.save('a2_undecided.npy', np.load('data/a2_frontier300.npy')[s['undecided']])\" && python3 scripts/s16_stab_search.py a2_undecided.npy --lams 2 3 4 --seconds 600 --out a2_undecided_certs.npz",
+   "smoke": "python3 -c \"import json,numpy as np; s=json.load(open('data/a2_frontier_status.json')); np.save('a2_undecided.npy', np.load('data/a2_frontier300.npy')[s['undecided']][:2])\" && python3 scripts/s16_stab_search.py a2_undecided.npy --lams 2 --seconds 5 --out a2_undecided_certs.npz",
+   "outputs": [
+    "a2_undecided_certs.npz",
+    "a2_undecided_certs.npz.json"
+   ],
+   "tag": "a2-frontier",
+   "checks": "'realised and independently verified' lines; no WARNING lines"
+  },
+  "s17-ci": {
+   "tier": "S",
+   "runtime": "~7 s per ray (about 1,300 LPs)",
+   "cmd": "python3 scripts/s17_ci_test.py data/a2_frontier300.npy --first-only --out a2_ci.json",
+   "outputs": [],
+   "checks": "139 rays INFEASIBLE, 161 feasible for all pairs"
   }
  }
 }

@@ -219,6 +219,29 @@ def main():
     gate('G19 chordal', n_ch == 9 and n_ci == 6 and n_ver == 6 and all(r['sa_ssa'] for r in res19),
          f'HEC5 rays: chordal {n_ch} (expect 9), chordal&irreducible {n_ci} (6), simple trees verified by min-cut {n_ver}/6')
 
+    # G20 (R27): A2 certificates -- realisations re-verified by an independent GF(2) rank,
+    # every exclusion re-derived in exact rational arithmetic, inequality classes checked
+    # against the 760 six-qubit graph states.
+    import json as _js20
+    from epr1kit import stabcert as _sc
+    RZ = np.load(os.path.join(core.DATA, 's16_realisations.npz'))
+    sub20 = list(range(0, RZ['rep'].shape[0], max(1, RZ['rep'].shape[0] // 25)))
+    q2i = [k for k in range(RZ['rep'].shape[0]) if str(RZ['label'][k]) == 'q2']
+    okr = all(_sc.verify_realisation(RZ['rep'][k].astype(np.int64), RZ['lam'][k], RZ['sizes'][k], RZ['rows'][k])
+              for k in sorted(set(sub20 + q2i)))
+    EX = _js20.load(open(os.path.join(core.DATA, 's17_exclusions.json')))
+    oke = all(_sc.verify_exclusion(np.array(e['ray'], dtype=np.int64), e['X'], e['Y'], e['y'], F_S=e['F_S'])[0]
+              for e in EX)
+    IQ = core.load('s17_ineq_classes').astype(np.int64)
+    G760 = core.load('graphstate_vecs').astype(np.int64)
+    p6_20 = core.perms31_s6()
+    okg = all(int((G760[:, p6_20[k]] @ IQ.T).min()) >= 0 for k in range(0, 720, 7))
+    HF20 = core.load('qlr5_H_facets10860').astype(np.int64)
+    okq = all(bool((HF20 @ np.array(e['ray'], dtype=np.int64) >= 0).all()) for e in EX)
+    gate('G20 A2 certs', okr and oke and okg and okq and len(q2i) == 1,
+         f"realisations re-verified ({len(set(sub20 + q2i))} sampled incl. 2*q2); {len(EX)} exclusions re-derived exactly; "
+         f"{IQ.shape[0]} inequality classes vs 760 graph states; excluded rays lie in QLR5")
+
     if a.full:
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)
