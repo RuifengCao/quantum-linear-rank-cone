@@ -97,16 +97,41 @@ def ci_feasible(h, X, Y):
     return res.status == 0
 
 
-def pairs_for(h):
+def pairs_for(h, mode='all'):
+    """candidate CI pairs (X, Y) with I(X;Y) > 0 and neither set containing the other.
+    mode 'disjoint': only X & Y == 0, ordered by the pair types that were infeasible
+    most often on the R27 frontier ((1,2), (1,3), (2,2), (2,3), (1,4), (1,1)); every one
+    of the 139 R27 exclusions has a disjoint infeasible pair.  'all' is the complete test."""
     out = []
     subs = range(1, 64)
     for X in subs:
         for Y in subs:
             if Y <= X or (X & Y) == X or (X & Y) == Y:
                 continue
+            if mode == 'disjoint' and (X & Y):
+                continue
             if h[X] + h[Y] - h[X | Y] > 0:
                 out.append((X, Y))
+    if mode == 'disjoint':
+        rank = {(1, 2): 0, (1, 3): 1, (2, 2): 2, (2, 3): 3, (1, 4): 4, (1, 1): 5}
+        pc = lambda m: bin(m).count('1')
+        out.sort(key=lambda p: rank.get(tuple(sorted((pc(p[0]), pc(p[1])))), 9))
     return out
+
+
+_MODE, _FIRST = 'all', False
+
+
+def _test_one(item):
+    i, r = item
+    h = h_norm(np.asarray(r, dtype=np.int64))
+    bad = []
+    for X, Y in pairs_for(h, _MODE):
+        if not ci_feasible(h, X, Y):
+            bad.append((X, Y))
+            if _FIRST:
+                break
+    return i, bad
 
 
 def main():
@@ -115,21 +140,29 @@ def main():
     ap.add_argument('--out', default=None)
     ap.add_argument('--limit', type=int, default=None)
     ap.add_argument('--first-only', action='store_true', help='stop at the first infeasible pair per ray')
+    ap.add_argument('--pairs', default='all', choices=['all', 'disjoint'],
+                    help="'all' = complete single-CI test; 'disjoint' = fast screen (~4x fewer LPs)")
+    ap.add_argument('--workers', type=int, default=1)
     a = ap.parse_args()
     R = np.load(a.rays).astype(np.int64)
     if a.limit:
         R = R[:a.limit]
+    global _MODE, _FIRST
+    _MODE, _FIRST = a.pairs, a.first_only
     results = []
-    for i, r in enumerate(R):
-        h = h_norm(r)
-        bad = []
-        for X, Y in pairs_for(h):
-            if not ci_feasible(h, X, Y):
-                bad.append((X, Y))
-                if a.first_only:
-                    break
-        results.append({'index': i, 'infeasible_pairs': bad})
-        print(f'ray {i}: ' + (f'INFEASIBLE for {len(bad)} pair(s), first {bad[0]}' if bad else 'feasible for all pairs'), flush=True)
+    items = list(enumerate(R.tolist()))
+    if a.workers > 1:
+        from multiprocessing import get_context
+        with get_context('fork').Pool(a.workers) as pool:
+            it = pool.imap(_test_one, items, chunksize=4)
+            for i, bad in it:
+                results.append({'index': i, 'infeasible_pairs': bad})
+                print(f'ray {i}: ' + (f'INFEASIBLE for {len(bad)} pair(s), first {bad[0]}' if bad else f'feasible for all {a.pairs} pairs'), flush=True)
+    else:
+        for item in items:
+            i, bad = _test_one(item)
+            results.append({'index': i, 'infeasible_pairs': bad})
+            print(f'ray {i}: ' + (f'INFEASIBLE for {len(bad)} pair(s), first {bad[0]}' if bad else f'feasible for all {a.pairs} pairs'), flush=True)
     if a.out:
         json.dump(results, open(a.out, 'w'))
 

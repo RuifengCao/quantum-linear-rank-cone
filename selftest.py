@@ -242,6 +242,19 @@ def main():
          f"realisations re-verified ({len(set(sub20 + q2i))} sampled incl. 2*q2); {len(EX)} exclusions re-derived exactly; "
          f"{IQ.shape[0]} inequality classes vs 760 graph states; excluded rays lie in QLR5")
 
+    # G21 (R28): catalogue-wide cutting plane -- exclusion certificates (sampled; all with --full),
+    # every excluded ray inside QLR5, catalogue status accounting.
+    X21 = np.load(os.path.join(core.DATA, 's18_exclusions.npz'))
+    n21 = X21['ray'].shape[0]
+    idx21 = range(n21) if a.full else range(0, n21, 10)
+    ok21 = all(_sc.verify_exclusion(*_sc.unpack_exclusion(X21, i)[:4], F_S=_sc.unpack_exclusion(X21, i)[4])[0] for i in idx21)
+    ok21 = ok21 and bool(((HF20 @ X21['ray'].astype(np.int64).T) >= 0).all())
+    ST21 = _js20.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'results', '2026-10-01_s18-cutting-plane', 'summary.json')))
+    acc21 = ST21['excluded'] + ST21['realised'] + ST21['undecided'] == ST21['orbits'] == 1917706
+    gate('G21 cutting plane', ok21 and acc21 and core.load('s17_ineq_classes').shape[0] == 747,
+         f"{len(idx21)}/{n21} exclusion certificates re-derived exactly; catalogue {ST21['excluded']}/{ST21['realised']}/{ST21['undecided']} "
+         f"(excluded/realised/undecided); 747 inequality classes")
+
     if a.full:
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)

@@ -139,18 +139,17 @@
   "note": "ceiling --max-orbits 1900000 reached; A1-prime campaign closed"
  },
  "s16_realisations": {
-  "rows": 181,
-  "frontier_realised": 144,
-  "sha256_rep": "bc0c272ad389e5cca2189cd66a507c94f890eb0aea34e7c68e3f01fef3059756"
+  "rows": 747,
+  "sha256_rep": "c3a813b53176952f52291c8c4907f8b10a979705967d1882c75a8487e9a31882"
  },
  "s17_exclusions": {
   "rows": 139,
   "sha256_rays": "b4e686ce7d4ca98ba38765ec9e14ed949ae27779daf19f26df047b643150aa1a"
  },
  "s17_ineq_classes": {
-  "rows": 60,
-  "sha256": "1ecca1f2c1d1ba544f02aa3f0b25cef95d8ede96439c5d1dea14301e194c4e81",
-  "certified_facets_qubit": 16
+  "rows": 747,
+  "sha256": "d35d64654e8aad558448fccfe087ab2e6a835fafaf863d910282e89aac4390e2",
+  "certified_facets_qubit": 119
  },
  "a2_frontier300": {
   "rows": 300,
@@ -160,5 +159,20 @@
   "orbits": 1917706,
   "excluded_by_60_classes": 1794496,
   "where": "results/2026-09-30_s17-screen/"
+ },
+ "s18_exclusions": {
+  "rows": 4665,
+  "sha256_rays": "7e69e5e20dca01d5923ae257104eb19de99f7fa4b43e34d0d9cefadd4ab0f2be"
+ },
+ "stab5_extreme_reps": {
+  "rows": 599,
+  "sha256": "89800f4f22cb9b3d3e7374db0b3479c33875de356a2f2ac4847b496b5b96ba28"
+ },
+ "a2_catalogue_status": {
+  "orbits": 1917706,
+  "excluded": 1914541,
+  "realised": 599,
+  "undecided": 2566,
+  "where": "results/2026-10-01_s18-cutting-plane/"
  }
 }

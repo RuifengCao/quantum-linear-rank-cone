@@ -122,6 +122,19 @@
    "cmd": "python3 scripts/s17_ci_test.py data/a2_frontier300.npy --first-only --out a2_ci.json",
    "outputs": [],
    "checks": "139 rays INFEASIBLE, 161 feasible for all pairs"
+  },
+  "a2-survivors": {
+   "tier": "X",
+   "runtime": "~1 h on 200 cores (2,566 orbits: complete single-CI test + annealing lambda 1, 2 at 60 s)",
+   "cmd": "python3 -c \"import numpy as np; np.save('a2_surv.npy', np.load('results/2026-10-01_s18-cutting-plane/undecided_reps.npy'))\" && python3 scripts/s17_ci_test.py a2_surv.npy --first-only --pairs all --workers $(nproc) --out a2_surv_ci.json && python3 scripts/s16_stab_search.py a2_surv.npy --lams 1 2 --seconds 60 --max-n 64 --out a2_surv_certs.npz",
+   "smoke": "python3 -c \"import numpy as np; np.save('a2_surv.npy', np.load('results/2026-10-01_s18-cutting-plane/undecided_reps.npy')[:4])\" && python3 scripts/s17_ci_test.py a2_surv.npy --first-only --pairs all --workers 2 --out a2_surv_ci.json && python3 scripts/s16_stab_search.py a2_surv.npy --lams 1 --seconds 3 --out a2_surv_certs.npz",
+   "outputs": [
+    "a2_surv_ci.json",
+    "a2_surv_certs.npz",
+    "a2_surv_certs.npz.json"
+   ],
+   "tag": "a2-survivors",
+   "checks": "ci json written; 'realised and independently verified' line per lambda; no WARNING lines"
   }
  }
 }

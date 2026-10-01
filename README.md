@@ -67,6 +67,25 @@ and the changelog is explained in the glossary at the end.
   the catalogue has diminishing scientific value; the A1′ campaign is closed
   and server time goes to A2 tools from here on. **Interpretation guard:** an
   unwitnessed orbit is not an unrealisable one.
+- [x] **A2 at catalogue scale (R28, 2026-10-01).** A cutting-plane pass over the
+  whole A1′ catalogue (`scripts/s18_cutting_plane.py` logic; single common
+  information, disjoint pairs) classifies all 1,917,706 extreme-ray orbits of
+  QLR₅: **1,914,541 (99.84 %) are outside the stabilizer cone** (each by an exact
+  certificate; 747 inequality classes up to S₆, `data/s17_ineq_classes.npy`;
+  the 4,665 new certificates are in `data/s18_exclusions.npz`), **599 are
+  realised** by explicit graph states or are BCHS ledger rays — every realised
+  extreme ray of QLR₅ is an extreme ray of Stab₅, so **599 extreme-ray orbits of
+  the five-party stabilizer cone are now known (59 before)**,
+  `data/stab5_extreme_reps.npy` — and **2,566 are undecided** (feasible for every
+  disjoint-pair single-CI test, not yet realised;
+  `results/2026-10-01_s18-cutting-plane/`). **119 of the 747 classes are
+  certified facets** of the qubit stabilizer cone (`scripts/s19_facet_check.py`,
+  `data/s17_ineq_tight_rank.npy`). Validation: no violation of any class on the
+  1.13 M pool, the 760 six-qubit and 1,130 qutrit graph states, or any of the 747
+  realisation certificates. Literature anchor: DFZ's printed six-variable
+  inequalities (44)–(48), with the purifier as sixth variable, already exclude
+  45,292 catalogue orbits. Write-up with full proofs:
+  `docs/A2_stabilizer_vs_QLR.md` (human review pending).
 - [x] **A2 resolved in the negative: the five-party stabilizer cone is strictly
   smaller than the QLR₅ cone (R27, 2026-09-30).** QLR₅ here is the cone of
   Bao–Cheng–Hernández-Cuenca–Su (SciPost Phys. 9 (2020); arXiv:2002.05317 §2.3):
@@ -205,7 +224,7 @@ single-source lines in `data/dfz_ref28.csv`; optional `rays5` cross-check.
 
 ```
 # ---- A. Verify the completed results (optional, ~3 minutes in total) ----
-python3 selftest.py --full            # 24 gate lines, ~40 s; must be all green before anything else
+python3 selftest.py --full            # 25 gate lines, ~2 min; must be all green before anything else
 python3 scripts/s1_build_qlr.py --variant pure28 --workers 25     # seconds
 python3 scripts/s2_judge.py QLR_H_pure28.npy                      # expect: violated 0
 python3 scripts/s3_rank19.py QLR_H_pure28.npy                     # expect: 18/19, only #19 has rank 29
@@ -285,7 +304,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 
 | Stage | Command essentials | Purpose / expectation |
 | --- | --- | --- |
-| selftest | `selftest.py [--full] [--workers N]` | 24 regression gate lines; run first on any machine |
+| selftest | `selftest.py [--full] [--workers N]` | 25 regression gate lines; run first on any machine |
 | s1 | `--variant pure28` (current) / `pure`, `v3`, `pure2` (historical) | build the H-representation; seconds |
 | s2 | `s2_judge.py <H.npy>` | 760 graph-state judge; `pure*` variants must give 0 violations |
 | s3 | `s3_rank19.py <H.npy> [--extra-rows X]` | tight-rank test of the 19 HEC rays; pure28 → 18/19 |
@@ -294,7 +313,9 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | s14 | `s14_witness.py --state <npz> --gf2 <pool> --f3 <pool>` | S7 witness scan of the small-coordinate orbits against the realisable pools; exact re-verification of hits |
 | s15 | `s15_chordal.py <rays.npy> [--skip-sa] [--out models.npz]` | Hubeny–Rota chordality filter + Algorithm 1 simple-tree construction with min-cut certificate |
 | s16 | `s16_stab_search.py <rays.npy> --lams 1 2 --seconds 20 --out certs.npz` | targeted stabilizer search: annealing over normal-form qubit graph states (`cc/s16_anneal.c`), independent re-verification of every hit; `cc/s16_exhaust.c` for exhaustive small cases |
-| s17 | `s17_ci_test.py <rays.npy> [--first-only]` → `s17_certify.py --ray-file … --index i --X x --Y y` | common-information LP test of stabilizer realisability (six-variable linear rank); exact rational Farkas certificate for every exclusion |
+| s17 | `s17_ci_test.py <rays.npy> [--first-only] [--pairs disjoint] [--workers N]` → `s17_certify.py --ray-file … --index i --X x --Y y` | common-information LP test of stabilizer realisability (six-variable linear rank; `--pairs disjoint` is the fast screen, `all` the complete single-CI test); exact rational Farkas certificate for every exclusion |
+| s18 | `s18_cutting_plane.py --catalogue … --classes … --realised … --workers N` | catalogue-wide cutting-plane passes: test unresolved orbits, certify, add classes, re-screen |
+| s19 | `s19_facet_check.py classes.npy stab5_extreme_reps.npy [--pool …]` | exact rank of known realisable vectors on each inequality's hyperplane (30 = certified facet of the stabilizer cone) |
 | s5 | `s5_orbits.py clr5.out [--raw] [--expect 162]` | rays → S₅ orbits; reconcile against 162 |
 | s5b | `s5b_diff_rays.py rays5` | one-command cross-check against DFZ's published ray list |
 | s6 | `s6_sweep_clr_orbits.py reps.npy --H pure28` | CLR rays through the quantum cone; ledger count 40 |
@@ -398,9 +419,11 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | `qlr5_small_orbits.npy` | **23,721** | all catalogue orbits with maximum coordinate ≤ 12 (int8; S₆-distinct; from the 2026-09-12 session) |
 | `qlr5_new_witnessed.npz` | 37 | new extreme-ray orbits witnessed realisable (rep, witness vector, multiple, permutation, source pool; 35 unconditional; gate G18). `qlr5_new_witnessed35.npz` is the R21 snapshot |
 | `a2_frontier300.npy` + `a2_frontier_status.json` | 300 | the A2 frontier (max coordinate ≤ 5, not seed, not pool-witnessed; q₂ = index 299) and its status: realised 144 / excluded 139 / undecided 17 |
-| `s16_realisations.npz` | 181 | graph-state realisation certificates (rep, λ, party sizes, adjacency rows as uint64; label frontier / q2 / witness), gate G20 |
+| `s16_realisations.npz` | 747 | graph-state realisation certificates (rep, λ, party sizes, adjacency rows as uint64; label frontier / q2 / witness / catalogue), gate G20 |
 | `s17_exclusions.json` | 139 | exclusion certificates: ray, CI pair (X, Y), exact rational multipliers y of Shannon elemental inequalities on A..F,Z, S-form inequality F′, gate G20 |
-| `s17_ineq_classes.npy` + `s17_ineq_tight_rank.npy` | 60 | the distinct (up to S₆) S-form inequalities from the exclusions and the rank of their tight known realisable vectors (30 = certified facet of the qubit stabilizer cone; 16 classes) |
+| `s17_ineq_classes.npy` + `s17_ineq_tight_rank.npy` | **747** | the distinct (up to S₆) S-form inequalities from all exclusion certificates and the rank of their tight known realisable vectors (30 = certified facet of the qubit stabilizer cone; 119 classes) |
+| `s18_exclusions.npz` | 4,665 | catalogue-scale exclusion certificates (R28), compact: ray, CI pair, S-form, integer multipliers (`epr1kit.stabcert.unpack_exclusion`), gate G21 |
+| `stab5_extreme_reps.npy` + `stab5_extreme_src.npy` | **599** | known extreme-ray orbits of the five-party stabilizer cone (realised extreme rays of QLR₅; source: ledger59 / cert_r27 / cert_r28) |
 | `sixvar_template.csv` | — | transcription template for s9 |
 | `manifest_shas.json` | — | canonical sha256 of every row family (`sha_rows`; `sha_rows_wide` for wide coordinates) |
 
@@ -412,9 +435,11 @@ seconds and checks the sha.
 **⓪ A2 after R27.** (a) Human novelty check (≥ 3 communities: quantum
 information / entropy cones; information theory / linear rank inequalities;
 matroid theory / representability) before any claim leaves the repository;
-then write to the BCHS authors. (b) The undecided frontier rays: longer
-annealing at λ = 2, 3 (server job, see `jobs.json`), two-common-information LP
-tests. (c) S7′: compare with the DFZ six-variable lists when available.
+then write to the BCHS authors. (b) The 2,566 undecided catalogue orbits (including 17
+frontier rays): server job `a2-survivors` (`jobs.json`) runs long annealing at
+λ = 1, 2 and the complete single-CI test on them; two-common-information LP
+tests for whatever survives. (c) S7″/S7′: compare with the DFZ six-variable lists
+when available.
 The A1′ catalogue campaign is closed (R26); `s4c_qlr.py` remains available.
 
 **① Completeness cross-certification of the 162 (closed at the logical level,
@@ -474,7 +499,7 @@ This repository is public at
 
 - **CI:** `.github/workflows/selftest.yml` installs `lrslib` and the Python
   requirements and runs `python3 selftest.py --full` on every push and pull
-  request (all 24 gate lines must pass).
+  request (all 25 gate lines must pass).
 - **`.gitignore`** excludes rebuildable products (`QLR_H_pure28.npy`), the s7
   pools, logs and campaign state files. Large result files (> 50 MB pools)
   should go to Git LFS or to release assets; small results can be committed to

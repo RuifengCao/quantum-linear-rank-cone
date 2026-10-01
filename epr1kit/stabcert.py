@@ -152,3 +152,29 @@ def verify_exclusion(r, X, Y, y, F_S=None):
         if any((a != 0) != (b != 0) for a, b in zip(coef, F_S)) or len(ratios) != 1 or next(iter(ratios)) <= 0:
             return False, val
     return val < 0, val
+
+
+# ---------------------------------------------------------------- compact storage (R28)
+def pack_exclusions(certs, maxk=None):
+    """certs: list of dicts with ray, X, Y, F_S, y ({k: 'a/b'}).  Returns dict of arrays for np.savez."""
+    from fractions import Fraction
+    n = len(certs)
+    K = maxk or max(len(c['y']) for c in certs)
+    yk = np.full((n, K), -1, dtype=np.int16)
+    yn = np.zeros((n, K), dtype=np.int64)
+    yd = np.ones((n, K), dtype=np.int64)
+    for i, c in enumerate(certs):
+        for j, (k, v) in enumerate(sorted(c['y'].items(), key=lambda t: int(t[0]))):
+            f = Fraction(v)
+            yk[i, j] = int(k); yn[i, j] = f.numerator; yd[i, j] = f.denominator
+    return {'ray': np.array([c['ray'] for c in certs], dtype=np.int16),
+            'X': np.array([c['X'] for c in certs], dtype=np.int8),
+            'Y': np.array([c['Y'] for c in certs], dtype=np.int8),
+            'F_S': np.array([c['F_S'] for c in certs], dtype=np.int8),
+            'y_index': yk, 'y_num': yn, 'y_den': yd}
+
+
+def unpack_exclusion(Z, i):
+    from fractions import Fraction
+    y = {int(k): Fraction(int(a), int(b)) for k, a, b in zip(Z['y_index'][i], Z['y_num'][i], Z['y_den'][i]) if k >= 0}
+    return (Z['ray'][i].astype(np.int64), int(Z['X'][i]), int(Z['Y'][i]), y, Z['F_S'][i].astype(np.int64).tolist())

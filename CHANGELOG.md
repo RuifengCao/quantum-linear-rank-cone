@@ -1,5 +1,27 @@
 # CHANGELOG
 
+## R28 (2026-10-01) -- A2 at catalogue scale
+- Cutting plane over the whole A1' catalogue (1,917,706 orbits): 1,914,541
+  excluded from the stabilizer cone by exact certificates (747 inequality
+  classes up to S6; 4,665 new certificates in `data/s18_exclusions.npz`, all
+  re-derived exactly by `epr1kit.stabcert`), 599 realised (747 graph-state
+  certificates in `data/s16_realisations.npz`; every realised extreme ray of QLR5
+  is an extreme ray of Stab5 -> `data/stab5_extreme_reps.npy`), 2,566 undecided
+  (`results/2026-10-01_s18-cutting-plane/`).
+- 119 of the 747 classes certified as facets of the qubit stabilizer cone
+  (`scripts/s19_facet_check.py`).
+- `s17_ci_test.py`: `--pairs disjoint` fast screen (every infeasible pair found
+  so far is disjoint) and `--workers`; new `scripts/s18_cutting_plane.py`,
+  `scripts/s19_facet_check.py`; compact certificate storage in `epr1kit.stabcert`.
+- Literature anchor: DFZ's printed six-variable inequalities (44)-(48) (purifier
+  as sixth variable) exclude 45,292 catalogue orbits.
+- Headline counterexample changed to the smallest one: frontier ray 275 (10 qubit
+  units, maximum coordinate 4), cut by a certified facet (class 29) with a
+  26-term certificate; full write-up `docs/A2_stabilizer_vs_QLR.md`.
+- Gate G21 (25 gate lines in `--full`); job `a2-survivors` (X).
+- Incident: `pkill -f` matched its own shell and killed the controlling command
+  (pitfall 3 of R2 repeated); use `kill <pid>` from `ps` instead.
+
 ## R27 (2026-09-30) -- A2: the five-party stabilizer cone is strictly smaller than QLR5
 - **Main result.** Single-common-information LP tests (`scripts/s17_ci_test.py`)
   on the 300 frontier rays find 139 rays of QLR5 that are not in the stabilizer

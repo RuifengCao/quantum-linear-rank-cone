@@ -1,0 +1,19 @@
+{
+ "date": "2026-10-01",
+ "tag": "s18-cutting-plane",
+ "note": "sandbox; catalogue-wide single-CI cutting plane + annealing (R28)",
+ "files": {
+  "catalogue_status.npz": {
+   "bytes": 8106,
+   "sha256": "ea1329d67ad1ec65b9a87cecfdced9a2a095aca862d29a6dd82be8f5c365fbe5"
+  },
+  "summary.json": {
+   "bytes": 442,
+   "sha256": "0bdedb913036b1a9545041abb30c8a7e86114bc0f285da03e4df4868ced0007f"
+  },
+  "undecided_reps.npy": {
+   "bytes": 159220,
+   "sha256": "b9c998f74cdc59b46d3fecb864ae8470a8e2497fa4cde1152ce04606b7f2c0e8"
+  }
+ }
+}
