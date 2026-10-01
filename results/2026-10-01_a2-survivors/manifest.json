@@ -1,0 +1,27 @@
+{
+ "date": "2026-10-01",
+ "tag": "a2-survivors",
+ "note": "run_job a2-survivors exit 0 on autodl-container-857b4c9493-2d948778",
+ "files": {
+  "a2_surv_ci.json": {
+   "bytes": 147718,
+   "sha256": "637efec30b5cdedd6e610a95ab997bcf09fac9f0964064ff394a1a4633b48d99"
+  },
+  "a2_surv_certs.npz": {
+   "bytes": 9552,
+   "sha256": "3c3768e6bbf0312c557ef54643742179ba33cbd6f59169cd8cc49d1b5d8bb50a"
+  },
+  "a2_surv_certs.npz.json": {
+   "bytes": 48572,
+   "sha256": "2f2372b16adfbd2153d539b34a0972783e01e2d936f48699e6d4d64e00a31ed0"
+  },
+  "a2-survivors.log": {
+   "bytes": 94342,
+   "sha256": "4e2cd718c57e9ce13d2e1dc46d9764be46d7ba5cc44cbc3850298ea4e5ed994d"
+  },
+  "JOB_STATUS.json": {
+   "bytes": 851,
+   "sha256": "7d0aafd8daf403c9b392a53c9e354bd58da6a9f89f298848c0dea9999be66efd"
+  }
+ }
+}
