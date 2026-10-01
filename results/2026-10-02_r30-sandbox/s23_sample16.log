@@ -1,0 +1,17 @@
+128040 DFZ instances involving Z (11s)
+ray 52: feasible for all pairs; 1342 pairs, 5 cutting rounds, 53 DFZ rows activated, 0 solver troubles, 49s
+ray 158: feasible for all pairs; 1339 pairs, 15 cutting rounds, 81 DFZ rows activated, 0 solver troubles, 49s
+ray 193: feasible for all pairs; 1339 pairs, 31 cutting rounds, 148 DFZ rows activated, 0 solver troubles, 55s
+ray 250: feasible for all pairs; 1339 pairs, 20 cutting rounds, 109 DFZ rows activated, 0 solver troubles, 53s
+ray 339: feasible for all pairs; 1342 pairs, 11 cutting rounds, 72 DFZ rows activated, 0 solver troubles, 52s
+ray 362: feasible for all pairs; 1344 pairs, 20 cutting rounds, 136 DFZ rows activated, 0 solver troubles, 52s
+ray 430: feasible for all pairs; 1344 pairs, 9 cutting rounds, 78 DFZ rows activated, 0 solver troubles, 49s
+ray 460: feasible for all pairs; 1342 pairs, 12 cutting rounds, 118 DFZ rows activated, 0 solver troubles, 50s
+ray 475: feasible for all pairs; 1344 pairs, 31 cutting rounds, 122 DFZ rows activated, 0 solver troubles, 53s
+ray 500: feasible for all pairs; 1339 pairs, 33 cutting rounds, 151 DFZ rows activated, 0 solver troubles, 54s
+ray 625: feasible for all pairs; 1343 pairs, 23 cutting rounds, 130 DFZ rows activated, 0 solver troubles, 53s
+ray 699: feasible for all pairs; 1338 pairs, 39 cutting rounds, 169 DFZ rows activated, 0 solver troubles, 54s
+ray 727: feasible for all pairs; 1345 pairs, 29 cutting rounds, 146 DFZ rows activated, 0 solver troubles, 55s
+ray 729: feasible for all pairs; 1329 pairs, 31 cutting rounds, 104 DFZ rows activated, 0 solver troubles, 49s
+ray 806: feasible for all pairs; 1332 pairs, 18 cutting rounds, 117 DFZ rows activated, 0 solver troubles, 51s
+ray 904: feasible for all pairs; 1332 pairs, 23 cutting rounds, 122 DFZ rows activated, 0 solver troubles, 48s

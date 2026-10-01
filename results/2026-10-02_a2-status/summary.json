@@ -1,0 +1,21 @@
+{
+ "catalogue": "results/2026-09-12_a1-campaign/qlr_adj.npz",
+ "orbits": 1917706,
+ "excluded": 1915910,
+ "excluded_single_ci": 1914541,
+ "excluded_ci_ingleton": 1369,
+ "realised": 641,
+ "undecided": 1155,
+ "previous": "results/2026-10-01_a2-status (R29: 1,915,006 excluded / 630 realised / 2,070 undecided)",
+ "sources": [
+  "results/2026-10-01_a2-status (R29)",
+  "results/2026-10-02_a2-ingleton (server): CI+Ingleton LP over all pairs for the 2,070 undecided orbits (904 infeasible, 0 solver errors); qubit annealing at lambda = 1 (11 realisations); qutrit annealing (0)",
+  "R30 sandbox: exact certificates for the 904 (data/s22_ingleton_exclusions_a2i.json, 628 S6 classes in data/s22_ineq_classes_a2i.npy), re-verified by epr1kit.stabcert.verify_exclusion_ext"
+ ],
+ "status_codes": {
+  "0": "excluded by an exact single-common-information certificate (data/s17_ineq_classes.npy, 747 classes)",
+  "1": "realised (qubit graph-state certificate in data/s16_realisations.npz, qudit certificate in data/s21_qudit_realisations.npz, BCHS ledger, or results/2026-10-02_a2-ingleton/a2i_q2.npz (R30))",
+  "2": "single-CI feasible for all pairs and not yet realised or excluded",
+  "3": "excluded by a CI+Ingleton certificate (R29: data/s22_ingleton_exclusions.json, classes data/s22_ineq_classes.npy; R30: data/s22_ingleton_exclusions_a2i.json, classes data/s22_ineq_classes_a2i.npy)"
+ }
+}

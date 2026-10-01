@@ -1,0 +1,53 @@
+{
+ "date": "2026-10-02",
+ "tag": "r30-sandbox",
+ "note": "R30 sandbox: CI+Ingleton+DFZ on the 10 smallest and 16 random undecided orbits; longer qubit/qudit searches on the 10 smallest; nothing excluded or realised",
+ "files": {
+  "README.txt": {
+   "bytes": 1157,
+   "sha256": "14f74d120e887280dd8c7e9f8d2efbbbcebe54dd71d34730ad05e17368781a24"
+  },
+  "small10.npy": {
+   "bytes": 748,
+   "sha256": "13a23c35e0234832a2741f8a91be0bda40d273a32bb464af3d24475b6f49bdf5",
+   "rows": 10,
+   "sha_rows": "eda1fadfc95649726ac44427c123439384e3a22b88b2cff6899c21c8bf693dbf"
+  },
+  "s23_small10.json": {
+   "bytes": 1859,
+   "sha256": "7adee66ccb6524dea82556b07ca059c0332b5a24f97e29d779000e49c6b317d2"
+  },
+  "s23_small10.log": {
+   "bytes": 1141,
+   "sha256": "432844e201fe0c3cd9041cfc74724b1c4bd200f54eb702886733536b382a44b4"
+  },
+  "s23_sample16.json": {
+   "bytes": 2916,
+   "sha256": "a3bbc150d17b82e51fbc672026f94a9a55a4debd42b3c0fc776b50320242d846"
+  },
+  "s23_sample16.log": {
+   "bytes": 1808,
+   "sha256": "af6e673239eb9d5f48130722411ba775cd76c53c2d44cdf648934015a8d87df5"
+  },
+  "s10_q2_l2.npz.json": {
+   "bytes": 204,
+   "sha256": "64c31ea9cc2b2bb4ca76d4e7bdd75f8a9696a73e42b722a3d2ef1c12189e1153"
+  },
+  "s10_q3_l2.npz.json": {
+   "bytes": 219,
+   "sha256": "298bd52716a2031d1d4b38036c5aee416c6192b529fa49577411a1189faeb440"
+  },
+  "s10_q7_l1.npz.json": {
+   "bytes": 213,
+   "sha256": "a2b639b8680c0e6ac1b9caaa27f43d909f0038cfc57073e0abefaeef8d079a4f"
+  },
+  "s10_q5_l2.npz.json": {
+   "bytes": 219,
+   "sha256": "e1855e2609d936572dfafaf6cba3d23b301a0904239616ae52e0b1f6c4ae6192"
+  },
+  "search_small10.log": {
+   "bytes": 880,
+   "sha256": "3096957d1866f7c1a249279ba364de17a933a42119f392fc8d51a9b862db8a9f"
+  }
+ }
+}

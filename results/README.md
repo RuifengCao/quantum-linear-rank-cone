@@ -8,6 +8,8 @@ files, writes `manifest.json` (sha256 of every file; canonical row-family sha
 for 2-D integer `.npy` files) and prints the suggested commit message.
 Files larger than 50 MB (e.g. the s7 pools) do not go here: attach them to a
 GitHub Release instead and record the release tag in the manifest note.
+A folder is never overwritten: if the folder of the day already holds a staged
+result with the same tag, s13 stages into `<date>_<tag>-2`, `-3`, … (R30).
 
 Round-trip protocol with GitHub Desktop:
 1. Run the job on the server (or in the container).

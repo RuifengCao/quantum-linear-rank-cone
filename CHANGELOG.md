@@ -1,5 +1,49 @@
 # CHANGELOG
 
+## R30 (2026-10-01) -- CI + Ingleton on every undecided orbit; 641 extreme rays of Stab5
+- **Fourth server session** (`a2-ingleton`, 208 cores, 40 min, `results/2026-10-02_a2-ingleton/`,
+  server date 2026-10-02): the CI+Ingleton LP at every pair on the 2,070 undecided orbits finds
+  904 infeasible, 1,166 feasible, 0 solver errors (~17 min); qutrit annealing (p = 3, lambda = 1,
+  60 s) realises none of 1,969 orbits; qubit annealing with a new seed realises 11 (22-28 qubits).
+  `OMP_NUM_THREADS=25` was preset again and replaced by 208.
+- **904 exact certificates** (`data/s22_ingleton_exclusions_a2i.json`, 94 s with
+  `scripts/s22_certify_ext.py` in the sandbox), re-derived by `stabcert.verify_exclusion_ext`; every
+  one uses conditional Ingleton rows (3-29 of 17-52 terms). 628 new classes up to S6
+  (`data/s22_ineq_classes_a2i.npy`), disjoint from the 18 of R29. One-off validation: none of their
+  444,600 images is violated by any certificate, graph state, the F3 vectors, the 1,130,413 GF(2)
+  pool vectors (7,929 S6 orbits) or 46,000 random weighted graph states (qubits with 1-5 per party,
+  qutrits with 1-3); none cuts an orbit the server found feasible.
+- **Catalogue** (`results/2026-10-02_a2-status/`): 1,915,910 excluded (1,914,541 single-CI + 1,369
+  CI+Ingleton) / 641 realised / 1,155 undecided. `data/stab5_extreme_reps.npy` grows to 641 rows
+  (the last 11 are the server realisations, source `cert_r30`); its rows are exactly the realised
+  catalogue orbits. Exclusion rate by qubit count N at lambda = 1: 0 % (N <= 20, 10 orbits),
+  10 % (21-30), 33 % (31-40), 70 % (41-50), 88 % (51-64), 100 % (> 64, 101 orbits).
+- **`scripts/s23_ci_dfz.py`**: CI + Ingleton + the DFZ five-variable linear rank inequalities
+  (`data/dfz_ref28.csv`: eqs. (1)-(24) and Ingleton forms (36)-(39) of arXiv:0910.0284) on the
+  extension, five distinct elements contracted by any subset of the other two: 149,520 distinct
+  instances, 128,040 involving Z, used as cutting planes. All 10 orbits with N <= 20 stay feasible at
+  every pair (at most 166 DFZ rows activated per orbit). A random sample of 16 larger undecided
+  orbits is feasible as well (0 of 26 excluded): the DFZ rows add nothing measurable to CI + Ingleton
+  here. Longer sandbox searches on the 10 small orbits (qubits lambda = 2, 150 s; qutrits lambda = 2,
+  120 s; p = 7 lambda = 1 and p = 5 lambda = 2, 60 s) realise none. Raw output:
+  `results/2026-10-02_r30-sandbox/`.
+- **Gates**: G26 (904 certificates re-derived, classes, no realised vector or server-feasible ray cut,
+  11 realisations re-verified, status and accounting, 641 extreme rays = realised orbits); G27 (the 28
+  DFZ forms on random GF(2) arrangements, instance counts, the 21,480 instances on A..F hold for all
+  realised vectors). G25 now checks the first 630 rows of `stab5_extreme_reps.npy` against the R29
+  sha (`stab5_extreme_reps_r29` in `data/manifest_shas.json`). `--full`: 30 gate lines.
+- **CI hardening.** Run #17 (R29) hung in `apt-get update` for over an hour: the runner's Ubuntu
+  mirror (`azure.archive.ubuntu.com`) stopped answering and apt waited without an error, so
+  `selftest.py` never started; the re-run passed in 2 min. Both workflows now cap the job (40 min for
+  `selftest`, 60 min for the manual smokes) and every step; each `apt-get update` attempt is capped
+  at 150 s and retried up to three times, with apt's own retry and timeout options set (checked
+  against a fake apt-get that hangs on its first two calls: both attempts are killed, the third
+  succeeds, no process is left over). `actions/checkout@v5` and `actions/setup-python@v6` (Node 24;
+  run #18 warned that Node 20 actions are deprecated).
+- **`s13_results_commit.py` never overwrites a staged result**: a second staging with the same tag
+  on the same day goes to `<date>_<tag>-2`, `-3`, ... (README pitfall 18; it overwrote the R29
+  `results/2026-10-01_a2-status/` in the sandbox once and was undone from git before any commit).
+
 ## R29 (2026-10-01) -- S7'' refuted; qutrit realisations; 630 extreme rays of Stab5
 - **Third server session** (a2-survivors, 208 cores, 28 min, `results/2026-10-01_a2-survivors/`):
   the complete single-CI test excludes none of the 2,566 undecided orbits (all pairs feasible,

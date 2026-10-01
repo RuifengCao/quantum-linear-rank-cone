@@ -3,10 +3,22 @@ on: [push, pull_request]
 jobs:
   gates:
     runs-on: ubuntu-24.04   # pinned: ubuntu-latest moves to 26.04 from 2026-10-19
+    timeout-minutes: 40     # GitHub's default is 6 h; run #17 hung in apt-get update for over an hour
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with: {python-version: "3.12"}
-      - run: sudo apt-get update && sudo apt-get install -y lrslib build-essential
+      - name: apt packages (lrslib, build-essential)
+        timeout-minutes: 12
+        run: |
+          # a stalled Ubuntu mirror can hang apt-get without an error: cap every attempt and retry
+          APT="-o Acquire::Retries=3 -o Acquire::http::Timeout=30 -o Acquire::https::Timeout=30"
+          for i in 1 2 3; do
+            sudo timeout 150 apt-get $APT update && break
+            echo "apt-get update attempt $i did not complete; retrying in 10 s"; sleep 10
+          done
+          sudo timeout 300 apt-get $APT install -y lrslib build-essential
       - run: pip install -r requirements.txt
+        timeout-minutes: 8
       - run: python3 selftest.py --full
+        timeout-minutes: 15

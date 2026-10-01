@@ -221,22 +221,87 @@ linear rank inequalities exist on eight variables: Dougherty–Freiling–Zeger,
 single-CI certificates, 465 by CI+Ingleton certificates) / 630 realised / 2,070 undecided;
 630 known extreme-ray orbits of Stab₅.
 
-## 7. Open questions
+## 7. R30: CI + Ingleton on every undecided orbit
+
+The fourth server session (job `a2-ingleton`, `results/2026-10-02_a2-ingleton/`, 208 cores,
+40 min) ran `scripts/s17_ci_test.py --extension ingleton --pairs all` on the 2,070 orbits left
+undecided by R29: 904 are infeasible at some pair, 1,166 are feasible at every pair, and no LP
+ended in a solver error. Every one of the 904 verdicts carries an exact certificate
+(`scripts/s22_certify_ext.py`, 94 s in a 2-core sandbox; `data/s22_ingleton_exclusions_a2i.json`)
+that `stabcert.verify_exclusion_ext` re-derives term by term (gate G26); by Lemma 3 each orbit is
+outside Stab₅. Every certificate uses conditional Ingleton rows (3–29 of its 17–52 terms). The
+904 S-forms fall into 628 classes up to S₆ (`data/s22_ineq_classes_a2i.npy`), none of them equal
+to one of the 18 classes of R29.
+
+*Validation beyond the gate (sandbox, one-off).* None of the 444,600 S₆ images of the 628
+classes is violated by the 641 extreme-ray representatives, the 762 qubit and 16 qutrit
+realisation certificates, the 760 six-qubit graph states, the 1,130 F₃ vectors, the 1,130,413
+vectors of the GF(2) pool (reduced to their 7,929 S₆ orbits, each tested against every image),
+or 46,000 random weighted graph states (40,000 qubit states with 1–5 qubits per party, 6,000
+qutrit states with 1–3 qutrits per party; entropies up to 14). No image cuts any of the 1,166
+orbits the server found feasible at every pair; the 11 orbits realised in the same session are
+among those 1,166.
+
+*Realisations.* Qubit annealing with a new seed (60 s per orbit at λ = 1) realised 11 orbits,
+needing 22–28 qubits, each re-verified. Qutrit annealing (p = 3, 60 s at λ = 1) realised none
+and ended at a residual of at least 10 on 1,951 of the 1,969 orbits it tried: at this budget the
+qudit search is ineffective beyond small N.
+
+*Which orbits are excluded.* With N = Σ_P S(P) over the six parties (the number of qubits of a
+realisation at λ = 1):
+
+| N | orbits | excluded by CI+Ingleton |
+| --- | ---: | ---: |
+| ≤ 20 | 10 | 0 |
+| 21–30 | 565 | 58 (10 %) |
+| 31–40 | 738 | 245 (33 %) |
+| 41–50 | 421 | 294 (70 %) |
+| 51–64 | 235 | 206 (88 %) |
+| > 64 | 101 | 101 (100 %) |
+
+This is an observation about this catalogue, not a theorem.
+
+*The ten smallest undecided orbits* (N ≤ 20; rows 273, 396, 434, 484, 517, 807, 970, 973, 981,
+995 of `results/2026-10-02_a2-status/undecided_reps.npy`; row 981 is frontier ray 294) also pass
+the strongest test tried so far, `scripts/s23_ci_dfz.py`: at every pair the CI extension can be
+chosen to satisfy Shannon, every conditional Ingleton instance and all 128,040 instances that
+involve Z of the DFZ five-variable linear rank inequalities (arXiv:0910.0284 eqs. (1)–(24) and
+the Ingleton forms (36)–(39), as transcribed in `data/dfz_ref28.csv`; five distinct elements of
+A..F,Z, contracted by any subset of the other two). These are floating-point LP verdicts
+(cutting planes; at most 166 DFZ rows activated per orbit). The verdicts are relative to the
+transcribed rows: a line that is not a valid inequality could only produce false exclusions (none
+occurred), while a line transcribed too weakly could hide one. Both are settled by the human spot
+check of the 11 single-source lines of the CSV (README §7 ③(a)), which any exclusion built on
+these rows would need first. Longer realisation searches in the sandbox found nothing either: qubits at λ = 2 (150 s per
+orbit; best residuals 1–21), qutrits at λ = 2 (120 s), p = 7 at λ = 1 and p = 5 at λ = 2 (60 s
+each). A random sample of 16 larger undecided orbits (N > 20) is also feasible at every pair
+under CI + Ingleton + DFZ: on this catalogue the DFZ rows add nothing measurable to
+CI + Ingleton (0 of 26 orbits tested; raw output in `results/2026-10-02_r30-sandbox/`).
+
+**Catalogue after R30** (`results/2026-10-02_a2-status/`): 1,915,910 excluded (1,914,541 by
+single-CI certificates, 1,369 by CI+Ingleton certificates) / 641 realised / 1,155 undecided;
+641 known extreme-ray orbits of Stab₅.
+
+## 8. Open questions
 
 * ~~**S7″**~~ (Stab₅ = QLR₅ cut by all single-CI six-variable inequalities?) —
   **answered in the negative in R29** (Theorem 2). **S7′**: is Stab₅ equal to QLR₅
-  cut by *all* six-variable linear rank inequalities? Still open; the R29 exclusions are
+  cut by *all* six-variable linear rank inequalities? Still open; the R29 and R30 exclusions are
   themselves six-variable linear rank inequalities. (The six-variable list is not known to be
   complete; DFZ report 3,490 classes, some needing two common informations.)
 * Qubits versus qudits: are the 16 qutrit-realised orbits qubit-realisable at some λ?
-* The 2,070 undecided orbits (server job `a2-ingleton`), in particular the 10 with at most 20
-  qubits that survive qubits, qutrits, p = 5 and CI+Ingleton — among them frontier ray 294, the
-  last undecided ray of the R27 frontier (now 156 realised, 143 excluded, 1 undecided).
+* The 1,155 undecided orbits (`results/2026-10-02_a2-status/`), in particular the 10 with at most
+  20 qubits that survive qubits (λ = 1, 2), qutrits, p = 5, CI+Ingleton and CI+Ingleton+DFZ —
+  among them frontier ray 294, the last undecided ray of the R27 frontier (156 realised, 143
+  excluded, 1 undecided). Untried: two genuine common informations at once, and DFZ instances
+  with unions of elements in a slot.
 * The single-CI cone has extreme rays that are not extreme rays of QLR₅ (created
   by the cuts); they are not in the catalogue and are untested.
-* Facets: 628 of the 747 classes are not yet certified as facets.
+* Facets: 628 of the 747 single-CI classes are not certified as facets; the 646 CI+Ingleton
+  classes (18 + 628) are valid but neither checked for facetness nor compared with DFZ's
+  six-variable lists.
 
-## 8. Reproduce
+## 9. Reproduce
 
     python3 selftest.py --full                       # gate G20 re-derives every certificate
     python3 scripts/s17_ci_test.py data/a2_frontier300.npy --first-only --pairs disjoint --workers 2
@@ -246,3 +311,7 @@ single-CI certificates, 465 by CI+Ingleton certificates) / 630 realised / 2,070 
         --first-only --pairs all --extension ingleton --workers 2 --out ci.json
     python3 scripts/s22_certify_ext.py --rays results/2026-10-01_a2-status/undecided_reps.npy \
         --ci ci.json --extension ingleton --out certs.json
+    python3 scripts/s22_certify_ext.py --rays results/2026-10-01_a2-status/undecided_reps.npy \
+        --ci results/2026-10-02_a2-ingleton/a2i_ci.json --extension ingleton --out certs_a2i.json  # R30: 904, ~2 min
+    python3 scripts/s23_ci_dfz.py results/2026-10-02_a2-status/undecided_reps.npy \
+        --index 273 396 434 484 517 807 970 973 981 995 --out ci_dfz.json                         # R30: ~8 min

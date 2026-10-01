@@ -341,12 +341,96 @@ def main():
     cnt25 = tuple(int((sn23 == c).sum()) for c in (0, 1, 2, 3))
     acc25 = (cnt25 == (1914541, 630, 2070, 465) and S25['excluded'] == 1915006 and S25['realised'] == 630
              and S25['undecided'] == 2070 and sum(cnt25) == 1917706)
-    E25 = core.load('stab5_extreme_reps')
-    oke25b = E25.shape[0] == 630 and core.sha_rows(E25) == MAN['stab5_extreme_reps']['sha256']
+    E25 = core.load('stab5_extreme_reps')[:630]          # R30 appends to this file; the R29 rows come first
+    oke25b = E25.shape[0] == 630 and core.sha_rows(E25) == MAN['stab5_extreme_reps_r29']['sha256']
     gate('G25 CI+Ingleton', oke25 and okw25 and okc25 and okr25 and acc25 and oke25b,
          f"{len(X25)} exclusion certificates re-derived; 18 orbits exactly single-CI feasible (S7'' refuted); "
          f"{st3.size} status-3 orbits cut by {C25.shape[0]} classes, 0 realised rays cut; "
-         f"catalogue {S25['excluded']}/{S25['realised']}/{S25['undecided']}; {E25.shape[0]} extreme rays of Stab5")
+         f"catalogue {S25['excluded']}/{S25['realised']}/{S25['undecided']}; {E25.shape[0]} extreme rays of Stab5 (R29)")
+
+    # G26 (R30): fourth server session (a2-ingleton).  Every infeasible verdict of the server's
+    # CI+Ingleton LP (904 of 2,070, no solver error) carries an exact certificate re-derived by the
+    # independent checker; the 904 inequalities fall into the 628 S6 classes of
+    # data/s22_ineq_classes_a2i.npy; no image of a class is violated by a realised vector or cuts a ray
+    # the server found feasible for all pairs; the 11 server realisations are re-verified; status update,
+    # accounting, and the 641 extreme rays of Stab5 (= the realised catalogue orbits).
+    X26 = json.load(open(os.path.join(core.DATA, 's22_ingleton_exclusions_a2i.json')))['certificates']
+    CI26 = json.load(open(os.path.join(base23, '2026-10-02_a2-ingleton', 'a2i_ci.json')))
+    U26 = np.load(os.path.join(base23, '2026-10-01_a2-status', 'undecided_reps.npy')).astype(np.int64)
+    inf26 = sorted(x['index'] for x in CI26 if x['infeasible_pairs'])
+    oke26 = (len(CI26) == U26.shape[0] == 2070 and not any(x['lp_errors'] for x in CI26) and len(inf26) == 904
+             and [c['index'] for c in X26] == inf26
+             and all(np.array_equal(np.array(c['ray'], dtype=np.int64), U26[c['index']])
+                     and _sc.verify_exclusion_ext(U26[c['index']], c['X'], c['Y'],
+                                                  [(tuple(d), v) for d, v in c['terms']], F_S=c['F_S'])[0] for c in X26))
+    C26 = core.load('s22_ineq_classes_a2i').astype(np.int64)
+
+    def _canon26(F):
+        F = np.asarray(F, dtype=np.int64)
+        return np.unique((F // int(np.gcd.reduce(np.abs(F))))[p6_20], axis=0)[0]
+    okk26 = (C26.shape[0] == 628 and core.sha_rows(C26) == MAN['s22_ineq_classes_a2i']['sha256']
+             and len({c['class'] for c in X26}) == 628
+             and all(np.array_equal(_canon26(c['F_S']), C26[c['class']]) for c in X26))
+    I26 = np.unique(C26[:, p6_20].reshape(-1, 31), axis=0)
+    If26 = I26.T.astype(np.float32).copy()
+
+    def _min26(V):          # exact in float32: |coef| <= 100, entries <= 30, 31 terms << 2^24
+        V = np.asarray(V, dtype=np.int64)
+        assert int(np.abs(I26).max()) * max(1, int(np.abs(V).max())) * 31 < 2 ** 24
+        return min(float((V[s:s + 128].astype(np.float32) @ If26).min()) for s in range(0, V.shape[0], 128))
+    E26 = core.load('stab5_extreme_reps')
+    REAL26 = np.vstack([E26, np.load(os.path.join(core.DATA, 's16_realisations.npz'))['rep'].astype(np.int64),
+                        Q24['rep'].astype(np.int64), G760])
+    feas26 = U26[np.setdiff1d(np.arange(U26.shape[0]), inf26)]
+    okr26 = _min26(REAL26) >= 0 and _min26(feas26) >= 0
+    Q26 = np.load(os.path.join(base23, '2026-10-02_a2-ingleton', 'a2i_q2.npz'))
+    i26 = Q26['index'].astype(np.int64)
+    okq26 = i26.size == 11 and not set(i26.tolist()) & set(inf26) and all(
+        np.array_equal(Q26['rep'][k].astype(np.int64), U26[i26[k]])
+        and _sc.verify_realisation(U26[i26[k]], int(Q26['lam'][k]), Q26['sizes'][k], Q26['rows'][k]) for k in range(i26.size))
+    sn26 = np.load(os.path.join(base23, '2026-10-02_a2-status', 'catalogue_status.npz'))['status']
+    exp26 = sn23.copy(); st2_26 = np.flatnonzero(sn23 == 2)
+    exp26[st2_26[inf26]] = 3; exp26[st2_26[i26]] = 1
+    S26 = json.load(open(os.path.join(base23, '2026-10-02_a2-status', 'summary.json')))
+    cnt26 = tuple(int((sn26 == c).sum()) for c in (0, 1, 2, 3))
+    acc26 = (np.array_equal(sn26, exp26) and cnt26 == (1914541, 641, 1155, 1369)
+             and (S26['excluded'], S26['realised'], S26['undecided']) == (1915910, 641, 1155)
+             and np.array_equal(np.load(os.path.join(base23, '2026-10-02_a2-status', 'undecided_reps.npy')).astype(np.int64),
+                                CAT[sn26 == 2].astype(np.int64)))
+    src26 = np.load(os.path.join(core.DATA, 'stab5_extreme_src.npy'))
+    oke26b = (E26.shape[0] == 641 and core.sha_rows(E26) == MAN['stab5_extreme_reps']['sha256']
+              and sorted(map(tuple, E26[630:].tolist())) == sorted(map(tuple, Q26['rep'].astype(np.int64).tolist()))
+              and bool((src26[630:] == 'cert_r30').all())
+              and sorted(map(tuple, E26.tolist())) == sorted(map(tuple, CAT[sn26 == 1].astype(np.int64).tolist())))
+    gate('G26 a2-ingleton', oke26 and okk26 and okr26 and okq26 and acc26 and oke26b,
+         f"{len(X26)}/{len(inf26)} CI+Ingleton certificates re-derived (2070 orbits tested, 0 solver errors), "
+         f"{C26.shape[0]} classes, 0 realised vectors and 0 server-feasible rays cut by {I26.shape[0]} images; "
+         f"{i26.size}/11 server realisations re-verified; catalogue {S26['excluded']}/{S26['realised']}/{S26['undecided']}; "
+         f"{E26.shape[0]} extreme rays of Stab5")
+
+    # G27 (R30): DFZ five-variable linear rank inequalities on the 7-element extension
+    # (scripts/s23_ci_dfz.py).  The 28 transcribed forms hold on random GF(2) subspace arrangements;
+    # instance counts; every instance on A..F holds for h_norm of every realised vector.
+    import s23_ci_dfz as _d27
+    D27 = _d27.load_dfz()
+    rng27 = np.random.default_rng(27)
+    oko27 = True
+    for _ in range(60):
+        dim = int(rng27.integers(3, 7))
+        gens = [rng27.integers(0, 2, size=(int(rng27.integers(1, 4)), dim)) for _j in range(5)]
+        hr = {m: _sc.gf2_rank(np.vstack([gens[j] for j in range(5) if m >> j & 1])) for m in range(1, 32)}
+        oko27 = oko27 and all(sum(v * hr[m] for m, v in c.items()) >= 0 for c in D27.values())
+    inst27 = _d27.dfz_instances(ineqs=D27)
+    rows27 = [r for r, _ in inst27 if not any(M >> 6 & 1 for M in r)]
+    A27 = np.zeros((len(rows27), 64))
+    for k, r in enumerate(rows27):
+        for M, v in r.items():
+            A27[k, M] = v
+    H27 = np.stack([_ci22.h_norm(v) for v in REAL26], axis=1).astype(float)
+    okv27 = float((A27 @ H27).min()) >= 0
+    gate('G27 DFZ ext', len(D27) == 28 and oko27 and len(inst27) == 149520 and len(rows27) == 21480 and okv27,
+         f"{len(D27)} DFZ forms (24 + 4 Ingleton) valid on 60 random GF(2) arrangements; {len(inst27)} instances on "
+         f"A..F,Z ({len(inst27) - len(rows27)} with Z); the {len(rows27)} on A..F hold for all {REAL26.shape[0]} realised vectors")
 
     if a.full:
         V3 = core.build_qlr('v3')

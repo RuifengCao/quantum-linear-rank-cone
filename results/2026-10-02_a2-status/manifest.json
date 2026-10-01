@@ -1,0 +1,21 @@
+{
+ "date": "2026-10-02",
+ "tag": "a2-status",
+ "note": "sandbox R30 (2026-10-01 BST): catalogue status after the a2-ingleton server results (server date 2026-10-02) and the R30 exact certificates",
+ "files": {
+  "catalogue_status.npz": {
+   "bytes": 8388,
+   "sha256": "cf31b78e0c2883f69680ca1b9228f9c866b006441fba5f5709a488615777050d"
+  },
+  "undecided_reps.npy": {
+   "bytes": 71738,
+   "sha256": "58472d382a39c575ccf127eafe70dd2194a074fdd278c528bf0dd4de9cfb99cf",
+   "rows": 1155,
+   "sha_rows": "95f204812a03ff954df759c251b51d3d6d466156654c9e63dbafa73e91794c1a"
+  },
+  "summary.json": {
+   "bytes": 1384,
+   "sha256": "2df4961b0e34a9d447cb56a778082642cd34c22c05c8d0a570195ceada4fd831"
+  }
+ }
+}

@@ -1,0 +1,11 @@
+128040 DFZ instances involving Z (10s)
+ray 273: feasible for all pairs; 1336 pairs, 24 cutting rounds, 166 DFZ rows activated, 0 solver troubles, 50s
+ray 396: feasible for all pairs; 1340 pairs, 22 cutting rounds, 132 DFZ rows activated, 0 solver troubles, 49s
+ray 434: feasible for all pairs; 1332 pairs, 19 cutting rounds, 128 DFZ rows activated, 0 solver troubles, 46s
+ray 484: feasible for all pairs; 1334 pairs, 10 cutting rounds, 56 DFZ rows activated, 0 solver troubles, 47s
+ray 517: feasible for all pairs; 1336 pairs, 15 cutting rounds, 105 DFZ rows activated, 0 solver troubles, 49s
+ray 807: feasible for all pairs; 1336 pairs, 4 cutting rounds, 16 DFZ rows activated, 0 solver troubles, 44s
+ray 970: feasible for all pairs; 1341 pairs, 27 cutting rounds, 110 DFZ rows activated, 0 solver troubles, 49s
+ray 973: feasible for all pairs; 1336 pairs, 5 cutting rounds, 36 DFZ rows activated, 0 solver troubles, 45s
+ray 981: feasible for all pairs; 1337 pairs, 0 cutting rounds, 0 DFZ rows activated, 0 solver troubles, 42s
+ray 995: feasible for all pairs; 1339 pairs, 26 cutting rounds, 144 DFZ rows activated, 0 solver troubles, 48s

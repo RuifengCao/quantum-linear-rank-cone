@@ -1,0 +1,14 @@
+kernel: gcc -O3 -march=native -fopenmp; OpenMP threads 1
+lambda=2: 10 rays tried, 0 realised and independently verified (cumulative 0/10; 1501s)
+certificates -> <sandbox>/s10_q2_l2.npz
+kernel: gcc -O3 -march=native -fopenmp; OpenMP threads 1
+kernel: gcc -O3 -march=native -fopenmp; OpenMP threads 2
+p=3 lambda=2: 10 rays tried, 0 realised by qudit graph states and independently verified (cumulative 0/10; 607s)
+certificates -> <sandbox>/s10_q3_l2.npz
+kernel: gcc -O3 -march=native -fopenmp; OpenMP threads 2
+p=7 lambda=1: 10 rays tried, 0 realised by qudit graph states and independently verified (cumulative 0/10; 301s)
+certificates -> <sandbox>/s10_q7_l1.npz
+kernel: gcc -O3 -march=native -fopenmp; OpenMP threads 2
+p=5 lambda=2: 10 rays tried, 0 realised by qudit graph states and independently verified (cumulative 0/10; 308s)
+certificates -> <sandbox>/s10_q5_l2.npz
+ALLDONE

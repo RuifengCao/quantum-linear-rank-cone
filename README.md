@@ -67,6 +67,28 @@ and the changelog is explained in the glossary at the end.
   the catalogue has diminishing scientific value; the A1′ campaign is closed
   and server time goes to A2 tools from here on. **Interpretation guard:** an
   unwitnessed orbit is not an unrealisable one.
+- [x] **A2, R30 (2026-10-01): CI + Ingleton on every undecided orbit; 641 extreme rays of Stab₅.**
+  The fourth server session (`a2-ingleton`, 208 cores, 40 min,
+  `results/2026-10-02_a2-ingleton/`) ran the CI+Ingleton LP at every pair on the
+  2,070 undecided orbits: **904 are excluded**, each by an exact certificate
+  (`data/s22_ingleton_exclusions_a2i.json`, re-derived by
+  `stabcert.verify_exclusion_ext`, gate G26); their inequalities form 628 new
+  classes up to S₆ (`data/s22_ineq_classes_a2i.npy`), none violated by any known
+  realisable vector (all certificates, the graph states, the 1.13 M GF(2) pool
+  reduced to 7,929 S₆ orbits, 46,000 random qubit/qutrit graph states with up to
+  5 qubits per party) and none cutting an orbit the server found feasible.
+  Qubit annealing with a new seed realised **11 more orbits** (22–28 qubits);
+  qutrit annealing realised none. **Catalogue: 1,915,910 excluded (1,914,541
+  single-CI + 1,369 CI+Ingleton) / 641 realised / 1,155 undecided**
+  (`results/2026-10-02_a2-status/`); **641 known extreme-ray orbits of Stab₅**.
+  The exclusion rate grows with the number N of qubits a λ = 1 realisation
+  would need: 10 % at N = 21–30, 88 % at 51–64, all 101 orbits with N > 64.
+  The 10 orbits with N ≤ 20 (frontier ray 294 among them) survive, also
+  against CI + Ingleton + all 128,040 DFZ five-variable instances involving Z
+  (`scripts/s23_ci_dfz.py`, floating-point verdicts; instances checked by
+  gate G27) and against longer qubit/qudit searches in the sandbox; a random
+  sample of 16 larger undecided orbits is not excluded by the DFZ rows either
+  (`results/2026-10-02_r30-sandbox/`).
 - [x] **A2, R29 (2026-10-01): S7″ refuted, qudit realisations, 630 extreme rays of Stab₅.**
   (i) **Single common information does not suffice.** 18 extreme-ray orbits of
   QLR₅ pass *every* single-CI test exactly (rational witnesses for all 24,057
@@ -252,7 +274,7 @@ single-source lines in `data/dfz_ref28.csv`; optional `rays5` cross-check.
 
 ```
 # ---- A. Verify the completed results (optional, ~3 minutes in total) ----
-python3 selftest.py --full            # 28 gate lines + ALL PASS, ~3 min; must be all green first
+python3 selftest.py --full            # 30 gate lines + ALL PASS, ~3 min; must be all green first
 python3 scripts/s1_build_qlr.py --variant pure28 --workers 25     # seconds
 python3 scripts/s2_judge.py QLR_H_pure28.npy                      # expect: violated 0
 python3 scripts/s3_rank19.py QLR_H_pure28.npy                     # expect: 18/19, only #19 has rank 29
@@ -325,7 +347,7 @@ Release instead). Engine options can be overridden after `--`.
 | `s17-ci` | S | ~7 s per ray (about 1,300 LPs) | — |
 | `a2-frontier` | X | ~1 h on 25 cores (17 frontier rays, λ = 2..4, 10 min each) | 2 rays, λ = 2, 5 s |
 | `a2-survivors` | X | done 2026-10-01 (28 min on 208 cores): complete single-CI test on 2,566 orbits + annealing at λ = 1, 2 | 4 orbits, 3 s annealing (~40 s) |
-| **`a2-ingleton`** | X | ~1 h on 200 cores (2,070 orbits: complete CI+Ingleton test; qutrit and second-seed qubit annealing at λ = 1, 60 s) | 2 orbits, 3 s annealing (~3 min) |
+| `a2-ingleton` | X | done 2026-10-02 (40 min on 208 cores): complete CI+Ingleton test on 2,070 orbits (904 excluded), qutrit and second-seed qubit annealing at λ = 1, 60 s (0 + 11 realised) | 2 orbits, 3 s annealing (~3 min) |
 
 **Rule:** every tier-X job is handed over only after its smoke variant has
 passed in the sandbox (and, optionally, in the manual CI workflow
@@ -336,7 +358,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 
 | Stage | Command essentials | Purpose / expectation |
 | --- | --- | --- |
-| selftest | `selftest.py [--full] [--workers N]` | 28 regression gate lines (G0–G25) + ALL PASS; run first on any machine |
+| selftest | `selftest.py [--full] [--workers N]` | 30 regression gate lines (G0–G27) + ALL PASS; run first on any machine |
 | s1 | `--variant pure28` (current) / `pure`, `v3`, `pure2` (historical) | build the H-representation; seconds |
 | s2 | `s2_judge.py <H.npy>` | 760 graph-state judge; `pure*` variants must give 0 violations |
 | s3 | `s3_rank19.py <H.npy> [--extra-rows X]` | tight-rank test of the 19 HEC rays; pure28 → 18/19 |
@@ -349,6 +371,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | s18 | `s18_cutting_plane.py --catalogue … --classes … --realised … --workers N` | catalogue-wide cutting-plane passes: test unresolved orbits, certify, add classes, re-screen |
 | s19 | `s19_facet_check.py classes.npy stab5_extreme_reps.npy [--pool …]` | exact rank of known realisable vectors on each inequality's hyperplane (30 = certified facet of the stabilizer cone) |
 | s17 + Ingleton | `s17_ci_test.py <rays.npy> --extension ingleton [--workers N]` → `s22_certify_ext.py --rays … --ci … --out …` | R29: the CI extension must also satisfy every conditional Ingleton instance involving Z; exact certificates with typed terms, checked by `stabcert.verify_exclusion_ext` |
+| s23 | `s23_ci_dfz.py <rays.npy> [--index …] [--out …]` | R30: CI + Ingleton + the 128,040 DFZ five-variable instances involving Z, as cutting planes, at every pair (floating-point verdicts; no certificate path yet) |
 | s20 | `s20_residuals.py <rays.npy> --lam 1 --seconds 20 --runs 3` | where qubit annealing gets stuck: residual vector of the best state of several independent runs (diagnostic; also keeps any hit as a certificate) |
 | s21 | `s21_qudit_search.py <rays.npy> --p 3 --lams 1 --seconds 60` ; `--self-test` | qudit (p = 3, 5, 7) graph-state search (`cc/s21_anneal_gfp.c`), independent GF(p) re-verification; the self-test checks S(X) = rank_GF(p) W[X, X^c] against exact state vectors |
 | s5 | `s5_orbits.py clr5.out [--raw] [--expect 162]` | rays → S₅ orbits; reconcile against 162 |
@@ -444,6 +467,18 @@ passed in the sandbox (and, optionally, in the manual CI workflow
     16 orbits that stalled at one unit of residual for qubits were realised by
     qutrits at once, and one was realised by a qubit run with a different seed.
     An unrealised orbit is not evidence against stabilizer realisability.
+17. **A hung CI run is not a red gate (R30).** Run #17 (R29) hung for over an
+    hour in `apt-get update`: the runner's Ubuntu mirror stopped answering and
+    apt waited without an error, so `selftest.py` never started. The workflows
+    now cap every step (each `apt-get update` attempt 150 s, three attempts;
+    the whole job 40 min). A run that fails or hangs before the selftest step
+    says nothing about the code: cancel it and use "Re-run all jobs".
+18. **Staging twice on one day (R30).** `s13_results_commit.py` (and hence
+    `run_job.py`) used to write into an existing `results/<date>_<tag>/` when
+    called again with the same tag on the same day, overwriting the files
+    staged there (it happened once in the R30 sandbox and was undone from git
+    before anything was committed). It now stages into `<date>_<tag>-2`, `-3`,
+    … and prints a NOTE.
 
 ## 6. Data inventory (`data/`)
 
@@ -476,11 +511,13 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | `s17_exclusions.json` | 139 | exclusion certificates: ray, CI pair (X, Y), exact rational multipliers y of Shannon elemental inequalities on A..F,Z, S-form inequality F′, gate G20 |
 | `s17_ineq_classes.npy` + `s17_ineq_tight_rank.npy` | **747** | the distinct (up to S₆) S-form inequalities from all exclusion certificates and the rank of their tight known realisable vectors (30 = certified facet of the qubit stabilizer cone; 119 classes) |
 | `s18_exclusions.npz` | 4,665 | catalogue-scale exclusion certificates (R28), compact: ray, CI pair, S-form, integer multipliers (`epr1kit.stabcert.unpack_exclusion`), gate G21 |
-| `stab5_extreme_reps.npy` + `stab5_extreme_src.npy` | **630** | known extreme-ray orbits of the five-party stabilizer cone (realised extreme rays of QLR₅; source: ledger59 / cert_r27 / cert_r28 / cert_r29 (server, qubit) / cert_r29s (sandbox, qubit) / cert_r29q3 (qutrit)) |
+| `stab5_extreme_reps.npy` + `stab5_extreme_src.npy` | **641** | known extreme-ray orbits of the five-party stabilizer cone (realised extreme rays of QLR₅ = the realised catalogue orbits; source: ledger59 / cert_r27 / cert_r28 / cert_r29 (server, qubit) / cert_r29s (sandbox, qubit) / cert_r29q3 (qutrit) / cert_r30 (server, qubit; the last 11 rows)) |
 | `s21_qudit_realisations.npz` | 16 | qudit certificates (catalogue index, rep, λ, party sizes, weight matrix W over GF(p) padded to 64 × 64, p = 3), gate G24 |
 | `s22_ingleton_exclusions.json` | 18 | CI+Ingleton exclusion certificates (catalogue index, ray, pair (X, Y), S-form, typed terms: ["E", k] Shannon elemental, ["I", a, b, c, d, K] conditional Ingleton), gate G25 |
 | `s22_ineq_classes.npy` | 18 | their distinct S-form inequalities up to S₆ (none violated by any known realisable vector; tight ranks 14–27) |
 | `s22_single_ci_witnesses.npz` | 24,057 | exact rational CI extensions (denominators ≤ 3) proving that the 18 excluded orbits pass every single-CI test (`stabcert.verify_single_ci_feasible`), gate G25 |
+| `s22_ingleton_exclusions_a2i.json` | 904 | R30: CI+Ingleton exclusion certificates for the orbits the server found infeasible (row of `results/2026-10-01_a2-status/undecided_reps.npy`, catalogue index, ray, pair, S-form, class, typed terms), gate G26 |
+| `s22_ineq_classes_a2i.npy` | 628 | their distinct S-forms up to S₆ (lexicographically smallest image; none violated by any known realisable vector) |
 | `sixvar_template.csv` | — | transcription template for s9 |
 | `manifest_shas.json` | — | canonical sha256 of every row family (`sha_rows`; `sha_rows_wide` for wide coordinates) |
 
@@ -489,17 +526,23 @@ seconds and checks the sha.
 
 ## 7. What next, and how
 
-**⓪ A2 after R29.** (a) Human novelty check (≥ 3 communities: quantum
+**⓪ A2 after R30.** (a) Human novelty check (≥ 3 communities: quantum
 information / entropy cones; information theory / linear rank inequalities;
 matroid theory / representability) before any claim leaves the repository —
-now including the 18 CI+Ingleton classes against DFZ's six-variable lists;
-then write to the BCHS authors. (b) The 2,070 undecided orbits: server job
-`a2-ingleton` (`jobs.json`) runs the complete CI+Ingleton test, qutrit annealing
-and a second qubit seed on them (λ = 1, N ≤ 64). (c) The 10 orbits with at most 20
-qubits that survive everything so far (qubits, qutrits, p = 5, CI+Ingleton),
-among them frontier ray 294 — the last undecided one of the R27 frontier (300 =
-156 realised + 143 excluded + 1): larger λ, p = 7, and constraints with two
-genuine common informations. (d) S7′ (all six-variable linear rank inequalities) stays open.
+now including the 646 CI+Ingleton classes against DFZ's six-variable lists;
+then write to the BCHS authors. (b) The 1,155 undecided orbits
+(`results/2026-10-02_a2-status/`): most need 21–40 qubits at λ = 1, where 60 s
+of annealing mostly ends far from a realisation, so stronger searches
+(longer, λ = 2, restarts from the best states) are the obvious server job.
+(c) The 10 orbits with at most 20 qubits survive everything tried (qubits at
+λ = 1, 2, qutrits, p = 5, 7, CI+Ingleton, CI+Ingleton+DFZ), among them frontier
+ray 294. Untried: two genuine common informations at once (an 8-element
+extension), DFZ instances with unions of elements in one slot, and DFZ's own
+six-variable list (arXiv:0910.0284 §6: 3,490 inequalities, 2,395,095 with
+permuted forms; "hundreds" need two common informations) — if that list can
+be obtained (the authors' site `code.ucsd.edu/zeger/linrank`, which also hosts
+`rays5`), testing h_norm of the 10 orbits against it is cheap. (d) S7′ (all
+six-variable linear rank inequalities) stays open.
 The A1′ catalogue campaign is closed (R26); `s4c_qlr.py` remains available.
 
 **① Completeness cross-certification of the 162 (closed at the logical level,
@@ -559,7 +602,10 @@ This repository is public at
 
 - **CI:** `.github/workflows/selftest.yml` installs `lrslib` and the Python
   requirements and runs `python3 selftest.py --full` on every push and pull
-  request (all 28 gate lines must pass).
+  request (all 30 gate lines must pass). Every step has a time cap (job 40 min;
+  each `apt-get update` attempt 150 s, three attempts), so a stalled package
+  mirror fails the run within minutes instead of hanging for GitHub's 6-hour
+  default; such a failure says nothing about the code -- re-run the job.
 - **`.gitignore`** excludes rebuildable products (`QLR_H_pure28.npy`), the s7
   pools, logs and campaign state files. Large result files (> 50 MB pools)
   should go to Git LFS or to release assets; small results can be committed to

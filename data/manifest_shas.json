@@ -165,17 +165,17 @@
   "sha256_rays": "7e69e5e20dca01d5923ae257104eb19de99f7fa4b43e34d0d9cefadd4ab0f2be"
  },
  "stab5_extreme_reps": {
-  "rows": 630,
-  "sha256": "e3e0c734446f8c69bb1ae46e768a0e8d4d0c1c2a3aad95a679ff63aa5c77c22b"
+  "rows": 641,
+  "sha256": "90eacd43cd0b5a8a2778ca20c8114a74331853f543630efc2a0b284633f16026"
  },
  "a2_catalogue_status": {
   "orbits": 1917706,
-  "excluded": 1915006,
+  "excluded": 1915910,
   "excluded_single_ci": 1914541,
-  "excluded_ci_ingleton": 465,
-  "realised": 630,
-  "undecided": 2070,
-  "where": "results/2026-10-01_a2-status/"
+  "excluded_ci_ingleton": 1369,
+  "realised": 641,
+  "undecided": 1155,
+  "where": "results/2026-10-02_a2-status/"
  },
  "a2_survivors": {
   "orbits_tested": 2566,
@@ -204,5 +204,27 @@
   "rays": 18,
   "stored_pairs": 24057,
   "max_denominator": 3
+ },
+ "stab5_extreme_reps_r29": {
+  "rows": 630,
+  "sha256": "e3e0c734446f8c69bb1ae46e768a0e8d4d0c1c2a3aad95a679ff63aa5c77c22b",
+  "note": "first 630 rows of stab5_extreme_reps (R29); checked by gate G25"
+ },
+ "s22_ineq_classes_a2i": {
+  "rows": 628,
+  "sha256": "5b085a68b6c840463b292842409b563ec6e0e2919393490adc4065fae59db119"
+ },
+ "s22_ingleton_exclusions_a2i": {
+  "certificates": 904,
+  "file_sha256": "65d9489cf708ff375a7ae64e5ef21061f5553ff7ecbfd2d9cdbc2d836d24f904"
+ },
+ "a2_catalogue_status_r29": {
+  "orbits": 1917706,
+  "excluded": 1915006,
+  "excluded_single_ci": 1914541,
+  "excluded_ci_ingleton": 465,
+  "realised": 630,
+  "undecided": 2070,
+  "where": "results/2026-10-01_a2-status/"
  }
 }

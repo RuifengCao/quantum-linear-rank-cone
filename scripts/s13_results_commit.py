@@ -24,6 +24,16 @@ a = ap.parse_args()
 
 day = datetime.date.today().isoformat()
 dest = os.path.join(a.root, f'{day}_{a.tag}')
+# never overwrite a staged result (R30): if the directory of the day already holds a manifest or a
+# file of the same name (a second run with the same tag on the same day), stage into
+# <date>_<tag>-2, -3, ...
+k = 1
+while os.path.isdir(dest) and any(os.path.exists(os.path.join(dest, os.path.basename(f)))
+                                  for f in list(a.files) + ['manifest.json']):
+    k += 1
+    dest = os.path.join(a.root, f'{day}_{a.tag}-{k}')
+if k > 1:
+    print(f'NOTE: {day}_{a.tag} already holds a staged result; staging into {os.path.basename(dest)} instead')
 os.makedirs(dest, exist_ok=True)
 man = {'date': day, 'tag': a.tag, 'note': a.note, 'files': {}}
 for f in a.files:

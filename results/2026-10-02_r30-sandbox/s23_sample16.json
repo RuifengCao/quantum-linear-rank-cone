@@ -1,0 +1,150 @@
+{
+ "rays": "results/2026-10-02_a2-status/undecided_reps.npy",
+ "dfz_rows_with_Z": 128040,
+ "results": [
+  {
+   "index": 52,
+   "verdict": "feasible for all pairs",
+   "pair": null,
+   "pairs": 1342,
+   "cut_rounds": 5,
+   "dfz_rows_activated": 53,
+   "solver_troubles": 0
+  },
+  {
+   "index": 158,
+   "verdict": "feasible for all pairs",
+   "pair": null,
+   "pairs": 1339,
+   "cut_rounds": 15,
+   "dfz_rows_activated": 81,
+   "solver_troubles": 0
+  },
+  {
+   "index": 193,
+   "verdict": "feasible for all pairs",
+   "pair": null,
+   "pairs": 1339,
+   "cut_rounds": 31,
+   "dfz_rows_activated": 148,
+   "solver_troubles": 0
+  },
+  {
+   "index": 250,
+   "verdict": "feasible for all pairs",
+   "pair": null,
+   "pairs": 1339,
+   "cut_rounds": 20,
+   "dfz_rows_activated": 109,
+   "solver_troubles": 0
+  },
+  {
+   "index": 339,
+   "verdict": "feasible for all pairs",
+   "pair": null,
+   "pairs": 1342,
+   "cut_rounds": 11,
+   "dfz_rows_activated": 72,
+   "solver_troubles": 0
+  },
+  {
+   "index": 362,
+   "verdict": "feasible for all pairs",
+   "pair": null,
+   "pairs": 1344,
+   "cut_rounds": 20,
+   "dfz_rows_activated": 136,
+   "solver_troubles": 0
+  },
+  {
+   "index": 430,
+   "verdict": "feasible for all pairs",
+   "pair": null,
+   "pairs": 1344,
+   "cut_rounds": 9,
+   "dfz_rows_activated": 78,
+   "solver_troubles": 0
+  },
+  {
+   "index": 460,
+   "verdict": "feasible for all pairs",
+   "pair": null,
+   "pairs": 1342,
+   "cut_rounds": 12,
+   "dfz_rows_activated": 118,
+   "solver_troubles": 0
+  },
+  {
+   "index": 475,
+   "verdict": "feasible for all pairs",
+   "pair": null,
+   "pairs": 1344,
+   "cut_rounds": 31,
+   "dfz_rows_activated": 122,
+   "solver_troubles": 0
+  },
+  {
+   "index": 500,
+   "verdict": "feasible for all pairs",
+   "pair": null,
+   "pairs": 1339,
+   "cut_rounds": 33,
+   "dfz_rows_activated": 151,
+   "solver_troubles": 0
+  },
+  {
+   "index": 625,
+   "verdict": "feasible for all pairs",
+   "pair": null,
+   "pairs": 1343,
+   "cut_rounds": 23,
+   "dfz_rows_activated": 130,
+   "solver_troubles": 0
+  },
+  {
+   "index": 699,
+   "verdict": "feasible for all pairs",
+   "pair": null,
+   "pairs": 1338,
+   "cut_rounds": 39,
+   "dfz_rows_activated": 169,
+   "solver_troubles": 0
+  },
+  {
+   "index": 727,
+   "verdict": "feasible for all pairs",
+   "pair": null,
+   "pairs": 1345,
+   "cut_rounds": 29,
+   "dfz_rows_activated": 146,
+   "solver_troubles": 0
+  },
+  {
+   "index": 729,
+   "verdict": "feasible for all pairs",
+   "pair": null,
+   "pairs": 1329,
+   "cut_rounds": 31,
+   "dfz_rows_activated": 104,
+   "solver_troubles": 0
+  },
+  {
+   "index": 806,
+   "verdict": "feasible for all pairs",
+   "pair": null,
+   "pairs": 1332,
+   "cut_rounds": 18,
+   "dfz_rows_activated": 117,
+   "solver_troubles": 0
+  },
+  {
+   "index": 904,
+   "verdict": "feasible for all pairs",
+   "pair": null,
+   "pairs": 1332,
+   "cut_rounds": 23,
+   "dfz_rows_activated": 122,
+   "solver_troubles": 0
+  }
+ ]
+}
