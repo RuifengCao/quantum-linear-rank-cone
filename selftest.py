@@ -27,6 +27,16 @@ def gate(name, ok, detail=''):
     if not ok:
         FAIL.append(name)
 
+def _nthreads():
+    """OS threads of this process (Linux; '?' elsewhere) -- diagnostic only."""
+    try:
+        for ln in open('/proc/self/status'):
+            if ln.startswith('Threads:'):
+                return int(ln.split()[1])
+    except OSError:
+        pass
+    return '?'
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--full', action='store_true')
@@ -254,6 +264,23 @@ def main():
     gate('G21 cutting plane', ok21 and acc21 and core.load('s17_ineq_classes').shape[0] == 747,
          f"{len(idx21)}/{n21} exclusion certificates re-derived exactly; catalogue {ST21['excluded']}/{ST21['realised']}/{ST21['undecided']} "
          f"(excluded/realised/undecided); 747 inequality classes")
+
+    # G22 (R28.1): the single-CI LP exactly as the a2-survivors job runs it (HiGHS pinned to one
+    # thread).  The headline ray must come out infeasible at (AD, BE) = (9, 18) with status 2, every
+    # disjoint pair of the realised q2 feasible with status 0, and no other status anywhere -- a
+    # status 4 here means some LP in this process ran with a different HiGHS thread setting.
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'scripts'))
+    import s17_ci_test as _ci22
+    th0 = _nthreads()
+    st275 = _ci22.ci_status(_ci22.h_norm(core.load('a2_frontier300')[275]), 9, 18)
+    hq2 = _ci22.h_norm(RZ['rep'][q2i[0]].astype(np.int64))
+    pq2 = _ci22.pairs_for(hq2, 'disjoint')
+    stq2 = sorted({_ci22.ci_status(hq2, X, Y) for X, Y in pq2})
+    th1 = _nthreads()
+    gate('G22 CI-LP', st275 == 2 and stq2 == [0],
+         f"#275 at (AD,BE): status {st275} (expect 2); q2: {len(pq2)} disjoint pairs, statuses {stq2} (expect [0]); "
+         f"scipy {_ci22.scipy.__version__}, HiGHS {'pinned to 1 thread' if _ci22.SCIPY_PINS_THREADS else 'NOT pinnable (scipy < 1.11)'}, "
+         f"threads {th0}->{th1}")
 
     if a.full:
         V3 = core.build_qlr('v3')

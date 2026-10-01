@@ -1,5 +1,40 @@
 # CHANGELOG
 
+## R28.1 (2026-10-01) -- pre-server hardening of the a2-survivors job
+- HiGHS (scipy's LP solver) starts about nproc/2 threads in every process that
+  solves an LP. The single-CI test runs one LP worker per core, i.e. about
+  21,000 threads on the 208-core server (measured with the CPU count faked to
+  208 by an LD_PRELOAD shim; invisible on the 2-core sandbox). Every LP in the
+  kit now passes `options={'threads': 1}` (`s17_ci_test`, `s17_certify`,
+  `core.decompose_certificate`, `s10`, `s12`): 3 threads per worker instead of
+  106, same speed. scipy 1.11.4, 1.14.1 and 1.17.1 honour the option; 1.9.3
+  and 1.10.1 ignore it, and `s17_ci_test` then caps the worker count (NOTE line).
+- Mixed settings are a trap of their own: with scipy 1.17 an LP pinned to one
+  thread after an unpinned LP in the same process fails with status 4, which
+  the old `ci_feasible` would have read as "infeasible". Pinning only the CI
+  test would have created exactly this situation in `s18_cutting_plane` on a
+  many-core machine (certificate LPs in the parent, CI LPs in forked workers
+  that inherit the parent's HiGHS state); hence the pin is applied to every LP,
+  and the s18 pattern was re-run with the CPU count faked to 208 (statuses 0/2 only).
+- `s17_ci_test`: HiGHS statuses other than 0/2 are reported as solver errors
+  (ray UNDETERMINED), never as infeasibility; abort when 8 of the first 16 rays
+  error (systemic); abort instead of waiting forever when no result arrives for
+  15 min (a dead pool worker); final `summary:` line; `lp_errors` in the JSON.
+- `s16_stab_search`: sets `OMP_NUM_THREADS` for the annealing kernel explicitly
+  (`--threads`, else every CPU in the affinity mask) and prints a NOTE when it
+  replaces a value from the environment -- some server images export
+  `OMP_NUM_THREADS=1`, which would have serialised the annealing (up to ~53 h instead
+  of ~17 min); prints the gcc flags and thread count, and a WARNING when the
+  kernel had to be compiled without OpenMP (previously a silent fallback).
+- `jobs.json` a2-survivors: deletes stale outputs first (files from the smoke
+  run could otherwise be staged as partial outputs of a failed full run);
+  declares gcc for the preflight; runtime estimate from the measured qubit
+  counts (2,323 orbits with N <= 64 at lambda=1, 860 with 2N <= 64 at lambda=2).
+- Gate G22 (single-CI LP statuses with the pinned solver): `--full` now prints 25 gate
+  lines plus the ALL PASS line. Correction: the "25 gate lines" quoted for R28 counted
+  the ALL PASS line; R28 had 24 gates.
+- CI runners pinned to ubuntu-24.04 (ubuntu-latest moves to 26.04 on 2026-10-19).
+
 ## R28 (2026-10-01) -- A2 at catalogue scale
 - Cutting plane over the whole A1' catalogue (1,917,706 orbits): 1,914,541
   excluded from the stabilizer cone by exact certificates (747 inequality

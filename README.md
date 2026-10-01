@@ -224,7 +224,7 @@ single-source lines in `data/dfz_ref28.csv`; optional `rays5` cross-check.
 
 ```
 # ---- A. Verify the completed results (optional, ~3 minutes in total) ----
-python3 selftest.py --full            # 25 gate lines, ~2 min; must be all green before anything else
+python3 selftest.py --full            # 25 gate lines + ALL PASS, ~2.5 min; must be all green first
 python3 scripts/s1_build_qlr.py --variant pure28 --workers 25     # seconds
 python3 scripts/s2_judge.py QLR_H_pure28.npy                      # expect: violated 0
 python3 scripts/s3_rank19.py QLR_H_pure28.npy                     # expect: 18/19, only #19 has rank 29
@@ -294,6 +294,9 @@ Release instead). Engine options can be overridden after `--`.
 | `s7-pools` | X | ~1 h on 25 cores | small samples (~1 min) |
 | `server-batch` | X | ~25 min (only if s8/s10 must be redone) | s7 small samples + s10 first 2 classes |
 | `mplrs-completeness` | X | days, MPI (optional luxury) | prepare the `.ine` only |
+| `s17-ci` | S | ~7 s per ray (about 1,300 LPs) | — |
+| `a2-frontier` | X | ~1 h on 25 cores (17 frontier rays, λ = 2..4, 10 min each) | 2 rays, λ = 2, 5 s |
+| **`a2-survivors`** | X | ~25–40 min on 200 cores (2,566 orbits: complete single-CI test, annealing at λ = 1, 2) | 4 orbits, 3 s annealing (~40 s) |
 
 **Rule:** every tier-X job is handed over only after its smoke variant has
 passed in the sandbox (and, optionally, in the manual CI workflow
@@ -304,7 +307,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 
 | Stage | Command essentials | Purpose / expectation |
 | --- | --- | --- |
-| selftest | `selftest.py [--full] [--workers N]` | 25 regression gate lines; run first on any machine |
+| selftest | `selftest.py [--full] [--workers N]` | 25 regression gate lines (G0–G22) + ALL PASS; run first on any machine |
 | s1 | `--variant pure28` (current) / `pure`, `v3`, `pure2` (historical) | build the H-representation; seconds |
 | s2 | `s2_judge.py <H.npy>` | 760 graph-state judge; `pure*` variants must give 0 violations |
 | s3 | `s3_rank19.py <H.npy> [--extra-rows X]` | tight-rank test of the 19 HEC rays; pure28 → 18/19 |
@@ -391,6 +394,19 @@ passed in the sandbox (and, optionally, in the manual CI workflow
     output file.
 13. **Patching with `str.replace` must assert a hit.** A silent no-op patch
     went unnoticed for three rounds (erratum C4).
+14. **HiGHS threads on many-core machines (R28.1).** scipy's LP solver starts
+    about nproc/2 threads in every process that solves an LP, so one LP
+    worker per core means ~nproc²/2 threads (about 21,000 on 208 cores). Every
+    LP in the kit passes `options={'threads': 1}`; keep it that way in new
+    code, because within one process an LP with a different thread setting
+    after the first one fails (scipy 1.17: status 4). scipy < 1.11 ignores the
+    option; `s17_ci_test.py` then caps its workers and prints a NOTE. A 2-core
+    sandbox cannot show any of this: emulate the server's CPU count with an
+    `LD_PRELOAD` shim that overrides `get_nprocs`/`sysconf` (as done in R28.1).
+15. **A global `OMP_NUM_THREADS=1`.** Some server images export it; an OpenMP
+    kernel then runs single-threaded without any error. `s16_stab_search.py`
+    sets the thread count explicitly and logs `kernel: ... OpenMP threads N`;
+    check that N is the core count.
 
 ## 6. Data inventory (`data/`)
 

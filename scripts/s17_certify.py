@@ -23,7 +23,7 @@ import numpy as np
 from scipy.optimize import linprog
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from s17_ci_test import elemental_rows, h_norm, S6
+from s17_ci_test import elemental_rows, h_norm, S6, HIGHS_OPTS   # same HiGHS thread setting as s17_ci_test (see there)
 
 Zb = 1 << 6
 
@@ -92,7 +92,7 @@ def certify(r, X, Y):
     beq = [0] * len(zmasks)
     Aeq.append([1] * K); beq.append(1)                   # normalisation sum y = 1
     res = linprog(np.array(phi, dtype=float), A_eq=np.array(Aeq, dtype=float), b_eq=np.array(beq, dtype=float),
-                  bounds=[(0, None)] * K, method='highs')
+                  bounds=[(0, None)] * K, method='highs', options=HIGHS_OPTS)
     if res.status != 0 or res.fun > -1e-9:
         return None
     ysol = res.x

@@ -79,14 +79,27 @@ def verify(r, lam, sizes, A):
 
 
 def build_kernel(outdir):
+    """compile cc/s16_anneal.c; returns (executable, gcc flags that worked)."""
     exe = os.path.join(outdir, 's16_anneal')
     src = os.path.join(ROOT, 'cc', 's16_anneal.c')
     if shutil.which('gcc') is None:
         raise SystemExit('gcc not found -- install build tools first')
     for flags in (['-O3', '-march=native', '-fopenmp'], ['-O3', '-fopenmp'], ['-O3']):
         if subprocess.run(['gcc', *flags, '-o', exe, src, '-lm'], capture_output=True).returncode == 0:
-            return exe
+            return exe, flags
     raise SystemExit('could not compile cc/s16_anneal.c')
+
+
+def omp_threads(requested):
+    """threads for the kernel: --threads if given, else every CPU this process may use.
+    Set explicitly so that a global OMP_NUM_THREADS=1 (some server images export it)
+    cannot silently serialise the annealing."""
+    if requested:
+        return int(requested)
+    try:
+        return len(os.sched_getaffinity(0))
+    except AttributeError:
+        return os.cpu_count() or 1
 
 
 def main():
@@ -106,10 +119,16 @@ def main():
     if a.limit:
         R = R[:a.limit]
     tmp = tempfile.mkdtemp(prefix='s16_')
-    exe = build_kernel(tmp)
+    exe, flags = build_kernel(tmp)
     env = dict(os.environ)
-    if a.threads:
-        env['OMP_NUM_THREADS'] = str(a.threads)
+    nthr = omp_threads(a.threads)
+    if env.get('OMP_NUM_THREADS') not in (None, str(nthr)):
+        print(f"NOTE: OMP_NUM_THREADS={env['OMP_NUM_THREADS']} from the environment replaced by {nthr} "
+              f"(use --threads to choose)", flush=True)
+    env['OMP_NUM_THREADS'] = str(nthr)
+    if '-fopenmp' not in flags:
+        print('WARNING: cc/s16_anneal.c compiled WITHOUT OpenMP -- the kernel runs single-threaded', flush=True)
+    print(f"kernel: gcc {' '.join(flags)}; OpenMP threads {nthr if '-fopenmp' in flags else 1}", flush=True)
     found = {}      # ray index -> (lam, sizes, hexrows)
     best = {}
     t0 = time.time()

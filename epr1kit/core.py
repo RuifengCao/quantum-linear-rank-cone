@@ -350,7 +350,11 @@ def write_lrs(H, path):
 def decompose_certificate(r, H, pool, exclude_parallel=True):
     """LP: r = sum lambda_i v_i, lambda>=0, v_i in pool restricted to rows tight wherever r is
     tight (facet-restriction argument). Feasible -> non-extremality certificate."""
-    from scipy.optimize import linprog
+    import warnings
+    from scipy.optimize import linprog, OptimizeWarning
+    # one HiGHS thread, as in scripts/s17_ci_test.py: HiGHS otherwise starts ~nproc/2 threads per
+    # process, and a later LP with a different thread setting in the same process fails
+    warnings.filterwarnings('ignore', message='Unrecognized options detected|Unknown solver options', category=OptimizeWarning)
     H = np.asarray(H, dtype=np.int64); r = np.asarray(r, dtype=np.int64)
     tight = H[(H @ r) == 0]
     i0 = int(np.nonzero(r)[0][0])
@@ -368,7 +372,7 @@ def decompose_certificate(r, H, pool, exclude_parallel=True):
         return None
     V = np.array(V, dtype=np.int64)
     res = linprog(np.zeros(V.shape[0]), A_eq=V.T.astype(float), b_eq=r.astype(float),
-                  bounds=[(0, None)] * V.shape[0], method='highs')
+                  bounds=[(0, None)] * V.shape[0], method='highs', options={'threads': 1})
     return (V, res.x) if res.status == 0 else None
 
 

@@ -12,11 +12,13 @@ SETTLED in R3 (2026-08-12, reproduced independently on the user's server):
 This script recomputes both directions from the CSV; expect the same output.
 Historical background (27-class irredundancy, certificates) lives in
 data/sep_certs_27.npz and the R3 report."""
-import argparse, csv, sys, os, itertools
+import argparse, csv, sys, os, itertools, warnings
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 import numpy as np
-from scipy.optimize import linprog
+from scipy.optimize import linprog, OptimizeWarning
 from epr1kit import core
+# one HiGHS thread for every LP (see scripts/s17_ci_test.py, "Threads")
+warnings.filterwarnings('ignore', message='Unrecognized options detected|Unknown solver options', category=OptimizeWarning)
 
 def all_perm_instances(rows31):
     perms = core.perms31_s5()
@@ -28,7 +30,7 @@ def all_perm_instances(rows31):
 
 def implied(t, R):
     res = linprog(np.zeros(R.shape[0]), A_eq=R.T.astype(float), b_eq=np.asarray(t, float),
-                  bounds=[(0, None)] * R.shape[0], method='highs')
+                  bounds=[(0, None)] * R.shape[0], method='highs', options={'threads': 1})
     return res.status == 0
 
 ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
