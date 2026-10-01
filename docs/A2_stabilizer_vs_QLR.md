@@ -155,22 +155,94 @@ ray 18) is **not** realisable at λ = 1 (with one qubit per party the realisable
 vectors are exactly the 760 six-vertex graph-state vectors) and **is**
 realisable at λ = 2 (a 12-qubit graph state; verified also by state-vector SVD).
 
-## 6. Open questions
+## 6. R29: one common information is not enough; qudit realisations
 
-* **S7″**: is Stab₅ equal to QLR₅ cut by all single-common-information
-  six-variable linear rank inequalities? **S7′**: by all six-variable linear rank
-  inequalities? (The six-variable list is not known to be complete; DFZ report
-  3,490 classes, some needing two common informations.) On the catalogue, every
-  orbit that is single-CI feasible is either realised or still undecided — no
-  orbit is known to be single-CI feasible and outside Stab₅. Longer annealing
-  keeps converting undecided orbits into realised ones (R28: 89 of 261 with
-  N ≤ 24 at 10 s instead of 3 s).
+**Lemma 3 (Ingleton on the extension).** Let |ψ⟩ be a stabilizer state of prime local
+dimension p in normal form, with arrangement {W_P} (Lemma 2), and let W_Z = W_X ∩ W_Y for a
+pair of party sets (X, Y). The rank function g of the seven subspaces W_A, …, W_F, W_Z
+satisfies every Shannon inequality and every conditional Ingleton inequality
+
+    g(abK) + g(acK) + g(adK) + g(bcK) + g(bdK) ≥ g(aK) + g(bK) + g(cdK) + g(abcK) + g(abdK)
+
+for distinct elements a, b, c, d and any set K of the remaining ones (juxtaposition =
+union). *Proof.* Subspace arrangements over any field satisfy Ingleton's inequality
+[Ingleton, "Representation of matroids", in *Combinatorial Mathematics and its Applications*,
+1971]; the images of the subspaces in the quotient by W_K form again an arrangement, whose
+rank function is g(· ∪ K) − g(K), and the five g(K) terms on each side cancel. ∎
+
+Consequently a nonnegative combination of Shannon and conditional Ingleton rows on A..F,Z
+whose Z-terms are eliminated by the three CI equalities is an inequality F(h) ≥ 0 valid for
+h_norm of every stabilizer state of every prime dimension, exactly as in §2–3 with Lemma 3 in
+place of Shannon alone. `scripts/s17_ci_test.py --extension ingleton` (1,320 instances that
+involve Z) finds the infeasibilities, `scripts/s22_certify_ext.py` produces exact rational
+certificates with typed terms, and `epr1kit.stabcert.verify_exclusion_ext` re-derives each one,
+rebuilding every Ingleton row from its descriptor (gate G25).
+
+**Theorem 2 (S7″ fails).** There are extreme rays of QLR₅ that satisfy every
+single-common-information constraint and are not in Stab₅. Hence Stab₅ is strictly smaller
+than QLR₅ cut by all single-CI six-variable inequalities.
+
+*Proof (machine certificates, exact arithmetic).* For each of the 18 orbits in
+`data/s22_ingleton_exclusions.json`: (a) for every unordered pair {X, Y} of distinct party sets
+there is a rational extension of h_norm(r) to A..F,Z satisfying the CI equalities and all Shannon
+inequalities — stored for the 24,057 pairs with I(X;Y) > 0 and X, Y incomparable
+(`data/s22_single_ci_witnesses.npz`, denominators ≤ 3), explicit for the others (Z a copy of the
+smaller set, or Z = 0) — checked in integer arithmetic by `stabcert.verify_single_ci_feasible`;
+(b) a certificate as in Lemma 3 gives F′(r) < 0. ∎
+
+*Smallest example* (catalogue orbit 22,884, maximum coordinate 5): r =
+(2,2,3,2,4,4,4,2,4,4,5,3,5,4,4,2,4,4,4,3,4,4,4,3,4,4,4,3,3,3,2) (mask order), CI pair (A, B),
+29 terms of which 8 are Ingleton instances, violating by 1:
+
+    S(A)+S(AB)+3S(ABC)+S(AD)+2S(CD)+2S(BCD)+2S(ACE)+2S(BCE)+S(ADE)+S(BDE)+S(CDE)
+      ≥ S(B)+S(AC)+3S(BC)+S(D)+2S(ABD)+3S(ACD)+S(AE)+2S(ABCE)+S(DE)+S(BCDE).
+
+The 18 S-forms (`data/s22_ineq_classes.npy`, 18 classes up to S₆) also cut 447 further
+undecided orbits. No known realisable vector violates any of their 12,420 S₆ images (778
+realisation certificates, 760 graph states, 1.13 M GF(2) vectors, 1,130 F₃ vectors). Their tight
+known realisable vectors have rank 14–27: they are not certified facets, and whether they are
+new relative to DFZ's six-variable inequalities (some of which need two common informations)
+has **not** been checked.
+
+**Qudit realisations.** A weighted graph state over Z_p (symmetric weight matrix W, zero
+diagonal) is a stabilizer state; its entropy is S(X) = rank_GF(p) W[X, X^c] in units of log p
+(the stabilizer entropy formula, e.g. Gross–Walter arXiv:1302.6990, specialised to graph
+states; checked against exact state vectors for p = 3, 5, 7 by
+`scripts/s21_qudit_search.py --self-test` and gate G24). The normal form of Lemma 1 holds for
+every prime p, so for fixed λ party q owns λ·S_q qudits and only inter-party weights matter.
+Annealing over GF(3) weights realised 16 of the 45 undecided orbits with at most 20 qubits at
+λ = 1, including 12 of the 17 frontier rays of R27; every certificate is re-verified by an
+independent elimination (`stabcert.verify_realisation_gfp`). Qubit annealing had stalled at a
+residual of exactly one cut unit on all 45; a qubit realisation at larger λ is not excluded,
+and no characteristic-2 inequality explaining the stall is known to us (characteristic-dependent
+linear rank inequalities exist on eight variables: Dougherty–Freiling–Zeger, arXiv:1401.2507).
+
+**Catalogue after R29** (`results/2026-10-01_a2-status/`): 1,915,006 excluded (1,914,541 by
+single-CI certificates, 465 by CI+Ingleton certificates) / 630 realised / 2,070 undecided;
+630 known extreme-ray orbits of Stab₅.
+
+## 7. Open questions
+
+* ~~**S7″**~~ (Stab₅ = QLR₅ cut by all single-CI six-variable inequalities?) —
+  **answered in the negative in R29** (Theorem 2). **S7′**: is Stab₅ equal to QLR₅
+  cut by *all* six-variable linear rank inequalities? Still open; the R29 exclusions are
+  themselves six-variable linear rank inequalities. (The six-variable list is not known to be
+  complete; DFZ report 3,490 classes, some needing two common informations.)
+* Qubits versus qudits: are the 16 qutrit-realised orbits qubit-realisable at some λ?
+* The 2,070 undecided orbits (server job `a2-ingleton`), in particular the 10 with at most 20
+  qubits that survive qubits, qutrits, p = 5 and CI+Ingleton — among them frontier ray 294, the
+  last undecided ray of the R27 frontier (now 156 realised, 143 excluded, 1 undecided).
 * The single-CI cone has extreme rays that are not extreme rays of QLR₅ (created
   by the cuts); they are not in the catalogue and are untested.
 * Facets: 628 of the 747 classes are not yet certified as facets.
 
-## 7. Reproduce
+## 8. Reproduce
 
     python3 selftest.py --full                       # gate G20 re-derives every certificate
     python3 scripts/s17_ci_test.py data/a2_frontier300.npy --first-only --pairs disjoint --workers 2
     python3 scripts/s17_certify.py --ray-file data/a2_frontier300.npy --index 275 --X 9 --Y 18
+    python3 scripts/s21_qudit_search.py --self-test                                   # rank formula, p = 3, 5, 7
+    python3 scripts/s17_ci_test.py results/2026-10-01_a2-status/undecided_reps.npy --limit 20 \
+        --first-only --pairs all --extension ingleton --workers 2 --out ci.json
+    python3 scripts/s22_certify_ext.py --rays results/2026-10-01_a2-status/undecided_reps.npy \
+        --ci ci.json --extension ingleton --out certs.json

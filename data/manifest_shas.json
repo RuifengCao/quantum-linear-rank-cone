@@ -139,8 +139,8 @@
   "note": "ceiling --max-orbits 1900000 reached; A1-prime campaign closed"
  },
  "s16_realisations": {
-  "rows": 747,
-  "sha256_rep": "c3a813b53176952f52291c8c4907f8b10a979705967d1882c75a8487e9a31882"
+  "rows": 762,
+  "sha256_rep": "ed7706c28cb31b59193bf8c8241d99c1312cbf9628d2e3b1523f9291fed997e0"
  },
  "s17_exclusions": {
   "rows": 139,
@@ -165,14 +165,44 @@
   "sha256_rays": "7e69e5e20dca01d5923ae257104eb19de99f7fa4b43e34d0d9cefadd4ab0f2be"
  },
  "stab5_extreme_reps": {
-  "rows": 599,
-  "sha256": "89800f4f22cb9b3d3e7374db0b3479c33875de356a2f2ac4847b496b5b96ba28"
+  "rows": 630,
+  "sha256": "e3e0c734446f8c69bb1ae46e768a0e8d4d0c1c2a3aad95a679ff63aa5c77c22b"
  },
  "a2_catalogue_status": {
   "orbits": 1917706,
-  "excluded": 1914541,
-  "realised": 599,
-  "undecided": 2566,
-  "where": "results/2026-10-01_s18-cutting-plane/"
+  "excluded": 1915006,
+  "excluded_single_ci": 1914541,
+  "excluded_ci_ingleton": 465,
+  "realised": 630,
+  "undecided": 2070,
+  "where": "results/2026-10-01_a2-status/"
+ },
+ "a2_survivors": {
+  "orbits_tested": 2566,
+  "single_ci_infeasible": 0,
+  "lp_errors": 0,
+  "realised_lambda1": 14,
+  "realised_lambda2": 0,
+  "where": "results/2026-10-01_a2-survivors/"
+ },
+ "s21_qudit_realisations": {
+  "rows": 16,
+  "p": [
+   3
+  ],
+  "sha256_rep": "5ccc785d32d29944e88695cc13197372ea5d5ab1d6f9d62cce5d5e615f3099eb"
+ },
+ "s22_ineq_classes": {
+  "rows": 18,
+  "sha256": "b2fa46b623d46d533969eef18404ba608a0913b56b32b71555b9b3253c52a04e"
+ },
+ "s22_ingleton_exclusions": {
+  "rows": 18,
+  "sha256_rays": "83f0a5d97d0db6f52110ec473870da491f6d91554f0fa93b1e1ce0ae5b23921d"
+ },
+ "s22_single_ci_witnesses": {
+  "rays": 18,
+  "stored_pairs": 24057,
+  "max_denominator": 3
  }
 }

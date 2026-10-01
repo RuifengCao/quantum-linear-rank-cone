@@ -138,6 +138,24 @@
    ],
    "tag": "a2-survivors",
    "checks": "ci 'summary:' line with 0 undetermined; 'kernel: ... OpenMP threads <all cores>'; 'realised and independently verified' line per lambda; no WARNING / ABORT lines (NOTE lines are informational)"
+  },
+  "a2-ingleton": {
+   "tier": "X",
+   "needs": [
+    "gcc"
+   ],
+   "runtime": "~50 min on 200 cores (2,070 orbits: CI + conditional Ingleton on the extension, all pairs; then lambda=1 annealing at 60 s: qutrits (p=3) and qubits with a new seed, N <= 64)",
+   "cmd": "rm -f a2i_ci.json a2i_q3.npz a2i_q3.npz.json a2i_q2.npz a2i_q2.npz.json && python3 -c \"import numpy as np; np.save('a2i.npy', np.load('results/2026-10-01_a2-status/undecided_reps.npy'))\" && python3 scripts/s17_ci_test.py a2i.npy --first-only --pairs all --extension ingleton --workers $(nproc) --out a2i_ci.json && python3 scripts/s21_qudit_search.py a2i.npy --p 3 --lams 1 --seconds 60 --max-n 64 --out a2i_q3.npz && python3 scripts/s16_stab_search.py a2i.npy --lams 1 --seconds 60 --seed 20261002 --max-n 64 --out a2i_q2.npz",
+   "smoke": "rm -f a2i_ci.json a2i_q3.npz a2i_q3.npz.json a2i_q2.npz a2i_q2.npz.json && python3 -c \"import numpy as np; np.save('a2i.npy', np.load('results/2026-10-01_a2-status/undecided_reps.npy')[:2])\" && python3 scripts/s17_ci_test.py a2i.npy --first-only --pairs all --extension ingleton --workers 2 --out a2i_ci.json && python3 scripts/s21_qudit_search.py a2i.npy --p 3 --lams 1 --seconds 3 --max-n 64 --out a2i_q3.npz && python3 scripts/s16_stab_search.py a2i.npy --lams 1 --seconds 3 --seed 20261002 --max-n 64 --out a2i_q2.npz",
+   "outputs": [
+    "a2i_ci.json",
+    "a2i_q3.npz",
+    "a2i_q3.npz.json",
+    "a2i_q2.npz",
+    "a2i_q2.npz.json"
+   ],
+   "tag": "a2-ingleton",
+   "checks": "ci 'summary:' line with 0 undetermined and 'extension ingleton'; two 'kernel: ... OpenMP threads <all cores>' lines; 'p=3 lambda=1' and 'lambda=1' result lines; no WARNING / ABORT lines (NOTE lines are informational)"
   }
  }
 }

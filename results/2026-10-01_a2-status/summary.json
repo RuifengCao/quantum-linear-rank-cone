@@ -1,0 +1,20 @@
+{
+ "catalogue": "results/2026-09-12_a1-campaign/qlr_adj.npz",
+ "orbits": 1917706,
+ "excluded": 1915006,
+ "excluded_single_ci": 1914541,
+ "excluded_ci_ingleton": 465,
+ "realised": 630,
+ "undecided": 2070,
+ "sources": [
+  "results/2026-10-01_s18-cutting-plane (R28)",
+  "results/2026-10-01_a2-survivors (server, 14 qubit realisations)",
+  "R29 sandbox: s20 qubit realisation (1), s21 qutrit realisations (16), s22 CI+Ingleton certificates (18) and the 447 orbits violating an S6 image of the 18 new classes (data/s22_ineq_classes.npy)"
+ ],
+ "status_codes": {
+  "0": "excluded by an exact single-common-information certificate (data/s17_ineq_classes.npy, 747 classes)",
+  "1": "realised (qubit graph-state certificate in data/s16_realisations.npz, qudit certificate in data/s21_qudit_realisations.npz, or BCHS ledger)",
+  "2": "single-CI feasible for all pairs and not yet realised or excluded",
+  "3": "excluded by a CI+Ingleton certificate (R29; data/s22_ingleton_exclusions.json, classes data/s22_ineq_classes.npy)"
+ }
+}

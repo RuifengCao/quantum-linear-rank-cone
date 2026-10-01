@@ -24,10 +24,12 @@
  *
  * Input (stdin), one target per line:
  *   id lambda n0 n1 n2 n3 n4 n5 t1 t2 ... t31
- * Arguments: seconds_per_target seed [T0 T1 sweeps_per_restart]
+ * Arguments: seconds_per_target seed [T0 T1 sweeps_per_restart [dump_best]]
  * Output (stdout), one line per target:
  *   id lambda FOUND N hexrow0 ... hexrow(N-1)
- *   id lambda BEST E restarts steps
+ *   id lambda BEST E restarts steps            (dump_best = 0, the default)
+ *   id lambda BEST E restarts steps N hexrow0 ... hexrow(N-1)   (dump_best = 1:
+ *       the best configuration seen, for residual analysis; R29)
  * Build: gcc -O3 -march=native -fopenmp -o s16_anneal s16_anneal.c -lm
  */
 #include <stdio.h>
@@ -73,6 +75,7 @@ int main(int argc, char **argv) {
     uint64_t seed0 = strtoull(argv[2], 0, 10);
     double T0 = argc > 3 ? atof(argv[3]) : 1.5, T1 = argc > 4 ? atof(argv[4]) : 0.08;
     double sweeps = argc > 5 ? atof(argv[5]) : 3000.0;
+    int dump_best = argc > 6 ? atoi(argv[6]) : 0;
 
     int cap = 1024, nj = 0; Job *jobs = malloc(cap * sizeof(Job));
     while (1) {
@@ -148,6 +151,10 @@ int main(int argc, char **argv) {
         free(pairs);
         if (found) {
             len = snprintf(line, sizeof line, "%d %d FOUND %d", J->id, J->lam, N);
+            for (int i = 0; i < N; i++) len += snprintf(line + len, sizeof line - len, " %llx", (unsigned long long)best_adj[i]);
+            snprintf(line + len, sizeof line - len, "\n");
+        } else if (dump_best && bestE < (1 << 30)) {
+            len = snprintf(line, sizeof line, "%d %d BEST %d %ld %ld %d", J->id, J->lam, bestE, restarts, steps, N);
             for (int i = 0; i < N; i++) len += snprintf(line + len, sizeof line - len, " %llx", (unsigned long long)best_adj[i]);
             snprintf(line + len, sizeof line - len, "\n");
         } else snprintf(line, sizeof line, "%d %d BEST %d %ld %ld\n", J->id, J->lam, bestE, restarts, steps);

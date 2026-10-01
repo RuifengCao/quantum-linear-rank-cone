@@ -1,5 +1,46 @@
 # CHANGELOG
 
+## R29 (2026-10-01) -- S7'' refuted; qutrit realisations; 630 extreme rays of Stab5
+- **Third server session** (a2-survivors, 208 cores, 28 min, `results/2026-10-01_a2-survivors/`):
+  the complete single-CI test excludes none of the 2,566 undecided orbits (all pairs feasible,
+  no solver error); annealing realises 14 orbits at lambda = 1 (re-verified, gate G23). The
+  server had `OMP_NUM_THREADS=25` preset; the R28.1 override used all 208 threads. The CI
+  phase took ~11 min instead of the estimated 4 (~50 core-seconds per orbit on that machine).
+- **Qudits.** `scripts/s21_qudit_search.py` + `cc/s21_anneal_gfp.c`: annealing over weighted
+  graph states over GF(p), p = 3, 5, 7, in the same normal form as s16; `--self-test` checks
+  S(X) = rank_GF(p) W[X, X^c] against exact state vectors; every hit is re-verified by an
+  independent GF(p) elimination (`epr1kit.stabcert.verify_realisation_gfp`). Of the 45
+  undecided orbits with N <= 20 -- all stalled at residual 1 for qubits -- 16 are realised by
+  qutrit graph states at lambda = 1 (`data/s21_qudit_realisations.npz`, gate G24), including
+  12 of the 17 R27 frontier rays; p = 5 realises none of the remaining 28 (30 s each).
+- `scripts/s20_residuals.py` (+ `dump_best` option of `cc/s16_anneal.c`): residual vectors
+  of the best qubit states of independent runs; a different seed realised one more orbit
+  (N = 20, label catalogue in `data/s16_realisations.npz`); for most orbits the cut that stays
+  off by one changes from run to run.
+- **CI + Ingleton.** `s17_ci_test.py --extension ingleton` adds the 1,320 conditional Ingleton
+  instances that involve Z to the 7-element extension; `s17_certify.certify(...,
+  extension='ingleton')`; `scripts/s22_certify_ext.py`; independent checker
+  `epr1kit.stabcert.ingleton_row` / `verify_exclusion_ext` (typed terms, rows rebuilt from
+  their descriptors). 18 of the 28 remaining small orbits are excluded with exact certificates
+  (`data/s22_ingleton_exclusions.json`), leaving 10 orbits with N <= 20; the R27 frontier is now
+  156 realised / 143 excluded / 1 undecided (ray 294; `data/a2_frontier_status.json`). The 18
+  classes (`data/s22_ineq_classes.npy`) cut 447
+  more undecided orbits. Validation: no violation by the 778 realisation certificates, the 760
+  graph states, the 1.13 M GF(2) pool or the F3 pool.
+- **S7'' refuted.** The 18 orbits pass every single-CI test exactly: rational CI extensions
+  (denominators <= 3) for all 24,057 non-trivial pairs, `data/s22_single_ci_witnesses.npz`,
+  checked in integer arithmetic by `stabcert.verify_single_ci_feasible` (gate G25). Hence
+  Stab5 is strictly smaller than QLR5 cut by all single-CI inequalities. Novelty of the 18
+  classes relative to DFZ's six-variable inequalities is unchecked.
+- **Catalogue** (`results/2026-10-01_a2-status/`): 1,915,006 excluded (1,914,541 single-CI,
+  465 CI+Ingleton = status code 3) / 630 realised / 2,070 undecided; 630 known extreme-ray
+  orbits of Stab5. Facets: still 119 (the 31 new extreme rays raise no tight rank to 30); the 18
+  new classes are valid, tight ranks 14-27, not certified facets.
+- Gates G23 (server merge), G24 (qudits), G25 (CI+Ingleton, S7'' witnesses, accounting):
+  `--full` prints 28 gate lines. New tier-X job `a2-ingleton` for the fourth session.
+- `s17_ci_test.py`: `--chunk` (rays per pool task) and an extension-dependent default
+  `--result-timeout` (Ingleton LPs are ~4x slower: 1 ray per task, 30 min instead of 4 rays, 15 min).
+
 ## R28.1 (2026-10-01) -- pre-server hardening of the a2-survivors job
 - HiGHS (scipy's LP solver) starts about nproc/2 threads in every process that
   solves an LP. The single-CI test runs one LP worker per core, i.e. about

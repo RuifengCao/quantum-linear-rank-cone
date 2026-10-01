@@ -23,7 +23,20 @@ import numpy as np
 from scipy.optimize import linprog
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from s17_ci_test import elemental_rows, h_norm, S6, HIGHS_OPTS   # same HiGHS thread setting as s17_ci_test (see there)
+from s17_ci_test import elemental_rows, ingleton_rows, h_norm, S6, HIGHS_OPTS   # same HiGHS thread setting as s17_ci_test
+
+
+def extension_rows(extension='shannon'):
+    """inequality rows on the 7-element extension and their descriptors: ('E', k) for the k-th
+    Shannon elemental inequality, ('I', a, b, c, d, K) for a conditional Ingleton instance (R29)."""
+    E = elemental_rows()
+    desc = [('E', k) for k in range(len(E))]
+    if extension == 'ingleton':
+        I, dI = ingleton_rows(with_desc=True)
+        E, desc = E + I, desc + dI
+    elif extension != 'shannon':
+        raise ValueError(extension)
+    return E, desc
 
 Zb = 1 << 6
 
@@ -78,9 +91,9 @@ def exact_solve(Arows, b, guess):
     return y
 
 
-def certify(r, X, Y):
+def certify(r, X, Y, extension='shannon'):
     h = h_norm(np.asarray(r, dtype=np.int64))
-    E = elemental_rows()
+    E, _ = extension_rows(extension)
     K = len(E)
     zmasks = [m for m in range(1, 128) if (m & Zb) and m not in (Zb, X | Zb, Y | Zb)]
     # phi_k = contribution of e_k to F(h) after substitution

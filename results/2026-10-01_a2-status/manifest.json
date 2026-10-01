@@ -1,0 +1,21 @@
+{
+ "date": "2026-10-01",
+ "tag": "a2-status",
+ "note": "sandbox R29: catalogue status after the a2-survivors server results and the R29 sandbox certificates",
+ "files": {
+  "catalogue_status.npz": {
+   "bytes": 8319,
+   "sha256": "97baf6caa1ce77e81c663e5d37767cf0097e7cf8230435224930746d626867c2"
+  },
+  "undecided_reps.npy": {
+   "bytes": 128468,
+   "sha256": "e72fe40df3c3554f2c31e36830c17dbd0e82c29d8ed41560faadedb99b7f0925",
+   "rows": 2070,
+   "sha_rows": "c51d2955460e650373c9b7fb4a1db4adde9532ec110aee497208cd49e4ee34fe"
+  },
+  "summary.json": {
+   "bytes": 1020,
+   "sha256": "67f923be2f10f55f5c6d4c5d59b81d7cac579f385d63921277f0b70248d8c514"
+  }
+ }
+}

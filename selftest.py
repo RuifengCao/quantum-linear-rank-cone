@@ -282,6 +282,72 @@ def main():
          f"scipy {_ci22.scipy.__version__}, HiGHS {'pinned to 1 thread' if _ci22.SCIPY_PINS_THREADS else 'NOT pinnable (scipy < 1.11)'}, "
          f"threads {th0}->{th1}")
 
+    # G23 (R29): third server session (a2-survivors).  Every server certificate re-verified
+    # independently; the complete single-CI test recorded as feasible for all 2,566 orbits with no
+    # solver error; the 14 realised orbits carry status 1 in the current catalogue status.
+    base23 = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'results')
+    Z23 = np.load(os.path.join(base23, '2026-10-01_a2-survivors', 'a2_surv_certs.npz'))
+    U23 = np.load(os.path.join(base23, '2026-10-01_s18-cutting-plane', 'undecided_reps.npy')).astype(np.int64)
+    i23 = Z23['index'].astype(np.int64)
+    okc23 = i23.size == 14 and all(
+        np.array_equal(Z23['rep'][k].astype(np.int64), U23[i23[k]])
+        and _sc.verify_realisation(U23[i23[k]], int(Z23['lam'][k]), Z23['sizes'][k], Z23['rows'][k]) for k in range(i23.size))
+    CI23 = json.load(open(os.path.join(base23, '2026-10-01_a2-survivors', 'a2_surv_ci.json')))
+    oki23 = len(CI23) == U23.shape[0] == 2566 and not any(x['infeasible_pairs'] or x['lp_errors'] for x in CI23)
+    so23 = np.load(os.path.join(base23, '2026-10-01_s18-cutting-plane', 'catalogue_status.npz'))['status']
+    sn23 = np.load(os.path.join(base23, '2026-10-01_a2-status', 'catalogue_status.npz'))['status']
+    oks23 = bool((sn23[np.flatnonzero(so23 == 2)[i23]] == 1).all()) and bool((sn23[so23 != 2] == so23[so23 != 2]).all())
+    gate('G23 a2-survivors', okc23 and oki23 and oks23,
+         f"{i23.size}/14 server realisations re-verified; single-CI feasible for {len(CI23)}/2566, 0 solver errors; "
+         f"all 14 marked realised; earlier verdicts unchanged")
+
+    # G24 (R29): qudit realisations.  The rank formula S(X) = rank_GF(p) W[X, X^c] is checked against
+    # exact state vectors (random 5-qutrit graph states, every bipartition); the 16 qutrit certificates
+    # are re-verified with the independent plain-Python GF(p) elimination of epr1kit.stabcert.
+    import s21_qudit_search as _q24
+    w24, n24 = _q24.self_test(3, trials=8)
+    Q24 = np.load(os.path.join(core.DATA, 's21_qudit_realisations.npz'))
+    okq24 = all(_sc.verify_realisation_gfp(Q24['rep'][k].astype(np.int64), int(Q24['lam'][k]), Q24['sizes'][k],
+                                           Q24['W'][k][:int(Q24['sizes'][k].sum()), :int(Q24['sizes'][k].sum())], int(Q24['p'][k]))
+                for k in range(Q24['rep'].shape[0]))
+    okq24 = okq24 and Q24['rep'].shape[0] == 16 and bool((sn23[Q24['catalogue_index']] == 1).all())
+    gate('G24 qudit', w24 < 1e-9 and okq24,
+         f"rank formula vs exact state vectors: max error {w24:.1e} ({n24} qutrits, 8 graphs, all cuts); "
+         f"{Q24['rep'].shape[0]} qutrit certificates re-verified (p=3, lambda=1), all marked realised")
+
+    # G25 (R29): CI + Ingleton.  18 exclusion certificates (Shannon + conditional Ingleton on the
+    # extension A..F,Z) re-derived exactly by the independent checker; exact single-CI feasibility of the
+    # same 18 orbits (24,057 stored witnesses + explicit trivial ones), i.e. they refute S7''; every
+    # status-3 orbit violates an S6 image of a class in data/s22_ineq_classes.npy while no realised ray
+    # does; final accounting and the 630 extreme rays of Stab5.
+    X25 = json.load(open(os.path.join(core.DATA, 's22_ingleton_exclusions.json')))['certificates']
+    oke25 = len(X25) == 18 and all(
+        _sc.verify_exclusion_ext(np.array(c['ray'], dtype=np.int64), c['X'], c['Y'],
+                                 [(tuple(d), v) for d, v in c['terms']], F_S=c['F_S'])[0] for c in X25)
+    W25 = np.load(os.path.join(core.DATA, 's22_single_ci_witnesses.npz'))
+    okw25 = W25['rays'].shape[0] == 18 and all(
+        _sc.verify_single_ci_feasible(W25['rays'][k].astype(np.int64), W25['pair'][W25['ray'] == k],
+                                      W25['den'][W25['ray'] == k], W25['num'][W25['ray'] == k])[0] for k in range(18))
+    okw25 = okw25 and sorted(map(tuple, W25['rays'].tolist())) == sorted(tuple(c['ray']) for c in X25)
+    C25 = core.load('s22_ineq_classes').astype(np.int64)
+    I25 = np.unique(np.concatenate([C25[:, p6_20[k]] for k in range(720)]), axis=0)
+    CAT = np.load(os.path.join(base23, '2026-09-12_a1-campaign', 'qlr_adj.npz'))['reps']
+    st3 = np.flatnonzero(sn23 == 3)
+    okc25 = bool(((CAT[st3].astype(np.int64) @ I25.T).min(1) < 0).all())
+    REAL25 = np.vstack([core.load('stab5_extreme_reps'), np.load(os.path.join(core.DATA, 's16_realisations.npz'))['rep'].astype(np.int64),
+                        Q24['rep'].astype(np.int64), G760])
+    okr25 = bool(((REAL25 @ I25.T) >= 0).all())
+    S25 = json.load(open(os.path.join(base23, '2026-10-01_a2-status', 'summary.json')))
+    cnt25 = tuple(int((sn23 == c).sum()) for c in (0, 1, 2, 3))
+    acc25 = (cnt25 == (1914541, 630, 2070, 465) and S25['excluded'] == 1915006 and S25['realised'] == 630
+             and S25['undecided'] == 2070 and sum(cnt25) == 1917706)
+    E25 = core.load('stab5_extreme_reps')
+    oke25b = E25.shape[0] == 630 and core.sha_rows(E25) == MAN['stab5_extreme_reps']['sha256']
+    gate('G25 CI+Ingleton', oke25 and okw25 and okc25 and okr25 and acc25 and oke25b,
+         f"{len(X25)} exclusion certificates re-derived; 18 orbits exactly single-CI feasible (S7'' refuted); "
+         f"{st3.size} status-3 orbits cut by {C25.shape[0]} classes, 0 realised rays cut; "
+         f"catalogue {S25['excluded']}/{S25['realised']}/{S25['undecided']}; {E25.shape[0]} extreme rays of Stab5")
+
     if a.full:
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)

@@ -101,14 +101,59 @@ def elemental_rows(n=N7):
     return rows
 
 
+def ingleton_rows(n=N7, z=6, with_desc=False):
+    """(R29) conditional Ingleton instances on the n-element extension that involve element z:
+    A, B, C, D distinct singletons, K any subset of the remaining elements, z in {A, B, C, D} or in K;
+    rows over masks (row . x >= 0):
+        g(ABK) + g(ACK) + g(ADK) + g(BCK) + g(BDK) - g(AK) - g(BK) - g(CDK) - g(ABCK) - g(ABDK) >= 0.
+    Valid for every linear polymatroid over any field (Ingleton 1971; contracting by K keeps the
+    arrangement linear), hence for the extension A..F, Z = A_X cap A_Y of a stabilizer state."""
+    rows, desc = [], []
+    for quad in itertools.combinations(range(n), 4):
+        rest = [e for e in range(n) if e not in quad]
+        w, x, y, v = quad
+        for (a, b), (c, d) in (((w, x), (y, v)), ((y, v), (w, x)), ((w, y), (x, v)), ((x, v), (w, y)),
+                               ((w, v), (x, y)), ((x, y), (w, v))):
+            for kk in range(1 << len(rest)):
+                K = sum(1 << rest[i] for i in range(len(rest)) if kk >> i & 1)
+                if z not in quad and not (K >> z & 1):
+                    continue
+                A, B, C, D = 1 << a, 1 << b, 1 << c, 1 << d
+                row = {}
+                for m, coef in ((A | B, 1), (A | C, 1), (A | D, 1), (B | C, 1), (B | D, 1),
+                                (A, -1), (B, -1), (C | D, -1), (A | B | C, -1), (A | B | D, -1)):
+                    row[m | K] = row.get(m | K, 0) + coef
+                rows.append(row); desc.append(('I', a, b, c, d, K))
+    return (rows, desc) if with_desc else rows
+
+
+def _rows_matrix(rows):
+    A = lil_matrix((len(rows), NV))
+    for k, d in enumerate(rows):
+        for m, c in d.items():
+            A[k, m - 1] = -c          # -row.x <= 0
+    return csr_matrix(A)
+
+
 ELEM = elemental_rows()
 NV = (1 << N7) - 1
-A_ELEM = lil_matrix((len(ELEM), NV))
-for k, d in enumerate(ELEM):
-    for m, c in d.items():
-        A_ELEM[k, m - 1] = -c          # -row.x <= 0
-A_ELEM = csr_matrix(A_ELEM)
+A_ELEM = _rows_matrix(ELEM)
+A_UB = A_ELEM                    # inequality rows used by ci_status (see set_extension)
+EXTENSION = 'shannon'
 Z = 1 << 6
+
+
+def set_extension(kind):
+    """'shannon' (default, the R27 test): Shannon inequalities on the 7-element extension;
+    'ingleton' (R29): Shannon + every conditional Ingleton instance involving Z.  Call before forking workers."""
+    global A_UB, EXTENSION
+    if kind == 'shannon':
+        A_UB = A_ELEM
+    elif kind == 'ingleton':
+        A_UB = _rows_matrix(ELEM + ingleton_rows())
+    else:
+        raise ValueError(kind)
+    EXTENSION = kind
 
 
 def ci_status(h, X, Y):
@@ -124,7 +169,7 @@ def ci_status(h, X, Y):
     for k, d in enumerate(eq_rows):
         for m, c in d.items():
             Aeq[k, m - 1] = c
-    res = linprog(np.zeros(NV), A_ub=A_ELEM, b_ub=np.zeros(A_ELEM.shape[0]),
+    res = linprog(np.zeros(NV), A_ub=A_UB, b_ub=np.zeros(A_UB.shape[0]),
                   A_eq=csr_matrix(Aeq), b_eq=np.array(eq_b, dtype=float),
                   bounds=[(None, None)] * NV, method='highs', options=HIGHS_OPTS)
     return int(res.status)
@@ -203,15 +248,24 @@ def main():
     ap.add_argument('--pairs', default='all', choices=['all', 'disjoint'],
                     help="'all' = complete single-CI test; 'disjoint' = fast screen (~4x fewer LPs)")
     ap.add_argument('--workers', type=int, default=1)
-    ap.add_argument('--result-timeout', type=float, default=900.0,
-                    help='abort if no ray result arrives for this many seconds (a dead worker would '
-                         'otherwise make the pool wait forever)')
+    ap.add_argument('--extension', default='shannon', choices=['shannon', 'ingleton'],
+                    help="inequalities imposed on the 7-element extension: 'shannon' (R27) or "
+                         "'ingleton' (R29: + conditional Ingleton instances involving Z)")
+    ap.add_argument('--result-timeout', type=float, default=None,
+                    help='abort if no result arrives for this many seconds (a dead worker would otherwise make '
+                         'the pool wait forever); default 900 (shannon) / 1800 (ingleton, ~4x slower LPs)')
+    ap.add_argument('--chunk', type=int, default=None, help='rays per pool task; default 4 (shannon) / 1 (ingleton)')
     a = ap.parse_args()
     R = np.load(a.rays).astype(np.int64)
     if a.limit:
         R = R[:a.limit]
     global _MODE, _FIRST
     _MODE, _FIRST = a.pairs, a.first_only
+    set_extension(a.extension)
+    if a.result_timeout is None:
+        a.result_timeout = 900.0 if a.extension == 'shannon' else 1800.0
+    if a.chunk is None:
+        a.chunk = 4 if a.extension == 'shannon' else 1
     workers = a.workers
     if workers > 1 and not SCIPY_PINS_THREADS:
         per = max(1, ((os.cpu_count() or 1) + 1) // 2)
@@ -235,9 +289,9 @@ def main():
     items = list(enumerate(R.tolist()))
     if workers > 1:
         from multiprocessing import get_context, TimeoutError as PoolTimeout
-        chunks = [items[k:k + 4] for k in range(0, len(items), 4)]
+        chunks = [items[k:k + a.chunk] for k in range(0, len(items), a.chunk)]
         with get_context('fork').Pool(workers) as pool:
-            # chunks of 4 rays, one chunk per task: imap with chunksize=1 returns an iterator
+            # chunks of a.chunk rays, one chunk per task: imap with chunksize=1 returns an iterator
             # whose next() takes a timeout (with chunksize > 1 it is a plain generator)
             it = pool.imap(_test_chunk, chunks)
             for _ in range(len(chunks)):
@@ -254,7 +308,8 @@ def main():
     n_inf = sum(1 for x in results if x['infeasible_pairs'])
     n_und = sum(1 for x in results if x['lp_errors'] and not x['infeasible_pairs'])
     print(f'summary: {len(results)} rays: {n_inf} infeasible, {len(results) - n_inf - n_und} feasible for all '
-          f'{a.pairs} pairs, {n_und} undetermined (LP solver errors); scipy {scipy.__version__}, '
+          f'{a.pairs} pairs, {n_und} undetermined (LP solver errors); extension {EXTENSION} '
+          f'({A_UB.shape[0]} inequality rows); scipy {scipy.__version__}, '
           f'HiGHS threads per worker: {"1" if SCIPY_PINS_THREADS else "not pinnable"}', flush=True)
     if a.out:
         json.dump(results, open(a.out, 'w'))
