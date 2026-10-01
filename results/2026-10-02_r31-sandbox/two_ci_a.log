@@ -1,0 +1,5 @@
+ray 981: feasible ; 106 small pairs, 5565 pair-pairs tested, 0 solver troubles, 253s
+ray 273: feasible ; 105 small pairs, 5460 pair-pairs tested, 0 solver troubles, 242s
+ray 434: feasible ; 101 small pairs, 5050 pair-pairs tested, 0 solver troubles, 226s
+ray 517: feasible ; 105 small pairs, 5460 pair-pairs tested, 0 solver troubles, 236s
+ray 970: feasible ; 110 small pairs, 5995 pair-pairs tested, 0 solver troubles, 269s

@@ -1,0 +1,4 @@
+ray 3: q=2 total 32768 hits 7 best_nonzero_residual 1
+ray 45: q=2 total 32768 hits 372 best_nonzero_residual 4
+ray 3: q=3 total 14348907 hits 256 best_nonzero_residual 1
+ray 45: q=3 total 14348907 hits 85824 best_nonzero_residual 1

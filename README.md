@@ -67,6 +67,16 @@ and the changelog is explained in the glossary at the end.
   the catalogue has diminishing scientific value; the A1′ campaign is closed
   and server time goes to A2 tools from here on. **Interpretation guard:** an
   unwitnessed orbit is not an unrealisable one.
+- [x] **A2, R31 (2026-10-02): no qubit/qutrit difference found.** The 16 orbits that R29 realised
+  only with qutrits are realised by qubits at λ = 2: GF(4) graph states at λ = 1, field-reduced to qubit
+  graph states with 24–32 qubits (`scripts/s24_galois_search.py`, `cc/s24_anneal_gfq.c`,
+  `data/s24_qubit_l2_certs.npz`, gate G28). Conversely the 80 qubit-realised extreme rays of Stab₅ with
+  the fewest qubits are realised by qutrits (73 at λ = 1, 7 at λ = 2, `data/s24_qutrit_certs.npz`); for
+  four of them (q₂ among them) an exhaustive enumeration shows that neither qubits nor qutrits work at
+  λ = 1 (`cc/s24_exhaustive6.c`). The R29 qubit stalls were a small-λ effect (like U₂,₄, binary only after
+  doubling the ranks), not a characteristic-2 obstruction; no extreme ray of Stab₅ is known that
+  distinguishes p = 2 from p = 3. Two simultaneous common informations (`scripts/s25_two_ci.py`) and
+  GF(4) searches decide none of the remaining small orbits (`results/2026-10-02_r31-sandbox/`).
 - [x] **A2, R30 (2026-10-01): CI + Ingleton on every undecided orbit; 641 extreme rays of Stab₅.**
   The fourth server session (`a2-ingleton`, 208 cores, 40 min,
   `results/2026-10-02_a2-ingleton/`) ran the CI+Ingleton LP at every pair on the
@@ -274,7 +284,7 @@ single-source lines in `data/dfz_ref28.csv`; optional `rays5` cross-check.
 
 ```
 # ---- A. Verify the completed results (optional, ~3 minutes in total) ----
-python3 selftest.py --full            # 30 gate lines + ALL PASS, ~3 min; must be all green first
+python3 selftest.py --full            # 31 gate lines + ALL PASS, ~4 min; must be all green first
 python3 scripts/s1_build_qlr.py --variant pure28 --workers 25     # seconds
 python3 scripts/s2_judge.py QLR_H_pure28.npy                      # expect: violated 0
 python3 scripts/s3_rank19.py QLR_H_pure28.npy                     # expect: 18/19, only #19 has rank 29
@@ -358,7 +368,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 
 | Stage | Command essentials | Purpose / expectation |
 | --- | --- | --- |
-| selftest | `selftest.py [--full] [--workers N]` | 30 regression gate lines (G0–G27) + ALL PASS; run first on any machine |
+| selftest | `selftest.py [--full] [--workers N]` | 31 regression gate lines (G0–G28) + ALL PASS; run first on any machine |
 | s1 | `--variant pure28` (current) / `pure`, `v3`, `pure2` (historical) | build the H-representation; seconds |
 | s2 | `s2_judge.py <H.npy>` | 760 graph-state judge; `pure*` variants must give 0 violations |
 | s3 | `s3_rank19.py <H.npy> [--extra-rows X]` | tight-rank test of the 19 HEC rays; pure28 → 18/19 |
@@ -372,6 +382,8 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | s19 | `s19_facet_check.py classes.npy stab5_extreme_reps.npy [--pool …]` | exact rank of known realisable vectors on each inequality's hyperplane (30 = certified facet of the stabilizer cone) |
 | s17 + Ingleton | `s17_ci_test.py <rays.npy> --extension ingleton [--workers N]` → `s22_certify_ext.py --rays … --ci … --out …` | R29: the CI extension must also satisfy every conditional Ingleton instance involving Z; exact certificates with typed terms, checked by `stabcert.verify_exclusion_ext` |
 | s23 | `s23_ci_dfz.py <rays.npy> [--index …] [--out …]` | R30: CI + Ingleton + the 128,040 DFZ five-variable instances involving Z, as cutting planes, at every pair (floating-point verdicts; no certificate path yet) |
+| s24 | `s24_galois_search.py <rays: .npy or .npz> --q 4 --lams 1 --seconds 60 [--out …]` ; `--self-test` ; `--exhaustive --q 3 --index …` | R31: graph states over GF(q), q = 2, 3, 4, 5, 7, 8, 9 (`cc/s24_anneal_gfq.c`); a hit over GF(p^k) is field-reduced to a GF(p) graph state at k·λ and verified by `stabcert`; `--exhaustive`: all one-qudit-per-party graph states (`cc/s24_exhaustive6.c`) |
+| s25 | `s25_two_ci.py <rays.npy> [--index …] [--maxsize 2]` | R31: two simultaneous common informations on small pairs, Shannon on the 8-element extension (floating-point verdicts; exploratory) |
 | s20 | `s20_residuals.py <rays.npy> --lam 1 --seconds 20 --runs 3` | where qubit annealing gets stuck: residual vector of the best state of several independent runs (diagnostic; also keeps any hit as a certificate) |
 | s21 | `s21_qudit_search.py <rays.npy> --p 3 --lams 1 --seconds 60` ; `--self-test` | qudit (p = 3, 5, 7) graph-state search (`cc/s21_anneal_gfp.c`), independent GF(p) re-verification; the self-test checks S(X) = rank_GF(p) W[X, X^c] against exact state vectors |
 | s5 | `s5_orbits.py clr5.out [--raw] [--expect 162]` | rays → S₅ orbits; reconcile against 162 |
@@ -467,6 +479,11 @@ passed in the sandbox (and, optionally, in the manual CI workflow
     16 orbits that stalled at one unit of residual for qubits were realised by
     qutrits at once, and one was realised by a qubit run with a different seed.
     An unrealised orbit is not evidence against stabilizer realisability.
+    R31: the qutrit-only orbits are qubit-realisable at λ = 2, and four small
+    extreme rays need λ = 2 for qubits and qutrits alike. Before reading a
+    λ = 1 failure as an obstruction, search GF(4) (or GF(9)) graph states at
+    λ = 1 with `s24_galois_search.py`: their search space is far smaller than
+    that of qubits (qutrits) at λ = 2.
 17. **A hung CI run is not a red gate (R30).** Run #17 (R29) hung for over an
     hour in `apt-get update`: the runner's Ubuntu mirror stopped answering and
     apt waited without an error, so `selftest.py` never started. The workflows
@@ -518,6 +535,8 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | `s22_single_ci_witnesses.npz` | 24,057 | exact rational CI extensions (denominators ≤ 3) proving that the 18 excluded orbits pass every single-CI test (`stabcert.verify_single_ci_feasible`), gate G25 |
 | `s22_ingleton_exclusions_a2i.json` | 904 | R30: CI+Ingleton exclusion certificates for the orbits the server found infeasible (row of `results/2026-10-01_a2-status/undecided_reps.npy`, catalogue index, ray, pair, S-form, class, typed terms), gate G26 |
 | `s22_ineq_classes_a2i.npy` | 628 | their distinct S-forms up to S₆ (lexicographically smallest image; none violated by any known realisable vector) |
+| `s24_qubit_l2_certs.npz` | 16 | R31: qubit graph states at λ = 2 (G = adjacency, sizes = qubits per party) for the 16 orbits of `s21_qudit_realisations.npz`, with the GF(4) matrices they come from (Wq), gate G28 |
+| `s24_qutrit_certs.npz` | 80 | R31: qutrit graph states (λ = 1 for 73, 2 for 7) for the 80 qubit-realised rows of `stab5_extreme_reps.npy` with the fewest qubits (row in `stab5_row`), gate G28 |
 | `sixvar_template.csv` | — | transcription template for s9 |
 | `manifest_shas.json` | — | canonical sha256 of every row family (`sha_rows`; `sha_rows_wide` for wide coordinates) |
 
@@ -535,9 +554,10 @@ then write to the BCHS authors. (b) The 1,155 undecided orbits
 of annealing mostly ends far from a realisation, so stronger searches
 (longer, λ = 2, restarts from the best states) are the obvious server job.
 (c) The 10 orbits with at most 20 qubits survive everything tried (qubits at
-λ = 1, 2, qutrits, p = 5, 7, CI+Ingleton, CI+Ingleton+DFZ), among them frontier
-ray 294. Untried: two genuine common informations at once (an 8-element
-extension), DFZ instances with unions of elements in one slot, and DFZ's own
+λ = 1, 2, qutrits, p = 5, 7, GF(4), CI+Ingleton, CI+Ingleton+DFZ, two common
+informations on small pairs), among them frontier ray 294. Untried: second
+common informations of pairs that involve the first, larger pairs, DFZ
+instances with unions of elements in one slot, and DFZ's own
 six-variable list (arXiv:0910.0284 §6: 3,490 inequalities, 2,395,095 with
 permuted forms; "hundreds" need two common informations) — if that list can
 be obtained (the authors' site `code.ucsd.edu/zeger/linrank`, which also hosts
@@ -602,7 +622,7 @@ This repository is public at
 
 - **CI:** `.github/workflows/selftest.yml` installs `lrslib` and the Python
   requirements and runs `python3 selftest.py --full` on every push and pull
-  request (all 30 gate lines must pass). Every step has a time cap (job 40 min;
+  request (all 31 gate lines must pass). Every step has a time cap (job 40 min;
   each `apt-get update` attempt 150 s, three attempts), so a stalled package
   mirror fails the run within minutes instead of hanging for GitHub's 6-hour
   default; such a failure says nothing about the code -- re-run the job.

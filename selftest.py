@@ -432,6 +432,44 @@ def main():
          f"{len(D27)} DFZ forms (24 + 4 Ingleton) valid on 60 random GF(2) arrangements; {len(inst27)} instances on "
          f"A..F,Z ({len(inst27) - len(rows27)} with Z); the {len(rows27)} on A..F hold for all {REAL26.shape[0]} realised vectors")
 
+    # G28 (R31): p = 2 versus p = 3.  The 16 orbits that R29 realised only with qutrits are realised by qubits
+    # at lambda = 2 (GF(4) graph states at lambda = 1, field-reduced to qubit graph states by
+    # scripts/s24_galois_search.py; data/s24_qubit_l2_certs.npz), and the 80 qubit-realised extreme rays of
+    # Stab5 with the smallest qubit counts are realised by qutrits (73 at lambda = 1, 7 at lambda = 2;
+    # data/s24_qutrit_certs.npz).  The field reduction is checked against direct ranks on random states.
+    import s24_galois_search as _g28
+    Q28 = np.load(os.path.join(core.DATA, 's24_qubit_l2_certs.npz'))
+    ok28a = Q28['rep'].shape[0] == 16 and sorted(Q28['catalogue_index'].tolist()) == sorted(Q24['catalogue_index'].tolist())
+    for k in range(Q28['rep'].shape[0]):
+        r28 = Q28['rep'][k].astype(np.int64); sz28 = Q28['sizes'][k]; n28 = int(sz28.sum())
+        j28 = int(np.flatnonzero(Q24['catalogue_index'] == Q28['catalogue_index'][k])[0])
+        rows28 = np.zeros(64, dtype=np.uint64)
+        for i28 in range(n28):
+            rows28[i28] = np.uint64(sum(1 << b for b in range(n28) if Q28['G'][k][i28, b]))
+        ok28a = (ok28a and np.array_equal(r28, Q24['rep'][j28].astype(np.int64)) and int(Q28['lam'][k]) == 2
+                 and list(sz28) == list(_g28.party_sizes(r28, 2)) and _sc.verify_realisation(r28, 2, sz28, rows28))
+    for k in (0, 7, 15):                     # re-derive from the stored GF(4) matrices with the s24 reduction
+        r28 = Q28['rep'][k].astype(np.int64); N28 = int(sum(_g28.party_sizes(r28, 1)))
+        okq28, c28 = _g28.certify(r28, 1, Q28['Wq'][k][:N28, :N28].astype(int).tolist(), 4)
+        ok28a = ok28a and okq28 and c28 is not None and np.array_equal(c28['G'], Q28['G'][k][:2 * N28, :2 * N28])
+    T28 = np.load(os.path.join(core.DATA, 's24_qutrit_certs.npz'))
+    E28 = core.load('stab5_extreme_reps').astype(np.int64)
+    src28 = np.load(os.path.join(core.DATA, 'stab5_extreme_src.npy'))
+    qb28 = [k for k in range(E28.shape[0]) if src28[k] != 'cert_r29q3']
+    nq28 = {k: sum(_g28.party_sizes(E28[k], 1)) for k in qb28}
+    pick28 = sorted([k for k in qb28 if nq28[k] <= 20], key=lambda k: nq28[k])[:80]
+    ok28b = (T28['stab5_row'].tolist() == pick28 and int((T28['lam'] == 1).sum()) == 73
+             and int((T28['lam'] == 2).sum()) == 7)
+    for k in range(T28['rep'].shape[0]):
+        r28 = T28['rep'][k].astype(np.int64); sz28 = T28['sizes'][k]; n28 = int(sz28.sum())
+        ok28b = (ok28b and np.array_equal(r28, E28[pick28[k]])
+                 and _sc.verify_realisation_gfp(r28, int(T28['lam'][k]), sz28, T28['G'][k][:n28, :n28], 3))
+    w28 = _g28.self_test(trials=4)
+    gate('G28 p=2 vs p=3', ok28a and ok28b and w28 == 0,
+         f"{Q28['rep'].shape[0]}/16 R29 qutrit-only orbits realised by qubits at lambda=2 (GF(4) + field reduction); "
+         f"{T28['rep'].shape[0]}/80 smallest qubit-realised extreme rays realised by qutrits "
+         f"({int((T28['lam'] == 1).sum())} at lambda=1, {int((T28['lam'] == 2).sum())} at lambda=2); reduction self-test max error {w28}")
+
     if a.full:
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)

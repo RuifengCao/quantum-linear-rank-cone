@@ -1,0 +1,67 @@
+{
+ "date": "2026-10-02",
+ "tag": "r31-sandbox",
+ "note": "R31 sandbox: two common informations, GF(4) searches and one-qudit-per-party exhaustive checks; no orbit decided",
+ "files": {
+  "README.txt": {
+   "bytes": 1608,
+   "sha256": "0d9150ef9802e6dd08df31eb0280c1537d211f0f6f1ca07658b75cbadbaf2e6a"
+  },
+  "two_ci_a.json": {
+   "bytes": 480,
+   "sha256": "5a46d39250a0fd0f0348382eb955e4ec4528784160150bc3b49be35fb4e7f7da"
+  },
+  "two_ci_a.log": {
+   "bytes": 425,
+   "sha256": "4b2a78e6c61affca18280169a4aec8255a604b28bbc4ad1fa48c117f902cfd07"
+  },
+  "two_ci_b.json": {
+   "bytes": 480,
+   "sha256": "7f0d2bb2f905b75dc383831bd686a9af0c21300d5dad5f1b3ae386040823776d"
+  },
+  "two_ci_b.log": {
+   "bytes": 425,
+   "sha256": "fb116b98364c1509d6b4d06ce430fe85cea05a3a13a502aa81f924c008460dc5"
+  },
+  "two_ci_c.json": {
+   "bytes": 287,
+   "sha256": "ec7360533ebd402fe2889c6ef208b2c82a4bd5dca091422181b4fce74ff0617f"
+  },
+  "two_ci_c.log": {
+   "bytes": 254,
+   "sha256": "7637592fe6dc1a5333e5eff7b48deb5881ab2e55b181fa4816c3bad3638a3126"
+  },
+  "two_ci_d.json": {
+   "bytes": 288,
+   "sha256": "c9d628026f88767d47d63c441de33aefb00956c571d1ade0f0138ee4a3eff2f6"
+  },
+  "two_ci_d.log": {
+   "bytes": 255,
+   "sha256": "6c5d02ab07beb203ef995d5687ee435e7497b3374d022780f0566613501c2869"
+  },
+  "s25_981.json": {
+   "bytes": 219,
+   "sha256": "63182fa788c0d208c2293b7e0c7905bda18d1e0d2f1e057942e3ca3eb19807c7"
+  },
+  "s25_981.log": {
+   "bytes": 75,
+   "sha256": "9a7fb0845ddd1fe3c60877da691eef7c4499ebb019841f6573ce547311a8a381"
+  },
+  "gf4_small10.json": {
+   "bytes": 680,
+   "sha256": "20e73d4116e0b043d29e0a868e48245a28df67f0a11ed475d3bfc8b3b1a9f20f"
+  },
+  "gf4_sample16.json": {
+   "bytes": 335,
+   "sha256": "28d7d36e0577b865ae3cd583ecad3ffdaf90690b3855af5edb08cbee875ff0e2"
+  },
+  "exhaustive4.log": {
+   "bytes": 456,
+   "sha256": "bf18771544c528aee2058bb9562b78aa91f3ffb196046db716a474c181372f2f"
+  },
+  "exhaustive_controls.log": {
+   "bytes": 232,
+   "sha256": "a1df208272957a124d7b9f1bbf291597a0889052f0bbaa46823bbddcad8dfdb1"
+  }
+ }
+}

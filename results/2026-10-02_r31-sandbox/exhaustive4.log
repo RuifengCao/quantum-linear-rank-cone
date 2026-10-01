@@ -1,0 +1,8 @@
+ray 43: q=2 total 32768 hits 0 best_nonzero_residual 2
+ray 44: q=2 total 32768 hits 0 best_nonzero_residual 3
+ray 195: q=2 total 32768 hits 0 best_nonzero_residual 3
+ray 225: q=2 total 32768 hits 0 best_nonzero_residual 2
+ray 43: q=3 total 14348907 hits 0 best_nonzero_residual 1
+ray 44: q=3 total 14348907 hits 0 best_nonzero_residual 1
+ray 195: q=3 total 14348907 hits 0 best_nonzero_residual 2
+ray 225: q=3 total 14348907 hits 0 best_nonzero_residual 2

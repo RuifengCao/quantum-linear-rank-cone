@@ -213,9 +213,9 @@ every prime p, so for fixed λ party q owns λ·S_q qudits and only inter-party 
 Annealing over GF(3) weights realised 16 of the 45 undecided orbits with at most 20 qubits at
 λ = 1, including 12 of the 17 frontier rays of R27; every certificate is re-verified by an
 independent elimination (`stabcert.verify_realisation_gfp`). Qubit annealing had stalled at a
-residual of exactly one cut unit on all 45; a qubit realisation at larger λ is not excluded,
-and no characteristic-2 inequality explaining the stall is known to us (characteristic-dependent
-linear rank inequalities exist on eight variables: Dougherty–Freiling–Zeger, arXiv:1401.2507).
+residual of exactly one cut unit on all 45; a qubit realisation at larger λ was not excluded
+(characteristic-dependent linear rank inequalities exist on eight variables: Dougherty–Freiling–Zeger,
+arXiv:1401.2507). **R31 (§8): all 16 are realised by qubits at λ = 2.**
 
 **Catalogue after R29** (`results/2026-10-01_a2-status/`): 1,915,006 excluded (1,914,541 by
 single-CI certificates, 465 by CI+Ingleton certificates) / 630 realised / 2,070 undecided;
@@ -282,26 +282,65 @@ CI + Ingleton (0 of 26 orbits tested; raw output in `results/2026-10-02_r30-sand
 single-CI certificates, 1,369 by CI+Ingleton certificates) / 641 realised / 1,155 undecided;
 641 known extreme-ray orbits of Stab₅.
 
-## 8. Open questions
+## 8. R31: qubits and qutrits
+
+**Galois qudits and field reduction.** A weighted graph state over GF(q), q = p^k (symmetric W, zero
+diagonal), has stabilizer the GF(q)-linear Lagrangian rowspace [I | W] and entropy
+S(X) = rank_GF(q) W[X, X^c] in units of log q. Writing x-coordinates in the basis 1, a, …, a^(k−1) of
+GF(q) over GF(p) and z-coordinates in the trace-dual basis turns Tr(x·z′ − z·x′) into the standard
+symplectic form on k qudits of dimension p, and the GF(p)-span of the rows of [I | W] and their multiples
+by a, …, a^(k−1) is a Lagrangian of dimension kN whose projection onto any block of Galois qudits has k
+times the GF(q) dimension. Hence a GF(q) realisation of r at λ gives a GF(p) realisation of kλ·r
+(standard field reduction; `scripts/s24_galois_search.py` performs it, brings the result to graph form by
+local Fourier transforms, and accepts it only after `epr1kit.stabcert` verifies the GF(p) certificate;
+`--self-test` compares the reduced ranks with k times the GF(q) ranks on random states, q = 4, 8, 9).
+
+**The 16 qutrit-only orbits are qubit-realisable.** Each of the 16 orbits that R29 realised only with
+qutrits is the entropy vector of a GF(4) graph state at λ = 1, hence of a qubit graph state at λ = 2 with
+24–32 qubits (`data/s24_qubit_l2_certs.npz`; every certificate is checked by
+`stabcert.verify_realisation`, gate G28). Conversely, the 80 qubit-realised extreme rays of Stab₅ with the
+fewest qubits at λ = 1 (2–12) are realised by qutrits, 73 at λ = 1 and 7 at λ = 2
+(`data/s24_qutrit_certs.npz`, G28). For four of these seven (rows 43, 44, 195 = q₂ and 225 of
+`data/stab5_extreme_reps.npy`; S_P = 1 for every party) an exhaustive enumeration of all graph states with
+one qudit per party (`cc/s24_exhaustive6.c`: all 2^15 over GF(2), all 3^15 over GF(3)) shows that neither
+qubits nor qutrits realise them at λ = 1, while both do at λ = 2. The R29 qubit stalls are therefore a
+small-λ effect of the kind shown by the uniform matroid U₂,₄, which is not binary while its rank function
+doubled is (GF(4) over GF(2)); they are not a characteristic-2 obstruction. Every extreme ray of Stab₅
+tested so far is realisable both for p = 2 and for p = 3. Whether the five-party stabilizer cones of
+different primes coincide is open; no difference is known.
+
+**Negative results.** GF(4) graph states at λ = 1 realise none of the 10 smallest undecided orbits
+(290 s each, residual 1–7) and none of 16 larger ones (55 s each; residual 16–74: the search does not
+converge at that size). Two simultaneous common informations (`scripts/s25_two_ci.py`: Z₁ and Z₂ for every
+unordered pair of disjoint pairs with |X_i|, |Y_i| ≤ 2, Shannon on the 8-element extension; this covers
+the structure of DFZ's two-common-information inequality (61)) exclude none of the 10 smallest undecided
+orbits and none of 6 larger ones (about 90,000 LPs, floating-point verdicts). Raw output:
+`results/2026-10-02_r31-sandbox/`.
+
+## 9. Open questions
 
 * ~~**S7″**~~ (Stab₅ = QLR₅ cut by all single-CI six-variable inequalities?) —
   **answered in the negative in R29** (Theorem 2). **S7′**: is Stab₅ equal to QLR₅
   cut by *all* six-variable linear rank inequalities? Still open; the R29 and R30 exclusions are
   themselves six-variable linear rank inequalities. (The six-variable list is not known to be
   complete; DFZ report 3,490 classes, some needing two common informations.)
-* Qubits versus qudits: are the 16 qutrit-realised orbits qubit-realisable at some λ?
+* Qubits versus qudits: ~~are the 16 qutrit-realised orbits qubit-realisable at some λ?~~ Yes, at λ = 2
+  (R31, §8). Do the five-party stabilizer cones of different primes coincide? Open; no difference
+  is known (every extreme ray tested is realisable for p = 2 and p = 3).
 * The 1,155 undecided orbits (`results/2026-10-02_a2-status/`), in particular the 10 with at most
-  20 qubits that survive qubits (λ = 1, 2), qutrits, p = 5, CI+Ingleton and CI+Ingleton+DFZ —
+  20 qubits that survive qubits (λ = 1, 2), qutrits (λ = 1, 2), p = 5, 7, GF(4), CI+Ingleton,
+  CI+Ingleton+DFZ and two common informations —
   among them frontier ray 294, the last undecided ray of the R27 frontier (156 realised, 143
-  excluded, 1 undecided). Untried: two genuine common informations at once, and DFZ instances
-  with unions of elements in a slot.
+  excluded, 1 undecided). Two simultaneous common informations on small pairs (R31) and GF(4)
+  graph states at λ = 1 (R31) do not decide them either. Untried: second common informations of pairs
+  that involve the first, larger pairs, and DFZ instances with unions of elements in a slot.
 * The single-CI cone has extreme rays that are not extreme rays of QLR₅ (created
   by the cuts); they are not in the catalogue and are untested.
 * Facets: 628 of the 747 single-CI classes are not certified as facets; the 646 CI+Ingleton
   classes (18 + 628) are valid but neither checked for facetness nor compared with DFZ's
   six-variable lists.
 
-## 9. Reproduce
+## 10. Reproduce
 
     python3 selftest.py --full                       # gate G20 re-derives every certificate
     python3 scripts/s17_ci_test.py data/a2_frontier300.npy --first-only --pairs disjoint --workers 2
@@ -315,3 +354,8 @@ single-CI certificates, 1,369 by CI+Ingleton certificates) / 641 realised / 1,15
         --ci results/2026-10-02_a2-ingleton/a2i_ci.json --extension ingleton --out certs_a2i.json  # R30: 904, ~2 min
     python3 scripts/s23_ci_dfz.py results/2026-10-02_a2-status/undecided_reps.npy \
         --index 273 396 434 484 517 807 970 973 981 995 --out ci_dfz.json                         # R30: ~8 min
+    python3 scripts/s24_galois_search.py --self-test                                          # R31: field reduction
+    python3 scripts/s24_galois_search.py data/s21_qudit_realisations.npz --q 4 --lams 1 --seconds 300 \
+        --out qubit_l2.npz                                                                       # R31: up to ~40 min
+    python3 scripts/s24_galois_search.py data/stab5_extreme_reps.npy --exhaustive --q 3 --index 43 44 195 225
+    python3 scripts/s25_two_ci.py results/2026-10-02_a2-status/undecided_reps.npy --index 981     # R31: ~5 min

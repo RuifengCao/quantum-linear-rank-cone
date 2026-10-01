@@ -1,0 +1,14 @@
+{
+ "rays": "results/2026-10-02_a2-status/undecided_reps.npy",
+ "maxsize": 2,
+ "results": [
+  {
+   "index": 981,
+   "verdict": "feasible",
+   "pairs": 106,
+   "lps": 5565,
+   "bad": null,
+   "solver_troubles": 0
+  }
+ ]
+}

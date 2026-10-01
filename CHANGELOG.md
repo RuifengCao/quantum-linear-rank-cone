@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## R31 (2026-10-02) -- qubits and qutrits: no difference found; Galois-field search; two common informations
+- **Qutrit-only orbits are qubit-realisable.** `scripts/s24_galois_search.py` + `cc/s24_anneal_gfq.c`
+  search weighted graph states over GF(q), q = 2, 3, 4, 5, 7, 8, 9 (field tables), and turn a hit over
+  GF(p^k) into a GF(p) certificate at k * lambda by standard field reduction (x-coordinates in the basis
+  1, a, ..., a^(k-1), z-coordinates in the trace-dual basis), local Fourier transforms to graph form, and
+  verification by `epr1kit.stabcert`; `--self-test` compares reduced ranks with k times the GF(q) ranks on
+  random states (q = 4, 8, 9). All 16 orbits realised only by qutrits in R29 are GF(4) graph states at
+  lambda = 1, hence qubit graph states at lambda = 2 with 24-32 qubits (`data/s24_qubit_l2_certs.npz`).
+- **Reverse direction.** The 80 qubit-realised extreme rays of Stab5 with the fewest qubits at
+  lambda = 1 (2-12) are realised by qutrits: 73 at lambda = 1, 7 at lambda = 2
+  (`data/s24_qutrit_certs.npz`). For four of the seven (stab5 rows 43, 44, 195 = q2, 225; one qudit per
+  party at lambda = 1) `cc/s24_exhaustive6.c` (`s24_galois_search.py --exhaustive`) enumerates all 2^15
+  qubit and all 3^15 qutrit graph states: none works at lambda = 1, while both fields work at lambda = 2.
+  Positive controls (rows 3 and 45) give hits. So the R29 qubit stalls were a small-lambda effect (as for
+  U_{2,4}, binary only after doubling the ranks), not a characteristic-2 obstruction; no extreme ray of
+  Stab5 is known that separates p = 2 from p = 3. The sharper route to "the five-party stabilizer cone
+  depends on the local dimension" considered after R30 has no candidate left.
+- **Gate G28**: the 16 qubit certificates (lambda = 2, `stabcert.verify_realisation`, three of them
+  re-derived from the stored GF(4) matrices), the 80 qutrit certificates (`verify_realisation_gfp`, the
+  selection rule recomputed), the field-reduction self-test. `--full`: 31 gate lines.
+- **Two common informations.** `scripts/s25_two_ci.py`: Z1 and Z2 for every unordered pair of disjoint
+  pairs with |X|, |Y| <= 2, Shannon on the 8-element extension (covers the structure of DFZ's
+  two-common-information inequality (61), arXiv:0910.0284 Section 6). The 10 smallest undecided orbits
+  and 6 larger ones are feasible for all of them (about 90,000 LPs). GF(4) at lambda = 1 realises none of
+  the 10 (290 s each) nor 16 larger undecided orbits (55 s; residual 16-74). Raw output:
+  `results/2026-10-02_r31-sandbox/`.
+- Docs: `docs/A2_stabilizer_vs_QLR.md` new section 8 (R31); the R29 sentence "a qubit realisation at
+  larger lambda is not excluded" now points to it; open questions updated. README status, pipeline rows
+  s24/s25, data inventory, pitfall 16.
+
 ## R30 (2026-10-01) -- CI + Ingleton on every undecided orbit; 641 extreme rays of Stab5
 - **Fourth server session** (`a2-ingleton`, 208 cores, 40 min, `results/2026-10-02_a2-ingleton/`,
   server date 2026-10-02): the CI+Ingleton LP at every pair on the 2,070 undecided orbits finds

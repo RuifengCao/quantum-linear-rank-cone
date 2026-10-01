@@ -226,5 +226,15 @@
   "realised": 630,
   "undecided": 2070,
   "where": "results/2026-10-01_a2-status/"
+ },
+ "s24_qubit_l2_certs": {
+  "rows": 16,
+  "sha256_rep": "5ccc785d32d29944e88695cc13197372ea5d5ab1d6f9d62cce5d5e615f3099eb",
+  "file_sha256": "5e695d4d38bde39d3d4ad36c4770e1091ea8485ac720e36ccecc6ec4db7a1a2c"
+ },
+ "s24_qutrit_certs": {
+  "rows": 80,
+  "sha256_rep": "fa46f20fcdba8b32a19bad2b0ee3d7e0ea02e9ebd05716b76d0ad17e5856c6d5",
+  "file_sha256": "65d124d91877c0ba57691ee3102795778b7fc8acc084b2c0508f11a3b2c1be5e"
  }
 }
