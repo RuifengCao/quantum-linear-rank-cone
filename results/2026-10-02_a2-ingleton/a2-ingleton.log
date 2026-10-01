@@ -1,0 +1,2078 @@
+ray 0: feasible for all all pairs
+ray 1: feasible for all all pairs
+ray 2: feasible for all all pairs
+ray 3: feasible for all all pairs
+ray 4: feasible for all all pairs
+ray 5: feasible for all all pairs
+ray 6: feasible for all all pairs
+ray 7: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 8: feasible for all all pairs
+ray 9: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 10: feasible for all all pairs
+ray 11: feasible for all all pairs
+ray 12: feasible for all all pairs
+ray 13: feasible for all all pairs
+ray 14: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 15: feasible for all all pairs
+ray 16: feasible for all all pairs
+ray 17: feasible for all all pairs
+ray 18: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 19: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 20: feasible for all all pairs
+ray 21: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 22: feasible for all all pairs
+ray 23: feasible for all all pairs
+ray 24: feasible for all all pairs
+ray 25: feasible for all all pairs
+ray 26: feasible for all all pairs
+ray 27: feasible for all all pairs
+ray 28: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 29: feasible for all all pairs
+ray 30: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 31: feasible for all all pairs
+ray 32: feasible for all all pairs
+ray 33: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 34: feasible for all all pairs
+ray 35: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 36: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 37: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 38: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 39: feasible for all all pairs
+ray 40: feasible for all all pairs
+ray 41: feasible for all all pairs
+ray 42: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 43: feasible for all all pairs
+ray 44: feasible for all all pairs
+ray 45: feasible for all all pairs
+ray 46: feasible for all all pairs
+ray 47: feasible for all all pairs
+ray 48: feasible for all all pairs
+ray 49: feasible for all all pairs
+ray 50: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 51: feasible for all all pairs
+ray 52: feasible for all all pairs
+ray 53: feasible for all all pairs
+ray 54: feasible for all all pairs
+ray 55: feasible for all all pairs
+ray 56: feasible for all all pairs
+ray 57: feasible for all all pairs
+ray 58: feasible for all all pairs
+ray 59: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 60: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 61: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 62: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 63: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 64: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 65: feasible for all all pairs
+ray 66: feasible for all all pairs
+ray 67: feasible for all all pairs
+ray 68: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 69: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 70: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 71: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 72: feasible for all all pairs
+ray 73: feasible for all all pairs
+ray 74: feasible for all all pairs
+ray 75: feasible for all all pairs
+ray 76: feasible for all all pairs
+ray 77: feasible for all all pairs
+ray 78: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 79: feasible for all all pairs
+ray 80: feasible for all all pairs
+ray 81: feasible for all all pairs
+ray 82: feasible for all all pairs
+ray 83: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 84: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 85: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 86: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 87: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 88: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 89: INFEASIBLE for 1 pair(s), first (6, 17)
+ray 90: feasible for all all pairs
+ray 91: INFEASIBLE for 1 pair(s), first (5, 16)
+ray 92: feasible for all all pairs
+ray 93: feasible for all all pairs
+ray 94: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 95: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 96: feasible for all all pairs
+ray 97: feasible for all all pairs
+ray 98: feasible for all all pairs
+ray 99: feasible for all all pairs
+ray 100: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 101: feasible for all all pairs
+ray 102: feasible for all all pairs
+ray 103: feasible for all all pairs
+ray 104: feasible for all all pairs
+ray 105: feasible for all all pairs
+ray 106: feasible for all all pairs
+ray 107: feasible for all all pairs
+ray 108: feasible for all all pairs
+ray 109: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 110: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 111: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 112: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 113: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 114: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 115: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 116: feasible for all all pairs
+ray 117: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 118: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 119: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 120: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 121: feasible for all all pairs
+ray 122: feasible for all all pairs
+ray 123: feasible for all all pairs
+ray 124: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 125: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 126: feasible for all all pairs
+ray 127: feasible for all all pairs
+ray 128: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 129: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 130: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 131: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 132: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 133: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 134: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 135: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 136: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 137: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 138: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 139: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 140: feasible for all all pairs
+ray 141: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 142: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 143: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 144: feasible for all all pairs
+ray 145: feasible for all all pairs
+ray 146: feasible for all all pairs
+ray 147: feasible for all all pairs
+ray 148: feasible for all all pairs
+ray 149: feasible for all all pairs
+ray 150: feasible for all all pairs
+ray 151: feasible for all all pairs
+ray 152: feasible for all all pairs
+ray 153: feasible for all all pairs
+ray 154: feasible for all all pairs
+ray 155: feasible for all all pairs
+ray 156: feasible for all all pairs
+ray 157: feasible for all all pairs
+ray 158: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 159: feasible for all all pairs
+ray 160: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 161: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 162: feasible for all all pairs
+ray 163: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 164: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 165: feasible for all all pairs
+ray 166: feasible for all all pairs
+ray 167: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 168: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 169: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 170: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 171: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 172: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 173: feasible for all all pairs
+ray 174: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 175: feasible for all all pairs
+ray 176: feasible for all all pairs
+ray 177: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 178: feasible for all all pairs
+ray 179: feasible for all all pairs
+ray 180: feasible for all all pairs
+ray 181: feasible for all all pairs
+ray 182: feasible for all all pairs
+ray 183: feasible for all all pairs
+ray 184: feasible for all all pairs
+ray 185: feasible for all all pairs
+ray 186: feasible for all all pairs
+ray 187: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 188: feasible for all all pairs
+ray 189: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 190: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 191: INFEASIBLE for 1 pair(s), first (5, 16)
+ray 192: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 193: feasible for all all pairs
+ray 194: feasible for all all pairs
+ray 195: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 196: feasible for all all pairs
+ray 197: feasible for all all pairs
+ray 198: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 199: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 200: feasible for all all pairs
+ray 201: feasible for all all pairs
+ray 202: feasible for all all pairs
+ray 203: feasible for all all pairs
+ray 204: feasible for all all pairs
+ray 205: feasible for all all pairs
+ray 206: feasible for all all pairs
+ray 207: feasible for all all pairs
+ray 208: feasible for all all pairs
+ray 209: feasible for all all pairs
+ray 210: feasible for all all pairs
+ray 211: feasible for all all pairs
+ray 212: feasible for all all pairs
+ray 213: feasible for all all pairs
+ray 214: INFEASIBLE for 1 pair(s), first (5, 16)
+ray 215: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 216: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 217: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 218: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 219: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 220: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 221: feasible for all all pairs
+ray 222: feasible for all all pairs
+ray 223: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 224: feasible for all all pairs
+ray 225: feasible for all all pairs
+ray 226: feasible for all all pairs
+ray 227: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 228: feasible for all all pairs
+ray 229: feasible for all all pairs
+ray 230: feasible for all all pairs
+ray 231: feasible for all all pairs
+ray 232: feasible for all all pairs
+ray 233: feasible for all all pairs
+ray 234: feasible for all all pairs
+ray 235: feasible for all all pairs
+ray 236: feasible for all all pairs
+ray 237: feasible for all all pairs
+ray 238: feasible for all all pairs
+ray 239: feasible for all all pairs
+ray 240: feasible for all all pairs
+ray 241: feasible for all all pairs
+ray 242: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 243: feasible for all all pairs
+ray 244: feasible for all all pairs
+ray 245: feasible for all all pairs
+ray 246: feasible for all all pairs
+ray 247: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 248: feasible for all all pairs
+ray 249: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 250: feasible for all all pairs
+ray 251: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 252: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 253: feasible for all all pairs
+ray 254: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 255: feasible for all all pairs
+ray 256: feasible for all all pairs
+ray 257: feasible for all all pairs
+ray 258: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 259: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 260: feasible for all all pairs
+ray 261: feasible for all all pairs
+ray 262: feasible for all all pairs
+ray 263: feasible for all all pairs
+ray 264: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 265: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 266: feasible for all all pairs
+ray 267: feasible for all all pairs
+ray 268: feasible for all all pairs
+ray 269: feasible for all all pairs
+ray 270: feasible for all all pairs
+ray 271: feasible for all all pairs
+ray 272: feasible for all all pairs
+ray 273: feasible for all all pairs
+ray 274: feasible for all all pairs
+ray 275: feasible for all all pairs
+ray 276: feasible for all all pairs
+ray 277: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 278: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 279: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 280: feasible for all all pairs
+ray 281: feasible for all all pairs
+ray 282: feasible for all all pairs
+ray 283: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 284: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 285: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 286: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 287: feasible for all all pairs
+ray 288: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 289: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 290: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 291: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 292: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 293: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 294: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 295: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 296: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 297: feasible for all all pairs
+ray 298: feasible for all all pairs
+ray 299: feasible for all all pairs
+ray 300: feasible for all all pairs
+ray 301: feasible for all all pairs
+ray 302: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 303: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 304: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 305: feasible for all all pairs
+ray 306: feasible for all all pairs
+ray 307: feasible for all all pairs
+ray 308: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 309: feasible for all all pairs
+ray 310: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 311: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 312: feasible for all all pairs
+ray 313: feasible for all all pairs
+ray 314: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 315: INFEASIBLE for 1 pair(s), first (2, 13)
+ray 316: INFEASIBLE for 1 pair(s), first (2, 13)
+ray 317: feasible for all all pairs
+ray 318: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 319: feasible for all all pairs
+ray 320: feasible for all all pairs
+ray 321: INFEASIBLE for 1 pair(s), first (3, 32)
+ray 322: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 323: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 324: feasible for all all pairs
+ray 325: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 326: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 327: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 328: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 329: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 330: feasible for all all pairs
+ray 331: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 332: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 333: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 334: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 335: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 336: feasible for all all pairs
+ray 337: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 338: feasible for all all pairs
+ray 339: feasible for all all pairs
+ray 340: feasible for all all pairs
+ray 341: feasible for all all pairs
+ray 342: feasible for all all pairs
+ray 343: feasible for all all pairs
+ray 344: feasible for all all pairs
+ray 345: feasible for all all pairs
+ray 346: feasible for all all pairs
+ray 347: feasible for all all pairs
+ray 348: feasible for all all pairs
+ray 349: feasible for all all pairs
+ray 350: feasible for all all pairs
+ray 351: feasible for all all pairs
+ray 352: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 353: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 354: feasible for all all pairs
+ray 355: feasible for all all pairs
+ray 356: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 357: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 358: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 359: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 360: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 361: feasible for all all pairs
+ray 362: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 363: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 364: feasible for all all pairs
+ray 365: feasible for all all pairs
+ray 366: INFEASIBLE for 1 pair(s), first (5, 32)
+ray 367: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 368: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 369: feasible for all all pairs
+ray 370: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 371: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 372: feasible for all all pairs
+ray 373: feasible for all all pairs
+ray 374: feasible for all all pairs
+ray 375: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 376: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 377: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 378: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 379: feasible for all all pairs
+ray 380: feasible for all all pairs
+ray 381: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 382: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 383: feasible for all all pairs
+ray 384: feasible for all all pairs
+ray 385: INFEASIBLE for 1 pair(s), first (12, 33)
+ray 386: feasible for all all pairs
+ray 387: feasible for all all pairs
+ray 388: feasible for all all pairs
+ray 389: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 390: feasible for all all pairs
+ray 391: feasible for all all pairs
+ray 392: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 393: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 394: feasible for all all pairs
+ray 395: feasible for all all pairs
+ray 396: feasible for all all pairs
+ray 397: feasible for all all pairs
+ray 398: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 399: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 400: feasible for all all pairs
+ray 401: feasible for all all pairs
+ray 402: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 403: feasible for all all pairs
+ray 404: feasible for all all pairs
+ray 405: feasible for all all pairs
+ray 406: feasible for all all pairs
+ray 407: INFEASIBLE for 1 pair(s), first (7, 32)
+ray 408: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 409: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 410: INFEASIBLE for 1 pair(s), first (3, 32)
+ray 411: INFEASIBLE for 1 pair(s), first (5, 32)
+ray 412: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 413: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 414: feasible for all all pairs
+ray 415: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 416: feasible for all all pairs
+ray 417: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 418: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 419: feasible for all all pairs
+ray 420: feasible for all all pairs
+ray 421: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 422: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 423: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 424: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 425: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 426: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 427: feasible for all all pairs
+ray 428: feasible for all all pairs
+ray 429: feasible for all all pairs
+ray 430: feasible for all all pairs
+ray 431: feasible for all all pairs
+ray 432: feasible for all all pairs
+ray 433: feasible for all all pairs
+ray 434: feasible for all all pairs
+ray 435: feasible for all all pairs
+ray 436: feasible for all all pairs
+ray 437: feasible for all all pairs
+ray 438: feasible for all all pairs
+ray 439: feasible for all all pairs
+ray 440: feasible for all all pairs
+ray 441: feasible for all all pairs
+ray 442: feasible for all all pairs
+ray 443: feasible for all all pairs
+ray 444: feasible for all all pairs
+ray 445: feasible for all all pairs
+ray 446: feasible for all all pairs
+ray 447: feasible for all all pairs
+ray 448: feasible for all all pairs
+ray 449: feasible for all all pairs
+ray 450: feasible for all all pairs
+ray 451: feasible for all all pairs
+ray 452: feasible for all all pairs
+ray 453: feasible for all all pairs
+ray 454: feasible for all all pairs
+ray 455: feasible for all all pairs
+ray 456: feasible for all all pairs
+ray 457: feasible for all all pairs
+ray 458: feasible for all all pairs
+ray 459: feasible for all all pairs
+ray 460: feasible for all all pairs
+ray 461: feasible for all all pairs
+ray 462: feasible for all all pairs
+ray 463: feasible for all all pairs
+ray 464: feasible for all all pairs
+ray 465: feasible for all all pairs
+ray 466: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 467: INFEASIBLE for 1 pair(s), first (9, 18)
+ray 468: feasible for all all pairs
+ray 469: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 470: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 471: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 472: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 473: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 474: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 475: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 476: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 477: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 478: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 479: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 480: feasible for all all pairs
+ray 481: feasible for all all pairs
+ray 482: feasible for all all pairs
+ray 483: feasible for all all pairs
+ray 484: feasible for all all pairs
+ray 485: feasible for all all pairs
+ray 486: feasible for all all pairs
+ray 487: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 488: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 489: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 490: feasible for all all pairs
+ray 491: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 492: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 493: feasible for all all pairs
+ray 494: feasible for all all pairs
+ray 495: feasible for all all pairs
+ray 496: feasible for all all pairs
+ray 497: feasible for all all pairs
+ray 498: feasible for all all pairs
+ray 499: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 500: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 501: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 502: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 503: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 504: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 505: feasible for all all pairs
+ray 506: feasible for all all pairs
+ray 507: feasible for all all pairs
+ray 508: feasible for all all pairs
+ray 509: feasible for all all pairs
+ray 510: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 511: feasible for all all pairs
+ray 512: feasible for all all pairs
+ray 513: feasible for all all pairs
+ray 514: feasible for all all pairs
+ray 515: feasible for all all pairs
+ray 516: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 517: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 518: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 519: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 520: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 521: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 522: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 523: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 524: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 525: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 526: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 527: INFEASIBLE for 1 pair(s), first (2, 13)
+ray 528: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 529: feasible for all all pairs
+ray 530: feasible for all all pairs
+ray 531: feasible for all all pairs
+ray 532: feasible for all all pairs
+ray 533: INFEASIBLE for 1 pair(s), first (6, 9)
+ray 534: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 535: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 536: feasible for all all pairs
+ray 537: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 538: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 539: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 540: feasible for all all pairs
+ray 541: feasible for all all pairs
+ray 542: feasible for all all pairs
+ray 543: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 544: feasible for all all pairs
+ray 545: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 546: INFEASIBLE for 1 pair(s), first (9, 18)
+ray 547: feasible for all all pairs
+ray 548: feasible for all all pairs
+ray 549: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 550: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 551: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 552: feasible for all all pairs
+ray 553: feasible for all all pairs
+ray 554: feasible for all all pairs
+ray 555: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 556: feasible for all all pairs
+ray 557: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 558: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 559: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 560: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 561: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 562: feasible for all all pairs
+ray 563: feasible for all all pairs
+ray 564: feasible for all all pairs
+ray 565: feasible for all all pairs
+ray 566: feasible for all all pairs
+ray 567: feasible for all all pairs
+ray 568: feasible for all all pairs
+ray 569: feasible for all all pairs
+ray 570: feasible for all all pairs
+ray 571: feasible for all all pairs
+ray 572: feasible for all all pairs
+ray 573: feasible for all all pairs
+ray 574: feasible for all all pairs
+ray 575: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 576: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 577: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 578: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 579: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 580: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 581: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 582: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 583: feasible for all all pairs
+ray 584: feasible for all all pairs
+ray 585: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 586: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 587: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 588: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 589: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 590: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 591: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 592: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 593: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 594: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 595: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 596: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 597: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 598: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 599: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 600: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 601: feasible for all all pairs
+ray 602: feasible for all all pairs
+ray 603: feasible for all all pairs
+ray 604: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 605: feasible for all all pairs
+ray 606: feasible for all all pairs
+ray 607: feasible for all all pairs
+ray 608: feasible for all all pairs
+ray 609: feasible for all all pairs
+ray 610: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 611: feasible for all all pairs
+ray 612: feasible for all all pairs
+ray 613: feasible for all all pairs
+ray 614: feasible for all all pairs
+ray 615: feasible for all all pairs
+ray 616: feasible for all all pairs
+ray 617: feasible for all all pairs
+ray 618: feasible for all all pairs
+ray 619: feasible for all all pairs
+ray 620: feasible for all all pairs
+ray 621: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 622: INFEASIBLE for 1 pair(s), first (6, 24)
+ray 623: INFEASIBLE for 1 pair(s), first (6, 24)
+ray 624: INFEASIBLE for 1 pair(s), first (6, 24)
+ray 625: INFEASIBLE for 1 pair(s), first (6, 24)
+ray 626: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 627: feasible for all all pairs
+ray 628: feasible for all all pairs
+ray 629: feasible for all all pairs
+ray 630: feasible for all all pairs
+ray 631: feasible for all all pairs
+ray 632: feasible for all all pairs
+ray 633: INFEASIBLE for 1 pair(s), first (12, 33)
+ray 634: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 635: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 636: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 637: INFEASIBLE for 1 pair(s), first (3, 16)
+ray 638: INFEASIBLE for 1 pair(s), first (3, 4)
+ray 639: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 640: INFEASIBLE for 1 pair(s), first (3, 16)
+ray 641: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 642: feasible for all all pairs
+ray 643: feasible for all all pairs
+ray 644: feasible for all all pairs
+ray 645: feasible for all all pairs
+ray 646: feasible for all all pairs
+ray 647: INFEASIBLE for 1 pair(s), first (4, 9)
+ray 648: feasible for all all pairs
+ray 649: INFEASIBLE for 1 pair(s), first (4, 9)
+ray 650: INFEASIBLE for 1 pair(s), first (3, 32)
+ray 651: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 652: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 653: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 654: INFEASIBLE for 1 pair(s), first (2, 13)
+ray 655: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 656: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 657: INFEASIBLE for 1 pair(s), first (5, 16)
+ray 658: feasible for all all pairs
+ray 659: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 660: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 661: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 662: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 663: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 664: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 665: feasible for all all pairs
+ray 666: feasible for all all pairs
+ray 667: feasible for all all pairs
+ray 668: feasible for all all pairs
+ray 669: feasible for all all pairs
+ray 670: feasible for all all pairs
+ray 671: feasible for all all pairs
+ray 672: feasible for all all pairs
+ray 673: feasible for all all pairs
+ray 674: feasible for all all pairs
+ray 675: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 676: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 677: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 678: INFEASIBLE for 1 pair(s), first (2, 28)
+ray 679: feasible for all all pairs
+ray 680: feasible for all all pairs
+ray 681: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 682: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 683: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 684: feasible for all all pairs
+ray 685: feasible for all all pairs
+ray 686: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 687: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 688: INFEASIBLE for 1 pair(s), first (4, 11)
+ray 689: feasible for all all pairs
+ray 690: feasible for all all pairs
+ray 691: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 692: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 693: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 694: feasible for all all pairs
+ray 695: feasible for all all pairs
+ray 696: feasible for all all pairs
+ray 697: feasible for all all pairs
+ray 698: feasible for all all pairs
+ray 699: feasible for all all pairs
+ray 700: feasible for all all pairs
+ray 701: INFEASIBLE for 1 pair(s), first (2, 8)
+ray 702: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 703: feasible for all all pairs
+ray 704: feasible for all all pairs
+ray 705: feasible for all all pairs
+ray 706: feasible for all all pairs
+ray 707: feasible for all all pairs
+ray 708: feasible for all all pairs
+ray 709: feasible for all all pairs
+ray 710: feasible for all all pairs
+ray 711: feasible for all all pairs
+ray 712: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 713: feasible for all all pairs
+ray 714: feasible for all all pairs
+ray 715: feasible for all all pairs
+ray 716: feasible for all all pairs
+ray 717: feasible for all all pairs
+ray 718: feasible for all all pairs
+ray 719: feasible for all all pairs
+ray 720: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 721: feasible for all all pairs
+ray 722: feasible for all all pairs
+ray 723: feasible for all all pairs
+ray 724: feasible for all all pairs
+ray 725: feasible for all all pairs
+ray 726: INFEASIBLE for 1 pair(s), first (1, 26)
+ray 727: INFEASIBLE for 1 pair(s), first (1, 26)
+ray 728: INFEASIBLE for 1 pair(s), first (1, 26)
+ray 729: INFEASIBLE for 1 pair(s), first (1, 26)
+ray 730: INFEASIBLE for 1 pair(s), first (1, 26)
+ray 731: INFEASIBLE for 1 pair(s), first (1, 26)
+ray 732: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 733: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 734: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 735: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 736: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 737: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 738: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 739: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 740: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 741: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 742: feasible for all all pairs
+ray 743: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 744: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 745: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 746: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 747: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 748: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 749: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 750: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 751: feasible for all all pairs
+ray 752: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 753: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 754: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 755: feasible for all all pairs
+ray 756: feasible for all all pairs
+ray 757: feasible for all all pairs
+ray 758: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 759: feasible for all all pairs
+ray 760: feasible for all all pairs
+ray 761: feasible for all all pairs
+ray 762: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 763: INFEASIBLE for 1 pair(s), first (5, 16)
+ray 764: feasible for all all pairs
+ray 765: feasible for all all pairs
+ray 766: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 767: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 768: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 769: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 770: feasible for all all pairs
+ray 771: feasible for all all pairs
+ray 772: feasible for all all pairs
+ray 773: feasible for all all pairs
+ray 774: feasible for all all pairs
+ray 775: feasible for all all pairs
+ray 776: feasible for all all pairs
+ray 777: feasible for all all pairs
+ray 778: feasible for all all pairs
+ray 779: feasible for all all pairs
+ray 780: feasible for all all pairs
+ray 781: feasible for all all pairs
+ray 782: feasible for all all pairs
+ray 783: feasible for all all pairs
+ray 784: feasible for all all pairs
+ray 785: feasible for all all pairs
+ray 786: feasible for all all pairs
+ray 787: feasible for all all pairs
+ray 788: feasible for all all pairs
+ray 789: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 790: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 791: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 792: INFEASIBLE for 1 pair(s), first (2, 13)
+ray 793: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 794: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 795: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 796: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 797: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 798: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 799: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 800: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 801: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 802: feasible for all all pairs
+ray 803: feasible for all all pairs
+ray 804: feasible for all all pairs
+ray 805: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 806: feasible for all all pairs
+ray 807: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 808: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 809: feasible for all all pairs
+ray 810: feasible for all all pairs
+ray 811: feasible for all all pairs
+ray 812: feasible for all all pairs
+ray 813: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 814: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 815: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 816: feasible for all all pairs
+ray 817: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 818: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 819: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 820: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 821: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 822: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 823: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 824: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 825: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 826: feasible for all all pairs
+ray 827: feasible for all all pairs
+ray 828: feasible for all all pairs
+ray 829: feasible for all all pairs
+ray 830: feasible for all all pairs
+ray 831: feasible for all all pairs
+ray 832: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 833: feasible for all all pairs
+ray 834: feasible for all all pairs
+ray 835: feasible for all all pairs
+ray 836: feasible for all all pairs
+ray 837: feasible for all all pairs
+ray 838: feasible for all all pairs
+ray 839: feasible for all all pairs
+ray 840: feasible for all all pairs
+ray 841: feasible for all all pairs
+ray 842: feasible for all all pairs
+ray 843: feasible for all all pairs
+ray 844: feasible for all all pairs
+ray 845: feasible for all all pairs
+ray 846: feasible for all all pairs
+ray 847: feasible for all all pairs
+ray 848: feasible for all all pairs
+ray 849: feasible for all all pairs
+ray 850: feasible for all all pairs
+ray 851: feasible for all all pairs
+ray 852: feasible for all all pairs
+ray 853: feasible for all all pairs
+ray 854: feasible for all all pairs
+ray 855: feasible for all all pairs
+ray 856: feasible for all all pairs
+ray 857: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 858: feasible for all all pairs
+ray 859: feasible for all all pairs
+ray 860: feasible for all all pairs
+ray 861: feasible for all all pairs
+ray 862: feasible for all all pairs
+ray 863: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 864: feasible for all all pairs
+ray 865: feasible for all all pairs
+ray 866: feasible for all all pairs
+ray 867: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 868: feasible for all all pairs
+ray 869: feasible for all all pairs
+ray 870: feasible for all all pairs
+ray 871: INFEASIBLE for 1 pair(s), first (4, 11)
+ray 872: feasible for all all pairs
+ray 873: INFEASIBLE for 1 pair(s), first (4, 8)
+ray 874: feasible for all all pairs
+ray 875: feasible for all all pairs
+ray 876: feasible for all all pairs
+ray 877: feasible for all all pairs
+ray 878: feasible for all all pairs
+ray 879: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 880: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 881: feasible for all all pairs
+ray 882: feasible for all all pairs
+ray 883: feasible for all all pairs
+ray 884: feasible for all all pairs
+ray 885: feasible for all all pairs
+ray 886: feasible for all all pairs
+ray 887: feasible for all all pairs
+ray 888: feasible for all all pairs
+ray 889: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 890: feasible for all all pairs
+ray 891: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 892: feasible for all all pairs
+ray 893: feasible for all all pairs
+ray 894: feasible for all all pairs
+ray 895: feasible for all all pairs
+ray 896: feasible for all all pairs
+ray 897: feasible for all all pairs
+ray 898: feasible for all all pairs
+ray 899: feasible for all all pairs
+ray 900: feasible for all all pairs
+ray 901: feasible for all all pairs
+ray 902: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 903: feasible for all all pairs
+ray 904: feasible for all all pairs
+ray 905: feasible for all all pairs
+ray 906: feasible for all all pairs
+ray 907: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 908: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 909: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 910: feasible for all all pairs
+ray 911: feasible for all all pairs
+ray 912: feasible for all all pairs
+ray 913: feasible for all all pairs
+ray 914: feasible for all all pairs
+ray 915: feasible for all all pairs
+ray 916: feasible for all all pairs
+ray 917: feasible for all all pairs
+ray 918: feasible for all all pairs
+ray 919: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 920: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 921: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 922: feasible for all all pairs
+ray 923: feasible for all all pairs
+ray 924: feasible for all all pairs
+ray 925: feasible for all all pairs
+ray 926: feasible for all all pairs
+ray 927: feasible for all all pairs
+ray 928: feasible for all all pairs
+ray 929: feasible for all all pairs
+ray 930: feasible for all all pairs
+ray 931: feasible for all all pairs
+ray 932: feasible for all all pairs
+ray 933: feasible for all all pairs
+ray 934: feasible for all all pairs
+ray 935: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 936: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 937: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 938: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 939: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 940: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 941: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 942: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 943: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 944: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 945: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 946: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 947: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 948: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 949: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 950: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 951: feasible for all all pairs
+ray 952: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 953: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 954: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 955: feasible for all all pairs
+ray 956: feasible for all all pairs
+ray 957: feasible for all all pairs
+ray 958: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 959: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 960: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 961: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 962: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 963: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 964: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 965: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 966: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 967: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 968: feasible for all all pairs
+ray 969: feasible for all all pairs
+ray 970: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 971: feasible for all all pairs
+ray 972: feasible for all all pairs
+ray 973: feasible for all all pairs
+ray 974: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 975: feasible for all all pairs
+ray 976: feasible for all all pairs
+ray 977: feasible for all all pairs
+ray 978: feasible for all all pairs
+ray 979: feasible for all all pairs
+ray 980: feasible for all all pairs
+ray 981: feasible for all all pairs
+ray 982: feasible for all all pairs
+ray 983: feasible for all all pairs
+ray 984: feasible for all all pairs
+ray 985: feasible for all all pairs
+ray 986: feasible for all all pairs
+ray 987: feasible for all all pairs
+ray 988: feasible for all all pairs
+ray 989: feasible for all all pairs
+ray 990: feasible for all all pairs
+ray 991: feasible for all all pairs
+ray 992: feasible for all all pairs
+ray 993: feasible for all all pairs
+ray 994: feasible for all all pairs
+ray 995: feasible for all all pairs
+ray 996: feasible for all all pairs
+ray 997: feasible for all all pairs
+ray 998: feasible for all all pairs
+ray 999: feasible for all all pairs
+ray 1000: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1001: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1002: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1003: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1004: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1005: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1006: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1007: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1008: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1009: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1010: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1011: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1012: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1013: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1014: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1015: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1016: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1017: feasible for all all pairs
+ray 1018: feasible for all all pairs
+ray 1019: feasible for all all pairs
+ray 1020: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1021: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1022: feasible for all all pairs
+ray 1023: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1024: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1025: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1026: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1027: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1028: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1029: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1030: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1031: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1032: INFEASIBLE for 1 pair(s), first (1, 20)
+ray 1033: INFEASIBLE for 1 pair(s), first (1, 20)
+ray 1034: INFEASIBLE for 1 pair(s), first (1, 20)
+ray 1035: INFEASIBLE for 1 pair(s), first (1, 20)
+ray 1036: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1037: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1038: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1039: INFEASIBLE for 1 pair(s), first (1, 26)
+ray 1040: INFEASIBLE for 1 pair(s), first (1, 26)
+ray 1041: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1042: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1043: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1044: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1045: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1046: feasible for all all pairs
+ray 1047: feasible for all all pairs
+ray 1048: feasible for all all pairs
+ray 1049: feasible for all all pairs
+ray 1050: feasible for all all pairs
+ray 1051: feasible for all all pairs
+ray 1052: feasible for all all pairs
+ray 1053: feasible for all all pairs
+ray 1054: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 1055: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1056: feasible for all all pairs
+ray 1057: feasible for all all pairs
+ray 1058: feasible for all all pairs
+ray 1059: INFEASIBLE for 1 pair(s), first (12, 18)
+ray 1060: INFEASIBLE for 1 pair(s), first (12, 18)
+ray 1061: feasible for all all pairs
+ray 1062: feasible for all all pairs
+ray 1063: feasible for all all pairs
+ray 1064: feasible for all all pairs
+ray 1065: feasible for all all pairs
+ray 1066: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1067: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1068: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1069: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1070: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1071: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1072: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1073: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1074: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1075: feasible for all all pairs
+ray 1076: feasible for all all pairs
+ray 1077: feasible for all all pairs
+ray 1078: feasible for all all pairs
+ray 1079: feasible for all all pairs
+ray 1080: feasible for all all pairs
+ray 1081: feasible for all all pairs
+ray 1082: feasible for all all pairs
+ray 1083: feasible for all all pairs
+ray 1084: feasible for all all pairs
+ray 1085: feasible for all all pairs
+ray 1086: feasible for all all pairs
+ray 1087: feasible for all all pairs
+ray 1088: feasible for all all pairs
+ray 1089: feasible for all all pairs
+ray 1090: feasible for all all pairs
+ray 1091: feasible for all all pairs
+ray 1092: feasible for all all pairs
+ray 1093: feasible for all all pairs
+ray 1094: feasible for all all pairs
+ray 1095: feasible for all all pairs
+ray 1096: feasible for all all pairs
+ray 1097: feasible for all all pairs
+ray 1098: INFEASIBLE for 1 pair(s), first (6, 17)
+ray 1099: feasible for all all pairs
+ray 1100: feasible for all all pairs
+ray 1101: feasible for all all pairs
+ray 1102: INFEASIBLE for 1 pair(s), first (5, 16)
+ray 1103: INFEASIBLE for 1 pair(s), first (5, 16)
+ray 1104: INFEASIBLE for 1 pair(s), first (5, 16)
+ray 1105: INFEASIBLE for 1 pair(s), first (5, 16)
+ray 1106: INFEASIBLE for 1 pair(s), first (2, 5)
+ray 1107: INFEASIBLE for 1 pair(s), first (2, 5)
+ray 1108: INFEASIBLE for 1 pair(s), first (5, 16)
+ray 1109: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1110: INFEASIBLE for 1 pair(s), first (2, 5)
+ray 1111: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1112: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 1113: feasible for all all pairs
+ray 1114: feasible for all all pairs
+ray 1115: INFEASIBLE for 1 pair(s), first (1, 8)
+ray 1116: INFEASIBLE for 1 pair(s), first (6, 17)
+ray 1117: INFEASIBLE for 1 pair(s), first (6, 17)
+ray 1118: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1119: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1120: feasible for all all pairs
+ray 1121: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1122: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1123: feasible for all all pairs
+ray 1124: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1125: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1126: INFEASIBLE for 1 pair(s), first (2, 4)
+ray 1127: feasible for all all pairs
+ray 1128: feasible for all all pairs
+ray 1129: INFEASIBLE for 1 pair(s), first (5, 18)
+ray 1130: INFEASIBLE for 1 pair(s), first (5, 18)
+ray 1131: INFEASIBLE for 1 pair(s), first (6, 24)
+ray 1132: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1133: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1134: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1135: INFEASIBLE for 1 pair(s), first (2, 5)
+ray 1136: INFEASIBLE for 1 pair(s), first (2, 5)
+ray 1137: INFEASIBLE for 1 pair(s), first (2, 5)
+ray 1138: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1139: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1140: INFEASIBLE for 1 pair(s), first (3, 32)
+ray 1141: INFEASIBLE for 1 pair(s), first (3, 32)
+ray 1142: INFEASIBLE for 1 pair(s), first (3, 32)
+ray 1143: INFEASIBLE for 1 pair(s), first (3, 32)
+ray 1144: feasible for all all pairs
+ray 1145: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 1146: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1147: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1148: INFEASIBLE for 1 pair(s), first (4, 9)
+ray 1149: INFEASIBLE for 1 pair(s), first (4, 11)
+ray 1150: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1151: feasible for all all pairs
+ray 1152: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1153: feasible for all all pairs
+ray 1154: INFEASIBLE for 1 pair(s), first (4, 8)
+ray 1155: INFEASIBLE for 1 pair(s), first (6, 9)
+ray 1156: feasible for all all pairs
+ray 1157: feasible for all all pairs
+ray 1158: feasible for all all pairs
+ray 1159: feasible for all all pairs
+ray 1160: feasible for all all pairs
+ray 1161: INFEASIBLE for 1 pair(s), first (2, 5)
+ray 1162: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1163: feasible for all all pairs
+ray 1164: feasible for all all pairs
+ray 1165: feasible for all all pairs
+ray 1166: feasible for all all pairs
+ray 1167: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1168: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1169: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1170: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1171: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1172: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1173: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1174: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1175: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1176: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1177: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1178: feasible for all all pairs
+ray 1179: feasible for all all pairs
+ray 1180: feasible for all all pairs
+ray 1181: feasible for all all pairs
+ray 1182: feasible for all all pairs
+ray 1183: feasible for all all pairs
+ray 1184: feasible for all all pairs
+ray 1185: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1186: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1187: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1188: feasible for all all pairs
+ray 1189: feasible for all all pairs
+ray 1190: feasible for all all pairs
+ray 1191: INFEASIBLE for 1 pair(s), first (5, 18)
+ray 1192: feasible for all all pairs
+ray 1193: feasible for all all pairs
+ray 1194: feasible for all all pairs
+ray 1195: feasible for all all pairs
+ray 1196: INFEASIBLE for 1 pair(s), first (3, 8)
+ray 1197: feasible for all all pairs
+ray 1198: INFEASIBLE for 1 pair(s), first (6, 24)
+ray 1199: INFEASIBLE for 1 pair(s), first (6, 24)
+ray 1200: feasible for all all pairs
+ray 1201: feasible for all all pairs
+ray 1202: INFEASIBLE for 1 pair(s), first (3, 20)
+ray 1203: feasible for all all pairs
+ray 1204: INFEASIBLE for 1 pair(s), first (3, 20)
+ray 1205: feasible for all all pairs
+ray 1206: feasible for all all pairs
+ray 1207: feasible for all all pairs
+ray 1208: feasible for all all pairs
+ray 1209: feasible for all all pairs
+ray 1210: feasible for all all pairs
+ray 1211: feasible for all all pairs
+ray 1212: feasible for all all pairs
+ray 1213: feasible for all all pairs
+ray 1214: feasible for all all pairs
+ray 1215: feasible for all all pairs
+ray 1216: feasible for all all pairs
+ray 1217: feasible for all all pairs
+ray 1218: feasible for all all pairs
+ray 1219: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1220: feasible for all all pairs
+ray 1221: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1222: feasible for all all pairs
+ray 1223: feasible for all all pairs
+ray 1224: feasible for all all pairs
+ray 1225: feasible for all all pairs
+ray 1226: feasible for all all pairs
+ray 1227: feasible for all all pairs
+ray 1228: feasible for all all pairs
+ray 1229: feasible for all all pairs
+ray 1230: feasible for all all pairs
+ray 1231: feasible for all all pairs
+ray 1232: feasible for all all pairs
+ray 1233: feasible for all all pairs
+ray 1234: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 1235: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1236: INFEASIBLE for 1 pair(s), first (5, 32)
+ray 1237: feasible for all all pairs
+ray 1238: feasible for all all pairs
+ray 1239: feasible for all all pairs
+ray 1240: feasible for all all pairs
+ray 1241: INFEASIBLE for 1 pair(s), first (6, 24)
+ray 1242: INFEASIBLE for 1 pair(s), first (6, 24)
+ray 1243: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 1244: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 1245: INFEASIBLE for 1 pair(s), first (3, 8)
+ray 1246: INFEASIBLE for 1 pair(s), first (3, 8)
+ray 1247: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1248: INFEASIBLE for 1 pair(s), first (3, 8)
+ray 1249: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1250: feasible for all all pairs
+ray 1251: INFEASIBLE for 1 pair(s), first (1, 22)
+ray 1252: feasible for all all pairs
+ray 1253: feasible for all all pairs
+ray 1254: feasible for all all pairs
+ray 1255: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 1256: INFEASIBLE for 1 pair(s), first (5, 24)
+ray 1257: INFEASIBLE for 1 pair(s), first (10, 16)
+ray 1258: INFEASIBLE for 1 pair(s), first (5, 10)
+ray 1259: INFEASIBLE for 1 pair(s), first (5, 10)
+ray 1260: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1261: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 1262: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1263: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1264: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1265: feasible for all all pairs
+ray 1266: feasible for all all pairs
+ray 1267: feasible for all all pairs
+ray 1268: feasible for all all pairs
+ray 1269: feasible for all all pairs
+ray 1270: feasible for all all pairs
+ray 1271: feasible for all all pairs
+ray 1272: feasible for all all pairs
+ray 1273: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1274: INFEASIBLE for 1 pair(s), first (24, 36)
+ray 1275: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 1276: INFEASIBLE for 1 pair(s), first (1, 22)
+ray 1277: INFEASIBLE for 1 pair(s), first (6, 40)
+ray 1278: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1279: feasible for all all pairs
+ray 1280: feasible for all all pairs
+ray 1281: feasible for all all pairs
+ray 1282: feasible for all all pairs
+ray 1283: feasible for all all pairs
+ray 1284: feasible for all all pairs
+ray 1285: feasible for all all pairs
+ray 1286: feasible for all all pairs
+ray 1287: feasible for all all pairs
+ray 1288: feasible for all all pairs
+ray 1289: feasible for all all pairs
+ray 1290: feasible for all all pairs
+ray 1291: feasible for all all pairs
+ray 1292: feasible for all all pairs
+ray 1293: feasible for all all pairs
+ray 1294: feasible for all all pairs
+ray 1295: feasible for all all pairs
+ray 1296: feasible for all all pairs
+ray 1297: feasible for all all pairs
+ray 1298: feasible for all all pairs
+ray 1299: feasible for all all pairs
+ray 1300: INFEASIBLE for 1 pair(s), first (6, 17)
+ray 1301: feasible for all all pairs
+ray 1302: feasible for all all pairs
+ray 1303: feasible for all all pairs
+ray 1304: feasible for all all pairs
+ray 1305: feasible for all all pairs
+ray 1306: feasible for all all pairs
+ray 1307: feasible for all all pairs
+ray 1308: feasible for all all pairs
+ray 1309: feasible for all all pairs
+ray 1310: feasible for all all pairs
+ray 1311: feasible for all all pairs
+ray 1312: feasible for all all pairs
+ray 1313: feasible for all all pairs
+ray 1314: INFEASIBLE for 1 pair(s), first (9, 36)
+ray 1315: feasible for all all pairs
+ray 1316: feasible for all all pairs
+ray 1317: feasible for all all pairs
+ray 1318: feasible for all all pairs
+ray 1319: feasible for all all pairs
+ray 1320: feasible for all all pairs
+ray 1321: feasible for all all pairs
+ray 1322: feasible for all all pairs
+ray 1323: feasible for all all pairs
+ray 1324: feasible for all all pairs
+ray 1325: feasible for all all pairs
+ray 1326: feasible for all all pairs
+ray 1327: feasible for all all pairs
+ray 1328: feasible for all all pairs
+ray 1329: feasible for all all pairs
+ray 1330: feasible for all all pairs
+ray 1331: feasible for all all pairs
+ray 1332: feasible for all all pairs
+ray 1333: feasible for all all pairs
+ray 1334: feasible for all all pairs
+ray 1335: feasible for all all pairs
+ray 1336: feasible for all all pairs
+ray 1337: feasible for all all pairs
+ray 1338: feasible for all all pairs
+ray 1339: feasible for all all pairs
+ray 1340: feasible for all all pairs
+ray 1341: feasible for all all pairs
+ray 1342: feasible for all all pairs
+ray 1343: feasible for all all pairs
+ray 1344: feasible for all all pairs
+ray 1345: feasible for all all pairs
+ray 1346: feasible for all all pairs
+ray 1347: feasible for all all pairs
+ray 1348: feasible for all all pairs
+ray 1349: feasible for all all pairs
+ray 1350: feasible for all all pairs
+ray 1351: feasible for all all pairs
+ray 1352: feasible for all all pairs
+ray 1353: feasible for all all pairs
+ray 1354: feasible for all all pairs
+ray 1355: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 1356: feasible for all all pairs
+ray 1357: feasible for all all pairs
+ray 1358: feasible for all all pairs
+ray 1359: feasible for all all pairs
+ray 1360: feasible for all all pairs
+ray 1361: feasible for all all pairs
+ray 1362: feasible for all all pairs
+ray 1363: INFEASIBLE for 1 pair(s), first (18, 33)
+ray 1364: INFEASIBLE for 1 pair(s), first (1, 28)
+ray 1365: INFEASIBLE for 1 pair(s), first (1, 24)
+ray 1366: feasible for all all pairs
+ray 1367: feasible for all all pairs
+ray 1368: feasible for all all pairs
+ray 1369: feasible for all all pairs
+ray 1370: feasible for all all pairs
+ray 1371: feasible for all all pairs
+ray 1372: feasible for all all pairs
+ray 1373: feasible for all all pairs
+ray 1374: feasible for all all pairs
+ray 1375: feasible for all all pairs
+ray 1376: INFEASIBLE for 1 pair(s), first (24, 36)
+ray 1377: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1378: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 1379: feasible for all all pairs
+ray 1380: feasible for all all pairs
+ray 1381: feasible for all all pairs
+ray 1382: feasible for all all pairs
+ray 1383: feasible for all all pairs
+ray 1384: feasible for all all pairs
+ray 1385: feasible for all all pairs
+ray 1386: feasible for all all pairs
+ray 1387: feasible for all all pairs
+ray 1388: feasible for all all pairs
+ray 1389: feasible for all all pairs
+ray 1390: feasible for all all pairs
+ray 1391: feasible for all all pairs
+ray 1392: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1393: feasible for all all pairs
+ray 1394: feasible for all all pairs
+ray 1395: feasible for all all pairs
+ray 1396: INFEASIBLE for 1 pair(s), first (1, 24)
+ray 1397: feasible for all all pairs
+ray 1398: feasible for all all pairs
+ray 1399: feasible for all all pairs
+ray 1400: feasible for all all pairs
+ray 1401: INFEASIBLE for 1 pair(s), first (18, 40)
+ray 1402: INFEASIBLE for 1 pair(s), first (18, 40)
+ray 1403: INFEASIBLE for 1 pair(s), first (18, 40)
+ray 1404: feasible for all all pairs
+ray 1405: INFEASIBLE for 1 pair(s), first (2, 4)
+ray 1406: INFEASIBLE for 1 pair(s), first (2, 17)
+ray 1407: INFEASIBLE for 1 pair(s), first (6, 16)
+ray 1408: feasible for all all pairs
+ray 1409: feasible for all all pairs
+ray 1410: feasible for all all pairs
+ray 1411: feasible for all all pairs
+ray 1412: feasible for all all pairs
+ray 1413: feasible for all all pairs
+ray 1414: feasible for all all pairs
+ray 1415: feasible for all all pairs
+ray 1416: feasible for all all pairs
+ray 1417: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 1418: INFEASIBLE for 1 pair(s), first (2, 24)
+ray 1419: feasible for all all pairs
+ray 1420: feasible for all all pairs
+ray 1421: INFEASIBLE for 1 pair(s), first (2, 8)
+ray 1422: INFEASIBLE for 1 pair(s), first (1, 20)
+ray 1423: INFEASIBLE for 1 pair(s), first (1, 24)
+ray 1424: INFEASIBLE for 1 pair(s), first (2, 20)
+ray 1425: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1426: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 1427: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1428: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1429: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1430: INFEASIBLE for 1 pair(s), first (2, 25)
+ray 1431: feasible for all all pairs
+ray 1432: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1433: INFEASIBLE for 1 pair(s), first (6, 48)
+ray 1434: feasible for all all pairs
+ray 1435: INFEASIBLE for 1 pair(s), first (24, 34)
+ray 1436: INFEASIBLE for 1 pair(s), first (24, 34)
+ray 1437: feasible for all all pairs
+ray 1438: feasible for all all pairs
+ray 1439: INFEASIBLE for 1 pair(s), first (24, 34)
+ray 1440: feasible for all all pairs
+ray 1441: feasible for all all pairs
+ray 1442: feasible for all all pairs
+ray 1443: feasible for all all pairs
+ray 1444: feasible for all all pairs
+ray 1445: feasible for all all pairs
+ray 1446: feasible for all all pairs
+ray 1447: feasible for all all pairs
+ray 1448: feasible for all all pairs
+ray 1449: feasible for all all pairs
+ray 1450: feasible for all all pairs
+ray 1451: feasible for all all pairs
+ray 1452: feasible for all all pairs
+ray 1453: feasible for all all pairs
+ray 1454: feasible for all all pairs
+ray 1455: feasible for all all pairs
+ray 1456: feasible for all all pairs
+ray 1457: feasible for all all pairs
+ray 1458: feasible for all all pairs
+ray 1459: feasible for all all pairs
+ray 1460: feasible for all all pairs
+ray 1461: feasible for all all pairs
+ray 1462: feasible for all all pairs
+ray 1463: feasible for all all pairs
+ray 1464: feasible for all all pairs
+ray 1465: feasible for all all pairs
+ray 1466: feasible for all all pairs
+ray 1467: feasible for all all pairs
+ray 1468: feasible for all all pairs
+ray 1469: feasible for all all pairs
+ray 1470: feasible for all all pairs
+ray 1471: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1472: feasible for all all pairs
+ray 1473: feasible for all all pairs
+ray 1474: feasible for all all pairs
+ray 1475: feasible for all all pairs
+ray 1476: feasible for all all pairs
+ray 1477: feasible for all all pairs
+ray 1478: feasible for all all pairs
+ray 1479: feasible for all all pairs
+ray 1480: feasible for all all pairs
+ray 1481: feasible for all all pairs
+ray 1482: feasible for all all pairs
+ray 1483: feasible for all all pairs
+ray 1484: feasible for all all pairs
+ray 1485: feasible for all all pairs
+ray 1486: feasible for all all pairs
+ray 1487: feasible for all all pairs
+ray 1488: feasible for all all pairs
+ray 1489: feasible for all all pairs
+ray 1490: feasible for all all pairs
+ray 1491: feasible for all all pairs
+ray 1492: feasible for all all pairs
+ray 1493: feasible for all all pairs
+ray 1494: feasible for all all pairs
+ray 1495: feasible for all all pairs
+ray 1496: feasible for all all pairs
+ray 1497: feasible for all all pairs
+ray 1498: feasible for all all pairs
+ray 1499: feasible for all all pairs
+ray 1500: feasible for all all pairs
+ray 1501: feasible for all all pairs
+ray 1502: feasible for all all pairs
+ray 1503: feasible for all all pairs
+ray 1504: feasible for all all pairs
+ray 1505: feasible for all all pairs
+ray 1506: feasible for all all pairs
+ray 1507: feasible for all all pairs
+ray 1508: feasible for all all pairs
+ray 1509: feasible for all all pairs
+ray 1510: feasible for all all pairs
+ray 1511: feasible for all all pairs
+ray 1512: feasible for all all pairs
+ray 1513: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1514: feasible for all all pairs
+ray 1515: feasible for all all pairs
+ray 1516: feasible for all all pairs
+ray 1517: INFEASIBLE for 1 pair(s), first (4, 11)
+ray 1518: feasible for all all pairs
+ray 1519: feasible for all all pairs
+ray 1520: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1521: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1522: feasible for all all pairs
+ray 1523: feasible for all all pairs
+ray 1524: feasible for all all pairs
+ray 1525: feasible for all all pairs
+ray 1526: feasible for all all pairs
+ray 1527: feasible for all all pairs
+ray 1528: feasible for all all pairs
+ray 1529: feasible for all all pairs
+ray 1530: feasible for all all pairs
+ray 1531: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1532: feasible for all all pairs
+ray 1533: feasible for all all pairs
+ray 1534: feasible for all all pairs
+ray 1535: feasible for all all pairs
+ray 1536: feasible for all all pairs
+ray 1537: feasible for all all pairs
+ray 1538: feasible for all all pairs
+ray 1539: feasible for all all pairs
+ray 1540: feasible for all all pairs
+ray 1541: feasible for all all pairs
+ray 1542: feasible for all all pairs
+ray 1543: feasible for all all pairs
+ray 1544: feasible for all all pairs
+ray 1545: feasible for all all pairs
+ray 1546: feasible for all all pairs
+ray 1547: feasible for all all pairs
+ray 1548: feasible for all all pairs
+ray 1549: INFEASIBLE for 1 pair(s), first (2, 17)
+ray 1550: feasible for all all pairs
+ray 1551: feasible for all all pairs
+ray 1552: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1553: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1554: feasible for all all pairs
+ray 1555: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1556: feasible for all all pairs
+ray 1557: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1558: feasible for all all pairs
+ray 1559: feasible for all all pairs
+ray 1560: feasible for all all pairs
+ray 1561: feasible for all all pairs
+ray 1562: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1563: feasible for all all pairs
+ray 1564: feasible for all all pairs
+ray 1565: feasible for all all pairs
+ray 1566: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1567: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1568: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1569: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1570: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1571: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1572: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1573: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1574: feasible for all all pairs
+ray 1575: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1576: feasible for all all pairs
+ray 1577: feasible for all all pairs
+ray 1578: feasible for all all pairs
+ray 1579: feasible for all all pairs
+ray 1580: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1581: feasible for all all pairs
+ray 1582: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 1583: feasible for all all pairs
+ray 1584: feasible for all all pairs
+ray 1585: feasible for all all pairs
+ray 1586: feasible for all all pairs
+ray 1587: feasible for all all pairs
+ray 1588: feasible for all all pairs
+ray 1589: feasible for all all pairs
+ray 1590: feasible for all all pairs
+ray 1591: feasible for all all pairs
+ray 1592: feasible for all all pairs
+ray 1593: feasible for all all pairs
+ray 1594: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1595: feasible for all all pairs
+ray 1596: feasible for all all pairs
+ray 1597: feasible for all all pairs
+ray 1598: feasible for all all pairs
+ray 1599: feasible for all all pairs
+ray 1600: feasible for all all pairs
+ray 1601: feasible for all all pairs
+ray 1602: feasible for all all pairs
+ray 1603: feasible for all all pairs
+ray 1604: feasible for all all pairs
+ray 1605: feasible for all all pairs
+ray 1606: feasible for all all pairs
+ray 1607: feasible for all all pairs
+ray 1608: feasible for all all pairs
+ray 1609: feasible for all all pairs
+ray 1610: INFEASIBLE for 1 pair(s), first (1, 24)
+ray 1611: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1612: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 1613: feasible for all all pairs
+ray 1614: feasible for all all pairs
+ray 1615: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1616: INFEASIBLE for 1 pair(s), first (4, 9)
+ray 1617: INFEASIBLE for 1 pair(s), first (4, 9)
+ray 1618: INFEASIBLE for 1 pair(s), first (1, 24)
+ray 1619: INFEASIBLE for 1 pair(s), first (2, 24)
+ray 1620: INFEASIBLE for 1 pair(s), first (2, 24)
+ray 1621: INFEASIBLE for 1 pair(s), first (2, 24)
+ray 1622: INFEASIBLE for 1 pair(s), first (2, 24)
+ray 1623: INFEASIBLE for 1 pair(s), first (1, 24)
+ray 1624: INFEASIBLE for 1 pair(s), first (9, 18)
+ray 1625: feasible for all all pairs
+ray 1626: INFEASIBLE for 1 pair(s), first (9, 20)
+ray 1627: INFEASIBLE for 1 pair(s), first (2, 20)
+ray 1628: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1629: feasible for all all pairs
+ray 1630: feasible for all all pairs
+ray 1631: feasible for all all pairs
+ray 1632: feasible for all all pairs
+ray 1633: feasible for all all pairs
+ray 1634: feasible for all all pairs
+ray 1635: feasible for all all pairs
+ray 1636: feasible for all all pairs
+ray 1637: feasible for all all pairs
+ray 1638: feasible for all all pairs
+ray 1639: feasible for all all pairs
+ray 1640: feasible for all all pairs
+ray 1641: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1642: feasible for all all pairs
+ray 1643: feasible for all all pairs
+ray 1644: feasible for all all pairs
+ray 1645: feasible for all all pairs
+ray 1646: feasible for all all pairs
+ray 1647: feasible for all all pairs
+ray 1648: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1649: feasible for all all pairs
+ray 1650: feasible for all all pairs
+ray 1651: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1652: feasible for all all pairs
+ray 1653: feasible for all all pairs
+ray 1654: feasible for all all pairs
+ray 1655: feasible for all all pairs
+ray 1656: feasible for all all pairs
+ray 1657: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1658: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1659: INFEASIBLE for 1 pair(s), first (4, 17)
+ray 1660: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1661: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1662: feasible for all all pairs
+ray 1663: feasible for all all pairs
+ray 1664: feasible for all all pairs
+ray 1665: feasible for all all pairs
+ray 1666: feasible for all all pairs
+ray 1667: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 1668: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 1669: feasible for all all pairs
+ray 1670: feasible for all all pairs
+ray 1671: feasible for all all pairs
+ray 1672: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1673: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1674: feasible for all all pairs
+ray 1675: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1676: feasible for all all pairs
+ray 1677: INFEASIBLE for 1 pair(s), first (1, 8)
+ray 1678: INFEASIBLE for 1 pair(s), first (4, 8)
+ray 1679: INFEASIBLE for 1 pair(s), first (4, 8)
+ray 1680: feasible for all all pairs
+ray 1681: feasible for all all pairs
+ray 1682: feasible for all all pairs
+ray 1683: feasible for all all pairs
+ray 1684: feasible for all all pairs
+ray 1685: feasible for all all pairs
+ray 1686: feasible for all all pairs
+ray 1687: feasible for all all pairs
+ray 1688: feasible for all all pairs
+ray 1689: feasible for all all pairs
+ray 1690: feasible for all all pairs
+ray 1691: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1692: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1693: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1694: feasible for all all pairs
+ray 1695: feasible for all all pairs
+ray 1696: feasible for all all pairs
+ray 1697: feasible for all all pairs
+ray 1698: feasible for all all pairs
+ray 1699: feasible for all all pairs
+ray 1700: feasible for all all pairs
+ray 1701: feasible for all all pairs
+ray 1702: feasible for all all pairs
+ray 1703: feasible for all all pairs
+ray 1704: feasible for all all pairs
+ray 1705: feasible for all all pairs
+ray 1706: feasible for all all pairs
+ray 1707: INFEASIBLE for 1 pair(s), first (4, 8)
+ray 1708: feasible for all all pairs
+ray 1709: feasible for all all pairs
+ray 1710: feasible for all all pairs
+ray 1711: feasible for all all pairs
+ray 1712: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1713: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1714: INFEASIBLE for 1 pair(s), first (6, 16)
+ray 1715: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1716: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1717: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1718: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1719: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1720: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1721: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1722: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1723: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1724: feasible for all all pairs
+ray 1725: feasible for all all pairs
+ray 1726: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1727: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1728: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1729: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1730: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1731: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1732: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1733: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1734: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 1735: feasible for all all pairs
+ray 1736: feasible for all all pairs
+ray 1737: feasible for all all pairs
+ray 1738: feasible for all all pairs
+ray 1739: feasible for all all pairs
+ray 1740: feasible for all all pairs
+ray 1741: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1742: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1743: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1744: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1745: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1746: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1747: feasible for all all pairs
+ray 1748: feasible for all all pairs
+ray 1749: INFEASIBLE for 1 pair(s), first (1, 14)
+ray 1750: feasible for all all pairs
+ray 1751: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1752: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1753: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1754: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1755: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1756: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1757: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1758: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1759: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1760: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1761: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1762: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1763: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1764: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1765: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1766: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1767: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1768: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1769: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1770: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1771: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1772: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1773: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1774: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1775: feasible for all all pairs
+ray 1776: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1777: feasible for all all pairs
+ray 1778: feasible for all all pairs
+ray 1779: feasible for all all pairs
+ray 1780: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1781: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1782: feasible for all all pairs
+ray 1783: feasible for all all pairs
+ray 1784: feasible for all all pairs
+ray 1785: INFEASIBLE for 1 pair(s), first (2, 5)
+ray 1786: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1787: feasible for all all pairs
+ray 1788: INFEASIBLE for 1 pair(s), first (1, 26)
+ray 1789: feasible for all all pairs
+ray 1790: feasible for all all pairs
+ray 1791: feasible for all all pairs
+ray 1792: feasible for all all pairs
+ray 1793: feasible for all all pairs
+ray 1794: feasible for all all pairs
+ray 1795: feasible for all all pairs
+ray 1796: feasible for all all pairs
+ray 1797: feasible for all all pairs
+ray 1798: feasible for all all pairs
+ray 1799: feasible for all all pairs
+ray 1800: feasible for all all pairs
+ray 1801: feasible for all all pairs
+ray 1802: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1803: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1804: INFEASIBLE for 1 pair(s), first (2, 13)
+ray 1805: feasible for all all pairs
+ray 1806: INFEASIBLE for 1 pair(s), first (1, 16)
+ray 1807: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1808: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1809: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1810: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1811: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1812: INFEASIBLE for 1 pair(s), first (3, 16)
+ray 1813: feasible for all all pairs
+ray 1814: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1815: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1816: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1817: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1818: feasible for all all pairs
+ray 1819: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1820: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1821: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1822: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1823: INFEASIBLE for 1 pair(s), first (2, 28)
+ray 1824: INFEASIBLE for 1 pair(s), first (2, 28)
+ray 1825: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1826: feasible for all all pairs
+ray 1827: feasible for all all pairs
+ray 1828: feasible for all all pairs
+ray 1829: feasible for all all pairs
+ray 1830: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1831: feasible for all all pairs
+ray 1832: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1833: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1834: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1835: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1836: feasible for all all pairs
+ray 1837: feasible for all all pairs
+ray 1838: feasible for all all pairs
+ray 1839: feasible for all all pairs
+ray 1840: feasible for all all pairs
+ray 1841: feasible for all all pairs
+ray 1842: feasible for all all pairs
+ray 1843: feasible for all all pairs
+ray 1844: INFEASIBLE for 1 pair(s), first (12, 18)
+ray 1845: feasible for all all pairs
+ray 1846: feasible for all all pairs
+ray 1847: feasible for all all pairs
+ray 1848: feasible for all all pairs
+ray 1849: feasible for all all pairs
+ray 1850: feasible for all all pairs
+ray 1851: feasible for all all pairs
+ray 1852: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1853: feasible for all all pairs
+ray 1854: feasible for all all pairs
+ray 1855: feasible for all all pairs
+ray 1856: feasible for all all pairs
+ray 1857: feasible for all all pairs
+ray 1858: feasible for all all pairs
+ray 1859: feasible for all all pairs
+ray 1860: feasible for all all pairs
+ray 1861: feasible for all all pairs
+ray 1862: feasible for all all pairs
+ray 1863: feasible for all all pairs
+ray 1864: feasible for all all pairs
+ray 1865: feasible for all all pairs
+ray 1866: feasible for all all pairs
+ray 1867: feasible for all all pairs
+ray 1868: INFEASIBLE for 1 pair(s), first (4, 8)
+ray 1869: feasible for all all pairs
+ray 1870: feasible for all all pairs
+ray 1871: feasible for all all pairs
+ray 1872: INFEASIBLE for 1 pair(s), first (1, 20)
+ray 1873: feasible for all all pairs
+ray 1874: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1875: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 1876: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 1877: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 1878: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 1879: INFEASIBLE for 1 pair(s), first (5, 32)
+ray 1880: INFEASIBLE for 1 pair(s), first (4, 8)
+ray 1881: feasible for all all pairs
+ray 1882: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1883: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1884: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1885: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1886: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1887: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1888: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1889: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1890: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1891: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1892: feasible for all all pairs
+ray 1893: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 1894: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1895: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1896: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1897: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 1898: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1899: feasible for all all pairs
+ray 1900: feasible for all all pairs
+ray 1901: feasible for all all pairs
+ray 1902: feasible for all all pairs
+ray 1903: feasible for all all pairs
+ray 1904: feasible for all all pairs
+ray 1905: INFEASIBLE for 1 pair(s), first (24, 33)
+ray 1906: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 1907: INFEASIBLE for 1 pair(s), first (6, 17)
+ray 1908: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 1909: feasible for all all pairs
+ray 1910: feasible for all all pairs
+ray 1911: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1912: feasible for all all pairs
+ray 1913: feasible for all all pairs
+ray 1914: feasible for all all pairs
+ray 1915: feasible for all all pairs
+ray 1916: feasible for all all pairs
+ray 1917: INFEASIBLE for 1 pair(s), first (2, 17)
+ray 1918: INFEASIBLE for 1 pair(s), first (2, 17)
+ray 1919: INFEASIBLE for 1 pair(s), first (6, 24)
+ray 1920: INFEASIBLE for 1 pair(s), first (1, 8)
+ray 1921: INFEASIBLE for 1 pair(s), first (1, 8)
+ray 1922: INFEASIBLE for 1 pair(s), first (1, 8)
+ray 1923: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1924: INFEASIBLE for 1 pair(s), first (2, 5)
+ray 1925: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1926: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1927: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1928: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1929: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1930: INFEASIBLE for 1 pair(s), first (2, 17)
+ray 1931: INFEASIBLE for 1 pair(s), first (2, 17)
+ray 1932: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1933: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1934: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 1935: feasible for all all pairs
+ray 1936: feasible for all all pairs
+ray 1937: feasible for all all pairs
+ray 1938: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1939: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1940: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1941: feasible for all all pairs
+ray 1942: feasible for all all pairs
+ray 1943: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 1944: INFEASIBLE for 1 pair(s), first (4, 8)
+ray 1945: feasible for all all pairs
+ray 1946: feasible for all all pairs
+ray 1947: feasible for all all pairs
+ray 1948: feasible for all all pairs
+ray 1949: feasible for all all pairs
+ray 1950: feasible for all all pairs
+ray 1951: feasible for all all pairs
+ray 1952: feasible for all all pairs
+ray 1953: feasible for all all pairs
+ray 1954: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1955: feasible for all all pairs
+ray 1956: INFEASIBLE for 1 pair(s), first (6, 24)
+ray 1957: INFEASIBLE for 1 pair(s), first (24, 33)
+ray 1958: INFEASIBLE for 1 pair(s), first (6, 33)
+ray 1959: INFEASIBLE for 1 pair(s), first (6, 24)
+ray 1960: INFEASIBLE for 1 pair(s), first (6, 24)
+ray 1961: INFEASIBLE for 1 pair(s), first (6, 24)
+ray 1962: feasible for all all pairs
+ray 1963: feasible for all all pairs
+ray 1964: feasible for all all pairs
+ray 1965: feasible for all all pairs
+ray 1966: feasible for all all pairs
+ray 1967: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1968: feasible for all all pairs
+ray 1969: feasible for all all pairs
+ray 1970: feasible for all all pairs
+ray 1971: feasible for all all pairs
+ray 1972: feasible for all all pairs
+ray 1973: feasible for all all pairs
+ray 1974: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1975: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 1976: INFEASIBLE for 1 pair(s), first (5, 16)
+ray 1977: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 1978: INFEASIBLE for 1 pair(s), first (6, 9)
+ray 1979: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1980: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1981: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 1982: feasible for all all pairs
+ray 1983: feasible for all all pairs
+ray 1984: feasible for all all pairs
+ray 1985: feasible for all all pairs
+ray 1986: feasible for all all pairs
+ray 1987: INFEASIBLE for 1 pair(s), first (5, 32)
+ray 1988: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 1989: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 1990: INFEASIBLE for 1 pair(s), first (3, 12)
+ray 1991: INFEASIBLE for 1 pair(s), first (2, 4)
+ray 1992: INFEASIBLE for 1 pair(s), first (3, 12)
+ray 1993: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1994: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1995: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 1996: INFEASIBLE for 1 pair(s), first (1, 20)
+ray 1997: feasible for all all pairs
+ray 1998: INFEASIBLE for 1 pair(s), first (2, 5)
+ray 1999: feasible for all all pairs
+ray 2000: INFEASIBLE for 1 pair(s), first (2, 20)
+ray 2001: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 2002: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 2003: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 2004: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 2005: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 2006: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 2007: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 2008: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 2009: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 2010: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 2011: INFEASIBLE for 1 pair(s), first (2, 9)
+ray 2012: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 2013: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 2014: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 2015: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 2016: INFEASIBLE for 1 pair(s), first (6, 17)
+ray 2017: INFEASIBLE for 1 pair(s), first (4, 18)
+ray 2018: INFEASIBLE for 1 pair(s), first (3, 4)
+ray 2019: INFEASIBLE for 1 pair(s), first (3, 4)
+ray 2020: feasible for all all pairs
+ray 2021: INFEASIBLE for 1 pair(s), first (2, 4)
+ray 2022: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 2023: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 2024: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 2025: feasible for all all pairs
+ray 2026: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 2027: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 2028: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 2029: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 2030: INFEASIBLE for 1 pair(s), first (1, 18)
+ray 2031: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 2032: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 2033: feasible for all all pairs
+ray 2034: feasible for all all pairs
+ray 2035: feasible for all all pairs
+ray 2036: INFEASIBLE for 1 pair(s), first (1, 12)
+ray 2037: INFEASIBLE for 1 pair(s), first (1, 20)
+ray 2038: INFEASIBLE for 1 pair(s), first (4, 8)
+ray 2039: INFEASIBLE for 1 pair(s), first (2, 12)
+ray 2040: INFEASIBLE for 1 pair(s), first (1, 6)
+ray 2041: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 2042: INFEASIBLE for 1 pair(s), first (6, 40)
+ray 2043: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 2044: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 2045: feasible for all all pairs
+ray 2046: feasible for all all pairs
+ray 2047: feasible for all all pairs
+ray 2048: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 2049: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 2050: INFEASIBLE for 1 pair(s), first (1, 8)
+ray 2051: INFEASIBLE for 1 pair(s), first (1, 8)
+ray 2052: INFEASIBLE for 1 pair(s), first (1, 8)
+ray 2053: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 2054: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 2055: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 2056: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 2057: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 2058: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 2059: INFEASIBLE for 1 pair(s), first (1, 10)
+ray 2060: INFEASIBLE for 1 pair(s), first (1, 14)
+ray 2061: INFEASIBLE for 1 pair(s), first (1, 2)
+ray 2062: INFEASIBLE for 1 pair(s), first (20, 34)
+ray 2063: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 2064: INFEASIBLE for 1 pair(s), first (1, 4)
+ray 2065: INFEASIBLE for 1 pair(s), first (5, 16)
+ray 2066: INFEASIBLE for 1 pair(s), first (4, 10)
+ray 2067: INFEASIBLE for 1 pair(s), first (2, 5)
+ray 2068: INFEASIBLE for 1 pair(s), first (4, 8)
+ray 2069: INFEASIBLE for 1 pair(s), first (24, 33)
+summary: 2070 rays: 904 infeasible, 1166 feasible for all all pairs, 0 undetermined (LP solver errors); extension ingleton (1999 inequality rows); scipy 1.18.0, HiGHS threads per worker: 1
+kernel: gcc -O3 -march=native -fopenmp; OpenMP threads 208
+p=3 lambda=1: 1969 rays tried, 0 realised by qudit graph states and independently verified (cumulative 0/2070; 715s)
+certificates -> a2i_q3.npz
+NOTE: OMP_NUM_THREADS=25 from the environment replaced by 208 (use --threads to choose)
+kernel: gcc -O3 -march=native -fopenmp; OpenMP threads 208
+lambda=1: 1969 rays tried, 11 realised and independently verified (cumulative 11/2070; 618s)
+certificates -> a2i_q2.npz

@@ -1,0 +1,35 @@
+{
+ "date": "2026-10-02",
+ "tag": "a2-ingleton",
+ "note": "run_job a2-ingleton exit 0 on autodl-container-aweqsvh9rw-e6e859c5",
+ "files": {
+  "a2i_ci.json": {
+   "bytes": 124990,
+   "sha256": "f4c500e0dbbbb759fa53068949d3b20716ea9179c23e4e4072d4beb395324415"
+  },
+  "a2i_q3.npz": {
+   "bytes": 1450,
+   "sha256": "dcfdb0be88f1407a7252280cbf336592b174603efa351a34085ff62bbe341122"
+  },
+  "a2i_q3.npz.json": {
+   "bytes": 30623,
+   "sha256": "98d182732424c60b5ee53373b08b9866eb3391e1c519a8fbe635cdc5c4cfbb90"
+  },
+  "a2i_q2.npz": {
+   "bytes": 7767,
+   "sha256": "e8cabef2f6d624b85fa26ad9eb46c60eb42287c49ea2835170a993b076b40c11"
+  },
+  "a2i_q2.npz.json": {
+   "bytes": 29852,
+   "sha256": "06493ceeed1bead5f8a78187d253add9f131824906bbcfb456bbb894905b1d6c"
+  },
+  "a2-ingleton.log": {
+   "bytes": 87603,
+   "sha256": "4e218a6ccacd9c0cb3468f79a4366dbecc3f6537b11175ac3c9f9ac2e65688de"
+  },
+  "JOB_STATUS.json": {
+   "bytes": 990,
+   "sha256": "fcaaf6444861b08cb50cbe69d3002dbce8549ba94a807d93bb7a2397228d7151"
+  }
+ }
+}
