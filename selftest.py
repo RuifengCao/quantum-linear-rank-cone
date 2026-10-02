@@ -528,6 +528,36 @@ def main():
          f'differ only on ABCZ; random-arrangement minima {r65}/{r91} (>= 0); doubled Fano/non-Fano/T8 codes: '
          f'h_S = M + |X| {okd30}, balanced values {dc30["Fano"][1]}/{dc30["non-Fano"][1]}')
 
+    # G31 (R33): any two distinct primes give incomparable stabilizer cones (Theorem 2', docs/R32_reduction_and_local_
+    # dimension.md section 4.4).  Generalised cube states for t = 3 (p = 3 against q = 5, 7) and t = 5 (5 against 7):
+    # explicit self-duality weights (G diag(d) G^T = 0), identical self-duality, h_S = 2r, contraction of the origin =
+    # the configuration A_i = <e_i>, B_i = <c - e_i>, C = <c>; Lemma 4 (proved in the note): LB [valid for char not
+    # dividing t] = -2 on the GF(p) state and LA [valid for char dividing t] = -2 on the GF(q) states (pulled back);
+    # Pena-Sarria's Example 6 (b)/(a) give the same values (cross-check); the states differ in exactly one coordinate;
+    # the stored data reproduce.  G31b (--full): sanity of LA/LB on all {0,1}-point configurations for t = 2.
+    import s28_generalized_cubes as _g31
+    ok31, vals31, nd31 = True, [], []
+    for t31, ps31, path31, key31 in ((3, [3, 5, 7], 's28_gencube_t3.npz', 's28_gencube_t3'), (5, [5, 7], 's28_gencube_t5.npz', 's28_gencube_t5')):
+        R31 = _g31.analyse(t31, ps31)
+        for q31, d31 in R31['fields'].items():
+            ok31 = ok31 and d31['weights'] and d31['self_dual'] and d31['h2r'] and d31['contraction']
+            if q31 == t31:
+                ok31 = ok31 and d31['FB'] == -2 and d31['FA'] >= 0 and d31['Fb'] == -2 and d31['Fa'] >= 0
+                vals31.append(d31['FB'])
+            else:
+                ok31 = ok31 and d31['FA'] == -2 and d31['FB'] >= 0 and d31['Fa'] == -2 and d31['Fb'] >= 0
+                vals31.append(d31['FA'])
+        for q31 in ps31[1:]:
+            nd31.append(int((R31['fields'][ps31[0]]['S'] != R31['fields'][q31]['S']).sum()))
+        Z31 = np.load(os.path.join(core.DATA, path31))
+        St31 = np.stack([R31['fields'][q]['S'] for q in ps31])
+        rows31 = np.vstack([St31, R31['FA'][None, :], R31['FB'][None, :], R31['Fa'][None, :], R31['Fb'][None, :]]).astype(np.int64)
+        ok31 = (ok31 and np.array_equal(Z31['S'], St31) and all(np.array_equal(Z31[k], R31[k]) for k in ('FA', 'FB', 'Fa', 'Fb'))
+                and core.sha_rows_wide(rows31) == MAN[key31]['sha256_int16'])
+    gate('G31 any two primes', ok31 and nd31 == [1, 1, 1],
+         f'generalised cubes t=3 (GF 3/5/7) and t=5 (GF 5/7): weights, self-dual, h_S = 2r, contraction = configuration; '
+         f'Lemma 4 violations {vals31} (expect all -2; Pena-Sarria Example 6 agrees); differing coordinates {nd31} (expect 1 each)')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:
@@ -535,6 +565,15 @@ def main():
         else:
             gate('G29b n4-lrs', R29l.shape[0] == 46 and {tuple(x) for x in R29l} == {tuple(x) for x in R29},
                  f'lrs: {R29l.shape[0]} extreme rays of h^-1(Shannon + Ingleton) on five elements (expect 46 = stored set)')
+
+        LA31b, LB31b, n31b = _g31.lemma_forms(2)
+        mA, cA, fullA = _g31.exhaustive01_min(LA31b, n31b, 3, 2)
+        mB, cB, fullB = _g31.exhaustive01_min(LB31b, n31b, 3, 3)
+        sA, _c, _f = _g31.exhaustive01_min(LB31b, n31b, 3, 2)
+        sB, _c, _f = _g31.exhaustive01_min(LA31b, n31b, 3, 3)
+        gate('G31b Lemma 4 t=2', fullA and fullB and mA >= 0 and mB >= 0 and sA < 0 and sB < 0,
+             f'all {cA} {{0,1}}-point configurations: LA over GF(2) min {mA}, LB over GF(3) min {mB} (>= 0); '
+             f'sensitivity: LB over GF(2) min {sA}, LA over GF(3) min {sB} (< 0)')
 
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)

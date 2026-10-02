@@ -1,0 +1,4 @@
+DFZ arXiv:1401.2507v1 Thm 3.1 as printed, on C = X = a line (all else 0): -4 (a valid inequality gives >= 0)
+  all 390625 subspace arrangements of GF(2)^2: 125 violate it (min -8)
+  all 1679616 subspace arrangements of GF(3)^2: 254 violate it (min -8)
+exit 0

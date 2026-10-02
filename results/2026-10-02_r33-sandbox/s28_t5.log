@@ -1,0 +1,13 @@
+t = 5: 14 qudits, 13 visible parties + purifier; Lemma 4: LA [char | t], LB [char not | t]; Pena-Sarria Example 6: (a) [char | t], (b) [char not | t]
+  GF(3): weights True, identically self-dual True, h_S == 2r True, contraction == configuration True; on the configuration LA -1, LB 0 [(a) -1, (b) 0]; pulled back on the state LA -2, LB 0 [(a) -2, (b) 0]
+  GF(5): weights True, identically self-dual True, h_S == 2r True, contraction == configuration True; on the configuration LA 0, LB -1 [(a) 0, (b) -1]; pulled back on the state LA 0, LB -2 [(a) 0, (b) -2]
+  GF(7): weights True, identically self-dual True, h_S == 2r True, contraction == configuration True; on the configuration LA -1, LB 0 [(a) -1, (b) 0]; pulled back on the state LA -2, LB 0 [(a) -2, (b) 0]
+  GF(11): weights True, identically self-dual True, h_S == 2r True, contraction == configuration True; on the configuration LA -1, LB 0 [(a) -1, (b) 0]; pulled back on the state LA -2, LB 0 [(a) -2, (b) 0]
+  states over GF(3) and GF(5) differ in 16 of 8191 coordinates
+  states over GF(3) and GF(7) differ in 15 of 8191 coordinates
+  states over GF(3) and GF(11) differ in 15 of 8191 coordinates
+  states over GF(5) and GF(7) differ in 1 of 8191 coordinates
+  states over GF(5) and GF(11) differ in 1 of 8191 coordinates
+  states over GF(7) and GF(11) differ in 0 of 8191 coordinates
+(4s)
+exit 0

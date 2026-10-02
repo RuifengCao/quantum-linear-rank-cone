@@ -1,0 +1,31 @@
+{
+ "date": "2026-10-02",
+ "tag": "r33-sandbox",
+ "note": "R33 sandbox: generalised cube states for t = 2, 3, 5 (Theorem 2', any two primes), Lemma 4 sanity checks, the DFZ arXiv:1401.2507 Theorem 3.1 misprint, full selftest",
+ "files": {
+  "README.txt": {
+   "bytes": 2135,
+   "sha256": "3bcb0f715fa2b5bdc9b5fb717168c3fa568995aa0e6d9023ac69c0388d3d25d9"
+  },
+  "s28_t2.log": {
+   "bytes": 1889,
+   "sha256": "b0642ac93b575128bdd7384c30327c06a949c5c9db6fae35f8cf3b880e2345f7"
+  },
+  "s28_t3.log": {
+   "bytes": 3443,
+   "sha256": "c517c5494faa634ddeff093837642d7948aef85ddb8c6f78a5a7a465667af755"
+  },
+  "s28_t5.log": {
+   "bytes": 1361,
+   "sha256": "da556cde8c8c8702fc016459cd74a9711d3e2acd9e3c7c37ff94a3688ef2eba9"
+  },
+  "dfz1401_misprint.log": {
+   "bytes": 259,
+   "sha256": "ec0cc22a76ef64f729aaf270eae10d050b4b5cc46e7ac1811482a04aa91f9c36"
+  },
+  "selftest_full.log": {
+   "bytes": 5019,
+   "sha256": "3df37d555a3147d900c72ed7b8d502d1b4e823deae674b4f66447f6a9e0b9df0"
+  }
+ }
+}

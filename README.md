@@ -67,6 +67,20 @@ and the changelog is explained in the glossary at the end.
   the catalogue has diminishing scientific value; the A1′ campaign is closed
   and server time goes to A2 tools from here on. **Interpretation guard:** an
   unwitnessed orbit is not an unrealisable one.
+- [x] **R33 (2026-10-02): the stabilizer cones of any two distinct primes are incomparable.** For primes p < q
+  and every n ≥ 2p + 3, Stab⁽ᵖ⁾_n and Stab⁽q⁾_n are incomparable (Theorem 2′,
+  `docs/R32_reduction_and_local_dimension.md` §4.4).
+  - The proof is self-contained through Lemma 4: characteristic-dependent inequalities for the configuration
+    J − I, proved in the note and checked by an independent referee.
+  - Peña–Sarria arXiv:1905.00003v3, Example 6 (transcribed from the PDF) serves as a cross-check.
+  - Witnesses: the "generalised cube states" on the 2p + 4 points e_i, c − e_i, c, 0 of F^{p+1}, with the code of
+    affine functions over GF(p) resp. GF(q) (`scripts/s28_generalized_cubes.py`, `data/s28_gencube_t3.npz`,
+    `data/s28_gencube_t5.npz`, gates G31/G31b).
+  - They are self-dual by explicit weights and violate the pulled-back Lemma 4 (LB) resp. (LA) by −2.
+  - In all computed cases (t = 2, 3, 5) the two vectors differ on a single cut.
+  - For p = 2 they are the cube states of R32.
+  - Side result: Theorem 3.1 of DFZ arXiv:1401.2507v1 is misprinted. As printed, it is violated over every field
+    by C = X = a line and all other subspaces zero (pitfall 20); it is not used.
 - [x] **R32 (2026-10-02): stabilizer entropy cones are linear rank cones in disguise; they depend on the
   local dimension** (`docs/R32_reduction_and_local_dimension.md`). *Theorem 1 (proved):* for every n and
   every prime p, Stab⁽ᵖ⁾_n = {S : h_norm(S) ∈ LR⁽ᵖ⁾_{n+1}} = π(LR⁽ᵖ⁾_{n+1}) = the CSS cone (π = matroid
@@ -301,7 +315,7 @@ single-source lines in `data/dfz_ref28.csv`; optional `rays5` cross-check.
 
 ```
 # ---- A. Verify the completed results (optional, ~3 minutes in total) ----
-python3 selftest.py --full            # 34 gate lines + ALL PASS, ~5 min; must be all green first
+python3 selftest.py --full            # 36 gate lines + ALL PASS, ~5 min; must be all green first
 python3 scripts/s1_build_qlr.py --variant pure28 --workers 25     # seconds
 python3 scripts/s2_judge.py QLR_H_pure28.npy                      # expect: violated 0
 python3 scripts/s3_rank19.py QLR_H_pure28.npy                     # expect: 18/19, only #19 has rank 29
@@ -385,7 +399,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 
 | Stage | Command essentials | Purpose / expectation |
 | --- | --- | --- |
-| selftest | `selftest.py [--full] [--workers N]` | 34 regression gate lines (G0–G30, G29b) + ALL PASS; run first on any machine |
+| selftest | `selftest.py [--full] [--workers N]` | 36 regression gate lines (G0–G31, G29b, G31b) + ALL PASS; run first on any machine |
 | s1 | `--variant pure28` (current) / `pure`, `v3`, `pure2` (historical) | build the H-representation; seconds |
 | s2 | `s2_judge.py <H.npy>` | 760 graph-state judge; `pure*` variants must give 0 violations |
 | s3 | `s3_rank19.py <H.npy> [--extra-rows X]` | tight-rank test of the 19 HEC rays; pure28 → 18/19 |
@@ -403,6 +417,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | s25 | `s25_two_ci.py <rays.npy> [--index …] [--maxsize 2]` | R31: two simultaneous common informations on small pairs, Shannon on the 8-element extension (floating-point verdicts; exploratory) |
 | s26 | `s26_reduction.py --self-test` ; `--n4 [--lrs] [--realise --out …]` | R32: Theorem 1 checks -- CSS entropy formula and the doubling 2S against state vectors; n = 4: DFZ rows redundant on the self-dual slice (LP), exact extreme rays (lrs), qubit realisations re-verified |
 | s27 | `s27_cube_states.py [--state-vector] [--random N] [--out …]` ; `--probe6 SECONDS` | R32: Theorem 2 -- cube states over GF(2) and GF(p), self-duality, contraction to the DFZ Fano / non-Fano configurations, pulled-back DFZ (65)/(91) with value −2; `--probe6`: six-party checks (exploratory) |
+| s28 | `s28_generalized_cubes.py --t T --fields p q … [--random N] [--exhaustive01] [--exhaustive2] [--out …]` ; `--dfz1401` | R33: Theorem 2′ -- generalised cube states over GF(p) and GF(q), explicit self-duality weights, contraction to the configuration J − I, pulled-back Lemma 4 (LA)/(LB) with value −2 (Peña–Sarria Example 6 as cross-check); sanity tests; `--dfz1401` reproduces the misprint of pitfall 20 |
 | s20 | `s20_residuals.py <rays.npy> --lam 1 --seconds 20 --runs 3` | where qubit annealing gets stuck: residual vector of the best state of several independent runs (diagnostic; also keeps any hit as a certificate) |
 | s21 | `s21_qudit_search.py <rays.npy> --p 3 --lams 1 --seconds 60` ; `--self-test` | qudit (p = 3, 5, 7) graph-state search (`cc/s21_anneal_gfp.c`), independent GF(p) re-verification; the self-test checks S(X) = rank_GF(p) W[X, X^c] against exact state vectors |
 | s5 | `s5_orbits.py clr5.out [--raw] [--expect 162]` | rays → S₅ orbits; reconcile against 162 |
@@ -523,6 +538,16 @@ passed in the sandbox (and, optionally, in the manual CI workflow
     tested on random arrangements before use; `data/dfz_char_dependent.csv`
     records the pages. Note that Theorem 8.6 there lists "A, B, C, D, W, X,
     Y, Z" although D does not occur in (65).
+20. **A misprinted theorem (R33).** Theorem 3.1 of DFZ arXiv:1401.2507v1 (an
+    eight-variable inequality claimed for characteristic ≠ 3) is false as
+    printed: C = X = one line, all other subspaces zero, gives left side 0 and
+    right side −4, over every field. An exhaustive search over all subspace
+    arrangements of GF(2)² and GF(3)² finds 125 and 254 violations. The theorem
+    is not used; the generalisation to all primes (R33) rests on Lemma 4,
+    which is proved in the note (`s28_generalized_cubes.py --dfz1401` reproduces
+    the counterexample). Moral: before citing a linear rank inequality, test it on all small
+    arrangements (`s28_generalized_cubes.py --exhaustive2` style); a published
+    statement can be wrong as printed.
 
 ## 6. Data inventory (`data/`)
 
@@ -566,6 +591,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | `s24_qutrit_certs.npz` | 80 | R31: qutrit graph states (λ = 1 for 73, 2 for 7) for the 80 qubit-realised rows of `stab5_extreme_reps.npy` with the fewest qubits (row in `stab5_row`), gate G28 |
 | `dfz_char_dependent.csv` | 2 | R32: the characteristic-dependent seven-variable linear rank inequalities (65) [odd characteristic] and (91) [characteristic 2] of DFZ arXiv:1311.4601, transcribed and checked against the PDF pages (recorded in the header) |
 | `s26_stab4_certs.npz` | 46 | R32: the extreme rays of h⁻¹(Shannon + Ingleton) on five elements (n = 4; 15 coordinates) with qubit graph-state certificates (λ, sizes, adjacency W), gates G29/G29b |
+| `s28_gencube_t3.npz` / `s28_gencube_t5.npz` | 7 / 6 | R33: entropy vectors of the generalised cube states (t = 3 over GF(3), GF(5), GF(7); t = 5 over GF(5), GF(7); 511 resp. 8,191 coordinates, purifier = origin), the pulled-back Lemma 4 forms FA (valid for char dividing t) and FB (valid otherwise), and Peña–Sarria's Fa, Fb (cross-check), gate G31 |
 | `s27_cube_witnesses.npz` | 4 | R32: entropy vectors of the qubit and odd-p cube states (127 coordinates, parties A,B,C,W,X,Y,Z = vertices 100,…,111, purifier 000) and the pulled-back seven-party inequalities F65 (odd p) and F91 (p = 2), gate G30 |
 | `sixvar_template.csv` | — | transcription template for s9 |
 | `manifest_shas.json` | — | canonical sha256 of every row family (`sha_rows`; `sha_rows_wide` for wide coordinates) |
@@ -581,8 +607,10 @@ matroid theory / representability) before any claim leaves the repository —
 now including the 646 CI+Ingleton classes against DFZ's six-variable lists
 and the two R32 theorems (the converse direction of Theorem 1 and the
 local-dimension dependence of Theorem 2 were not found in LMRW, Gross–Walter,
-BCHS or Majenz's thesis by an AI pre-check); human reading of the R32 proofs
-and of DFZ arXiv:1311.4601 eqs. (65)/(91); then write to the BCHS authors. (b) The 1,155 undecided orbits
+BCHS or Majenz's thesis by an AI pre-check); human reading of the R32/R33 proofs
+(Lemma 4 above all) and of DFZ arXiv:1311.4601 eqs. (65)/(91) (Peña–Sarria
+arXiv:1905.00003 Example 6 is only a cross-check); then write to the BCHS authors. Optional: check whether the IEEE version of DFZ
+arXiv:1401.2507 still prints the false Theorem 3.1 (pitfall 20) and, if so, tell the authors. (b) The 1,155 undecided orbits
 (`results/2026-10-02_a2-status/`): most need 21–40 qubits at λ = 1, where 60 s
 of annealing mostly ends far from a realisation, so stronger searches
 (longer, λ = 2, restarts from the best states) are the obvious server job.
@@ -655,7 +683,7 @@ This repository is public at
 
 - **CI:** `.github/workflows/selftest.yml` installs `lrslib` and the Python
   requirements and runs `python3 selftest.py --full` on every push and pull
-  request (all 34 gate lines must pass). Every step has a time cap (job 40 min;
+  request (all 36 gate lines must pass). Every step has a time cap (job 40 min;
   each `apt-get update` attempt 150 s, three attempts), so a stalled package
   mirror fails the run within minutes instead of hanging for GitHub's 6-hour
   default; such a failure says nothing about the code -- re-run the job.

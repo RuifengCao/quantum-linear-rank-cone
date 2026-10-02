@@ -1,5 +1,41 @@
 # CHANGELOG
 
+## R33 (2026-10-02) -- any two distinct primes give incomparable stabilizer cones
+- **Theorem 2' (proved, self-contained).** For primes p < q and every n >= 2p + 3, Stab^(p)_n and Stab^(q)_n are
+  incomparable. Details in `docs/R32_reduction_and_local_dimension.md`, section 4.4.
+  - Witnesses: generalised cube states on the 2t+4 points e_i, c - e_i, c, 0 of F^{t+1} (t = p; the cube for
+    t = 2), with the code of affine functions over GF(p) and over GF(q).
+  - Self-duality by explicit weights (-1 on e_i, +1 on c - e_i, -(t-1) on c, t-1 on 0; G diag(d) G^T = 0 over Z).
+    This holds whenever char does not divide t - 1, so h_norm = 2r.
+  - Contracting the origin gives the configuration A_i = <e_i>, B_i = <c - e_i>, C = <c> (the matrix J - I).
+- **Lemma 4 (proved in the note).** Two characteristic-dependent linear rank inequalities for that configuration,
+  with explicit error terms:
+  - (LB) valid when char does not divide t: M H(C) <= H(B) + M[gamma + M alpha + sum(delta_i + eps_i + zeta_i)].
+  - (LA) valid when char divides t: H(B) <= (M-1) H(C) + M alpha + M gamma + sum(zeta_i + eta_i).
+  - On the configuration each fails by 1 in the wrong characteristic; pulled back to the witnesses, the values are
+    -2.
+  - An independent referee re-derived every step and stress-tested both forms (billions of configurations, several
+    families exhaustive up to GL, adversarial searches) with no violation; small textual fixes were applied.
+  - Pena-Sarria arXiv:1905.00003v3 Example 6 (typed from the rendered page 4) gives the same values and is kept as
+    a cross-check only.
+- For t = 2, 3, 5 the two entropy vectors differ in exactly one coordinate: the cut {A_1..A_M, C} | {B_1..B_M, 0},
+  with value t over GF(p) and t + 2 over GF(q).
+- **Misprint found (pitfall 20).** DFZ arXiv:1401.2507v1 Theorem 3.1 (eight variables, characteristic != 3) is false
+  as printed: C = X = a line and the rest zero give -4, over every field. An exhaustive check over GF(2)^2 / GF(3)^2
+  finds 125 / 254 violations (`s28_generalized_cubes.py --dfz1401`). Not used.
+- **Code and data.** `scripts/s28_generalized_cubes.py` (`lemma_forms`, `ps_forms`, witnesses, `--exhaustive01`,
+  `--dfz1401`); `data/s28_gencube_t3.npz` (GF 3/5/7) and `data/s28_gencube_t5.npz` (GF 5/7) with manifest entries
+  (int16 row sha).
+- **Gates.**
+  - G31: t = 3 and t = 5 witnesses (weights, self-duality, contraction, Lemma 4 values -2, Pena-Sarria agreement,
+    single differing coordinate, stored data).
+  - G31b (`--full`): (LA) over GF(2) and (LB) over GF(3) on all 2.1 M {0,1}-point configurations for t = 2, with
+    the wrong-characteristic forms violated there (sensitivity).
+  - 36 gate lines.
+- **Docs.** R32 note: sections 4.4 (Lemma 4 with proof, Theorem 2') and 4.5, open questions, literature status,
+  reproduce. README: R33 status, pipeline row s28, data inventory, gate counts, pitfall 20. Raw output:
+  `results/2026-10-02_r33-sandbox/`.
+
 ## R32 (2026-10-02) -- reduction to linear rank cones; local-dimension dependence from seven parties
 - **Theorem 1 (proved, `docs/R32_reduction_and_local_dimension.md`).** For every n and every prime p,
   Stab^(p)_n = {S : h_norm(S) in LR^(p)_{n+1}} = pi(LR^(p)_{n+1}) = CSS cone, where pi(r)(X) = r(X) + r(E\X) - r(E)

@@ -5,6 +5,9 @@ Technical note accompanying round R32. Status flags as in `docs/A2_stabilizer_vs
 **[certified]** — exact computation re-checked by a selftest gate. Human line-by-line review of this note and a
 human literature check are pending (see §6).
 
+Round R33 adds §4.4: the stabilizer cones of **any two** distinct primes are incomparable (Theorem 2′). The proof
+is self-contained, through Lemma 4. R33 also adds §4.5, a note on a misprint in DFZ arXiv:1401.2507.
+
 ## 1. Setting
 
 * n visible parties A₁, …, A_n and a purifier F; E is the set of all n + 1 parties. A *pure-symmetric* vector S
@@ -110,7 +113,7 @@ self-dual slice.
 * **n = 5.** The new six-variable inequalities do cut the self-dual slice: these are the exclusions of R27–R30
   (A2 note §3–§7).
 
-## 4. Theorem 2 (dependence on the local dimension) [proved, using cited theorems]
+## 4. Theorem 2 (dependence on the local dimension) [proved; §4.2 uses DFZ, §4.4 is self-contained]
 
 For every n ≥ 7 and every odd prime p,
 
@@ -217,6 +220,166 @@ linear rank cones.
 * For n = 5, a dimension dependence would require a characteristic-dependent six-variable linear rank
   inequality.
 
+### 4.4 Theorem 2′ (any two primes) [proved] (R33)
+
+For primes p < q and every n ≥ 2p + 3,
+
+    Stab⁽ᵖ⁾_n ⊄ Stab⁽q⁾_n   and   Stab⁽q⁾_n ⊄ Stab⁽ᵖ⁾_n.
+
+The proof is self-contained: it uses Lemma 2 of the A2 note and Lemma 4 below. Peña–Sarria's inequalities
+(arXiv:1905.00003v3, Theorem 3 / Example 6) are of the same kind and serve as a cross-check, but they are not needed.
+
+**Lemma 4 (characteristic-dependent inequalities for the configuration J − I) [proved].** Let M = t + 1 ≥ 3. Let
+A₁, …, A_M, B₁, …, B_M and C be subspaces of a finite-dimensional vector space over a field F. Write A = Σ_k A_k
+and A_{≠i} = Σ_{j≠i} A_j, and define the error terms (all ≥ 0):
+
+* α = Σ_k H(A_k) − H(A),
+* γ = H(C | A),
+* δ_i = I(C; A_{≠i}),
+* ε_i = H(C | A_i, B_i),
+* ζ_i = H(B_i | A_{≠i}),
+* η_i = H(B_i | A_i, C).
+
+Then
+
+* (LB) if char F does not divide t:  M·H(C) ≤ H(B₁, …, B_M) + M·[γ + M·α + Σ_i (δ_i + ε_i + ζ_i)];
+* (LA) if char F divides t:  H(B₁, …, B_M) ≤ (M − 1)·H(C) + M·α + M·γ + Σ_i (ζ_i + η_i).
+
+On the configuration A_i = ⟨e_i⟩, B_i = ⟨c − e_i⟩, C = ⟨c⟩ in F^M every error term vanishes, H(C) = 1, and
+H(B₁, …, B_M) = rank(J − I) = M − 1 if char F | t and M otherwise. The determinant of J − I is (−1)^t·t. When
+char F | t the rank is exactly M − 1, because an (M − 1)-minor equals ±(t − 1) ≡ ∓1. So (LB) fails by 1 when
+char F | t, and (LA) fails by 1 when char F ∤ t.
+
+*Proof.* Facts used:
+
+* (F1) codim_X(X ∩ W₁ ∩ … ∩ W_k) ≤ Σ codim_X(X ∩ W_j).
+* (F2) For W ⊆ W′: codim_X(X ∩ W) ≤ codim_X(X ∩ W′) + codim_{W′}(W). Indeed
+  codim_X(X ∩ W) = codim_X(X ∩ W′) + codim_{X∩W′}(X ∩ W), and (X ∩ W′)/(X ∩ W) embeds into W′/W.
+* (F3) codim_X(X ∩ (Y + Z)) = H(X | Y, Z).
+
+*Step 0 (making the A_i independent).*
+
+* Let O_i = A_i ∩ A_{≠i}. Then dim O_i = I(A_i; A_{≠i}) ≤ α. Let O = Σ_i O_i, so dim O ≤ M·α and O ⊆ A_{≠i} for
+  every i.
+* Let q: V → V/O. The images Ā_i = q(A_i) are independent. Indeed, if a_i − Σ_{j≠i} a_j = Σ_k o_k with o_k ∈ O_k,
+  then a_i − o_i ∈ A_i ∩ A_{≠i} = O_i, so q(a_i) = 0.
+* Write π_i for the projection of Ā = ⊕_k Ā_k onto Ā_i. Then q(A_{≠i}) = ⊕_{j≠i} Ā_j = ker π_i.
+
+*(LB).*
+
+1. Let B′_i = B_i ∩ A_{≠i} and C₁ = C ∩ ⋂_i (A_i + B′_i) ⊆ A.
+   * We have codim_{A_i+B_i}(A_i + B′_i) ≤ dim B_i − dim B′_i = ζ_i.
+   * By (F2) and (F3), codim_C(C ∩ (A_i + B′_i)) ≤ ε_i + ζ_i. Also codim_C(C ∩ A) = γ.
+   * By (F1), dim C₁ ≥ H(C) − γ − Σ_i (ε_i + ζ_i).
+2. For x ∈ C₁ write x = a + b with a ∈ A_i and b ∈ B′_i ⊆ A_{≠i}. Uniqueness of the decomposition in ⊕Ā_k gives
+   π_i(q x) = q a, so q x − π_i(q x) = q b ∈ q(B_i).
+3. Let K_i = q(C₁) ∩ ker π_i. Its preimage is (C₁ + O) ∩ A_{≠i} = (C₁ ∩ A_{≠i}) + O (modular law, O ⊆ A_{≠i}).
+   Hence dim K_i ≤ dim(C ∩ A_{≠i}) = δ_i.
+4. Let D be a complement of Σ_i K_i in q(C₁). Then
+   dim D ≥ dim C₁ − dim O − Σ_i δ_i, and D ∩ ker π_i = 0 for all i.
+5. Put β_i(x) = x − π_i x for x ∈ D; by step 2, β_i(D) ⊆ q(B_i).
+   * Each β_i is injective: β_i x = 0 forces x ∈ Ā_i ⊆ ker π_k for k ≠ i.
+   * The β_i(D) are independent. Suppose Σ_i β_i(x_i) = 0. Applying π_k gives π_k(Σ_{i≠k} x_i) = 0, so
+     Σ_{i≠k} x_i = 0 for every k. Summing over k gives t·Σ_i x_i = 0. When char F ∤ t this means Σ_i x_i = 0, and
+     then every x_k = 0.
+   * Hence H(B₁, …, B_M) ≥ dim q(Σ B_i) ≥ M·dim D. Substituting dim O ≤ M·α gives (LB).
+
+*(LA).*
+
+1. Let C_A = C ∩ A, with codim γ, and B″_i = B_i ∩ A_{≠i} ∩ (A_i + C_A).
+   * By (F1)–(F3), codim_{B_i}(B″_i) ≤ ζ_i + η_i + γ. This uses codim_{A_i+C}(A_i + C_A) ≤ γ.
+2. For b ∈ B″_i write b = a + x with a ∈ A_i and x ∈ C_A.
+   * Since q b ∈ ker π_i, we get q a = −π_i(q x).
+   * So q b = β_i(q x), where β_i(y) = y − π_i y on q(C_A) ⊆ Ā.
+3. The map Φ(y₁, …, y_M) = Σ_i β_i(y_i) on q(C_A)^M contains Σ_i q(B″_i) in its image.
+   * Its kernel contains the diagonal, because Σ_i β_i(y) = M·y − y = t·y = 0 when char F | t.
+   * Hence dim q(Σ_i B″_i) ≤ (M − 1)·dim q(C_A) ≤ (M − 1)·H(C).
+4. Finally:
+   * H(B₁, …, B_M) ≤ dim(Σ_i B″_i) + Σ_i codim_{B_i}(B″_i);
+   * dim(Σ_i B″_i) ≤ dim q(Σ_i B″_i) + dim O ≤ (M − 1)·H(C) + M·α.
+
+   Together these give (LA). ∎
+
+*Remarks.*
+
+* The γ terms are not needed: C₁ ⊆ A holds automatically, and B_i ∩ A_{≠i} ∩ (A_i + C) ⊆ A_i + C_A.
+* Also dim O ≤ (M − 1)·α.
+* The proof works for M ≥ 2; (LA) is non-empty only for M ≥ 3.
+* We keep the stated (slightly weaker) forms, which are the ones encoded and tested.
+* An independent referee re-derived every step and stress-tested both forms. Billions of configurations over GF(2),
+  GF(3), GF(5) and GF(7) for t = 2, 3 were checked, exhaustive up to GL in several families, together with
+  adversarial searches. The valid form was never violated, while the same searches do find the wrong-characteristic
+  violations and the violations of deliberately weakened forms.
+
+`scripts/s28_generalized_cubes.py:lemma_forms` encodes (LA) and (LB). They are sanity-checked, which is not a
+proof:
+
+* on all {0,1}-point configurations of GF(2)³ and GF(3)³ (t = 2; 2.1 M each). The valid form is never violated,
+  and the wrong-characteristic form is violated there (gate G31b);
+* on random {0,1}-point configurations of GF(q)⁴ (t = 3) and on random subspace arrangements.
+
+Peña–Sarria's Example 6 (a) and (b) (typed from the rendered page 4 of arXiv:1905.00003v3, `ps_forms`) behave in the
+same way and give the same values below.
+
+**Generalised cube states.** Let t ≥ 2, M = t + 1 and c = (1, …, 1) ∈ F^M. Take the 2t + 4 points
+
+* A_i = e_i (i = 1, …, M),
+* B_i = c − e_i (i = 1, …, M),
+* C = c,
+* the origin 0,
+
+one qudit on each, and the code of affine functions on them (generator rows 1, x₁, …, x_M). The parties
+A_1, …, A_M, B_1, …, B_M, C are visible and the origin is the purifier. For t = 2 these are the eight vertices of
+the cube {0,1}³, i.e. the cube states of §4.1. For Theorem 2′ take t = p, over F = GF(p) and over F = GF(q).
+
+*Proof of Theorem 2′.*
+
+1. **Self-duality** [proved]. Give the points the weights d = −1 on each e_i, +1 on each c − e_i, −(t − 1) on c and
+   t − 1 on 0. The identities
+   * Σ d = 0,
+   * Σ d·x_j = −1 + (M − 1) − (M − 2) = 0,
+   * Σ d·x_j x_k = (M − 2) − (M − 2) = 0 (j ≠ k)
+
+   hold over ℤ, so G diag(d) Gᵀ = 0. If char F ∤ (t − 1), all weights are nonzero, so C^⊥ = C·diag(d). Since the
+   code has half the length as dimension, its matroid is identically self-dual: S = 2r − |X| and h_S = 2r.
+   * For t = p this holds over GF(p), since p ∤ p − 1, and over GF(q) for q > p, since 0 < p − 1 < q.
+   * Over GF(2) with t odd it fails; that pair is covered by Theorem 2.
+2. **Contraction** [proved]. Contracting the origin leaves exactly the configuration of Lemma 4. This is also the
+   counterexample configuration of Peña–Sarria, Theorem 3, with M(n, t) = t + 1.
+3. **Pull-back** as in §4.2, with Lemma 4 in place of DFZ. The values below are certified for t = 3 (GF(3) against
+   GF(5), GF(7)) and t = 5 (GF(5) against GF(7)) by gate G31; t = 2 coincides with §4.1. Peña–Sarria's (b)/(a) give
+   the same values.
+   * The GF(p) state takes the value −2 on the pulled-back (LB), which holds for every q-qudit stabilizer state
+     since q ∤ p.
+   * The GF(q) state takes the value −2 on the pulled-back (LA), which holds for every p-qudit stabilizer state.
+4. n > 2p + 3: merge empty parties into the purifier. ∎
+
+Notes:
+
+* For t = 2, Lemma 4 also re-proves Theorem 2 without DFZ.
+* The choice t = min(p, q) always works, since self-duality over GF(q) needs q ∤ t − 1. With t = max(p, q) one
+  would need p ∤ q − 1, which fails for instance whenever p = 2.
+
+**One cut again.** In every case computed (t = p = 2, 3, 5 against primes q > p up to 11; for p = 2 every odd q gives
+the same vector, §4.1) the two entropy vectors differ in exactly one
+coordinate. It is the bipartition {A_1, …, A_M, C} | {B_1, …, B_M, 0}, with entropy t over GF(p) and t + 2 over
+GF(q). A general proof of this observation was not attempted.
+
+### 4.5 A misprint in DFZ arXiv:1401.2507 (not used)
+
+Theorem 3.1 of arXiv:1401.2507v1 (p. 11) states an eight-variable inequality claimed to hold over every finite
+field of characteristic ≠ 3; Theorem 3.2 shows that it fails for T₈ over GF(3). As printed, the inequality is false
+over every field.
+
+* *Smallest counterexample.* Take C = X = one line and all other subspaces zero. The left side H(A) is 0. On the
+  right side, 3H(X) − 17H(C) + 7H(C|D,Y,Z) + 3H(C|A,W,Y) = 3 − 17 + 7 + 3 = −4, and every other term vanishes.
+* *Search.* An exhaustive search over all subspace arrangements of GF(2)² and of GF(3)² finds 125 and 254 violating
+  arrangements respectively.
+
+The final expansion of the proof (p. 25) probably carries a coefficient error; the published IEEE version was not
+checked. Theorem 4.1 of the same paper (valid for characteristic 3) passes the same exhaustive check, but it is not
+used either. Section 4.4 needs neither.
+
 ## 5. Open questions
 
 * **The smallest number of parties with a dimension dependence** is 5, 6 or 7.
@@ -227,17 +390,10 @@ linear rank cones.
     relabellings (minimum 19 and 16). These are h_S of the seven-qudit CSS states of the Fano and non-Fano codes.
     A 240-second annealing probe over seven-party qutrit graph states found nothing either (best value 4 ≥ 0).
     Both checks are in `s27_cube_states.py --probe6`.
-* **Different odd primes, and all pairs of primes.** By the sandwich corollary, any characteristic-dependent
-  n-variable linear rank inequality gives an n-party separation; no self-dual configuration is needed.
-  Two candidate sources, neither checked yet against the papers:
-  * The eight-variable inequalities of DFZ arXiv:1401.2507, valid for characteristic ≠ 3 resp. = 3 according to
-    its abstract. They would make Stab⁽³⁾_8 and Stab⁽q⁾_8 incomparable for every q ≠ 3.
-  * The families of Peña–Sarria (arXiv:1905.00003; n ≥ 7 variables, parameter t, failing exactly when the
-    characteristic divides t). If they are as summarised, they would make the cones of any two distinct primes
-    p, q incomparable for n ≥ max(p, q) + 3.
-
-  Both statements must be read in the papers before anything is claimed. The doubled-T₈ check in
-  `s27_cube_states.py` (h_S = r + |X|) prepares the first one.
+* ~~**Different odd primes, and all pairs of primes.**~~ Settled by Theorem 2′ (R33): for primes p < q the cones
+  are incomparable from n = 2p + 3 on. Whether fewer parties suffice for odd p is open. For example, (3, q) at
+  n = 8 would follow from correct eight-variable characteristic-3 inequalities and doubled codes (§4.3); the
+  printed DFZ inequality is not usable (§4.5).
 * **The 1,155 undecided orbits of the A2 catalogue**: see §3.1.
 
 ## 6. Literature status
@@ -250,7 +406,12 @@ Theorem 2, in LMRW (arXiv:1302.5453), Gross–Walter (arXiv:1302.6990), BCHS (ar
 * the use of characteristic-dependent linear rank inequalities in network coding.
 
 A human check in at least three communities (quantum entropy cones, network coding and linear rank inequalities,
-matroid theory) is required before either theorem is presented as new.
+matroid theory) is required before any of Theorems 1, 2 and 2′ is presented as new. Cited inputs and how they were
+checked:
+
+* DFZ arXiv:1311.4601v1, Thms 8.6–8.9: checked term by term against the rendered PDF pages (R32).
+* Peña–Sarria arXiv:1905.00003v3, Thm 3 / Example 6: transcribed from the rendered page 4 and tested as in §4.4
+  (R33). It is used only as a cross-check, since Lemma 4 is proved here. Its publication status was not checked.
 
 ## 7. Reproduce
 
@@ -258,6 +419,10 @@ matroid theory) is required before either theorem is presented as new.
     python3 scripts/s26_reduction.py --n4 --lrs                      # n = 4: LP + exact rays (lrs) + certificates
     python3 scripts/s27_cube_states.py --state-vector --random 400   # Theorem 2 witnesses and checks, ~10 s
     python3 scripts/s27_cube_states.py --probe6 240                  # exploratory six-party probe
-    python3 selftest.py                                              # gates G29, G30 (G29b with --full)
+    python3 scripts/s28_generalized_cubes.py --t 2 --fields 2 3 5 --exhaustive01             # Lemma 4, t = 2, ~25 s
+    python3 scripts/s28_generalized_cubes.py --t 3 --fields 3 5 7 11 --random 300 --exhaustive01   # Theorem 2', p = 3
+    python3 scripts/s28_generalized_cubes.py --t 5 --fields 3 5 7 11                         # Theorem 2', p = 5
+    python3 scripts/s28_generalized_cubes.py --dfz1401                                       # the misprint of §4.5
+    python3 selftest.py                                              # gates G29-G31 (G29b, G31b with --full)
 
-Raw output of the R32 sandbox runs: `results/2026-10-02_r32-sandbox/`.
+Raw output of the sandbox runs: `results/2026-10-02_r32-sandbox/`, `results/2026-10-02_r33-sandbox/`.

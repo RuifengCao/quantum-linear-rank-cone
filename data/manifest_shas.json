@@ -250,5 +250,26 @@
  "dfz_char_dependent": {
   "rows": 2,
   "sha256": "35861f997f7c377c75a51b43c895e7ea3da7de58867c0151c03b8ee2d659c871"
+ },
+ "s28_gencube_t3": {
+  "rows": 7,
+  "t": 3,
+  "fields": [
+   3,
+   5,
+   7
+  ],
+  "sha256_int16": "76eb261ba7be7944958d05e707f924dfff7082b0fd3ab4b83493fb278226b907",
+  "file_sha256": "74c33e3524eebba3f21d9681bff220fe1f00faad7cca677e44e1853f987cee98"
+ },
+ "s28_gencube_t5": {
+  "rows": 6,
+  "t": 5,
+  "fields": [
+   5,
+   7
+  ],
+  "sha256_int16": "39b296821a2cb02a880d5dce91c3b752d74c2127fa9bf2f06ce7139f0b161b15",
+  "file_sha256": "b19af77674bc1ada22e614b48da8107ef53ef69801e0e4df0c609a3efc0d3c5e"
  }
 }

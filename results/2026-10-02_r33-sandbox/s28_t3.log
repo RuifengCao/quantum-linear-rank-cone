@@ -1,0 +1,43 @@
+t = 3: 10 qudits, 9 visible parties + purifier; Lemma 4: LA [char | t], LB [char not | t]; Pena-Sarria Example 6: (a) [char | t], (b) [char not | t]
+  GF(3): weights True, identically self-dual True, h_S == 2r True, contraction == configuration True; on the configuration LA 0, LB -1 [(a) 0, (b) -1]; pulled back on the state LA 0, LB -2 [(a) 0, (b) -2]
+  GF(5): weights True, identically self-dual True, h_S == 2r True, contraction == configuration True; on the configuration LA -1, LB 0 [(a) -1, (b) 0]; pulled back on the state LA -2, LB 0 [(a) -2, (b) 0]
+  GF(7): weights True, identically self-dual True, h_S == 2r True, contraction == configuration True; on the configuration LA -1, LB 0 [(a) -1, (b) 0]; pulled back on the state LA -2, LB 0 [(a) -2, (b) 0]
+  GF(11): weights True, identically self-dual True, h_S == 2r True, contraction == configuration True; on the configuration LA -1, LB 0 [(a) -1, (b) 0]; pulled back on the state LA -2, LB 0 [(a) -2, (b) 0]
+  states over GF(3) and GF(5) differ in 1 of 511 coordinates
+  states over GF(3) and GF(7) differ in 1 of 511 coordinates
+  states over GF(3) and GF(11) differ in 1 of 511 coordinates
+  states over GF(5) and GF(7) differ in 0 of 511 coordinates
+  states over GF(5) and GF(11) differ in 0 of 511 coordinates
+  states over GF(7) and GF(11) differ in 0 of 511 coordinates
+  valid LA on 300 random GF(3) arrangements: min 0
+  valid LA on random 2200000 {0,1}-point configurations of GF(3)^4: min 0
+  valid (a) on 300 random GF(3) arrangements: min 0
+  valid (a) on random 2200000 {0,1}-point configurations of GF(3)^4: min 0
+  (sensitivity) wrong-characteristic LB on the same kind of configurations: min 0
+  (sensitivity) wrong-characteristic (b) on the same kind of configurations: min 1
+  valid LB on 300 random GF(5) arrangements: min 3
+  valid LB on random 2200000 {0,1}-point configurations of GF(5)^4: min 0
+  valid (b) on 300 random GF(5) arrangements: min 0
+  valid (b) on random 2200000 {0,1}-point configurations of GF(5)^4: min 0
+  (sensitivity) wrong-characteristic LA on the same kind of configurations: min 0
+  (sensitivity) wrong-characteristic (a) on the same kind of configurations: min 0
+  valid LB on 300 random GF(7) arrangements: min 1
+  valid LB on random 2200000 {0,1}-point configurations of GF(7)^4: min 1
+  valid (b) on 300 random GF(7) arrangements: min 1
+  valid (b) on random 2200000 {0,1}-point configurations of GF(7)^4: min 0
+  (sensitivity) wrong-characteristic LA on the same kind of configurations: min 0
+  (sensitivity) wrong-characteristic (a) on the same kind of configurations: min 0
+  valid LB on 300 random GF(11) arrangements: min 3
+  valid LB on random 2200000 {0,1}-point configurations of GF(11)^4: min 0
+  valid (b) on 300 random GF(11) arrangements: min 0
+  valid (b) on random 2200000 {0,1}-point configurations of GF(11)^4: min 0
+  (sensitivity) wrong-characteristic LA on the same kind of configurations: min 0
+  (sensitivity) wrong-characteristic (a) on the same kind of configurations: min 0
+  valid LB on 300 random GF(2) arrangements: min 0
+  valid LB on random 2200000 {0,1}-point configurations of GF(2)^4: min 1
+  valid (b) on 300 random GF(2) arrangements: min 0
+  valid (b) on random 2200000 {0,1}-point configurations of GF(2)^4: min 0
+  (sensitivity) wrong-characteristic LA on the same kind of configurations: min -1
+  (sensitivity) wrong-characteristic (a) on the same kind of configurations: min -1
+(80s)
+exit 0
