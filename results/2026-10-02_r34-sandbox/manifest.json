@@ -1,0 +1,19 @@
+{
+ "date": "2026-10-02",
+ "tag": "r34-sandbox",
+ "note": "R34 sandbox: Z_d qudits (Theorem 5, divisibility): generalised cube states over Z_4, Z_8, Z_9 and partners, Z_4 cube state vector and cube-sum identity, Lemma 4(G) point tests, full selftest",
+ "files": {
+  "README.txt": {
+   "bytes": 1806,
+   "sha256": "cbcdb71289a485932e1bf4ee2b89f4fa568e72119a4eaae5550095a9cb283860"
+  },
+  "s29_zd.log": {
+   "bytes": 3289,
+   "sha256": "22dca1bbd9dd9432c15a6feeb3d11c04524b8eff3292fb538b9d7c76536d6354"
+  },
+  "selftest_full.log": {
+   "bytes": 5777,
+   "sha256": "960d5fcc330911b0cb741096d93ab5fd62c6484dd7568e344f11eb163012aa41"
+  }
+ }
+}

@@ -1,0 +1,21 @@
+t = 2, Z_4 (8 qudits, 7 visible parties + purifier, bits): free True, weights True, identically self-dual True, h_S == 2r True, contraction == configuration True; configuration H(C) = 2, H(B) = 5, LA -1, LB -1; pulled back on the state LA -2, LB -2  (0s)
+t = 2, Z_2 (8 qudits, 7 visible parties + purifier, bits): free True, weights True, identically self-dual True, h_S == 2r True, contraction == configuration True; configuration H(C) = 1, H(B) = 2, LA 0, LB -1; pulled back on the state LA 0, LB -2  (0s)
+t = 2, Z_3 (8 qudits, 7 visible parties + purifier, trits): free True, weights True, identically self-dual True, h_S == 2r True, contraction == configuration True; configuration H(C) = 1, H(B) = 3, LA -1, LB 0; pulled back on the state LA -2, LB 0  (0s)
+t = 4, Z_8 (12 qudits, 11 visible parties + purifier, bits): free True, weights True, identically self-dual True, h_S == 2r True, contraction == configuration True; configuration H(C) = 3, H(B) = 13, LA -1, LB -2; pulled back on the state LA -2, LB -4  (0s)
+t = 4, Z_4 (12 qudits, 11 visible parties + purifier, bits): free True, weights True, identically self-dual True, h_S == 2r True, contraction == configuration True; configuration H(C) = 2, H(B) = 8, LA 0, LB -2; pulled back on the state LA 0, LB -4  (1s)
+t = 3, Z_9 (10 qudits, 9 visible parties + purifier, trits): free True, weights True, identically self-dual True, h_S == 2r True, contraction == configuration True; configuration H(C) = 2, H(B) = 7, LA -1, LB -1; pulled back on the state LA -2, LB -2  (1s)
+t = 3, Z_3 (10 qudits, 9 visible parties + purifier, trits): free True, weights True, identically self-dual True, h_S == 2r True, contraction == configuration True; configuration H(C) = 1, H(B) = 3, LA 0, LB -1; pulled back on the state LA 0, LB -2  (1s)
+t = 6, Z_4 (16 qudits, 15 visible parties + purifier, bits): free True, weights True, identically self-dual True, h_S == 2r True, contraction == configuration True; configuration H(C) = 2, H(B) = 13, LA -1, LB -1; pulled back on the state LA -2, LB -2  (8s)
+t = 6, Z_2 (16 qudits, 15 visible parties + purifier, bits): free True, weights True, identically self-dual True, h_S == 2r True, contraction == configuration True; configuration H(C) = 1, H(B) = 6, LA 0, LB -1; pulled back on the state LA 0, LB -2  (15s)
+t = 6, Z_3 (16 qudits, 15 visible parties + purifier, trits): free True, weights True, identically self-dual True, h_S == 2r True, contraction == configuration True; configuration H(C) = 1, H(B) = 6, LA 0, LB -1; pulled back on the state LA 0, LB -2  (22s)
+Z_4 cube state: |C| = 256; max |S_svd - S_formula| over all 254 cuts = 8.9e-16 bits
+Z_4 cube entropy (bits) == qubit cube (bits) + qutrit cube (trits): True
+  (LA)_2 over Z_4^3 [not claimed] on all 2097152 configurations of 7 points: min -1
+  (LB)_2 over Z_4^3 [not claimed] on all 2097152 configurations of 7 points: min -1
+  (LB)_3 over Z_4^4 [claimed valid] on random 2200000 configurations of 18 points: min 1
+  (LA)_4 over Z_4^5 [claimed valid] on random 2200000 configurations of 11 points: min 0
+  (LB)_2 over Z_9^3 [claimed valid] on random 2200000 configurations of 14 points: min 0
+  (LA)_3 on the J - I configuration over Z_4 [not claimed]: -2
+  (LA)_2 on the J - I configuration over Z_9 [not claimed]: -2
+(43s)
+exit 0

@@ -558,6 +558,32 @@ def main():
          f'generalised cubes t=3 (GF 3/5/7) and t=5 (GF 5/7): weights, self-dual, h_S = 2r, contraction = configuration; '
          f'Lemma 4 violations {vals31} (expect all -2; Pena-Sarria Example 6 agrees); differing coordinates {nd31} (expect 1 each)')
 
+    # G32 (R34): Z_d qudits -- the cone remembers the local dimension (Theorem 5, docs/R32_reduction_and_local_
+    # dimension.md section 4.6).  Generalised cube states over Z_N, exactly (units of log p): free code, unit weights
+    # with G diag(d) G^T = 0 mod N, identical self-duality, h_S = 2r, contraction of the origin = the J - I
+    # configuration over Z_N; Lemma 4(G) values: Z_4, t = 2: (LA)_2 = (LB)_2 = -2 bits (outside every prime cone);
+    # Z_8, t = 4: (LA)_4 = -2 bits (Z_8 vs Z_4); Z_9, t = 3: (LA)_3 = -2 trits (Z_9 vs Z_3); partners on the smaller
+    # group satisfy the form ((LA)_4 on Z_4, t = 4: 0).  The Z_4 cube state agrees with its state vector and equals
+    # qubit cube (bits) + qutrit cube (trits).  Stored data reproduce.  G32b (--full): Z_4, t = 6 ((LA)_6 = -2 bits,
+    # the case Z_4 vs Z_6) and sanity tests of Lemma 4(G) on point configurations.
+    import s29_zd_stabilizer as _z32
+    Z32 = np.load(os.path.join(core.DATA, 's29_zd_witnesses.npz'))
+    ok32, vals32 = True, {}
+    for (t32, N32), want in (((2, 4), (-2, -2)), ((4, 8), (-2, -4)), ((3, 9), (-2, -2))):
+        W32 = _z32.analyse(t32, N32)
+        ok32 = (ok32 and W32['free'] and W32['weights'] and W32['self_dual'] and W32['h2r'] and W32['contraction']
+                and (W32['FA'], W32['FB']) == want and W32['cfg_LA'] == -1
+                and np.array_equal(Z32[f't{t32}_N{N32}'], W32['S'])
+                and core.sha_rows_wide(W32['S'][None, :]) == MAN['s29_zd_witnesses'][f'sha256_int16_t{t32}_N{N32}'])
+        vals32[f'Z{N32},t={t32}'] = (W32['FA'], W32['FB'])
+    P32 = _z32.analyse(4, 4)
+    sv32, size32 = _z32.state_vector_dev(2, 4)
+    sum32 = _z32.cube_sum_identity()
+    gate('G32 Z_d qudits', ok32 and P32['FA'] == 0 and P32['h2r'] and sv32 < 1e-9 and size32 == 256 and sum32,
+         f'generalised cubes over Z_4 (t=2), Z_8 (t=4), Z_9 (t=3): free, unit weights, self-dual, h_S = 2r, contraction = '
+         f'J - I configuration; (LA, LB) pulled back {vals32} (expect (-2,-2), (-2,-4), (-2,-2)); partner (LA)_4 on Z_4, '
+         f't=4: {P32["FA"]} (expect 0); Z_4 cube state-vector dev {sv32:.0e}; Z_4 cube = qubit cube + qutrit cube {sum32}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:
@@ -574,6 +600,17 @@ def main():
         gate('G31b Lemma 4 t=2', fullA and fullB and mA >= 0 and mB >= 0 and sA < 0 and sB < 0,
              f'all {cA} {{0,1}}-point configurations: LA over GF(2) min {mA}, LB over GF(3) min {mB} (>= 0); '
              f'sensitivity: LB over GF(2) min {sA}, LA over GF(3) min {sB} (< 0)')
+
+        W32b = _z32.analyse(6, 4)
+        Q32b = [_z32.analyse(6, q)['FA'] for q in (2, 3)]          # (LA)_6 is valid for exponent dividing 6
+        okW32b = (W32b['free'] and W32b['weights'] and W32b['self_dual'] and W32b['h2r'] and W32b['contraction']
+                  and W32b['FA'] == -2 and np.array_equal(Z32['t6_N4'], W32b['S'])
+                  and core.sha_rows_wide(W32b['S'][None, :]) == MAN['s29_zd_witnesses']['sha256_int16_t6_N4'])
+        L32b = _z32.lemma_tests(2_200_000, np.random.default_rng(29), log=lambda *_: None)
+        okL32b = all((mn >= 0) == valid for _lab, mn, _c, _f, valid in L32b)
+        gate('G32b Z_4 vs Z_6 + Lemma 4(G)', okW32b and all(v >= 0 for v in Q32b) and okL32b,
+             f'Z_4, t=6: (LA)_6 = {W32b["FA"]} (expect -2), on GF(2)/GF(3), t=6: {Q32b} (>= 0); Lemma 4(G) minima '
+             + ', '.join(f'{lab} {mn}' for lab, mn, *_r in L32b) + ' (claimed-valid forms >= 0, the others < 0)')
 
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)

@@ -271,5 +271,31 @@
   ],
   "sha256_int16": "39b296821a2cb02a880d5dce91c3b752d74c2127fa9bf2f06ce7139f0b161b15",
   "file_sha256": "b19af77674bc1ada22e614b48da8107ef53ef69801e0e4df0c609a3efc0d3c5e"
+ },
+ "s29_zd_witnesses": {
+  "cases": [
+   [
+    2,
+    4
+   ],
+   [
+    4,
+    8
+   ],
+   [
+    3,
+    9
+   ],
+   [
+    6,
+    4
+   ]
+  ],
+  "units": "log p (bits for Z_4, Z_8; trits for Z_9)",
+  "sha256_int16_t2_N4": "c5fb4dccf59f61a24bffa44b6e2252e0694fda57dad29678229cdb4d214dccbb",
+  "sha256_int16_t4_N8": "ffa9a7fc600c61f824c85c1401029487bee6667beb6062a25e7148c4f64a549c",
+  "sha256_int16_t3_N9": "2d1e1024f49282460cee7ddfec26de7385254a83cea50024f36a56578dddd47b",
+  "sha256_int16_t6_N4": "8a374a383e328874425cdc9319dee595ab845894802781c8915f2be40abe3bc3",
+  "file_sha256": "741cf5901c9e791b2a7d70f97bf1d5ab3d041ab030a111d0a19730d71da2eba7"
  }
 }

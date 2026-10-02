@@ -1,5 +1,53 @@
 # CHANGELOG
 
+## R34 (2026-10-02) -- Z_d qudits: the stabilizer entropy cone remembers the local dimension
+- **Theorem 5 (proved).** For d, d' >= 2 and n >= 2 max(d, d') + 3, Stab^(Z_d)_n is contained in Stab^(Z_d')_n
+  exactly when d divides d' (entropies in bits). For d | d' the inclusion holds for every n.
+  - Details in `docs/R32_reduction_and_local_dimension.md`, section 4.6.
+  - Examples: qubits are strictly inside Z_4 from n = 7, and Z_4 strictly inside Z_8 from n = 11.
+  - Galois qudits GF(4) give exactly the qubit cone, so the two standard theories of local dimension 4 differ.
+- **Theorem 1(d) (proved).** Stab^(Z_d)_n = h^-1(Gamma^(d)_{n+1}) = pi(Gamma^(d)_{n+1}) = closed CSS cone over Z_d.
+  Gamma^(d) is the cone of subgroup rank functions log|sum U_P| in abelian groups of exponent dividing d.
+  - Entropy formula: Gross-Walter, Thm 2, valid for every d.
+  - h_S is a subgroup rank function via the quotient Gamma of the Lagrangian L and Pontryagin duality.
+- **Lemma 4(G) (proved).** Lemma 4 holds for subgroups of finite abelian groups:
+  - (LB) when multiplication by t is injective;
+  - (LA) when t V = 0.
+  - (LB) gets a counting proof (no complements), which is also shorter for vector spaces.
+- **Witnesses.** The generalised cube states over Z_N, N = p^{j+1}: free code, unit weights, C^perp = C diag(d),
+  h_S = 2r, contraction = J - I over Z_N, and H(B) from the Smith form diag(1, ..., 1, t). Certified values:
+  - Z_4, t = 2 (8 qudits): (LA)_2 = (LB)_2 = -2 bits, so it is outside every prime cone. Its entropy vector in
+    bits equals the qubit cube vector plus the qutrit cube vector (inside their convex hull).
+  - Z_8, t = 4: (LA)_4 = -2 bits.
+  - Z_9, t = 3: (LA)_3 = -2 trits.
+  - Z_4, t = 6: (LA)_6 = -2 bits.
+  - The Z_4 cube state also matches its state vector (4^8 amplitudes, deviation 9e-16).
+- **Remarks.**
+  - For n = 4, Stab^(Z_d)_4 lies in h^-1(Shannon + Ingleton), with equality for even d, since subgroups have common
+    information.
+  - The A2 exclusion certificates use only Shannon, Ingleton and one common information, so they hold for every
+    local dimension. In particular Stab_5 is strictly inside QLR_5 also for the cone over all d.
+- **Open question added.** Can Z_d stabilizer states leave the convex hull of the prime cones? Up to one party this
+  is the open inclusion Gamma^MixL subset Gamma^Abl of Khazaei, arXiv:2608.09543.
+- **Referee.** An independent referee re-derived every item and stress-tested Lemma 4(G) (about 1.7 M evaluations
+  on groups up to Z_12^6) with no violation of a claimed form. Applied fixes:
+  - cite Gross-Walter for the entropy formula;
+  - state the doubling explicitly;
+  - the witnesses need t - 1 to be a unit;
+  - the prime-power chain needs j >= 1;
+  - GF(4) = qubits in both directions.
+- **Code and data.** `scripts/s29_zd_stabilizer.py`: exact Z_N arithmetic through Smith forms, witnesses, state
+  vector, Lemma 4(G) point tests. `data/s29_zd_witnesses.npz` with per-case int16 row sha in the manifest.
+- **Gates.**
+  - G32: Z_4 (t = 2), Z_8 (t = 4) and Z_9 (t = 3) witnesses, the partner value (LA)_4 = 0 on Z_4, the state vector,
+    the cube-sum identity, stored data.
+  - G32b (`--full`): Z_4 with t = 6, (LA)_6 >= 0 on GF(2) and GF(3), and Lemma 4(G) point tests. The claimed forms
+    stay >= 0; (LA)_2 and (LB)_2 over Z_4 and (LA)_3 / (LA)_2 on J - I over Z_4 / Z_9 go negative.
+  - 38 gate lines.
+- **Docs.** R32 note: section 4.6, open questions, literature status (AI pre-check: no prior statement found that
+  the cone depends on d), reproduce. README: R34 status, pipeline row s29, data inventory, gate counts, glossary.
+  Raw output: `results/2026-10-02_r34-sandbox/`.
+
 ## R33 (2026-10-02) -- any two distinct primes give incomparable stabilizer cones
 - **Theorem 2' (proved, self-contained).** For primes p < q and every n >= 2p + 3, Stab^(p)_n and Stab^(q)_n are
   incomparable. Details in `docs/R32_reduction_and_local_dimension.md`, section 4.4.
