@@ -1,0 +1,31 @@
+f9: 67 nonzero coefficients, max |c| = 115
+  A:36, B:45, AB:-10, C:54, AC:-10, BC:-22, ABC:-36, W:18, AW:-42, BW:-51, ABW:103, CW:-36, X:21, AX:-42, BX:-36, CX:-51, ACX:103, WX:-13, BCWX:98, ABCWX:-42, Y:21, AY:-45, BY:-42, CY:-51, BCY:115, WY:-10, ACWY:92, ABCWY:-42, XY:-13, ABXY:92, ABCXY:-42, WXY:36, ABWXY:-14, ACWXY:-14, BCWXY:-20, Z:45, AZ:-13, BZ:-10, ABZ:-9, CZ:-10, ACZ:-9, BCZ:-9, ABCZ:48, WZ:-51, CWZ:88, ABCWZ:-14, XZ:-51, BXZ:88, ABCXZ:-14, AWXZ:104, ABWXZ:-42, ACWXZ:-42, BCWXZ:-36, YZ:-51, AYZ:100, ABCYZ:-20, BWYZ:98, ABWYZ:-42, ACWYZ:-36, BCWYZ:-42, ABXYZ:-36, CXYZ:98, ACXYZ:-42, BCXYZ:-42, AWXYZ:-20, BWXYZ:-14, CWXYZ:-14
+  matches the stored data/s31_six_party.npz: True
+witness: dev = 0.0
+witness: purity = 0.0
+witness: f(h_S) = -3.0
+witness: f(h_F) = -3
+witness: f(r_F) = -3
+witness: f(h_NF) = 81
+witness: f(r_NF) = 33
+witness: (f + f o D)(h_F) = -6
+witness: self-dual h_F = True
+witness: terms = 67
+witness: max |coef| = 115
+invariant: f9 [(LB)_2]: (1/3) f = 210*v_P + 30*alpha + 21*nu + -421*mu  (value at h_F: -1)
+invariant: DFZ (65) variant: (1/3) f = 154*v_P + 26*alpha + 5*nu + -309*mu  (value at h_F: -1)
+lemmas over GF(2), 200 families: (LB)_2 on the derived family -1; Lemma 0: dim F_i^L = m_i^L 0; Lemma A: F_i^L in F_j^L + F_k^L 0; Lemma B (points): upper bound 0; Lemma B: hhat(i) <= u_i 0; Lemma C: hhat(i) >= l_i 0; Lemma C: lower bound on negative sets 0; Lemma D (lines): upper bound 0; Lemma E (ABCZ): upper bound 0; f9(h) -3  (4s)
+lemmas over GF(3), 200 families: (LB)_2 on the derived family 0; Lemma 0: dim F_i^L = m_i^L 0; Lemma A: F_i^L in F_j^L + F_k^L 0; Lemma B (points): upper bound 0; Lemma B: hhat(i) <= u_i 0; Lemma C: hhat(i) >= l_i 0; Lemma C: lower bound on negative sets 0; Lemma D (lines): upper bound 0; Lemma E (ABCZ): upper bound 0; f9(h) 0  (7s)
+lemmas over GF(5), 200 families: (LB)_2 on the derived family 0; Lemma 0: dim F_i^L = m_i^L 0; Lemma A: F_i^L in F_j^L + F_k^L 0; Lemma B (points): upper bound 0; Lemma B: hhat(i) <= u_i 0; Lemma C: hhat(i) >= l_i 0; Lemma C: lower bound on negative sets 0; Lemma D (lines): upper bound 0; Lemma E (ABCZ): upper bound 0; f9(h) 0  (11s)
+stress: min f9 over 400 random arrangements: {3: 0, 5: 0, 7: 0}  (14s)
+exhaustive: min f9 over all {0,1}-point configurations of GF(p)^3: {2: -3, 3: 0, 5: 0} (expect -3 for p = 2, >= 0 for p = 3, 5)  (27s)
+face: r_F: 490 tight elemental inequalities, exact rank 126 (face dimension 1), min elemental 0
+face: r_F*: 490 tight elemental inequalities, exact rank 126 (face dimension 1), min elemental 0
+face: h_F: 385 tight elemental inequalities, exact rank 125 (face dimension 2), min elemental 0
+face: r_NF: 487 tight elemental inequalities, exact rank 126 (face dimension 1), min elemental 0
+face: r_NF*: 487 tight elemental inequalities, exact rank 126 (face dimension 1), min elemental 0
+face: h_NF: 367 tight elemental inequalities, exact rank 125 (face dimension 2), min elemental 0
+
+real	0m27.554s
+user	0m25.573s
+sys	0m1.782s

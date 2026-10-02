@@ -1,5 +1,61 @@
 # CHANGELOG
 
+## R36 (2026-10-02) -- six parties already separate qubits from every odd local dimension
+- **Theorem 9 (proved).** Stab^(2)_n is not contained in Stab^(Z_d)_n for every odd d and every n >= 6
+  (`docs/R32_reduction_and_local_dimension.md`, section 4.8). Before, this was known from n = 7 (Theorem 2), and the
+  smallest number of parties with a dimension dependence was 5, 6 or 7; it is now 5 or 6.
+  - Witness: the seven-qubit CSS state of the [7,3] simplex code (Fano matroid), one qubit per party; this is the
+    logical |0> of Steane's [[7,1,3]] code. h_S = r_F + r_F^* (no coloops); checked against the 128-amplitude state
+    vector.
+  - Certificate: the integer form f9 (67 terms, `data/s31_six_party.npz`) with f9 >= 0 in every odd characteristic
+    and for abelian groups of odd order, and f9(h_S) = -3.
+  - Method (transfer): F_i^L = U_i cap (U_j + U_k) for the Fano lines L through i, Fhat_i = sum_L F_i^L. Lemmas 0,
+    A-E bound every rank of the derived family by linear forms in h (Lemma A: F_i^L in F_j^L + F_k^L). Lemma 4 (LB)_2
+    applied to the derived family and bounded term by term gives f9/3. All bounds are attained at h_F, so
+    f9(h_F)/3 = (LB)_2(Fano) = -1.
+  - g = f9 + f9 o D is the self-dual characteristic-dependent inequality that Proposition 8 asked for
+    (g(h_F) = -6). So f9 is not a nonnegative combination of Shannon and the eight forms of Proposition 8 in any
+    relabelling.
+  - Invariant form: on Fano-invariant self-dual vectors, f9/3 = 210 beta + 30 alpha + 21 nu - mu (alpha = pairwise
+    mutual information, mu = I(i; L - i), nu = I(i; non-line pair), beta = v_P - 2 mu >= 0). With DFZ (65) as the base
+    form the constants become 154, 26, 5 (computed, not refereed).
+  - Exact faces: the Shannon faces at h_F and at h_NF are two-dimensional, cone(r, r^*) (ranks 125 and 126,
+    certified). So h_F is outside LR^(q)_7 iff no nonzero a r_F + b r_F^* is inside, and the reverse direction at
+    n = 6 for the non-Fano state is the same question for cone(r_NF, r_NF^*) and LR^(2)_7 (open).
+- **Referee.** An independent referee (separate agent, own code) confirmed Lemmas 0, A-E, the composition, f9
+  (recomputed exactly, no difference), the values, Theorem 1(d) and Lemma 4(G) for odd composite d, and found no
+  violation of f9 >= 0 in about 8.2 M arrangements each over GF(3), GF(5), GF(7), all 105,413,504 seven-tuples of
+  points of PG(2,3) or zero, and about 13,000 subgroup families of odd-order abelian groups. Over GF(2), f9 < 0
+  exactly on the 168 Fano frames. Wording fixes applied: one direction only, scope of Proposition 8, dependence on
+  Theorem 1(d), invariant form stated on the slice, status flag.
+- **BKL.** The seven-variable inequalities of Blasiak-Kleinberg-Lubetzky (arXiv:1108.2489v1, eqs. (6.8), (6.17))
+  were transcribed and checked term by term against the rendered PDF (`data/bkl_char_dependent.csv`).
+  - Eq. (6.17) is false over every field as printed: A, B, C, Z = <e1>, <e2>, <e3>, <e1 + e2 + e3>, W = X = Y = 0
+    gives -3. The proof bounds three step-4 terms in the text but drops them from (6.16). The corrected form equals
+    (LB)_2 - 6 I(A;B) and passes the exhaustive checks; only it is used. (Pitfall 21; section 4.5.)
+  - Proposition 8 now covers eight forms: BKL (6.8) and (6.17) corrected also have exact Shannon certificates for
+    f + f o D (supports 59 and 98, denominators 1 and 2).
+  - Also noted: the proof of BKL Thm 6.4 ends with "Lambda_odd . r(F) < 0" where Lambda_even . r(N) < 0 is meant.
+- **Reverse direction (exploratory, not certified).** The same transfer with (LA)_2 gives +27 on the non-Fano state;
+  no family of 2-dimensional subspaces over GF(2) realises h_NF (exhaustive search). Open.
+- **Code and data.**
+  - New `scripts/s31_six_party.py` (`--derive [--out]`, `--witness`, `--invariant`, `--face`, `--lemmas N`,
+    `--stress N`, `--exhaustive`).
+  - `scripts/s30_dimension_profile.py`: eight forms, `bkl_check`, `--bkl`.
+  - New data: `data/bkl_char_dependent.csv`, `data/s31_six_party.npz`; `data/s30_selfdual_shannon_certs.npz`
+    regenerated with eight certificates (the first six unchanged). Manifest updated.
+- **Gates.**
+  - G33: now 8/8 certificates.
+  - G34 (BKL values on the Fano / non-Fano configurations and on the counterexample; transcription sha) and G34b
+    (`--full`: exhaustive minima 0, 0 and -3 for the printed (6.17)).
+  - G35 (Theorem 9: f9 recomputed = stored, state vector, values, invariant form, exact faces, lemma checks with the
+    actual subspaces, random arrangements) and G35b (`--full`: exhaustive {0,1}-point configurations of GF(2)^3,
+    GF(3)^3, GF(5)^3; 200 families per field for the lemma checks).
+  - 44 gate lines.
+- **Docs.** R32 note: header, section 4 intro, 4.2 (BKL), 4.5 (BKL misprint), 4.7 (summary, Proposition 8), new 4.8,
+  sections 5, 6, 7. README: R36 status, pipeline rows s30/s31, pitfall 21, data inventory, gate counts. Raw output:
+  `results/2026-10-02_r36-sandbox/`.
+
 ## R35 (2026-10-02) -- how far down the dimension dependence goes
 - **Theorem 7 (proved).** Stab^(Z_d)_4 = h^-1(Shannon + Ingleton) for every d >= 2, so for n <= 4 the stabilizer
   cone does not depend on the local dimension.

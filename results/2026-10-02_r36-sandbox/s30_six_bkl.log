@@ -1,0 +1,16 @@
+six parties: DFZ (65): f + f o D is an exact nonnegative combination of Shannon inequalities: True
+six parties: DFZ (91): f + f o D is an exact nonnegative combination of Shannon inequalities: True
+six parties: (LA)_2: f + f o D is an exact nonnegative combination of Shannon inequalities: True
+six parties: (LB)_2: f + f o D is an exact nonnegative combination of Shannon inequalities: True
+six parties: Pena-Sarria (a), t=2: f + f o D is an exact nonnegative combination of Shannon inequalities: True
+six parties: Pena-Sarria (b), t=2: f + f o D is an exact nonnegative combination of Shannon inequalities: True
+six parties: BKL (6.8): f + f o D is an exact nonnegative combination of Shannon inequalities: True
+six parties: BKL (6.17) corrected: f + f o D is an exact nonnegative combination of Shannon inequalities: True
+BKL fano2: {'bkl68_even': 0, 'bkl617_odd': -1, 'bkl617_odd_corrected': -1}
+BKL nonfano3: {'bkl68_even': -1, 'bkl617_odd': 0, 'bkl617_odd_corrected': 0}
+BKL counterexample: {2: {'bkl68_even': 2, 'bkl617_odd': -3, 'bkl617_odd_corrected': 6}, 3: {'bkl68_even': 2, 'bkl617_odd': -3, 'bkl617_odd_corrected': 6}, 5: {'bkl68_even': 2, 'bkl617_odd': -3, 'bkl617_odd_corrected': 6}}
+BKL exhaustive: {'bkl68_even over GF(2)': 0, 'bkl617_odd_corrected over GF(3)': 0, 'bkl617_odd (printed) over GF(3)': -3}
+
+real	0m4.223s
+user	0m3.533s
+sys	0m0.770s

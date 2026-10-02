@@ -584,12 +584,13 @@ def main():
          f'J - I configuration; (LA, LB) pulled back {vals32} (expect (-2,-2), (-2,-4), (-2,-2)); partner (LA)_4 on Z_4, '
          f't=4: {P32["FA"]} (expect 0); Z_4 cube state-vector dev {sv32:.0e}; Z_4 cube = qubit cube + qutrit cube {sum32}')
 
-    # G33 (R35): how far down the dimension dependence goes (docs/R32_reduction_and_local_dimension.md section 4.7).
-    # Theorem 7: the 46 extreme rays of Stab_4 have integer graph states with unimodular cut blocks (exact Smith forms;
-    # also re-verified over GF(p), p <= 13), so Stab_4 is the same for every local dimension.  Proposition 8: for the six
-    # known 7-variable characteristic-dependent inequalities, f + f o D is an exact nonnegative combination of Shannon
-    # inequalities (stored certificates).  Proposition 6 (one cut): rank changes of the generalised cube points over
-    # GF(l) vs Q are exactly the predicted balanced sets, t = 2..5 (t = 6, 7 in G33b).  Stored data match the manifest.
+    # G33 (R35, R36): how far down the dimension dependence goes (docs/R32_reduction_and_local_dimension.md section
+    # 4.7).  Theorem 7: the 46 extreme rays of Stab_4 have integer graph states with unimodular cut blocks (exact Smith
+    # forms; also re-verified over GF(p), p <= 13), so Stab_4 is the same for every local dimension.  Proposition 8: for
+    # the eight 7-variable characteristic-dependent inequalities considered (DFZ (65), (91); (LA)_2, (LB)_2; Pena-Sarria
+    # (a), (b); BKL (6.8), (6.17) corrected), f + f o D is an exact nonnegative combination of Shannon inequalities
+    # (stored certificates).  Proposition 6 (one cut): rank changes of the generalised cube points over GF(l) vs Q are
+    # exactly the predicted balanced sets, t = 2..5 (t = 6, 7 in G33b).  Stored data match the manifest.
     import hashlib as _h33
     import s30_dimension_profile as _d33
     tot33, good33 = _d33.n4_check()
@@ -598,10 +599,70 @@ def main():
     ok_oc33 = all(ok for res in oc33.values() for (_c, _k, ok) in res.values())
     files33 = all(_h33.sha256(open(os.path.join(core.DATA, f + '.npz'), 'rb').read()).hexdigest() == MAN[f]['file_sha256']
                   for f in ('s30_stab4_unimodular', 's30_selfdual_shannon_certs'))
-    gate('G33 dimension profile', tot33 == 46 and good33 == 46 and all(ok for _n, ok in six33) and ok_oc33 and files33,
+    gate('G33 dimension profile', tot33 == 46 and good33 == 46 and len(six33) == 8 and all(ok for _n, ok in six33)
+         and ok_oc33 and files33,
          f'four parties: {good33}/{tot33} rays lifted to every field (unimodular cut blocks); six parties: '
-         f'{sum(ok for _n, ok in six33)}/6 forms with exact Shannon certificates for f + f o D; one cut t=2..5: '
-         f'predicted rank changes {ok_oc33}; stored files match the manifest {files33}')
+         f'{sum(ok for _n, ok in six33)}/{len(six33)} forms (expect 8/8) with exact Shannon certificates for f + f o D; '
+         f'one cut t=2..5: predicted rank changes {ok_oc33}; stored files match the manifest {files33}')
+
+    # G34 (R36): the seven-variable inequalities of Blasiak-Kleinberg-Lubetzky (arXiv:1108.2489v1, eqs. (6.8) and (6.17),
+    # transcribed in data/bkl_char_dependent.csv and checked against the rendered PDF).  (6.8) [characteristic 2] is 0 on
+    # the Fano and -1 on the non-Fano configuration; (6.17) [characteristic != 2] is -1 on the Fano and 0 on the
+    # non-Fano.  As printed, (6.17) is false over every field: three independent lines A, B, C with Z = <A + B + C>
+    # (W = X = Y = 0) give -3 over GF(2), GF(3), GF(5); the corrected form gives 6, (6.8) gives 2.  Transcription sha
+    # matches the manifest.  G34b (--full): minima over all {0,1}-point configurations of GF(p)^3.
+    K34 = _d33.bkl_check()
+    want34 = {'fano2': {'bkl68_even': 0, 'bkl617_odd': -1, 'bkl617_odd_corrected': -1},
+              'nonfano3': {'bkl68_even': -1, 'bkl617_odd': 0, 'bkl617_odd_corrected': 0},
+              'counterexample': {p: {'bkl68_even': 2, 'bkl617_odd': -3, 'bkl617_odd_corrected': 6} for p in (2, 3, 5)}}
+    B34 = _c30.load_dfz_char(_d33.BKL_CHAR)
+    sha34 = core.sha_rows(np.stack([B34[k] for k in MAN['bkl_char_dependent']['ids']])) == MAN['bkl_char_dependent']['sha256']
+    gate('G34 BKL', K34 == want34 and sha34,
+         f'Fano/GF(2): {K34["fano2"]}; non-Fano/GF(3): {K34["nonfano3"]}; three lines + Z = A + B + C over GF(2/3/5): '
+         f'{K34["counterexample"][2]} (printed (6.17) false: -3); transcription sha {sha34}')
+
+    # G35 (R36): six parties already separate qubits from every odd local dimension (Theorem 9, docs/R32_reduction_and_
+    # local_dimension.md section 4.8).  The transfer form f9 (Lemma 4 (LB)_2 applied to the derived family
+    # Fhat_i = sum_L U_i cap (U_j + U_k), each term bounded by Lemmas 0, A-E) is recomputed exactly from its definition
+    # and matches the stored data and the manifest.  The seven-qubit simplex-code state has h_S = r_F + r_F^* (state
+    # vector, 128 amplitudes) and f9(h_S) = -3; f9(r_F) = -3, f9 = 81 / 33 on the non-Fano h / r; (f9 + f9 o D)(h_F) = -6,
+    # so the self-dual symmetrisation is not a Shannon consequence; on Fano-invariant self-dual vectors
+    # f9 = 630 v_P + 90 alpha + 63 nu - 1263 mu.  Sanity (not a proof): with the actual subspaces, Lemmas 0, A-E hold on
+    # 30 random families over GF(2) and GF(3), and over GF(3) also (LB)_2 on the derived family and f9 are >= 0; f9 >= 0
+    # on 40 random arrangements over GF(3) and GF(5).  Exact faces: the Shannon elemental inequalities tight at h_F
+    # (h_NF) have rational rank 125 and those tight at r, r^* rank 126, so the face of Gamma_7 at h_F (h_NF) is
+    # cone(r, r^*) (upper bound from the kernel, lower bound from the rank over GF(1000003)).
+    # G35b (--full): all {0,1}-point configurations of GF(p)^3
+    # (min -3 for p = 2, >= 0 for p = 3, 5) and 200 random families per field for the lemma checks (GF(2), GF(3), GF(5)).
+    from fractions import Fraction as _Fr
+    import s31_six_party as _s35
+    f35 = _s35.f9()
+    Z35 = np.load(os.path.join(core.DATA, 's31_six_party.npz'))
+    okf35 = (np.array_equal(Z35['f9'], f35) and core.sha_rows(f35[None, :]) == MAN['s31_six_party']['sha256']
+             and int(np.count_nonzero(f35[1:])) == MAN['s31_six_party']['terms']
+             and _h33.sha256(open(os.path.join(core.DATA, 's31_six_party.npz'), 'rb').read()).hexdigest()
+             == MAN['s31_six_party']['file_sha256'])
+    w35 = _s35.witness(f35)
+    okw35 = (w35['dev'] < 1e-9 and w35['purity'] < 1e-9 and abs(w35['f(h_S)'] + 3) < 1e-9 and w35['f(h_F)'] == -3
+             and w35['f(r_F)'] == -3 and w35['f(h_NF)'] == 81 and w35['f(r_NF)'] == 33 and w35['(f + f o D)(h_F)'] == -6
+             and w35['self-dual h_F'] and np.array_equal(Z35['h_F'], _s35.s27.dfz_configuration(2)
+                                                         + _s35.h_star(_s35.s27.dfz_configuration(2))))
+    inv35 = _s35.invariant_form(f35)
+    rng35 = np.random.default_rng(35)
+    lem35 = {q: _s35.lemma_checks(q, 30, rng35, f35) for q in (2, 3)}
+    oklem35 = (all(v >= 0 for k, v in lem35[2].items() if k.startswith('Lemma'))
+               and all(v >= 0 for v in lem35[3].values()))
+    st35 = _s35.stress(40, rng35, f35, fields=(3, 5))
+    fc35 = _s35.face_check()
+    okfc35 = (all(fc35[k][1] == 126 and fc35[k][2] >= 0 for k in ('r_F', 'r_F*', 'r_NF', 'r_NF*'))
+              and all(fc35[k][1] == 125 and fc35[k][2] >= 0 for k in ('h_F', 'h_NF')))
+    gate('G35 six parties', okf35 and okw35 and inv35 == (_Fr(630), _Fr(90), _Fr(63), _Fr(-1263)) and oklem35
+         and all(v >= 0 for v in st35.values()) and okfc35,
+         f'f9 recomputed = stored {okf35} ({w35["terms"]} terms); simplex-code state: h_S = r_F + r_F^* (dev {w35["dev"]:.0e}), '
+         f'f9(h_S) = {w35["f(h_S)"]:.0f} (expect -3), f9(r_F) = {w35["f(r_F)"]}, non-Fano h/r {w35["f(h_NF)"]}/{w35["f(r_NF)"]}; '
+         f'(f9 + f9 o D)(h_F) = {w35["(f + f o D)(h_F)"]} (not Shannon); invariant form '
+         f'{"/".join(str(x) for x in inv35)} on (v_P, alpha, nu, mu); lemma slacks >= 0 {oklem35} (GF(2) chain min '
+         f'{lem35[2]["f9(h)"]}); random minima {st35}; Shannon faces of h_F, h_NF = cone(r, r*) (ranks 125/126) {okfc35}')
 
     if a.full:
         R29l = _r29.lrs_rays(A29)
@@ -636,6 +697,22 @@ def main():
         gate('G33b one cut t=6,7', ok33b,
              'rank changes over GF(l) vs Q as predicted: ' + '; '.join(
                  f't={t}: ' + ', '.join(f'GF({l}) {c} sets' for l, (c, _k, _ok) in res.items()) for t, res in oc33b.items()))
+
+        E34b = _d33.bkl_check(exhaustive=True)['exhaustive']
+        gate('G34b BKL exhaustive', E34b == {'bkl68_even over GF(2)': 0, 'bkl617_odd_corrected over GF(3)': 0,
+                                             'bkl617_odd (printed) over GF(3)': -3},
+             f'minima over all {{0,1}}-point configurations of GF(p)^3: {E34b} (expect 0, 0, -3)')
+
+        ex35b = _s35.exhaustive(f35)
+        rng35b = np.random.default_rng(351)
+        lem35b = {q: _s35.lemma_checks(q, 200, rng35b, f35) for q in (2, 3, 5)}
+        ok35b = (ex35b[2] == -3 and ex35b[3] >= 0 and ex35b[5] >= 0
+                 and all(v >= 0 for q in (2, 3, 5) for k, v in lem35b[q].items() if k.startswith('Lemma'))
+                 and all(v >= 0 for q in (3, 5) for v in lem35b[q].values()))
+        gate('G35b six parties exhaustive', ok35b,
+             f'f9 minima over all {{0,1}}-point configurations of GF(p)^3: {ex35b} (expect -3, >= 0, >= 0); lemma checks on '
+             f'200 families per field: all slacks >= 0 {ok35b}; chain minima '
+             + ', '.join(f'GF({q}) {lem35b[q]["f9(h)"]}' for q in (2, 3, 5)))
 
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)

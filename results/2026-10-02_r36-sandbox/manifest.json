@@ -1,0 +1,23 @@
+{
+ "date": "2026-10-02",
+ "tag": "r36-sandbox",
+ "note": "R36 sandbox: six-party separation (Theorem 9, transfer form f9), BKL transcription and misprint, Proposition 8 with eight forms, full selftest",
+ "files": {
+  "README.txt": {
+   "bytes": 2373,
+   "sha256": "b257cd68ba64adf94dc0bdc2c2f6e0e0a487f1ed76bdf2a90610f02c686a7cbe"
+  },
+  "s30_six_bkl.log": {
+   "bytes": 1363,
+   "sha256": "612c7c886658d088b9fcb7801b998aa38fed06a6ab64861bc04e7c37308764a9"
+  },
+  "s31_six_party.log": {
+   "bytes": 2974,
+   "sha256": "9f3138504541b76a8c76f02d9455e90c6d080824c6783381f9dc5a3fb3d27c96"
+  },
+  "selftest_full.log": {
+   "bytes": 7434,
+   "sha256": "17f4bfb476217658e70b44a3231343fda6aa83605d166dd48c06ec3b246fe40b"
+  }
+ }
+}

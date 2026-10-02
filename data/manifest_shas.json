@@ -310,7 +310,9 @@
    "(LA)_2",
    "(LB)_2",
    "Pena-Sarria (a) t=2",
-   "Pena-Sarria (b) t=2"
+   "Pena-Sarria (b) t=2",
+   "BKL (6.8)",
+   "BKL (6.17) corrected"
   ],
   "support": [
    114,
@@ -318,7 +320,9 @@
    54,
    97,
    62,
-   97
+   97,
+   59,
+   98
   ],
   "denominator": [
    46,
@@ -326,8 +330,25 @@
    1,
    5,
    1,
-   5
+   5,
+   1,
+   2
   ],
-  "file_sha256": "1a2412fe47eac117d7870ddb7047e4069e70c1b9334179259f4ff4b6d9474a31"
+  "file_sha256": "d266621140da785faf3a10179bd2f599a1051affa5ecaf23a39bd745f97fcb1c"
+ },
+ "bkl_char_dependent": {
+  "rows": 3,
+  "ids": [
+   "bkl617_odd",
+   "bkl617_odd_corrected",
+   "bkl68_even"
+  ],
+  "sha256": "df279a9089869dce323f27b07e15eb8406085cecb02059dd47c76ba06ef72147"
+ },
+ "s31_six_party": {
+  "terms": 67,
+  "f9_at_h_F": -3,
+  "sha256": "85ce905ec753f69787f38bdb17b234e58dd2606305afadac1ae46efcf80940d2",
+  "file_sha256": "3f9a70ebd798423718d277d4009f2b90b182d910b10b5d5663e42ef615e582d7"
  }
 }

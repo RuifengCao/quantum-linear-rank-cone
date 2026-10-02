@@ -11,15 +11,18 @@ docs/R32_reduction_and_local_dimension.md, section 4.7.  Three exact checks:
     cube points (vectors (1, x), x in {e_j, c - e_j, c, 0}) differs from the rational one exactly on the "balanced"
     sets X (one of e_j, c - e_j for every j; a = #{j : c - e_j in X}) with c in X, 0 not in X, l | t - a, a != t, or
     0 in X, c not in X, l | a - 1, a != 1, by exactly 1 (`--one-cut`).
-  * Proposition 8 (six parties are blind): for the six known 7-variable characteristic-dependent inequalities f
-    (DFZ (65), (91); Lemma 4 (LA)_2, (LB)_2; Pena-Sarria (a), (b) with t = 2), f + f o D (D: h -> h*) is a nonnegative
-    rational combination of Shannon elemental inequalities.  The certificates are stored exactly
-    (data/s30_selfdual_shannon_certs.npz, `--six`; `--solve` recomputes them with an LP and exact rational solving).
+  * Proposition 8 (the forms considered are blind at six parties): for the eight 7-variable characteristic-dependent
+    inequalities f considered (DFZ (65), (91); Lemma 4 (LA)_2, (LB)_2; Pena-Sarria (a), (b) with t = 2; BKL (6.8) and
+    (6.17) corrected, added in R36), f + f o D (D: h -> h*) is a nonnegative rational combination of Shannon elemental
+    inequalities.  The certificates are stored exactly (data/s30_selfdual_shannon_certs.npz, `--six`; `--solve`
+    recomputes them with an LP and exact rational solving).  `--bkl` checks the BKL transcription (R36).  The six-party
+    separation of R36 (Theorem 9) goes through a derived family instead: scripts/s31_six_party.py.
 
   python3 scripts/s30_dimension_profile.py --n4 --one-cut 2 3 4 5 --six
   python3 scripts/s30_dimension_profile.py --n4-search --out data/s30_stab4_unimodular.npz     # regenerate the lifts
   python3 scripts/s30_dimension_profile.py --solve --out-certs data/s30_selfdual_shannon_certs.npz
   python3 scripts/s30_dimension_profile.py --probe6 --n5-pilot 60                          # sanity check, pilot
+  python3 scripts/s30_dimension_profile.py --bkl                                           # BKL transcription (R36)
 """
 import argparse, itertools, os, sys, time
 from fractions import Fraction
@@ -151,7 +154,7 @@ def one_cut_check(t, primes=PRIMES):
     return out
 
 
-# ------------------------------------------------------------------ Proposition 8: six parties are blind
+# ------------------------------------------------------------------ Proposition 8: the eight forms are blind at n = 6
 def elemental7(n=7):
     """the Shannon elemental inequalities on n variables, as rows over the masks 1..2^n - 1 (fixed order)."""
     FULL = (1 << n) - 1
@@ -186,12 +189,41 @@ def selfdual_symmetrise(f, n=7):
     return g
 
 
+BKL_CHAR = os.path.join(core.DATA, 'bkl_char_dependent.csv')
+
+
 def six_forms():
+    """the seven-variable characteristic-dependent forms of Proposition 8, in the order of the stored certificates
+    (the BKL pair was added in R36; (6.17) is used in its corrected form, see data/bkl_char_dependent.csv)."""
     LA, LB, _ = g28.lemma_forms(2)
     a, b, _n = g28.ps_forms(2, 3)
     F = s27.load_dfz_char()
+    K = s27.load_dfz_char(BKL_CHAR)
     return [('DFZ (65)', F['dfz65_odd']), ('DFZ (91)', F['dfz91_even']), ('(LA)_2', LA), ('(LB)_2', LB),
-            ('Pena-Sarria (a), t=2', a), ('Pena-Sarria (b), t=2', b)]
+            ('Pena-Sarria (a), t=2', a), ('Pena-Sarria (b), t=2', b),
+            ('BKL (6.8)', K['bkl68_even']), ('BKL (6.17) corrected', K['bkl617_odd_corrected'])]
+
+
+def bkl_check(exhaustive=False):
+    """transcription checks of data/bkl_char_dependent.csv: values on the Fano / non-Fano configurations, the
+    counterexample to the printed (6.17) (A, B, C independent lines, Z = <A + B + C>, W = X = Y = 0, over GF(2), GF(3),
+    GF(5)), and, with exhaustive=True, the valid forms on all {0,1}-point configurations of GF(2)^3 / GF(3)^3.
+    Returns a dict of values."""
+    K = s27.load_dfz_char(BKL_CHAR)
+    out = {'fano2': {k: int(v @ s27.dfz_configuration(2)) for k, v in K.items()},
+           'nonfano3': {k: int(v @ s27.dfz_configuration(3)) for k, v in K.items()}}
+    cex = {}
+    for p in (2, 3, 5):
+        vecs = {0: [1, 0, 0], 1: [0, 1, 0], 2: [0, 0, 1], 6: [1, 1, 1]}       # A, B, C, Z (bits 0, 1, 2, 6)
+        h = np.array([stabcert.gfp_rank(np.array([vecs[i] for i in range(7) if X >> i & 1 and i in vecs]).T.tolist(), p)
+                      if any(X >> i & 1 for i in vecs) else 0 for X in range(128)], dtype=np.int64)
+        cex[p] = {k: int(v @ h) for k, v in K.items()}
+    out['counterexample'] = cex
+    if exhaustive:
+        out['exhaustive'] = {'bkl68_even over GF(2)': g28.exhaustive01_min(K['bkl68_even'], 7, 3, 2)[0],
+                             'bkl617_odd_corrected over GF(3)': g28.exhaustive01_min(K['bkl617_odd_corrected'], 7, 3, 3)[0],
+                             'bkl617_odd (printed) over GF(3)': g28.exhaustive01_min(K['bkl617_odd'], 7, 3, 3)[0]}
+    return out
 
 
 def six_solve(out=None):
@@ -222,7 +254,7 @@ def six_solve(out=None):
 
 
 def six_check(path=SIX_CERTS):
-    """exact: den * g == sum num_i * e_i with all num_i >= 0, for each of the six forms.  Returns list of (name, ok)."""
+    """exact: den * g == sum num_i * e_i with all num_i >= 0, for each of the eight forms.  Returns list of (name, ok)."""
     C = np.load(path); E = elemental7()
     out = []
     for k, (name, f) in enumerate(six_forms()):
@@ -319,6 +351,7 @@ def main():
     ap.add_argument('--out-certs', default=None)
     ap.add_argument('--probe6', action='store_true', help='f(r + r*) on point configurations (sanity of Proposition 8)')
     ap.add_argument('--n5-pilot', type=int, default=0, help='five-party lifting pilot on the first K known extreme rays')
+    ap.add_argument('--bkl', action='store_true', help='transcription checks of the BKL inequalities (R36)')
     a = ap.parse_args()
     t0 = time.time()
     if a.n4_search:
@@ -337,6 +370,9 @@ def main():
     if a.six:
         for name, ok in six_check(a.out_certs or SIX_CERTS):
             print(f'six parties: {name}: f + f o D is an exact nonnegative combination of Shannon inequalities: {ok}', flush=True)
+    if a.bkl:
+        for k, v in bkl_check(exhaustive=True).items():
+            print(f'BKL {k}: {v}', flush=True)
     if a.probe6:
         for name, p, m0, m1, m2 in probe6():
             print(f'probe6: {name} over GF({p}): f on all {{0,1}}-point configurations of GF({p})^3: min {m0}; f(r + r*) there: '

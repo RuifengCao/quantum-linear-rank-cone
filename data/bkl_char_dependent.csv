@@ -1,0 +1,76 @@
+# Characteristic-dependent seven-variable linear rank inequalities of Blasiak, Kleinberg and Lubetzky,
+#   'Lexicographic products and the power of non-linear network coding', arXiv:1108.2489v1, Section 6.
+# Transcription: typed from eqs. (6.8) and (6.17) and checked term by term against the rendered PDF pages
+#   (page 19: Theorem 6.4, eq. (6.8); page 22: Theorem 6.6, eq. (6.17)) on 2026-10-02 (R36).
+# Variables: BKL index the subspaces by U = {100, 010, 001, 110, 101, 011, 111}; here
+#   A = V100, B = V010, C = V001, W = V110, X = V101, Y = V011, Z = V111 (the naming of dfz_char_dependent.csv).
+# Validity: bkl68_even holds over any field of characteristic 2 (Thm 6.4) and fails for the non-Fano configuration
+#   (the seven vectors above over a field of characteristic != 2).  bkl617_odd holds over any field of characteristic
+#   != 2 (Thm 6.6) and fails for the Fano configuration over GF(2).  (The proof of Thm 6.4 ends with
+#   'Consequently Lambda_odd . r(F) < 0'; from the statement it should read Lambda_even . r(N) < 0.)
+# MISPRINT (R36): eq. (6.17) as printed is false over every field: A, B, C three independent lines, Z = A + B + C
+#   (a line in their span, outside every plane A + B, ...), W = X = Y = 0 gives -3.  The proof of Thm 6.6 omits, in
+#   (6.16), the step-4 terms sum_{i + j = 111} delta[111 | i, j] (the text bounds them but (6.16) drops them).  With
+#   them restored, (6.17) gains + 3 [H(Z,A,Y) - H(A,Y) + H(Z,B,X) - H(B,X) + H(Z,C,W) - H(C,W)]; this corrected form
+#   is bkl617_odd_corrected below and is the one used (docs/R32_reduction_and_local_dimension.md, section 4.5).
+# Convention: each row is a term coeff * H(subset); the inequality is  sum >= 0.  H(subset) = dimension of the sum.
+ineq_id,subset,coeff
+# bkl68_even  [BKL 2011, eq. (6.8), Thm 6.4]
+bkl68_even,A,2
+bkl68_even,B,2
+bkl68_even,C,3
+bkl68_even,Z,11
+bkl68_even,AB,3
+bkl68_even,AC,2
+bkl68_even,BC,2
+bkl68_even,AZ,-1
+bkl68_even,BZ,-1
+bkl68_even,CZ,-1
+bkl68_even,ABC,-4
+bkl68_even,ABZ,-3
+bkl68_even,ACZ,-3
+bkl68_even,BCZ,-3
+bkl68_even,ABW,1
+bkl68_even,ACX,1
+bkl68_even,BCY,1
+bkl68_even,CWZ,1
+bkl68_even,BXZ,1
+bkl68_even,AYZ,1
+bkl68_even,WXY,-1
+bkl68_even,ABCZ,1
+# bkl617_odd  [BKL 2011, eq. (6.17), Thm 6.6]
+bkl617_odd,A,3
+bkl617_odd,B,3
+bkl617_odd,C,9
+bkl617_odd,Z,6
+bkl617_odd,AB,6
+bkl617_odd,ABC,-12
+bkl617_odd,ABW,3
+bkl617_odd,ACX,3
+bkl617_odd,BCY,3
+bkl617_odd,ABZ,-3
+bkl617_odd,ACZ,-3
+bkl617_odd,BCZ,-3
+bkl617_odd,ABCZ,3
+bkl617_odd,WXY,1
+# bkl617_odd_corrected  [eq. (6.17) with the step-4 terms of the proof of Thm 6.6 restored; R36]
+bkl617_odd_corrected,A,3
+bkl617_odd_corrected,B,3
+bkl617_odd_corrected,C,9
+bkl617_odd_corrected,Z,6
+bkl617_odd_corrected,AB,6
+bkl617_odd_corrected,ABC,-12
+bkl617_odd_corrected,ABW,3
+bkl617_odd_corrected,ACX,3
+bkl617_odd_corrected,BCY,3
+bkl617_odd_corrected,ABZ,-3
+bkl617_odd_corrected,ACZ,-3
+bkl617_odd_corrected,BCZ,-3
+bkl617_odd_corrected,ABCZ,3
+bkl617_odd_corrected,WXY,1
+bkl617_odd_corrected,ZAY,3
+bkl617_odd_corrected,AY,-3
+bkl617_odd_corrected,ZBX,3
+bkl617_odd_corrected,BX,-3
+bkl617_odd_corrected,ZCW,3
+bkl617_odd_corrected,CW,-3

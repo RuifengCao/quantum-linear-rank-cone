@@ -13,9 +13,15 @@ Lemma 4 extends to abelian groups (Lemma 4(G)), and for enough parties Stab^(Z_d
 when d divides d′ (Theorem 5).
 
 Round R35 adds §4.7: how far down the dependence goes. There is none for n ≤ 4 and any d (Theorem 7). The one-cut
-observation of §4.4 is now proved (Proposition 6). At n = 6, the six characteristic-dependent seven-variable
+observation of §4.4 is now proved (Proposition 6). At n = 6, the characteristic-dependent seven-variable
 inequalities considered here are blind in every relabelling, because they collapse to Shannon inequalities on the
 self-dual slice (Proposition 8).
+
+Round R36 adds §4.8: six parties already suffice in one direction. Stab⁽²⁾_6 ⊄ Stab^(Z_d)_6 for every odd d
+(Theorem 9). The witness is the seven-qubit simplex-code (Fano) state. The certificate is a new seven-variable
+inequality, obtained by applying Lemma 4 to a family derived from the subspaces ("transfer"). R36 also adds the
+inequalities of Blasiak–Kleinberg–Lubetzky to Proposition 8 (now eight forms) and records a misprint in their
+eq. (6.17) (§4.5).
 
 ## 1. Setting
 
@@ -122,11 +128,13 @@ self-dual slice.
 * **n = 5.** The new six-variable inequalities do cut the self-dual slice: these are the exclusions of R27–R30
   (A2 note §3–§7).
 
-## 4. Theorem 2 (dependence on the local dimension) [proved; §4.2 uses DFZ, §4.4 and §4.6 are self-contained]
+## 4. Theorem 2 (dependence on the local dimension) [proved; §4.2 uses DFZ, §4.4, §4.6 and §4.8 are self-contained]
 
 For every n ≥ 7 and every odd prime p,
 
     Stab⁽²⁾_n ⊄ Stab⁽ᵖ⁾_n   and   Stab⁽ᵖ⁾_n ⊄ Stab⁽²⁾_n.
+
+The first non-inclusion already holds for n = 6 (Theorem 9, §4.8).
 
 ### 4.1 Witnesses: the cube states
 
@@ -166,7 +174,8 @@ The visible parties are the seven nonzero vertices, in DFZ's order A, B, C, W, X
    * (91) holds over characteristic 2, and fails for the non-Fano configuration over GF(p), p odd.
 
    Blasiak–Kleinberg–Lubetzky (arXiv:1108.2489, Thms 6.4 and 6.6) give seven-variable inequalities with the same
-   properties; they are not used here.
+   properties. They are transcribed in `data/bkl_char_dependent.csv` (R36, checked against the PDF; eq. (6.17) is
+   misprinted, §4.5) and are not used here.
 4. **Pull-back** [proved]. For a stabilizer state of local dimension p, h_S is a family of eight subspaces over
    GF(p) (Lemma 2). Passing to the quotient by the purifier's subspace gives a family of seven subspaces with
    rank function T ↦ h_S(T ∪ F) − h_S(F). Define
@@ -374,9 +383,9 @@ the same vector, §4.1) the two entropy vectors differ in exactly one
 coordinate. It is the bipartition {A_1, …, A_M, C} | {B_1, …, B_M, 0}, with entropy t over GF(p) and t + 2 over
 GF(q). Proposition 6 (§4.7) proves this for all t and q.
 
-### 4.5 A misprint in DFZ arXiv:1401.2507 (not used)
+### 4.5 Misprints in DFZ arXiv:1401.2507 and BKL arXiv:1108.2489 (not used)
 
-Theorem 3.1 of arXiv:1401.2507v1 (p. 11) states an eight-variable inequality claimed to hold over every finite
+**DFZ (R33).** Theorem 3.1 of arXiv:1401.2507v1 (p. 11) states an eight-variable inequality claimed to hold over every finite
 field of characteristic ≠ 3; Theorem 3.2 shows that it fails for T₈ over GF(3). As printed, the inequality is false
 over every field.
 
@@ -388,6 +397,25 @@ over every field.
 The final expansion of the proof (p. 25) probably carries a coefficient error; the published IEEE version was not
 checked. Theorem 4.1 of the same paper (valid for characteristic 3) passes the same exhaustive check, but it is not
 used either. Section 4.4 needs neither.
+
+**BKL (R36).** Blasiak–Kleinberg–Lubetzky, arXiv:1108.2489v1, Section 6, give two seven-variable inequalities on the
+points of GF(2)³ (transcribed term by term from the rendered PDF, p. 19 eq. (6.8) and p. 22 eq. (6.17), into
+`data/bkl_char_dependent.csv`, variables named as in DFZ):
+
+* (6.8), Theorem 6.4: valid in characteristic 2, −1 on the non-Fano configuration. It passes our checks: minimum 0
+  over all {0,1}-point configurations of GF(2)³ (G34b).
+* (6.17), Theorem 6.6: claimed valid in characteristic ≠ 2, −1 on the Fano configuration. **As printed it is false
+  over every field.** Take A = ⟨e₁⟩, B = ⟨e₂⟩, C = ⟨e₃⟩, Z = ⟨e₁ + e₂ + e₃⟩ and W = X = Y = 0: the value is −3 over
+  GF(2), GF(3) and GF(5) (G34). Over GF(3)³ the printed form reaches −3 on {0,1}-point configurations.
+  * The proof of Theorem 6.6 bounds the step-4 terms Σ_{i+j=111} δ[111 | i, j] in the text, but (6.16) drops them.
+    Restoring them adds 3·[H(Z,A,Y) − H(A,Y) + H(Z,B,X) − H(B,X) + H(Z,C,W) − H(C,W)] to (6.17).
+  * The corrected form (`bkl617_odd_corrected`) has minimum 0 over all {0,1}-point configurations of GF(3)³ (G34b)
+    and is −1 on the Fano configuration. It equals Lemma 4 (LB)₂ (§4.8 labelling) minus 6·I(A; B), so it is slightly
+    stronger than (LB)₂. Its validity rests on BKL's proof with the dropped terms restored; it is not re-proved here.
+* The proof of Theorem 6.4 ends with "Consequently Λ_odd · r(F) < 0"; from the statement it should read
+  Λ_even · r(N) < 0 (a typo without consequences).
+
+Both forms enter Proposition 8 (§4.7), (6.17) in its corrected form. Neither is needed elsewhere.
 
 ### 4.6 Composite local dimensions: the cone remembers d [proved] (R34)
 
@@ -533,12 +561,14 @@ In short:
 
 * n ≤ 4: no dependence on the local dimension at all, for any d (Theorem 7).
 * Dependence, pairwise:
-  * qubits against every odd p from n = 7 (Theorem 2);
+  * qubits against every odd p: Stab⁽²⁾_n ⊄ Stab⁽ᵖ⁾_n from n = 6 (Theorem 9, §4.8; also against Z_d for every odd
+    d), and Stab⁽ᵖ⁾_n ⊄ Stab⁽²⁾_n from n = 7 (Theorem 2);
   * primes p < q from n = 2p + 3 (Theorem 2′);
   * Stab^(Z_d) ⊄ Stab^(Z_d′) for d ∤ d′ from n = 2·max(d, d′) + 3 (Theorem 5).
   * GF(4) and GF(2) never differ (§4.6).
-* n = 5 and n = 6 are open. At n = 6, the six characteristic-dependent seven-variable inequalities considered here
-  are blind (Proposition 8).
+* Open: n = 5; at n = 6 the direction Stab⁽ᵖ⁾_6 ⊄ Stab⁽²⁾_6 (p odd) and all pairs of odd primes. The eight
+  characteristic-dependent seven-variable inequalities considered here are blind at n = 6 (Proposition 8); Theorem 9
+  goes through a derived family of subspaces.
 
 **Theorem 7 (four parties) [proved; computer-assisted: lrs enumeration (G29b) and stored lifts (G33)].** For every
 d ≥ 2,
@@ -622,17 +652,18 @@ one. ∎
 `s30_dimension_profile.py --one-cut` compares the predicted sets with the exact rank functions over GF(ℓ) and ℚ for
 t = 2, …, 7 and ℓ ≤ 13 (gates G33/G33b); they agree in all 30 cases.
 
-**Proposition 8 (six parties: six characteristic-dependent inequalities are blind) [proved; computer-assisted: exact
-certificates (G33)].**
+**Proposition 8 (six parties: eight characteristic-dependent inequalities are blind) [proved; computer-assisted:
+exact certificates (G33)].**
 
 Let D be the duality map h ↦ h*, with h*(X) = Σ_{P∈X} h(P) + h(E∖X) − h(E). This is the dual polymatroid of Kaced
 (arXiv:1611.04109), who shows that the polymatroid and Ingleton regions are closed under D. D maps LR⁽ᵖ⁾ into itself:
 the dual of a linear polymatroid is linear over the same field.
 
-The six seven-variable characteristic-dependent inequalities considered here are DFZ (65) and (91), Lemma 4 (LA)_2
-and (LB)_2, and Peña–Sarria (a) and (b) with t = 2. For each of them, f + f∘D is a nonnegative rational combination
-of the Shannon elemental inequalities on seven variables. The exact certificates are in
-`data/s30_selfdual_shannon_certs.npz`, with supports of 54–114 inequalities and denominators 1–46. Since the Shannon
+The eight seven-variable characteristic-dependent inequalities considered here are DFZ (65) and (91), Lemma 4 (LA)_2
+and (LB)_2, Peña–Sarria (a) and (b) with t = 2, and BKL (6.8) and (6.17), the latter in its corrected form (§4.5;
+the BKL pair was added in R36). For each of them, f + f∘D is a nonnegative rational combination of the Shannon
+elemental inequalities on seven variables. The exact certificates are in `data/s30_selfdual_shannon_certs.npz`, with
+supports of 54–114 inequalities and denominators 1–46 (BKL: 59 and 98, denominators 1 and 2). Since the Shannon
 cone is invariant under relabelling and D commutes with relabellings, the same holds for every bijective assignment of
 the seven variables to the seven parties.
 
@@ -640,16 +671,16 @@ the seven variables to the seven parties.
 * For every pure quantum state on six parties plus a purifier, h_S is a self-dual polymatroid. It is submodular by
   strong subadditivity, monotone by Araki–Lieb (strong subadditivity alone suffices, since h_S(E) = h_S(E∖i)), and
   self-dual by purity.
-  * So, pulled back to six parties in any relabelling, these six inequalities follow from strong subadditivity. They
-    hold for all states and cannot distinguish local dimensions.
+  * So, pulled back to six parties in any relabelling, these eight inequalities follow from strong subadditivity.
+    They hold for all states and cannot distinguish local dimensions.
   * Substitution instances, in which variables are unions of parties, are not covered by this argument. A random
-    probe of 120,000 substitutions per form on 29 self-dual states found no violation (independent referee).
+    probe of 120,000 substitutions per form on 29 self-dual states found no violation (independent referee, R35; the
+    six forms of R35).
+  * Inequalities obtained by applying these forms to a *derived* family of subspaces are not covered either. Theorem 9
+    (§4.8) is of this kind.
 * A dimension dependence at n = 6 needs a characteristic-dependent seven-variable inequality g with g∘D = g. Indeed,
   if f is valid over GF(q) and f(h_S) < 0 for a GF(p) state, then g = f + f∘D is valid over GF(q) (D preserves
-  LR⁽q⁾) and g(h_S) = 2f(h_S) < 0.
-* Not covered: the seven-variable inequalities of Blasiak–Kleinberg–Lubetzky (arXiv:1108.2489, Thms 6.4 and 6.6),
-  whose transcription was not checked against the paper. The referee's AI transcription of BKL (6.8), after fixing
-  an evident typo, also has a Shannon certificate for its symmetrisation; this is unverified.
+  LR⁽q⁾) and g(h_S) = 2f(h_S) < 0. Section 4.8 constructs one (g = f9 + f9∘D).
 
 Encoding check (implied by the certificates, not needed for the proof): f(r + r*) never goes negative on all
 {0,1}-point configurations of GF(p)³, or on 2.2 M random ones of GF(p)⁴ (p = 2 for (65) and (LB)_2; p = 3, 5 for
@@ -664,20 +695,151 @@ the cube states violate them, so their symmetrisations are not Shannon.
   The lifting method of Theorem 7, run on the qubit certificates of the first 60 known extreme rays of Stab₅
   (catalogue order), lifts 40 of them to all fields (21 with all signs +1). The other 20 need a better search.
 
+### 4.8 Six parties: qubits are not inside any odd local dimension [proved; refereed] (R36)
+
+**Theorem 9 [proved; the expansion of f9 below is computer-assisted (G35)].** For every odd d ≥ 3 and every n ≥ 6,
+
+    Stab⁽²⁾_n ⊄ Stab^(Z_d)_n .
+
+In particular Stab⁽²⁾_6 ⊄ Stab⁽ᵖ⁾_6 for every odd prime p. Since Stab⁽²⁾ ⊆ Stab^(Z_d′) for even d′ (Theorem 5), also
+Stab^(Z_d′)_n ⊄ Stab^(Z_d)_n for d′ even, d odd and n ≥ 6. Only this direction is shown: whether some state of odd
+local dimension leaves Stab⁽²⁾_6 is open (see the last remark).
+
+*Labelling.* A, B, C, W, X, Y, Z = 100, 010, 001, 110, 101, 011, 111 (as in §4.1), with the seven Fano lines ABW,
+ACX, BCY, AYZ, BXZ, CWZ, WXY. Every point lies on three lines.
+
+*Witness.* The CSS state of the [7, 3] simplex code over GF(2), whose generator has the seven nonzero vectors of GF(2)³
+as columns, with one qubit per party and any one party as the purifier. This is the logical |0⟩ of Steane's
+[[7, 1, 3]] code (the even-weight half of the Hamming code; Nielsen–Chuang's |0_L⟩ up to the order of the qubits).
+By Theorem 1 (step 2) its entropy is S = π(r_F), where r_F is the rank function of the Fano matroid. The Fano matroid has no coloops, so
+
+    h_S = r_F + r_F* =: h_F ,
+
+with values 2 on points, 4 on pairs, 5 on lines, 6 on the other triples and on the line complements, 7 on the other
+4-sets and on every larger set. The entropies agree with the 128-amplitude state vector (G35).
+
+*Base inequality.* Lemma 4 (LB) with t = 2 and (A₁, A₂, A₃, B₁, B₂, B₃, C) = (A, B, C, Y, X, W, Z):
+
+    (LB)₂ = 9h(A) + 9h(B) + 9h(C) − 12h(ABC) + 6h(Z) + 3h(ABCZ) − 3h(ABZ) − 3h(ACZ) − 3h(BCZ) + 3h(AYZ) + 3h(BXZ)
+          + 3h(CWZ) − 3h(AY) − 3h(BX) − 3h(CW) + 3h(BCY) + 3h(ACX) + 3h(ABW) + h(WXY)  ≥ 0 .
+
+It holds for subspaces over every field of characteristic ≠ 2 and for subgroups of every finite abelian group of odd
+order (Lemma 4(G)). On the Fano matroid it takes the value −1. Its positive-coefficient sets are the points A, B, C,
+Z, the seven lines and ABCZ; the negative ones are AY, BX, CW, ABC, ABZ, ACZ and BCZ. Applied to h_F directly it
+is useless: (LB)₂ ≥ 17 on h_F in every relabelling (Proposition 8). The proof transfers it to a derived family.
+
+*Derived family.* Let U_P (P ∈ E) be subspaces with rank function h. For a line L = {i, j, k} through i put
+
+    F_i^L = U_i ∩ (U_j + U_k),        F̂_i = Σ_{L ∋ i} F_i^L ⊆ U_i ,
+
+and let ĥ be the rank function of the family (F̂_P). Write m_i^L = I(i; L∖i) = h(i) + h(L∖i) − h(L).
+
+* **Lemma 0.** dim F_i^L = m_i^L.
+* **Lemma A.** F_i^L ⊆ F_j^L + F_k^L. If v = a + b ∈ U_i with a ∈ U_j and b ∈ U_k, then a = v − b ∈ U_j ∩ (U_i + U_k)
+  = F_j^L, and likewise b ∈ F_k^L.
+* **Lemma B (points).** Let L₁, L₂, L₃ be the lines through i and Q_ab = (L_a ∪ L_b)∖{i}. Then
+  F_i^{L_a} + F_i^{L_b} ⊆ U_i ∩ U_{Q_ab}, which has dimension I(i; Q_ab). By submodularity,
+  ĥ(i) ≤ I(i; Q_ab) + I(i; Q_ac) − m_i^{L_a} for each a. Averaging over a gives
+  ĥ(i) ≤ u_i := ⅓·[2·Σ_{a<b} I(i; Q_ab) − Σ_a m_i^{L_a}].
+* **Lemma C (lower bounds).** ĥ(i) ≥ l_i := ⅓·Σ_L m_i^L, and ĥ(X) ≥ h(X) − Σ_{i∈X} (h(i) − l_i) for every X, since
+  Σ_{i∈X} U_i is spanned by Σ_{i∈X} F̂_i together with complements of the F̂_i in the U_i.
+* **Lemma D (lines).** For a line L = {i, j, k}: ĥ(L) ≤ u_i + u_j + u_k − m_i^L, because F_i^L ⊆ F̂_i ∩ (F̂_j + F̂_k)
+  by Lemma A. f9 uses the first point of L in the order A, B, C, W, X, Y, Z.
+* **Lemma E.** ĥ(ABCZ) ≤ ĥ(ABCYZ) ≤ u_A + u_B + u_C + (u_Y − m_Y^{BCY}) + (u_Z − m_Z^{AYZ}). Add F̂_Y to
+  F̂_A + F̂_B + F̂_C, then F̂_Z, using Lemma A on the lines BCY and AYZ.
+
+These lemmas hold for subspaces over any field. With log |·| in place of dim they also hold for subgroups of any
+finite abelian group, because the subgroup lattice is modular.
+
+*The inequality f9.* The derived family lies over the same field (or in the same group). So (LB)₂(ĥ) ≥ 0 in
+characteristic ≠ 2, or for groups of odd order. Bound every positive term from above (Lemmas B, D, E) and every
+negative term from below (Lemma C). This gives 0 ≤ (LB)₂(ĥ) ≤ f9(h)/3 with the integer form (67 terms,
+`data/s31_six_party.npz`)
+
+    f9 = + 36·h(A) + 45·h(B) + 54·h(C) + 18·h(W) + 21·h(X) + 21·h(Y) + 45·h(Z) − 10·h(AB) − 10·h(AC) − 22·h(BC)
+         − 42·h(AW) − 51·h(BW) − 36·h(CW) − 42·h(AX) − 36·h(BX) − 51·h(CX) − 13·h(WX) − 45·h(AY) − 42·h(BY)
+         − 51·h(CY) − 10·h(WY) − 13·h(XY) − 13·h(AZ) − 10·h(BZ) − 10·h(CZ) − 51·h(WZ) − 51·h(XZ) − 51·h(YZ)
+         − 36·h(ABC) + 103·h(ABW) + 103·h(ACX) + 115·h(BCY) + 36·h(WXY) − 9·h(ABZ) − 9·h(ACZ) − 9·h(BCZ) + 88·h(CWZ)
+         + 88·h(BXZ) + 100·h(AYZ) + 98·h(BCWX) + 92·h(ACWY) + 92·h(ABXY) + 48·h(ABCZ) + 104·h(AWXZ) + 98·h(BWYZ)
+         + 98·h(CXYZ) − 42·h(ABCWX) − 42·h(ABCWY) − 42·h(ABCXY) − 14·h(ABWXY) − 14·h(ACWXY) − 20·h(BCWXY)
+         − 14·h(ABCWZ) − 14·h(ABCXZ) − 42·h(ABWXZ) − 42·h(ACWXZ) − 36·h(BCWXZ) − 20·h(ABCYZ) − 42·h(ABWYZ)
+         − 36·h(ACWYZ) − 42·h(BCWYZ) − 36·h(ABXYZ) − 42·h(ACXYZ) − 42·h(BCXYZ) − 20·h(AWXYZ) − 14·h(BWXYZ)
+         − 14·h(CWXYZ)  ≥ 0 .
+
+f9 is linear, so it holds on the closed cones LR⁽q⁾₇ (q odd) and Γ^(d)₇ (d odd).
+
+*Value.* f9(h_F) = −3. This can be checked by hand: at h_F every bound is attained (m_i^L = 1, u_i = l_i = 1, the
+line bounds are 2, the ABCZ bound is 3, and the lower bounds equal the Fano ranks), so f9(h_F)/3 = (LB)₂(r_F) = −1.
+Also f9(r_F) = −3, while on the non-Fano configuration f9 = 81 (h) and 33 (r).
+
+*Proof of Theorem 9.* For a Z_d stabilizer state on six parties, h_S is a subgroup rank function on seven elements
+in an abelian group of exponent dividing d, hence of odd order (Theorem 1(d), steps 1–2; Theorem 1 for d prime). So
+f9(h_S) ≥ 0, and by linearity and closedness f9 ≥ 0 on h(Stab^(Z_d)_6). The simplex-code state has f9(h_S) = −3.
+For n > 6, merge the extra (empty) parties into the purifier. ∎
+
+The result inherits the status of Theorem 1(d), steps 1–2 (the cited entropy formula of Gross–Walter).
+
+**Remarks.**
+
+* *Beyond Proposition 8.* g = f9 + f9∘D is a self-dual characteristic-dependent inequality, as Proposition 8 requires:
+  g(h_F) = −6 while h_F is a polymatroid, so g is not a Shannon consequence. Hence f9 is not a nonnegative
+  combination of Shannon inequalities and the eight forms of Proposition 8 in any relabelling (that would make g a
+  Shannon consequence). On h_F the derived family sees only the Fano part: I_{r_F*}(i; L∖i) = 0 on every line, so the
+  dual half of r_F + r_F* drops out of the F_i^L.
+* *Invariant form.* On Fano-invariant self-dual vectors (a four-dimensional slice; self-duality forces v_E = 7v_P/2)
+  write v_P for the value on points, α = 2v_P − h(pair) (pairwise mutual information), μ = v_P + h(pair) − h(line)
+  (= I(i; L∖i)), ν = v_P + h(pair) − h(non-line triple), and β = v_P − 2μ ≥ 0. There
+  f9/3 = 210·v_P + 30·α + 21·ν − 421·μ = 210·β + 30·α + 21·ν − μ. So every Fano-invariant self-dual vector of
+  Γ^(d)₇, d odd, satisfies μ ≤ 210·β + 30·α + 21·ν, while h_F has α = β = ν = 0 and μ = 1. With DFZ (65) as the base
+  form, and every positive-coefficient set bounded by the same credit rule (Lemma A along a suitable order of a
+  superset), the constants become 154, 26 and 5 (`s31_six_party.py --invariant`; computed, not refereed).
+* *Sanity, not proofs.* With the actual subspaces, every bound of Lemmas 0, A–E and the whole chain are attained with
+  equality on many random families over GF(2), GF(3) and GF(5); over GF(2), f9 reaches −3 on the Fano configuration
+  (G35, G35b).
+* *Referee.* An independent referee (separate agent, own code) re-derived Lemmas 0, A–E and the composition and
+  recomputed f9 exactly (no difference). It confirmed f9(h_F) = −3 from r_F + r_F* and from the state vector, and
+  checked Theorem 1(d) and Lemma 4(G) for odd composite d. Stress tests found no violation of f9 ≥ 0:
+  * about 8.2 M arrangements each over GF(3), GF(5), GF(7);
+  * all 105,413,504 seven-tuples of points of PG(2, 3) or zero (minimum 0);
+  * about 13,000 subgroup families of Z_9², Z_3² × Z_9, Z_9³, Z_27², Z_3 × Z_9², Z_9 × Z_27, Z_5 × Z_25 and Z_15².
+
+  Over GF(2), f9 < 0 exactly on the 168 Fano frames of GF(2)³ (minimum −3). Forms claimed only for other
+  characteristics, and deliberately weakened variants of f9, do go negative in the same searches. Its wording fixes
+  were applied: one direction only, the scope of Proposition 8, the dependence on Theorem 1(d), and the invariant
+  form stated on the slice.
+* *Faces [certified, exact ranks; `s31_six_party.py --face`, G35].* The Shannon elemental inequalities tight at h_F
+  have rational rank 125, and those tight at r_F and at r_F* rank 126 (upper bounds from the vectors they annihilate,
+  lower bounds from the rank over GF(1000003)). So the face of Γ₇ containing h_F is two-dimensional,
+  and r_F, r_F* are extreme rays of Γ₇ lying in it: the face is cone(r_F, r_F*). Every decomposition of h_F into
+  polymatroids stays in this face. Since D preserves LR⁽q⁾₇ and swaps r_F and r_F*, the key step h_F ∉ LR⁽q⁾₇ of
+  Theorem 9 is equivalent to: LR⁽q⁾₇ contains no nonzero vector a·r_F + b·r_F* (q odd). The same holds verbatim for
+  the non-Fano pair r_NF, r_NF* (ranks 125 and 126).
+* *The reverse direction at n = 6 (open).* The natural candidate is the non-Fano state, the same code over GF(3), with
+  h_NF = r_NF + r_NF*. By the previous remark, h_NF ∈ LR⁽²⁾₇ if and only if LR⁽²⁾₇ contains a nonzero vector
+  a·r_NF + b·r_NF*.
+  * The same construction with (LA)₂ gives +27 on h_NF. The points W, X, Y lie on only two non-Fano lines each, and
+    I(W; ABCZ) = 2, so their two line pieces need not coincide.
+  * No family of 2-dimensional subspaces over GF(2) realises h_NF exactly (exhaustive search, not in the
+    repository).
+  * An exploratory hand argument (not refereed) suggests that an exact GF(2) family with rank function
+    a·r_NF + b·r_NF* must have a = b. Exact points with a = b ≥ 2, and limits, remain untested.
+
 ## 5. Open questions
 
-* **The smallest number of parties with a dimension dependence** is 5, 6 or 7. For n ≤ 4 there is none, for any d
-  (Theorem 7).
+* **The smallest number of parties with a dimension dependence** is 5 or 6: for n ≤ 4 there is none, for any d
+  (Theorem 7), and at n = 6 there is one (Theorem 9).
   * n = 5: by Theorem 1 this is equivalent to a characteristic dependence of the six-variable linear rank cone on
     its self-dual slice. No characteristic-dependent six-variable inequality is known; the smallest known ones
     have seven variables. Every extreme ray of Stab₅ tested in R31 is realisable for p = 2 and p = 3. In a pilot
     (not certified, §4.7), 40 of the first 60 lift to all fields.
-  * n = 6: the six seven-variable characteristic-dependent inequalities considered in §4.7 collapse to Shannon on
-    the self-dual slice in every relabelling (Proposition 8). This explains the negative probes:
-    * symmetrised Fano and non-Fano polymatroids r + r* never violate (65) or (91), under any of the 5,040
-      relabellings (minimum 19 and 16; these are h_S of the seven-qudit CSS states of the Fano and non-Fano codes);
-    * a 240-second annealing probe over seven-party qutrit graph states found nothing either (best value 4 ≥ 0);
-    * both checks are in `s27_cube_states.py --probe6`.
+  * n = 6, the other direction: is Stab⁽ᵖ⁾_6 ⊄ Stab⁽²⁾_6 for some odd p? By the face remark of §4.8, for the
+    non-Fano state this asks whether LR⁽²⁾₇ meets cone(r_NF, r_NF*) outside 0. The direct probes were negative
+    (they are explained by Proposition 8): symmetrised Fano and non-Fano polymatroids r + r* never violate (65) or
+    (91) in any of the 5,040 relabellings (minimum 19 and 16), and a 240-second annealing probe over seven-party
+    qutrit graph states found nothing either (best value 4 ≥ 0; `s27_cube_states.py --probe6`).
+  * n = 6 for odd primes p < q: open; Theorem 2′ needs 2p + 3 parties.
+* **The transfer for other primes.** Can the derived-family argument of §4.8 lower the bound 2p + 3 of Theorem 2′
+  for odd p, for example by recovering the configuration J − I of Lemma 4 from a self-dual sum r + r*?
 * ~~**Different odd primes, and all pairs of primes.**~~ Settled by Theorem 2′ (R33): for primes p < q the cones
   are incomparable from n = 2p + 3 on. Whether fewer parties suffice for odd p is open. For example, (3, q) at
   n = 8 would follow from correct eight-variable characteristic-3 inequalities and doubled codes (§4.3); the
@@ -694,8 +856,8 @@ the cube states violate them, so their symmetrisations are not Shannon.
 * **Smaller party counts for Theorem 5**, e.g. Z_4 against Z_6 below n = 15.
 * **Five parties over every field**: lift all 641 known extreme rays of Stab₅ to all fields (pilot: 40 of the first
   60), and decide the n = 5 question.
-* **Six parties**: is there a characteristic-dependent seven-variable inequality g with g∘D = g (BKL's Thms 6.4 and
-  6.6 still to be checked)?
+* ~~**Six parties**: is there a characteristic-dependent seven-variable inequality g with g∘D = g?~~ Yes: g = f9 + f9∘D
+  (Theorem 9, R36). BKL's Theorems 6.4 and 6.6 were checked and are blind (Proposition 8).
 
 ## 6. Literature status
 
@@ -707,12 +869,14 @@ Theorem 2, in LMRW (arXiv:1302.5453), Gross–Walter (arXiv:1302.6990), BCHS (ar
 * the use of characteristic-dependent linear rank inequalities in network coding.
 
 A human check in at least three communities (quantum entropy cones, network coding and linear rank inequalities,
-matroid theory) is required before any of Theorems 1, 1(d), 2, 2′, 5 and 7 is presented as new. Cited inputs and how they were
-checked:
+matroid theory) is required before any of Theorems 1, 1(d), 2, 2′, 5, 7 and 9 is presented as new. Cited inputs and
+how they were checked:
 
 * DFZ arXiv:1311.4601v1, Thms 8.6–8.9: checked term by term against the rendered PDF pages (R32).
 * Peña–Sarria arXiv:1905.00003v3, Thm 3 / Example 6: transcribed from the rendered page 4 and tested as in §4.4
   (R33). It is used only as a cross-check, since Lemma 4 is proved here. Its publication status was not checked.
+* BKL arXiv:1108.2489v1, eqs. (6.8) and (6.17): checked term by term against the rendered PDF pages 19 and 22 (R36);
+  (6.17) is misprinted (§4.5). Used only in Proposition 8.
 
 For §4.6 (R34), from an AI pre-check of web texts (not yet checked by hand):
 
@@ -736,6 +900,16 @@ For §4.7 (R35), again from an AI pre-check:
   self-duality of Shannon and Ingleton (checked against the PDF text). Nothing was found on characteristic-dependent
   inequalities restricted to self-dual polymatroids.
 
+For §4.8 (R36), from an AI pre-check (web search, abstracts only):
+
+* No statement was found that separates stabilizer cones of different local dimensions at six parties, or that
+  derives a characteristic-dependent inequality by applying a known one to a family built from intersections
+  U_i ∩ (U_j + U_k). Closest topics seen: Peña-Macias, *Access structures for finding characteristic-dependent linear
+  rank inequalities* (Kybernetika 2023; inequalities from n × n binary matrices, no seven-variable or self-dual
+  results); Bérczi et al. (arXiv:2507.10709; skew-representability, tensor products, rank inequalities).
+* Peña-Macias–Sarria-Zapata, arXiv:1903.11587 (characteristic-dependent inequalities via complementary vector
+  spaces) was not transcribed or checked here.
+
 ## 7. Reproduce
 
     python3 scripts/s26_reduction.py --self-test                     # CSS formula and doubling vs state vectors
@@ -748,7 +922,9 @@ For §4.7 (R35), again from an AI pre-check:
     python3 scripts/s28_generalized_cubes.py --dfz1401                                       # the misprint of §4.5
     python3 scripts/s29_zd_stabilizer.py --cases 2:4 4:8 3:9 6:4 --state-vector --lemma-tests 2200000   # §4.6
     python3 scripts/s30_dimension_profile.py --n4 --one-cut 2 3 4 5 6 7 --six                 # §4.7
-    python3 selftest.py                                              # gates G29-G33 (G29b, G31b, G32b, G33b with --full)
+    python3 scripts/s30_dimension_profile.py --bkl                                           # BKL checks, §4.5
+    python3 scripts/s31_six_party.py --derive --witness --invariant --face --lemmas 200 --stress 400 --exhaustive  # §4.8
+    python3 selftest.py                                              # gates G29-G35 (G29b, G31b-G35b with --full)
 
 Raw output of the sandbox runs: `results/2026-10-02_r32-sandbox/`, `results/2026-10-02_r33-sandbox/`,
-`results/2026-10-02_r34-sandbox/`, `results/2026-10-02_r35-sandbox/`.
+`results/2026-10-02_r34-sandbox/`, `results/2026-10-02_r35-sandbox/`, `results/2026-10-02_r36-sandbox/`.
