@@ -1,5 +1,54 @@
 # CHANGELOG
 
+## R35 (2026-10-02) -- how far down the dimension dependence goes
+- **Theorem 7 (proved).** Stab^(Z_d)_4 = h^-1(Shannon + Ingleton) for every d >= 2, so for n <= 4 the stabilizer
+  cone does not depend on the local dimension.
+  - Each of the 46 extreme rays (lrs, R32) has an integer graph state, the qubit certificate with signs on its
+    edges, whose visible cut blocks have Smith invariants 0 and 1 only. It therefore realises the ray over every
+    GF(p).
+  - Signs were needed for rays 33, 36, 39, 41 and 45.
+  - The lifts were re-verified with `stabcert` for p <= 13.
+  - The inclusion in the other direction holds because Ingleton holds for subgroup rank functions.
+- **Proposition 6 (proved).** The one-cut observation of R33 holds in general. Over a field of characteristic l
+  that does not divide t - 1, the generalised cube matroid differs from the rational one exactly on the balanced
+  sets X with:
+  - c in X, 0 not in X, l | t - a, a != t; or
+  - 0 in X, c not in X, l | a - 1, a != 1.
+  - The drop is exactly 1. For l = t prime this is the single cut {A, C} | {B, 0}.
+  - Short proof via the dependency equations; the exact rank functions agree for t = 2..7 and l <= 13.
+- **Proposition 8 (proved, exact certificates).** Consider the six seven-variable characteristic-dependent
+  inequalities DFZ (65), (91), (LA)_2, (LB)_2, Pena-Sarria (a), (b) with t = 2. For each, f + f o D is a
+  nonnegative rational combination of Shannon elemental inequalities, where D is Kaced's duality
+  (arXiv:1611.04109).
+  - So, in every relabelling, they follow from strong subadditivity on the self-dual slice, hold for every pure state
+    on 6 + 1 parties, and cannot separate local dimensions at n = 6.
+  - A six-party separation needs a characteristic-dependent g with g o D = g.
+  - Not covered: BKL's seven-variable inequalities (transcription unchecked) and substitution instances.
+  - The exhaustive point-configuration probe (f(r + r*) >= 0 on all {0,1}-point configurations of GF(p)^3) is now an
+    encoding check.
+- **Five parties (pilot, not certified).** 40 of the first 60 known extreme rays of Stab_5 lift to all fields;
+  the remaining 20 need a better search. No lifts are stored and no gate covers it (`--n5-pilot`).
+- **Referee.** An independent referee re-derived Theorem 7, Proposition 6 and Proposition 8 with its own code:
+  - its own double description and lrs gave the same 46 rays;
+  - the one-cut prediction matched in all 30 cases, and the hypothesis that l does not divide t - 1 is shown to be
+    needed;
+  - the certificates were re-found;
+  - 1,750 pure states x 5,040 relabellings x 6 forms gave minimum 0.
+
+  Applied fixes: scope ("considered here", relabellings, BKL and substitutions not covered), pairwise statement of
+  the dependence, the face argument for n < 4, the pilot marked as not certified, stale "open" remarks removed, and
+  Kaced cited for D.
+- **Code and data.**
+  - `scripts/s30_dimension_profile.py` (`--n4`, `--n4-search`, `--one-cut`, `--six`, `--solve`, `--probe6`,
+    `--n5-pilot`).
+  - `data/s30_stab4_unimodular.npz` and `data/s30_selfdual_shannon_certs.npz`, both in the manifest.
+- **Gates.**
+  - G33: four-party lifts 46/46, six-party certificates 6/6, one cut for t = 2..5, manifest.
+  - G33b (`--full`): one cut for t = 6, 7.
+  - 40 gate lines.
+- **Docs.** R32 note: section 4.7, with a header note, the one-cut paragraph of 4.4 and the open questions updated.
+  README: R35 status, pipeline row s30, data inventory, gate counts. Raw output: `results/2026-10-02_r35-sandbox/`.
+
 ## R34 (2026-10-02) -- Z_d qudits: the stabilizer entropy cone remembers the local dimension
 - **Theorem 5 (proved).** For d, d' >= 2 and n >= 2 max(d, d') + 3, Stab^(Z_d)_n is contained in Stab^(Z_d')_n
   exactly when d divides d' (entropies in bits). For d | d' the inclusion holds for every n.

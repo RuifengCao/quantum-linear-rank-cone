@@ -67,6 +67,27 @@ and the changelog is explained in the glossary at the end.
   the catalogue has diminishing scientific value; the A1′ campaign is closed
   and server time goes to A2 tools from here on. **Interpretation guard:** an
   unwitnessed orbit is not an unrealisable one.
+- [x] **R35 (2026-10-02): how far down the dimension dependence goes** (`docs/R32_reduction_and_local_dimension.md`
+  §4.7).
+  - *Theorem 7 (proved):* for n ≤ 4 the stabilizer cone does not depend on the local dimension at all:
+    Stab^(Z_d)_4 = h⁻¹(Shannon + Ingleton) for every d ≥ 2.
+    - Each of the 46 extreme rays has an integer graph state whose cut blocks have Smith invariants 0 and 1 only,
+      so it works over every GF(p).
+    - Data: `data/s30_stab4_unimodular.npz` (the qubit certificates of R32 with signs on 5 of them).
+  - *Proposition 6 (proved):* the one-cut observation of R33, for every t. Over GF(ℓ), ℓ ∤ t − 1, the generalised
+    cube matroid differs from the rational one exactly on the balanced sets with ℓ | t − a or ℓ | a − 1. For
+    ℓ = t prime this is a single cut.
+  - *Proposition 8 (proved, exact certificates):* at n = 6, the six seven-variable characteristic-dependent
+    inequalities considered (DFZ (65), (91), Lemma 4 t = 2, Peña–Sarria t = 2) are blind in every relabelling.
+    - For each f, f + f∘D (D = Kaced's duality) is a nonnegative combination of Shannon inequalities. So on the
+      self-dual slice f follows from strong subadditivity and holds for every pure state.
+    - BKL's seven-variable inequalities and substitution instances are not covered.
+    - Data: `data/s30_selfdual_shannon_certs.npz`.
+  - So the dependence is absent for n ≤ 4 and open for n = 5, 6. It is present pairwise: qubits against odd p from
+    n = 7, primes p < q from 2p + 3, and Stab^(Z_d) ⊄ Stab^(Z_d′) (d ∤ d′) from 2·max(d, d′) + 3.
+  - Pilot, not certified: 40 of the first 60 known extreme rays of Stab₅ lift to all fields.
+  - Checked by an independent referee (all correct; scope and text fixes applied).
+  - Gates G33/G33b; `scripts/s30_dimension_profile.py`.
 - [x] **R34 (2026-10-02): Z_d qudits -- the stabilizer entropy cone remembers the local dimension**
   (`docs/R32_reduction_and_local_dimension.md` §4.6).
   - *Theorem 5 (proved):* for d, d′ ≥ 2 and n ≥ 2·max(d, d′) + 3, Stab^(Z_d)_n ⊆ Stab^(Z_d′)_n exactly when d
@@ -332,7 +353,7 @@ single-source lines in `data/dfz_ref28.csv`; optional `rays5` cross-check.
 
 ```
 # ---- A. Verify the completed results (optional, ~3 minutes in total) ----
-python3 selftest.py --full            # 38 gate lines + ALL PASS, ~6 min; must be all green first
+python3 selftest.py --full            # 40 gate lines + ALL PASS, ~6 min; must be all green first
 python3 scripts/s1_build_qlr.py --variant pure28 --workers 25     # seconds
 python3 scripts/s2_judge.py QLR_H_pure28.npy                      # expect: violated 0
 python3 scripts/s3_rank19.py QLR_H_pure28.npy                     # expect: 18/19, only #19 has rank 29
@@ -416,7 +437,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 
 | Stage | Command essentials | Purpose / expectation |
 | --- | --- | --- |
-| selftest | `selftest.py [--full] [--workers N]` | 38 regression gate lines (G0–G32, G29b, G31b, G32b) + ALL PASS; run first on any machine |
+| selftest | `selftest.py [--full] [--workers N]` | 40 regression gate lines (G0–G33, G29b, G31b, G32b, G33b) + ALL PASS; run first on any machine |
 | s1 | `--variant pure28` (current) / `pure`, `v3`, `pure2` (historical) | build the H-representation; seconds |
 | s2 | `s2_judge.py <H.npy>` | 760 graph-state judge; `pure*` variants must give 0 violations |
 | s3 | `s3_rank19.py <H.npy> [--extra-rows X]` | tight-rank test of the 19 HEC rays; pure28 → 18/19 |
@@ -436,6 +457,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | s27 | `s27_cube_states.py [--state-vector] [--random N] [--out …]` ; `--probe6 SECONDS` | R32: Theorem 2 -- cube states over GF(2) and GF(p), self-duality, contraction to the DFZ Fano / non-Fano configurations, pulled-back DFZ (65)/(91) with value −2; `--probe6`: six-party checks (exploratory) |
 | s28 | `s28_generalized_cubes.py --t T --fields p q … [--random N] [--exhaustive01] [--exhaustive2] [--out …]` ; `--dfz1401` | R33: Theorem 2′ -- generalised cube states over GF(p) and GF(q), explicit self-duality weights, contraction to the configuration J − I, pulled-back Lemma 4 (LA)/(LB) with value −2 (Peña–Sarria Example 6 as cross-check); sanity tests; `--dfz1401` reproduces the misprint of pitfall 20 |
 | s29 | `s29_zd_stabilizer.py [--cases t:N …] [--state-vector] [--lemma-tests K] [--out …]` | R34: Theorem 5 -- generalised cube states over Z_N (N = p^k; exact subgroup arithmetic via Smith forms): freeness, unit self-duality weights, h_S = 2r, contraction to J − I over Z_N, pulled-back Lemma 4(G) values; `--state-vector`: the Z_4 cube state against its 4^8 amplitudes and the identity Z_4 cube = qubit cube + qutrit cube; `--lemma-tests`: Lemma 4(G) on point configurations of Z_4^k and Z_9^3 |
+| s30 | `s30_dimension_profile.py [--n4] [--one-cut T …] [--six] [--probe6] [--n5-pilot K]` ; `--n4-search --out …` ; `--solve --out-certs …` | R35: Theorem 7 -- the 46 four-party extreme rays over every field (unimodular integer graph states); Proposition 6 -- one-cut rank changes over GF(ℓ) vs Q; Proposition 8 -- exact Shannon certificates for the self-dual symmetrisations of the six seven-variable characteristic-dependent inequalities considered; `--probe6` encoding check; `--n5-pilot` five-party lifting pilot (not certified) |
 | s20 | `s20_residuals.py <rays.npy> --lam 1 --seconds 20 --runs 3` | where qubit annealing gets stuck: residual vector of the best state of several independent runs (diagnostic; also keeps any hit as a certificate) |
 | s21 | `s21_qudit_search.py <rays.npy> --p 3 --lams 1 --seconds 60` ; `--self-test` | qudit (p = 3, 5, 7) graph-state search (`cc/s21_anneal_gfp.c`), independent GF(p) re-verification; the self-test checks S(X) = rank_GF(p) W[X, X^c] against exact state vectors |
 | s5 | `s5_orbits.py clr5.out [--raw] [--expect 162]` | rays → S₅ orbits; reconcile against 162 |
@@ -611,6 +633,8 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | `s26_stab4_certs.npz` | 46 | R32: the extreme rays of h⁻¹(Shannon + Ingleton) on five elements (n = 4; 15 coordinates) with qubit graph-state certificates (λ, sizes, adjacency W), gates G29/G29b |
 | `s28_gencube_t3.npz` / `s28_gencube_t5.npz` | 7 / 6 | R33: entropy vectors of the generalised cube states (t = 3 over GF(3), GF(5), GF(7); t = 5 over GF(5), GF(7); 511 resp. 8,191 coordinates, purifier = origin), the pulled-back Lemma 4 forms FA (valid for char dividing t) and FB (valid otherwise), and Peña–Sarria's Fa, Fb (cross-check), gate G31 |
 | `s29_zd_witnesses.npz` | 4 | R34: entropy vectors (units of log p) of the generalised cube states over Z_4 (t = 2, 127 coordinates), Z_8 (t = 4, 2,047), Z_9 (t = 3, 511) and Z_4 (t = 6, 32,767); purifier = origin; gates G32/G32b |
+| `s30_stab4_unimodular.npz` | 46 | R35: for each extreme ray of Stab₄ (rays, λ, sizes, N as in `s26_stab4_certs.npz`), an integer symmetric matrix Wt ≡ W mod 2 whose visible cut blocks have Smith invariants 0 and 1 only (Theorem 7), gate G33 |
+| `s30_selfdual_shannon_certs.npz` | 6 | R35: for DFZ (65), (91), (LA)_2, (LB)_2, Peña–Sarria (a), (b) (t = 2), exact certificates den·(f + f∘D) = Σ num_i·e_i over the Shannon elemental inequalities on seven variables (fixed order of `elemental7`; Proposition 8), gate G33 |
 | `s27_cube_witnesses.npz` | 4 | R32: entropy vectors of the qubit and odd-p cube states (127 coordinates, parties A,B,C,W,X,Y,Z = vertices 100,…,111, purifier 000) and the pulled-back seven-party inequalities F65 (odd p) and F91 (p = 2), gate G30 |
 | `sixvar_template.csv` | — | transcription template for s9 |
 | `manifest_shas.json` | — | canonical sha256 of every row family (`sha_rows`; `sha_rows_wide` for wide coordinates) |
@@ -704,7 +728,7 @@ This repository is public at
 
 - **CI:** `.github/workflows/selftest.yml` installs `lrslib` and the Python
   requirements and runs `python3 selftest.py --full` on every push and pull
-  request (all 38 gate lines must pass). Every step has a time cap (job 40 min;
+  request (all 40 gate lines must pass). Every step has a time cap (job 40 min;
   each `apt-get update` attempt 150 s, three attempts), so a stalled package
   mirror fails the run within minutes instead of hanging for GitHub's 6-hour
   default; such a failure says nothing about the code -- re-run the job.

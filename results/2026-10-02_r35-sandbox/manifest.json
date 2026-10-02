@@ -1,0 +1,23 @@
+{
+ "date": "2026-10-02",
+ "tag": "r35-sandbox",
+ "note": "R35 sandbox: four parties over every field (Theorem 7), one-cut proposition (Prop. 6), six-party certificates (Prop. 8), probe and five-party pilot, full selftest",
+ "files": {
+  "README.txt": {
+   "bytes": 1611,
+   "sha256": "0fc62d6c8523f15b4f930f3d56407cb362d568e5ead0dce2cf13f384ea4de74d"
+  },
+  "s30_profile.log": {
+   "bytes": 3160,
+   "sha256": "75f9ce8bce6737f75f4342c916cfa63b70e2bc96b4e631e433ba4ab5d9f7c561"
+  },
+  "s30_probe6_n5pilot.log": {
+   "bytes": 1215,
+   "sha256": "fcd507c9b8c6ab95fd0bac9842c90f79056c0b6027c99ca3a4cb1c55f060180b"
+  },
+  "selftest_full.log": {
+   "bytes": 6244,
+   "sha256": "73bdfde2faba1f358da898cfd599cf05d1f00d14a9be12aa82ef4d06f0da05ad"
+  }
+ }
+}

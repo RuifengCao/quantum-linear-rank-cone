@@ -584,6 +584,25 @@ def main():
          f'J - I configuration; (LA, LB) pulled back {vals32} (expect (-2,-2), (-2,-4), (-2,-2)); partner (LA)_4 on Z_4, '
          f't=4: {P32["FA"]} (expect 0); Z_4 cube state-vector dev {sv32:.0e}; Z_4 cube = qubit cube + qutrit cube {sum32}')
 
+    # G33 (R35): how far down the dimension dependence goes (docs/R32_reduction_and_local_dimension.md section 4.7).
+    # Theorem 7: the 46 extreme rays of Stab_4 have integer graph states with unimodular cut blocks (exact Smith forms;
+    # also re-verified over GF(p), p <= 13), so Stab_4 is the same for every local dimension.  Proposition 8: for the six
+    # known 7-variable characteristic-dependent inequalities, f + f o D is an exact nonnegative combination of Shannon
+    # inequalities (stored certificates).  Proposition 6 (one cut): rank changes of the generalised cube points over
+    # GF(l) vs Q are exactly the predicted balanced sets, t = 2..5 (t = 6, 7 in G33b).  Stored data match the manifest.
+    import hashlib as _h33
+    import s30_dimension_profile as _d33
+    tot33, good33 = _d33.n4_check()
+    six33 = _d33.six_check()
+    oc33 = {t: _d33.one_cut_check(t) for t in (2, 3, 4, 5)}
+    ok_oc33 = all(ok for res in oc33.values() for (_c, _k, ok) in res.values())
+    files33 = all(_h33.sha256(open(os.path.join(core.DATA, f + '.npz'), 'rb').read()).hexdigest() == MAN[f]['file_sha256']
+                  for f in ('s30_stab4_unimodular', 's30_selfdual_shannon_certs'))
+    gate('G33 dimension profile', tot33 == 46 and good33 == 46 and all(ok for _n, ok in six33) and ok_oc33 and files33,
+         f'four parties: {good33}/{tot33} rays lifted to every field (unimodular cut blocks); six parties: '
+         f'{sum(ok for _n, ok in six33)}/6 forms with exact Shannon certificates for f + f o D; one cut t=2..5: '
+         f'predicted rank changes {ok_oc33}; stored files match the manifest {files33}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:
@@ -611,6 +630,12 @@ def main():
         gate('G32b Z_4 vs Z_6 + Lemma 4(G)', okW32b and all(v >= 0 for v in Q32b) and okL32b,
              f'Z_4, t=6: (LA)_6 = {W32b["FA"]} (expect -2), on GF(2)/GF(3), t=6: {Q32b} (>= 0); Lemma 4(G) minima '
              + ', '.join(f'{lab} {mn}' for lab, mn, *_r in L32b) + ' (claimed-valid forms >= 0, the others < 0)')
+
+        oc33b = {t: _d33.one_cut_check(t) for t in (6, 7)}
+        ok33b = all(ok for res in oc33b.values() for (_c, _k, ok) in res.values())
+        gate('G33b one cut t=6,7', ok33b,
+             'rank changes over GF(l) vs Q as predicted: ' + '; '.join(
+                 f't={t}: ' + ', '.join(f'GF({l}) {c} sets' for l, (c, _k, _ok) in res.items()) for t, res in oc33b.items()))
 
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)

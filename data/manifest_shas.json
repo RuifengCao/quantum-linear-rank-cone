@@ -297,5 +297,37 @@
   "sha256_int16_t3_N9": "2d1e1024f49282460cee7ddfec26de7385254a83cea50024f36a56578dddd47b",
   "sha256_int16_t6_N4": "8a374a383e328874425cdc9319dee595ab845894802781c8915f2be40abe3bc3",
   "file_sha256": "741cf5901c9e791b2a7d70f97bf1d5ab3d041ab030a111d0a19730d71da2eba7"
+ },
+ "s30_stab4_unimodular": {
+  "rows": 46,
+  "sha256_int16": "a4ce720ee95f6b25745cd6f2d49052c12d41ff59f81cf9a19070dcda0d75d77f",
+  "file_sha256": "24ea84016c8c3543632388d4d91b1ee893842e91a54aef94c1278a7df4be2349"
+ },
+ "s30_selfdual_shannon_certs": {
+  "forms": [
+   "DFZ (65)",
+   "DFZ (91)",
+   "(LA)_2",
+   "(LB)_2",
+   "Pena-Sarria (a) t=2",
+   "Pena-Sarria (b) t=2"
+  ],
+  "support": [
+   114,
+   82,
+   54,
+   97,
+   62,
+   97
+  ],
+  "denominator": [
+   46,
+   2,
+   1,
+   5,
+   1,
+   5
+  ],
+  "file_sha256": "1a2412fe47eac117d7870ddb7047e4069e70c1b9334179259f4ff4b6d9474a31"
  }
 }
