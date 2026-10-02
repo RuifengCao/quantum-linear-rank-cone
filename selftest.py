@@ -470,7 +470,72 @@ def main():
          f"{T28['rep'].shape[0]}/80 smallest qubit-realised extreme rays realised by qutrits "
          f"({int((T28['lam'] == 1).sum())} at lambda=1, {int((T28['lam'] == 2).sum())} at lambda=2); reduction self-test max error {w28}")
 
+    # G29 (R32): the reduction Stab_n = h^-1(LR_{n+1}) = pi(LR_{n+1}) = CSS cone (docs/R32_reduction_and_local_
+    # dimension.md, Theorem 1).  (a) The CSS entropy formula S = pi(r) and "the CSS state of a graph state's
+    # Lagrangian code has entropy 2S" against explicit state vectors on random small codes / graph states over
+    # GF(2) and GF(3); (b) n = 4: the 24 DFZ five-variable inequalities pulled back through h_S are implied by the
+    # pulled-back Shannon + Ingleton rows (LP); (c) the 46 extreme rays of that cone (data/s26_stab4_certs.npz)
+    # are valid, extreme, pairwise distinct and realised by qubit graph states (stabcert.verify_realisation_n).
+    # --full adds the exact lrs enumeration (G29b), which must give exactly these 46 rays.
+    import s26_reduction as _r29
+    da29, db29 = _r29.self_test(trials=16)
+    SH29, ING29, NEW29 = _r29.n4_rows()
+    A29 = np.array(SH29 + ING29)
+    bad29 = sum(1 for v in NEW29 if not _r29.lp_implied(A29, v))
+    okc29, R29 = _r29.check_certs(_r29.CERTS, A29)
+    okm29 = R29.shape[0] == MAN['s26_stab4_certs']['rows'] == 46 and core.sha_rows(R29) == MAN['s26_stab4_certs']['sha256']
+    gate('G29 reduction', da29 < 1e-9 and db29 < 1e-9 and len(NEW29) == 820 and bad29 == 0 and okc29 and okm29,
+         f'state-vector deviations {da29:.0e} (CSS formula) / {db29:.0e} (Lagrangian code = 2S); n=4: {len(NEW29)} '
+         f'pulled-back DFZ rows, {bad29} not implied by Shannon + Ingleton; {R29.shape[0]} extreme rays valid, '
+         f'extreme and realised by qubit graph states (Stab4 = h^-1(Shannon + Ingleton))')
+
+    # G30 (R32): local-dimension dependence from seven parties on (Theorem 2).  The cube code (affine functions
+    # on {0,1}^3) is identically self-dual over GF(2) and GF(3), h_S = 2r, contracting the origin gives exactly the
+    # Fano / non-Fano configuration of DFZ arXiv:1311.4601 Thms 8.7 / 8.9, all 4x4 minors lie in {0, +-1, +-2}
+    # (same matroid for every odd p), the pulled-back DFZ (65) [odd p] and (91) [p = 2] take the value -2 on the
+    # qubit resp. qudit cube state, the entropies agree with explicit state vectors, the two vectors differ only on
+    # the cut ABCZ | WXY+purifier, and the stored data reproduce.  Proposition 3: the CSS states of the doubled
+    # Fano / non-Fano / T8 codes have h_S = M + |X| on the visible parties (balanced (65)/(91): -1).  Sanity (not a
+    # proof): (65) and (91) hold on 40 random GF(3) resp. GF(2) subspace arrangements.
+    import s27_cube_states as _c30
+    G30, W30 = _c30.witnesses()
+    D30 = _c30.load_dfz_char()
+    F65, F91 = _c30.pullback(D30['dfz65_odd']), _c30.pullback(D30['dfz91_even'])
+    ok30 = all(np.array_equal(_c30.dual(W30[p]['r'], 8), W30[p]['r'])
+               and np.array_equal(W30[p]['h'][1:255], 2 * W30[p]['r'][1:255])
+               and np.array_equal(_c30.contract(W30[p]['r'], 8, _c30.PUR), _c30.dfz_configuration(p)) for p in (2, 3))
+    ok30 = ok30 and set(_c30.minors_set(G30)) <= {-2, -1, 0, 1, 2}
+    S2_30, S3_30 = W30[2]['S'][1:128], W30[3]['S'][1:128]
+    v65, v91 = int(F65 @ S2_30), int(F91 @ S3_30)
+    c65 = int(D30['dfz65_odd'] @ _c30.dfz_configuration(2)); c91 = int(D30['dfz91_even'] @ _c30.dfz_configuration(3))
+    sv30 = max(_c30.state_vector_check(G30, 2), _c30.state_vector_check(G30, 3))
+    rng30 = np.random.default_rng(30)
+    r65 = _c30.random_arrangement_min(D30['dfz65_odd'], 3, 40, rng30)
+    r91 = _c30.random_arrangement_min(D30['dfz91_even'], 2, 40, rng30)
+    Z30 = np.load(os.path.join(core.DATA, 's27_cube_witnesses.npz'))
+    okz30 = (np.array_equal(Z30['S_qubit'], S2_30) and np.array_equal(Z30['S_qudit'], S3_30)
+             and np.array_equal(Z30['F65_odd'], F65) and np.array_equal(Z30['F91_even'], F91)
+             and core.sha_rows(np.stack([Z30['S_qubit'], Z30['S_qudit'], Z30['F65_odd'], Z30['F91_even']]).astype(np.int64))
+             == MAN['s27_cube_witnesses']['sha256']
+             and core.sha_rows(np.stack([D30['dfz65_odd'], D30['dfz91_even']])) == MAN['dfz_char_dependent']['sha256'])
+    diff30 = np.flatnonzero(S2_30 != S3_30).tolist()
+    dc30 = _c30.doubled_code_checks()          # Proposition 3: doubled codes give h_S = M + |X| on the visible parties
+    okd30 = dc30['Fano'] == (True, -1) and dc30['non-Fano'] == (True, -1) and dc30['T8'][0]
+    gate('G30 cube states', ok30 and v65 == -2 and v91 == -2 and c65 == -1 and c91 == -1 and sv30 < 1e-9
+         and r65 >= 0 and r91 >= 0 and okz30 and diff30 == [_c30.ODD_CUT - 1] and okd30,
+         f'self-dual, h_S = 2r, contraction = DFZ Fano/non-Fano (forms -> {c65}/{c91}); pulled-back (65) on the '
+         f'qubit cube state {v65}, (91) on the qudit cube state {v91} (expect -2/-2); state-vector dev {sv30:.0e}; '
+         f'differ only on ABCZ; random-arrangement minima {r65}/{r91} (>= 0); doubled Fano/non-Fano/T8 codes: '
+         f'h_S = M + |X| {okd30}, balanced values {dc30["Fano"][1]}/{dc30["non-Fano"][1]}')
+
     if a.full:
+        R29l = _r29.lrs_rays(A29)
+        if R29l is None:
+            gate('G29b n4-lrs', True, 'lrs not installed: exact enumeration skipped (the stored 46 rays are checked by G29)')
+        else:
+            gate('G29b n4-lrs', R29l.shape[0] == 46 and {tuple(x) for x in R29l} == {tuple(x) for x in R29},
+                 f'lrs: {R29l.shape[0]} extreme rays of h^-1(Shannon + Ingleton) on five elements (expect 46 = stored set)')
+
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)
         rep3 = core.tight_rank_report(V3, core.load('hec5_rays_maskorder'))

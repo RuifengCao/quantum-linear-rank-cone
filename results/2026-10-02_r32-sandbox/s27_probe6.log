@@ -1,0 +1,10 @@
+GF(2) cube code: rank 4, identically self-dual True, S == 2r - |X|: True, h_S == 2r: True, contraction at 000 == DFZ Fano configuration: True, #coplanar 4-sets 14
+GF(3) cube code: rank 4, identically self-dual True, S == 2r - |X|: True, h_S == 2r: True, contraction at 000 == DFZ non-Fano configuration: True, #coplanar 4-sets 12
+4x4 minors of the generator: [-1, 0, 1, 2]
+DFZ forms on their own configurations: (65) on Fano/GF(2) = -1 ; (91) on non-Fano/GF(3) = -1
+pulled-back (65) [valid for odd p]: qubit cube state -2, qudit cube state 4
+pulled-back (91) [valid for p = 2]: qubit cube state 0, qudit cube state -2
+coordinates where the two cube states differ: [('ABCZ', 2, 4)]
+six-party check: min over relabellings of (65) on Fano r + r* = 19, of (91) on non-Fano r + r* = 16 (negative would separate)
+six-party probe (240 s): best min over relabellings of (91) on h_S = 4
+(242s)

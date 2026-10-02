@@ -1,0 +1,8 @@
+n = 4: pulled back to the 15 coordinates: Shannon 40, Ingleton forms 60, DFZ (1)-(24) 820 distinct rows; DFZ rows not implied by Shannon + Ingleton: 0  (3s)
+extreme rays of the pulled-back Shannon + Ingleton cone (lrs, exact): 46
+realised 46/46 rays by qubit graph states (lambda counts [0, 41, 5]) -> data/s26_stab4_certs.npz  (47s)
+certificates data/s26_stab4_certs.npz: 46 rays, all valid, extreme and realised: True; equal to the lrs ray set: True
+
+real	2m10.629s
+user	2m6.646s
+sys	0m1.702s

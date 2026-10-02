@@ -107,6 +107,28 @@ def verify_realisation_gfp(r, lam, sizes, W, p):
     return True
 
 
+def verify_realisation_n(r, n, lam, sizes, W, p):
+    """(R32) n-party version of verify_realisation_gfp: parties 0..n-1 are visible, party n is the purifier
+    (sizes has n + 1 entries, the purifier's qudits last); W is an N x N symmetric matrix over GF(p) with zero
+    diagonal; the weighted graph state must have rank_GF(p) W[X, X^c] == lam * r[m - 1] for every nonempty
+    mask m over the n visible parties (r has 2^n - 1 entries).  p = 2 is allowed."""
+    sizes = [int(s) for s in sizes]
+    if len(sizes) != n + 1 or len(r) != (1 << n) - 1:
+        return False
+    N = sum(sizes)
+    W = [[int(W[i][j]) for j in range(N)] for i in range(N)]
+    if any(W[i][j] != W[j][i] or not 0 <= W[i][j] < p for i in range(N) for j in range(N)) or any(W[i][i] for i in range(N)):
+        return False
+    party = [q for q in range(n + 1) for _ in range(sizes[q])]
+    for m in range(1, 1 << n):
+        X = [i for i in range(N) if party[i] < n and (m >> party[i]) & 1]
+        Y = [i for i in range(N) if not (party[i] < n and (m >> party[i]) & 1)]
+        rk = gfp_rank([[W[i][j] for j in Y] for i in X], p) if X and Y else 0
+        if rk != int(lam) * int(r[m - 1]):
+            return False
+    return True
+
+
 # ---------------------------------------------------------------- exclusions
 def entropy6(r):
     S = [0] * 64

@@ -1,0 +1,13 @@
+GF(2) cube code: rank 4, identically self-dual True, S == 2r - |X|: True, h_S == 2r: True, contraction at 000 == DFZ Fano configuration: True, #coplanar 4-sets 14
+GF(3) cube code: rank 4, identically self-dual True, S == 2r - |X|: True, h_S == 2r: True, contraction at 000 == DFZ non-Fano configuration: True, #coplanar 4-sets 12
+4x4 minors of the generator: [-1, 0, 1, 2]
+DFZ forms on their own configurations: (65) on Fano/GF(2) = -1 ; (91) on non-Fano/GF(3) = -1
+pulled-back (65) [valid for odd p]: qubit cube state -2, qudit cube state 4
+pulled-back (91) [valid for p = 2]: qubit cube state 0, qudit cube state -2
+coordinates where the two cube states differ: [('ABCZ', 2, 4)]
+doubled codes (Proposition 3): h_S on the visible parties == M + |X| and balanced DFZ value: Fano: True, -1; non-Fano: True, -1; T8: True
+state-vector check: GF(2) max dev 4.4e-16; GF(3) max dev 8.9e-16
+random arrangements: (65) min over 400 GF(3) = 0, GF(5) = 0; (91) min over 400 GF(2) = 0
+random graph states (7 parties + purifier, 1-3 qudits each): pulled-back (65) min over 400 qutrit states = 10, over 200 p=5 states = 27; pulled-back (91) min over 400 qubit states = 18
+wrote data/s27_cube_witnesses.npz
+(12s)

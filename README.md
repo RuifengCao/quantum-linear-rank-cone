@@ -67,6 +67,22 @@ and the changelog is explained in the glossary at the end.
   the catalogue has diminishing scientific value; the A1′ campaign is closed
   and server time goes to A2 tools from here on. **Interpretation guard:** an
   unwitnessed orbit is not an unrealisable one.
+- [x] **R32 (2026-10-02): stabilizer entropy cones are linear rank cones in disguise; they depend on the
+  local dimension** (`docs/R32_reduction_and_local_dimension.md`). *Theorem 1 (proved):* for every n and
+  every prime p, Stab⁽ᵖ⁾_n = {S : h_norm(S) ∈ LR⁽ᵖ⁾_{n+1}} = π(LR⁽ᵖ⁾_{n+1}) = the CSS cone (π = matroid
+  connectivity function); every stabilizer entropy vector, doubled, is a CSS vector. Consequences: **S7′
+  holds** (Stab₅ is cut out by the six-variable linear rank inequalities, or by the balanced ones applied to
+  S); the 1,155 undecided orbits are classical representability questions; for n = 4 the DFZ five-variable
+  inequalities are redundant on the self-dual slice and all 46 extreme rays of h⁻¹(Shannon + Ingleton) are
+  qubit-realised (`data/s26_stab4_certs.npz`, gates G29/G29b), reproducing the four-party theorem of LMRW.
+  *Theorem 2 (proved modulo DFZ arXiv:1311.4601, Thms 8.6–8.9, checked against the PDF):* from seven parties
+  on, the qubit cone and the cone of any odd prime are **incomparable**. Witnesses: the "cube states" (one qudit
+  per vertex of {0,1}³, code of affine functions; over GF(2) the extended Hamming code), whose entropy vectors
+  differ in a single 4|4 cut (2 versus 4) and violate the pulled-back DFZ inequalities (65) resp. (91) by −2
+  (`scripts/s27_cube_states.py`, `data/s27_cube_witnesses.npz`, `data/dfz_char_dependent.csv`, gate G30).
+  *Proposition 3:* doubled codes turn any characteristic-dependent n-variable linear rank inequality into an
+  n-party separation, so the dimension dependence of Stab_n is sandwiched between those of LR_n and LR_{n+1}.
+  Five and six parties remain open. Novelty: AI pre-check only (§7 ⓪).
 - [x] **A2, R31 (2026-10-02): no qubit/qutrit difference found.** The 16 orbits that R29 realised
   only with qutrits are realised by qubits at λ = 2: GF(4) graph states at λ = 1, field-reduced to qubit
   graph states with 24–32 qubits (`scripts/s24_galois_search.py`, `cc/s24_anneal_gfq.c`,
@@ -260,9 +276,10 @@ and the changelog is explained in the glossary at the end.
 
 **Open items, in order (details in §7):** human novelty check and contact
 with the BCHS authors about the R27 result; the undecided frontier rays;
-the refined question S7′ (does the stabilizer cone equal the cone of all
-balanced six-variable linear rank inequalities?); human spot check of the 11
+human check of R32 (proofs of Theorems 1 and 2; DFZ arXiv:1311.4601
+eqs. (65)/(91) against the paper; novelty); human spot check of the 11
 single-source lines in `data/dfz_ref28.csv`; optional `rays5` cross-check.
+(S7′ was settled in R32.)
 
 ---
 
@@ -284,7 +301,7 @@ single-source lines in `data/dfz_ref28.csv`; optional `rays5` cross-check.
 
 ```
 # ---- A. Verify the completed results (optional, ~3 minutes in total) ----
-python3 selftest.py --full            # 31 gate lines + ALL PASS, ~4 min; must be all green first
+python3 selftest.py --full            # 34 gate lines + ALL PASS, ~5 min; must be all green first
 python3 scripts/s1_build_qlr.py --variant pure28 --workers 25     # seconds
 python3 scripts/s2_judge.py QLR_H_pure28.npy                      # expect: violated 0
 python3 scripts/s3_rank19.py QLR_H_pure28.npy                     # expect: 18/19, only #19 has rank 29
@@ -368,7 +385,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 
 | Stage | Command essentials | Purpose / expectation |
 | --- | --- | --- |
-| selftest | `selftest.py [--full] [--workers N]` | 31 regression gate lines (G0–G28) + ALL PASS; run first on any machine |
+| selftest | `selftest.py [--full] [--workers N]` | 34 regression gate lines (G0–G30, G29b) + ALL PASS; run first on any machine |
 | s1 | `--variant pure28` (current) / `pure`, `v3`, `pure2` (historical) | build the H-representation; seconds |
 | s2 | `s2_judge.py <H.npy>` | 760 graph-state judge; `pure*` variants must give 0 violations |
 | s3 | `s3_rank19.py <H.npy> [--extra-rows X]` | tight-rank test of the 19 HEC rays; pure28 → 18/19 |
@@ -384,6 +401,8 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | s23 | `s23_ci_dfz.py <rays.npy> [--index …] [--out …]` | R30: CI + Ingleton + the 128,040 DFZ five-variable instances involving Z, as cutting planes, at every pair (floating-point verdicts; no certificate path yet) |
 | s24 | `s24_galois_search.py <rays: .npy or .npz> --q 4 --lams 1 --seconds 60 [--out …]` ; `--self-test` ; `--exhaustive --q 3 --index …` | R31: graph states over GF(q), q = 2, 3, 4, 5, 7, 8, 9 (`cc/s24_anneal_gfq.c`); a hit over GF(p^k) is field-reduced to a GF(p) graph state at k·λ and verified by `stabcert`; `--exhaustive`: all one-qudit-per-party graph states (`cc/s24_exhaustive6.c`) |
 | s25 | `s25_two_ci.py <rays.npy> [--index …] [--maxsize 2]` | R31: two simultaneous common informations on small pairs, Shannon on the 8-element extension (floating-point verdicts; exploratory) |
+| s26 | `s26_reduction.py --self-test` ; `--n4 [--lrs] [--realise --out …]` | R32: Theorem 1 checks -- CSS entropy formula and the doubling 2S against state vectors; n = 4: DFZ rows redundant on the self-dual slice (LP), exact extreme rays (lrs), qubit realisations re-verified |
+| s27 | `s27_cube_states.py [--state-vector] [--random N] [--out …]` ; `--probe6 SECONDS` | R32: Theorem 2 -- cube states over GF(2) and GF(p), self-duality, contraction to the DFZ Fano / non-Fano configurations, pulled-back DFZ (65)/(91) with value −2; `--probe6`: six-party checks (exploratory) |
 | s20 | `s20_residuals.py <rays.npy> --lam 1 --seconds 20 --runs 3` | where qubit annealing gets stuck: residual vector of the best state of several independent runs (diagnostic; also keeps any hit as a certificate) |
 | s21 | `s21_qudit_search.py <rays.npy> --p 3 --lams 1 --seconds 60` ; `--self-test` | qudit (p = 3, 5, 7) graph-state search (`cc/s21_anneal_gfp.c`), independent GF(p) re-verification; the self-test checks S(X) = rank_GF(p) W[X, X^c] against exact state vectors |
 | s5 | `s5_orbits.py clr5.out [--raw] [--expect 162]` | rays → S₅ orbits; reconcile against 162 |
@@ -496,6 +515,14 @@ passed in the sandbox (and, optionally, in the manual CI workflow
     staged there (it happened once in the R30 sandbox and was undone from git
     before anything was committed). It now stages into `<date>_<tag>-2`, `-3`,
     … and prints a NOTE.
+19. **Web-tool transcriptions of inequalities (R31, R32).** A web tool's
+    reading of the eight-variable inequality of DFZ arXiv:1401.2507 (Thm 3.1)
+    was violated by random GF(2) arrangements, so it cannot be the theorem;
+    it was not used. The inequalities of R32 (DFZ arXiv:1311.4601 eqs. (65)
+    and (91)) were checked term by term against the rendered PDF pages and
+    tested on random arrangements before use; `data/dfz_char_dependent.csv`
+    records the pages. Note that Theorem 8.6 there lists "A, B, C, D, W, X,
+    Y, Z" although D does not occur in (65).
 
 ## 6. Data inventory (`data/`)
 
@@ -537,6 +564,9 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | `s22_ineq_classes_a2i.npy` | 628 | their distinct S-forms up to S₆ (lexicographically smallest image; none violated by any known realisable vector) |
 | `s24_qubit_l2_certs.npz` | 16 | R31: qubit graph states at λ = 2 (G = adjacency, sizes = qubits per party) for the 16 orbits of `s21_qudit_realisations.npz`, with the GF(4) matrices they come from (Wq), gate G28 |
 | `s24_qutrit_certs.npz` | 80 | R31: qutrit graph states (λ = 1 for 73, 2 for 7) for the 80 qubit-realised rows of `stab5_extreme_reps.npy` with the fewest qubits (row in `stab5_row`), gate G28 |
+| `dfz_char_dependent.csv` | 2 | R32: the characteristic-dependent seven-variable linear rank inequalities (65) [odd characteristic] and (91) [characteristic 2] of DFZ arXiv:1311.4601, transcribed and checked against the PDF pages (recorded in the header) |
+| `s26_stab4_certs.npz` | 46 | R32: the extreme rays of h⁻¹(Shannon + Ingleton) on five elements (n = 4; 15 coordinates) with qubit graph-state certificates (λ, sizes, adjacency W), gates G29/G29b |
+| `s27_cube_witnesses.npz` | 4 | R32: entropy vectors of the qubit and odd-p cube states (127 coordinates, parties A,B,C,W,X,Y,Z = vertices 100,…,111, purifier 000) and the pulled-back seven-party inequalities F65 (odd p) and F91 (p = 2), gate G30 |
 | `sixvar_template.csv` | — | transcription template for s9 |
 | `manifest_shas.json` | — | canonical sha256 of every row family (`sha_rows`; `sha_rows_wide` for wide coordinates) |
 
@@ -545,11 +575,14 @@ seconds and checks the sha.
 
 ## 7. What next, and how
 
-**⓪ A2 after R30.** (a) Human novelty check (≥ 3 communities: quantum
+**⓪ A2 after R30, R32.** (a) Human novelty check (≥ 3 communities: quantum
 information / entropy cones; information theory / linear rank inequalities;
 matroid theory / representability) before any claim leaves the repository —
-now including the 646 CI+Ingleton classes against DFZ's six-variable lists;
-then write to the BCHS authors. (b) The 1,155 undecided orbits
+now including the 646 CI+Ingleton classes against DFZ's six-variable lists
+and the two R32 theorems (the converse direction of Theorem 1 and the
+local-dimension dependence of Theorem 2 were not found in LMRW, Gross–Walter,
+BCHS or Majenz's thesis by an AI pre-check); human reading of the R32 proofs
+and of DFZ arXiv:1311.4601 eqs. (65)/(91); then write to the BCHS authors. (b) The 1,155 undecided orbits
 (`results/2026-10-02_a2-status/`): most need 21–40 qubits at λ = 1, where 60 s
 of annealing mostly ends far from a realisation, so stronger searches
 (longer, λ = 2, restarts from the best states) are the obvious server job.
@@ -562,7 +595,7 @@ six-variable list (arXiv:0910.0284 §6: 3,490 inequalities, 2,395,095 with
 permuted forms; "hundreds" need two common informations) — if that list can
 be obtained (the authors' site `code.ucsd.edu/zeger/linrank`, which also hosts
 `rays5`), testing h_norm of the 10 orbits against it is cheap. (d) S7′ (all
-six-variable linear rank inequalities) stays open.
+six-variable linear rank inequalities) holds (R32, Theorem 1).
 The A1′ catalogue campaign is closed (R26); `s4c_qlr.py` remains available.
 
 **① Completeness cross-certification of the 162 (closed at the logical level,
@@ -622,7 +655,7 @@ This repository is public at
 
 - **CI:** `.github/workflows/selftest.yml` installs `lrslib` and the Python
   requirements and runs `python3 selftest.py --full` on every push and pull
-  request (all 31 gate lines must pass). Every step has a time cap (job 40 min;
+  request (all 34 gate lines must pass). Every step has a time cap (job 40 min;
   each `apt-get update` attempt 150 s, three attempts), so a stalled package
   mirror fails the run within minutes instead of hanging for GitHub's 6-hour
   default; such a failure says nothing about the code -- re-run the job.

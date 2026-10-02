@@ -1,0 +1,31 @@
+{
+ "date": "2026-10-02",
+ "tag": "r32-sandbox",
+ "note": "R32 sandbox: reduction checks (n = 4, CSS formula), cube-state witnesses and doubled codes for the local-dimension dependence, six-party probe, full selftest",
+ "files": {
+  "README.txt": {
+   "bytes": 1593,
+   "sha256": "ffec101495944c4579700e62ed36e1cecc229a71e4bd9f720256828c20987053"
+  },
+  "s26_self_test.log": {
+   "bytes": 173,
+   "sha256": "1e8b8ef8866c5a6a7ff00e981532056fd8b457f31693f18f46670df5a4ac4012"
+  },
+  "s26_n4.log": {
+   "bytes": 495,
+   "sha256": "41c70e64cacac26affc7bc6b2df23afcf1edadc32fb2ea95de0c2221388fa18d"
+  },
+  "s27_cube_states.log": {
+   "bytes": 1198,
+   "sha256": "d91e1e6bda33908c616db956038aff42a8daaf40223bf0c6b7c3e7b08a25a7b2"
+  },
+  "s27_probe6.log": {
+   "bytes": 885,
+   "sha256": "619fe5da1f79f069a114657a314a17273fd08c67af4ee764e9cb354159f5f0f9"
+  },
+  "selftest_full.log": {
+   "bytes": 4564,
+   "sha256": "c89eb0efcde507e1ad871d1618f57a5af4ab6d10d9dfbc3cbc40e9bae222d7a6"
+  }
+ }
+}

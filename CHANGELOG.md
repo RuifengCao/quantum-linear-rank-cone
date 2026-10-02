@@ -1,5 +1,55 @@
 # CHANGELOG
 
+## R32 (2026-10-02) -- reduction to linear rank cones; local-dimension dependence from seven parties
+- **Theorem 1 (proved, `docs/R32_reduction_and_local_dimension.md`).** For every n and every prime p,
+  Stab^(p)_n = {S : h_norm(S) in LR^(p)_{n+1}} = pi(LR^(p)_{n+1}) = CSS cone, where pi(r)(X) = r(X) + r(E\X) - r(E)
+  is the connectivity function. The proof combines Lemma 2 of the A2 note with the CSS entropy formula
+  S = pi(r) and the identity pi(h_norm(S)) = 2S. Every stabilizer entropy vector, doubled, is a CSS vector
+  (the CSS state of the Lagrangian code). By balancing, Stab_n is cut out by the balanced (n+1)-variable linear
+  rank inequalities applied to S. **S7' holds**; the 1,155 undecided orbits are classical representability
+  questions.
+- **n = 4 check.** The 24 DFZ five-variable inequalities pulled back through h_norm give 820 rows, all implied
+  by the pulled-back Shannon + Ingleton rows (LP). The cone h^-1(Shannon + Ingleton) on five elements has
+  exactly 46 extreme rays (lrs), all realised by qubit graph states (41 at lambda = 1, 5 at lambda = 2;
+  `data/s26_stab4_certs.npz`, `stabcert.verify_realisation_n`). So Stab4 = h^-1(Shannon + Ingleton), consistent
+  with LMRW.
+- **Theorem 2 (proved, using DFZ arXiv:1311.4601 Thms 8.6-8.9).** For every n >= 7 and odd prime p, the qubit
+  and p-qudit stabilizer cones are incomparable.
+  - Witnesses: the cube states. One qudit per vertex of {0,1}^3 carries the code of affine functions (over
+    GF(2) the extended Hamming code); the seven nonzero vertices are A,B,C,W,X,Y,Z in DFZ's order and the
+    origin is the purifier.
+  - Exact facts: the code's matroid is identically self-dual, so h_norm = 2r. Contracting the origin gives
+    DFZ's Fano (GF(2)) resp. non-Fano (GF(p)) configuration. All 4x4 minors lie in {0, +-1, +-2}.
+  - The pulled-back eq. (65) (valid for odd characteristic) is -2 on the qubit state; the pulled-back eq. (91)
+    (valid for characteristic 2) is -2 on the odd-p state.
+  - The two entropy vectors differ only on the cut ABCZ | WXY+purifier (2 versus 4).
+  - (65) and (91) were transcribed into `data/dfz_char_dependent.csv` and checked against the PDF pages.
+- **Proposition 3 (doubled codes, proved).** For any GF(p) configuration G, the CSS state of [G | G] (copies in
+  the purifier) has h_norm = r_G + |X| on the visible parties. Hence (sandwich): LR^(p)_n not in LR^(q)_n implies
+  Stab^(p)_n not in Stab^(q)_n, which implies LR^(p)_{n+1} not in LR^(q)_{n+1}. At n = 7 this gives a second proof
+  of Theorem 2 (doubled Fano / non-Fano: balanced (65)/(91) = -1). Checked for the doubled Fano, non-Fano and T8
+  codes in s27 and G30. Possible routes to "all pairs of primes" (DFZ arXiv:1401.2507, Pena-Sarria
+  arXiv:1905.00003) are recorded as open; neither paper has been checked.
+- **Code and data.**
+  - `epr1kit.stabcert.verify_realisation_n`: n-party GF(p) graph-state certificates, p = 2 allowed.
+  - `scripts/s26_reduction.py`: self-test against state vectors, `--n4 [--lrs] [--realise]`.
+  - `scripts/s27_cube_states.py`: witnesses, `--state-vector`, `--random N`, `--probe6`.
+  - `data/s27_cube_witnesses.npz` and manifest entries.
+- **Gates.**
+  - G29: CSS formula and doubling vs state vectors; n = 4 LP; the 46 certificates.
+  - G30: the cube-state facts, both -2 values, state vectors, stored data, random-arrangement sanity.
+  - `--full` adds G29b (exact lrs enumeration = the stored 46 rays).
+  - 34 gate lines; quick run ~85 s, `--full` ~4.5 min in the sandbox.
+- **Six-party probe (negative, exploratory).** The symmetrised Fano / non-Fano polymatroids (h_norm of the
+  seven-qudit CSS states) never violate (65) / (91) under any of the 5,040 relabellings (minima 19 / 16).
+  240 s of annealing over seven-party qutrit graph states also found no violation (best 4).
+- **Docs.**
+  - New `docs/R32_reduction_and_local_dimension.md`.
+  - A2 note: header pointer; Sections 6, 8 and 9 updated (S7' answered; seven-variable characteristic-dependent
+    inequalities exist; qubit/qudit status).
+  - README status, open items, pipeline rows s26/s27, data inventory, gate counts, pitfall 19.
+  - Raw output: `results/2026-10-02_r32-sandbox/`.
+
 ## R31 (2026-10-02) -- qubits and qutrits: no difference found; Galois-field search; two common informations
 - **Qutrit-only orbits are qubit-realisable.** `scripts/s24_galois_search.py` + `cc/s24_anneal_gfq.c`
   search weighted graph states over GF(q), q = 2, 3, 4, 5, 7, 8, 9 (field tables), and turn a hit over

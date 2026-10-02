@@ -1,0 +1,59 @@
+# Characteristic-dependent seven-variable linear rank inequalities of Dougherty, Freiling and Zeger,
+#   'Achievable Rate Regions for Network Coding', arXiv:1311.4601v1 (dated 18 Nov 2013), Section 8.
+# Transcription: typed from eqs. (65) and (91) and checked term by term against the rendered PDF pages
+#   (page 35 of 51: Theorem 8.6, eq. (65); page 43 of 51: Theorem 8.8, eq. (91)) on 2026-10-02.
+#   Theorem 8.6 lists the subspaces as 'A, B, C, D, W, X, Y, Z'; D does not occur in (65) (typo in the paper).
+# Validity: dfz65_odd holds for subspaces over any field of odd characteristic (Thm 8.6); by Thm 8.7 it fails
+#   over GF(2) for A=(1,0,0), B=(0,1,0), C=(0,0,1), W=(1,1,0), X=(1,0,1), Y=(0,1,1), Z=(1,1,1) (Fano).
+#   dfz91_even holds over any field of characteristic 2 (Thm 8.8); by Thm 8.9 it fails over GF(p), p odd, for
+#   the same seven vectors (non-Fano).
+# Convention: each row is a term coeff * H(subset); the inequality is  sum >= 0  (right side minus left side).
+#   H(subset) = dimension of the sum of the listed subspaces.
+ineq_id,subset,coeff
+# dfz65_odd  [DFZ 2013, eq. (65), Thm 8.6]  2H(A)+H(B)+2H(C) <= H(W)+H(X)+H(Y)+H(Z)+2H(A|Z,Y)+H(B|X,Z)+2H(C|A,X)+3H(X|W,Y)+3H(Z|W,C)+5H(W|A,B)+5H(Y|B,C)+5(H(A)+H(B)+H(C)-H(A,B,C))
+dfz65_odd,A,3
+dfz65_odd,B,4
+dfz65_odd,C,3
+dfz65_odd,W,1
+dfz65_odd,X,1
+dfz65_odd,Y,1
+dfz65_odd,Z,1
+dfz65_odd,AB,-5
+dfz65_odd,AX,-2
+dfz65_odd,BC,-5
+dfz65_odd,CW,-3
+dfz65_odd,WY,-3
+dfz65_odd,XZ,-1
+dfz65_odd,YZ,-2
+dfz65_odd,ABC,-5
+dfz65_odd,ABW,5
+dfz65_odd,ACX,2
+dfz65_odd,AYZ,2
+dfz65_odd,BCY,5
+dfz65_odd,BXZ,1
+dfz65_odd,CWZ,3
+dfz65_odd,WXY,3
+# dfz91_even  [DFZ 2013, eq. (91), Thm 8.8]  2H(A)+3H(B)+2H(C) <= H(W)+H(X)+H(Y)+3H(Z)+2H(A|Y,Z)+3H(B|X,Z)+H(C|W,Z)+2H(W|A,B)+4H(X|A,C)+3H(Y|B,C)+6H(Z|A,B,C)+H(C|W,X,Y)+7(H(A)+H(B)+H(C)-H(A,B,C))
+dfz91_even,A,5
+dfz91_even,B,4
+dfz91_even,C,5
+dfz91_even,W,1
+dfz91_even,X,1
+dfz91_even,Y,1
+dfz91_even,Z,3
+dfz91_even,AB,-2
+dfz91_even,AC,-4
+dfz91_even,BC,-3
+dfz91_even,WZ,-1
+dfz91_even,XZ,-3
+dfz91_even,YZ,-2
+dfz91_even,ABC,-13
+dfz91_even,ABW,2
+dfz91_even,ACX,4
+dfz91_even,AYZ,2
+dfz91_even,BCY,3
+dfz91_even,BXZ,3
+dfz91_even,CWZ,1
+dfz91_even,WXY,-1
+dfz91_even,ABCZ,6
+dfz91_even,CWXY,1

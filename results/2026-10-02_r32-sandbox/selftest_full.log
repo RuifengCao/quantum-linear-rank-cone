@@ -1,0 +1,40 @@
+[shards:g0] 0/4 already done, 4 to run
+[shards:g0] 1/4 chunks  0s elapsed  ETA --
+[shards:g0] 4/4 chunks  0s elapsed  ETA --
+[shards:g0] 3/4 already done, 1 to run
+[shards:g0] 1/1 chunks  0s elapsed  ETA --
+[G0 parallel] PASS  shard+resume merge (8, 31) (expect (8, 31), stable)
+[G1 elementals] PASS  80/195/5 (expect 80/195/5)
+[G2 CLR] PASS  1875 rows (expect 1875, sha match)
+[G2b CLR_fixed] PASS  1905 rows (expect 1905, sha match)
+[G4 pure] PASS  23265 rows (expect 23265, sha match)
+[G6 graphstates] PASS  760 vectors (expect 760, sha match)
+[G7 judge] PASS  pure violated rows 0 (expect 0); CLR violated rows 5 (expect 5)
+[G9 ref28] PASS  28 ineqs, 28 S5 classes, balanced=True, sha match, ing39 orbit consistent, targets1 == ray #19
+[G10 pure28] PASS  23355 rows (expect 23355, sha match); violations 0 (0)
+[G10b rank19/28] PASS  extreme 18/19 (expect 18); non-extreme {19: 29} (expect only #19 at 29)
+[G11 lrs-parse] PASS  canned V-rep -> (2, 31) (expect (2, 31); vertex+comments skipped)
+[G12 clr5 rays] PASS  7943 rays valid=True, 162 orbits (expect 7943/True/162)
+[G13 rays5-parse] PASS  64 rows kept, 3 junk skipped (expect 64/3)
+[G14 cert19] PASS  r19 == 1*q1 + 2*q2 exact; q1 == HEC#4; both edges rank 30
+[G15 shc-map] PASS  Table3<->ours S6 bijection True; paper #18 == our #19
+[G16 qlr59+a3] PASS  59 reps S6-distinct valid; ineq(4.4): G15 min -1 (expect -1), CLR rays min 0 (expect 0)
+[G17 qlr-partial] PASS  18985 certified QLR5 orbits (valid; 400-sample S6-distinct; 40-sample rank 30; full checks recorded in manifest); H_facets 10860
+[G18 witness+small] PASS  37 witnessed new orbits re-verified exactly (35 unconditional); small catalogue 23721 valid, S6-distinct
+[G19 chordal] PASS  HEC5 rays: chordal 9 (expect 9), chordal&irreducible 6 (6), simple trees verified by min-cut 6/6
+[G20 A2 certs] PASS  realisations re-verified (27 sampled incl. 2*q2); 139 exclusions re-derived exactly; 747 inequality classes vs 760 graph states; excluded rays lie in QLR5
+[G21 cutting plane] PASS  4665/4665 exclusion certificates re-derived exactly; catalogue 1914541/599/2566 (excluded/realised/undecided); 747 inequality classes
+[G22 CI-LP] PASS  #275 at (AD,BE): status 2 (expect 2); q2: 256 disjoint pairs, statuses [0] (expect [0]); scipy 1.17.1, HiGHS pinned to 1 thread, threads 2->2
+[G23 a2-survivors] PASS  14/14 server realisations re-verified; single-CI feasible for 2566/2566, 0 solver errors; all 14 marked realised; earlier verdicts unchanged
+[G24 qudit] PASS  rank formula vs exact state vectors: max error 8.9e-16 (6 qutrits, 8 graphs, all cuts); 16 qutrit certificates re-verified (p=3, lambda=1), all marked realised
+[G25 CI+Ingleton] PASS  18 exclusion certificates re-derived; 18 orbits exactly single-CI feasible (S7'' refuted); 465 status-3 orbits cut by 18 classes, 0 realised rays cut; catalogue 1915006/630/2070; 630 extreme rays of Stab5 (R29)
+[G26 a2-ingleton] PASS  904/904 CI+Ingleton certificates re-derived (2070 orbits tested, 0 solver errors), 628 classes, 0 realised vectors and 0 server-feasible rays cut by 444600 images; 11/11 server realisations re-verified; catalogue 1915910/641/1155; 641 extreme rays of Stab5
+[G27 DFZ ext] PASS  28 DFZ forms (24 + 4 Ingleton) valid on 60 random GF(2) arrangements; 149520 instances on A..F,Z (128040 with Z); the 21480 on A..F hold for all 2179 realised vectors
+[G28 p=2 vs p=3] PASS  16/16 R29 qutrit-only orbits realised by qubits at lambda=2 (GF(4) + field reduction); 80/80 smallest qubit-realised extreme rays realised by qutrits (73 at lambda=1, 7 at lambda=2); reduction self-test max error 0
+[G29 reduction] PASS  state-vector deviations 4e-16 (CSS formula) / 6e-16 (Lagrangian code = 2S); n=4: 820 pulled-back DFZ rows, 0 not implied by Shannon + Ingleton; 46 extreme rays valid, extreme and realised by qubit graph states (Stab4 = h^-1(Shannon + Ingleton))
+[G30 cube states] PASS  self-dual, h_S = 2r, contraction = DFZ Fano/non-Fano (forms -> -1/-1); pulled-back (65) on the qubit cube state -2, (91) on the qudit cube state -2 (expect -2/-2); state-vector dev 9e-16; differ only on ABCZ; random-arrangement minima 4/2 (>= 0); doubled Fano/non-Fano/T8 codes: h_S = M + |X| True, balanced values -1/-1
+[G29b n4-lrs] PASS  lrs: 46 extreme rays of h^-1(Shannon + Ingleton) on five elements (expect 46 = stored set)
+[G3 v3] PASS  2065 rows (expect 2065), violations 0 (0), extreme 10/19 (10)
+[G5 pure2] PASS  66577 rows (expect 66577, sha match)
+[G8 rank19] PASS  extreme 16/19 (expect 16); non-extreme {17: 29, 18: 29, 19: 29} (expect 17/18/19 at 29)
+--- ALL PASS  (266s)

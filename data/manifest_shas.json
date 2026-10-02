@@ -236,5 +236,19 @@
   "rows": 80,
   "sha256_rep": "fa46f20fcdba8b32a19bad2b0ee3d7e0ea02e9ebd05716b76d0ad17e5856c6d5",
   "file_sha256": "65d124d91877c0ba57691ee3102795778b7fc8acc084b2c0508f11a3b2c1be5e"
+ },
+ "s26_stab4_certs": {
+  "rows": 46,
+  "sha256": "1c05b59dedb45455d10ad1fb54a32ecf719cd0bf82e70bc38bea1fc573d22cf5",
+  "file_sha256": "7ddaa1a59706ac4ab6c589ee99e3947a97c8073c5d9e85a5a596b0982d2e53ee"
+ },
+ "s27_cube_witnesses": {
+  "rows": 4,
+  "sha256": "ffb484e477df51b602fce821975c727a1815c69788e5d31eb1e4eb005584d991",
+  "file_sha256": "448eb1b8602e6cc81157b978dfa80b7a7f48eff1ec7314c133bfecc139de3839"
+ },
+ "dfz_char_dependent": {
+  "rows": 2,
+  "sha256": "35861f997f7c377c75a51b43c895e7ea3da7de58867c0151c03b8ee2d659c871"
  }
 }

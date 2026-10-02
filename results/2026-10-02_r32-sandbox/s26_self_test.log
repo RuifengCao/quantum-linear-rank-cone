@@ -1,0 +1,5 @@
+CSS formula vs state vector: max deviation 4.0e-16; CSS state of the Lagrangian code vs 2S: max deviation 6.4e-16  (24 trials, 0s)
+
+real	0m0.321s
+user	0m0.264s
+sys	0m0.009s

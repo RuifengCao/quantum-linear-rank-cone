@@ -8,6 +8,10 @@ exact rational certificate, re-checked by an independent implementation
 (`epr1kit/stabcert.py`, gate G20). Human line-by-line review of this note is
 pending.
 
+Round R32 adds `docs/R32_reduction_and_local_dimension.md`: an exact reduction of stabilizer entropy cones to
+linear rank cones (which settles S7′ below) and a proof that the stabilizer cones of qubits and of odd-prime
+qudits differ from seven parties on.
+
 ## 1. Setting
 
 Parties A, B, C, D, E and a purifier F. For a pure state on ABCDEF the entropy
@@ -214,8 +218,9 @@ Annealing over GF(3) weights realised 16 of the 45 undecided orbits with at most
 λ = 1, including 12 of the 17 frontier rays of R27; every certificate is re-verified by an
 independent elimination (`stabcert.verify_realisation_gfp`). Qubit annealing had stalled at a
 residual of exactly one cut unit on all 45; a qubit realisation at larger λ was not excluded
-(characteristic-dependent linear rank inequalities exist on eight variables: Dougherty–Freiling–Zeger,
-arXiv:1401.2507). **R31 (§8): all 16 are realised by qubits at λ = 2.**
+(characteristic-dependent linear rank inequalities exist already on seven variables: Blasiak–Kleinberg–Lubetzky,
+arXiv:1108.2489; Dougherty–Freiling–Zeger, arXiv:1311.4601, Thms 8.6/8.8). **R31 (§8): all 16 are realised by
+qubits at λ = 2.**
 
 **Catalogue after R29** (`results/2026-10-01_a2-status/`): 1,915,006 excluded (1,914,541 by
 single-CI certificates, 465 by CI+Ingleton certificates) / 630 realised / 2,070 undecided;
@@ -307,7 +312,8 @@ qubits nor qutrits realise them at λ = 1, while both do at λ = 2. The R29 qubi
 small-λ effect of the kind shown by the uniform matroid U₂,₄, which is not binary while its rank function
 doubled is (GF(4) over GF(2)); they are not a characteristic-2 obstruction. Every extreme ray of Stab₅
 tested so far is realisable both for p = 2 and for p = 3. Whether the five-party stabilizer cones of
-different primes coincide is open; no difference is known.
+different primes coincide is open; no difference is known. (From seven parties on they do differ: R32,
+`docs/R32_reduction_and_local_dimension.md`, Theorem 2.)
 
 **Negative results.** GF(4) graph states at λ = 1 realise none of the 10 smallest undecided orbits
 (290 s each, residual 1–7) and none of 16 larger ones (55 s each; residual 16–74: the search does not
@@ -320,13 +326,14 @@ orbits and none of 6 larger ones (about 90,000 LPs, floating-point verdicts). Ra
 ## 9. Open questions
 
 * ~~**S7″**~~ (Stab₅ = QLR₅ cut by all single-CI six-variable inequalities?) —
-  **answered in the negative in R29** (Theorem 2). **S7′**: is Stab₅ equal to QLR₅
-  cut by *all* six-variable linear rank inequalities? Still open; the R29 and R30 exclusions are
-  themselves six-variable linear rank inequalities. (The six-variable list is not known to be
-  complete; DFZ report 3,490 classes, some needing two common informations.)
+  **answered in the negative in R29** (Theorem 2). ~~**S7′**~~ (is Stab₅ equal to QLR₅ cut by *all*
+  six-variable linear rank inequalities?) — **answered in the affirmative in R32**: for every n and every prime p,
+  Stab⁽ᵖ⁾_n = {S : h_norm(S) ∈ LR⁽ᵖ⁾_{n+1}} (`docs/R32_reduction_and_local_dimension.md`, Theorem 1, via CSS
+  states). Equivalently, Stab₅ is cut out by the balanced six-variable linear rank inequalities applied to S.
 * Qubits versus qudits: ~~are the 16 qutrit-realised orbits qubit-realisable at some λ?~~ Yes, at λ = 2
-  (R31, §8). Do the five-party stabilizer cones of different primes coincide? Open; no difference
-  is known (every extreme ray tested is realisable for p = 2 and p = 3).
+  (R31, §8). Do the five-party stabilizer cones of different primes coincide? Open; no difference is known
+  (every extreme ray tested is realisable for p = 2 and p = 3). From seven parties on, the qubit cone and the
+  cone of any odd prime are incomparable (R32, Theorem 2: cube states); five and six parties are open.
 * The 1,155 undecided orbits (`results/2026-10-02_a2-status/`), in particular the 10 with at most
   20 qubits that survive qubits (λ = 1, 2), qutrits (λ = 1, 2), p = 5, 7, GF(4), CI+Ingleton,
   CI+Ingleton+DFZ and two common informations —
@@ -334,6 +341,8 @@ orbits and none of 6 larger ones (about 90,000 LPs, floating-point verdicts). Ra
   excluded, 1 undecided). Two simultaneous common informations on small pairs (R31) and GF(4)
   graph states at λ = 1 (R31) do not decide them either. Untried: second common informations of pairs
   that involve the first, larger pairs, and DFZ instances with unions of elements in a slot.
+  By R32 (Theorem 1) each of them asks only whether the six-element polymatroid h_norm(r) lies in the
+  closed cone of linearly representable polymatroids -- a classical question.
 * The single-CI cone has extreme rays that are not extreme rays of QLR₅ (created
   by the cuts); they are not in the catalogue and are untested.
 * Facets: 628 of the 747 single-CI classes are not certified as facets; the 646 CI+Ingleton
