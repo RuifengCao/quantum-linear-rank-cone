@@ -1,0 +1,11 @@
+d=2 m=5 systems=4 trials=6 non-free L: 0  A1a:1.1e-16 A1b:1.1e-16 lift_proj:0.0e+00 lift_char:0.0e+00 selfdual:0.0e+00 lam2S:2.2e-16 cor1:2.2e-16 polymatroid:0.0e+00 OK
+d=3 m=4 systems=4 trials=6 non-free L: 0  A1a:4.4e-16 A1b:4.4e-16 lift_proj:8.9e-16 lift_char:8.9e-16 selfdual:8.9e-16 lam2S:8.9e-16 cor1:1.8e-15 polymatroid:8.9e-16 OK
+d=4 m=4 systems=4 trials=8 non-free L: 7  A1a:4.4e-16 A1b:4.4e-16 lift_proj:8.9e-16 lift_char:8.9e-16 selfdual:8.9e-16 lam2S:8.9e-16 cor1:8.9e-16 polymatroid:0.0e+00 OK
+d=6 m=3 systems=4 trials=6 non-free L: 0  A1a:4.4e-16 A1b:4.4e-16 lift_proj:8.9e-16 lift_char:8.9e-16 selfdual:8.9e-16 lam2S:8.9e-16 cor1:1.8e-15 polymatroid:8.9e-16 OK
+d=8 m=3 systems=3 trials=5 non-free L: 4  A1a:0.0e+00 A1b:0.0e+00 lift_proj:0.0e+00 lift_char:0.0e+00 selfdual:0.0e+00 lam2S:0.0e+00 cor1:0.0e+00 polymatroid:0.0e+00 OK
+d=9 m=3 systems=3 trials=4 non-free L: 2  A1a:4.4e-16 A1b:8.9e-16 lift_proj:8.9e-16 lift_char:8.9e-16 selfdual:4.4e-16 lam2S:4.4e-16 cor1:1.8e-15 polymatroid:4.4e-16 OK
+d=12 m=2 systems=3 trials=5 non-free L: 2  A1a:8.9e-16 A1b:8.9e-16 lift_proj:1.8e-15 lift_char:1.8e-15 selfdual:8.9e-16 lam2S:8.9e-16 cor1:3.6e-15 polymatroid:8.9e-16 OK
+d=4 m=3 systems=3 trials=8 non-free L: 5  A1a:0.0e+00 A1b:0.0e+00 lift_proj:0.0e+00 lift_char:0.0e+00 selfdual:0.0e+00 lam2S:0.0e+00 cor1:0.0e+00 polymatroid:0.0e+00 OK
+d=6 m=4 systems=3 trials=3 non-free L: 0  A1a:4.4e-16 A1b:4.4e-16 lift_proj:4.4e-16 lift_char:4.4e-16 selfdual:4.4e-16 lam2S:8.9e-16 cor1:0.0e+00 polymatroid:0.0e+00 OK
+non-free Lagrangians by d: {2: 0, 3: 0, 4: 12, 6: 0, 8: 4, 9: 2, 12: 2} (expected > 0 for 4, 8, 9, 12 and 0 for 2, 3, 6): True
+ALL OK

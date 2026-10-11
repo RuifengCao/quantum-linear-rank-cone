@@ -1,0 +1,10 @@
+q2 = [1, 1, 2, 1, 2, 2, 2, 1, 2, 2, 2, 2, 2, 3, 2, 1, 2, 2, 2, 2, 3, 2, 2, 2, 3, 3, 2, 3, 2, 2, 1]
+12-qubit graph state, entropies on A..E: [2, 2, 4, 2, 4, 4, 4, 2, 4, 4, 4, 4, 4, 6, 4, 2, 4, 4, 4, 4, 6, 4, 4, 4, 6, 6, 4, 6, 4, 4, 2]
+check 1 (2*q2 realised, pure-symmetric): True
+number of edges: 22
+check 2: 2^15 six-vertex qubit graph states, distinct entropy vectors: 760  hits on q2: 0
+check 2b(i): 2*q2 realised by a 12-qutrit weighted graph state (GF(3) cut ranks): True
+check 2b(ii): 14348907 weighted six-vertex graphs over GF(3); sanity vector found 85824 times; hits on q2: 0
+check 3a: CSS formula S = lambda(r_C) over Z_2, Z_3, Z_4, Z_6: 288 cuts, max deviation 8.88e-16
+check 3b: doubling (CSS state of L has entropy 2S) and entropy formula over Z_2, Z_3, Z_4: 108 cuts, max deviation 6.41e-16
+ALL OK

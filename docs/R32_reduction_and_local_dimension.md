@@ -2,8 +2,14 @@
 
 Technical note accompanying round R32. Status flags as in `docs/A2_stabilizer_vs_QLR.md`:
 **[proved]** — proof in this note; **[cited]** — published result, statement checked against the source;
-**[certified]** — exact computation re-checked by a selftest gate. Human line-by-line review of this note and a
-human literature check are pending (see §6).
+**[certified]** — exact computation re-checked by a selftest gate.
+
+**R37 (2026-10-11).** The results of this note are presented, with full proofs, in the paper *Stabilizer entropy cones
+as self-dual slices of linear rank cones: a five-party gap and dependence on the local dimension* (X. Song and R. Cao,
+2026); Table VI of the paper maps its theorems to those of this note. Those proofs were checked line by line by hand
+before the paper was submitted, the statements it cites were checked against the sources, and the numbers it quotes
+are recomputed by the scripts in `checks/`. Where this note and the paper differ, in statements, numbering,
+attributions or references, the paper is authoritative. The prior work found by the literature check is listed in §6.
 
 Round R33 adds §4.4: the stabilizer cones of **any two** distinct primes are incomparable (Theorem 2′). The proof
 is self-contained, through Lemma 4. R33 also adds §4.5, a note on a misprint in DFZ arXiv:1401.2507.
@@ -122,9 +128,10 @@ self-dual slice.
     re-verified by `stabcert.verify_realisation_n`, gate G29; exact enumeration re-run by G29b).
 
   Hence Stab₄ = h⁻¹(Shannon + Ingleton on five elements). This exact equality follows from the realisations alone
-  and needs neither the LP nor DFZ's five-variable classification. It agrees with the four-party theorem of
-  Linden–Matúš–Ruskai–Winter (arXiv:1302.5453; Theorem 13 according to a web-tool reading, not yet checked by
-  hand).
+  and needs neither the LP nor DFZ's five-variable classification. It agrees with the four-party characterisation of
+  Linden–Matúš–Ruskai–Winter (LIPIcs TQC 2013, arXiv:1302.5453, Sec. 5; checked by hand in R37). As printed,
+  their state (R6) has S(ab) = 1 instead of 2 on ray 6 of their Table 1, as N. Osthus noted (M.S. thesis,
+  University of Minnesota, 2024, Sec. 3.8); `checks/check_sec4a.py` recomputes both states.
 * **n = 5.** The new six-variable inequalities do cut the self-dual slice: these are the exclusions of R27–R30
   (A2 note §3–§7).
 
@@ -246,6 +253,9 @@ For primes p < q and every n ≥ 2p + 3,
 
 The proof is self-contained: it uses Lemma 2 of the A2 note and Lemma 4 below. Peña–Sarria's inequalities
 (arXiv:1905.00003v3, Theorem 3 / Example 6) are of the same kind and serve as a cross-check, but they are not needed.
+(R37) For prime fields, Theorem 2′ also follows from Theorems 7 and 9 of Peña-Macias and Sarria (J. Inf. Optim.
+Sci. 42, 345 (2021), arXiv:1903.11587v2), which treat the same configuration for every t; Lemma 4 adds that both
+inequalities hold for finite abelian groups, which Theorems 5 and 9 need (see the paper, Sec. V B).
 
 **Lemma 4 (characteristic-dependent inequalities for the configuration J − I) [proved].** Let M = t + 1 ≥ 3. Let
 A₁, …, A_M, B₁, …, B_M and C be subspaces of a finite-dimensional vector space over a field F. Write A = Σ_k A_k
@@ -396,7 +406,9 @@ over every field.
 
 The final expansion of the proof (p. 25) probably carries a coefficient error; the published IEEE version was not
 checked. Theorem 4.1 of the same paper (valid for characteristic 3) passes the same exhaustive check, but it is not
-used either. Section 4.4 needs neither.
+used either. Section 4.4 needs neither. (R37) Sec. V A of the paper uses DFZ's Theorems 4.1 and 4.2, as stated
+there, together with Proposition 3 of §4.3, for one direction at eight parties; that inequality was not checked
+independently beyond the exhaustive test above.
 
 **BKL (R36).** Blasiak–Kleinberg–Lubetzky, arXiv:1108.2489v1, Section 6, give two seven-variable inequalities on the
 points of GF(2)³ (transcribed term by term from the rendered PDF, p. 19 eq. (6.8) and p. 22 eq. (6.17), into
@@ -407,6 +419,9 @@ points of GF(2)³ (transcribed term by term from the rendered PDF, p. 19 eq. (6.
 * (6.17), Theorem 6.6: claimed valid in characteristic ≠ 2, −1 on the Fano configuration. **As printed it is false
   over every field.** Take A = ⟨e₁⟩, B = ⟨e₂⟩, C = ⟨e₃⟩, Z = ⟨e₁ + e₂ + e₃⟩ and W = X = Y = 0: the value is −3 over
   GF(2), GF(3) and GF(5) (G34). Over GF(3)³ the printed form reaches −3 on {0,1}-point configurations.
+  * (R37) Peña-Macias and Sarria (arXiv:1903.11587v2, before their Theorem 9) had already noted that (6.17)
+    fails, with the same counterexample, and gave a different inequality in its place (their Theorem 9). This
+    note did not know their paper when it was written.
   * The proof of Theorem 6.6 bounds the step-4 terms Σ_{i+j=111} δ[111 | i, j] in the text, but (6.16) drops them.
     Restoring them adds 3·[H(Z,A,Y) − H(A,Y) + H(Z,B,X) − H(B,X) + H(Z,C,W) − H(C,W)] to (6.17).
   * The corrected form (`bkl617_odd_corrected`) has minimum 0 over all {0,1}-point configurations of GF(3)³ (G34b)
@@ -841,12 +856,18 @@ The result inherits the status of Theorem 1(d), steps 1–2 (the cited entropy f
 * **The transfer for other primes.** Can the derived-family argument of §4.8 lower the bound 2p + 3 of Theorem 2′
   for odd p, for example by recovering the configuration J − I of Lemma 4 from a self-dual sum r + r*?
 * ~~**Different odd primes, and all pairs of primes.**~~ Settled by Theorem 2′ (R33): for primes p < q the cones
-  are incomparable from n = 2p + 3 on. Whether fewer parties suffice for odd p is open. For example, (3, q) at
-  n = 8 would follow from correct eight-variable characteristic-3 inequalities and doubled codes (§4.3); the
-  printed DFZ inequality is not usable (§4.5).
+  are incomparable from n = 2p + 3 on. Whether fewer parties suffice for odd p is open. For example, at n = 8
+  one direction for p = 3, Stab⁽q⁾_8 ⊄ Stab⁽³⁾_8, follows from the eight-variable characteristic-3 inequality of
+  DFZ arXiv:1401.2507 (Theorems 4.1 and 4.2, not checked independently here) and doubled codes (§4.3); the other
+  direction would need a correct inequality for characteristic ≠ 3, and the printed Theorem 3.1 is not usable
+  (§4.5).
 * **The 1,155 undecided orbits of the A2 catalogue**: see §3.1.
 * **Are Z_d stabilizer states ever beyond all prime ones?** Is Stab^(Z_d)_n always contained in the closed convex
   hull of the prime cones ∪_p Stab⁽ᵖ⁾_n? (The Z_4 cube state is inside.)
+  * (R37) For squarefree d the answer is yes: a group of exponent dividing d is the direct sum of its Sylow
+    subgroups, which are vector spaces over prime fields, and every subgroup is the direct sum of its
+    intersections with them, so every subgroup rank function is a sum of linear rank functions over prime fields
+    (the paper, Sec. VII). The question is open only when d is divisible by the square of a prime.
   * By Theorem 1(d), this asks whether the self-dual slices of the mixed-linear cone Γ^MixL and of the abelian
     cone Γ^Abl agree.
   * The doubled-code sandwich of §4.3 holds verbatim for subgroups. So the n-party question lies between the
@@ -860,6 +881,35 @@ The result inherits the status of Theorem 1(d), steps 1–2 (the cited entropy f
   (Theorem 9, R36). BKL's Theorems 6.4 and 6.6 were checked and are blind (Proposition 8).
 
 ## 6. Literature status
+
+**R37 (2026-10-11).** For the paper, every cited statement was checked against its source by hand, and a
+prior-work search was made. The paper gives the final attributions. The main prior work that the earlier record
+below did not know:
+
+* F. Matúš, *Polymatroids and polyquantoids* (WUPES 2012, arXiv:1210.7931): the lift h_S, and the bijection
+  between pure-symmetric submodular vectors and (tight) self-dual polymatroids, which is fact (c) of Theorem 1.
+  Jowett, Mo and Whittle (Adv. Appl. Math. 81, 1 (2016), arXiv:1605.01455) found the same correspondence for
+  connectivity functions.
+* P. Sarvepalli and R. Raussendorf (Phys. Rev. A 81, 052333 (2010)): an identically self-dual matroid that is
+  representable over a finite field gives a pure-state quantum secret sharing scheme, built on a CSS state whose
+  lift is twice the rank function. This is the matroid case of the converse direction of Theorem 1.
+* N. Osthus (M.S. thesis, University of Minnesota, 2024, https://hdl.handle.net/11299/269174): for prime d, the
+  entropies of CSS states, and twice those of general stabilizer states, as ranks of submatrices, so that the
+  doubling 2S = λ(r_L) follows from his formulas; the question whether the local dimension matters; and the
+  misprint in the LMRW state (R6) (§3.2).
+* V. Peña-Macias and H. Sarria (J. Inf. Optim. Sci. 42, 345 (2021), arXiv:1903.11587v2): characteristic-dependent
+  inequalities for the configuration J − I for every t over fields (their Theorems 7 and 9; §4.4), and the
+  failure of BKL's (6.17) (§4.5).
+* M. Walter and F. Witteveen (J. Math. Phys. 62, 092203 (2021)) together with Bao et al. (arXiv:2002.05317,
+  §3.3.1): for prime d, Theorem 7 also follows from the literature.
+* Linden et al. (LIPIcs TQC 2013, Sec. 5) conjectured that the inequalities obtained from common information,
+  added to the classical ones, describe the stabilizer cone; the paper (Sec. VII) discusses what its results say
+  about this conjecture.
+* Feng and Luo (J. Phys. A 57, 395304 (2024)): the two usual definitions of qudit stabilizer states agree exactly
+  when d is squarefree. This repository uses the definition through stabilizer groups, which allows non-free
+  Lagrangian subgroups.
+
+Earlier record (R32–R36):
 
 So far there is only an AI pre-check. It found no statement of the converse direction of Theorem 1, or of
 Theorem 2, in LMRW (arXiv:1302.5453), Gross–Walter (arXiv:1302.6990), BCHS (arXiv:2006.16292) or Majenz's thesis

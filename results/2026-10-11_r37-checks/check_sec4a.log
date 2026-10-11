@@ -1,0 +1,11 @@
+Shannon rows: 85  Ingleton instances (with repetitions): 480
+distinct pulled-back rows: 100
+extreme rays of C4 (lrs, exact): 46
+stored rays equal the lrs rays (as sets): True
+unimodular realizations: all cut blocks have Smith invariants in {0,1} and rank lam*S(X); ranks over GF(p), p <= 19, agree: True
+multiplicities lam: [1, 2]  counts: {1: 41, 2: 5}  max qubits: 8
+LMRW ray 6 is one of the 46 extreme rays of C4: True
+LMRW state (R6) as printed differs from ray 6 at (mask, computed, ray 6): [(3, 1.0, 2)]
+LMRW state (R6) as printed: its entropy vector is an extreme ray of C4: False
+Osthus state (3.63) has entropy vector ray 6 (qubits): True
+ALL OK

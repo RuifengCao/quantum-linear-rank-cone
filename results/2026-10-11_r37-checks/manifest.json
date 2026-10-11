@@ -1,0 +1,59 @@
+{
+ "date": "2026-10-11",
+ "tag": "r37-checks",
+ "note": "R37: the paper's verification scripts (checks/) run from the repository, and the full self-test",
+ "files": {
+  "README.txt": {
+   "bytes": 1743,
+   "sha256": "992ffb4249bfa95b854e2938d3f34ab696c0bd3880ed74dbe77414931a97f975"
+  },
+  "check_dfz6.log": {
+   "bytes": 1637,
+   "sha256": "8506fcd6734a5624316e18eca1d3147d08def89f0889b5f8d25e822e41db783e"
+  },
+  "check_facets119.log": {
+   "bytes": 218,
+   "sha256": "6827fe020a1a3d5d695c7fff7affc1f9d9f7572102ac17e37576c0b7df6c883c"
+  },
+  "check_facets119_with_literature.log": {
+   "bytes": 218,
+   "sha256": "1b26de9dc354c4dddc20b01ea0fbaa34e3f088885774ee5c83f6b92de6d5199f"
+  },
+  "check_realizations.log": {
+   "bytes": 1059,
+   "sha256": "7f39fd9fb933d08150216097890af5b8de377ff02580c85f60d973dde65e58c6"
+  },
+  "check_sec3.log": {
+   "bytes": 813,
+   "sha256": "f5f6ee95aac4d845c027cd12a618724dacd3663a6aee27ff98b7b40a96d22455"
+  },
+  "check_sec3_lift.log": {
+   "bytes": 1656,
+   "sha256": "7abf73ea9ef75c77a27d64393ca4e3729e3e9f4cebd4e2700798638903b4d2b3"
+  },
+  "check_sec4a.log": {
+   "bytes": 655,
+   "sha256": "bce39c6ca9c5e351f8b4eb6183281a3c4e787f7d37fb55172a41ff6649e8237f"
+  },
+  "check_sec4b.log": {
+   "bytes": 1232,
+   "sha256": "cb35acba31bd33abe726f5ada3c32736e598c0889da753410b374b8063810f3d"
+  },
+  "check_sec4b_facet.log": {
+   "bytes": 348,
+   "sha256": "ccbd4763e72e8bd5011ed40f01fe27d3cc788280f0effeba5e45e4eb1a06d877"
+  },
+  "check_sec5.log": {
+   "bytes": 2026,
+   "sha256": "a8bcc15fd48ba17b7b08878fece2c2028005066c50178d982bd69591e9a11f92"
+  },
+  "check_sec6.log": {
+   "bytes": 3858,
+   "sha256": "3fe35ed925b26b49a3845646578037a7ff4e6b56ed37fd83b2168ffff1665ae4"
+  },
+  "selftest_full.log": {
+   "bytes": 7434,
+   "sha256": "b5287ee2e67a09f20c02827979a2031f2eb5fc8d749ca939488f273b8ef91a90"
+  }
+ }
+}

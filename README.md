@@ -5,11 +5,18 @@ Machine-certified data and tools for the **five-party quantum linear rank cone**
 suite of verification gates. Self-contained: no `psitip` dependency, all input
 data bundled, a static Normaliz binary included, resumable long runs.
 
-> **Status: work in progress.** Everything in `data/` is machine-certified by
-> the gates in `selftest.py`, but several transcription and literature claims
-> are still awaiting independent human verification (see §7 and
-> `CHANGELOG.md`, which also records all errata). Treat the repository as a
-> research notebook with reproducible artefacts, not as a refereed publication.
+> **Status (R37, 2026-10-11).** Release R37 is the archived version cited by
+> the paper *Stabilizer entropy cones as self-dual slices of linear rank cones:
+> a five-party gap and dependence on the local dimension* (X. Song and R. Cao,
+> 2026). Everything in `data/` is machine-certified by the gates in
+> `selftest.py`, and the numbers quoted in the paper are recomputed by the
+> separate scripts in `checks/`. The proofs used in the paper and the
+> transcriptions they rely on were checked line by line by hand before the paper
+> was submitted, and its literature claims were checked against the sources.
+> The rest of the repository remains a research notebook with reproducible
+> artefacts, not a refereed publication; where the notes in `docs/` and the
+> paper differ, the paper is authoritative. `CHANGELOG.md` records every round
+> and all errata.
 
 The repository grew out of an internal project (code name *EPR-1*, "complete
 characterisation of the quantum entropy cone", plan A: reduce the n = 5 case to
@@ -17,6 +24,26 @@ decisions about three cones). Internal shorthand that survives in file names
 and the changelog is explained in the glossary at the end.
 
 ---
+
+## The paper and its verification scripts (R37)
+
+- **The paper.** It shows that, after a linear lift, the n-party stabilizer
+  entropy cone of local dimension d is the self-dual slice of the cone of rank
+  functions of n + 1 subgroups of abelian groups of exponent dividing d (for
+  prime d, of subspaces over GF(d)). From this it derives a five-party gap
+  between the stabilizer cone and QLR₅ and the dependence of the stabilizer cone
+  on the local dimension. Its results are those of rounds R27-R36, written up in
+  `docs/A2_stabilizer_vs_QLR.md` and `docs/R32_reduction_and_local_dimension.md`;
+  Table VI of the paper maps each result to these notes, to the gates of
+  `selftest.py` and to the scripts below.
+- **`checks/`.** The verification scripts of the paper. They read `data/` and
+  `results/` but not the code of the repository, except for the transcriptions
+  of the published seven-variable inequalities used by `check_sec6.py`. Run
+  them from `checks/`, e.g. `cd checks && python3 check_sec3.py`. They need
+  numpy, scipy and sympy; `check_sec4a.py` also needs `lrs`, and `check_sec3.py`
+  compiles a small C helper with `gcc`. Each script ends with `ALL OK`, except
+  two that print counts; `checks/README.md` lists what each one covers.
+- **Conventions** for subsets, the purifier and the stored certificates: §6a.
 
 ## 0. Status at a glance (read this first)
 
@@ -235,8 +262,10 @@ and the changelog is explained in the glossary at the end.
   1.13 M pool, the 760 six-qubit and 1,130 qutrit graph states, or any of the 747
   realisation certificates. Literature anchor: DFZ's printed six-variable
   inequalities (44)–(48), with the purifier as sixth variable, already exclude
-  45,292 catalogue orbits. Write-up with full proofs:
-  `docs/A2_stabilizer_vs_QLR.md` (human review pending).
+  45,292 catalogue orbits (reproduced by `checks/check_dfz6.py`, which carries the
+  transcription of DFZ eqs. (44)–(63)). Write-up with full proofs:
+  `docs/A2_stabilizer_vs_QLR.md` (the proofs used in the paper were checked by hand
+  before submission, R37).
 - [x] **A2 resolved in the negative: the five-party stabilizer cone is strictly
   smaller than the QLR₅ cone (R27, 2026-09-30).** QLR₅ here is the cone of
   Bao–Cheng–Hernández-Cuenca–Su (SciPost Phys. 9 (2020); arXiv:2002.05317 §2.3):
@@ -360,7 +389,8 @@ single-source lines in `data/dfz_ref28.csv`; optional `rays5` cross-check.
 
 ## 1. Requirements
 
-- Python ≥ 3.8, `pip install -r requirements.txt` (numpy, scipy).
+- Python ≥ 3.8, `pip install -r requirements.txt` (numpy, scipy; sympy is needed
+  only by the scripts in `checks/`).
 - `gcc` for the C helpers used by s7 (OpenMP optional but recommended; without
   it the tools run single-threaded and print a warning).
 - `lrs` only for re-enumeration / seeding (optional): `apt-get install -y lrslib`
@@ -627,7 +657,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | --- | :-: | --- |
 | `M_LR.npy` | 1,790 | LR instance family extracted from psitip (27 classes; historical) |
 | `CLR_H.npy` / `CLR_H_fixed.npy` | 1,875 / **1,905** | classical cone H-representation (fixed = + the 30 instances of the Ingleton(39) orbit) |
-| `REF28.npy` + `dfz_ref28.csv` | 28 | reference family (24 DFZ inequalities + 4 Ingleton forms); the CSV carries source tags and the list of single-source lines awaiting human check |
+| `REF28.npy` + `dfz_ref28.csv` | 28 | reference family (24 DFZ inequalities + 4 Ingleton forms); the CSV carries source tags and names the 11 single-source lines, which were checked by hand against DFZ in R37 |
 | `templates27.npy` / `templates28.npy` | 27 / 28 | substitution templates (28 = current) |
 | `ING39_orbit.npy` | 30 | S₅ instances of Ingleton(39) |
 | `graphstate_vecs.npy` | 760 | entropy vectors of the six-vertex GF(2) graph states (judge) |
@@ -676,22 +706,52 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 Build products (`QLR_H_*.npy`) are not committed; s1 regenerates them in
 seconds and checks the sha.
 
+## 6a. Conventions in data and certificate files
+
+- **Subsets (mask order).** A vector on the nonempty subsets of k named elements
+  is stored with the subset X at index (mask of X) − 1, where the j-th element
+  in the stated order is bit j (least significant bit first). For five parties
+  A, …, E are bits 0-4 (31 coordinates); for four parties (`s26_*`, `s30_*`) the
+  parties are bits 0-3 (15 coordinates); seven-variable forms and vectors list
+  their variables in the order given in the table above (for example A, B, C, W,
+  X, Y, Z = bits 0-6 in `s31_six_party.npz`; 127 coordinates).
+- **The purifier.** Where a purifier is needed it is the next bit (F = bit 5 for
+  five parties, bit 4 for four parties). Entropy vectors are stored on the
+  subsets of the parties only; the value on a set that contains the purifier is
+  that of its complement (purity), as in `epr1kit.stabcert.entropy6`.
+- **Exclusion certificates** (`s17_exclusions.json`, `s18_exclusions.npz`,
+  `s22_*.json`). The seven elements are A, …, F = bits 0-5 and the common
+  information Z = bit 6. X and Y are masks over A, …, F. A Shannon multiplier
+  with index k (or a typed term `["E", k]`) refers to the k-th row of
+  `epr1kit.stabcert.elemental(7)`: first the seven rows h(N) − h(N∖i) ≥ 0,
+  i = 0, …, 6, then, for each pair i < j in lexicographic order, the rows
+  I(i; j | K) ≥ 0 with K running over the subsets of the other five elements in
+  decreasing numerical order, from all five down to the empty set. Typed terms
+  `["I", a, b, c, d, K]` are the conditional Ingleton rows of
+  `epr1kit.stabcert.ingleton_row`. The stored S-form F′ has 31 integer
+  coefficients in mask order.
+- **Self-dual Shannon certificates** (`s30_selfdual_shannon_certs.npz`) index the
+  rows of `elemental7` in `scripts/s30_dimension_profile.py`. The order is the
+  same except that K runs in increasing numerical order, from the empty set up.
+- **Realisation certificates** (`s16_*`, `s21_*`, `s24_*`, `s26_*`, `s30_stab4_unimodular.npz`).
+  The qudits of each party form one consecutive block, in the order of the
+  parties, with the purifier last; `sizes` gives the block sizes, and λ is the
+  multiple of the ray that the state realises. In `s16_realisations.npz`, row i
+  of the adjacency matrix is a uint64 whose bit j is the entry (i, j). In
+  `s24_qubit_l2_certs.npz` the GF(4) matrices encode 0, 1, a, 1 + a as 0, 1, 2, 3,
+  with a² = a + 1.
+
 ## 7. What next, and how
 
-**⓪ A2 after R30, R32.** (a) Human novelty check (≥ 3 communities: quantum
-information / entropy cones; information theory / linear rank inequalities;
-matroid theory / representability) before any claim leaves the repository —
-now including the 646 CI+Ingleton classes against DFZ's six-variable lists
-and the two R32 theorems (the converse direction of Theorem 1 and the
-local-dimension dependence of Theorem 2 were not found in LMRW, Gross–Walter,
-BCHS or Majenz's thesis by an AI pre-check); human reading of the R32/R33 proofs
-(Lemma 4 above all), of the R34 note §4.6 (Theorem 1(d), Lemma 4(G), Theorem 5), of the R36 note §4.8
-(Theorem 9: the transfer Lemmas 0, A–E) and of
-DFZ arXiv:1311.4601 eqs. (65)/(91) (Peña–Sarria arXiv:1905.00003 Example 6 is only a
-cross-check); read the "technical assumption on the local dimension" of Majenz's
-Cor. 5.12 (arXiv:1810.12845) and Khazaei arXiv:2608.09543 by hand; then write to the BCHS authors. Optional: check whether the IEEE version of DFZ
-arXiv:1401.2507 still prints the false Theorem 3.1 (pitfall 20) and, if so, tell the authors; likewise for
-BKL's eq. (6.17) (pitfall 21; check the published version first). (b) The 1,155 undecided orbits
+**⓪ A2 after R30, R32.** (a) Done for the paper (R37): the proofs it uses were
+read line by line, the transcriptions it relies on were checked against the
+sources, and a prior-work search was made; the prior work found is credited in
+the paper and listed in `docs/R32_reduction_and_local_dimension.md` §6. Still
+optional: write to the BCHS authors; tell the authors of DFZ arXiv:1401.2507,
+whose IEEE version still prints the false Theorem 3.1 (pitfall 20); check the
+published version of BKL's eq. (6.17) (pitfall 21; Peña-Macias and Sarria noted
+the error in 2021); read the "technical assumption on the local dimension" of
+Majenz's Cor. 5.12 (arXiv:1810.12845) by hand. (b) The 1,155 undecided orbits
 (`results/2026-10-02_a2-status/`): most need 21–40 qubits at λ = 1, where 60 s
 of annealing mostly ends far from a realisation, so stronger searches
 (longer, λ = 2, restarts from the best states) are the obvious server job.
@@ -734,10 +794,9 @@ different rigour and must be reported separately); s10 ends with
 `facet classes N  redundant M` (N + M = 84); s11 packages everything with the
 three logs.
 
-**③ Human checks pending.** (a) The 11 single-source lines of
-`data/dfz_ref28.csv` (`dfz10, 11, 13, 14, 15, 16, 19, 20, 21, 22, 23`) against
-DFZ eqs. (10)–(23) — the CSV comment lines print the original I-notation; the
-ar5iv rendering of arXiv:0910.0284 is a convenient second source. (b) The
+**③ Human checks.** (a) Done (R37): the 11 single-source lines of
+`data/dfz_ref28.csv` (`dfz10, 11, 13, 14, 15, 16, 19, 20, 21, 22, 23`) and the
+Ingleton form (39) were checked by hand against DFZ eqs. (10)–(23) and (39). (b) The
 stabilizer realisability of the small-coordinate new orbits in
 `qlr5_new_small200` (the practical front line of the S7 conjecture; 31 new
 orbits have maximum coordinate ≤ 5) — superseded by R27. (c) Inequality
@@ -782,10 +841,12 @@ This repository is public at
   back through `results/` (never through chat uploads). `.gitignore` ignores
   scratch files at the repository root only; everything under `results/` is
   committed. Files above 50 MB go to GitHub Releases.
-- **Citing:** `CITATION.cff` holds the metadata; a Zenodo DOI will be attached
-  to the first tagged release.
-- **Licences:** code MIT, data CC-BY-4.0, `bin/normaliz` is an unmodified
-  GPL-3 binary of Normaliz (provenance in `bin/`).
+- **Citing:** `CITATION.cff` holds the metadata. Tagged releases are archived at
+  Zenodo; R37, the first, is the version cited by the paper, and its DOI is
+  given in the release notes on GitHub.
+- **Licences:** code MIT (`LICENSE`), data CC BY 4.0 (`LICENSE-DATA`),
+  `bin/normaliz` is an unmodified GPL-3 binary of Normaliz (provenance in
+  `bin/`).
 
 ## 10. Glossary of internal shorthand
 

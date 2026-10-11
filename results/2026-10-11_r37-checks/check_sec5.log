@@ -1,0 +1,20 @@
+t = 2: (LB, LA) on the pulled-back contraction, units of log p, self-dual, h_S = 2r: {2: (-2.0, 0.0, True, True), 3: (0.0, -2.0, True, True), 5: (0.0, -2.0, True, True)}
+t = 3: (LB, LA) on the pulled-back contraction, units of log p, self-dual, h_S = 2r: {3: (-2.0, 0.0, True, True), 5: (0.0, -2.0, True, True), 7: (-0.0, -2.0, True, True)}
+t = 5: (LB, LA) on the pulled-back contraction, units of log p, self-dual, h_S = 2r: {5: (-2.0, -0.0, True, True), 7: (0.0, -2.0, True, True)}
+Proposition 2 (one cut) checked for t = 2..5 and primes ell <= 13 with ell not dividing t-1
+t = 2, ell = t: sets with rank drop (up to complement): [71]  expected: [71]
+t = 3, ell = t: sets with rank drop (up to complement): [271]  expected: [271]
+t = 5, ell = t: sets with rank drop (up to complement): [4159]  expected: [4159]
+Z_4, t = 2: self-dual True; (LA)_t = -2.000000 log p, (LB)_t = -2.000000 log p
+   Z_4 cube vector = qubit cube vector + qutrit cube vector (trits): True
+Z_8, t = 4: self-dual True; (LA)_t = -2.000000 log p, (LB)_t = -4.000000 log p
+Z_9, t = 3: self-dual True; (LA)_t = -2.000000 log p, (LB)_t = -2.000000 log p
+t = 2 over GF(2) : (LB) not valid, min -1.000; (LA) valid, min 0.000; samples violating an invalid form: 29/120
+t = 2 over GF(3) : (LB) valid, min 0.000; (LA) not valid, min -1.585; samples violating an invalid form: 22/120
+t = 2 over GF(5) : (LB) valid, min 0.000; (LA) not valid, min -2.322; samples violating an invalid form: 27/120
+t = 3 over GF(2) : (LB) valid, min 0.000; (LA) not valid, min -1.000; samples violating an invalid form: 23/120
+t = 3 over GF(3) : (LB) not valid, min -1.585; (LA) valid, min 0.000; samples violating an invalid form: 21/120
+t = 2 over Z_9   : (LB) valid, min 0.000; (LA) not valid, min -3.170; samples violating an invalid form: 28/120
+t = 3 over Z_4   : (LB) valid, min 0.000; (LA) not valid, min -2.000; samples violating an invalid form: 27/120
+t = 4 over Z_4   : (LB) not valid, min -2.000; (LA) valid, min 0.000; samples violating an invalid form: 12/50
+ALL OK

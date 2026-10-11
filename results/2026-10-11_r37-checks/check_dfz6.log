@@ -1,0 +1,13 @@
+all 20 transcribed inequalities balanced: True
+random arrangements tested: 6000 (4 s); minimum value of each inequality: {44: 0, 45: 0, 46: 0, 47: 0, 48: 0, 49: 0, 50: 0, 51: 0, 52: 0, 53: 0, 54: 0, 55: 0, 56: 0, 57: 0, 58: 0, 59: 0, 60: 0, 61: 0, 62: 0, 63: 0}
+pulled-back forms (distinct per inequality): {44: 720, 45: 360, 46: 360, 47: 720, 48: 180, 49: 360, 50: 360, 51: 180, 52: 360, 53: 15, 54: 720, 55: 720, 56: 720, 57: 720, 58: 720, 59: 180, 60: 720, 61: 720, 62: 720, 63: 720}  total 10275
+six-qubit graph-state vectors: 760, minimum over all pulled-back forms: 0
+catalogue evaluated in 31 s
+catalogue orbits: 1917706; cut by at least one of (44)-(63): 149922
+cut by (44)-(48): 45292
+cut per inequality: {44: 8513, 45: 18003, 46: 14432, 47: 28168, 48: 8702, 49: 0, 50: 0, 51: 0, 52: 36, 53: 0, 54: 6325, 55: 986, 56: 0, 57: 0, 58: 2035, 59: 119404, 60: 0, 61: 6775, 62: 167, 63: 1053}
+status of cut orbits (0 excluded by CI, 1 realised, 2 undecided, 3 excluded with Ingleton): {0: 149922, 1: 0, 2: 0, 3: 0}
+undecided orbits newly cut: 0
+frontier rays cut: [70, 126, 155, 156, 157, 172, 176, 189, 220, 233, 236, 240, 241, 244, 252, 264, 271, 272, 279, 280, 289, 291, 293, 296, 297]  by: {70: [59], 126: [59], 155: [59], 156: [59], 157: [59], 172: [45], 176: [59], 189: [59], 220: [59], 233: [55], 236: [59], 240: [59], 241: [59], 244: [59], 252: [59], 264: [59], 271: [59], 272: [59], 279: [58], 280: [59], 289: [61], 291: [55], 293: [59], 296: [59], 297: [59]}
+witness r (frontier 275): [2, 2, 3, 1, 3, 3, 4, 1, 3, 3, 4, 2, 4, 3, 3, 2, 3, 3, 3, 3, 4, 3, 3, 3, 3, 4, 3, 3, 3, 3, 2]  minimum over all pulled-back forms: 0
+ALL OK

@@ -1,0 +1,6 @@
+(a) six-qubit graph states: 760  min(star): 0  tight: 140  rank: 30
+(a) rank of all six-qubit graph-state vectors (31 = full dimension): 31
+(b) s16 certificates re-verified: 762 of 762
+   s24 keys: ['catalogue_index', 'rep', 'q', 'lam_q', 'p', 'lam', 'sizes', 'G', 'Wq']
+(b) S6 images: 239653  min(star): 0
+tight vectors in (a)+(b): 1414  rank: 30

@@ -1,5 +1,41 @@
 # CHANGELOG
 
+## R37 (2026-10-11) -- archived release for the paper; verification scripts; licences and citation metadata
+- **Paper.** R37 is the version cited by *Stabilizer entropy cones as self-dual slices of linear rank cones: a
+  five-party gap and dependence on the local dimension* (X. Song and R. Cao, 2026). Its results are those of rounds
+  R27-R36 (`docs/A2_stabilizer_vs_QLR.md`, `docs/R32_reduction_and_local_dimension.md`); Table VI of the paper maps
+  them to the notes, the gates and the scripts in `checks/`. The proofs used in the paper and the transcriptions they
+  rely on were checked line by line by hand before submission, and its literature claims were checked against the
+  sources.
+- **`checks/` (new).** The paper's verification scripts: ten scripts `check_*.py`, the helper module `common.py`,
+  the C helper `q2_gf3.c`, `README.md` (what each script covers) and `references_log.md` (how each reference of the paper was
+  checked). They read `data/` and `results/` but not the repository code, except for the transcriptions of the
+  published seven-variable inequalities used by `check_sec6.py`. Run from `checks/`, every script ends with
+  `ALL OK`, except `check_sec4b_facet.py` and `check_facets119.py`, which print counts (1,414 tight vectors of rank
+  30; 117 facets, 119 with `--with-literature`). `check_sec4a.py` also recomputes, from state vectors, the state
+  (R6) of Linden et al. (as printed, S(ab) = 1 instead of 2 on ray 6 of their Table 1, and its entropy vector is not
+  an extreme ray) and the qubit state that N. Osthus gave for that ray.
+- **Notes.** The status lines of both notes now point to the paper, which is authoritative where they differ. The
+  R32 note §6 lists the prior work found by the literature check: Matúš 2012 (the lift and fact (c) of Theorem 1);
+  Jowett-Mo-Whittle 2016; Sarvepalli-Raussendorf 2010 (the matroid case of the converse of Theorem 1); Osthus 2024
+  (for prime d, the CSS entropy formula and the doubling; the question whether the local dimension matters; the
+  misprint in (R6)); Peña-Macias-Sarria 2021 (inequalities for the configuration J - I for every t; the failure of
+  BKL's (6.17)); Walter-Witteveen 2021 with BCHS (Theorem 7 for prime d); the conjecture of Linden et al.;
+  Feng-Luo 2024. §3.2, §4.4, §4.5 and §5 of the R32 note are updated accordingly; in particular, for squarefree d
+  the Z_d cone lies in the closed convex hull of the prime cones, so the question of §5 is open only when d is
+  divisible by the square of a prime.
+- **Conventions.** README §6a documents the mask order of subsets, the bits of the purifier and of the common
+  information, the block order of realisation certificates, and the two orders of the Shannon elemental inequalities
+  used by stored certificates (`epr1kit.stabcert.elemental` and `elemental7` in `scripts/s30_dimension_profile.py`).
+- **Human checks.** README §7: the eleven single-source lines of `data/dfz_ref28.csv` and the Ingleton form (39)
+  were checked by hand against DFZ; the novelty and literature checks of item ⓪ were done for the paper.
+- **Licences and citation.** `LICENSE` is now the full MIT text (code: `epr1kit/`, `scripts/`, `cc/`, `checks/`,
+  `selftest.py`); `LICENSE-DATA` states CC BY 4.0 for `data/` and `results/` and the GPL-3 licence of
+  `bin/normaliz`. `CITATION.cff`: title "quantum-linear-rank-cone: Data, certificates and code for stabilizer
+  entropy cones" (as cited in the paper), version R37, ORCIDs and affiliations. `requirements.txt` adds sympy (needed
+  by `checks/` only). `VERSION`: R37.
+- No code in `epr1kit/`, `scripts/` or `cc/` and no data changed.
+
 ## R36 (2026-10-02) -- six parties already separate qubits from every odd local dimension
 - **Theorem 9 (proved).** Stab^(2)_n is not contained in Stab^(Z_d)_n for every odd d and every n >= 6
   (`docs/R32_reduction_and_local_dimension.md`, section 4.8). Before, this was known from n = 7 (Theorem 2), and the

@@ -5,8 +5,17 @@ as a computation is reproducible with the scripts and data named in brackets;
 everything stated as a proof is proved here. Status flags: **[proved]** — proof
 in this note; **[cited]** — standard result, reference checked; **[certified]** —
 exact rational certificate, re-checked by an independent implementation
-(`epr1kit/stabcert.py`, gate G20). Human line-by-line review of this note is
-pending.
+(`epr1kit/stabcert.py`, gate G20).
+
+**R37 (2026-10-11).** The results of this note are presented, with full proofs,
+in the paper *Stabilizer entropy cones as self-dual slices of linear rank
+cones: a five-party gap and dependence on the local dimension* (X. Song and
+R. Cao, 2026), Secs. IV B-C and Appendix B; Table VI of the paper maps its
+results to the sections of this note. Those proofs and the transcriptions they
+rely on were checked line by line by hand before the paper was submitted, and
+the numbers it quotes are recomputed by the scripts in `checks/`. Where this
+note and the paper differ, in statements, numbering, attributions or
+references, the paper is authoritative.
 
 Round R32 adds `docs/R32_reduction_and_local_dimension.md`: an exact reduction of stabilizer entropy cones to
 linear rank cones (which settles S7′ below) and a proof that the stabilizer cones of qubits and of odd-prime

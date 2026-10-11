@@ -1,0 +1,15 @@
+Licences in this repository
+
+Code. The code in epr1kit/, scripts/, cc/, checks/ and selftest.py is licensed
+under the MIT License; see LICENSE.
+
+Data. The data in data/ and results/ are licensed under the Creative Commons
+Attribution 4.0 International License (CC BY 4.0):
+https://creativecommons.org/licenses/by/4.0/
+Copyright (c) 2026 Ruifeng Cao and Xidan Song.
+To cite the data, see CITATION.cff.
+
+Third-party binary. bin/normaliz is an unmodified binary of Normaliz 3.11.1,
+redistributed under its own licence, the GNU General Public License version 3;
+see bin/NORMALIZ_LICENSE and bin/NORMALIZ_PROVENANCE.txt. It is used only for
+cross-checks and is not covered by the MIT License or by CC BY 4.0.

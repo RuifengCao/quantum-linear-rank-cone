@@ -1,0 +1,4 @@
+stored qubit realizations by multiplicity lambda: {1: 752, 2: 36, 3: 1}  total: 789
+pool: (248184, 31)
+minimum over pool and classes: 0
+classes certified as facets of the qubit cone (exact, rank mod 1000003 = 30): 119

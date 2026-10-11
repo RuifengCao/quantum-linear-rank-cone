@@ -1,0 +1,39 @@
+h_F by type: {'1': [2], '2': [4], 'triple': [6], 'line': [5], '4set': [7], 'linecompl': [6], '5': [7], '6': [7], '7': [7]}
+Nielsen-Chuang |0_L> codewords = row space of [binary 1..7]: True
+state vector: h_S == r_F + r_F*: True  (h_S of all seven systems: 7.0 )
+DFZ forms: ['dfz65_odd', 'dfz91_even']  BKL forms: ['bkl68_even', 'bkl617_odd', 'bkl617_odd_corrected']
+(LB)_2 equals the printed 19-term form: True
+DFZ (65)                 valid in odd  char: f(r_F) =  -1, f(r_NF) =   2; f+f.D Shannon certificate exact: True, support 114, denominator 46
+DFZ (91)                 valid in even char: f(r_F) =   0, f(r_NF) =  -1; f+f.D Shannon certificate exact: True, support 82, denominator 2
+(LA)_2                   valid in even char: f(r_F) =   0, f(r_NF) =  -1; f+f.D Shannon certificate exact: True, support 52, denominator 1
+(LB)_2                   valid in odd  char: f(r_F) =  -1, f(r_NF) =   0; f+f.D Shannon certificate exact: True, support 107, denominator 15
+Pena-Sarria (a), t=2     valid in even char: f(r_F) =   0, f(r_NF) =  -1; f+f.D Shannon certificate exact: True, support 61, denominator 1
+Pena-Sarria (b), t=2     valid in odd  char: f(r_F) =  -1, f(r_NF) =   0; f+f.D Shannon certificate exact: True, support 105, denominator 4
+BKL (6.8)                valid in even char: f(r_F) =   0, f(r_NF) =  -1; f+f.D Shannon certificate exact: True, support 59, denominator 1
+BKL (6.17) corrected     valid in odd  char: f(r_F) =  -1, f(r_NF) =   0; f+f.D Shannon certificate exact: True, support 98, denominator 2
+Pena-Macias-Sarria Thm 9 (x3): Fano -1, non-Fano 0; Thm 7: Fano 0, non-Fano -1
+3 x Thm 9 == (LB)_2 - 3 I(A;B): True
+PMS Theorem 9 (x3), n=2  f+f.D Shannon certificate exact: True, support 110
+PMS Theorem 7, n=2       f+f.D Shannon certificate exact: True, support 59
+App. E identity: PMS Theorem 7 (n=2) == (6.8) True
+App. E identity: 3 x PMS Theorem 9 == (b) + 3 I(B;C) True
+App. E identity: (6.8) == (a) + I(B;C) True
+App. E identity: (b) == (LB)_2 - 3 I(A;B) - 3 I(B;C) True
+pairs of the eight forms related by a relabeling (up to scaling): []
+min over 5040 relabelings: (LB)_2 on h_F: 17  DFZ(65) on h_F: 19  (LA)_2 on h_NF: 6  DFZ(91) on h_NF: 16
+f9 recomputed from the transfer equals the stored f9: True  terms: 67
+f9(h_F) = -3  f9(r_F) = -3  f9(r_F*) = 0  f9(h_NF) = 81  f9(r_NF) = 33
+f9 = +36 h(A) +45 h(B) +54 h(C) +18 h(W) +21 h(X) +21 h(Y) +45 h(Z) -10 h(AB) -10 h(AC) -42 h(AW) -42 h(AX) -45 h(AY) -13 h(AZ) -22 h(BC) -51 h(BW) -36 h(BX) -42 h(BY) -10 h(BZ) -36 h(CW) -51 h(CX) -51 h(CY) -10 h(CZ) -13 h(WX) -10 h(WY) -51 h(WZ) -13 h(XY) -51 h(XZ) -51 h(YZ) -36 h(ABC) +103 h(ABW) -9 h(ABZ) +103 h(ACX) -9 h(ACZ) +100 h(AYZ) +115 h(BCY) -9 h(BCZ) +88 h(BXZ) +88 h(CWZ) +36 h(WXY) +48 h(ABCZ) +92 h(ABXY) +92 h(ACWY) +104 h(AWXZ) +98 h(BCWX) +98 h(BWYZ) +98 h(CXYZ) -42 h(ABCWX) -42 h(ABCWY) -14 h(ABCWZ) -42 h(ABCXY) -14 h(ABCXZ) -20 h(ABCYZ) -14 h(ABWXY) -42 h(ABWXZ) -42 h(ABWYZ) -36 h(ABXYZ) -14 h(ACWXY) -42 h(ACWXZ) -36 h(ACWYZ) -42 h(ACXYZ) -20 h(AWXYZ) -20 h(BCWXY) -36 h(BCWXZ) -42 h(BCWYZ) -42 h(BCXYZ) -14 h(BWXYZ) -14 h(CWXYZ)
+f9/3 on the invariant slice: -130*v1 - 430*v2 + 421*v3L - 21*v3N
+  = 210 v1 + 30 alpha + 21 nu - 421 mu: True
+  = 210 beta + 30 alpha + 21 nu - mu: True
+h_F parameters: v1, v2, v3L, v3N = 2 4 5 6
+tight Shannon elementals at h_F  : 385, rank 125
+tight Shannon elementals at r_F  : 490, rank 126
+tight Shannon elementals at r_F* : 490, rank 126
+tight Shannon elementals at h_NF : 367, rank 125
+tight Shannon elementals at r_NF : 487, rank 126
+tight Shannon elementals at r_NF*: 487, rank 126
+App. H, BKL (6.17): printed form on A,B,C = e1,e2,e3, Z = e1+e2+e3 over GF(2,3,5,7): [-3, -3, -3, -3]  corrected: [6, 6, 6, 6]  corrected on Fano: -1  corrected = (LB)_2 - 6 I(A;B): True
+App. H, DFZ Thm 3.1 as transcribed: right-hand side minus left-hand side on C = X, others 0: -4
+ALL OK

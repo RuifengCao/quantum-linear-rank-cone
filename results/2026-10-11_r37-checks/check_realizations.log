@@ -1,0 +1,11 @@
+GF(4) graph states behind the 16 qubit certificates at twice the scale reproduce their vectors: True
+orbits with an explicit qubit realization (recomputed over GF(2)): 629  without: 12 [6, 7, 15, 34, 39, 40, 42, 43, 44, 46, 48, 50]
+qutrit realizations (recomputed over GF(3)): first realized with qutrits 16  others 80  overlap 0  total 96
+the 16: all have stored qubit realizations: True  smallest multiplicity among them: [2]
+others with N <= 11: 67  all among the 80: True ;  others with N = 12: 47  among the 80: 13 ;  the 80 with N > 12: 0
+largest N among the 96: 16 ;  among the 641: 30
+the 80: qutrit multiplicity 1: 73  2: 7 ;  without explicit qubit realization: 11
+the 12 without explicit qubit realization are among the 58 other than vector 15: True
+their graph-state vectors 11 and 15 are among the 96: True ;  of the 58 other than vector 15, not among the 96: 26 ;  known in the qutrit cone: 122
+R30 qutrit search: p = 3  orbits then undecided: 2070  searched: 1969  realized: 0 ;  includes the 11 realized by qubits in the same run: True
+ALL OK
