@@ -1,0 +1,15 @@
+Strategy probe (R38): a random sample of 20 rows that passes 1 and 2 had not certified (random.seed(1) over the
+open rows with a qubit certificate at multiplicity 1), 10 s per row, seed 101, active primes 2, 3, 2^31 - 1.
+Rows: 340,366,390,402,409,448,465,504,506,521,529,534,539,541,563,574,585,631,633,639
+
+setting                                                         certified  rows
+plain, sweeps 50, no neutral moves                                1/20     465
+ring Z[omega] from the qubit certificate, sweeps 50, no neutral moves  3/20     465 541 574
+ring Z[i] from the qubit certificate, sweeps 50, no neutral moves  1/20     534
+plain, sweeps 50, neutral moves with probability 0.2              8/20     366 340 390 521 529 539 541 563
+ring Z[omega], sweeps 50, neutral 0.2                             5/20     390 409 521 534 541
+plain, sweeps 50, neutral 0.5                                     8/20     366 390 340 402 521 534 539 541
+plain, sweeps 200, neutral 0.5  (used as "neutral")              11/20     340 390 366 409 402 521 534 529 541 563 639
+plain, sweeps 50, neutral 0.8, T0 = 1.5                           2/20     366 521
+plain, sweeps 800, neutral 0.5                                   10/20     366 340 390 409 402 521 534 563 541 631
+plain, sweeps 200, neutral 0.3                                    9/20     366 390 340 409 521 534 529 541 563

@@ -664,6 +664,43 @@ def main():
          f'{"/".join(str(x) for x in inv35)} on (v_P, alpha, nu, mu); lemma slacks >= 0 {oklem35} (GF(2) chain min '
          f'{lem35[2]["f9(h)"]}); random minima {st35}; Shannon faces of h_F, h_NF = cone(r, r*) (ranks 125/126) {okfc35}')
 
+    # G36 (R38): five parties -- unimodular realisations of the known extreme rays of Stab_5 (roadmap item S5(a);
+    # docs/R32_reduction_and_local_dimension.md section 4.9).  Every stored integer matrix W of
+    # data/s32_stab5_unimodular.npz is a graph state whose 31 visible cut blocks have Smith invariants 0 and 1 only and
+    # rational rank kappa * r(X) (exact diagonal forms over Z, M1), so W mod d realises kappa * r for every d >= 2.  The
+    # rows are distinct rows of data/stab5_extreme_reps.npy, stored with the catalogue representative; the file and its
+    # content hash match the manifest.  G36b (--full): the second exact method (rational rank and t x t minors with gcd
+    # 1, M2), ranks over GF(p) for p <= 19, Z_4 and Z_6 state vectors of the small certificates, and the self-test of
+    # scripts/s32_unimodular.py (neutral moves keep Smith forms; ring expansion; the Z_d cut formula).
+    import s32_unimodular as _s36
+    S36 = _s36.check(full=False)
+    M36 = MAN['s32_stab5_unimodular']
+    file36 = (_h33.sha256(open(os.path.join(core.DATA, 's32_stab5_unimodular.npz'), 'rb').read()).hexdigest()
+              == M36['file_sha256'] and _s36.content_sha() == M36['sha256'])
+    gate('G36 five-party unimodular', S36['ok'] == S36['stored'] == S36['distinct_rows'] == M36['rows'] and S36['rep_ok']
+         and file36,
+         f'{S36["ok"]}/{S36["stored"]} stored certificates exact (unimodular cut blocks), distinct catalogue rows; kappa '
+         f'{dict(sorted(S36["kappa"].items()))}; so {S36["ok"]} of the 641 known extreme rays of Stab_5 lie in Stab^(Z_d)_5 '
+         f'for every d; file and content match the manifest {file36}')
+
+    # G37 (R38): covering certificates for known extreme rays of Stab_5 without a unimodular realisation
+    # (data/s32_stab5_cover.npz; docs/R32_reduction_and_local_dimension.md section 4.9).  For each stored row: rational
+    # realisations W_i (integer matrices with the right rational cut ranks) whose bad primes (the primes dividing a
+    # Smith invariant of some cut block, recomputed exactly) intersect inside the primes of the stored GF(p)
+    # realisations of the row (qubit p = 2, qutrit p = 3).  Then every prime p is covered, so the ray lies in Stab^(p)_5
+    # for every prime p and, by Corollary 3 of the paper, in Stab^(Z_d)_5 for every d.  No row is also in the
+    # unimodular file; the file and its content hash match the manifest.
+    S37 = _s36.check_cover()
+    M37 = MAN['s32_stab5_cover']
+    file37 = (_h33.sha256(open(os.path.join(core.DATA, 's32_stab5_cover.npz'), 'rb').read()).hexdigest() == M37['file_sha256']
+              and _s36.content_sha(_s36.COVER_DEFAULT) == M37['sha256'])
+    gate('G37 five-party covering certificates', S37['pieces_ok'] == S37['pieces'] == M37['pieces']
+         and S37['rows_covered'] == S37['rows'] == M37['rows'] and S37['overlap_unimodular'] == 0 and file37,
+         f'{S37["rows_covered"]}/{S37["rows"]} rows covered for every prime by {S37["pieces_ok"]}/{S37["pieces"]} exact '
+         f'pieces (rational realisations with recomputed bad primes, GF(2) / GF(3) realisations); none overlaps the '
+         f'unimodular file; together with G36, {S36["ok"] + S37["rows_covered"]} of the 641 known extreme rays lie in '
+         f'Stab^(Z_d)_5 for every d; file and content match the manifest {file37}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:
@@ -713,6 +750,13 @@ def main():
              f'f9 minima over all {{0,1}}-point configurations of GF(p)^3: {ex35b} (expect -3, >= 0, >= 0); lemma checks on '
              f'200 families per field: all slacks >= 0 {ok35b}; chain minima '
              + ', '.join(f'GF({q}) {lem35b[q]["f9(h)"]}' for q in (2, 3, 5)))
+
+        S36b = _s36.check(full=True)
+        st36b = _s36.self_test(log=lambda *_x: None)
+        gate('G36b five-party unimodular, second method', S36b['ok'] == S36b['stored'] and S36b['zd_ok'] == S36b['zd_checked']
+             and st36b,
+             f'rational rank + minors with gcd 1, and GF(p) ranks for p <= 19: {S36b["ok"]}/{S36b["stored"]}; Z_4 / Z_6 state '
+             f'vectors {S36b["zd_ok"]}/{S36b["zd_checked"]} certificates; s32 self-test {st36b}')
 
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)

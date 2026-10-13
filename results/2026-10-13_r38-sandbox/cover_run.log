@@ -1,0 +1,6 @@
+$ python3 scripts/s32_unimodular.py --cover --seconds 15 --seed 2001 --raw results/2026-10-13_r38-sandbox/cover_raw.txt
+  cover round 0: 77 jobs in 1 calls; covered so far 4 of 77
+  cover round 1: 95 jobs in 8 calls; covered so far 10 of 77
+  cover round 2: 93 jobs in 7 calls; covered so far 12 of 77
+  cover round 3: 91 jobs in 7 calls; covered so far 13 of 77
+  covering certificates stored for 13 rows

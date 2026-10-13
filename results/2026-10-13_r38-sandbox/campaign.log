@@ -1,0 +1,27 @@
+R38 campaign, 2026-10-13, 2-core sandbox (cc/s32_unimodular.c; kernel arguments: seconds seed amax T0 T1 sweeps
+p_signflip dump_best primes extra ring p_neutral).  Every reported matrix was certified exactly before it was kept
+(diagonal forms over Z, rational rank with minors of gcd 1, GF(p) ranks for p <= 19).  "rows certified" is the running
+total of rows with a unimodular certificate.
+
+pass 1   plain from the qubit certificates (all signs +1, then random signs), 20 s per row, seed 1, sweeps 400,
+         primes 2,3,5,7,2^31-1; catalogue order, stopped after 313 of the 629 rows with a qubit certificate
+         (shorter anneals were better)                                                    272 certified -> 272
+tuning   the 41 failures of pass 1, plain, 10-15 s, seeds 2, 3, 5, 7, sweeps 50                +25 -> 297
+pass 2   plain, 15 s, seed 11, sweeps 50, the other 316 rows                               +100 -> 397 (with the
+         ring tests of Z[i], Z[omega] on four hard rows, +2, and on rows 40, 189, +2)            -> 401
+         CERT-FAIL 607: the kernel (then checking primes up to 97) reported a matrix whose cut block had the Smith
+         invariant 127; rejected by the exact check (row 607 is still open)
+H1       neutral moves (p 0.5), sweeps 200, 10 s, seed 301, all 240 open rows               +91 -> 492
+H2       ring Z[omega] from the qubit certificate (random start without one), 15 s, seed 401; stopped after 85 of
+         149 rows (large rows: many split primes failed in the extra checks)                 +11 -> 503
+ringq    ring Z[omega] from stored qutrit certificates at multiplicity 1, 20 s, seed 701, 21 rows   +16 -> 519
+q2       neutral at kappa = 2 from stored qutrit certificates at multiplicity 2 (rows 7, 43, 44)    +3 -> 522
+later    ring Z[omega] from qutrit certificates, 120 s, seed 901 (rows 614, 617, 627, 628, 629): row 628;
+         GF(3)-only search at multiplicity 1 from random starts (rows 34, 198, 200, 202; 60 s), then ring
+         Z[omega] from the realisations found (34, 198, 202)                                     +4 -> 526
+H3       ring Z[omega] from qutrit certificates, 300 s, seed 1101 (rows 614, 617, 627, 629): none;
+         neutral, sweeps 400, 45 s, seed 1001, 115 rows                                        +28 -> 554
+H4       neutral, 90 s, seed 1201; stopped after 34 of 87 rows to free the cores               +10 -> 564
+cover    scripts/s32_unimodular.py --cover --seconds 15 --seed 2001, rounds 0-3 (cover_run.log): 13 rows covered
+         (data/s32_stab5_cover.npz); with the 564 unimodular rows, 577 of 641 for every d; 64 open
+screen   scripts/s33_ci_oddchar.py on the 77 rows open before the covering run: no exclusion (ci_oddchar.log)

@@ -1,0 +1,830 @@
+{
+ "200": {
+  "N": 12,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "488": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 2,
+  "bad_prime_sets": [
+   [
+    2,
+    3,
+    11
+   ],
+   [
+    2,
+    3
+   ]
+  ],
+  "uncovered": [
+   3
+  ]
+ },
+ "492": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "493": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 1,
+  "bad_prime_sets": [
+   [
+    2,
+    3
+   ]
+  ],
+  "uncovered": [
+   3
+  ]
+ },
+ "495": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "496": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 4,
+  "bad_prime_sets": [
+   [
+    2,
+    3,
+    5
+   ],
+   [
+    2,
+    3,
+    7
+   ],
+   [
+    2,
+    3,
+    11
+   ],
+   [
+    2,
+    3
+   ]
+  ],
+  "uncovered": [
+   3
+  ]
+ },
+ "497": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "501": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 2,
+  "bad_prime_sets": [
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    3,
+    5,
+    7
+   ]
+  ],
+  "uncovered": [
+   3
+  ]
+ },
+ "502": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "503": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 3,
+  "bad_prime_sets": [
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    3,
+    7,
+    11
+   ],
+   [
+    2,
+    3,
+    11
+   ]
+  ],
+  "uncovered": [
+   3
+  ]
+ },
+ "504": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "506": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "508": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "509": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "525": {
+  "N": 20,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 2,
+  "bad_prime_sets": [
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    3,
+    11
+   ]
+  ],
+  "uncovered": [
+   3
+  ]
+ },
+ "539": {
+  "N": 20,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 1,
+  "bad_prime_sets": [
+   [
+    2,
+    5
+   ]
+  ],
+  "uncovered": [
+   5
+  ]
+ },
+ "549": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "556": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "557": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 2,
+  "bad_prime_sets": [
+   [
+    2,
+    3,
+    5,
+    13,
+    17
+   ],
+   [
+    2,
+    3,
+    5,
+    41
+   ]
+  ],
+  "uncovered": [
+   3,
+   5
+  ]
+ },
+ "559": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 2,
+  "bad_prime_sets": [
+   [
+    2,
+    3,
+    7
+   ],
+   [
+    2,
+    3,
+    5
+   ]
+  ],
+  "uncovered": [
+   3
+  ]
+ },
+ "560": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 1,
+  "bad_prime_sets": [
+   [
+    2,
+    5
+   ]
+  ],
+  "uncovered": [
+   5
+  ]
+ },
+ "564": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "569": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "572": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "573": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "574": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 2,
+  "bad_prime_sets": [
+   [
+    2,
+    3,
+    7,
+    17
+   ],
+   [
+    2,
+    3,
+    5
+   ]
+  ],
+  "uncovered": [
+   3
+  ]
+ },
+ "575": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 1,
+  "bad_prime_sets": [
+   [
+    2,
+    3,
+    5
+   ]
+  ],
+  "uncovered": [
+   3,
+   5
+  ]
+ },
+ "576": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "578": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 1,
+  "bad_prime_sets": [
+   [
+    2,
+    3,
+    5,
+    7,
+    13
+   ]
+  ],
+  "uncovered": [
+   3,
+   5,
+   7,
+   13
+  ]
+ },
+ "579": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "580": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "582": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "583": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "584": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 1,
+  "bad_prime_sets": [
+   [
+    2,
+    3,
+    7
+   ]
+  ],
+  "uncovered": [
+   3,
+   7
+  ]
+ },
+ "585": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 2,
+  "bad_prime_sets": [
+   [
+    2,
+    3,
+    5
+   ],
+   [
+    2,
+    3
+   ]
+  ],
+  "uncovered": [
+   3
+  ]
+ },
+ "586": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "587": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "588": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "589": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "590": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "591": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "593": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "594": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "595": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "596": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 1,
+  "bad_prime_sets": [
+   [
+    2,
+    3,
+    5
+   ]
+  ],
+  "uncovered": [
+   3,
+   5
+  ]
+ },
+ "597": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "598": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 1,
+  "bad_prime_sets": [
+   [
+    2,
+    3,
+    5,
+    61
+   ]
+  ],
+  "uncovered": [
+   3,
+   5,
+   61
+  ]
+ },
+ "605": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "606": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "607": {
+  "N": 26,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "609": {
+  "N": 26,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "610": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 1,
+  "bad_prime_sets": [
+   [
+    2,
+    5,
+    23
+   ]
+  ],
+  "uncovered": [
+   5,
+   23
+  ]
+ },
+ "611": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "612": {
+  "N": 30,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "613": {
+  "N": 20,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 2,
+  "bad_prime_sets": [
+   [
+    2,
+    3
+   ],
+   [
+    2,
+    3
+   ]
+  ],
+  "uncovered": [
+   3
+  ]
+ },
+ "630": {
+  "N": 26,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "631": {
+  "N": 25,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "633": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "634": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "635": {
+  "N": 28,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ },
+ "636": {
+  "N": 26,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 1,
+  "bad_prime_sets": [
+   [
+    2,
+    5,
+    7
+   ]
+  ],
+  "uncovered": [
+   5,
+   7
+  ]
+ },
+ "637": {
+  "N": 24,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 1,
+  "bad_prime_sets": [
+   [
+    2,
+    3
+   ]
+  ],
+  "uncovered": [
+   3
+  ]
+ },
+ "638": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 1,
+  "bad_prime_sets": [
+   [
+    2,
+    3,
+    5,
+    11
+   ]
+  ],
+  "uncovered": [
+   3,
+   5,
+   11
+  ]
+ },
+ "640": {
+  "N": 22,
+  "gf_primes": [
+   2
+  ],
+  "rational_realisations": 0,
+  "bad_prime_sets": [],
+  "uncovered": null
+ }
+}

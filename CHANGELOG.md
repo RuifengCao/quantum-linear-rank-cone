@@ -1,5 +1,47 @@
 # CHANGELOG
 
+## R38 (2026-10-13) -- five parties: the known extreme rays over every local dimension (roadmap item S5(a))
+- **Result (certified; checked by an independent referee, an agent with its own code; not yet by hand; not in the paper).** 577 of the 641 known extreme-ray orbits of Stab₅
+  lie in Stab^(Z_d)_5 for every d ≥ 2, hence are extreme rays of it (`docs/R32_reduction_and_local_dimension.md`
+  §4.9). This is the five-party version of the four-party lift behind Theorem 2 of the paper (Theorem 7 of the note).
+  - 564 rows have a *unimodular realisation*: an integer symmetric matrix W whose 31 cut blocks have Smith
+    invariants 0 and 1 only and rational rank κ·r(X); W mod d is a graph state of Z_d qudits with entropy vector
+    κ·r for every d at once. κ = 1 for 513 rows, κ = 2 for 50, κ = 3 for 1.
+  - 13 more rows have *covering certificates*: rational realisations (right rational cut ranks) whose bad
+    primes intersect inside the primes of stored qubit / qutrit realisations of the row. Every prime is covered, and
+    every d by Corollary 3 of the paper.
+  - The 12 BCHS ledger rays without an explicit realisation (rows 6, 7, 15, 34, 39, 40, 42, 43, 44, 46, 48, 50) now
+    have one, at κ = 2: all 641 known extreme rays have explicit qubit realisations (629 before), and
+    577 have explicit qutrit realisations (96 before).
+  - Open: 64 rows (200, 488, 492, 493, 495, 496, 497, 501, 502, 503, 504, 506, 508, 509, 525, 539, 549, 556, 557, 559, 560, 564, 569, 572, 573, 574, 575, 576, 578, 579, 580, 582, 583, 584, 585, 586, 587, 588, 589, 590, 591, 593, 594, 595, 596, 597, 598, 605, 606, 607, 609, 610, 611, 612, 613, 630, 631, 633, 634, 635, 636, 637, 638, 640). For 22 of them a rational realisation is known, and the primes
+    it leaves uncovered are listed in `results/2026-10-13_r38-sandbox/cover_open.json`.
+- **`cc/s32_unimodular.c` (new).** Search kernel: annealing over integer entries in {-1, 0, 1} with ranks over chosen
+  primes (default GF(2), GF(3) and modulo 2^31 - 1 for Q), extra checks for every prime below 1000 and 2^61 - 1;
+  neutral moves (party-local unimodular basis changes, integer local complementations); restriction of scalars from
+  five quadratic orders with the unimodular trace form (κ = 2). It proves nothing by itself.
+- **`scripts/s32_unimodular.py` (new).** Search strategies (plain, neutral, ring-*, qutrit-start, gf3-search-start,
+  and `--cover` for covering certificates); exact certification (`--check`: diagonal forms over Z; `--full` adds the
+  rational rank with t x t minors of gcd 1, ranks over GF(p) for p <= 19, and Z_4 / Z_6 state vectors of the small
+  certificates; `--check-cover`: bad primes recomputed and coverage); `--self-test` (neutral moves keep every cut
+  Smith form; ring expansion; the Z_d cut formula against state vectors). One report of the kernel (row 607, Smith
+  invariant 127) failed the exact check and was rejected; the kernel's extra checks were then extended from primes up
+  to 97 to primes below 1000.
+- **Data and gates.** `data/s32_stab5_unimodular.npz` (gates **G36**, **G36b**) and `data/s32_stab5_cover.npz`
+  (gate **G37**); manifest entries. `selftest.py --full` now has 47 gate lines.
+- **`scripts/s33_ci_oddchar.py` (new, exploratory).** Common information of every disjoint pair plus the seven-variable
+  forms that hold in odd characteristic (DFZ (65), (LB)_2, BKL (6.17) corrected; 8,400 relabelled instances) on the
+  seven-element extension. It excludes none of the rows tested (floating-point verdicts).
+- **Referee.** A separate agent, with its own code (checked against sympy's Smith normal form), re-verified all 564
+  unimodular certificates, all 36 covering pieces and the coverage of all 13 rows, simulated 331 graph states for
+  d = 2, 3, 4, 6, and checked the arguments (lemma, covering, ring construction, neutral moves). No discrepancy; it
+  asked for two hypotheses to be stated (u ≠ u′ in the basis change; the column convention of M(v)), now in §4.9.
+- **Results.** `results/2026-10-13_r38-sandbox/` (2-core sandbox, no server time): campaign log, summary, checks,
+  self-tests, the covering run, the screen, probes.
+- **Note and README.** §4.9 of the R32 note (new); §4.7, §5 and §7 updated. README: §0, §2b, §3, §6, §6a, §7 (⓪′),
+  §9. The five-party pilot of R35 (`s30_dimension_profile.py --n5-pilot`, 40 of the first 60) is superseded.
+- `jobs.json`: server job `s32-unimodular` (not run). No earlier data changed. `VERSION`: R38; `CITATION.cff`
+  unchanged (it describes the archived release R37). No GitHub Release for R38 (it would mint a new Zenodo DOI).
+
 ## R37 (2026-10-11) -- archived release for the paper; verification scripts; licences and citation metadata
 - **Paper.** R37 is the version cited by *Stabilizer entropy cones as self-dual slices of linear rank cones: a
   five-party gap and dependence on the local dimension* (X. Song and R. Cao, 2026). Its results are those of rounds

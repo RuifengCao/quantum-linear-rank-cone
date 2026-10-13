@@ -350,5 +350,16 @@
   "f9_at_h_F": -3,
   "sha256": "85ce905ec753f69787f38bdb17b234e58dd2606305afadac1ae46efcf80940d2",
   "file_sha256": "3f9a70ebd798423718d277d4009f2b90b182d910b10b5d5663e42ef615e582d7"
+ },
+ "s32_stab5_unimodular": {
+  "rows": 564,
+  "sha256": "812ac28bce712c3cc915341533fc41ccd1c1f9d0f391d26026e95fe9223ddf0e",
+  "file_sha256": "ede987a30cd1c117dd401c171a69d5a6b889dff74fc604f104554e23530a9687"
+ },
+ "s32_stab5_cover": {
+  "rows": 13,
+  "pieces": 36,
+  "sha256": "7a05340dc423efba2288d16b024c937af8d5262f0f724c5fdbc9cd4ca8e33353",
+  "file_sha256": "4cb45e66d3b71291c6fac05ff7b2d877accb90053f1d4faa233198d4b2ba6b36"
  }
 }

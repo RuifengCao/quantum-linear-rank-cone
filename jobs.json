@@ -156,6 +156,22 @@
    ],
    "tag": "a2-ingleton",
    "checks": "ci 'summary:' line with 0 undetermined and 'extension ingleton'; two 'kernel: ... OpenMP threads <all cores>' lines; 'p=3 lambda=1' and 'lambda=1' result lines; no WARNING / ABORT lines (NOTE lines are informational)"
+  },
+  "s32-unimodular": {
+   "tier": "X",
+   "needs": [
+    "gcc"
+   ],
+   "runtime": "about 2 h wall with one core per open row (64 rows open in R38): strategies neutral, gf3-search-start (two kernel calls), neutral at 1,200 s each, then covering rounds at 600 s; resumes from the stored certificates",
+   "cmd": "cp data/s32_stab5_unimodular.npz s32_server.npz && python3 scripts/s32_unimodular.py --search --resume --out s32_server.npz --raw s32_server_raw.txt --seconds 1200 --strategies neutral,gf3-search-start,neutral && python3 scripts/s32_unimodular.py --check --out s32_server.npz && cp data/s32_stab5_cover.npz s32_server_cover.npz && python3 scripts/s32_unimodular.py --cover --out s32_server.npz --cover-out s32_server_cover.npz --seconds 600 --seed 3001 && python3 scripts/s32_unimodular.py --check-cover --out s32_server.npz --cover-out s32_server_cover.npz",
+   "smoke": "cp data/s32_stab5_unimodular.npz s32_server.npz && python3 scripts/s32_unimodular.py --search --resume --out s32_server.npz --raw s32_server_raw.txt --seconds 3 --strategies neutral --rows 488,492 && python3 scripts/s32_unimodular.py --check --out s32_server.npz && cp data/s32_stab5_cover.npz s32_server_cover.npz && python3 scripts/s32_unimodular.py --cover --out s32_server.npz --cover-out s32_server_cover.npz --seconds 3 --seed 3001 --rows 488,492 && python3 scripts/s32_unimodular.py --check-cover --out s32_server.npz --cover-out s32_server_cover.npz",
+   "outputs": [
+    "s32_server.npz",
+    "s32_server_raw.txt",
+    "s32_server_cover.npz"
+   ],
+   "tag": "s32-unimodular",
+   "checks": "'certified rows:' line; the final --check prints ALL OK; new rows are then merged into data/s32_stab5_unimodular.npz on the analysis side (manifest and gate G36 updated)"
   }
  }
 }

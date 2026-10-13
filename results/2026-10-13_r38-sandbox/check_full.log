@@ -1,0 +1,7 @@
+$ python3 scripts/s32_unimodular.py --check --full
+{"stored": 564, "distinct_rows": 564, "rep_ok": true, "ok": 564, "kappa": {"1": 513, "2": 50, "3": 1}, "zd_checked": 17, "zd_ok": 17, "seconds": 14.6}
+ALL OK
+
+real	0m18.227s
+user	0m25.073s
+sys	0m0.214s

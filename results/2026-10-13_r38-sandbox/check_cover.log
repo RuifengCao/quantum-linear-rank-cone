@@ -1,0 +1,3 @@
+$ python3 scripts/s32_unimodular.py --check-cover
+{"pieces": 36, "pieces_ok": 36, "rows": 13, "rows_covered": 13, "overlap_unimodular": 0, "open_primes": {}, "seconds": 0.1}
+ALL OK
