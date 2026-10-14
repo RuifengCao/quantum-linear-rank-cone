@@ -1,0 +1,110 @@
+$ python3 scripts/s34_six_party_survey.py --survey --lists lists.npz --out data/s34_seven_qudit_vectors.npz --seconds 60
+# lists.npz: the two lists from cc/s35_enum7.c (m3_enumeration.log), in the format of --enumerate
+  qutrit-only vectors 16591 in 53 orbits
+  orbit 0: size 35, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 1: size 210, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 2: size 105, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 3: size 140, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 4: size 420, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 5: size 315, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 6: size 315, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 7: size 105, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 8: size 70, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 9: size 105, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 10: size 420, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 11: size 70, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 12: size 210, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 13: size 35, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 14: size 35, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 15: size 140, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 16: size 210, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 17: size 210, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 18: size 35, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 19: size 210, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 20: size 420, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 21: size 630, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 22: size 630, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 23: size 105, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 24: size 105, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 25: size 105, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 26: size 315, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 27: size 105, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 28: size 630, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 29: size 105, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 30: size 210, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 31: size 210, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 32: size 420, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 33: size 1260, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 34: size 1260, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 35: size 210, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 36: size 210, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 37: size 1260, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 38: size 210, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 39: size 70, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 40: size 35, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 41: size 70, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 42: size 840, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 43: size 1260, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 44: size 630, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 45: size 210, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 46: size 420, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 47: size 630, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 48: size 70, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 49: size 210, non-Fano True, qubit realisation at multiplicity 2: False
+  orbit 50: size 315, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 51: size 35, non-Fano False, qubit realisation at multiplicity 2: True
+  orbit 52: size 1, non-Fano False, qubit realisation at multiplicity 2: True
+0 2 FOUND 8 ec 74 83 31 ca 4b 33 15
+1 2 FOUND 10 8 3cc 182 243 2c0 140 23a 16 26 5a
+3 2 FOUND 12 f14 c ae3 ae2 1 c e0c 70c 81 cd c1 4d
+4 2 FOUND 12 bd4 8 1 bf2 a89 148 e29 c19 829 459 2c0 1d9
+5 2 FOUND 12 a08 638 c30 3 446 486 910 920 cc0 c03 336 3c5
+2 2 FOUND 12 c 4 3 1 740 280 b10 320 d0 cf0 210 240
+7 2 FOUND 12 ad0 670 670 ca0 c07 78e 307 29 60 467 23e 19
+8 2 FOUND 12 28 570 b70 e11 54e e07 116 900 4d6 42c 33a ac
+6 2 FOUND 12 4 3f8 e81 3f2 cca c0a c1a a1e 80a 8e 74 1f4
+10 2 FOUND 12 78 a24 422 411 1c9 187 811 e30 830 882 8c 3c2
+11 2 FOUND 12 934 360 691 910 8d 903 502 414 86b c06 2c4 329
+12 2 FOUND 14 4 c 3 2 1540 15c0 1530 a20 2470 3c80 370 2280 270 b00
+13 2 FOUND 14 2c c 33 13 c 5 1100 2300 1cc0 2480 3300 2100 540 e80
+14 2 FOUND 14 8 c 3db2 1553 c 4 8 4 2c0c 1800 10c 2304 20c 904
+9 2 FOUND 12 dec 828 1a1 363 700 e8f c09 625 c1d b8 1f1 163
+15 2 FOUND 14 f8c c d3 f53 f8c f80 3a0c 3535 30b9 2079 10b9 3079 dc0 bc0
+16 2 FOUND 14 1100 273c 2732 3632 360e 270e 300 100 20e7 87e 303e 1200 c19 53e
+18 2 FOUND 14 3ef8 38c0 38c0 3ef1 3ec9 609 171f 201f 1840 3479 2279 311f b5f e9f
+17 2 FOUND 14 2d54 2d74 2d53 20 2d47 144a 1e37 200 2817 c0 3077 1157 c60 517
+19 2 FOUND 14 38 23d8 23d0 3 3147 1281 2316 2326 34d6 ce6 1300 3200 d30 9d6
+20 2 FOUND 14 3198 34 2 3191 b 3142 1b20 1b09 2ce9 cc0 2300 33c0 8e9 d29
+22 2 FOUND 14 1120 1134 1122 1120 2c02 110f 1700 100 20ef 1440 3250 1010 e6f 510
+23 2 FOUND 14 14c8 3738 3730 23f3 370e 23ce 3229 e29 103e 18fe 2097 1280 b57 47e
+21 2 FOUND 14 1f68 2c2c 2 3 3340 1f43 d31 300 28f1 28b1 1063 2363 431 b12
+25 2 FOUND 14 d7c 3010 1 3011 33cb c01 c11 10 11 3c10 2261 1261 a1a 61a
+24 2 FOUND 14 8 141c 1412 31b3 25ce 14c8 30 1438 1018 1c00 12b6 3200 fae 818
+27 2 FOUND 14 1288 2644 1282 34c1 80 40 102a 31d 3480 87 110a 1000 d4d 10a
+26 2 FOUND 14 4 c 1653 3ce2 104 2908 280c 2908 14b0 2804 310c 2e8 50c 6e8
+29 2 FOUND 14 1324 132c 1a33 1a32 a4c 29cf 30 20 c23 381f 2100 33c 20f 620
+30 2 FOUND 14 15d4 1a78 fa1 fa2 f43 1ace 1533 1a2d 85d 38be 305d 13be ee3 600
+31 2 FOUND 14 d0 b0 d0 b0 268f 2f0a 1305 151f e0 70 30b0 2020 4c0 c30
+28 2 FOUND 14 2aac 2be0 2be1 1 40 3e87 1016 3e27 1806 24a7 2a0 1a7 1e0 2a7
+32 2 FOUND 14 418 c 832 833 cd 1c0c 3510 2910 4c0 1400 1361 20ac 660 8c0
+33 2 FOUND 14 3c78 4 3832 1 c5 11c5 2531 3430 1460 3800 31c1 2205 7a5 ec5
+34 2 FOUND 14 1ebc 450 1eb1 1ae1 3107 330d 2b0a 1e0d c70 28ed 187 33cd 8bd a70
+35 2 FOUND 14 37f4 1b4c 2cb3 1b42 2045 1645 d3b 3705 24cb 28ab 21e5 224e ab f95
+36 2 FOUND 14 2618 8 2610 3d23 1cc5 2108 2910 3510 3ce8 1c05 39d 2358 398 9ed
+37 2 FOUND 14 44c bf0 1 bf1 c8a 16ca b2b 33a 30ca 2cea 231 325a 920 b00
+38 2 FOUND 14 5f0 5f4 5f2 3a0 2807 150f 607 2e0f 202f 14c8 22e7 3090 a20 d90
+40 2 FOUND 14 3160 1e4c 3152 2f02 3144 1e41 837 2800 241d 1c2a 32a 22ea 237 99d
+39 2 FOUND 14 2c50 2cf8 b0 2c72 8f e 360b 1a16 1c00 8c0 114b 338b dc0 84b
+42 2 FOUND 14 2de8 2db4 1e32 3391 2cce 2dc7 2331 2d3b 18eb 1c4c 12b7 23b7 70c 8fb
+43 2 FOUND 14 2dd4 2054 39a3 db0 30cb 248c 2013 3d 280d 3400 1229 310d e14 b77
+44 2 FOUND 14 15bc 210c 29b3 2113 3bcd 26c5 2930 2935 24df 3c30 3321 32d4 e11 ffe
+45 2 FOUND 14 3278 2444 26a2 2fd1 14c9 2d05 2f1b 2f1c 3ce8 34cd 13fe 21e8 711 bef
+46 2 FOUND 14 3ffc 35f8 2f81 2593 138b 2f83 3f03 3c3f 7f c75 22ef 32e5 8d3 cef
+47 2 FOUND 14 1930 1288 19a0 1262 1241 cd 838 2726 1c85 309a 2180 145 31f 680
+48 2 FOUND 14 1fb4 142c 23 a12 c9 1547 1430 1011 2c21 2009 2163 3109 8e3 f00
+41 2 FOUND 14 1d9c 2cd0 3251 2c51 38f 1e80 2f0e 2a33 1451 8f4 316b 32eb d25 cce
+50 2 FOUND 14 2c5c 3b7c 1713 2ae3 1187 1c8a 150b 1938 38d6 340e 2265 21ab 3f6 f0b
+51 2 FOUND 14 53c 29c8 1fb1 2843 2845 1b05 211a 2a06 3867 34a4 3205 31be f24 fda
+52 2 FOUND 14 3d58 e8 1e90 6d3 204d 21c2 113b 72e 24e1 308c 218d 3005 a45 f31
+49 2 BEST 2 3741 31420096 60.001
+

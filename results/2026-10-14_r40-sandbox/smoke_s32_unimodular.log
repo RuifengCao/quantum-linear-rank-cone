@@ -1,0 +1,11 @@
+$ cp data/s32_stab5_unimodular.npz s32_server.npz && cp data/s32_stab5_cover.npz s32_server_cover.npz && python3 scripts/s32_unimodular.py --cover --kappa2 --rounds 0 --rows 587,589 --out s32_server.npz --cover-out s32_server_cover.npz --raw s32_server_raw.txt --seconds 3 --seed 3001 && python3 scripts/s32_unimodular.py --check --out s32_server.npz && python3 scripts/s32_unimodular.py --check-cover --out s32_server.npz --cover-out s32_server_cover.npz
+# the smoke variant of the server job s32-unimodular (jobs.json), on a scratch copy of the repository
+  covering certificates stored for 75 rows; 0 new unimodular certificates
+{"stored": 566, "distinct_rows": 566, "rep_ok": true, "ok": 566, "kappa": {"1": 515, "2": 50, "3": 1}, "zd_checked": 0, "zd_ok": 0, "seconds": 1.2}
+ALL OK
+{"pieces": 199, "pieces_ok": 199, "rows": 75, "rows_covered": 75, "overlap_unimodular": 0, "open_primes": {}, "seconds": 0.8}
+ALL OK
+
+real	0m24.757s
+user	0m16.417s
+sys	0m0.603s

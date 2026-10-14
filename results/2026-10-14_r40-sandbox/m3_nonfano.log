@@ -1,0 +1,25 @@
+# non-Fano state (and Steane controls) at qubit multiplicities 1-3: cc/s34_anneal7.c (the version in this
+# commit), driven by a scratch script; BEST lines: id lambda BEST residual restarts steps seconds
+
+$ run 1: 120 s per job
+6 jobs at 120 s, 360 s wall (background search running beside it)
+1 NF lambda 1 N 7 not found; best residual 1 | 1 1 BEST 1 43912 92214124 120.004
+2 NF lambda 2 N 14 not found; best residual 2 | 2 2 BEST 2 3846 32299024 120.002
+3 NF lambda 2 N 14 not found; best residual 2 | 3 2 BEST 2 3842 32270544 120.004
+4 NF lambda 3 N 21 not found; best residual 3 | 4 3 BEST 3 938 17714420 120.000
+5 NF lambda 3 N 21 not found; best residual 3 | 5 3 BEST 3 944 17833964 120.009
+6 F lambda 3 N 21 not found; best residual 2 | 6 3 BEST 2 939 17731272 120.000
+
+$ run 2: 600 s per job (random starts, and copies of the best attempt at multiplicity 1)
+NF lambda 1 best residual 1 ; Steane lambda 1 found True
+7 jobs at 600 s: 1800 s wall
+10 NF lambda 2 random not found; best residual 2 | 10 2 BEST 2 13859 116411296 600.000
+11 NF lambda 2 random not found; best residual 2 | 11 2 BEST 2 13840 116255792 600.000
+12 NF lambda 2 copies not found; best residual 2 | 12 2 BEST 2 12959 108851296 600.002
+13 NF lambda 2 copies not found; best residual 2 | 13 2 BEST 2 12990 109113744 600.008
+20 NF lambda 3 copies not found; best residual 3 | 20 3 BEST 3 5458 103144468 600.001
+30 F lambda 3 random FOUND; exact ranks True ; state vector None
+31 F lambda 3 copies FOUND; exact ranks True ; state vector None
+
+$ run 3: control 2 S_Steane at multiplicity 2, random start, 60 s budget (s34_six_party_survey.run_anneal, seed 6140)
+40 F lambda 2 random FOUND; exact ranks True; 0.0 s wall

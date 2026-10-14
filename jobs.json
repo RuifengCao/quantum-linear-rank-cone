@@ -162,7 +162,7 @@
    "needs": [
     "gcc"
    ],
-   "runtime": "about 1.5 h wall with one core per job (5 rows open after R39, two jobs per row: rational searches at multiplicity 1 and 2 from the qubit certificate): four covering rounds of 1,200 s; resumes from the stored certificates",
+   "runtime": "nothing left to do since R40: all 641 known rows are certified, so the covering search finishes at once (kept for rows added to the catalogue later: rational searches at multiplicity 1 and 2 from the qubit certificate, covering rounds of 1,200 s, one core per job, resumes from the stored certificates)",
    "cmd": "cp data/s32_stab5_unimodular.npz s32_server.npz && cp data/s32_stab5_cover.npz s32_server_cover.npz && python3 scripts/s32_unimodular.py --cover --kappa2 --rounds 3 --out s32_server.npz --cover-out s32_server_cover.npz --raw s32_server_raw.txt --seconds 1200 --seed 3001 && python3 scripts/s32_unimodular.py --check --out s32_server.npz && python3 scripts/s32_unimodular.py --check-cover --out s32_server.npz --cover-out s32_server_cover.npz",
    "smoke": "cp data/s32_stab5_unimodular.npz s32_server.npz && cp data/s32_stab5_cover.npz s32_server_cover.npz && python3 scripts/s32_unimodular.py --cover --kappa2 --rounds 0 --rows 587,589 --out s32_server.npz --cover-out s32_server_cover.npz --raw s32_server_raw.txt --seconds 3 --seed 3001 && python3 scripts/s32_unimodular.py --check --out s32_server.npz && python3 scripts/s32_unimodular.py --check-cover --out s32_server.npz --cover-out s32_server_cover.npz",
    "outputs": [

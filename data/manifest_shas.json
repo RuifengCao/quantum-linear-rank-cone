@@ -357,9 +357,46 @@
   "file_sha256": "c99076705f933b6169f911ade3687f013d3878f78717e5a87167e35f7f43f88a"
  },
  "s32_stab5_cover": {
-  "rows": 70,
-  "pieces": 185,
-  "sha256": "cc83d2c7c34cbb686a1a0fadac8de0b4b03aa3774bafd9599587a1eacd3c16af",
-  "file_sha256": "5aec2a571e44df2c90eebfb0e146cbcb38d05dcd650c14aa4e7b40f11ef322e2"
+  "rows": 75,
+  "pieces": 199,
+  "sha256": "bfab46a480ab4fa65db8a41025872504556f3b422afff1a6891bee0e07bdd2fa",
+  "file_sha256": "6f31237c055b3981980509b636304118335ba3a80ab49c18a74ab97cf2d38e1e"
+ },
+ "s34_seven_qudit_vectors": {
+  "gf2": 10773,
+  "gf3": 27334,
+  "orbits": 53,
+  "sha256": "f8d0e24ed49333e788dfb28c02a92321bda7704be8f55546052e38f20e3c1dcc",
+  "file_sha256": "3916861c7d148e0eddf4fa48741f1fccb5c427afa30b3b8b20ef39ac534372e8",
+  "field_counts": {
+   "2": [
+    532,
+    0
+   ],
+   "3": [
+    0,
+    5400
+   ],
+   "4": [
+    27504,
+    0
+   ],
+   "5": [
+    0,
+    94200
+   ],
+   "7": [
+    0,
+    621320
+   ],
+   "8": [
+    1342144,
+    0
+   ],
+   "9": [
+    0,
+    2564136
+   ]
+  }
  }
 }

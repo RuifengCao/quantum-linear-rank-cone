@@ -1,0 +1,174 @@
+{
+ "rows_closed": [
+  587,
+  589,
+  612,
+  630,
+  635
+ ],
+ "unimodular_rows": 566,
+ "cover_rows": 75,
+ "pieces": 199,
+ "certified_every_d": 641,
+ "open_rows": [],
+ "new_pieces": {
+  "587": [
+   {
+    "kind": "Q",
+    "prime": 0,
+    "kappa": 1,
+    "N": 24,
+    "bad": [
+     2,
+     3,
+     7
+    ],
+    "detail": "R40 push 2: rational search from the best near miss, 1200 s"
+   },
+   {
+    "kind": "Q",
+    "prime": 0,
+    "kappa": 1,
+    "N": 24,
+    "bad": [
+     2,
+     17
+    ],
+    "detail": "R40 Q+3,7 from a rational realisation, seed 15001, 60 s"
+   },
+   {
+    "kind": "GF",
+    "prime": 2,
+    "kappa": 1,
+    "N": 24,
+    "bad": [],
+    "detail": "stored qubit certificate s16:735"
+   }
+  ],
+  "589": [
+   {
+    "kind": "Q",
+    "prime": 0,
+    "kappa": 1,
+    "N": 24,
+    "bad": [
+     2,
+     3,
+     7
+    ],
+    "detail": "R40 push 2: rational search from the qubit certificate, 1200 s"
+   },
+   {
+    "kind": "Q",
+    "prime": 0,
+    "kappa": 1,
+    "N": 24,
+    "bad": [
+     2,
+     11,
+     17
+    ],
+    "detail": "R40 Q+3 from a rational realisation, seed 15002, 60 s"
+   },
+   {
+    "kind": "GF",
+    "prime": 2,
+    "kappa": 1,
+    "N": 24,
+    "bad": [],
+    "detail": "stored qubit certificate s16:737"
+   }
+  ],
+  "612": [
+   {
+    "kind": "Q",
+    "prime": 0,
+    "kappa": 1,
+    "N": 30,
+    "bad": [
+     2,
+     3,
+     5,
+     73
+    ],
+    "detail": "R40 push 4 round 1: rational search from the best near miss, 600 s"
+   },
+   {
+    "kind": "Q",
+    "prime": 0,
+    "kappa": 1,
+    "N": 30,
+    "bad": [
+     2,
+     7,
+     11
+    ],
+    "detail": "R40 Q+3,5,73 from a rational realisation, push 5 round 2, 300 s"
+   },
+   {
+    "kind": "GF",
+    "prime": 2,
+    "kappa": 1,
+    "N": 30,
+    "bad": [],
+    "detail": "stored qubit certificate s16:760"
+   }
+  ],
+  "630": [
+   {
+    "kind": "Q",
+    "prime": 0,
+    "kappa": 1,
+    "N": 26,
+    "bad": [
+     2
+    ],
+    "detail": "R40 Q+3 from a rational realisation, seed 15102, 60 s"
+   },
+   {
+    "kind": "GF",
+    "prime": 2,
+    "kappa": 1,
+    "N": 26,
+    "bad": [],
+    "detail": "stored qubit certificate a2i_q2:0"
+   }
+  ],
+  "635": [
+   {
+    "kind": "Q",
+    "prime": 0,
+    "kappa": 1,
+    "N": 28,
+    "bad": [
+     2,
+     3,
+     5,
+     13,
+     31
+    ],
+    "detail": "R40 push 3 round 1: rational search from the best near miss, 600 s"
+   },
+   {
+    "kind": "Q",
+    "prime": 0,
+    "kappa": 1,
+    "N": 28,
+    "bad": [
+     2,
+     7,
+     23
+    ],
+    "detail": "R40 Q+3,5,13,31 from a rational realisation, seed 15103, 60 s"
+   },
+   {
+    "kind": "GF",
+    "prime": 2,
+    "kappa": 1,
+    "N": 28,
+    "bad": [],
+    "detail": "stored qubit certificate a2i_q2:5"
+   }
+  ]
+ }
+}

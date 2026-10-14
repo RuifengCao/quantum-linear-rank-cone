@@ -1,0 +1,57 @@
+$ python3 scripts/s34_six_party_survey.py --fields 2,3,4,5,7,8,9 --controls 2
+# cc/s36_target7.c: graphs in scaling normal form over GF(q) on seven vertices with cut-rank vector S_F / S_NF
+# (entire search), and two random targets per field (cut-rank vectors of random graphs over GF(q); first solution only)
+  GF(2) F: 532 graphs in normal form, example re-checked (0.0 s)
+  GF(2) NF: 0 graphs in normal form (0.0 s)
+  GF(2) random0: found, example re-checked (0.0 s)
+  GF(2) random1: found, example re-checked (0.0 s)
+  GF(3) F: 0 graphs in normal form (0.0 s)
+  GF(3) NF: 5400 graphs in normal form, example re-checked (0.1 s)
+  GF(3) random0: found, example re-checked (0.0 s)
+  GF(3) random1: found, example re-checked (0.0 s)
+  GF(4) F: 27504 graphs in normal form, example re-checked (0.3 s)
+  GF(4) NF: 0 graphs in normal form (0.3 s)
+  GF(4) random0: found, example re-checked (0.0 s)
+  GF(4) random1: found, example re-checked (0.2 s)
+  GF(5) F: 0 graphs in normal form (0.5 s)
+  GF(5) NF: 94200 graphs in normal form, example re-checked (2.0 s)
+  GF(5) random0: found, example re-checked (0.4 s)
+  GF(5) random1: found, example re-checked (0.0 s)
+  GF(7) F: 0 graphs in normal form (4.5 s)
+  GF(7) NF: 621320 graphs in normal form, example re-checked (16.7 s)
+  GF(7) random0: found, example re-checked (0.0 s)
+  GF(7) random1: found, example re-checked (0.0 s)
+  GF(8) F: 1342144 graphs in normal form, example re-checked (19.1 s)
+  GF(8) NF: 0 graphs in normal form (30.9 s)
+  GF(8) random0: found, example re-checked (0.0 s)
+  GF(8) random1: found, example re-checked (0.0 s)
+  GF(9) F: 0 graphs in normal form (25.6 s)
+  GF(9) NF: 2564136 graphs in normal form, example re-checked (88.8 s)
+  GF(9) random0: found, example re-checked (0.0 s)
+  GF(9) random1: found, example re-checked (0.0 s)
+{"2": {"controls_found": 2, "F": 532, "NF": 0}, "3": {"controls_found": 2, "F": 0, "NF": 5400}, "4": {"controls_found": 2, "F": 27504, "NF": 0}, "5": {"controls_found": 2, "F": 0, "NF": 94200}, "7": {"controls_found": 2, "F": 0, "NF": 621320}, "8": {"controls_found": 2, "F": 1342144, "NF": 0}, "9": {"controls_found": 2, "F": 0, "NF": 2564136}}
+
+# cross-check with the enumeration: the counts that cc/s35_enum7.c reports for these vectors (lists of
+# --enumerate, m3_enumeration.log; column "count" of its V lines)
+  cc/s35_enum7.c, GF(2), S_F: 532 graphs in normal form
+  cc/s35_enum7.c, GF(3), S_NF: 5400 graphs in normal form
+  cc/s35_enum7.c, GF(2), S_NF: not in the list
+  cc/s35_enum7.c, GF(3), S_F: not in the list
+
+$ cc/s36_target7.c 16 1 < (the 63 cut ranks of S_NF)        # the whole search; one core, 4,471 s wall
+# (built from this commit's source before the optional stop_after argument was added; that argument only ends a
+# search early and is not used here)
+# (run beside the other jobs of this round; LEVEL k = graphs in normal form on vertices 0..k-1 reached)
+  LEVEL 1 1
+  LEVEL 2 2
+  LEVEL 3 36
+  LEVEL 4 9864
+  LEVEL 5 43066110
+  LEVEL 6 910604736
+  LEVEL 7 0
+  TOTAL 16 0
+
+# GF(16) controls, first solution only (cc/s36_target7.c 16 1 1; examples re-checked in Python)
+  GF(16) F: found, example re-checked (0.0 s; first solution only)
+  GF(16) random0: found, example re-checked (0.0 s; first solution only)
+  GF(16) random1: found, example re-checked (0.0 s; first solution only)

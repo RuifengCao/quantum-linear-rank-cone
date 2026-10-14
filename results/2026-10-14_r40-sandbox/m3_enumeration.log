@@ -1,0 +1,11 @@
+$ cc/s35_enum7.c, p = 2   (gcc -O3 -march=native -fopenmp; 2-core sandbox)
+TOTAL 2097152 10773
+wall 11 s
+
+$ cc/s35_enum7.c, p = 3
+p = 3: 255602200 graphs in normal form
+TOTAL 255602200 27334
+wall about 34 min (09:17 to 09:51, sharing the two cores with other runs)
+
+TOTAL lines: graphs enumerated (in normal form), distinct cut-rank vectors.
+The lists are stored in data/s34_seven_qudit_vectors.npz (arrays gf2, gf3).

@@ -1,0 +1,9 @@
+$ python3 scripts/s34_six_party_survey.py --fields-python 2,3,4
+  GF(2): S_F 532 solutions, S_NF 0 (Python search)
+  GF(3): S_F 0 solutions, S_NF 5400 (Python search)
+  GF(4): S_F 27504 solutions, S_NF 0 (Python search)
+{"2": [532, 0], "3": [0, 5400], "4": [27504, 0]}
+
+real	1m34.522s
+user	1m32.545s
+sys	0m0.042s

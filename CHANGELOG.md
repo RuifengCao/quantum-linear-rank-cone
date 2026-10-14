@@ -1,5 +1,80 @@
 # CHANGELOG
 
+## R40 (2026-10-14) -- five parties: all 641 known extreme rays over every local dimension (roadmap item S5(a), finished); six parties, the other direction (roadmap item M3, steps 1-2)
+- **Result 1 (certified; checked by an independent referee, an agent with its own code; not yet by hand; not in the
+  paper).** All 641 known extreme-ray orbits of Stab₅ lie in Stab^(Z_d)_5 for every d ≥ 2, hence are extreme rays of
+  it (`docs/R32_reduction_and_local_dimension.md` §4.9): 566 by unimodular realisations (unchanged) and 75 by covering
+  certificates. R40 covered the five rows R39 left open (587, 589, 612, 630, 635).
+  - **What closed them.** Rational searches of 1200 s from the qubit certificate and from R39's best near miss gave
+    the first rational realisations of rows 587 and 589. Rounds of 600 s from the best near miss so far, at start
+    temperature 0.3 instead of 1.0, gave those of rows 630, 635 and (in a later push) 612. Searches that are rational
+    and right mod the uncovered primes, started from these realisations, then covered all five (60 s; row 612: 300 s,
+    third round). R39's near misses had missed one to three cuts: the searches had not finished.
+  - New pieces: 9 rational realisations (κ = 1) with bad primes, minimal covering subsets as in R39, and the 5 stored
+    qubit certificates as GF(2) pieces. Every row's bad primes meet in {2}; row 630 needs only one rational piece.
+  - Every one of the 641 rows now has an explicit qutrit realisation in the data (a unimodular certificate mod 3 or a
+    covering piece right at 3).
+  - Consequence (§5 of the R32 note): no known extreme ray of Stab₅ can witness a dimension dependence at n = 5. A
+    witness would need an extreme ray not yet known or, for d divisible by a square, a vector of Stab^(Z_d)_5 outside
+    Stab₅.
+- **Result 2 (§4.10; status as marked; independent referee; not in the paper).** Six parties, the other direction: is
+  Stab⁽ᵖ⁾_6 ⊄ Stab⁽²⁾_6 for some odd p? The only candidate so far was the non-Fano state h_NF (§4.8).
+  - **Survey [certified: exhaustive].** Every stabilizer state of seven systems with at most one qudit per system is
+    local-Clifford equivalent to a weighted graph state on seven vertices; `cc/s35_enum7.c` enumerates them up to
+    scaling: 10,773 distinct entropy vectors over GF(2) (all 2^21 graphs) and 27,334 over GF(3) (255,602,200 normal
+    forms). The 30 qubit-only vectors are the relabellings of the Steane state. The 16,591 qutrit-only vectors form 53
+    orbits of S₇; for 52 of them `cc/s34_anneal7.c` found a 14-qubit graph state realising 2·S (exact ranks; none is a
+    product of two states with one qubit per system). The remaining orbit is that of h_NF: among the states over Z_3
+    with at most one qudit per system, it is the only possible witness.
+  - **Proposition 10 [proved].** If a GF(q)-linear state of the seven systems with m qudits each has entropy vector
+    m·S_NF (units of log q), then the line pieces at the four points on three lines restrict to one Lagrangian subspace
+    each; if this also holds at the three diagonal points, the non-Fano matroid has an m-fold representation over
+    GF(q), impossible in characteristic 2. For m = 1 it always holds. So S_NF is a GF(q)-linear entropy vector iff q is
+    odd, no GF(2^k)-linear state has entropy vector k·S_NF, and every qubit realisation of m·S_NF (m qubits per
+    system) has two different, non-Lagrangian line pieces at a diagonal point. Checked by exhaustive search:
+    `cc/s36_target7.c` over GF(2), GF(3), GF(4), GF(5), GF(7), GF(8), GF(9) (S_NF only for odd q, S_F only for even
+    q, random targets everywhere) and, for S_NF, GF(16) (none; 75 min); a separate Python implementation reproduces
+    the counts for q ≤ 4 (gate G38b).
+  - **Annealing [empirical].** No qubit state with entropy vector 2·S_NF or 3·S_NF was found (seven runs at m = 2 and
+    three at m = 3, up to 600 s each). Every run stopped at residual m, the residual of m copies of the Steane state
+    (S_F is the only GF(2) vector at L1 distance 1 from S_NF, and no sum of two GF(2) vectors is closer than 2 to
+    2·S_NF; certified, G38b).
+- **Code.** `cc/s35_enum7.c` (the enumeration, OpenMP), `cc/s34_anneal7.c` (annealing of qubit graph states with m
+  qubits per system towards a target vector), `cc/s36_target7.c` (exhaustive search for graphs over GF(q),
+  q = 2, 3, 4, 5, 7, 8, 9, 11, 13, 16, with a given cut-rank vector), `scripts/s34_six_party_survey.py` (`--check
+  [--full]`, `--self-test`, `--enumerate`, `--survey`, `--nonfano`, `--fields`, `--fields-python`).
+- **Data and gates.** New `data/s34_seven_qudit_vectors.npz` (the two lists, the 53 orbit representatives with their
+  GF(3) graphs, the 52 qubit graph states). `data/s32_stab5_cover.npz`: 75 rows, 199 pieces (125 rational
+  realisations, 3 of them at κ = 2; 74 GF(2) / GF(3) realisations). Manifest: new entry `s34_seven_qudit_vectors`
+  (with the counts of `cc/s36_target7.c`), `s32_stab5_cover` updated. New gates G38 (data checks) and G38b (`--full`:
+  the GF(2) list recomputed in numpy, 20,000 random GF(3) graphs, the tensor-product and distance checks, the Python
+  target search against the stored counts, the s34 self-test). `selftest.py --full` now has 49 gate lines.
+- **Referees.** Two separate agents, each with its own code and without reading the repository's code for the result:
+  - S5(a): re-verified the 14 new pieces (structure, ranks on all 31 cuts, bad primes by its own Smith form, by minors
+    and by sympy) and the coverage of the five rows; the 185 earlier pieces and the unimodular file are unchanged, and
+    every row 0-640 is certified one way or the other. No discrepancy.
+  - M3, two rounds: re-enumerated both lists (its GF(3) normal form differs; same graph count) and found them equal to
+    the stored ones; confirmed the orbits, sizes, representatives, the 52 qubit certificates, the Steane and non-Fano
+    orbits, the tensor-product and distance statements, and with two exhaustive programs every count of
+    `cc/s36_target7.c` from GF(2) to GF(9); checked Proposition 10 line by line (step 2 now uses its shorter argument).
+    Its first round found the text wrong or overclaimed in five places, all corrected: §4.8 equated the exact points
+    a = b = m with qubit states with m·S_NF (they give them; conversely an exact point gives 2m·S_NF); "all states"
+    needed "over Z_3"; the residual was undefined and its baseline (m Steane copies) unstated; controls were missing
+    or omitted; the search class and its size were not stated. Its second round tightened four sentences (the scope
+    of the field-linear statement, the controls, the linear and non-linear conditions of the search, the n = 5
+    sentence).
+- **Results.** `results/2026-10-14_r40-sandbox/` (2-core sandbox, no server time): the five-party campaign log after
+  the R39 cutoff with its raw kernel output, summary and cover check; the six-party enumeration, survey, non-Fano
+  runs and controls, field runs, checks and self-tests; `selftest.py --full`.
+- **Note and README.** R32 note: header (R40 paragraph), §4.7 (pilot), §4.8 (reverse direction, R40 items), §4.9
+  (counts, round R40, the rows open after R39), §4.10 (new), §5 (n = 5, n = 6, five parties over every field), §7.
+  README: status, §0 (R40; the R39 entry's open rows), §2, §2b (job table), §3 (selftest, s32, s34), §6 (data),
+  §7 (⓪′ done, new ⓪″ for M3), §9 (CI gate count and time caps).
+- `.github/workflows/selftest.yml`: time caps raised to 45 min for the job and 25 min for `selftest.py --full`
+  (G38 and G38b add about three minutes: 8 min in the sandbox, where the lrs part of G29b is skipped; CI runs it).
+- `jobs.json`: the server job `s32-unimodular` has nothing left to do (kept for rows added later). `VERSION`: R40;
+  `CITATION.cff` unchanged. No GitHub Release for R40 (it would mint a new Zenodo DOI).
+
 ## R39 (2026-10-14) -- five parties: 636 of the 641 known extreme rays over every local dimension (roadmap item S5(a), continued)
 - **Result (certified; checked by an independent referee, an agent with its own code; not yet by hand; not in the paper).** 636 of the 641 known extreme-ray orbits of Stab₅
   lie in Stab^(Z_d)_5 for every d ≥ 2 (577 in R38), hence are extreme rays of it (`docs/R32_reduction_and_local_dimension.md`

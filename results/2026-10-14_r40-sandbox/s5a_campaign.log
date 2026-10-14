@@ -1,0 +1,22 @@
+09:05:04 push 2: rows [587, 589, 612, 630, 635]; qubit-certificate starts and near-miss starts, 1200 s each
+09:45:42 push 2 (qubit start): 2 new pieces; best residuals [(612, 26), (630, 5), (635, 4)]; {'open': 64, 'unimodular': 2, 'covered': 57, 'with_q': 2, 'without_q': 3}
+09:45:42 push 2 (near start): 2 new pieces; best residuals [(612, 5), (630, 1), (635, 1)]; {'open': 64, 'unimodular': 2, 'covered': 57, 'with_q': 2, 'without_q': 3}
+09:45:42 push 2 done; {'open': 64, 'unimodular': 2, 'covered': 57, 'with_q': 2, 'without_q': 3}
+10:02:44 push 3: start {'open': 64, 'unimodular': 2, 'covered': 57, 'with_q': 2, 'without_q': 3}
+10:02:44 step A round 0: 2 rows, 2 new pieces; {'open': 64, 'unimodular': 2, 'covered': 59, 'with_q': 0, 'without_q': 3}
+10:16:53 push 3 near-miss round 0: rows [612, 630, 635], 1 new pieces, best residuals [(612, 3), (635, 1)]; {'open': 64, 'unimodular': 2, 'covered': 59, 'with_q': 1, 'without_q': 2}
+10:17:53 step A round 0: 1 rows, 0 new pieces; {'open': 64, 'unimodular': 2, 'covered': 59, 'with_q': 1, 'without_q': 2}
+10:27:53 push 3 near-miss round 1: rows [612, 635], 1 new pieces, best residuals [(612, 1)]; {'open': 64, 'unimodular': 2, 'covered': 59, 'with_q': 2, 'without_q': 1}
+10:27:53 step A round 0: 2 rows, 2 new pieces; {'open': 64, 'unimodular': 2, 'covered': 61, 'with_q': 0, 'without_q': 1}
+10:37:53 push 3 near-miss round 2: rows [612], 0 new pieces, best residuals [(612, 1)]; {'open': 64, 'unimodular': 2, 'covered': 61, 'with_q': 0, 'without_q': 1}
+10:37:53 push 3 done; {'open': 64, 'unimodular': 2, 'covered': 61, 'with_q': 0, 'without_q': 1}
+10:39:27 push 4: row 612, 4 rounds of two 600-s searches from the best near miss
+10:49:27 push 4 round 0: 0 new pieces, best residuals [1, 1]; {'open': 64, 'unimodular': 2, 'covered': 61, 'with_q': 0, 'without_q': 1}
+10:59:27 push 4 round 1: 1 new pieces, best residuals [1]; {'open': 64, 'unimodular': 2, 'covered': 61, 'with_q': 1, 'without_q': 0}
+11:01:27 step A round 0: 1 rows, 0 new pieces; {'open': 64, 'unimodular': 2, 'covered': 61, 'with_q': 1, 'without_q': 0}
+11:01:27 push 4 done; {'open': 64, 'unimodular': 2, 'covered': 61, 'with_q': 1, 'without_q': 0}
+11:22:07 push 5: row 612, 6 rounds of two 300-s searches from the rational realisation; need [3, 5, 73]
+11:27:07 push 5 round 0: searches ['2147483647,3,5,73', '2147483647,3'], 0 new pieces, need now [3, 5, 73]; {'open': 64, 'unimodular': 2, 'covered': 61, 'with_q': 1, 'without_q': 0}
+11:32:07 push 5 round 1: searches ['2147483647,3,5,73', '2147483647,5'], 0 new pieces, need now [3, 5, 73]; {'open': 64, 'unimodular': 2, 'covered': 61, 'with_q': 1, 'without_q': 0}
+11:32:07 push 5 round 2: searches ['2147483647,3,5,73', '2147483647,73'], 1 new pieces, need now []; {'open': 64, 'unimodular': 2, 'covered': 62, 'with_q': 0, 'without_q': 0}
+11:32:07 push 5 done; {'open': 64, 'unimodular': 2, 'covered': 62, 'with_q': 0, 'without_q': 0}

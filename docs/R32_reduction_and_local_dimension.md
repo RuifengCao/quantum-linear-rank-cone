@@ -36,6 +36,12 @@ not contain it). Until R39 this paragraph and §5 counted only the 564 (erratum,
 Round R39 continues §4.9: **636 of the 641** lie in Stab^(Z_d)_5 for every d (566 by unimodular realisations,
 70 by covering certificates; same status). 5 rows remain open.
 
+Round R40 completes §4.9: **all 641** known extreme rays of Stab₅ lie in Stab^(Z_d)_5 for every d (566 by unimodular
+realisations, 75 by covering certificates; same status). R40 also adds §4.10, the other direction at six parties.
+Among the states with at most one qudit per system, only the non-Fano state can witness Stab⁽³⁾_6 ⊄ Stab⁽²⁾_6
+(certified). No GF(2^k)-linear state has entropy vector k·S_NF (Proposition 10, proved; the
+non-Fano entropy vector in units of log 2^k).
+
 ## 1. Setting
 
 * n visible parties A₁, …, A_n and a purifier F; E is the set of all n + 1 parties. A *pure-symmetric* vector S
@@ -715,7 +721,7 @@ the cube states violate them, so their symmetrisations are not Shannon.
   cone on its self-dual slice. No characteristic-dependent six-variable inequality is known.
 * *Pilot (R35), superseded by §4.9.* The lifting method of Theorem 7, run on the qubit certificates of the first 60
   known extreme rays of Stab₅, lifted 40 of them (`s30_dimension_profile.py --n5-pilot 60`, no lifts stored).
-  Section 4.9 (R38, R39) certifies 636 of the 641 for every d.
+  Section 4.9 (R38–R40) certifies all 641 for every d.
 
 ### 4.8 Six parties: qubits are not inside any odd local dimension [proved; refereed] (R36)
 
@@ -844,9 +850,18 @@ The result inherits the status of Theorem 1(d), steps 1–2 (the cited entropy f
   * No family of 2-dimensional subspaces over GF(2) realises h_NF exactly (exhaustive search, not in the
     repository).
   * An exploratory hand argument (not refereed) suggests that an exact GF(2) family with rank function
-    a·r_NF + b·r_NF* must have a = b. Exact points with a = b ≥ 2, and limits, remain untested.
+    a·r_NF + b·r_NF* must have a = b. Exact points with a = b ≥ 2, and limits, remain open (R40: next item).
+  * (R40) A qubit state with entropy vector m·S_NF gives the exact point a = b = m: the code r_L of the doubling remark
+    (§2), with S(P) qubits per system, has rank function h_{m·S_NF} = m·h_NF. Conversely, an exact point a = b = m
+    gives a qubit state with 2m·S_NF (step 2 of §2). So the states test a sufficient condition for the exact points.
+    * For m = 2, 3 annealing found no such state (§4.10) [empirical].
+    * No GF(2^k)-linear state has entropy vector k·S_NF. In any qubit realisation of m·S_NF with m qubits per system,
+      the two line pieces at one of W, X, Y restrict to different, non-Lagrangian subspaces (Proposition 10, §4.10)
+      [proved]. This makes precise the remark above that those pieces need not coincide.
+    * Among the states over ℤ_3 with at most one qudit per system, h_NF is the only remaining candidate for this
+      direction (§4.10) [certified].
 
-### 4.9 Five parties: the known extreme rays over every local dimension [certified; independent referee] (R38, R39)
+### 4.9 Five parties: the known extreme rays over every local dimension [certified; independent referee] (R38–R40)
 
 Theorem 7 lifts every four-party extreme ray to all local dimensions with one integer matrix. This section does the
 same for the known five-party extreme rays, as far as the search reaches.
@@ -868,19 +883,18 @@ it avoids Corollary 3 of the paper.)
 *Result [certified: exact Smith forms by two independent methods, gates G36, G36b, G37; independent referee].*
 `data/s32_stab5_unimodular.npz` stores a unimodular realisation for **566 of the 641** known extreme-ray orbits
 of Stab₅ (`data/stab5_extreme_reps.npy`): κ = 1 for 515, κ = 2 for 50, κ = 3 for 1; at most 40 vertices.
-`data/s32_stab5_cover.npz` covers **70** more rows by covering certificates (below). So **636 of the
-641** lie in Stab^(ℤ_d)_5 for every d ≥ 2 (R38: 577; R39 added 2 unimodular and 57 covered rows).
+`data/s32_stab5_cover.npz` covers the other **75** rows by covering certificates (below). So **all 641** lie in
+Stab^(ℤ_d)_5 for every d ≥ 2 (R38: 577; R39 added 2 unimodular and 57 covered rows, R40 the last 5 covered rows).
 
-* Each of these 636 rays lies in Stab^(ℤ_d)_5 for every d ≥ 2. Since Stab^(ℤ_d)_5 ⊆ QLR₅ for every d (paper,
+* Each of these 641 rays lies in Stab^(ℤ_d)_5 for every d ≥ 2. Since Stab^(ℤ_d)_5 ⊆ QLR₅ for every d (paper,
   Sec. IV A) and the rays are extreme rays of QLR₅, they are extreme rays of Stab^(ℤ_d)_5 for every d.
 * The 12 rays of the BCHS ledger that had no explicit realisation (rows 6, 7, 15, 34, 39, 40, 42, 43, 44, 46, 48, 50;
   their membership in the stabilizer cone rested on hypergraph realisations and the theorem of Walter and Witteveen,
   in the closure and up to scaling) all have one now, at κ = 2. So **every one of the 641 known extreme rays has an
   explicit qubit realisation** (W mod 2 for these twelve), and κ = 2 is the least multiple for qubits at rows 43 and
   44 (no realisation at multiplicity 1 over GF(2) or GF(3), exhaustive search of R31).
-* Every certified row also has an explicit qutrit realisation in the data: a unimodular certificate mod 3, a
-  covering piece that is right at 3, or a stored qutrit certificate. With the stored qutrit certificates,
-  636 of the 641 rows now have one (96 before R38).
+* Every row also has an explicit qutrit realisation in the data: a unimodular certificate mod 3, or a covering piece
+  that is right at 3. So all 641 rows have one (96 before R38, from the stored qutrit certificates).
 
 *Covering certificates [proved; certified by G37; independent referee].* One matrix for all primes is not needed.
 
@@ -892,8 +906,8 @@ of Stab₅ (`data/stab5_extreme_reps.npy`): κ = 1 for 515, κ = 2 for 50, κ = 
   bad(W_1) ∩ … ∩ bad(W_m) ⊆ {p_1, …, p_l}. Then r ∈ Stab⁽ᵖ⁾_5 for every prime p. By Corollary 3 of the paper
   (Stab⁽ᵖ⁾ ⊆ Stab^(ℤ_d) when p divides d), r ∈ Stab^(ℤ_d)_5 for every d. A unimodular realisation is the case
   bad(W) = ∅.
-* `data/s32_stab5_cover.npz` stores such certificates for 70 rows that have no unimodular realisation here:
-  116 rational realisations (3 of them at κ = 2), with their bad primes, and 69 realisations over
+* `data/s32_stab5_cover.npz` stores such certificates for the 75 rows that have no unimodular realisation here:
+  125 rational realisations (3 of them at κ = 2), with their bad primes, and 74 realisations over
   GF(2) or GF(3) (the stored qubit and qutrit certificates of those rows). Gate G37 recomputes every bad-prime set and
   checks coverage.
 * Examples. Row 456 (R38): two rational realisations with bad primes {2, 3} and {2, 13}, and the qubit certificate.
@@ -970,14 +984,27 @@ The search proves nothing; `scripts/s32_unimodular.py` certifies.
   above; the kernel then checked primes up to 97 only), so that setting certified 2 of 20 (rows 465, 541). The other
   reports in the file are exact. A dated note is added to the file; nothing in R38's data or claims rests on it.
 
-*The 5 rows still open [empirical].* Rows 587, 589, 612, 630, 635 (N = 587: 24, 589: 24, 612: 30, 630: 26, 635: 28).
+*Round R40 [certified; independent referee].* The five rows that R39 left open, 587, 589, 612, 630 and 635
+(N = 24, 24, 30, 26, 28), are covered (`results/2026-10-14_r40-sandbox/`).
 
-* No rational realisation is known for any of them. The best attempts of the rational searches, with the cuts they
-  miss, are in `results/2026-10-14_r39-sandbox/open_rows.json`. They miss one to three cuts (row 612: ten or more),
-  mostly with the rational rank above the target, which is the rank over GF(2) of the qubit certificate. A
-  configuration that exists only in characteristic 2 would produce such misses, and so does a search that has not
-  finished; nothing here tells the two apart. All of them have qubit realisations at multiplicity 1 and no known
-  qutrit realisation.
+* First rational realisations: rows 587 and 589 from rational searches of 1200 s, started from the qubit
+  certificate and from R39's best near miss; rows 630 and 635 from 600-s rounds started from the best near miss at
+  start temperature 0.3 instead of 1.0; row 612 in the second such round of a later push.
+* Searches that are rational and right mod the uncovered primes, started from these realisations, then covered all
+  five (60 s each; row 612: 300 s, third round). Row 630 has a rational realisation with bad primes {2}; each of the
+  others has two whose bad primes meet in {2}. The stored qubit certificate supplies GF(2).
+* A separate agent, with its own code, re-verified the 14 new pieces (structure; ranks on all 31 cuts; bad primes by
+  its own Smith form, by minors and by sympy) and the coverage. It found the 185 earlier pieces and the unimodular
+  file unchanged, and every row 0–640 certified one way or the other. Not yet checked by hand.
+
+*The 5 rows open after R39 (closed in R40) [empirical].*
+
+* R39 knew no rational realisation for any of them. Its best attempts, with the cuts they miss, are in
+  `results/2026-10-14_r39-sandbox/open_rows.json`. They missed one to three cuts (row 612: ten or more), mostly with
+  the rational rank above the target, which is the rank over GF(2) of the qubit certificate. A configuration that
+  exists only in characteristic 2 would produce such misses, and so does a search that has not finished; R39 could
+  not tell the two apart. R40 found that the searches had not finished: longer runs from the near misses succeeded.
+  Their qutrit realisations come from the covering pieces that are right at 3.
 * (R38) At this size (N = 18–30), searches modulo a single small odd prime are hard, while searches for rational
   realisations (residual modulo 2^31 − 1 only) often succeed within seconds; the covering certificates exploit this.
   For example, a GF(3)-only search found no qutrit realisation of row 636 at multiplicity 1 (60 s), but its first
@@ -1014,7 +1041,153 @@ the text. Not yet checked by hand.
 Stab^(ℤ_d)_5 is independent of d (the main open question of the paper):
 
 * Stab₅ itself is not known: the catalogue has 1,155 undecided orbits and the enumeration of QLR₅ is incomplete.
-* 5 known rays remain open.
+* Since R40 no known ray remains open.
+
+### 4.10 Six parties, the other direction: states with at most one qudit per system [certified; Proposition 10 proved; empirical for h_NF] (R40)
+
+Question (§5): is Stab⁽ᵖ⁾_6 ⊄ Stab⁽²⁾_6 for some odd p? The only candidate so far is the non-Fano state
+h_NF = r_NF + r_NF* (§4.8). This section surveys all stabilizer states of seven systems (six parties and the
+purifier) with at most one qudit per system, for p = 2 and p = 3. It also shows that no GF(2^k)-linear state has the
+entropy vector of the non-Fano state in units of log 2^k, that is, k·S_NF in units of log 2 (Proposition 10).
+
+*Enumeration [certified: exhaustive; the GF(2) list recomputed independently, gates G38, G38b].*
+
+* Every stabilizer state over ℤ_p (p prime) is local-Clifford equivalent to a weighted graph state. For qubits this is
+  Theorem 1 of Van den Nest, Dehaene and De Moor (quant-ph/0308151), who attribute the d-level case to Schlingemann
+  (quant-ph/0111080). Their constructive proof works verbatim over GF(p): local Fourier transforms make the X-part of
+  a generator matrix invertible, the generator matrix then becomes (I | A) with A symmetric, and local phase gates
+  clear the diagonal.
+* A party-local Clifford leaves S(P) qudits per system. The stabilizer elements supported on P form an isotropic
+  subspace of dimension n_P − S(P); a Clifford on P maps it to Z-type elements on n_P − S(P) of its qudits, which then
+  factor out.
+* Scaling a vertex by a unit (row and column times u) changes no cut rank.
+* So the entropy vectors of the states with every S(P) ≤ 1 (units of log p) are exactly the cut-rank vectors of the
+  weighted graphs over GF(p) on seven vertices, one per system.
+* `cc/s35_enum7.c` enumerates these graphs up to scaling. Normal form: the edge from each vertex to its smallest
+  earlier neighbour has weight 1; every scaling orbit contains such a graph.
+  * p = 2: all 2^21 graphs, 10,773 distinct vectors.
+  * p = 3: 255,602,200 graphs in normal form, 27,334 distinct vectors.
+  * 10,743 vectors are in both lists.
+* Checks: the GF(2) list is recomputed in numpy from all 2^21 graphs, independently of the C code (G38b); 20,000
+  random GF(3) graphs, with arbitrary weights, all land in the GF(3) list (G38b).
+
+*Result.*
+
+* **Qubit-only** (in the GF(2) list, not in the GF(3) one): 30 vectors, the relabellings of the Steane state
+  [certified]. By Theorem 9 they lie outside Stab^(ℤ_d)_6 for every odd d.
+* **Qutrit-only**: 16,591 vectors in 53 orbits of S₇ (the seven systems relabelled, the purifier among them)
+  [certified]. In 41 orbits every S(P) = 1; in the other 12 some system is unentangled, so they are states of at most
+  five parties.
+* For **52 of the 53 orbits**, `cc/s34_anneal7.c` found a qubit graph state with two qubits per qutrit realising 2·S,
+  most within seconds (60-s budget per orbit). These vectors lie in Stab⁽²⁾_6 [certified: exact ranks over GF(2),
+  G38; state vectors in the self-test]. None of these states is a tensor product of two states with one qubit per
+  system: for no orbit is 2·S a sum of two vectors of the GF(2) list [certified: all pairs, G38b].
+* The remaining orbit (210 vectors) is that of **h_NF**. No qubit state with entropy vector m·S_NF was found for
+  m = 2 or 3 [empirical].
+  * Search class: m qubits per system, graph form, no edges inside a system. This loses no generality: the
+    reductions above, and party-local controlled-Z gates remove the edges inside a system. The class has 2^84 graphs
+    for m = 2 and 2^189 for m = 3.
+  * The *residual* of a run is the smallest L1 distance, Σ |cut rank − target| over the 63 cuts, that it reached.
+  * m = 2: best residual 2 in each of seven runs: the 60-s survey run, two runs of 120 s, and four of 600 s (two from
+    random starts, two from two copies of the best attempt at m = 1).
+  * m = 3: best residual 3 in each of three runs: two of 120 s and one of 600 s from three copies of the best attempt.
+  * Baseline [certified, G38b]: S_F and S_NF differ on one cut (2 against 3), and S_F is the only vector of the GF(2)
+    list at distance 1 from S_NF; no sum of two GF(2) vectors is closer than 2 to 2·S_NF. So m copies of a Steane
+    state already have residual m, and no run got below this baseline.
+  * Controls: 2·S_Steane was found at once from a random start, and 3·S_Steane in 600 s from a random start and from
+    copies (one 120-s run ended at residual 2). Copies of the Steane state solve these targets, so they are weak
+    controls. The stronger control is the survey above: its 52 realisations are not products of two states with one
+    qubit per system (other tensor splits are not excluded).
+
+*Field-linear states.*
+
+**Proposition 10 [proved] (R40).** Use the labels of §4.8: the non-Fano lines are ABW, CWZ, ACX, BXZ, AYZ, BCY. The
+points A, B, C, Z lie on three lines each, the points W, X, Y on two (WXY is the seventh line of the Fano plane, not
+a line here). Let F = GF(q), and let L be an F-linear stabilizer state of the seven systems with m F-qudits each (a
+Lagrangian subspace of ⊕_P F^{2m}) whose entropy vector, in units of log q, is m·S_NF. For a line ℓ let L_ℓ be the
+elements of L supported in ℓ, and π_P the restriction to system P.
+
+* (a) At each of A, B, C, Z, the restrictions π_P(L_ℓ), ℓ ∋ P, are all equal to one Lagrangian subspace of F^{2m}.
+* (b) If the same holds at W, X and Y, then the non-Fano matroid has an m-fold (multilinear) representation over F,
+  so q is odd.
+* (c) For m = 1 the hypothesis of (b) always holds. So a GF(q)-linear state with entropy vector S_NF (units of
+  log q, any number of qudits per system) exists if and only if q is odd. In particular, no GF(2^k)-linear state,
+  read as a qubit state with k qubits per system, has entropy vector k·S_NF.
+* (d) For q = 2: in every qubit state with entropy vector m·S_NF and m qubits per system (every realisation
+  compresses to this, as above), at one of W, X, Y (at least) the two line pieces restrict to different subspaces.
+  Each is the symplectic complement of the other, and neither is Lagrangian.
+
+*Proof.* Let L_X be the elements of L supported in X ⊆ E. The doubling remark of §2 gives
+dim π_X(L) = m|X| + S(X); over GF(q) this follows from GF(p) by restriction of scalars. With purity,
+dim L_X = dim L − dim π_{E∖X}(L) = m|X| − S(X). For S = m·S_NF this means:
+
+* L_P = L_{PP′} = 0 for points P, P′;
+* dim L_ℓ = m for each line ℓ, and π_P is injective on L_ℓ for P ∈ ℓ (its kernel is L_{ℓ∖P} = 0).
+
+1. If lines ℓ ≠ ℓ′ meet in P, then for s ∈ L_ℓ and s′ ∈ L_ℓ′ isotropy gives ω_P(π_P s, π_P s′) = ω(s, s′) = 0,
+   since the supports meet only in P. So π_P L_ℓ′ lies in the symplectic complement (π_P L_ℓ)^⊥, and equals it by
+   dimension (m each). At a point on three lines the three restrictions are pairwise complements of each other, so
+   they are all equal to one subspace D_P with D_P = D_P^⊥. This is (a).
+2. Assume now that π_P L_ℓ = D_P, Lagrangian, for every point P and every line ℓ ∋ P. Let Z₀ = Σ_ℓ L_ℓ, and
+   identify ⊕_P D_P with F^{7m} through bases of the D_P; then Z₀ ⊆ L ∩ ⊕_P D_P.
+   * Let V_P be the span of the columns of P in a generator matrix of Z₀^⊥, the complement for the standard dot
+     product. The linear dependencies among the columns are exactly Z₀. So for every set S of points,
+     r(S) := dim Σ_{P∈S} V_P = m|S| − dim(Z₀ ∩ F^{mS}) ≥ m|S| − dim L_S = m·S_NF(S), with equality on the lines
+     (L_ℓ ⊆ Z₀).
+   * dim Z₀ ≥ 4m: L_ABW, L_ACX, L_AYZ, L_BCY are independent. In a relation t₁ + t₂ + t₃ + t₄ = 0, restriction to W
+     gives t₁ = 0, then X gives t₂ = 0, then Z gives t₃ = 0, so t₄ = 0. Hence r(E) = 7m − dim Z₀ ≤ 3m.
+   * A non-line triple T has r(T) ≥ 3m, so r(E) = 3m and r(S) = 3m for every S that contains a non-line triple, which
+     is every set of four or more points. Since S_NF = r_NF on sets of at most three points, the rank function of
+     (V_P) is m·r_NF.
+3. In characteristic 2 this is impossible. The rank values give V_A ⊕ V_B ⊕ V_C = F^{3m}, and V_Z meets each of
+   V_A + V_B, V_A + V_C, V_B + V_C only in 0. So V_Z is the graph of isomorphisms V_C → V_A and V_C → V_B; using
+   them to identify V_A and V_B with V_C gives V_Z = {(z, z, z)}.
+   * V_W ⊆ (V_A + V_B) ∩ (V_C + V_Z), which has dimension 2m + 2m − 3m = m. So V_W = {(z, z, 0)}; likewise
+     V_X = {(z, 0, z)} and V_Y = {(0, z, z)}.
+   * V_W + V_X + V_Y is the image of (z₁, z₂, z₃) ↦ (z₁ + z₂, z₁ + z₃, z₂ + z₃). Its kernel {(z, z, z) : 2z = 0} has
+     dimension m in characteristic 2, so dim(V_W + V_X + V_Y) = 2m ≠ 3m = m·r_NF(WXY). This proves (b).
+4. For m = 1 the two restrictions at W, X, Y are one-dimensional and complements of each other. Every one-dimensional
+   subspace of F² is Lagrangian, so they coincide, and (b) gives "only if" in (c). For "if": the non-Fano matroid is
+   representable over GF(p) for odd p, hence over GF(q), and the CSS state of the code has entropy vector S_NF
+   (§2, step 2). An F-linear party-local Clifford (Witt's theorem over F) reduces any number of qudits per system to
+   S(P) = 1, as above. A GF(2^k)-linear state is a qubit state with k qubits per system and k times the entropies
+   (restriction of scalars). (d) is (b) for q = 2: at one of W, X, Y the two restrictions differ, so neither is its
+   own complement. ∎
+
+*Check [certified: exhaustive searches; the counts for q ≤ 4 also in gate G38b, all of them in
+`results/2026-10-14_r40-sandbox/m3_fields.log`].* `cc/s36_target7.c` lists every graph over GF(q) on seven
+vertices, in the normal form above, with a given cut-rank vector. Each vertex in turn imposes conditions on its edge
+weights: a weight vector must lie in, or must not lie in, the row space of a block of the graph so far. The first
+kind is linear and is solved first; the second kind is tested on the solutions.
+
+* S_NF: no graph over GF(2), GF(4), GF(8) or GF(16) (GF(16): 910,604,736 six-vertex partial graphs examined, 75 min
+  on one core). Over GF(3), GF(5), GF(7) and GF(9) there are 5,400, 94,200, 621,320 and 2,564,136 normal forms.
+* S_F: 532, 27,504 and 1,342,144 normal forms over GF(2), GF(4) and GF(8), and none over the odd fields, as
+  Theorem 9 requires.
+* Random targets are found over every field, and S_F over GF(16).
+* A separate Python implementation (G38b) reproduces the counts over GF(2), GF(3) and GF(4). The counts over GF(2) and
+  GF(3) agree with those of `cc/s35_enum7.c` (results/2026-10-14_r40-sandbox/m3_fields.log).
+
+*Independent referee (R40).* A separate agent, with its own code and without reading the repository's code for this
+section, re-enumerated both lists (GF(2): all 2^21 graphs; GF(3): another normal form, also 255,602,200 graphs) and
+found them equal to the stored ones. It confirmed the orbits, their sizes and representatives, the 52 qubit
+certificates, the Steane and non-Fano orbits, the tensor-product and distance statements, and, with two exhaustive
+programs of its own, every count of the Check paragraph from GF(2) to GF(9). It checked Proposition 10 line by line;
+step 2 follows its shorter argument, and its wording points are taken into the text. Not yet checked by hand.
+
+*What this shows.*
+
+* Among the states over ℤ_3 with at most one qudit per system, a witness of Stab⁽³⁾_6 ⊄ Stab⁽²⁾_6 can only be the
+  non-Fano state. Every other qutrit-only vector is a qubit vector at multiplicity 2.
+* For the non-Fano state, a qubit realisation of m·S_NF with m qubits per system cannot be GF(2^m)-linear. At one of
+  W, X, Y its two line pieces must restrict to different, non-Lagrangian subspaces (Proposition 10). The annealing
+  runs found none for m = 2, 3.
+* Exact realisations are sufficient, not necessary. h_NF could lie in LR⁽²⁾₇ through exact GF(2) families with rank
+  function a·r_NF + b·r_NF* that do not come from states, or only as a limit (§4.8). Deciding h_NF needs one of three
+  things: an inequality valid for GF(2)-linear rank functions and violated by h_NF (the transfer of §4.8 gives +27),
+  a qubit realisation, or an argument that covers such families and limits.
+* Not covered: p ≥ 5 with one qudit per system (for p = 5 the normal forms number about 2·10¹¹), and systems with
+  more than one qudit.
 
 ## 5. Open questions
 
@@ -1022,11 +1195,14 @@ Stab^(ℤ_d)_5 is independent of d (the main open question of the paper):
   (Theorem 7), and at n = 6 there is one (Theorem 9).
   * n = 5: by Theorem 1 this is equivalent to a characteristic dependence of the six-variable linear rank cone on
     its self-dual slice. No characteristic-dependent six-variable inequality is known; the smallest known ones
-    have seven variables. 636 of the 641 known extreme rays of Stab₅ lie in Stab^(Z_d)_5 for every d (§4.9,
-    R38, R39). The other 5 have qubit realisations at multiplicity 1 and no known qutrit realisation;
-    no rational realisation is known for any of them. Among the known extreme rays, they are the candidates for a
-    dependence at n = 5.
-  * n = 6, the other direction: is Stab⁽ᵖ⁾_6 ⊄ Stab⁽²⁾_6 for some odd p? By the face remark of §4.8, for the
+    have seven variables. All 641 known extreme rays of Stab₅ lie in Stab^(Z_d)_5 for every d (§4.9, R38–R40),
+    so none of them can witness a dependence at n = 5. A witness would need an extreme ray of Stab₅ that is not yet
+    known (the 1,155 undecided orbits of the catalogue are candidates, not the only ones), or, for d divisible by a
+    square, a vector of Stab^(Z_d)_5 outside Stab₅ (the ℤ_d question below).
+  * n = 6, the other direction: is Stab⁽ᵖ⁾_6 ⊄ Stab⁽²⁾_6 for some odd p? Among the states over ℤ_3 with at most one
+    qudit per system, only the non-Fano state can be a witness (§4.10, R40). No GF(2^k)-linear state has entropy
+    vector k·S_NF, and in any qubit realisation of m·S_NF with m qubits per system two line pieces restrict to
+    different, non-Lagrangian subspaces at one of W, X, Y (Proposition 10, R40). By the face remark of §4.8, for the
     non-Fano state this asks whether LR⁽²⁾₇ meets cone(r_NF, r_NF*) outside 0. The direct probes were negative
     (they are explained by Proposition 8): symmetrised Fano and non-Fano polymatroids r + r* never violate (65) or
     (91) in any of the 5,040 relabellings (minimum 19 and 16), and a 240-second annealing probe over seven-party
@@ -1054,9 +1230,8 @@ Stab^(ℤ_d)_5 is independent of d (the main open question of the paper):
   * Khazaei (arXiv:2608.09543) proves Γ^MixL ⊆ Γ^Abl and writes "We do not know whether the first inclusion can be
     strict."
 * **Smaller party counts for Theorem 5**, e.g. Z_4 against Z_6 below n = 15.
-* **Five parties over every field**: 636 of the 641 known extreme rays are certified for every d (§4.9, R38,
-  R39). Lift or exclude the other 5; an exclusion from Stab⁽ᵖ⁾_5 for some odd p would answer the n = 5
-  question.
+* ~~**Five parties over every field**: lift or exclude the known extreme rays.~~ All 641 are certified for every d
+  (§4.9, R38–R40). The n = 5 question now concerns extreme rays not yet known (first item).
 * ~~**Six parties**: is there a characteristic-dependent seven-variable inequality g with g∘D = g?~~ Yes: g = f9 + f9∘D
   (Theorem 9, R36). BKL's Theorems 6.4 and 6.6 were checked and are blind (Proposition 8).
 
@@ -1157,11 +1332,16 @@ For §4.8 (R36), from an AI pre-check (web search, abstracts only):
     python3 scripts/s32_unimodular.py --check --full                 # §4.9: exact checks of the stored certificates
     python3 scripts/s32_unimodular.py --self-test                    # §4.9: neutral moves, ring expansion, Z_d formula
     python3 scripts/s32_unimodular.py --check-cover                  # §4.9: covering certificates
-    cp data/s32_stab5_unimodular.npz u.npz; cp data/s32_stab5_cover.npz c.npz                # §4.9: the covering search,
-    python3 scripts/s32_unimodular.py --cover --rows 587,589 --seconds 300 --out u.npz --cover-out c.npz   # on copies
+    cp data/s32_stab5_unimodular.npz u.npz       # §4.9: the covering search, on a copy and into a new cover file
+    python3 scripts/s32_unimodular.py --cover --rows 587,589 --seconds 300 --out u.npz --cover-out c_new.npz
     python3 scripts/s33_ci_oddchar.py --rows 456,488                 # §4.9: odd-characteristic CI screen (exploratory)
-    python3 selftest.py                                              # gates G29-G36 (G29b, G31b-G36b with --full)
+    python3 scripts/s34_six_party_survey.py --check --full           # §4.10: survey data, GF(2) list recomputed
+    python3 scripts/s34_six_party_survey.py --self-test              # §4.10: conventions, cut ranks vs state vectors
+    python3 scripts/s34_six_party_survey.py --enumerate --out lists.npz   # §4.10: cc/s35_enum7.c, p = 2, 3 (~15 min)
+    python3 scripts/s34_six_party_survey.py --fields 2,3,4,5,7,8,9   # §4.10: cc/s36_target7.c, S_F and S_NF (~4 min)
+    python3 scripts/s34_six_party_survey.py --fields-python 2,3,4    # §4.10: the same counts in Python (~2 min)
+    python3 selftest.py                                              # gates G29-G38 (G29b, G31b-G38b with --full)
 
 Raw output of the sandbox runs: `results/2026-10-02_r32-sandbox/`, `results/2026-10-02_r33-sandbox/`,
 `results/2026-10-02_r34-sandbox/`, `results/2026-10-02_r35-sandbox/`, `results/2026-10-02_r36-sandbox/`,
-`results/2026-10-13_r38-sandbox/`, `results/2026-10-14_r39-sandbox/`.
+`results/2026-10-13_r38-sandbox/`, `results/2026-10-14_r39-sandbox/`, `results/2026-10-14_r40-sandbox/`.

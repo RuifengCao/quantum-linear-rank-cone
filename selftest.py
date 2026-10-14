@@ -701,6 +701,31 @@ def main():
          f'unimodular file; together with G36, {S36["ok"] + S37["rows_covered"]} of the 641 known extreme rays lie in '
          f'Stab^(Z_d)_5 for every d; file and content match the manifest {file37}')
 
+    # G38 (R40): six parties, the other direction -- states with at most one qudit per system (roadmap item M3;
+    # docs/R32_reduction_and_local_dimension.md section 4.10).  data/s34_seven_qudit_vectors.npz holds every entropy
+    # vector of seven-qubit and of seven-qutrit stabilizer states with at most one qudit per system (exhaustive
+    # enumeration of weighted graph states, cc/s35_enum7.c), one representative of each S_7 orbit of the qutrit-only
+    # vectors with a GF(3) graph realising it, and qubit graph states realising twice the vector.  Checked exactly: the
+    # representatives are realised by their graphs over GF(3) and are qutrit-only; their orbits partition the
+    # qutrit-only vectors; each stored qubit graph realises 2 S over GF(2); the only orbit without one is the orbit of
+    # the non-Fano state h_NF; the qubit-only vectors are the 30 relabellings of the Steane state; file and content match
+    # the manifest.  G38b (--full): the GF(2) list recomputed in numpy (all 2^21 graphs, independently of the C code),
+    # 20,000 random GF(3) graphs inside the GF(3) list, the tensor-product and distance checks of section 4.10, the
+    # Python target search for S_F and S_NF over GF(2), GF(3), GF(4) against the counts of cc/s36_target7.c (manifest;
+    # Proposition 10), and the self-test of scripts/s34_six_party_survey.py.
+    import s34_six_party_survey as _s38
+    S38 = _s38.check()
+    M38 = MAN['s34_seven_qudit_vectors']
+    file38 = (_h33.sha256(open(os.path.join(core.DATA, 's34_seven_qudit_vectors.npz'), 'rb').read()).hexdigest()
+              == M38['file_sha256'] and _s38.content_sha() == M38['sha256'])
+    gate('G38 six parties, at most one qudit per system', _s38.check_ok(S38) and S38['gf2'] == M38['gf2']
+         and S38['gf3'] == M38['gf3'] and S38['orbits'] == M38['orbits'] and file38,
+         f'{S38["gf2"]} qubit and {S38["gf3"]} qutrit vectors; {S38["qutrit_only"]} qutrit-only in {S38["orbits"]} orbits '
+         f'({S38["orbits_all_singles_one"]} with every S(P) = 1), all realised by their GF(3) graphs; qubit realisations '
+         f'of 2 S exact for {S38["qubit2_ok"]}/{S38["qubit2_stored"]} orbits, the remaining orbit is that of h_NF '
+         f'{S38["without_qubit2_is_nonfano"]}; qubit-only = the 30 relabellings of the Steane state '
+         f'{S38["qubit_only_is_steane"]}; file and content match the manifest {file38}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:
@@ -757,6 +782,20 @@ def main():
              and st36b,
              f'rational rank + minors with gcd 1, and GF(p) ranks for p <= 19: {S36b["ok"]}/{S36b["stored"]}; Z_4 / Z_6 state '
              f'vectors {S36b["zd_ok"]}/{S36b["zd_checked"]} certificates; s32 self-test {st36b}')
+
+        S38b = _s38.check(full_check=True)
+        st38b = _s38.self_test(trials=10, log=lambda *_x: None)
+        F38b = _s38.fields_check((2, 3, 4), recheck='first', log=lambda *_x: None)
+        fc38 = M38['field_counts']
+        f38ok = all(F38b[q] == fc38[str(q)] for q in F38b)
+        gate('G38b six parties, enumeration re-checked', _s38.check_ok(S38b, True) and st38b and f38ok,
+             f'GF(2) list recomputed in numpy: {S38b["gf2_reenumerated"]} vectors, equal to the stored list '
+             f'{S38b["gf2_list_equal"]}; {S38b["gf3_samples"]} random GF(3) graphs, {S38b["gf3_samples_missing"]} '
+             f'outside the GF(3) list; 2 S a sum of two GF(2) vectors for {S38b["orbits_2v_a_sum"]} orbits; L1 distance '
+             f'S_NF to the GF(2) list {S38b["nf_l1_to_gf2"]} (only the Steane vector: {S38b["nf_nearest_is_steane"]}), '
+             f'2 S_NF to sums of two {S38b["two_nf_l1_to_sums"]}; Python target search, (S_F, S_NF) solutions over '
+             f'GF(2), GF(3), GF(4): {[F38b[q] for q in (2, 3, 4)]}, equal to the counts of cc/s36_target7.c {f38ok}; '
+             f's34 self-test {st38b}')
 
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)

@@ -1,0 +1,7 @@
+$ python3 scripts/s34_six_party_survey.py --check --full
+{"gf2": 10773, "gf3": 27334, "gf2_rows": 10773, "gf3_rows": 27334, "reps_realised_gf3": 53, "reps_qutrit_only": 53, "orbits": 53, "orbits_disjoint": true, "orbit_sizes_ok": true, "qutrit_only": 16591, "orbits_cover_qutrit_only": true, "orbits_all_singles_one": 41, "qubit2_stored": 52, "qubit2_ok": 52, "without_qubit2": [49], "nonfano_flag_ok": true, "without_qubit2_is_nonfano": true, "qubit_only": 30, "qubit_only_is_steane": true, "gf2_reenumerated": 10773, "gf2_list_equal": true, "gf3_samples": 20000, "gf3_samples_missing": 0, "orbits_2v_a_sum": 0, "nf_l1_to_gf2": 1, "nf_l1_nearest": 1, "nf_nearest_is_steane": true, "two_nf_l1_to_sums": 2, "seconds": 58.8}
+ALL OK
+
+real	0m59.020s
+user	0m57.511s
+sys	0m0.591s
