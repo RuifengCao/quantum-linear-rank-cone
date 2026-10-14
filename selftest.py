@@ -712,7 +712,9 @@ def main():
     # the manifest.  G38b (--full): the GF(2) list recomputed in numpy (all 2^21 graphs, independently of the C code),
     # 20,000 random GF(3) graphs inside the GF(3) list, the tensor-product and distance checks of section 4.10, the
     # Python target search for S_F and S_NF over GF(2), GF(3), GF(4) against the counts of cc/s36_target7.c (manifest;
-    # Proposition 10), and the self-test of scripts/s34_six_party_survey.py.
+    # Proposition 10), the line pieces of the Fano and non-Fano CSS states with one and two qudits per system after
+    # random local symplectic maps (Proposition 10, steps 1 and 1'; R41), and the self-test of
+    # scripts/s34_six_party_survey.py.
     import s34_six_party_survey as _s38
     S38 = _s38.check()
     M38 = MAN['s34_seven_qudit_vectors']
@@ -788,14 +790,15 @@ def main():
         F38b = _s38.fields_check((2, 3, 4), recheck='first', log=lambda *_x: None)
         fc38 = M38['field_counts']
         f38ok = all(F38b[q] == fc38[str(q)] for q in F38b)
-        gate('G38b six parties, enumeration re-checked', _s38.check_ok(S38b, True) and st38b and f38ok,
+        lp38 = _s38.line_pieces_check()['ok']
+        gate('G38b six parties, enumeration re-checked', _s38.check_ok(S38b, True) and st38b and f38ok and lp38,
              f'GF(2) list recomputed in numpy: {S38b["gf2_reenumerated"]} vectors, equal to the stored list '
              f'{S38b["gf2_list_equal"]}; {S38b["gf3_samples"]} random GF(3) graphs, {S38b["gf3_samples_missing"]} '
              f'outside the GF(3) list; 2 S a sum of two GF(2) vectors for {S38b["orbits_2v_a_sum"]} orbits; L1 distance '
              f'S_NF to the GF(2) list {S38b["nf_l1_to_gf2"]} (only the Steane vector: {S38b["nf_nearest_is_steane"]}), '
              f'2 S_NF to sums of two {S38b["two_nf_l1_to_sums"]}; Python target search, (S_F, S_NF) solutions over '
              f'GF(2), GF(3), GF(4): {[F38b[q] for q in (2, 3, 4)]}, equal to the counts of cc/s36_target7.c {f38ok}; '
-             f's34 self-test {st38b}')
+             f'line pieces of the Fano and non-Fano states (Proposition 10, steps 1 and 1\') {lp38}; s34 self-test {st38b}')
 
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)

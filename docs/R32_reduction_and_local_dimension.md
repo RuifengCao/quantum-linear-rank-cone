@@ -42,6 +42,13 @@ Among the states with at most one qudit per system, only the non-Fano state can 
 (certified). No GF(2^k)-linear state has entropy vector k·S_NF (Proposition 10, proved; the
 non-Fano entropy vector in units of log 2^k).
 
+Round R41 strengthens Proposition 10 (§4.10): no qubit stabilizer state has an entropy vector that is a positive
+multiple of S_NF, and S_NF is not a finite nonnegative combination of qubit stabilizer entropy vectors (Corollary 11).
+So the cones generated without closure already separate in the other direction at n = 6; for the closed cones of the
+paper the question stays open (limits). Proved (Corollary 11 uses the certified face ranks of §4.8); independent
+referee; not yet checked by hand; not in the paper. R41 also corrects R40's Proposition 10(d), which was true only
+vacuously (erratum in §4.10).
+
 ## 1. Setting
 
 * n visible parties A₁, …, A_n and a purifier F; E is the set of all n + 1 parties. A *pure-symmetric* vector S
@@ -837,29 +844,34 @@ The result inherits the status of Theorem 1(d), steps 1–2 (the cited entropy f
   form stated on the slice.
 * *Faces [certified, exact ranks; `s31_six_party.py --face`, G35].* The Shannon elemental inequalities tight at h_F
   have rational rank 125, and those tight at r_F and at r_F* rank 126 (upper bounds from the vectors they annihilate,
-  lower bounds from the rank over GF(1000003)). So the face of Γ₇ containing h_F is two-dimensional,
+  lower bounds from the rank over GF(1000003)). So the smallest face of Γ₇ containing h_F is two-dimensional,
   and r_F, r_F* are extreme rays of Γ₇ lying in it: the face is cone(r_F, r_F*). Every decomposition of h_F into
   polymatroids stays in this face. Since D preserves LR⁽q⁾₇ and swaps r_F and r_F*, the key step h_F ∉ LR⁽q⁾₇ of
   Theorem 9 is equivalent to: LR⁽q⁾₇ contains no nonzero vector a·r_F + b·r_F* (q odd). The same holds verbatim for
   the non-Fano pair r_NF, r_NF* (ranks 125 and 126).
-* *The reverse direction at n = 6 (open).* The natural candidate is the non-Fano state, the same code over GF(3), with
-  h_NF = r_NF + r_NF*. By the previous remark, h_NF ∈ LR⁽²⁾₇ if and only if LR⁽²⁾₇ contains a nonzero vector
-  a·r_NF + b·r_NF*.
+* *The reverse direction at n = 6 (open for the closed cones; R41: settled without closure).* The natural candidate is
+  the non-Fano state, the same code over GF(3), with h_NF = r_NF + r_NF*. By the previous remark, h_NF ∈ LR⁽²⁾₇ if
+  and only if LR⁽²⁾₇ contains a nonzero vector a·r_NF + b·r_NF*.
   * The same construction with (LA)₂ gives +27 on h_NF. The points W, X, Y lie on only two non-Fano lines each, and
-    I(W; ABCZ) = 2, so their two line pieces need not coincide.
+    I(W; ABCZ) = 2, so for a general subspace family their two line pieces need not coincide. (R41: the analogous
+    objects of a stabilizer state with entropy vector m·S_NF, the restrictions to W of its elements supported on the
+    two lines, must coincide, by isotropy at the other two points of each line (Proposition 10, step 1′, §4.10);
+    over GF(2) there is no such state.)
   * No family of 2-dimensional subspaces over GF(2) realises h_NF exactly (exhaustive search, not in the
-    repository).
-  * An exploratory hand argument (not refereed) suggests that an exact GF(2) family with rank function
-    a·r_NF + b·r_NF* must have a = b. Exact points with a = b ≥ 2, and limits, remain open (R40: next item).
+    repository). (R41: a special case of Corollary 11.)
+  * An exploratory hand argument (not refereed) suggested that an exact GF(2) family with rank function
+    a·r_NF + b·r_NF* must have a = b. (R41: superseded; no exact family with (a, b) ≠ (0, 0) exists.)
   * (R40) A qubit state with entropy vector m·S_NF gives the exact point a = b = m: the code r_L of the doubling remark
     (§2), with S(P) qubits per system, has rank function h_{m·S_NF} = m·h_NF. Conversely, an exact point a = b = m
-    gives a qubit state with 2m·S_NF (step 2 of §2). So the states test a sufficient condition for the exact points.
-    * For m = 2, 3 annealing found no such state (§4.10) [empirical].
-    * No GF(2^k)-linear state has entropy vector k·S_NF. In any qubit realisation of m·S_NF with m qubits per system,
-      the two line pieces at one of W, X, Y restrict to different, non-Lagrangian subspaces (Proposition 10, §4.10)
-      [proved]. This makes precise the remark above that those pieces need not coincide.
-    * Among the states over ℤ_3 with at most one qudit per system, h_NF is the only remaining candidate for this
-      direction (§4.10) [certified].
+    gives a qubit state with 2m·S_NF (step 2 of §2). For m = 2, 3 annealing found no such state (§4.10) [empirical].
+  * (R41) There are no exact points: no qubit stabilizer state has an entropy vector that is a positive multiple of
+    S_NF, and no GF(2) family has rank function a·r_NF + b·r_NF* with (a, b) ≠ (0, 0) (Proposition 10, Corollary 11,
+    §4.10) [proved]. So h_NF can lie in LR⁽²⁾₇ only as a limit, and the question of this remark is now about limits
+    only.
+    R40 had written instead that in any qubit realisation the line pieces at one of W, X, Y differ; that was true
+    only vacuously (erratum in §4.10).
+  * Among the states over ℤ_3 with at most one qudit per system, h_NF is the only remaining candidate for this
+    direction (§4.10) [certified].
 
 ### 4.9 Five parties: the known extreme rays over every local dimension [certified; independent referee] (R38–R40)
 
@@ -1043,12 +1055,13 @@ Stab^(ℤ_d)_5 is independent of d (the main open question of the paper):
 * Stab₅ itself is not known: the catalogue has 1,155 undecided orbits and the enumeration of QLR₅ is incomplete.
 * Since R40 no known ray remains open.
 
-### 4.10 Six parties, the other direction: states with at most one qudit per system [certified; Proposition 10 proved; empirical for h_NF] (R40)
+### 4.10 Six parties, the other direction: states with at most one qudit per system [certified; Proposition 10 and Corollary 11 proved; empirical for h_NF] (R40, R41)
 
 Question (§5): is Stab⁽ᵖ⁾_6 ⊄ Stab⁽²⁾_6 for some odd p? The only candidate so far is the non-Fano state
 h_NF = r_NF + r_NF* (§4.8). This section surveys all stabilizer states of seven systems (six parties and the
-purifier) with at most one qudit per system, for p = 2 and p = 3. It also shows that no GF(2^k)-linear state has the
-entropy vector of the non-Fano state in units of log 2^k, that is, k·S_NF in units of log 2 (Proposition 10).
+purifier) with at most one qudit per system, for p = 2 and p = 3. It also shows that no qubit stabilizer state has an
+entropy vector that is a positive multiple of that of the non-Fano state, and that S_NF is not a finite nonnegative
+combination of qubit stabilizer entropy vectors (Proposition 10, Corollary 11; R41).
 
 *Enumeration [certified: exhaustive; the GF(2) list recomputed independently, gates G38, G38b].*
 
@@ -1083,7 +1096,7 @@ entropy vector of the non-Fano state in units of log 2^k, that is, k·S_NF in un
   G38; state vectors in the self-test]. None of these states is a tensor product of two states with one qubit per
   system: for no orbit is 2·S a sum of two vectors of the GF(2) list [certified: all pairs, G38b].
 * The remaining orbit (210 vectors) is that of **h_NF**. No qubit state with entropy vector m·S_NF was found for
-  m = 2 or 3 [empirical].
+  m = 2 or 3 [empirical]. (R41: none exists, for any m; Proposition 10.)
   * Search class: m qubits per system, graph form, no edges inside a system. This loses no generality: the
     reductions above, and party-local controlled-Z gates remove the edges inside a system. The class has 2^84 graphs
     for m = 2 and 2^189 for m = 3.
@@ -1099,23 +1112,22 @@ entropy vector of the non-Fano state in units of log 2^k, that is, k·S_NF in un
     controls. The stronger control is the survey above: its 52 realisations are not products of two states with one
     qubit per system (other tensor splits are not excluded).
 
-*Field-linear states.*
+*Field-linear states, and combinations of qubit states.*
 
-**Proposition 10 [proved] (R40).** Use the labels of §4.8: the non-Fano lines are ABW, CWZ, ACX, BXZ, AYZ, BCY. The
-points A, B, C, Z lie on three lines each, the points W, X, Y on two (WXY is the seventh line of the Fano plane, not
-a line here). Let F = GF(q), and let L be an F-linear stabilizer state of the seven systems with m F-qudits each (a
-Lagrangian subspace of ⊕_P F^{2m}) whose entropy vector, in units of log q, is m·S_NF. For a line ℓ let L_ℓ be the
-elements of L supported in ℓ, and π_P the restriction to system P.
+**Proposition 10 [proved] (R40; strengthened in R41).** Use the labels of §4.8: the non-Fano lines are ABW, CWZ, ACX,
+BXZ, AYZ, BCY. The points A, B, C, Z lie on three lines each, the points W, X, Y on two (WXY is the seventh line of
+the Fano plane, not a line here). Every line contains two of A, B, C, Z. Let F = GF(q), and let L be an F-linear
+stabilizer state of the seven systems with m F-qudits each (a Lagrangian subspace of ⊕_P F^{2m}) whose entropy
+vector, in units of log q, is m·S_NF. For a line ℓ let L_ℓ be the elements of L supported in ℓ, and π_P the
+restriction to system P.
 
-* (a) At each of A, B, C, Z, the restrictions π_P(L_ℓ), ℓ ∋ P, are all equal to one Lagrangian subspace of F^{2m}.
-* (b) If the same holds at W, X and Y, then the non-Fano matroid has an m-fold (multilinear) representation over F,
-  so q is odd.
-* (c) For m = 1 the hypothesis of (b) always holds. So a GF(q)-linear state with entropy vector S_NF (units of
-  log q, any number of qudits per system) exists if and only if q is odd. In particular, no GF(2^k)-linear state,
-  read as a qubit state with k qubits per system, has entropy vector k·S_NF.
-* (d) For q = 2: in every qubit state with entropy vector m·S_NF and m qubits per system (every realisation
-  compresses to this, as above), at one of W, X, Y (at least) the two line pieces restrict to different subspaces.
-  Each is the symplectic complement of the other, and neither is Lagrangian.
+* (a) At every point P, the restrictions π_P(L_ℓ), ℓ ∋ P, are all equal to one Lagrangian subspace D_P of F^{2m}.
+  (R40 proved this at A, B, C, Z; R41 adds W, X, Y.)
+* (b) Hence the non-Fano matroid has an m-fold (multilinear) representation over F, so q is odd.
+* (c) A GF(q)-linear stabilizer state whose entropy vector (units of log q, any number of qudits per system) is a
+  positive multiple of S_NF exists if and only if q is odd. In particular, no qubit stabilizer state has an entropy
+  vector that is a positive multiple of S_NF, and no GF(2^k)-linear state has entropy vector k·S_NF in units of
+  log 2.
 
 *Proof.* Let L_X be the elements of L supported in X ⊆ E. The doubling remark of §2 gives
 dim π_X(L) = m|X| + S(X); over GF(q) this follows from GF(p) by restriction of scalars. With purity,
@@ -1127,9 +1139,14 @@ dim L_X = dim L − dim π_{E∖X}(L) = m|X| − S(X). For S = m·S_NF this mean
 1. If lines ℓ ≠ ℓ′ meet in P, then for s ∈ L_ℓ and s′ ∈ L_ℓ′ isotropy gives ω_P(π_P s, π_P s′) = ω(s, s′) = 0,
    since the supports meet only in P. So π_P L_ℓ′ lies in the symplectic complement (π_P L_ℓ)^⊥, and equals it by
    dimension (m each). At a point on three lines the three restrictions are pairwise complements of each other, so
-   they are all equal to one subspace D_P with D_P = D_P^⊥. This is (a).
-2. Assume now that π_P L_ℓ = D_P, Lagrangian, for every point P and every line ℓ ∋ P. Let Z₀ = Σ_ℓ L_ℓ, and
-   identify ⊕_P D_P with F^{7m} through bases of the D_P; then Z₀ ⊆ L ∩ ⊕_P D_P.
+   they are all equal to one subspace D_P with D_P = D_P^⊥. This is (a) at A, B, C, Z.
+1′. (R41) Let ℓ = {P, P′, D} with P, P′ among A, B, C, Z. For s, s′ ∈ L_ℓ, isotropy gives
+   0 = ω(s, s′) = ω_P(π_P s, π_P s′) + ω_{P′}(π_{P′} s, π_{P′} s′) + ω_D(π_D s, π_D s′). The first two terms vanish,
+   because π_P s, π_P s′ lie in the Lagrangian D_P, and likewise at P′. So π_D L_ℓ is isotropic of dimension m, hence
+   Lagrangian. By step 1 the restriction of the other line through D is its complement, that is, π_D L_ℓ itself. This
+   is (a) at W, X, Y.
+2. By (a), π_P L_ℓ = D_P for every point P and every line ℓ ∋ P. Let Z₀ = Σ_ℓ L_ℓ, and identify ⊕_P D_P with F^{7m}
+   through bases of the D_P; then Z₀ ⊆ L ∩ ⊕_P D_P.
    * Let V_P be the span of the columns of P in a generator matrix of Z₀^⊥, the complement for the standard dot
      product. The linear dependencies among the columns are exactly Z₀. So for every set S of points,
      r(S) := dim Σ_{P∈S} V_P = m|S| − dim(Z₀ ∩ F^{mS}) ≥ m|S| − dim L_S = m·S_NF(S), with equality on the lines
@@ -1146,13 +1163,38 @@ dim L_X = dim L − dim π_{E∖X}(L) = m|X| − S(X). For S = m·S_NF this mean
      V_X = {(z, 0, z)} and V_Y = {(0, z, z)}.
    * V_W + V_X + V_Y is the image of (z₁, z₂, z₃) ↦ (z₁ + z₂, z₁ + z₃, z₂ + z₃). Its kernel {(z, z, z) : 2z = 0} has
      dimension m in characteristic 2, so dim(V_W + V_X + V_Y) = 2m ≠ 3m = m·r_NF(WXY). This proves (b).
-4. For m = 1 the two restrictions at W, X, Y are one-dimensional and complements of each other. Every one-dimensional
-   subspace of F² is Lagrangian, so they coincide, and (b) gives "only if" in (c). For "if": the non-Fano matroid is
-   representable over GF(p) for odd p, hence over GF(q), and the CSS state of the code has entropy vector S_NF
-   (§2, step 2). An F-linear party-local Clifford (Witt's theorem over F) reduces any number of qudits per system to
-   S(P) = 1, as above. A GF(2^k)-linear state is a qubit state with k qubits per system and k times the entropies
-   (restriction of scalars). (d) is (b) for q = 2: at one of W, X, Y the two restrictions differ, so neither is its
-   own complement. ∎
+4. (c), "only if": entropies of a GF(q)-linear state are integers in units of log q and S_NF(P) = 1, so the multiple is
+   an integer m; an F-linear party-local Clifford (Witt's theorem over F) reduces each system to S(P) = m qudits, as
+   above, and (b) applies. "If": the non-Fano matroid is representable over GF(p) for odd p, hence over GF(q), and the
+   CSS state of the code has entropy vector S_NF (§2, step 2). A GF(2^k)-qudit is k qubits, and a GF(2^k)-linear
+   state is a qubit state whose entropies in units of log 2 are k times those in units of log 2^k (restriction of
+   scalars). ∎
+
+**Corollary 11 [proved; uses the certified face ranks of §4.8, G35] (R41).** S_NF is not a nonnegative combination
+of finitely many entropy vectors of qubit stabilizer states, and h_NF is not a nonnegative combination of finitely
+many rank functions of subspace families over GF(2). Since S_NF is a GF(p) stabilizer entropy vector for every odd
+prime p, the convex cone generated by the entropy vectors of six-party GF(p) stabilizer states is not contained in the
+one generated by the qubit ones, for every odd p. For the closed cones Stab⁽ᵖ⁾_6 and Stab⁽²⁾_6 of the paper this
+remains open: S_NF could be a limit of such combinations.
+
+*Proof.* Let h_NF = Σ c_i h_i with c_i > 0, where each h_i is the rank function of a nonzero family of subspaces over
+GF(2) (for qubit states, h_i = h_{S_i}; §2, step 1). Each h_i is a polymatroid, and by the face remark of §4.8
+[certified, G35] the smallest face of Γ₇ containing h_NF is cone(r_NF, r_NF*). So h_i = a_i·r_NF + b_i·r_NF* with
+a_i, b_i ≥ 0, not both 0 since h_i ≠ 0. The CSS state of the family (§2, step 2) is a qubit stabilizer state with
+entropy vector π(h_i) = (a_i + b_i)·S_NF, because π(r*) = π(r); and a_i + b_i = h_i(A) is a positive integer. This
+contradicts Proposition 10(c). For S_NF = Σ c_i S_i, apply this to h_NF = Σ c_i h_{S_i}. ∎
+
+*Erratum (R40).* R40 stated (c) for m = 1 only, and added (d): for q = 2, in every qubit state with entropy vector
+m·S_NF and m qubits per system, the two line pieces at one of W, X, Y restrict to different, non-Lagrangian
+subspaces. Step 1′ shows that they always coincide; with (b) there is no such state at all, and (d) was true only
+vacuously. The R40 text built on (d) (§4.8, "What this shows" below, §5, README ⓪″ with its targeted search at
+m = 2, CHANGELOG R40) described a structure that cannot occur. Neither R40 nor its referee noticed step 1′. Corrected
+in R41 (the CHANGELOG entry of R40 is left as it was).
+
+*Numerical check of steps 1 and 1′ (G38b, `line_pieces_check` in the s34 self-test).* On states that exist (the CSS
+states of the non-Fano code over GF(3) and of the Fano code over GF(2), with one and with two qudits per system, after
+random symplectic maps on every system): every L_ℓ has dimension m, and at every point the restrictions of the line
+pieces through it are one Lagrangian subspace. This checks the conventions, not the proposition.
 
 *Check [certified: exhaustive searches; the counts for q ≤ 4 also in gate G38b, all of them in
 `results/2026-10-14_r40-sandbox/m3_fields.log`].* `cc/s36_target7.c` lists every graph over GF(q) on seven
@@ -1175,17 +1217,28 @@ certificates, the Steane and non-Fano orbits, the tensor-product and distance st
 programs of its own, every count of the Check paragraph from GF(2) to GF(9). It checked Proposition 10 line by line;
 step 2 follows its shorter argument, and its wording points are taken into the text. Not yet checked by hand.
 
+*Independent referee (R41).* A separate agent, without reading the repository's code, checked Proposition 10 (with
+step 1′), Corollary 11 and the erratum line by line, recomputed the face ranks (125 at h_NF, 126 at r_NF and r_NF*),
+and confirmed steps 1, 1′ and 2 numerically on the non-Fano CSS state over GF(3) with up to three qutrits per system
+and on the Fano state over GF(2) with up to two qubits per system, after random local symplectic maps (dim Z₀ = 4m,
+rank function m·r). No error; its wording points (the status of Corollary 11, "positive multiple", the closure
+caveats, the reason for the +27) are taken into the text. Not yet checked by hand.
+
 *What this shows.*
 
 * Among the states over ℤ_3 with at most one qudit per system, a witness of Stab⁽³⁾_6 ⊄ Stab⁽²⁾_6 can only be the
   non-Fano state. Every other qutrit-only vector is a qubit vector at multiplicity 2.
-* For the non-Fano state, a qubit realisation of m·S_NF with m qubits per system cannot be GF(2^m)-linear. At one of
-  W, X, Y its two line pieces must restrict to different, non-Lagrangian subspaces (Proposition 10). The annealing
-  runs found none for m = 2, 3.
-* Exact realisations are sufficient, not necessary. h_NF could lie in LR⁽²⁾₇ through exact GF(2) families with rank
-  function a·r_NF + b·r_NF* that do not come from states, or only as a limit (§4.8). Deciding h_NF needs one of three
-  things: an inequality valid for GF(2)-linear rank functions and violated by h_NF (the transfer of §4.8 gives +27),
-  a qubit realisation, or an argument that covers such families and limits.
+* (R41) For the cones generated without closure, the non-Fano state is a witness: no qubit stabilizer state has an
+  entropy vector that is a positive multiple of S_NF, and no finite nonnegative combination of qubit entropy vectors
+  equals S_NF (Proposition 10, Corollary 11). The annealing runs at m = 2, 3 are consistent with this.
+* For the closed cones of the paper the question remains open: S_NF could still be a limit of such combinations
+  (whose terms are never multiples of S_NF). A linear inequality valid on Stab⁽²⁾_6 and violated by S_NF would settle
+  it. By Theorem 1 it would be a characteristic-2 linear rank inequality on seven variables that is not blind on the
+  self-dual slice; none is known to us (Proposition 8 shows that the eight forms considered there are blind).
+* Where to look: steps 1 and 1′ use the isotropy of the stabilizer group, while the transfer of §4.8 (which gave
+  +27 with (LA)₂) works with ranks of subspaces derived from the family. Every family has a stabilizer state, its
+  doubled CSS state (§2). A quantitative version of steps 1, 1′ and 2 for that state, with every defect bounded by a
+  linear form in the entropies as in the transfer, would give such an inequality, if the bounds close.
 * Not covered: p ≥ 5 with one qudit per system (for p = 5 the normal forms number about 2·10¹¹), and systems with
   more than one qudit.
 
@@ -1200,10 +1253,14 @@ step 2 follows its shorter argument, and its wording points are taken into the t
     known (the 1,155 undecided orbits of the catalogue are candidates, not the only ones), or, for d divisible by a
     square, a vector of Stab^(Z_d)_5 outside Stab₅ (the ℤ_d question below).
   * n = 6, the other direction: is Stab⁽ᵖ⁾_6 ⊄ Stab⁽²⁾_6 for some odd p? Among the states over ℤ_3 with at most one
-    qudit per system, only the non-Fano state can be a witness (§4.10, R40). No GF(2^k)-linear state has entropy
-    vector k·S_NF, and in any qubit realisation of m·S_NF with m qubits per system two line pieces restrict to
-    different, non-Lagrangian subspaces at one of W, X, Y (Proposition 10, R40). By the face remark of §4.8, for the
-    non-Fano state this asks whether LR⁽²⁾₇ meets cone(r_NF, r_NF*) outside 0. The direct probes were negative
+    qudit per system, only the non-Fano state can be a witness (§4.10, R40). For the cones generated without closure
+    it is one: no qubit stabilizer state has an entropy vector that is a positive multiple of S_NF, and S_NF is not
+    a finite nonnegative combination of qubit entropy vectors (Proposition 10, Corollary 11, R41). For the closed
+    cones the question is open: S_NF could be a limit of such combinations. By the face remark of §4.8 it asks
+    whether LR⁽²⁾₇ meets cone(r_NF, r_NF*) outside 0; no GF(2) family's rank function does (R41), so only limits
+    can. A
+    quantitative ("symplectic") version of the proof of Proposition 10 is the natural route to an inequality that
+    excludes them (§4.10). The direct probes were negative
     (they are explained by Proposition 8): symmetrised Fano and non-Fano polymatroids r + r* never violate (65) or
     (91) in any of the 5,040 relabellings (minimum 19 and 16), and a 240-second annealing probe over seven-party
     qutrit graph states found nothing either (best value 4 ≥ 0; `s27_cube_states.py --probe6`).
@@ -1336,7 +1393,7 @@ For §4.8 (R36), from an AI pre-check (web search, abstracts only):
     python3 scripts/s32_unimodular.py --cover --rows 587,589 --seconds 300 --out u.npz --cover-out c_new.npz
     python3 scripts/s33_ci_oddchar.py --rows 456,488                 # §4.9: odd-characteristic CI screen (exploratory)
     python3 scripts/s34_six_party_survey.py --check --full           # §4.10: survey data, GF(2) list recomputed
-    python3 scripts/s34_six_party_survey.py --self-test              # §4.10: conventions, cut ranks vs state vectors
+    python3 scripts/s34_six_party_survey.py --self-test              # §4.10: conventions, cut ranks, line pieces (R41)
     python3 scripts/s34_six_party_survey.py --enumerate --out lists.npz   # §4.10: cc/s35_enum7.c, p = 2, 3 (~15 min)
     python3 scripts/s34_six_party_survey.py --fields 2,3,4,5,7,8,9   # §4.10: cc/s36_target7.c, S_F and S_NF (~4 min)
     python3 scripts/s34_six_party_survey.py --fields-python 2,3,4    # §4.10: the same counts in Python (~2 min)
@@ -1344,4 +1401,5 @@ For §4.8 (R36), from an AI pre-check (web search, abstracts only):
 
 Raw output of the sandbox runs: `results/2026-10-02_r32-sandbox/`, `results/2026-10-02_r33-sandbox/`,
 `results/2026-10-02_r34-sandbox/`, `results/2026-10-02_r35-sandbox/`, `results/2026-10-02_r36-sandbox/`,
-`results/2026-10-13_r38-sandbox/`, `results/2026-10-14_r39-sandbox/`, `results/2026-10-14_r40-sandbox/`.
+`results/2026-10-13_r38-sandbox/`, `results/2026-10-14_r39-sandbox/`, `results/2026-10-14_r40-sandbox/`,
+`results/2026-10-14_r41-sandbox/`.

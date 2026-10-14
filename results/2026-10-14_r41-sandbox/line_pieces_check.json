@@ -1,0 +1,35 @@
+{
+ "NF_m1": {
+  "isotropic": true,
+  "line_dims": true,
+  "restrictions_equal_lagrangian": true,
+  "wxy_dim": 0,
+  "wxy_ok": true,
+  "moved_points": 2
+ },
+ "NF_m2": {
+  "isotropic": true,
+  "line_dims": true,
+  "restrictions_equal_lagrangian": true,
+  "wxy_dim": 0,
+  "wxy_ok": true,
+  "moved_points": 2
+ },
+ "F_m1": {
+  "isotropic": true,
+  "line_dims": true,
+  "restrictions_equal_lagrangian": true,
+  "wxy_dim": 1,
+  "wxy_ok": true,
+  "moved_points": 2
+ },
+ "F_m2": {
+  "isotropic": true,
+  "line_dims": true,
+  "restrictions_equal_lagrangian": true,
+  "wxy_dim": 2,
+  "wxy_ok": true,
+  "moved_points": 3
+ },
+ "ok": true
+}

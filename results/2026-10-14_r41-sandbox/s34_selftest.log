@@ -1,0 +1,3 @@
+$ python3 scripts/s34_six_party_survey.py --self-test
+  self-test: Steane entropies True; cut-rank formula vs state vectors (30 graph states) True; vertex scaling over GF(3) True; line pieces (Proposition 10, steps 1 and 1') True
+ALL OK

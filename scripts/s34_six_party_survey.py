@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""s34: six parties, the other direction -- states with at most one qudit per system (R40; roadmap item M3, steps 1-2).
+"""s34: six parties, the other direction -- states with at most one qudit per system (R40, R41; roadmap item M3).
 
 Question (the paper, Discussion; R32 note section 5): is Stab^(p)_6 not contained in Stab^(2)_6 for some odd p, i.e. is
 there a six-party stabilizer state of odd local dimension whose entropy vector lies outside the qubit cone?  The only
@@ -31,7 +31,7 @@ Data: data/s34_seven_qudit_vectors.npz
   nonfano           bool: the orbit of h_NF
 
   python3 scripts/s34_six_party_survey.py --check [--full]     # exact checks (gate G38; --full: G38b)
-  python3 scripts/s34_six_party_survey.py --self-test          # conventions, cut-rank formula vs state vectors
+  python3 scripts/s34_six_party_survey.py --self-test          # conventions, cut ranks vs state vectors, line pieces
   python3 scripts/s34_six_party_survey.py --enumerate --out F  # cc/s35_enum7.c for p = 2 and 3 (p = 3: ~15 min, 2 cores)
   python3 scripts/s34_six_party_survey.py --survey --lists F --out data.npz --seconds 60   # orbits + qubit searches
   python3 scripts/s34_six_party_survey.py --nonfano --lams 2,3 --seconds 600               # h_NF at multiplicity 2, 3
@@ -609,10 +609,96 @@ def check_ok(s, full_check=False):
     return ok
 
 
+LINES_NF = [(0, 1, 3), (0, 2, 4), (1, 2, 5), (0, 5, 6), (1, 4, 6), (2, 3, 6)]   # ABW, ACX, BCY, AYZ, BXZ, CWZ
+LINE_WXY = (3, 4, 5)                                                         # the seventh Fano line
+
+
+def _nullspace_left(M, p):
+    """basis (rows) of {c : c M = 0 mod p} for an integer matrix M (k x n)."""
+    k = M.shape[0]
+    A = np.concatenate([M % p, np.eye(k, dtype=np.int64)], axis=1)
+    n = M.shape[1]
+    r = 0
+    for c in range(n):
+        piv = next((i for i in range(r, k) if A[i, c] % p), None)
+        if piv is None:
+            continue
+        A[[r, piv]] = A[[piv, r]]
+        A[r] = A[r] * pow(int(A[r, c]), p - 2, p) % p
+        for i in range(k):
+            if i != r and A[i, c] % p:
+                A[i] = (A[i] - A[i, c] * A[r]) % p
+        r += 1
+    return A[r:, n:] % p
+
+
+def _rank_mod(M, p):
+    return rank_p(M.tolist(), p) if len(M) else 0
+
+
+def line_pieces_check(seed=10, transvections=30):
+    """Proposition 10, steps 1 and 1', on states that exist: the CSS states of the non-Fano code over GF(3) and of the
+    Fano (simplex) code over GF(2), with m = 1 and m = 2 copies, after a random symplectic map on each system (products of
+    random transvections).  For every line l the elements L_l of the stabilizer supported on l must form an m-dimensional
+    space, and at every point P the restrictions of the L_l (l through P) must be one Lagrangian subspace of GF(p)^{2m}.
+    Also checked: the elements supported on WXY (m-dimensional for Fano, 0 for non-Fano).  Returns a dict of flags."""
+    rng = np.random.default_rng(seed)
+    V = np.array([[1, 0, 0, 1, 1, 0, 1], [0, 1, 0, 1, 0, 1, 1], [0, 0, 1, 0, 1, 1, 1]], dtype=np.int64)  # A B C W X Y Z
+    out = {}
+    for p, tag, lines in ((3, 'NF', LINES_NF), (2, 'F', LINES_NF + [LINE_WXY])):
+        Cperp = _nullspace_left(V.T % p, p)                    # the dual code: d with V d = 0
+        for m in (1, 2):
+            N = 7 * m
+            rows = []
+            for j in range(m):                                  # copy j uses qudit P*m + j of system P
+                for c in V:
+                    v = np.zeros(2 * N, dtype=np.int64); v[[P * m + j for P in range(7)]] = c; rows.append(v)
+                for d in Cperp:
+                    v = np.zeros(2 * N, dtype=np.int64); v[[N + P * m + j for P in range(7)]] = d; rows.append(v)
+            G = np.array(rows) % p
+            cols = {P: [P * m + j for j in range(m)] + [N + P * m + j for j in range(m)] for P in range(7)}
+            for P in range(7):                                  # random symplectic map on system P
+                for _ in range(transvections):
+                    w = rng.integers(0, p, size=2 * m)
+                    c = int(rng.integers(1, p))
+                    loc = G[:, cols[P]]
+                    om = (loc[:, :m] @ w[m:] - loc[:, m:] @ w[:m]) % p       # omega_P(row, w)
+                    G[:, cols[P]] = (loc + c * om[:, None] * w[None, :]) % p
+
+            def omega(a, b):
+                return int((a[:N] @ b[N:] - a[N:] @ b[:N]) % p)
+            iso = all(omega(G[i], G[j]) == 0 for i in range(len(G)) for j in range(len(G)))
+
+            def supported(S):
+                outside = [c for P in range(7) if P not in S for c in cols[P]]
+                K = _nullspace_left(G[:, outside], p)
+                return (K @ G) % p if len(K) else np.zeros((0, 2 * N), dtype=np.int64)
+            pieces = {l: supported(l) for l in lines}
+            dims_ok = all(_rank_mod(B, p) == m for B in pieces.values())
+            restr_ok = True
+            for P in range(7):
+                R = [pieces[l][:, cols[P]] for l in lines if P in l]
+                r0 = R[0]
+                for Rk in R:
+                    if not (_rank_mod(Rk, p) == m == _rank_mod(np.concatenate([r0, Rk]), p)):
+                        restr_ok = False
+                lag = all(int((a[:m] @ b[m:] - a[m:] @ b[:m]) % p) == 0 for a in r0 for b in r0)
+                restr_ok = restr_ok and lag
+            wxy = _rank_mod(supported(LINE_WXY), p)
+            zplane = np.concatenate([np.zeros((m, m), dtype=np.int64), np.eye(m, dtype=np.int64)], axis=1)
+            moved = sum(_rank_mod(np.concatenate([pieces[lines[0]][:, cols[P]], zplane]), p) > m for P in lines[0])
+            out[f'{tag}_m{m}'] = dict(isotropic=iso, line_dims=dims_ok, restrictions_equal_lagrangian=restr_ok,
+                                      wxy_dim=wxy, wxy_ok=(wxy == (m if tag == 'F' else 0)), moved_points=int(moved))
+    out['ok'] = all(v['isotropic'] and v['line_dims'] and v['restrictions_equal_lagrangian'] and v['wxy_ok']
+                    for k, v in out.items() if k != 'ok')
+    return out
+
+
 def self_test(trials=30, seed=34, log=print):
     """(1) the Steane state: entropies from its state vector equal S of h_F; (2) the cut-rank formula against state
     vectors of random qubit graph states with two qubits per system (14 qubits) and of random qutrit graph states with
-    one qutrit per system; (3) scaling a vertex by -1 keeps every cut rank over GF(3)."""
+    one qutrit per system; (3) scaling a vertex by -1 keeps every cut rank over GF(3); (4) line_pieces_check
+    (Proposition 10, steps 1 and 1', on the Fano and non-Fano CSS states with one and two qudits per system)."""
     import s31_six_party as s31
     ks = known_states()
     Ssv = s31.entropies(s31.simplex_state())
@@ -666,9 +752,10 @@ def self_test(trials=30, seed=34, log=print):
         for j in range(7):
             B[x][j] = (-B[x][j]) % 3; B[j][x] = (-B[j][x]) % 3
         ok3 &= cut_vector(A, 3) == cut_vector(B, 3)
+    ok4 = line_pieces_check()['ok']
     log(f'  self-test: Steane entropies {ok1}; cut-rank formula vs state vectors ({trials} graph states) {ok2}; '
-        f'vertex scaling over GF(3) {ok3}')
-    return ok1 and ok2 and ok3
+        f'vertex scaling over GF(3) {ok3}; line pieces (Proposition 10, steps 1 and 1\') {ok4}')
+    return ok1 and ok2 and ok3 and ok4
 
 
 def main():
