@@ -1,5 +1,59 @@
 # CHANGELOG
 
+## R39 (2026-10-14) -- five parties: 636 of the 641 known extreme rays over every local dimension (roadmap item S5(a), continued)
+- **Result (certified; checked by an independent referee, an agent with its own code; not yet by hand; not in the paper).** 636 of the 641 known extreme-ray orbits of Stab₅
+  lie in Stab^(Z_d)_5 for every d ≥ 2 (577 in R38), hence are extreme rays of it (`docs/R32_reduction_and_local_dimension.md`
+  §4.9): 566 by unimodular realisations (κ = 1: 515, 2: 50, 3: 1) and 70 by covering certificates. R39
+  closed 59 of the 64 rows R38 left open: 2 by unimodular realisations, 57 by covering certificates.
+  - **What closed them.** The covering search now starts each search "rational and right mod q" from a rational
+    realisation of the row (the one with the fewest uncovered primes) and asks for all uncovered primes at once; R38
+    started these searches from the qubit certificate, one prime at a time. This covered all 21 rows whose rational
+    realisations from R38's runs left primes uncovered, within a few rounds of 40 s, although for 17 of them every one
+    of those realisations was bad at 3. Longer rational searches from the qubit certificate (90 to 900 s per row) found
+    the first rational realisation of 34 more rows, and the same search then covered them. For row 200 (qubits only at
+    multiplicity 2) rational realisations were found only at κ = 2, from its qubit certificate at multiplicity 2; at
+    κ = 1 the best attempts miss one cut.
+  - **Outputs of R38 that R38 did not use.** R38's strategy probe had reported unimodular realisations of rows 539 and
+    631 (κ = 1; exact, as checked now), but its output was not merged into the data. Row 574 is covered by two rational
+    realisations from R38's runs (bad primes {163, 181, 2833, 7699} at κ = 2, and {2, 3, 5}: empty intersection). Row
+    607 is covered by the matrix of R38's rejected report (Smith invariant 127, so bad primes {127}) and a rational
+    realisation with bad primes {2, 3, 5}.
+  - **Open: 5 rows** (587, 589, 612, 630, 635). No rational realisation is known for any of them; their best attempts,
+    with the cuts they miss, are in `results/2026-10-14_r39-sandbox/open_rows.json`. The best attempts miss one to three
+    cuts (row 612: ten or more), mostly with the rational rank above the target. This is what a configuration that
+    exists only in characteristic 2 would produce, and also what an unfinished search produces [empirical].
+  - The exploratory screen `s33_ci_oddchar.py --pairs all` (every pair, about 1,330 per row) on the 22 rows open at
+    the time excludes none.
+- **Errata (R38).**
+  - `results/2026-10-13_r38-sandbox/probes/strategy_sample20.txt` counted kernel reports as certified. The report for
+    row 574 under "ring Z[omega] from the qubit certificate" is not unimodular: bad primes 163, 181, 2833 and 7699
+    (the kernel's extra checks then stopped at 97). That setting certified 2 of 20 (465, 541), not 3. The other reports
+    are exact. A dated note is added to the file. Nothing in R38's data or claims rests on it.
+  - The header and §5 of the R32 note said that 564 of the 641 rays lie in Stab^(Z_d)_5 for every d and that 64 are
+    open, leaving out the 13 rows with covering certificates; 577 was meant, as in §4.9, the README and the R38 entry.
+    Corrected.
+- **`scripts/s32_unimodular.py`.** `--cover` follows the search order above. New options: `--rounds`; `--rings`
+  (ring strategies for rows without a rational realisation); `--kappa2` (multiplicity 2 from two copies of the qubit
+  certificate; a row whose qubit certificate is at multiplicity 2 gets this search anyway). For a newly covered row a
+  smallest covering subset of its rational realisations is stored (`minimal_cover`; the rows covered in R38 keep all
+  their pieces); a rational realisation without bad primes goes to the unimodular file. Certification is unchanged.
+- **Data and gates.** `data/s32_stab5_unimodular.npz`: 566 rows (rows 539, 631 added).
+  `data/s32_stab5_cover.npz`: 70 rows, 185 pieces (116 rational realisations, 3 of them at
+  κ = 2; 69 GF(2) / GF(3) realisations). Manifest updated; gates G36, G36b and G37 unchanged (they take the
+  counts from the manifest); `selftest.py --full` still has 47 gate lines.
+- **Referee.** A separate agent, with its own code (its own Smith normal form, Bareiss ranks with minors, and sympy's
+  Smith normal form; two implementations of the ranks over GF(p)), confirmed that every R38 entry of the two data files
+  is unchanged and re-verified every new entry: the unimodular certificates of rows 539 and 631, the 94 new rational
+  realisations with their exact bad primes (all 116 stored bad-prime sets agree), the 55 new GF pieces, and the
+  coverage of all 70 rows. No discrepancy; every number about the data files in this entry and in §4.9 agrees with its
+  computation. Its wording remarks (row 200, the count of 21 rows, row 607, the open rows, §5) are taken into the text.
+- **Results.** `results/2026-10-14_r39-sandbox/` (2-core sandbox, no server time): campaign log and raw kernel output,
+  the open rows with their best attempts, checks, self-tests, the screen, the calibration for p = 3.
+- **Note and README.** §4.9 of the R32 note (R39 paragraph, counts, open rows), its header and §5 (corrected) and §7;
+  README: status, §0, §2b, §3, §6, §7 (⓪′).
+- `jobs.json`: the server job `s32-unimodular` now runs the R39 covering search on the 5 open rows (not run).
+  `VERSION`: R39; `CITATION.cff` unchanged. No GitHub Release for R39 (it would mint a new Zenodo DOI).
+
 ## R38 (2026-10-13) -- five parties: the known extreme rays over every local dimension (roadmap item S5(a))
 - **Result (certified; checked by an independent referee, an agent with its own code; not yet by hand; not in the paper).** 577 of the 641 known extreme-ray orbits of Stab₅
   lie in Stab^(Z_d)_5 for every d ≥ 2, hence are extreme rays of it (`docs/R32_reduction_and_local_dimension.md`

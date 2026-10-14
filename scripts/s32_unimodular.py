@@ -44,6 +44,9 @@ Certification (`--check`, used by gate G36 of selftest.py) is exact and does not
   python3 scripts/s32_unimodular.py --check [--full]
   python3 scripts/s32_unimodular.py --search --seconds 10 --out FILE [--resume] [--rows 0,1,2] [--strategies ...]
   python3 scripts/s32_unimodular.py --self-test       # neutral moves keep Smith forms; ring expansion; Z_d formula
+  python3 scripts/s32_unimodular.py --cover --out FILE --cover-out FILE [--rows ...] [--seconds S] [--rounds R]
+                                    [--rings ring-eisenstein,...] [--kappa2]   # covering certificates (cover_search)
+  python3 scripts/s32_unimodular.py --check-cover     # bad primes recomputed, GF(p) pieces, coverage (gate G37)
 """
 import argparse, itertools, json, os, random, shutil, subprocess, sys, tempfile, time
 from fractions import Fraction
@@ -627,18 +630,57 @@ def search(rows, strategies, seconds, seed, out, resume, log=print, raw=None):
     return certs
 
 
-def cover_search(rows, seconds, seed, cover_out, unimodular_path=OUT_DEFAULT, rounds=3, log=print, raw=None):
-    """covering certificates for rows without a unimodular certificate.  Each round runs, for every row not yet
-    covered, a rational search (residual over 2^31 - 1 only; every new realisation has its own bad primes) and, for
-    each prime q still uncovered (at most three), a rational search that must also be right mod q.  A row is covered
-    when the bad-prime sets of its rational realisations intersect inside the primes of its stored qubit (p = 2) and
-    qutrit (p = 3) certificates."""
+def doubled(W, s):
+    """two copies of a realisation of r at multiplicity 1 (party q's 2 s[q] vertices: copy 1, then copy 2): a start
+    at multiplicity 2."""
+    off1 = [sum(s[:q]) for q in range(6)]
+    owner = [q for q in range(6) for _ in range(s[q])]
+    idx = [[2 * off1[owner[v]] + c * s[owner[v]] + (v - off1[owner[v]]) for v in range(len(W))] for c in range(2)]
+    W2 = [[0] * (2 * len(W)) for _ in range(2 * len(W))]
+    for c in range(2):
+        for a in range(len(W)):
+            for b in range(len(W)):
+                W2[idx[c][a]][idx[c][b]] = W[a][b]
+    return W2
+
+
+def minimal_cover(qpieces, gf_primes):
+    """a smallest subset of the rational pieces whose bad-prime sets intersect inside gf_primes (None if none)."""
+    for size in range(1, len(qpieces) + 1):
+        best = None
+        for sub in itertools.combinations(qpieces, size):
+            common = set.intersection(*[set(c['bad']) for c in sub])
+            if common <= set(gf_primes):
+                key = (sum(c['kappa'] for c in sub), sum(len(c['bad']) for c in sub))
+                if best is None or key < best[0]:
+                    best = (key, list(sub))
+        if best:
+            return best[1]
+    return None
+
+
+def cover_search(rows, seconds, seed, cover_out, unimodular_path=OUT_DEFAULT, rounds=3, log=print, raw=None,
+                 rings=(), kappa2=False):
+    """covering certificates for rows without a unimodular certificate (R38; search order of R39).  Each round, for
+    every row not yet covered:
+      - without a rational realisation: a rational search (residual over 2^31 - 1 only), plain, from the stored qubit
+        certificate at multiplicity 1 (random start without one), and the same in ring mode (kappa 2) for every ring
+        strategy in `rings`; at multiplicity 2 from the stored qubit certificate at multiplicity 2 if the row has no
+        qubit certificate at multiplicity 1, and (with kappa2) from two copies of the one at multiplicity 1;
+      - with one: a rational search that must also be right mod every uncovered prime (at most four), started from
+        the row's rational realisation with the fewest uncovered and bad primes.  (R38 started these searches from the
+        qubit certificate, one prime at a time; starting from a rational realisation is what closed most rows in R39.)
+    Every reported matrix has its bad primes recomputed exactly.  One without bad primes is a unimodular realisation;
+    it is certified as in --check and added to the unimodular file.  A row is covered when the bad-prime sets of its
+    rational realisations intersect inside the primes of its stored qubit (p = 2) and qutrit (p = 3) certificates;
+    a smallest such set of rational realisations is stored, with the GF(p) certificates it uses."""
     reps = catalogue()
     qcerts, tcerts = qubit_certificates(reps), qutrit_certificates(reps)
-    done = {c['row'] for c in load(unimodular_path)} if os.path.exists(unimodular_path) else set()
+    uni = {c['row']: c for c in load(unimodular_path)} if os.path.exists(unimodular_path) else {}
     have = load_cover(cover_out) if os.path.exists(cover_out) else []
     have_rows = {c['row'] for c in have}
-    todo = [k for k in rows if k not in done and k not in have_rows]
+    todo = [k for k in rows if k not in uni and k not in have_rows]
+    newuni = {}
     gf = {}
     for k in todo:
         r = reps[k]
@@ -654,6 +696,8 @@ def cover_search(rows, seconds, seed, cover_out, unimodular_path=OUT_DEFAULT, ro
     tmp = tempfile.mkdtemp(prefix='s32c_')
 
     def need(k):
+        if k in newuni:
+            return []
         if not qpieces[k]:
             return None
         common = set.intersection(*[set(c['bad']) for c in qpieces[k]])
@@ -661,45 +705,64 @@ def cover_search(rows, seconds, seed, cover_out, unimodular_path=OUT_DEFAULT, ro
     try:
         exe = build_kernel(tmp)
         for rnd in range(rounds + 1):
-            # every open row gets a fresh rational search (its bad primes are different each time), and one search
-            # per uncovered prime q that must also be right mod q; the kernel takes one active set per call
-            groups = {}
+            # the kernel takes one ring and one active set of primes per call
+            calls = {}
             for k in todo:
                 n = need(k)
                 if n == []:
                     continue
-                groups.setdefault(str(BIG31), []).append(k)
-                for q in (n or [])[:3]:
-                    groups.setdefault(f'{BIG31},{q}', []).append(k)
-            if not groups:
+                r = reps[k]
+                if n is None:
+                    lam = min(c[0] for c in qcerts[k]) if k in qcerts else None
+                    start = min(qcerts[k], key=lambda c: c[0])[2] if lam == 1 else None
+                    for ring in ['0'] + ['%d,%d' % RINGS[name] for name in rings]:
+                        calls.setdefault((ring, str(BIG31)), []).append(job_line(k, 1, singles(r), r, start))
+                    start2 = (next(c[2] for c in qcerts[k] if c[0] == 2) if lam == 2 else
+                              doubled(start, singles(r)) if kappa2 and lam == 1 else None)
+                    if start2 is not None:
+                        calls[('0', str(BIG31))].append(job_line(k, 2, [2 * x for x in singles(r)], r, start2))
+                else:
+                    c = min(qpieces[k], key=lambda c: (len(set(c['bad']) & set(n)), len(c['bad']), c['kappa']))
+                    ps = ','.join(map(str, [BIG31] + n[:4]))
+                    calls.setdefault(('0', ps), []).append(job_line(k, c['kappa'], c['sizes'], r, c['W']))
+            if not calls:
                 break
-            for ps, ks in groups.items():
-                lines = [job_line(k, 1, singles(reps[k]), reps[k], min(qcerts[k], key=lambda c: c[0])[2]
-                                  if k in qcerts and min(c[0] for c in qcerts[k]) == 1 else None) for k in ks]
-                text = kernel(exe, lines, seconds, seed + 7 * rnd, '0', '400', '0.5', ps, '0')
+            for (ring, ps), lines in calls.items():
+                # sweeps per anneal: 400 for the plain rational searches, 200 otherwise (as in the R39 campaign)
+                sweeps = '400' if ring == '0' and ps == str(BIG31) else '200'
+                text = kernel(exe, lines, seconds, seed + 7 * rnd, ring, sweeps, '0.5', ps, '0')
                 if raw:
                     with open(raw, 'a') as f:
-                        f.write(f'# cover round {rnd} primes {ps} seed {seed + 7 * rnd} seconds {seconds}\n' + text)
+                        f.write(f'# cover round {rnd} ring {ring} primes {ps} seed {seed + 7 * rnd} seconds {seconds}\n'
+                                + text)
                 for k, kap, W, _secs in parse_found(text):
                     r = reps[k]; sizes = [kap * x for x in singles(r)]
                     b = bad_primes(r, kap, sizes, W)
                     if b is None:
                         continue
+                    detail = f'cover round {rnd}, ring {ring}, active primes {ps}, seed {seed + 7 * rnd}'
+                    if not b:
+                        if all(certify(r, kap, sizes, W).values()) and (k not in newuni or newuni[k]['kappa'] > kap):
+                            newuni[k] = dict(row=k, rep=r, kappa=kap, sizes=sizes, W=W, method='cover', detail=detail)
+                        continue
                     old = need(k)
                     if old is not None and set(b) >= set(old):
                         continue                   # no progress
-                    qpieces[k].append(dict(row=k, kind='Q', prime=0, kappa=kap, sizes=sizes, W=W, bad=b,
-                                           detail=f'cover round {rnd}, active primes {ps}, seed {seed + 7 * rnd}'))
-            log(f'  cover round {rnd}: {sum(len(v) for v in groups.values())} jobs in {len(groups)} calls; covered so '
-                f'far {sum(1 for k in todo if need(k) == [])} of {len(todo)}')
+                    qpieces[k].append(dict(row=k, kind='Q', prime=0, kappa=kap, sizes=sizes, W=W, bad=b, detail=detail))
+            log(f'  cover round {rnd}: {sum(len(v) for v in calls.values())} jobs in {len(calls)} calls; covered so '
+                f'far {sum(1 for k in todo if need(k) == [])} of {len(todo)} ({len(newuni)} by unimodular realisations)')
         new = []
         for k in todo:
-            if need(k) == []:
-                # keep only what the coverage needs: all Q pieces found (few) and the GF pieces whose prime is used
-                common = set.intersection(*[set(c['bad']) for c in qpieces[k]])
-                new += qpieces[k] + [c for c in gf.get(k, []) if c['prime'] in common]
+            if k not in newuni and need(k) == []:
+                gfp = [c['prime'] for c in gf.get(k, [])]
+                keep = minimal_cover(qpieces[k], gfp)
+                common = set.intersection(*[set(c['bad']) for c in keep])
+                new += keep + [c for c in gf.get(k, []) if c['prime'] in common]
         save_cover(have + new, cover_out)
-        log(f'  covering certificates stored for {len({c["row"] for c in have + new})} rows')
+        if newuni:
+            save(list(uni.values()) + list(newuni.values()), unimodular_path)
+        log(f'  covering certificates stored for {len({c["row"] for c in have + new})} rows; '
+            f'{len(newuni)} new unimodular certificates')
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
     return have + new
@@ -799,6 +862,11 @@ def main():
     ap.add_argument('--raw', default=None, help='append the raw kernel output here')
     ap.add_argument('--cover', action='store_true', help='covering certificates for the rows without a unimodular one')
     ap.add_argument('--cover-out', default=COVER_DEFAULT)
+    ap.add_argument('--rounds', type=int, default=3, help='with --cover: rounds after the first')
+    ap.add_argument('--rings', default='', help='with --cover: ring strategies (comma-separated, e.g. '
+                    'ring-eisenstein,ring-gauss) also tried on rows without a rational realisation')
+    ap.add_argument('--kappa2', action='store_true', help='with --cover: rows without a rational realisation also get '
+                    'a search at multiplicity 2 from two copies of their qubit certificate')
     ap.add_argument('--check-cover', action='store_true')
     a = ap.parse_args()
     if a.self_test:
@@ -810,7 +878,8 @@ def main():
         print(f'certified rows: {len(certs)} of {len(rows)}')
     if a.cover:
         rows = [int(x) for x in a.rows.split(',')] if a.rows else list(range(len(catalogue())))
-        cover_search(rows, a.seconds, a.seed, a.cover_out, unimodular_path=a.out, raw=a.raw)
+        cover_search(rows, a.seconds, a.seed, a.cover_out, unimodular_path=a.out, rounds=a.rounds, raw=a.raw,
+                     rings=[x for x in a.rings.split(',') if x], kappa2=a.kappa2)
     if a.check_cover:
         s = check_cover(a.cover_out, a.out)
         print(json.dumps({k: v for k, v in s.items() if k != 'failures'}))

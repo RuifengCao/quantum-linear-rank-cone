@@ -5,8 +5,8 @@ Machine-certified data and tools for the **five-party quantum linear rank cone**
 suite of verification gates. Self-contained: no `psitip` dependency, all input
 data bundled, a static Normaliz binary included, resumable long runs.
 
-> **Status (R38, 2026-10-13).** R38 adds results obtained after the paper (§0,
-> first item); they are certified by the gates and checked by an independent referee (an agent), not yet by
+> **Status (R39, 2026-10-14).** R38 and R39 add results obtained after the paper (§0,
+> first items); they are certified by the gates and checked by an independent referee (an agent), not yet by
 > hand. Release R37
 > is the archived version cited by the paper *Stabilizer entropy cones as self-dual slices of linear rank cones:
 > a five-party gap and dependence on the local dimension* (X. Song and R. Cao,
@@ -96,8 +96,24 @@ and the changelog is explained in the glossary at the end.
   the catalogue has diminishing scientific value; the A1′ campaign is closed
   and server time goes to A2 tools from here on. **Interpretation guard:** an
   unwitnessed orbit is not an unrealisable one.
+- [x] **R39 (2026-10-14): 636 of the 641 known five-party extreme rays over every local dimension** (roadmap
+  item S5(a), continued; `docs/R32_reduction_and_local_dimension.md` §4.9; certified; independent referee (agent), not
+  yet checked by hand).
+  - **636 of the 641 known extreme-ray orbits of Stab₅ are extreme rays of Stab^(Z_d)_5 for every d ≥ 2** (577 in
+    R38): 566 by unimodular realisations (κ = 1: 515, 2: 50, 3: 1) and 70 by covering certificates.
+  - What closed 59 of the 64 rows R38 left open: the covering search now starts its searches "rational and right
+    mod q" from a rational realisation of the row and asks for all uncovered primes at once; longer rational searches
+    found the first rational realisation of 35 more rows (row 200 at κ = 2). Unimodular realisations of two
+    rows (539, 631) were already in the output of R38's strategy probe, which had not been merged.
+  - 5 rows remain open (587, 589, 612, 630, 635); no rational realisation is known for any of them (best attempts in
+    `results/2026-10-14_r39-sandbox/open_rows.json`).
+  - Errata (R38): a count in R38's strategy probe file; the header and §5 of the R32 note counted 564 where 577 was
+    meant (`CHANGELOG.md`, R39).
+  - `scripts/s32_unimodular.py --cover` (new search order; `--rounds`, `--rings`, `--kappa2`); data files and manifest
+    updated; sandbox runs in `results/2026-10-14_r39-sandbox/`.
 - [x] **R38 (2026-10-13): the known five-party extreme rays over every local dimension** (roadmap item S5(a);
   `docs/R32_reduction_and_local_dimension.md` §4.9; certified; independent referee (agent), not yet checked by hand).
+  Counts as of R38; R39 (above) updates them.
   - **577 of the 641 known extreme-ray orbits of Stab₅ are extreme rays of Stab^(Z_d)_5 for every d ≥ 2.**
     - 564 have a *unimodular realisation*: an integer graph state W whose 31 cut blocks have Smith invariants 0 and
       1 only and rational rank κ·r(X) (κ = 1 for 513, 2 for 50, 3 for 1); W mod d realises κ·r for every d.
@@ -496,7 +512,7 @@ Release instead). Engine options can be overridden after `--`.
 | `a2-frontier` | X | ~1 h on 25 cores (17 frontier rays, λ = 2..4, 10 min each) | 2 rays, λ = 2, 5 s |
 | `a2-survivors` | X | done 2026-10-01 (28 min on 208 cores): complete single-CI test on 2,566 orbits + annealing at λ = 1, 2 | 4 orbits, 3 s annealing (~40 s) |
 | `a2-ingleton` | X | done 2026-10-02 (40 min on 208 cores): complete CI+Ingleton test on 2,070 orbits (904 excluded), qutrit and second-seed qubit annealing at λ = 1, 60 s (0 + 11 realised) | 2 orbits, 3 s annealing (~3 min) |
-| `s32-unimodular` | S / X | R38 sandbox campaign done 2026-10-13 (2 cores, about 4 h: 564 unimodular and 13 covered rows); the X variant searches the 64 open rows (neutral, gf3-search-start, then covering rounds), about 2 h wall with one core per row | rows 488, 492: neutral 3 s, then covering rounds at 3 s (~75 s) |
+| `s32-unimodular` | S / X | R38 and R39 sandbox campaigns done 2026-10-13/14 (2 cores, about 4 h and 5 h: 636 rows certified); the X variant runs the R39 covering search on the 5 open rows (rational searches at multiplicity 1 and 2 from the qubit certificate, rounds of 1,200 s), about 1.5 h wall with one core per job (two jobs per open row) | rows 587, 589: one covering round at 3 s (~25 s) |
 
 **Rule:** every tier-X job is handed over only after its smoke variant has
 passed in the sandbox (and, optionally, in the manual CI workflow
@@ -529,7 +545,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | s29 | `s29_zd_stabilizer.py [--cases t:N …] [--state-vector] [--lemma-tests K] [--out …]` | R34: Theorem 5 -- generalised cube states over Z_N (N = p^k; exact subgroup arithmetic via Smith forms): freeness, unit self-duality weights, h_S = 2r, contraction to J − I over Z_N, pulled-back Lemma 4(G) values; `--state-vector`: the Z_4 cube state against its 4^8 amplitudes and the identity Z_4 cube = qubit cube + qutrit cube; `--lemma-tests`: Lemma 4(G) on point configurations of Z_4^k and Z_9^3 |
 | s30 | `s30_dimension_profile.py [--n4] [--one-cut T …] [--six] [--bkl] [--probe6] [--n5-pilot K]` ; `--n4-search --out …` ; `--solve --out-certs …` | R35: Theorem 7 -- the 46 four-party extreme rays over every field (unimodular integer graph states); Proposition 6 -- one-cut rank changes over GF(ℓ) vs Q; Proposition 8 -- exact Shannon certificates for the self-dual symmetrisations of the eight seven-variable characteristic-dependent inequalities considered (BKL added in R36); `--bkl` BKL transcription checks and the (6.17) misprint (R36); `--probe6` encoding check; `--n5-pilot` five-party lifting pilot (not certified) |
 | s31 | `s31_six_party.py [--derive [--out …]] [--witness] [--invariant] [--face] [--lemmas N] [--stress N] [--exhaustive]` | R36: Theorem 9 -- the transfer form f9 recomputed exactly from Lemmas 0, A–E and Lemma 4 (LB)_2; the simplex-code state vector (h_S = r_F + r_F*, f9 = −3); Fano-invariant form; exact Shannon faces of h_F and h_NF; lemma-by-lemma checks with actual subspaces over GF(2), GF(3), GF(5); random and exhaustive validity tests |
-| s32 | `s32_unimodular.py --check [--full]` ; `--search --seconds S [--resume] [--rows …] [--strategies …] --out …` ; `--self-test` | R38: unimodular realisations of the known extreme rays of Stab₅ (kernel `cc/s32_unimodular.c`: annealing over {-1, 0, 1}, neutral moves, restriction of scalars from quadratic orders); exact certification by diagonal forms over Z, rational rank + minors with gcd 1, GF(p) ranks and Z_d state vectors |
+| s32 | `s32_unimodular.py --check [--full]` ; `--search --seconds S [--resume] [--rows …] [--strategies …] --out …` ; `--cover --out … --cover-out … [--rows …] [--seconds S] [--rounds R] [--rings …] [--kappa2]` ; `--check-cover` ; `--self-test` | R38, R39: unimodular realisations and covering certificates of the known extreme rays of Stab₅ (kernel `cc/s32_unimodular.c`: annealing over {-1, 0, 1}, neutral moves, restriction of scalars from quadratic orders); exact certification by diagonal forms over Z, rational rank + minors with gcd 1, GF(p) ranks and Z_d state vectors; covering certificates by recomputed bad primes |
 | s33 | `s33_ci_oddchar.py --rows … [--pairs disjoint/all] [--out …]` | R38: exploratory screen -- common information + the seven-variable forms valid in odd characteristic (DFZ (65), (LB)_2, BKL (6.17) corrected) on the extension; floating-point verdicts |
 | s20 | `s20_residuals.py <rays.npy> --lam 1 --seconds 20 --runs 3` | where qubit annealing gets stuck: residual vector of the best state of several independent runs (diagnostic; also keeps any hit as a certificate) |
 | s21 | `s21_qudit_search.py <rays.npy> --p 3 --lams 1 --seconds 60` ; `--self-test` | qudit (p = 3, 5, 7) graph-state search (`cc/s21_anneal_gfp.c`), independent GF(p) re-verification; the self-test checks S(X) = rank_GF(p) W[X, X^c] against exact state vectors |
@@ -718,8 +734,8 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | `s30_selfdual_shannon_certs.npz` | 8 | R35, R36: for DFZ (65), (91), (LA)_2, (LB)_2, Peña–Sarria (a), (b) (t = 2), BKL (6.8) and (6.17) corrected, exact certificates den·(f + f∘D) = Σ num_i·e_i over the Shannon elemental inequalities on seven variables (fixed order of `elemental7`; Proposition 8), gate G33 |
 | `bkl_char_dependent.csv` | 3 | R36: the seven-variable characteristic-dependent inequalities (6.8) [characteristic 2] and (6.17) [characteristic ≠ 2] of Blasiak–Kleinberg–Lubetzky arXiv:1108.2489v1, transcribed and checked against the PDF pages (recorded in the header); (6.17) as printed (`bkl617_odd`, false) and corrected (`bkl617_odd_corrected`); gates G34/G34b |
 | `s31_six_party.npz` | 1 | R36: the transfer form f9 (127 coefficients, mask order over A, B, C, W, X, Y, Z; f9 · h ≥ 0 in odd characteristic) and h_F = r_F + r_F*, the h-vector of the seven-qubit simplex-code state (Theorem 9), gates G35/G35b |
-| `s32_stab5_unimodular.npz` | 564 | R38: unimodular realisations of known extreme rays of Stab₅: row (in `stab5_extreme_reps.npy`), rep, kappa, sizes, N, W (int8, padded to 64 × 64), method, detail; every cut block of W has Smith invariants 0 and 1 and rational rank kappa · r(X), so W mod d realises kappa · r for every d (§4.9 of the R32 note), gates G36/G36b |
-| `s32_stab5_cover.npz` | 22 + 14 | R38: covering certificates for 13 further rows: pieces (row, kind Q = rational realisation with its bad primes, or GF = realisation over GF(prime), kappa, sizes, N, W, bad, detail); for each row the bad-prime sets of the Q pieces intersect inside the primes of its GF pieces, so the ray lies in Stab^(Z_d)_5 for every d (§4.9), gate G37 |
+| `s32_stab5_unimodular.npz` | 566 | R38, R39: unimodular realisations of known extreme rays of Stab₅: row (in `stab5_extreme_reps.npy`), rep, kappa, sizes, N, W (int8, padded to 64 × 64), method, detail; every cut block of W has Smith invariants 0 and 1 and rational rank kappa · r(X), so W mod d realises kappa · r for every d (§4.9 of the R32 note), gates G36/G36b |
+| `s32_stab5_cover.npz` | 116 + 69 | R38, R39: covering certificates for 70 further rows: pieces (row, kind Q = rational realisation with its bad primes, or GF = realisation over GF(prime), kappa, sizes, N, W, bad, detail); for each row the bad-prime sets of the Q pieces intersect inside the primes of its GF pieces, so the ray lies in Stab^(Z_d)_5 for every d (§4.9), gate G37 |
 | `s27_cube_witnesses.npz` | 4 | R32: entropy vectors of the qubit and odd-p cube states (127 coordinates, parties A,B,C,W,X,Y,Z = vertices 100,…,111, purifier 000) and the pulled-back seven-party inequalities F65 (odd p) and F91 (p = 2), gate G30 |
 | `sixvar_template.csv` | — | transcription template for s9 |
 | `manifest_shas.json` | — | canonical sha256 of every row family (`sha_rows`; `sha_rows_wide` for wide coordinates) |
@@ -792,16 +808,17 @@ be obtained (the authors' site `code.ucsd.edu/zeger/linrank`, which also hosts
 six-variable linear rank inequalities) holds (R32, Theorem 1).
 The A1′ catalogue campaign is closed (R26); `s4c_qlr.py` remains available.
 
-**⓪′ (R38) The known extreme rays of Stab₅ over every local dimension.** 577 of the
-641 rows are certified for every d: 564 by unimodular realisations
-(`data/s32_stab5_unimodular.npz`) and 13 by covering certificates
-(`data/s32_stab5_cover.npz`). Open: 64 rows (200, 488, 492, 493, 495, 496, 497, 501, 502, 503, 504, 506, 508, 509, 525, 539, 549, 556, 557, 559, 560, 564, 569, 572, 573, 574, 575, 576, 578, 579, 580, 582, 583, 584, 585, 586, 587, 588, 589, 590, 591, 593, 594, 595, 596, 597, 598, 605, 606, 607, 609, 610, 611, 612, 613, 630, 631, 633, 634, 635, 636, 637, 638, 640),
-with their uncovered primes in `results/2026-10-13_r38-sandbox/cover_open.json`.
-Next: rerun `--cover` with longer searches in the sandbox, or the server job
-`s32-unimodular` (`jobs.json`), best bundled with the next server session. An
-exact exclusion of an open row from an odd-characteristic cone would be a
-five-party dimension dependence; the exploratory screen `s33_ci_oddchar.py`
-(disjoint pairs, three odd-characteristic forms) found none.
+**⓪′ (R38, R39) The known extreme rays of Stab₅ over every local dimension.** 636 of the
+641 rows are certified for every d: 566 by unimodular realisations
+(`data/s32_stab5_unimodular.npz`) and 70 by covering certificates
+(`data/s32_stab5_cover.npz`). Open: 5 rows (587, 589, 612, 630, 635); no rational realisation is known for any of them;
+their best attempts are in
+`results/2026-10-14_r39-sandbox/open_rows.json`. Next: the server job
+`s32-unimodular` (`jobs.json`: the R39 covering search with long rounds), best
+bundled with the next server session. An exact exclusion of an open row from an
+odd-characteristic cone would be a five-party dimension dependence; the
+exploratory screen `s33_ci_oddchar.py` (every pair, three odd-characteristic
+forms) found none.
 
 **① Completeness cross-certification of the 162 (closed at the logical level,
 R9; file optional).** Proposition: the extreme-ray set of a cone is an

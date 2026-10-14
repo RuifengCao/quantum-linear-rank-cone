@@ -1,0 +1,17 @@
+Row 564 (R39 side runs; scripts row564.py, row564b.py of the scratch orchestration)
+
+$ rational searches from the qubit certificate (4 seeds, 60 s), then GF(3) and GF(9) searches (60 s)
+rational search seed 12001: bad primes [2, 3, 7]
+rational search seed 12002: bad primes [2, 3, 7]
+rational search seed 12003: bad primes [2, 3]
+rational search seed 12004: none
+GF(3), kappa 1: none
+GF(9) through Z[i], kappa 2: none
+done
+
+$ rational searches right mod 3 from the four rational realisations of row 564 (300 s)
+Q+3: found, bad primes [2]
+Q+3: found, bad primes [2, 7]
+Q+3: found, bad primes [2, 5]
+Q+3 best residual 2
+done

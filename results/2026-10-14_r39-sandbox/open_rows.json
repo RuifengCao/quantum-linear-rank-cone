@@ -1,0 +1,643 @@
+{
+ "587": {
+  "N": 24,
+  "party_sizes": [
+   4,
+   5,
+   4,
+   5,
+   2,
+   4
+  ],
+  "qubit_certificate_multiplicity": 1,
+  "best_residuals": [
+   {
+    "step": "B plain",
+    "kappa": 1,
+    "residual": 2,
+    "seconds": 120.022
+   },
+   {
+    "step": "B plain long, best dumped",
+    "kappa": 1,
+    "residual": 2,
+    "seconds": 300.011
+   },
+   {
+    "step": "Bl final push",
+    "kappa": 1,
+    "residual": 2,
+    "seconds": 900.009
+   },
+   {
+    "step": "B plain",
+    "kappa": 1,
+    "residual": 3,
+    "seconds": 90.016
+   },
+   {
+    "step": "B plain long, best dumped",
+    "kappa": 1,
+    "residual": 3,
+    "seconds": 150.03
+   },
+   {
+    "step": "B plain long, best dumped",
+    "kappa": 1,
+    "residual": 3,
+    "seconds": 480.003
+   },
+   {
+    "step": "B plain amax 2",
+    "kappa": 1,
+    "residual": 15,
+    "seconds": 90.012
+   },
+   {
+    "step": "Bi ring 0,-1",
+    "kappa": 2,
+    "residual": 28,
+    "seconds": 60.157
+   },
+   {
+    "step": "Bw ring -1,-1",
+    "kappa": 2,
+    "residual": 30,
+    "seconds": 60.06
+   },
+   {
+    "step": "B plain kappa 2 from a doubled qubit certificate (or the stored one at multiplicity 2)",
+    "kappa": 2,
+    "residual": 30,
+    "seconds": 150.006
+   }
+  ],
+  "dumped_best": [
+   {
+    "seed": 9024,
+    "seconds": 300,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 2,
+    "exact_rational_rank_minus_target": {
+     "BCD": 2
+    }
+   },
+   {
+    "seed": 11001,
+    "seconds": 900,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 2,
+    "exact_rational_rank_minus_target": {
+     "ABDE": -1,
+     "ACDE": 1
+    }
+   },
+   {
+    "seed": 8001,
+    "seconds": 150,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 3,
+    "exact_rational_rank_minus_target": {
+     "BCD": 1,
+     "BDE": 1,
+     "ACDE": 1
+    }
+   },
+   {
+    "seed": 10001,
+    "seconds": 480,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 3,
+    "exact_rational_rank_minus_target": {
+     "ABD": 1,
+     "BCD": 1,
+     "BCE": 1
+    }
+   }
+  ]
+ },
+ "589": {
+  "N": 24,
+  "party_sizes": [
+   4,
+   4,
+   2,
+   5,
+   5,
+   4
+  ],
+  "qubit_certificate_multiplicity": 1,
+  "best_residuals": [
+   {
+    "step": "B plain long, best dumped",
+    "kappa": 1,
+    "residual": 1,
+    "seconds": 300.022
+   },
+   {
+    "step": "B plain",
+    "kappa": 1,
+    "residual": 2,
+    "seconds": 90.01
+   },
+   {
+    "step": "B plain",
+    "kappa": 1,
+    "residual": 2,
+    "seconds": 120.011
+   },
+   {
+    "step": "B plain long, best dumped",
+    "kappa": 1,
+    "residual": 2,
+    "seconds": 150.004
+   },
+   {
+    "step": "B plain long, best dumped",
+    "kappa": 1,
+    "residual": 2,
+    "seconds": 480.013
+   },
+   {
+    "step": "Bl final push",
+    "kappa": 1,
+    "residual": 2,
+    "seconds": 900.004
+   },
+   {
+    "step": "B plain amax 2",
+    "kappa": 1,
+    "residual": 19,
+    "seconds": 90.007
+   },
+   {
+    "step": "Bw ring -1,-1",
+    "kappa": 2,
+    "residual": 38,
+    "seconds": 60.051
+   },
+   {
+    "step": "Bi ring 0,-1",
+    "kappa": 2,
+    "residual": 38,
+    "seconds": 60.081
+   },
+   {
+    "step": "B plain kappa 2 from a doubled qubit certificate (or the stored one at multiplicity 2)",
+    "kappa": 2,
+    "residual": 38,
+    "seconds": 150.057
+   }
+  ],
+  "dumped_best": [
+   {
+    "seed": 9024,
+    "seconds": 300,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 1,
+    "exact_rational_rank_minus_target": {
+     "BDE": 1
+    }
+   },
+   {
+    "seed": 8001,
+    "seconds": 150,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 2,
+    "exact_rational_rank_minus_target": {
+     "ACD": 1,
+     "BDE": 1
+    }
+   },
+   {
+    "seed": 10001,
+    "seconds": 480,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 2,
+    "exact_rational_rank_minus_target": {
+     "ACD": 1,
+     "BDE": 1
+    }
+   },
+   {
+    "seed": 11001,
+    "seconds": 900,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 2,
+    "exact_rational_rank_minus_target": {
+     "BCD": 1,
+     "BDE": 1
+    }
+   }
+  ]
+ },
+ "612": {
+  "N": 30,
+  "party_sizes": [
+   5,
+   5,
+   5,
+   5,
+   6,
+   4
+  ],
+  "qubit_certificate_multiplicity": 1,
+  "best_residuals": [
+   {
+    "step": "Bl final push",
+    "kappa": 1,
+    "residual": 22,
+    "seconds": 900.001
+   },
+   {
+    "step": "B plain long, best dumped",
+    "kappa": 1,
+    "residual": 24,
+    "seconds": 480.035
+   },
+   {
+    "step": "B plain long, best dumped",
+    "kappa": 1,
+    "residual": 25,
+    "seconds": 150.031
+   },
+   {
+    "step": "B plain",
+    "kappa": 1,
+    "residual": 26,
+    "seconds": 90.014
+   },
+   {
+    "step": "B plain long, best dumped",
+    "kappa": 1,
+    "residual": 28,
+    "seconds": 300.031
+   },
+   {
+    "step": "B plain",
+    "kappa": 1,
+    "residual": 30,
+    "seconds": 120.034
+   },
+   {
+    "step": "B plain amax 2",
+    "kappa": 1,
+    "residual": 35,
+    "seconds": 90.018
+   },
+   {
+    "step": "Bw ring -1,-1",
+    "kappa": 2,
+    "residual": 70,
+    "seconds": 60.077
+   },
+   {
+    "step": "Bi ring 0,-1",
+    "kappa": 2,
+    "residual": 70,
+    "seconds": 60.002
+   },
+   {
+    "step": "B plain kappa 2 from a doubled qubit certificate (or the stored one at multiplicity 2)",
+    "kappa": 2,
+    "residual": 72,
+    "seconds": 150.08
+   }
+  ],
+  "dumped_best": [
+   {
+    "seed": 11001,
+    "seconds": 900,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 22,
+    "exact_rational_rank_minus_target": {
+     "AB": 2,
+     "AC": 1,
+     "ABC": 3,
+     "AD": -1,
+     "ABD": 1,
+     "BCD": 2,
+     "ABE": 1,
+     "CE": 2,
+     "BCE": 2,
+     "ABCE": -1,
+     "ADE": 2,
+     "BDE": 2,
+     "ABDE": -1,
+     "CDE": 1
+    }
+   },
+   {
+    "seed": 10001,
+    "seconds": 480,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 24,
+    "exact_rational_rank_minus_target": {
+     "AB": 2,
+     "AC": 1,
+     "ABC": 3,
+     "CD": 2,
+     "ACD": 2,
+     "BCD": 2,
+     "ABE": 3,
+     "BCE": 3,
+     "ADE": 3,
+     "BDE": 3
+    }
+   },
+   {
+    "seed": 8001,
+    "seconds": 150,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 25,
+    "exact_rational_rank_minus_target": {
+     "AB": 1,
+     "AC": 1,
+     "ABC": 2,
+     "AD": -1,
+     "ACD": 1,
+     "BCD": 2,
+     "ABE": 2,
+     "CE": 2,
+     "ACE": 2,
+     "BCE": 3,
+     "ADE": 4,
+     "BDE": 3,
+     "CDE": 1
+    }
+   },
+   {
+    "seed": 9024,
+    "seconds": 300,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 28,
+    "exact_rational_rank_minus_target": {
+     "AB": 2,
+     "AC": 1,
+     "ABC": 2,
+     "AD": -1,
+     "ABD": 1,
+     "CD": 1,
+     "ACD": 1,
+     "BCD": 3,
+     "ABE": 2,
+     "CE": 2,
+     "ACE": 1,
+     "BCE": 2,
+     "ABCE": -1,
+     "ADE": 4,
+     "BDE": 3,
+     "CDE": 1
+    }
+   }
+  ]
+ },
+ "630": {
+  "N": 26,
+  "party_sizes": [
+   4,
+   5,
+   3,
+   4,
+   4,
+   6
+  ],
+  "qubit_certificate_multiplicity": 1,
+  "best_residuals": [
+   {
+    "step": "B plain",
+    "kappa": 1,
+    "residual": 2,
+    "seconds": 120.006
+   },
+   {
+    "step": "Bl final push",
+    "kappa": 1,
+    "residual": 3,
+    "seconds": 900.001
+   },
+   {
+    "step": "B plain long, best dumped",
+    "kappa": 1,
+    "residual": 4,
+    "seconds": 150.026
+   },
+   {
+    "step": "B plain long, best dumped",
+    "kappa": 1,
+    "residual": 4,
+    "seconds": 300.004
+   },
+   {
+    "step": "B plain long, best dumped",
+    "kappa": 1,
+    "residual": 4,
+    "seconds": 480.002
+   },
+   {
+    "step": "B plain",
+    "kappa": 1,
+    "residual": 7,
+    "seconds": 90.026
+   },
+   {
+    "step": "B plain amax 2",
+    "kappa": 1,
+    "residual": 23,
+    "seconds": 90.014
+   },
+   {
+    "step": "Bw ring -1,-1",
+    "kappa": 2,
+    "residual": 38,
+    "seconds": 60.058
+   },
+   {
+    "step": "Bi ring 0,-1",
+    "kappa": 2,
+    "residual": 44,
+    "seconds": 60.018
+   },
+   {
+    "step": "B plain kappa 2 from a doubled qubit certificate (or the stored one at multiplicity 2)",
+    "kappa": 2,
+    "residual": 45,
+    "seconds": 150.073
+   }
+  ],
+  "dumped_best": [
+   {
+    "seed": 11001,
+    "seconds": 900,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 3,
+    "exact_rational_rank_minus_target": {
+     "BC": -1,
+     "ADE": 1,
+     "ACDE": 1
+    }
+   },
+   {
+    "seed": 8001,
+    "seconds": 150,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 4,
+    "exact_rational_rank_minus_target": {
+     "AC": 1,
+     "BD": 1,
+     "CDE": -1,
+     "BCDE": -1
+    }
+   },
+   {
+    "seed": 9024,
+    "seconds": 300,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 4,
+    "exact_rational_rank_minus_target": {
+     "BD": 1,
+     "BCE": 1,
+     "ADE": 1,
+     "ACDE": 1
+    }
+   },
+   {
+    "seed": 10001,
+    "seconds": 480,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 4,
+    "exact_rational_rank_minus_target": {
+     "B": -1,
+     "BC": -1,
+     "BE": -1,
+     "ACDE": 1
+    }
+   }
+  ]
+ },
+ "635": {
+  "N": 28,
+  "party_sizes": [
+   4,
+   5,
+   4,
+   5,
+   5,
+   5
+  ],
+  "qubit_certificate_multiplicity": 1,
+  "best_residuals": [
+   {
+    "step": "Bl final push",
+    "kappa": 1,
+    "residual": 3,
+    "seconds": 900.004
+   },
+   {
+    "step": "B plain long, best dumped",
+    "kappa": 1,
+    "residual": 4,
+    "seconds": 150.028
+   },
+   {
+    "step": "B plain long, best dumped",
+    "kappa": 1,
+    "residual": 4,
+    "seconds": 480.025
+   },
+   {
+    "step": "B plain long, best dumped",
+    "kappa": 1,
+    "residual": 7,
+    "seconds": 300.007
+   },
+   {
+    "step": "B plain",
+    "kappa": 1,
+    "residual": 9,
+    "seconds": 90.023
+   },
+   {
+    "step": "B plain",
+    "kappa": 1,
+    "residual": 11,
+    "seconds": 120.022
+   },
+   {
+    "step": "B plain amax 2",
+    "kappa": 1,
+    "residual": 35,
+    "seconds": 90.01
+   },
+   {
+    "step": "B plain kappa 2 from a doubled qubit certificate (or the stored one at multiplicity 2)",
+    "kappa": 2,
+    "residual": 70,
+    "seconds": 150.08
+   },
+   {
+    "step": "Bw ring -1,-1",
+    "kappa": 2,
+    "residual": 74,
+    "seconds": 60.035
+   },
+   {
+    "step": "Bi ring 0,-1",
+    "kappa": 2,
+    "residual": 74,
+    "seconds": 60.042
+   }
+  ],
+  "dumped_best": [
+   {
+    "seed": 11001,
+    "seconds": 900,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 3,
+    "exact_rational_rank_minus_target": {
+     "AB": 1,
+     "AD": -1,
+     "BDE": 1
+    }
+   },
+   {
+    "seed": 8001,
+    "seconds": 150,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 4,
+    "exact_rational_rank_minus_target": {
+     "BC": 1,
+     "ACD": 1,
+     "BCD": 1,
+     "ADE": 1
+    }
+   },
+   {
+    "seed": 10001,
+    "seconds": 480,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 4,
+    "exact_rational_rank_minus_target": {
+     "AB": 1,
+     "BCE": 1,
+     "ABDE": -1,
+     "BCDE": -1
+    }
+   },
+   {
+    "seed": 9024,
+    "seconds": 300,
+    "kappa": 1,
+    "residual_mod_2_31_minus_1": 7,
+    "exact_rational_rank_minus_target": {
+     "AB": -1,
+     "AC": 1,
+     "BC": 1,
+     "ACD": 1,
+     "ADE": 1,
+     "BDE": 2
+    }
+   }
+  ]
+ }
+}

@@ -1,0 +1,6 @@
+$ python3 scripts/s32_unimodular.py --self-test
+neutral moves keep every cut Smith form: 300/300 random trials
+ring expansion: G M(v) symmetric and G unimodular for 5 rings: True
+Z_d cut formula |W_X Z_d^Y| vs state vectors (d = 4, 6; 8 random graph states, every cut): True
+ALL OK
+[exit 0]

@@ -1,0 +1,22 @@
+Calibration for p = 3 (R39, before the campaign): rows 496, 488, 493, 613, whose known rational realisations
+were all bad at 3.  30 s per job; kernel lines without the matrices.
+  GF(3), multiplicity 1, random start:            found for none
+  GF(9) through Z[i], kappa 2, random start:      found for none
+  rational and right mod 3, from the rational realisation:  found for all four (bad primes of the results: see
+  the covering certificates of these rows)
+
+# calib gf3 k1 seconds 30 seed 5001 primes 3 ring 0 amax 1 sweeps 200 pneu 0.5 extra 0 jobs 4 wall 60
+496 1 BEST 8 150 5962048 30.004 3
+488 1 BEST 7 152 6079936 30.007 3
+493 1 BEST 8 150 5992768 30.001 3
+613 1 BEST 4 221 7325504 30.003 3
+# calib gf3^2 ring 0,-1 seconds 30 seed 5002 primes 3 ring 0,-1 amax 1 sweeps 100 pneu 0.5 extra 0 jobs 4 wall 60
+496 2 BEST 42 65 1295360 30.015 3
+488 2 BEST 44 67 1326144 30.017 3
+613 2 BEST 26 100 1658760 30.003 3
+493 2 BEST 40 65 1293312 30.016 3
+# calib Q+3 seconds 30 seed 5003 primes 2147483647,3 ring 0 amax 1 sweeps 200 pneu 0.5 extra 0 jobs 4 wall 0
+488 1 FOUND 22 0.003 1 78 2147483647,3 ...
+496 1 FOUND 22 0.007 1 256 2147483647,3 ...
+613 1 FOUND 20 0.006 1 267 2147483647,3 ...
+493 1 FOUND 22 0.056 1 1959 2147483647,3 ...

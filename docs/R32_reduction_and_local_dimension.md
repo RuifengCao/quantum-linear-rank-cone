@@ -29,9 +29,12 @@ inequality, obtained by applying Lemma 4 to a family derived from the subspaces 
 inequalities of Blasiak–Kleinberg–Lubetzky to Proposition 8 (now eight forms) and records a misprint in their
 eq. (6.17) (§4.5).
 
-Round R38 adds §4.9: 564 of the 641 known extreme rays of Stab₅ have unimodular realisations, so they lie in
-Stab^(Z_d)_5 for every d (certified; independent referee, not yet checked by hand; the paper does not contain it). 64 rows remain open; most
-of them have no known qutrit realisation.
+Round R38 adds §4.9: 577 of the 641 known extreme rays of Stab₅ lie in Stab^(Z_d)_5 for every d, 564 by unimodular
+realisations and 13 by covering certificates (certified; independent referee, not yet checked by hand; the paper does
+not contain it). Until R39 this paragraph and §5 counted only the 564 (erratum, CHANGELOG R39).
+
+Round R39 continues §4.9: **636 of the 641** lie in Stab^(Z_d)_5 for every d (566 by unimodular realisations,
+70 by covering certificates; same status). 5 rows remain open.
 
 ## 1. Setting
 
@@ -712,7 +715,7 @@ the cube states violate them, so their symmetrisations are not Shannon.
   cone on its self-dual slice. No characteristic-dependent six-variable inequality is known.
 * *Pilot (R35), superseded by §4.9.* The lifting method of Theorem 7, run on the qubit certificates of the first 60
   known extreme rays of Stab₅, lifted 40 of them (`s30_dimension_profile.py --n5-pilot 60`, no lifts stored).
-  Section 4.9 (R38) stores unimodular realisations for 564 of the 641.
+  Section 4.9 (R38, R39) certifies 636 of the 641 for every d.
 
 ### 4.8 Six parties: qubits are not inside any odd local dimension [proved; refereed] (R36)
 
@@ -843,7 +846,7 @@ The result inherits the status of Theorem 1(d), steps 1–2 (the cited entropy f
   * An exploratory hand argument (not refereed) suggests that an exact GF(2) family with rank function
     a·r_NF + b·r_NF* must have a = b. Exact points with a = b ≥ 2, and limits, remain untested.
 
-### 4.9 Five parties: the known extreme rays over every local dimension [certified; independent referee] (R38)
+### 4.9 Five parties: the known extreme rays over every local dimension [certified; independent referee] (R38, R39)
 
 Theorem 7 lifts every four-party extreme ray to all local dimensions with one integer matrix. This section does the
 same for the known five-party extreme rays, as far as the search reaches.
@@ -863,12 +866,12 @@ mod d, so the image is isomorphic to ℤ_d^{κ r(X)}. ∎ (For prime d this is t
 it avoids Corollary 3 of the paper.)
 
 *Result [certified: exact Smith forms by two independent methods, gates G36, G36b, G37; independent referee].*
-`data/s32_stab5_unimodular.npz` stores a unimodular realisation for **564 of the 641** known extreme-ray orbits
-of Stab₅ (`data/stab5_extreme_reps.npy`): κ = 1 for 513, κ = 2 for 50, κ = 3 for 1; at most 40 vertices.
-`data/s32_stab5_cover.npz` covers **13** more rows by covering certificates (below). So **577 of the
-641** lie in Stab^(ℤ_d)_5 for every d ≥ 2.
+`data/s32_stab5_unimodular.npz` stores a unimodular realisation for **566 of the 641** known extreme-ray orbits
+of Stab₅ (`data/stab5_extreme_reps.npy`): κ = 1 for 515, κ = 2 for 50, κ = 3 for 1; at most 40 vertices.
+`data/s32_stab5_cover.npz` covers **70** more rows by covering certificates (below). So **636 of the
+641** lie in Stab^(ℤ_d)_5 for every d ≥ 2 (R38: 577; R39 added 2 unimodular and 57 covered rows).
 
-* Each of these 577 rays lies in Stab^(ℤ_d)_5 for every d ≥ 2. Since Stab^(ℤ_d)_5 ⊆ QLR₅ for every d (paper,
+* Each of these 636 rays lies in Stab^(ℤ_d)_5 for every d ≥ 2. Since Stab^(ℤ_d)_5 ⊆ QLR₅ for every d (paper,
   Sec. IV A) and the rays are extreme rays of QLR₅, they are extreme rays of Stab^(ℤ_d)_5 for every d.
 * The 12 rays of the BCHS ledger that had no explicit realisation (rows 6, 7, 15, 34, 39, 40, 42, 43, 44, 46, 48, 50;
   their membership in the stabilizer cone rested on hypergraph realisations and the theorem of Walter and Witteveen,
@@ -877,7 +880,7 @@ of Stab₅ (`data/stab5_extreme_reps.npy`): κ = 1 for 513, κ = 2 for 50, κ = 
   44 (no realisation at multiplicity 1 over GF(2) or GF(3), exhaustive search of R31).
 * Every certified row also has an explicit qutrit realisation in the data: a unimodular certificate mod 3, a
   covering piece that is right at 3, or a stored qutrit certificate. With the stored qutrit certificates,
-  577 of the 641 rows now have one (96 before).
+  636 of the 641 rows now have one (96 before R38).
 
 *Covering certificates [proved; certified by G37; independent referee].* One matrix for all primes is not needed.
 
@@ -889,13 +892,17 @@ of Stab₅ (`data/stab5_extreme_reps.npy`): κ = 1 for 513, κ = 2 for 50, κ = 
   bad(W_1) ∩ … ∩ bad(W_m) ⊆ {p_1, …, p_l}. Then r ∈ Stab⁽ᵖ⁾_5 for every prime p. By Corollary 3 of the paper
   (Stab⁽ᵖ⁾ ⊆ Stab^(ℤ_d) when p divides d), r ∈ Stab^(ℤ_d)_5 for every d. A unimodular realisation is the case
   bad(W) = ∅.
-* `data/s32_stab5_cover.npz` stores such certificates for 13 rows that have no unimodular realisation here:
-  22 rational realisations, with their bad primes, and 14 realisations over GF(2) or GF(3) (the
-  stored qubit and qutrit certificates of those rows). Gate G37 recomputes every bad-prime set and checks coverage.
-* Example (row 456): two stored rational realisations with bad primes {2, 3} and {2, 13}, and the qubit certificate.
-* The search (`--cover`) runs rounds over the rows not yet covered: a fresh rational search (residual modulo
-  2^31 − 1 only; every new realisation has its own bad primes), and one rational search per uncovered prime q that
-  must also be right mod q.
+* `data/s32_stab5_cover.npz` stores such certificates for 70 rows that have no unimodular realisation here:
+  116 rational realisations (3 of them at κ = 2), with their bad primes, and 69 realisations over
+  GF(2) or GF(3) (the stored qubit and qutrit certificates of those rows). Gate G37 recomputes every bad-prime set and
+  checks coverage.
+* Examples. Row 456 (R38): two rational realisations with bad primes {2, 3} and {2, 13}, and the qubit certificate.
+  Row 607 (R39): the matrix of the rejected report below (Smith invariant 127, so bad primes {127}) and a rational
+  realisation with bad primes {2, 3, 5}; the intersection is empty, so no GF piece is needed.
+* The search (`--cover`, R39 order) runs rounds over the rows not yet covered. A row without a rational realisation
+  gets a rational search (residual modulo 2^31 − 1 only) from its qubit certificate; a row with one gets a search that
+  is rational and right modulo all its uncovered primes at once, started from its rational realisation with the fewest
+  uncovered primes. R38 started the latter from the qubit certificate, one prime at a time.
 
 *Method.* `cc/s32_unimodular.c` anneals the inter-party entries over {-1, 0, 1}. The residual is the sum over the
 31 cuts of |rank − κ·r(X)| over GF(2), GF(3) and modulo 2^31 − 1 (a stand-in for ℚ). When it reaches 0, the ranks are
@@ -937,18 +944,45 @@ The search proves nothing; `scripts/s32_unimodular.py` certifies.
   * `ring-eisenstein` (ℤ[ω] from a qubit certificate at multiplicity 1 or from random matrices): 14 (κ = 2: 14)
   * `gf3-search-start` (ℤ[ω] from a fresh GF(3) realisation): 3 (κ = 2: 3)
   * `ring-gauss` (ℤ[i] from a qubit certificate): 1 (κ = 2: 1)
+  * R39 added rows 539 and 631 (`neutral`, κ = 1), found by R38's strategy probe (below).
 
-*The 64 rows still open [empirical].* Rows 200, 488, 492, 493, 495, 496, 497, 501, 502, 503, 504, 506, 508, 509, 525, 539, 549, 556, 557, 559, 560, 564, 569, 572, 573, 574, 575, 576, 578, 579, 580, 582, 583, 584, 585, 586, 587, 588, 589, 590, 591, 593, 594, 595, 596, 597, 598, 605, 606, 607, 609, 610, 611, 612, 613, 630, 631, 633, 634, 635, 636, 637, 638, 640.
+*Round R39 [certified; independent referee].* R39 closed 59 of the 64 rows that R38 left open.
 
-* `results/2026-10-13_r38-sandbox/cover_open.json` lists, for each of them, the rational realisations found by the
-  covering run, their bad primes, and the primes still uncovered: 22 of them have a rational realisation, and their uncovered primes are 3 (18 rows), 5 (10 rows), 7 (3 rows), 11 (1 row), 13 (1 row), 23 (1 row), 61 (1 row); for the other 42 no rational realisation was found.
-* At this size (N = 18–30), searches modulo a single small odd prime are hard, while searches for rational
+* *Search order.* The covering search now starts each search "rational and right mod q" from a rational realisation
+  of the row, the one with the fewest uncovered primes, and asks for all uncovered primes at once. For 17 of the 21
+  rows whose rational realisations from R38's runs left primes uncovered, every one of those was bad at 3. On four of
+  them, searches over GF(3) at multiplicity 1 and over GF(9) (ℤ[i], κ = 2) from random starts found nothing in 30 s,
+  while this search found a rational realisation right mod 3 for all four
+  (`results/2026-10-14_r39-sandbox/probes/calibration_p3.txt`). It covered all 21 within a few rounds of 40 s.
+* *First rational realisations.* Rational searches from the qubit certificate, 90 to 900 s per row (R38's covering
+  run: 15 s per round), found one for 34 more rows; the search above then covered them. On the 21 rows without one at
+  the time, ring searches (ℤ[ω], ℤ[i]; 60 s) and searches with entries in {−2, …, 2} (90 s) found none. Row 564
+  needed 300 s: its first four rational realisations were all bad at 3. Row 200, which qubits realise only at
+  multiplicity 2, has rational realisations at κ = 2 from its qubit certificate at multiplicity 2; at κ = 1 the best
+  attempts miss one cut.
+* *Outputs of R38 that R38 did not use.* Rows 539 and 631 have unimodular realisations in the output of R38's
+  strategy probe, which was never merged into the data. Row 574 is covered by two rational realisations from R38's
+  runs, at κ = 2 with bad primes {163, 181, 2833, 7699} (a report of the probe) and at κ = 1 with bad primes
+  {2, 3, 5}; R38's covering run had not combined them. Row 607 is covered by the matrix of R38's rejected report
+  (bad primes {127}) together with a rational realisation found in R39 (bad primes {2, 3, 5}).
+* *Erratum (R38 probe file).* `results/2026-10-13_r38-sandbox/probes/strategy_sample20.txt` counted kernel reports as
+  certified. The report for row 574 under "ring Z[omega] from the qubit certificate" is not unimodular (bad primes
+  above; the kernel then checked primes up to 97 only), so that setting certified 2 of 20 (rows 465, 541). The other
+  reports in the file are exact. A dated note is added to the file; nothing in R38's data or claims rests on it.
+
+*The 5 rows still open [empirical].* Rows 587, 589, 612, 630, 635 (N = 587: 24, 589: 24, 612: 30, 630: 26, 635: 28).
+
+* No rational realisation is known for any of them. The best attempts of the rational searches, with the cuts they
+  miss, are in `results/2026-10-14_r39-sandbox/open_rows.json`. They miss one to three cuts (row 612: ten or more),
+  mostly with the rational rank above the target, which is the rank over GF(2) of the qubit certificate. A
+  configuration that exists only in characteristic 2 would produce such misses, and so does a search that has not
+  finished; nothing here tells the two apart. All of them have qubit realisations at multiplicity 1 and no known
+  qutrit realisation.
+* (R38) At this size (N = 18–30), searches modulo a single small odd prime are hard, while searches for rational
   realisations (residual modulo 2^31 − 1 only) often succeed within seconds; the covering certificates exploit this.
   For example, a GF(3)-only search found no qutrit realisation of row 636 at multiplicity 1 (60 s), but its first
   rational realisation has bad primes {2, 5, 7}: its reduction mod 3 is one
   (`results/2026-10-13_r38-sandbox/probes/badprimes_example.txt`).
-* So the open rows are rows not yet covered (for 21 of them, at a few small primes), not rows with evidence
-  against membership.
 * *Odd-characteristic screen (exploratory; `scripts/s33_ci_oddchar.py`).* On the seven-element extension by the
   common information of a pair, the screen imposes the forms of Proposition 8 that hold in odd characteristic:
   DFZ (65), (LB)₂ and the corrected BKL (6.17), in all 5,040 relabellings. It excluded none of the 77 rows
@@ -958,6 +992,8 @@ The search proves nothing; `scripts/s32_unimodular.py` certifies.
   * A row excluded this way would lie outside every odd-characteristic cone. That would be a five-party dimension
     dependence and, by duality, a six-variable linear rank inequality that holds in odd characteristic and fails in
     characteristic 2; none is known.
+  * (R39) With every pair (`--pairs all`, about 1,330 per row) on the 22 rows open at the time
+    (`results/2026-10-14_r39-sandbox/ci_all_pairs.log`): no exclusion either.
 
 *Independent referee (R38).* A separate agent, with its own code and without reading the repository's verification
 code, re-verified all 564 unimodular certificates (structure, rational ranks and Smith invariants on all 31 cuts,
@@ -967,11 +1003,18 @@ within 3·10⁻¹⁴); and checked the lemma, the covering argument, the ring co
 hypotheses u ≠ u′ and W[c][c] = 0, and the column convention of M(v), are now stated). No discrepancy. Not yet
 checked by hand.
 
+*Independent referee (R39).* A separate agent, with its own code and without reading the repository's verification
+code, checked that the R38 entries of both data files are unchanged and re-verified every new entry: the unimodular
+certificates of rows 539 and 631, the 94 new rational realisations with their exact bad primes (its own Smith form,
+Bareiss ranks with minors, and sympy's Smith normal form agree), the 55 new GF(2) or GF(3) pieces, and the coverage
+of all 70 rows. No discrepancy; the numbers in this section agree with the data. Its wording remarks are taken into
+the text. Not yet checked by hand.
+
 *What this shows.* Every certified ray is independent of the local dimension. This supports, but does not prove, that
 Stab^(ℤ_d)_5 is independent of d (the main open question of the paper):
 
 * Stab₅ itself is not known: the catalogue has 1,155 undecided orbits and the enumeration of QLR₅ is incomplete.
-* 64 known rays remain open.
+* 5 known rays remain open.
 
 ## 5. Open questions
 
@@ -979,9 +1022,10 @@ Stab^(ℤ_d)_5 is independent of d (the main open question of the paper):
   (Theorem 7), and at n = 6 there is one (Theorem 9).
   * n = 5: by Theorem 1 this is equivalent to a characteristic dependence of the six-variable linear rank cone on
     its self-dual slice. No characteristic-dependent six-variable inequality is known; the smallest known ones
-    have seven variables. 564 of the 641 known extreme rays of Stab₅ lie in Stab^(Z_d)_5 for every d (§4.9,
-    R38). Of the other 64, 63 have qubit realisations at multiplicity 1 and no known qutrit
-    realisation; they are the candidates for a dependence at n = 5 (qubits against p = 3).
+    have seven variables. 636 of the 641 known extreme rays of Stab₅ lie in Stab^(Z_d)_5 for every d (§4.9,
+    R38, R39). The other 5 have qubit realisations at multiplicity 1 and no known qutrit realisation;
+    no rational realisation is known for any of them. Among the known extreme rays, they are the candidates for a
+    dependence at n = 5.
   * n = 6, the other direction: is Stab⁽ᵖ⁾_6 ⊄ Stab⁽²⁾_6 for some odd p? By the face remark of §4.8, for the
     non-Fano state this asks whether LR⁽²⁾₇ meets cone(r_NF, r_NF*) outside 0. The direct probes were negative
     (they are explained by Proposition 8): symmetrised Fano and non-Fano polymatroids r + r* never violate (65) or
@@ -1010,9 +1054,9 @@ Stab^(ℤ_d)_5 is independent of d (the main open question of the paper):
   * Khazaei (arXiv:2608.09543) proves Γ^MixL ⊆ Γ^Abl and writes "We do not know whether the first inclusion can be
     strict."
 * **Smaller party counts for Theorem 5**, e.g. Z_4 against Z_6 below n = 15.
-* **Five parties over every field**: 564 of the 641 known extreme rays are lifted (§4.9, R38). Lift or exclude
-  the other 64; for the 63 without a qutrit realisation, decide membership in Stab⁽³⁾_5 (an exclusion
-  would answer the n = 5 question).
+* **Five parties over every field**: 636 of the 641 known extreme rays are certified for every d (§4.9, R38,
+  R39). Lift or exclude the other 5; an exclusion from Stab⁽ᵖ⁾_5 for some odd p would answer the n = 5
+  question.
 * ~~**Six parties**: is there a characteristic-dependent seven-variable inequality g with g∘D = g?~~ Yes: g = f9 + f9∘D
   (Theorem 9, R36). BKL's Theorems 6.4 and 6.6 were checked and are blind (Proposition 8).
 
@@ -1112,9 +1156,12 @@ For §4.8 (R36), from an AI pre-check (web search, abstracts only):
     python3 scripts/s31_six_party.py --derive --witness --invariant --face --lemmas 200 --stress 400 --exhaustive  # §4.8
     python3 scripts/s32_unimodular.py --check --full                 # §4.9: exact checks of the stored certificates
     python3 scripts/s32_unimodular.py --self-test                    # §4.9: neutral moves, ring expansion, Z_d formula
+    python3 scripts/s32_unimodular.py --check-cover                  # §4.9: covering certificates
+    cp data/s32_stab5_unimodular.npz u.npz; cp data/s32_stab5_cover.npz c.npz                # §4.9: the covering search,
+    python3 scripts/s32_unimodular.py --cover --rows 587,589 --seconds 300 --out u.npz --cover-out c.npz   # on copies
     python3 scripts/s33_ci_oddchar.py --rows 456,488                 # §4.9: odd-characteristic CI screen (exploratory)
     python3 selftest.py                                              # gates G29-G36 (G29b, G31b-G36b with --full)
 
 Raw output of the sandbox runs: `results/2026-10-02_r32-sandbox/`, `results/2026-10-02_r33-sandbox/`,
 `results/2026-10-02_r34-sandbox/`, `results/2026-10-02_r35-sandbox/`, `results/2026-10-02_r36-sandbox/`,
-`results/2026-10-13_r38-sandbox/`.
+`results/2026-10-13_r38-sandbox/`, `results/2026-10-14_r39-sandbox/`.
