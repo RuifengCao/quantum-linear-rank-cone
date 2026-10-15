@@ -5,7 +5,7 @@ Machine-certified data and tools for the **five-party quantum linear rank cone**
 suite of verification gates. Self-contained: no `psitip` dependency, all input
 data bundled, a static Normaliz binary included, resumable long runs.
 
-> **Status (R42, 2026-10-14).** R38–R42 add results obtained after the paper (§0,
+> **Status (R43, 2026-10-15).** R38–R43 add results obtained after the paper (§0,
 > first items); they are certified by the gates and checked by an independent referee (an agent), not yet by
 > hand. Release R37
 > is the archived version cited by the paper *Stabilizer entropy cones as self-dual slices of linear rank cones:
@@ -96,6 +96,19 @@ and the changelog is explained in the glossary at the end.
   the catalogue has diminishing scientific value; the A1′ campaign is closed
   and server time goes to A2 tools from here on. **Interpretation guard:** an
   unwitnessed orbit is not an unrealisable one.
+- [x] **R43 (2026-10-15): from six parties on, the qubit cone differs from the Z_d cone of every d ≥ 3**
+  (`docs/R32_reduction_and_local_dimension.md` §4.11, Corollary 13; proved; independent referee (agent); like
+  Theorem 12 not yet checked by hand; not in the paper).
+  - The *seven-point state* over Z_d (the CSS state of the seven nonzero vectors of {0,1}³; the Steane state for
+    d = 2, the non-Fano state for odd primes d) has f12 = −log₂(d / gcd(d, 2)) bits, negative for every d ≥ 3. So
+    Stab^(Z_d)_n ⊄ Stab⁽²⁾_n for every d ≥ 3 and n ≥ 6, including d = 4, 8, 16, … (Theorem 12 covered d with an odd
+    prime factor). With Theorems 5 and 9: from n = 6 on, the qubit cone is strictly smaller than the Z_d cone of
+    every even d ≥ 4 (for Z_4 this needed seven parties before) and incomparable with that of every odd d. Galois
+    qudits GF(2^k) still give exactly the qubit cone.
+  - Checks in gates G39 (exact values for d = 2..16, Smith invariants of all column sets) and G39b (state vectors
+    for d = 4, 6, 8); sandbox logs in `results/2026-10-15_r43-sandbox/`.
+  - Erratum: an item of §5 written in R42 called two known directions open (Z_{2^k} against qubits and against odd
+    d); corrected there.
 - [x] **R42 (2026-10-14): six parties, the other direction, for the closed cones** (roadmap item M3, finished;
   `docs/R32_reduction_and_local_dimension.md` §4.11; proved; independent referee (agent), not yet checked by hand;
   not in the paper).
@@ -883,9 +896,10 @@ per system, only the non-Fano state can witness Stab⁽³⁾_6 ⊄ Stab⁽²⁾_
 stabilizer state has an entropy vector that is a positive multiple of S_NF, and S_NF is not a finite nonnegative
 combination of qubit entropy vectors (R41, Proposition 10 and Corollary 11); S_NF lies outside the closed qubit cone,
 so Stab^(Z_d)_6 ⊄ Stab⁽²⁾_6 for every d that is not a power of 2 (R42, Theorem 12, §4.11; a quantitative
-"symplectic" version of the proof of Proposition 10). Not yet checked by hand; for the paper, a revision could state
-that at six parties the qubit cone and the odd ones are incomparable. The survey for p = 5 is no longer needed for
-this question. Still open at n = 6: two odd primes, and Z_{2^k} with k ≥ 2.
+"symplectic" version of the proof of Proposition 10), and for every d ≥ 3 by the seven-point state over Z_d (R43,
+Corollary 13). Not yet checked by hand; for the paper, a revision could state that from six parties on the qubit cone
+differs from the Z_d cone of every d ≥ 3. The survey for p = 5 is no longer needed for this question. Still
+open at n = 6: two odd primes, and whether Stab^(Z_d)_6 ⊆ Stab^(Z_{2^k})_6 for odd d and k ≥ 2.
 
 **① Completeness cross-certification of the 162 (closed at the logical level,
 R9; file optional).** Proposition: the extreme-ray set of a cone is an

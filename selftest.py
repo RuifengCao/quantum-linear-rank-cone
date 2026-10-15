@@ -733,11 +733,14 @@ def main():
     # built from its definition (transfer_form) and pinned by the manifest (sha256 of the 128 coefficients, and the 31
     # terms on the cuts of the visible parties).  Checked exactly: f12(S_NF) = -1 and f12(S_F) = 0; f12 >= 0 on the GF(2)
     # list of G38 (every seven-qubit state with at most one qubit per system; minimum 0, attained 38 times); on the GF(3)
-    # list f12 < 0 only at S_NF.  G39b (--full): every step of the proof (transfer_chain: dim L_T = k(T), the restrictions
+    # list f12 < 0 only at S_NF.  Corollary 13 (R43): at the seven-point state over Z_d (the CSS state of the seven nonzero
+    # vectors of {0,1}^3 over Z_d), 2^f12 = gcd(d, 2)/d exactly for d = 2..16, and the column sets of its generator matrix
+    # have Smith invariants 1 except W, X, Y (1, 1, 2).  G39b (--full): every step of the proof (transfer_chain: dim L_T = k(T), the restrictions
     # of the line pieces and their orthogonality, Lemmas T1-T4, (LA)_2 on the arrangement of Lemma T5) on 40 states -- random
     # compressed qubit graph states, compressed CSS states of random GF(2) families pushed towards the non-Fano
     # dependencies, copies of the Steane state after random local symplectic maps -- the dual arrangement of Lemma T5
-    # built explicitly, and the compression (symplectic reduction) against uncompressed states.
+    # built explicitly, the compression (symplectic reduction) against uncompressed states, and the seven-point states
+    # over Z_4, Z_6, Z_8 against their state vectors (Corollary 13).
     T39 = _s38.transfer_check(log=lambda *_x: None)
     M39 = MAN['s34_transfer_form']
     pin39 = _s38.transfer_sha() == M39['sha256'] and [[n, c] for n, c in _s38.transfer_terms()] == M39['terms']
@@ -746,7 +749,9 @@ def main():
          and T39['gf3_negative'] == M39['gf3_negative'],
          f'f12(S_NF) = {T39["f12_nonfano"]} (expect -1), f12(S_F) = {T39["f12_fano"]} (0); GF(2) list: minimum '
          f'{T39["gf2_min"]} (0), {T39["gf2_zero"]} zeros (38); GF(3) list: {T39["gf3_negative"]} negative (1), the '
-         f'non-Fano vector {T39["gf3_negative_is_nonfano"]}; {T39["terms"]} terms, coefficients match the manifest {pin39}')
+         f'non-Fano vector {T39["gf3_negative_is_nonfano"]}; {T39["terms"]} terms, coefficients match the manifest {pin39}; '
+         f'seven-point states over Z_d, d = {T39["seven_point_d"]}: 2^f12 = gcd(d, 2)/d {T39["seven_point_closed_form"]} '
+         f'(Z_4: {T39["seven_point_z4"]}), Smith invariants {T39["seven_point_smith"]}')
 
     if a.full:
         R29l = _r29.lrs_rays(A29)
@@ -824,7 +829,8 @@ def main():
         gate('G39b Theorem 12, the proof step by step', _s38.transfer_ok(T39b, True),
              f'{T39b["chain_states"]} states {T39b["chain_kinds"]}: steps failing on {T39b["chain_failed"]} (expect 0); '
              f'minimum f12 {T39b["chain_min_f12"]}, {T39b["chain_f12_zero"]} states at 0; dual arrangement built explicitly '
-             f'{T39b["dual_identity"]}; compression keeps the entropies {T39b["compression"]}')
+             f'{T39b["dual_identity"]}; compression keeps the entropies {T39b["compression"]}; seven-point states from '
+             f'state vectors: largest deviation {T39b["seven_point_sv_dev"]:.1e}, f12 {T39b["seven_point_sv_f12"]} bits')
 
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)

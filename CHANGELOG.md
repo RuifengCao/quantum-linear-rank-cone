@@ -1,5 +1,36 @@
 # CHANGELOG
 
+## R43 (2026-10-15) -- from six parties on, the qubit cone differs from that of every other local dimension; erratum to R42
+- **Result (proved; checked by an independent referee, an agent; like Theorem 12 not yet checked by hand; not in the
+  paper).** `docs/R32_reduction_and_local_dimension.md` §4.11, Corollary 13.
+  - The *seven-point state* over Z_d, the CSS state (one Z_d qudit per system) of the code spanned by the seven
+    nonzero vectors of {0,1}³, has f12 = −log₂(d / gcd(d, 2)) bits. It is the Steane state for d = 2 (f12 = 0) and
+    the non-Fano state for odd primes d (f12 = −1 in units of log d).
+  - Hence Stab^(Z_d)_n ⊄ Stab⁽²⁾_n for every d ≥ 3 and n ≥ 6. Theorem 12 covered d with an odd prime factor; new
+    are d = 4, 8, 16, …. With Theorem 5, Stab⁽²⁾_n ⊊ Stab^(Z_d)_n for even d ≥ 4 from n = 6 on (for d = 4 the Z_4 cube
+    state gave n ≥ 7); with Theorem 9, incomparability for odd d.
+  - Proof: Theorem 12, Theorem 1(d) step 3 (CSS entropies over Z_d), and the value of f12, which follows from the
+    Chinese remainder theorem and the Smith invariants of the column sets (all 1 except at W, X, Y: 1, 1, 2).
+    Equivalently S^(d) = log₂d·S_NF for odd d and S_F + (log₂d − 1)·S_NF for even d.
+  - The statement is about Z_d qudits: Galois qudits GF(2^k) give exactly the qubit cone (§4.6).
+- **Erratum (R42).** §5 said "n = 6 for Z_{2^k}, k ≥ 2: open in both directions against qubits and against odd d".
+  Two of these four directions were known: Stab⁽²⁾ ⊆ Stab^(Z_{2^k}) (Theorem 5), and Stab^(Z_{2^k})_6 ⊄ Stab^(Z_d)_6
+  for odd d (Theorem 9 with that inclusion). The item is struck through with a note; the open one left is whether
+  Stab^(Z_d)_6 ⊆ Stab^(Z_{2^k})_6 for odd d. The R42 entry below is left as it was.
+- **Referee.** A separate agent, with its own code and without reading the new functions, confirmed the closed form
+  exactly for d = 2..40, the entropies against state vectors (d = 4, 6 dense; d = 2, 3, 5, 8, 9, 10, 12 sparse), the
+  Smith invariants by two methods, and the proof. Its corrections are in the text: the statement restricted to Z_d
+  qudits (not GF(2^k)), the step n > 6, why the number of invariants is r_NF(X), the remark on why Theorem 12 stops at
+  characteristic 2 (Lemmas T1–T5 appear to carry over to Z_4 with log|·|; only (LA)₂ fails), S^(4) = S_F + S_NF lies
+  in Stab⁽²⁾ + Stab⁽³⁾, and the range 6 ≤ n ≤ 2p + 2 of the remaining open question.
+- **Checks.** Gate G39: 2^f12 = gcd(d, 2)/d exactly for d = 2..16 (brute force over the d³ messages), and the Smith
+  invariants of all 127 column sets (sympy). Gate G39b: the seven-point states over Z_4, Z_6, Z_8 from their state
+  vectors (largest deviation of the 126 cut entropies about 2·10⁻¹⁵). Sandbox: exact values for d = 2..30.
+- **Code.** `scripts/s34_six_party_survey.py`: `seven_point_sizes`, `seven_point_f12`, `seven_point_smith`,
+  `seven_point_state_vector`, called by `transfer_check`; gate texts of G39/G39b in `selftest.py`.
+- **Results.** `results/2026-10-15_r43-sandbox/` (sandbox, no server time).
+- **README.** Status, §0 (R43), §7 (⓪″). `VERSION`: R43; `CITATION.cff` unchanged. No GitHub Release.
+
 ## R42 (2026-10-14) -- six parties, the other direction for the closed cones: qubits and every odd local dimension are incomparable from n = 6
 - **Result (proved; checked by an independent referee, an agent; not yet by hand; not in the paper).**
   `docs/R32_reduction_and_local_dimension.md` §4.11.

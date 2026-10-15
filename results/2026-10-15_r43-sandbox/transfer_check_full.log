@@ -1,0 +1,5 @@
+$ python3 scripts/s34_six_party_survey.py --transfer --full --trials 40
+  transfer: {'f12_nonfano': -1, 'f12_fano': 0, 'terms': 31, 'gf2_min': 0, 'gf2_zero': 38, 'gf3_negative': 1, 'gf3_negative_is_nonfano': True, 'seven_point_d': '2..16', 'seven_point_z4': '1/2', 'seven_point_closed_form': True, 'seven_point_negative_from_3': True, 'seven_point_smith': [('WXY', [1, 1, 2])], 'chain_states': 40, 'chain_kinds': {'graph': 20, 'structured': 10, 'fano': 10}, 'chain_failed': 0, 'chain_min_f12': 0, 'chain_f12_zero': 10, 'dual_identity': '8/8', 'compression': '8/8', 'seven_point_sv_dev': 1.7763568394002505e-15, 'seven_point_sv_f12': {4: -1.0, 6: -1.584962501, 8: -2.0}}
+terms (Z = purifier): +3*S(A) +3*S(B) +3*S(C) -3*S(W) -5*S(AB) -2*S(AC) -1*S(AW) -1*S(AX) -5*S(AY) -2*S(BC) -1*S(BW) -5*S(BX) -1*S(BY) -5*S(CW) -4*S(CX) -4*S(CY) -6*S(ABC) +10*S(ABW) +7*S(ACX) +7*S(BCY) -1*S(WXY) +11*S(ABXY) +11*S(ACWY) +11*S(BCWX) -5*S(ABCWX) -5*S(ABCWY) -2*S(ABCXY) -1*S(ABWXY) -1*S(ACWXY) -1*S(BCWXY) +2*S(ABCWXY)
+ALL OK
+exit 0

@@ -5,7 +5,8 @@ the closed cones (R42, Theorem 12).
 Question (the paper, Discussion; R32 note section 5): is Stab^(p)_6 not contained in Stab^(2)_6 for some odd p, i.e. is
 there a six-party stabilizer state of odd local dimension whose entropy vector lies outside the qubit cone?  The only
 candidate was the non-Fano state h_NF = r_NF + r_NF* (section 4.8); the transfer argument that settles the other
-direction for the Steane state does not work for it.  R42 (section 4.11, Theorem 12): yes, for every odd p.  The
+direction for the Steane state does not work for it.  R42 (section 4.11, Theorem 12): yes, for every odd p (and
+R43, Corollary 13: the seven-point state over Z_d lies outside the qubit cone for every d >= 3).  The
 inequality f12 >= 0 holds for every qubit stabilizer state of seven systems and f12(S_NF) = -1; its proof applies
 Lemma 4 (LA)_2 to a subspace arrangement dual to the sum of the line pieces, whose dimensions are bounded by isotropy
 (the "symplectic transfer").  transfer_form builds f12 from its definition, transfer_chain checks every step of the
@@ -1166,9 +1167,75 @@ def transfer_anneal(configs, seconds=60.0, seed=4201, mu=0.0, target=None, T0=3.
     return res
 
 
+SEVEN_POINTS = [(1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 1, 0), (1, 0, 1), (0, 1, 1), (1, 1, 1)]   # A, B, C, W, X, Y, Z
+
+
+def _seven_point_code(d):
+    return {tuple((x[0] * q[0] + x[1] * q[1] + x[2] * q[2]) % d for q in SEVEN_POINTS)
+            for x in itertools.product(range(d), repeat=3)}
+
+
+def seven_point_sizes(d):
+    """|proj_X C| for every set X of systems: C is the row space over Z_d of the 3 x 7 matrix whose columns are the
+    seven nonzero vectors of {0,1}^3, labelled A, B, C, W, X, Y, Z (section 4.8); brute force over the d^3 messages."""
+    code = _seven_point_code(d)
+    return {X: len({tuple(c[P] for P in range(7) if X >> P & 1) for c in code}) for X in range(128)}
+
+
+def seven_point_f12(d):
+    """Corollary 13: f12 at the seven-point state over Z_d (its CSS state, one Z_d qudit per system), exactly, as the
+    Fraction 2^f12 (entropies in bits; Theorem 1(d), step 3: S(X) = log2(|proj_X C| |proj_{E-X} C| / |C|)).
+    The closed form is 2^f12 = gcd(d, 2) / d."""
+    from fractions import Fraction
+    sz = seven_point_sizes(d)
+    F = transfer_form()
+    q = Fraction(1)
+    for X in range(1, 127):
+        if F[X]:
+            q *= Fraction(sz[X] * sz[127 ^ X], sz[127]) ** int(F[X])
+    return q
+
+
+def seven_point_smith():
+    """The column sets of the seven-point matrix whose Smith invariants over Z are not all 1 (expected: only W, X, Y,
+    with invariants 1, 1, 2, since det(W, X, Y) = -2)."""
+    from sympy import Matrix, ZZ
+    from sympy.matrices.normalforms import smith_normal_form
+    out = []
+    for X in range(1, 128):
+        D = smith_normal_form(Matrix([SEVEN_POINTS[P] for P in range(7) if X >> P & 1]).T, domain=ZZ)
+        inv = [abs(int(D[i, i])) for i in range(min(D.shape)) if D[i, i] != 0]
+        if any(v != 1 for v in inv):
+            out.append((''.join(TR_NAMES[P] for P in range(7) if X >> P & 1), inv))
+    return out
+
+
+def seven_point_state_vector(d):
+    """The seven-point state over Z_d from its state vector (d^7 amplitudes): the largest deviation of the 126 cut
+    entropies from log2(|proj_X C| |proj_{E-X} C| / |C|), and f12 of the state-vector entropies (bits)."""
+    sz = seven_point_sizes(d)
+    code = _seven_point_code(d)
+    psi = np.zeros([d] * 7)
+    for c in code:
+        psi[c] = 1.0
+    psi /= np.sqrt(len(code))
+    S = np.zeros(128)
+    dev = 0.0
+    for X in range(1, 127):
+        a = [P for P in range(7) if X >> P & 1]
+        b = [P for P in range(7) if not X >> P & 1]
+        sv = np.linalg.svd(np.transpose(psi, a + b).reshape(d ** len(a), d ** len(b)), compute_uv=False) ** 2
+        sv = sv[sv > 1e-13]
+        S[X] = float(-(sv * np.log2(sv)).sum())
+        dev = max(dev, abs(S[X] - np.log2(sz[X] * sz[127 ^ X] / sz[127])))
+    return dev, float(transfer_form() @ S)
+
+
 def transfer_check(path=DATA, full_check=False, trials=40, seed=42, log=print):
-    """Theorem 12: F(S_NF) = -1 and F(S_F) = 0; F >= 0 on every vector of the GF(2) list (all seven-qubit states with
-    at most one qubit per system, every relabelling); on the GF(3) list F < 0 only at S_NF.  With full_check: every
+    """Theorem 12: f12(S_NF) = -1 and f12(S_F) = 0; f12 >= 0 on every vector of the GF(2) list (all seven-qubit states
+    with at most one qubit per system, every relabelling); on the GF(3) list f12 < 0 only at S_NF.  Corollary 13 (R43):
+    at the seven-point state over Z_d, 2^f12 = gcd(d, 2) / d exactly for 2 <= d <= 16, and the Smith invariants of the
+    column sets are all 1 except at W, X, Y (1, 1, 2).  With full_check: every
     step of the proof (transfer_chain) on random compressed qubit graph states (1-3 qubits per system), on compressed
     CSS states of random GF(2) families pushed towards the non-Fano dependencies, and on one and two copies of the
     Fano state after random local symplectic maps (where f12 = 0); the dual arrangement built explicitly for the first
@@ -1182,6 +1249,13 @@ def transfer_check(path=DATA, full_check=False, trials=40, seed=42, log=print):
     nf = tuple(int(x) for x in ks['NF'][1:64])
     out.update(gf2_min=int(g2.min()), gf2_zero=int((g2 == 0).sum()), gf3_negative=int((g3 < 0).sum()),
                gf3_negative_is_nonfano=all(tuple(int(x) for x in v) == nf for v, f in zip(Z['gf3'], g3) if f < 0))
+    from fractions import Fraction
+    from math import gcd
+    sp = {d: seven_point_f12(d) for d in range(2, 17)}
+    out.update(seven_point_d='2..16', seven_point_z4=str(sp[4]),
+               seven_point_closed_form=all(q == Fraction(gcd(d, 2), d) for d, q in sp.items()),
+               seven_point_negative_from_3=all(q < 1 for d, q in sp.items() if d >= 3) and sp[2] == 1,
+               seven_point_smith=seven_point_smith())
     if full_check:
         rng = np.random.default_rng(seed)
         failed, done, minF, tight = 0, 0, None, 0
@@ -1216,17 +1290,23 @@ def transfer_check(path=DATA, full_check=False, trials=40, seed=42, log=print):
             comp_ok += bool(c.N and (c.entropies() == S).all() and all(c.owner.count(P) == S[1 << P] for P in range(7)))
         out.update(chain_states=done, chain_kinds=kinds, chain_failed=failed, chain_min_f12=minF, chain_f12_zero=tight,
                    dual_identity=f'{dual_ok}/{min(trials, 8)}', compression=f'{comp_ok}/8')
+        sv = {d: seven_point_state_vector(d) for d in (4, 6, 8)}      # Corollary 13 against state vectors
+        out.update(seven_point_sv_dev=float(max(v[0] for v in sv.values())),
+                   seven_point_sv_f12={d: round(v[1], 9) for d, v in sv.items()})
     log(f'  transfer: {out}')
     return out
 
 
 def transfer_ok(o, full_check=False):
     ok = (o['f12_nonfano'] == -1 and o['f12_fano'] == 0 and o['gf2_min'] >= 0 and o['gf3_negative'] == 1
-          and o['gf3_negative_is_nonfano'])
+          and o['gf3_negative_is_nonfano'] and o['seven_point_closed_form'] and o['seven_point_negative_from_3']
+          and o['seven_point_smith'] == [('WXY', [1, 1, 2])])
     if full_check:
+        import math
         n8 = min(o['chain_states'], 8)
         ok = (ok and o['chain_failed'] == 0 and o['chain_min_f12'] >= 0 and o['dual_identity'] == f'{n8}/{n8}'
-              and o['compression'] == '8/8')
+              and o['compression'] == '8/8' and o['seven_point_sv_dev'] < 1e-9
+              and all(abs(f + math.log2(d / math.gcd(d, 2))) < 1e-9 for d, f in o['seven_point_sv_f12'].items()))
     return ok
 
 
