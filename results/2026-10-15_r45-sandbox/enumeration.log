@@ -1,0 +1,26 @@
+cc/s40_enum7q.c (R45) in the 2-core sandbox: gcc -O3 -march=native -fopenmp, two threads.  The TOTAL line is
+"TOTAL q prefixes graphs distinct" (graphs on vertices 0..5 kept, seven-vertex graphs examined, distinct vectors
+printed).  "reduced" = scaling and relabelling reductions; "all" = scaling only.  The closures under S_7 were compared
+with the stored GF(2) and GF(3) lists (data/s34_seven_qudit_vectors.npz) and with the certified orbits of the table
+(data/s36_one_qudit_fields.npz); every certificate the program printed was re-checked in Python with the field tables
+of scripts/s34_six_party_survey.py (none wrong).
+
+GF(2) all       TOTAL 2 32768 2097152 10773          0.5 s   = the stored GF(2) list itself
+GF(2) reduced   TOTAL 2 936 20146 3952               0.1 s   closure 10,773 vectors, 59 orbits = the stored list
+GF(3) all       TOTAL 3 700280 255602200 27334      29.0 s   = the stored GF(3) list itself
+GF(3) reduced   TOTAL 3 18224 2396749 20211          0.6 s   closure 27,334 vectors, 111 orbits = the stored list
+GF(4) reduced   TOTAL 4 260986 131137334 27243      11.1 s   closure 33,860 vectors, 127 orbits = the table's orbits over GF(4)
+GF(5) reduced   TOTAL 5 2543586 3823392553 29990   279 s     closure 36,399 vectors, 134 orbits = the table's orbits over GF(5)
+                (other jobs were running at the same time)
+GF(3) reduced, slices 0, 1, 2 of 3: 17,689 + 17,042 + 16,247 lines, union 20,211 = the unsliced output.
+
+GF(7), slice 0 of 400 (reduced): TOTAL 7 409025 3778743263 24934, 242 s with two threads while other jobs ran.  Every
+one of the 24,934 vectors lies in an orbit certified over GF(7) (134 orbits met), and all their certificates are
+correct.  Slice 0 is the heaviest of the 400 (it contains the empty weight
+vector of vertex 5); the full reduced run examines 815,738,564,501 graphs (enumeration_counts.log), so at the rates
+measured here (1.3e-7 s per graph and thread, loaded) and by the second referee on other GF(7) slices (0.6-0.8e-7 s,
+one thread, unloaded) it would take about 15 to 30 CPU-hours.  Not run.
+
+enumeration_counts.py / .log: the numbers of prefixes and graphs that cc/s40_enum7q.c examines, counted from support
+patterns alone (q = 2, 3, 4, 5, 7; reduced and all); they agree with the TOTAL lines above and with the manifest entry
+s36_one_qudit_fields.  "all" over GF(5) would be 214,895,752,064 graphs (the "about 2e11 normal forms" of R40).

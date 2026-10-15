@@ -1,0 +1,15 @@
+python3 scripts/s36_one_qudit_fields.py --build /home/claude/work/r45/s_gf --out s36_table.npz  (the sampler outputs of sampling_runs.sh); its six arrays are equal to those of data/s36_one_qudit_fields.npz (the file itself differs only in the zip timestamps).
+  GF(2): 59 orbits
+  GF(3): 111 orbits
+  GF(4): 127 orbits
+  GF(5): 134 orbits
+  GF(7): 135 orbits
+  GF(8): 135 orbits
+  GF(9): 135 orbits
+  GF(11): 135 orbits
+  GF(13): 135 orbits
+  GF(16): 135 orbits
+  GF(25): 135 orbits
+  GF(27): 135 orbits
+  GF(49): 135 orbits
+  136 orbits, 36430 vectors -> /tmp/claude-0/-home-claude/63df4a60-5411-51af-8510-4bf7375c8745/scratchpad/s36_table.npz

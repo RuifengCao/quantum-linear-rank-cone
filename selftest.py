@@ -779,6 +779,35 @@ def main():
          f'on the seven-point state over Z_(2^a), a = 1, 2, 3: {T40["tight"]}; U_Z matches the manifest '
          f'{T40["uz_sha"] == M40["uz_sha256"]}')
 
+    # G41 (R45): six parties, one qudit per system over other fields (docs/R32_reduction_and_local_dimension.md section
+    # 4.10, "Other fields").  data/s36_one_qudit_fields.npz holds the 136 S_7 orbits of the entropy vectors of GF(q)-linear
+    # stabilizer states of seven systems with one qudit each, over 13 fields from GF(2) to GF(49), and for every field
+    # and orbit met over it a graph realising the representative.  Checked exactly: the representatives and orbit sizes;
+    # all 1,646 certificates, with a separate implementation of GF(q); over GF(2) and GF(3) the certified orbits are those
+    # of the exhaustive lists of G38; over every field with at least seven elements the orbits are 134 common ones plus
+    # S_NF (odd characteristic) or S_F (characteristic 2); the unions per characteristic (3, 5, 7, 11, 13) are equal;
+    # every orbit missing over GF(2), GF(3), GF(4), GF(5) reappears over a larger field of the same characteristic; the
+    # GF(3) orbits are certified over GF(5), GF(7), GF(11), GF(13); the symmetric, U_{2,6} and AME orbits are met exactly
+    # over the fields with at least 7, 5 and 3 elements (Proposition 15); file and content match the manifest.
+    # G41b (--full): cc/s40_enum7q.c, exhaustive over GF(2) (with and without the relabelling reduction), GF(3), GF(4)
+    # and GF(5) (~5 min on two cores): closed under S_7, the lists of G38 and the certified orbits of the table, the
+    # counts as in the manifest; exhaustive target searches for Proposition 15 (cc/s36_target7.c); a short run of the
+    # sampler cc/s39_sample7q.c over GF(7), GF(8), GF(9); Proposition 16 (the 70 minors of [I_4 | J_4 - I_4], brute-force
+    # representability of T8, T8', AG(3,2) over GF(2) .. GF(9), and S_T8 against S_T8').
+    import s36_one_qudit_fields as _s41
+    T41 = _s41.check(log=lambda *_x: None)
+    M41 = MAN['s36_one_qudit_fields']
+    file41 = (_h33.sha256(open(os.path.join(core.DATA, 's36_one_qudit_fields.npz'), 'rb').read()).hexdigest()
+              == M41['file_sha256'] and _s41.content_sha() == M41['sha256'])
+    gate('G41 six parties, one qudit per system over 13 fields', _s41.check_ok(T41) and file41
+         and {int(k): v for k, v in M41['per_field'].items()} == T41['per_field'],
+         f'{T41["orbits"]} orbits, {T41["vectors"]} vectors; certified orbits per field {T41["per_field"]}; certificates '
+         f'{T41["certificates"]} re-checked, {T41["certificates_bad"]} wrong (0); GF(2)/GF(3) = the lists of G38 '
+         f'{T41["gf2_list_is_union"] and T41["gf3_list_is_union"]}; fields >= 7 elements: {T41["common"]} common orbits + '
+         f'S_NF / S_F {T41["big_fields_structure"]}; odd characteristics equal {T41["odd_unions_equal"]}; missing orbits '
+         f'reappear in the same characteristic {T41["reappear"]}; symmetric vector over {T41["symmetric_fields"]}; file and '
+         f'content match the manifest {file41}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:
@@ -869,6 +898,16 @@ def main():
              f'(valid >= 0, smaller exponent < 0); exhaustive: '
              + '; '.join(f'{n}: {v["codes"]} codes, minimum {v["min"]} (0), {v["zeros"]} at 0, weakened forms '
                          f'{v["weakened"]}' for n, v in lf40.items()))
+
+        T41b = _s41.check(full_check=True, log=lambda *_x: None)
+        en41 = T41b['enumeration']
+        ex41 = {k: [v['graphs'], v['distinct']] for k, v in en41.items()}
+        gate('G41b one qudit per system: exhaustive GF(2)-GF(5), Propositions 15 and 16', _s41.check_ok(T41b, True)
+             and ex41 == M41['exhaustive'],
+             '; '.join(f'{k}: {v["graphs"]} graphs, {v["distinct"]} vectors, {v["orbits"]} orbits = table {v["orbits_equal"]}'
+                       for k, v in en41.items())
+             + f'; target searches {T41b["targets"]}; sampling {T41b["sampling"]}; Proposition 16: minors '
+             f'{T41b["prop16_minors_ok"]}, brute force {T41b["prop16_brute"]}, S_T8/S_T8\' one cut {T41b["prop16_one_cut"]}')
 
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)

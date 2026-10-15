@@ -5,13 +5,13 @@ Machine-certified data and tools for the **five-party quantum linear rank cone**
 suite of verification gates. Self-contained: no `psitip` dependency, all input
 data bundled, a static Normaliz binary included, resumable long runs.
 
-> **Status (R44, 2026-10-15).** R38–R44 add results obtained after the paper (§0,
+> **Status (R45, 2026-10-15).** R38–R45 add results obtained after the paper (§0,
 > first items); they are certified by the gates and checked by an independent referee (an agent), not yet by
 > hand. Release R37
 > is the archived version cited by the paper *Stabilizer entropy cones as self-dual slices of linear rank cones:
 > a five-party gap and dependence on the local dimension* (X. Song and R. Cao,
-> 2026). Everything in `data/` is machine-certified by the gates in
-> `selftest.py`, and the numbers quoted in the paper are recomputed by the
+> 2026, [arXiv:2610.18905](https://arxiv.org/abs/2610.18905)). Everything in `data/` is machine-certified by the
+> gates in `selftest.py`, and the numbers quoted in the paper are recomputed by the
 > separate scripts in `checks/`. The proofs used in the paper and the
 > transcriptions they rely on were checked line by line by hand before the paper
 > was submitted, and its literature claims were checked against the sources.
@@ -29,8 +29,8 @@ and the changelog is explained in the glossary at the end.
 
 ## The paper and its verification scripts (R37)
 
-- **The paper.** It shows that, after a linear lift, the n-party stabilizer
-  entropy cone of local dimension d is the self-dual slice of the cone of rank
+- **The paper** ([arXiv:2610.18905](https://arxiv.org/abs/2610.18905)). It shows that, after a linear lift,
+  the n-party stabilizer entropy cone of local dimension d is the self-dual slice of the cone of rank
   functions of n + 1 subgroups of abelian groups of exponent dividing d (for
   prime d, of subspaces over GF(d)). From this it derives a five-party gap
   between the stabilizer cone and QLR₅ and the dependence of the stabilizer cone
@@ -96,6 +96,27 @@ and the changelog is explained in the glossary at the end.
   the catalogue has diminishing scientific value; the A1′ campaign is closed
   and server time goes to A2 tools from here on. **Interpretation guard:** an
   unwitnessed orbit is not an unrealisable one.
+- [x] **R45 (2026-10-15): six parties, one qudit per system over 13 fields — only characteristic 2 stands out**
+  (`docs/R32_reduction_and_local_dimension.md` §4.10, *Other fields*; certified, Propositions 15 and 16 proved;
+  two independent referees (agents); not yet checked by hand; not in the paper).
+  - The entropy vectors of GF(q)-linear stabilizer states of seven systems with one qudit each, over GF(2), …,
+    GF(49) (13 fields; exhaustive up to GF(5) with the new enumerator `cc/s40_enum7q.c`, sampled beyond), fall into
+    136 orbits of S₇. Over every tested field with at least seven elements: 134 common orbits plus S_NF (odd
+    characteristic) or S_F (characteristic 2).
+  - Consequence for two odd primes at n = 6: for any two of 3, 5, 7, 11, 13, no state with one qudit per system
+    witnesses Stab⁽ᵖ⁾_6 ⊄ Stab⁽q⁾_6 (certified for p = 3, 5; empirical for p = 7, 11, 13, whose lists are samples).
+    A witness needs S(P) ≥ 2 for one of the seven systems (the purifier included).
+  - Proposition 15: the U₂,ₙ states need q ≥ n − 1 (why the symmetric vector is missing over GF(5) and the U₂,₆
+    orbit over GF(4)). Proposition 16: eight vectors in F⁴, with v₁..v₄ a basis, no three dependent and the ten
+    dependencies of T₈′ (T₈ with its circuit-hyperplane {w₁..w₄} relaxed), are [I₄ | J₄ − I₄] up to scaling; its
+    matroid is T₈ in characteristic 3, T₈′ in characteristic ≥ 5, AG(3, 2) in characteristic 2. The CSS states of T₈
+    and T₈′ are the candidates at seven parties (a heuristic; not settled).
+  - Checks in gates G41 (the orbit table: 1,646 certificates re-checked with a separate GF(q), the structure above)
+    and G41b (exhaustive GF(2)–GF(5), target searches for Proposition 15, a sampling run, Proposition 16); new
+    `scripts/s36_one_qudit_fields.py`, `cc/s39_sample7q.c`, `cc/s40_enum7q.c`, `data/s36_one_qudit_fields.npz`;
+    sandbox logs in `results/2026-10-15_r45-sandbox/`.
+  - Also: the paper's arXiv number (2610.18905) in this README and in `CITATION.cff`; the CI time caps raised for
+    G41b (§9).
 - [x] **R44 (2026-10-15): six parties, powers of two — Stab^(Z_d)_n ⊆ Stab^(Z_{2^a})_n exactly when d divides 2^a,
   for every n ≥ 6** (`docs/R32_reduction_and_local_dimension.md` §4.12, Theorem 14; proved; independent referee
   (agent); not yet checked by hand; not in the paper).
@@ -612,7 +633,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 
 | Stage | Command essentials | Purpose / expectation |
 | --- | --- | --- |
-| selftest | `selftest.py [--full] [--workers N]` | 53 regression gate lines (G0–G40, G29b, G31b–G36b, G38b–G40b) + ALL PASS; run first on any machine |
+| selftest | `selftest.py [--full] [--workers N]` | 55 regression gate lines (G0–G41 with G2b and G10b, G29b, G31b–G36b, G38b–G41b) + ALL PASS; run first on any machine |
 | s1 | `--variant pure28` (current) / `pure`, `v3`, `pure2` (historical) | build the H-representation; seconds |
 | s2 | `s2_judge.py <H.npy>` | 760 graph-state judge; `pure*` variants must give 0 violations |
 | s3 | `s3_rank19.py <H.npy> [--extra-rows X]` | tight-rank test of the 19 HEC rays; pure28 → 18/19 |
@@ -638,6 +659,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | s33 | `s33_ci_oddchar.py --rows … [--pairs disjoint/all] [--out …]` | R38: exploratory screen -- common information + the seven-variable forms valid in odd characteristic (DFZ (65), (LB)_2, BKL (6.17) corrected) on the extension; floating-point verdicts |
 | s34 | `s34_six_party_survey.py --check [--full]` ; `--self-test` ; `--enumerate --out …` ; `--survey --lists … --out … --seconds S` ; `--nonfano --lams 2,3 --seconds S` ; `--fields 2,3,4,5,7,8,9 [--controls K]` ; `--fields-python 2,3,4` ; `--transfer [--full --trials N]` ; `--transfer-anneal "n0,…,n6;…" --seconds S [--pull-nf μ]` | R40: six parties, the other direction -- every entropy vector of seven-system qubit and qutrit stabilizer states with at most one qudit per system (`cc/s35_enum7.c`, weighted graphs up to scaling), the qutrit-only orbits and their qubit realisations at multiplicity 2 (`cc/s34_anneal7.c`), and graphs over GF(q) with a prescribed cut-rank vector (`cc/s36_target7.c`; Proposition 10); exact checks over GF(2), GF(3) and GF(q). R42: Theorem 12 -- the inequality f12, every step of its proof on given states (gates G39/G39b), and the adversarial search `cc/s37_minform7.c` |
 | s35 | `s35_two_power_transfer.py --check [--full --trials N]` ; `--anneal "a:rows:n0,…,n6;…" --seconds S [--pull μ [--singles]] [--weakened c]` | R44: Theorem 14 -- the inequality f^(a) = f12 + (1 − 1/a)·U_Z on Z_{2^a} stabilizer states: exact linear algebra over Z_{2^a}, stabilizer states as Lagrangian subgroups (graph, CSS of non-free codes, non-free Lagrangians after random symplectic maps), every step of the proof on given states without compressing them (gates G40/G40b), Lemma 4(G′) tests; annealing over CSS codes and exhaustive families of codes B + 2^s·P (`cc/s38_minform_zn.c`) |
+| s36 | `s36_one_qudit_fields.py --check [--full]` ; `--enumerate q [--all] [--slice s --nslices n] [--out F]` ; `--sample q --samples N --seed S --out P` ; `--build P --out F` ; `--prop16` | R45: six parties, one qudit per system over 13 fields -- the S₇-orbit table of the entropy vectors of GF(q)-linear states with a realising graph per field and orbit (gates G41/G41b), exhaustive lists with `cc/s40_enum7q.c` (scaling and relabelling reductions; GF(2)–GF(5)), the sampler `cc/s39_sample7q.c`, target searches for Proposition 15, and Proposition 16 (minors, brute-force representability of T₈, T₈′, AG(3,2), S_T8 against S_T8′) |
 | s20 | `s20_residuals.py <rays.npy> --lam 1 --seconds 20 --runs 3` | where qubit annealing gets stuck: residual vector of the best state of several independent runs (diagnostic; also keeps any hit as a certificate) |
 | s21 | `s21_qudit_search.py <rays.npy> --p 3 --lams 1 --seconds 60` ; `--self-test` | qudit (p = 3, 5, 7) graph-state search (`cc/s21_anneal_gfp.c`), independent GF(p) re-verification; the self-test checks S(X) = rank_GF(p) W[X, X^c] against exact state vectors |
 | s5 | `s5_orbits.py clr5.out [--raw] [--expect 162]` | rays → S₅ orbits; reconcile against 162 |
@@ -828,6 +850,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | `s32_stab5_unimodular.npz` | 566 | R38, R39: unimodular realisations of known extreme rays of Stab₅: row (in `stab5_extreme_reps.npy`), rep, kappa, sizes, N, W (int8, padded to 64 × 64), method, detail; every cut block of W has Smith invariants 0 and 1 and rational rank kappa · r(X), so W mod d realises kappa · r for every d (§4.9 of the R32 note), gates G36/G36b |
 | `s32_stab5_cover.npz` | 125 + 74 | R38–R40: covering certificates for the other 75 rows: pieces (row, kind Q = rational realisation with its bad primes, or GF = realisation over GF(prime), kappa, sizes, N, W, bad, detail); for each row the bad-prime sets of the Q pieces intersect inside the primes of its GF pieces, so the ray lies in Stab^(Z_d)_5 for every d (§4.9), gate G37 |
 | `s34_seven_qudit_vectors.npz` | 10,773 + 27,334 | R40: every entropy vector (63 cuts) of seven-system stabilizer states with at most one qudit per system over GF(2) (`gf2`) and GF(3) (`gf3`); one representative of each of the 53 S₇-orbits of qutrit-only vectors (`orbit_vector`, `orbit_size`) with a GF(3) graph realising it (`orbit_weights`), and a 14-qubit graph state realising twice the vector (`qubit2`, `has_qubit2`: all but the non-Fano orbit, `nonfano`), §4.10 of the R32 note, gates G38/G38b; the manifest entry also records the counts of `cc/s36_target7.c` for S_F and S_NF over GF(2), …, GF(9) |
+| `s36_one_qudit_fields.npz` | 136 orbits | R45: the S₇ orbits (36,430 vectors) of the entropy vectors of GF(q)-linear stabilizer states of seven systems with one qudit each, over GF(2), 3, 4, 5, 7, 8, 9, 11, 13, 16, 25, 27, 49 (`reps`, `sizes`, `fields`), for every field and orbit met over it a graph realising the representative (`cert`, 255 = none; edge order (0,1), (0,2), …, (5,6)), and the Steane and non-Fano orbits (`steane`, `nonfano`); §4.10 of the R32 note, gates G41/G41b; the manifest entry also records the counts of the exhaustive runs of `cc/s40_enum7q.c` |
 | `s27_cube_witnesses.npz` | 4 | R32: entropy vectors of the qubit and odd-p cube states (127 coordinates, parties A,B,C,W,X,Y,Z = vertices 100,…,111, purifier 000) and the pulled-back seven-party inequalities F65 (odd p) and F91 (p = 2), gate G30 |
 | `sixvar_template.csv` | — | transcription template for s9 |
 | `manifest_shas.json` | — | canonical sha256 of every row family (`sha_rows`; `sha_rows_wide` for wide coordinates) |
@@ -916,7 +939,15 @@ so Stab^(Z_d)_6 ⊄ Stab⁽²⁾_6 for every d that is not a power of 2 (R42, Th
 Corollary 13). Not yet checked by hand; for the paper, a revision could state that from six parties on the qubit cone
 differs from the Z_d cone of every d ≥ 3. The survey for p = 5 is no longer needed for this question. R44 settles the
 powers of two: for n ≥ 6, Stab^(Z_d)_n ⊆ Stab^(Z_{2^a})_n exactly when d | 2^a (Theorem 14, §4.12). Still open at
-n = 6: two odd primes, and Z_d against Z_d′ when d′ has an odd prime factor (for example Z_4 against Z_6).
+n = 6: two odd primes, and Z_d against Z_d′ when d′ has an odd prime factor (for example Z_4 against Z_6). R45 (§4.10,
+*Other fields*): for two odd primes among 3, 5, 7, 11, 13 there is no witness among the states with one qudit per
+system (certified for p = 3, 5, empirical for 7, 11, 13), and no seven-variable inequality that separates two odd
+characteristics is known to us; so this question is not within reach of the present methods. The next candidates are
+at seven parties: the CSS states of T₈ (characteristic 3) and T₈′ (characteristic ≥ 5), Proposition 16; a
+certificate would be an eight-variable characteristic-dependent inequality not blind on the self-dual slice (DFZ's
+T₈-based ones, arXiv:1401.2507, are the starting point). Making the GF(7) list exhaustive would take about 15 to 30
+CPU-hours with `cc/s40_enum7q.c` (815,738,564,501 graphs; not registered as a server job: it would only move p = 7
+from empirical to certified).
 
 **① Completeness cross-certification of the 162 (closed at the logical level,
 R9; file optional).** Proposition: the extreme-ray set of a cone is an
@@ -974,7 +1005,7 @@ This repository is public at
 
 - **CI:** `.github/workflows/selftest.yml` installs `lrslib` and the Python
   requirements and runs `python3 selftest.py --full` on every push and pull
-  request (all 49 gate lines must pass). Every step has a time cap (job 45 min, `selftest.py --full` 25 min;
+  request (all 55 gate lines must pass). Every step has a time cap (job 55 min, `selftest.py --full` 35 min;
   each `apt-get update` attempt 150 s, three attempts), so a stalled package
   mirror fails the run within minutes instead of hanging for GitHub's 6-hour
   default; such a failure says nothing about the code -- re-run the job.

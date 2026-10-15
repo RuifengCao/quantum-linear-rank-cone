@@ -1,0 +1,23 @@
+Sampling campaign of R45 (cc/s39_sample7q.c; run as ./sample7q from the scratch copy, whose code differs only in
+the usage string).  Columns: field, graphs sampled, seed, distinct vectors sampled (not closed under S_7), orbits
+and vectors after closing under S_7 (= the table).  The two cores ran two queues (sampling_runs.sh).
+
+  field     samples  seed  distinct  orbits  closed
+ GF(2):    2,000,000   201    10,773      59  10,773
+ GF(3):    4,000,000   301    27,330     111  27,334
+ GF(4):   20,000,000   401    33,860     127  33,860
+ GF(5): 100,000,000   501    36,399     134  36,399
+ GF(7): 100,000,000   701    36,400     135  36,400
+ GF(8): 100,000,000   801    36,220     135  36,220
+ GF(9): 100,000,000   901    36,400     135  36,400
+GF(11):  50,000,000  1101    36,400     135  36,400
+GF(13):  50,000,000  1301    36,400     135  36,400
+GF(16): 100,000,000  1601    36,213     135  36,220
+GF(25): 100,000,000  2501    36,400     135  36,400
+GF(27): 100,000,000  2701    36,350     135  36,400
+GF(49):  50,000,000  4901    36,400     135  36,400
+
+Sampler output lines (where a log was written): q 4 SAMPLES 20000000 DISTINCT 33860; q 5 SAMPLES 100000000 DISTINCT 36399; q 7 SAMPLES 100000000 DISTINCT 36400; q 8 SAMPLES 100000000 DISTINCT 36220; q 9 SAMPLES 100000000 DISTINCT 36400; q 11 SAMPLES 50000000 DISTINCT 36400; q 13 SAMPLES 50000000 DISTINCT 36400; q 16 SAMPLES 100000000 DISTINCT 36213; q 25 SAMPLES 100000000 DISTINCT 36400; q 27 SAMPLES 100000000 DISTINCT 36350; q 49 SAMPLES 50000000 DISTINCT 36400
+
+GF(4) and GF(5): the distinct sampled vectors are already every vector of the exhaustive lists (33,860 and
+36,399; enumeration.log).  Total: 8.7e8 graphs over GF(4) .. GF(49), 6e6 over GF(2) and GF(3).

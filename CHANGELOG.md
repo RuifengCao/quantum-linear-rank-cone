@@ -1,5 +1,81 @@
 # CHANGELOG
 
+## R45 (2026-10-15) -- six parties, one qudit per system over 13 fields: only characteristic 2 stands out; two odd primes at n = 6 assessed
+- **Result (certified; Propositions 15 and 16 proved; checked by two independent referees, agents; not yet checked
+  by hand; not in the paper).** `docs/R32_reduction_and_local_dimension.md` §4.10, *Other fields*.
+  - The entropy vectors of GF(q)-linear stabilizer states of seven systems with one qudit each (the cut-rank vectors
+    of the weighted graphs over GF(q) on seven vertices) over GF(2), 3, 4, 5, 7, 8, 9, 11, 13, 16, 25, 27, 49:
+    exhaustive up to GF(5), sampled beyond (10⁸ graphs per field, 5·10⁷ over GF(11), GF(13), GF(49)). They fall into
+    136 orbits of S₇ (36,430 vectors); per field 59, 111, 127, 134 orbits, then 135.
+  - Over every tested field with at least seven elements the orbits are 134 common ones plus S_NF (odd
+    characteristic) or S_F (characteristic 2); the unions per characteristic are equal for 3, 5, 7, 11 and 13. The
+    orbits missing over GF(2), GF(3), GF(4), GF(5) (76, 24, 8, 1) reappear over larger fields of the same
+    characteristic.
+  - Two odd primes at n = 6: for any two of 3, 5, 7, 11, 13, no state with one qudit per system witnesses
+    Stab⁽ᵖ⁾_6 ⊄ Stab⁽q⁾_6 (certified for p = 3, 5, whose lists are exhaustive; empirical for p = 7, 11, 13). A
+    witness needs S(P) ≥ 2 for one of the seven systems (the purifier included), and no seven-variable inequality
+    separating two odd characteristics is known to us: the question is not within reach of the present methods.
+    Nothing is claimed for primes ≥ 17.
+  - Proposition 15: a pure GF(q)-linear state of n ≥ 6 systems with one qudit each, S(X) = |X| for |X| ≤ 2 and
+    S(T) ≤ 2 for every 3-set, needs q ≥ n − 1 (isotropy, the Kneser graph K(n − 1, 2), n distinct points of
+    PG(1, q)); the CSS state of U₂,ₙ attains it. So the symmetric vector (n = 7) is missing over GF(5), and the
+    U₂,₆ orbit over GF(4).
+  - Proposition 16: a basis v₁..v₄, no three of the eight vectors dependent, and the ten dependencies of T₈′ (our
+    name for T₈ with its circuit-hyperplane {w₁..w₄} relaxed) force [I₄ | J₄ − I₄] up to scaling; its matroid is
+    AG(3, 2), T₈ or T₈′ in characteristic 2, 3 or other. The T₈ half
+    is stated in DFZ arXiv:1401.2507, §3. The CSS states of T₈ and T₈′ (one cut apart, 3 against 4) are the natural
+    candidates at seven parties; this is a heuristic, with its limits stated in the note, and neither question is
+    settled.
+- **Referee.** A separate agent, with its own code: all 1,646 certificates with its own field tables; its own orbits;
+  its own exhaustive enumerations over GF(2), GF(3) and GF(4) (10,606,673,088 normal forms over GF(4)); its own
+  sampler (2.58·10⁸ states: nothing outside the 136 orbits, every orbit met at least 308 times, a positive control);
+  exhaustive searches for the symmetric vector over GF(4) and GF(5); Proposition 16 line by line, its minors and a
+  brute-force count; the restriction of scalars on GF(9) graphs. No numerical or mathematical error. Its points, all
+  taken into the text: the consequence was stated for all odd primes and without a status (now the tested primes,
+  certified or empirical); "only 2 against odd" generalised from the tested fields (now per characteristic, over the
+  fields with at least seven elements); the small-fields claim cited support that did not support it (now the
+  reappearance check); "T₈′ over GF(q), q ≥ 5" was false for q = 8, 9, 16, 27 (now characteristic ≥ 5); the analogy
+  with the Fano pair is a heuristic with limits (now stated); the T₈ half is known (DFZ §3 cited, cross-reference to
+  §4.5); the completeness evidence was weak (strengthened; GF(4) and GF(5) are now exhaustive); a proof for the GF(5)
+  case (now Proposition 15); the data, programs and gates were not yet in the repository. The exhaustive GF(5) run,
+  `cc/s40_enum7q.c` and gate G41b came after its report.
+- **Second referee.** A second agent reviewed `cc/s40_enum7q.c` line by line and the relabelling argument (no error),
+  ran it over GF(2), GF(3) (with and without the relabelling) and GF(4) (closures equal to the stored lists and to the
+  first referee's GF(4) list; identical sets on one and two threads), reproduced every count of the manifest from
+  support patterns with its own code, matched two GF(5) slices against its own direct-rank enumerator, confirmed that
+  the GF(4) and GF(5) sampler outputs are the exhaustive lists, checked Propositions 15 and 16 line by line, and
+  recomputed the table and all 1,646 certificates with its own code; its own brute force for Proposition 16 (each w_m
+  over all projective points of x_m = 0) found (q − 1)³ representations of the one representable matroid per field.
+  Its points, taken into the text: two overclaims in the header paragraph of the note ("no vector separates" now
+  restricted to the vectors met over the tested fields; Proposition 15 explains two orbits, not all those missing
+  over small fields); the GF(7) cost (now 815,738,564,501 graphs, about 15 to 30 CPU-hours, instead of 50); an
+  arithmetic slip in this entry (the campaign has 8.7·10⁸ graphs, not 8.2·10⁸); an unqualified line in §5; T₈′
+  defined at first use; the wording of the brute-force normalisation and of the DFZ citation; "some system" now says
+  that the purifier is included; a vacuous-pass guard for the sampling part of G41b; the missing results folder; the
+  argument parsing of `cc/s40_enum7q.c`; and smaller wording points. The full GF(5) enumeration has been run only
+  with `cc/s40_enum7q.c`.
+- **Checks.** Gate G41: the orbit table (representatives, orbit sizes, all 1,646 certificates with a separate GF(q),
+  GF(2)/GF(3) against the lists of G38, the structure above, the fields of the symmetric, U₂,₆ and AME orbits, file
+  and content against the manifest). Gate G41b: `cc/s40_enum7q.c` exhaustive over GF(2) (with and without the
+  relabelling reduction), GF(3), GF(4), GF(5), closed under S₇ equal to the lists of G38 and to the table, counts as
+  in the manifest; target searches for Proposition 15 (`cc/s36_target7.c`); a short run of the sampler over GF(7),
+  GF(8), GF(9); Proposition 16 (the 70 minors, brute-force representability over GF(2) .. GF(9), S_T8 against
+  S_T8′). Sandbox: the sampling campaign (8.7·10⁸ graphs over GF(4) to GF(49), 6·10⁶ over GF(2) and GF(3)), the
+  exhaustive runs (GF(5): 3,823,392,553 graphs, 4.6 min on two cores), one slice of 400 over GF(7) (the heaviest one,
+  4 min on two cores; the whole run would examine 815,738,564,501 graphs, about 15 to 30 CPU-hours; not run), and
+  `selftest.py --full` (55 gate lines) on a clean clone of R44 with the R45 changes, Python 3.12: all pass (921 s).
+- **Code.** New `scripts/s36_one_qudit_fields.py` (GF(q) from scratch, the table and its checks, wrappers for the C
+  programs, Proposition 16), `cc/s39_sample7q.c` (sampler), `cc/s40_enum7q.c` (exhaustive enumerator, scaling and
+  relabelling reductions, slices). `selftest.py`: gates G41, G41b. `data/s36_one_qudit_fields.npz`;
+  `data/manifest_shas.json`: entry `s36_one_qudit_fields`.
+- **Also.** README and `CITATION.cff`: the paper's arXiv number, 2610.18905 (missed in R44); `CITATION.cff` lists the
+  paper under `references` (validated with cffconvert against schema 1.2.0). `.github/workflows/selftest.yml`: time
+  caps raised to 55 min for the job and 35 min for `selftest.py --full` (G41b takes about 6 min in the sandbox, most
+  of it the exhaustive GF(5) run).
+- **Results.** `results/2026-10-15_r45-sandbox/` (sandbox, no server time).
+- **README.** Status, §0 (R45), the scripts table (s36; the selftest row now counts 55 gate lines), the data
+  inventory, §7 (⓪″), §9 (gate count, which still said 49, and the CI time caps).
+
 ## R44 (2026-10-15) -- six parties, powers of two: Stab^(Z_d)_n ⊆ Stab^(Z_{2^a})_n exactly when d | 2^a, from n = 6; erratum to R43
 - **Result (proved; checked by an independent referee, an agent; not yet checked by hand; not in the paper).**
   `docs/R32_reduction_and_local_dimension.md` §4.12, Theorem 14.

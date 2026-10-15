@@ -1,0 +1,3 @@
+python3 scripts/s36_one_qudit_fields.py --prop16
+  Proposition 16: minors 70: zero at the ten sets True, +-2 at the four AG(3,2) sets True, -3 at {w1..w4} True, 55 at +-1; brute force {2: {'T8': 0, "T8'": 0, 'AG(3,2)': 1}, 3: {'T8': 2, "T8'": 0, 'AG(3,2)': 0}, 4: {'T8': 0, "T8'": 0, 'AG(3,2)': 3}, 5: {'T8': 0, "T8'": 4, 'AG(3,2)': 0}, 7: {'T8': 0, "T8'": 6, 'AG(3,2)': 0}, 8: {'T8': 0, "T8'": 0, 'AG(3,2)': 7}, 9: {'T8': 8, "T8'": 0, 'AG(3,2)': 0}}; S_T8 and S_T8' differ only on the cut {v}|{w} (3 against 4): True
+Proposition 16: ALL OK

@@ -23,7 +23,7 @@ abstract: >-
   local dimension, a self-test suite of verification gates, and the verification
   scripts (directory checks) of the paper "Stabilizer entropy cones as self-dual
   slices of linear rank cones: a five-party gap and dependence on the local
-  dimension" by X. Song and R. Cao. The code is under the MIT license, the data
+  dimension" by X. Song and R. Cao (arXiv:2610.18905). The code is under the MIT license, the data
   (directories data and results) are under the CC BY 4.0 license, and bin/normaliz
   is an unmodified binary of Normaliz under its own license (GPL-3).
 keywords:
@@ -32,3 +32,17 @@ keywords:
   - linear rank inequalities
   - matroids
   - quantum information
+references:
+  - type: article
+    title: "Stabilizer entropy cones as self-dual slices of linear rank cones: a five-party gap and dependence on the local dimension"
+    authors:
+      - family-names: Song
+        given-names: Xidan
+      - family-names: Cao
+        given-names: Ruifeng
+    year: 2026
+    url: "https://arxiv.org/abs/2610.18905"
+    identifiers:
+      - type: other
+        value: "arXiv:2610.18905"
+        description: "arXiv preprint"

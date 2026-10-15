@@ -576,5 +576,49 @@
    "Z_4, all 3 x 7 0/1 codes": 34745,
    "Z_8, seven-point + 2P": 2304
   }
+ },
+ "s36_one_qudit_fields": {
+  "note": "Section 4.10, Other fields (R45): the S_7 orbits of the entropy vectors of GF(q)-linear stabilizer states of seven systems with one qudit each, over GF(2), 3, 4, 5, 7, 8, 9, 11, 13, 16, 25, 27, 49, with one realising graph per field and orbit (sha256 of the file and of its content, as for s34_seven_qudit_vectors); the number of orbits certified per field; and, for the exhaustive runs of cc/s40_enum7q.c in G41b (GF(2) without the relabelling reduction, the others with it), [seven-vertex graphs examined, distinct vectors printed].",
+  "file_sha256": "d660a44d62ad219bb8447a34a53a2b0021e06cc20d20d5716fb41c5a40f6fc57",
+  "sha256": "08cc9550a3d48b9238e9d3b95d0c9ac03de428d9a800c8b59eb4583dddc3b6f1",
+  "orbits": 136,
+  "vectors": 36430,
+  "per_field": {
+   "2": 59,
+   "3": 111,
+   "4": 127,
+   "5": 134,
+   "7": 135,
+   "8": 135,
+   "9": 135,
+   "11": 135,
+   "13": 135,
+   "16": 135,
+   "25": 135,
+   "27": 135,
+   "49": 135
+  },
+  "exhaustive": {
+   "GF(2) all": [
+    2097152,
+    10773
+   ],
+   "GF(2)": [
+    20146,
+    3952
+   ],
+   "GF(3)": [
+    2396749,
+    20211
+   ],
+   "GF(4)": [
+    131137334,
+    27243
+   ],
+   "GF(5)": [
+    3823392553,
+    29990
+   ]
+  }
  }
 }

@@ -75,6 +75,19 @@ also proves the entropy formula of Theorem 1(d), step 1, for every d (until now 
 corrects the range of the question left open in R43 (erratum in §5). Proved; independent referee; not yet checked
 by hand; not in the paper.
 
+Round R45 adds the end of §4.10, *Other fields*: the entropy vectors of GF(q)-linear stabilizer states of seven
+systems with one qudit each, over 13 fields up to GF(49), exhaustively up to GF(5). They fall into 136 orbits of S₇.
+Over every tested field with at least seven elements the orbits are 134 common ones plus that of S_NF (odd
+characteristic) or of S_F (characteristic 2): with one qudit per system, no vector met over the tested fields
+separates two of the odd characteristics 3, 5, 7, 11, 13. So a witness of Stab⁽ᵖ⁾_6 ⊄ Stab⁽q⁾_6 for two of these primes
+needs a state with S(P) ≥ 2 for one of its seven systems, the purifier included (certified for p = 3, 5; empirical for
+p = 7, 11, 13; §5). Proposition 15 explains why two of the orbits need large fields (the symmetric vector q ≥ 7, the
+U₂,₆ orbit q ≥ 5; in general q ≥ n − 1 for the U₂,ₙ states). Proposition 16 gives the eight-element analogue of the
+Fano pair, [I₄ | J₄ − I₄]: its matroid is T₈ in characteristic 3, T₈′ (T₈ with its circuit-hyperplane
+{w₁, …, w₄} relaxed) in characteristic 5 or more, and AG(3, 2) in characteristic 2; the CSS states of T₈ and T₈′ are
+the candidates at seven parties. Certified and proved; two independent referees (the second on the exhaustive
+enumerator, Proposition 15 and the final text); not yet checked by hand; not in the paper.
+
 ## 1. Setting
 
 * n visible parties A₁, …, A_n and a purifier F; E is the set of all n + 1 parties. A *pure-symmetric* vector S
@@ -1110,13 +1123,14 @@ Stab^(ℤ_d)_5 is independent of d (the main open question of the paper):
 * Stab₅ itself is not known: the catalogue has 1,155 undecided orbits and the enumeration of QLR₅ is incomplete.
 * Since R40 no known ray remains open.
 
-### 4.10 Six parties, the other direction: states with at most one qudit per system [certified; Proposition 10 and Corollary 11 proved; empirical for h_NF] (R40, R41; the closed cones: §4.11, R42)
+### 4.10 Six parties, the other direction: states with at most one qudit per system [certified; Propositions 10, 15, 16 and Corollary 11 proved; empirical for h_NF and for the lists over fields with more than five elements] (R40, R41, R45; the closed cones: §4.11, R42)
 
 Question (§5): is Stab⁽ᵖ⁾_6 ⊄ Stab⁽²⁾_6 for some odd p? The only candidate so far is the non-Fano state
 h_NF = r_NF + r_NF* (§4.8). This section surveys all stabilizer states of seven systems (six parties and the
 purifier) with at most one qudit per system, for p = 2 and p = 3. It also shows that no qubit stabilizer state has an
 entropy vector that is a positive multiple of that of the non-Fano state, and that S_NF is not a finite nonnegative
-combination of qubit stabilizer entropy vectors (Proposition 10, Corollary 11; R41).
+combination of qubit stabilizer entropy vectors (Proposition 10, Corollary 11; R41). The end of the section (R45,
+*Other fields*) extends the survey to GF(q)-linear states over 13 fields and turns to two odd primes.
 
 *Enumeration [certified: exhaustive; the GF(2) list recomputed independently, gates G38, G38b].*
 
@@ -1297,7 +1311,182 @@ caveats, the reason for the +27) are taken into the text. Not yet checked by han
   linear form in the entropies as in the transfer, would give such an inequality, if the bounds close. (R42: they
   close; Lemmas T1–T5 of §4.11.)
 * Not covered: p ≥ 5 with one qudit per system (for p = 5 the normal forms number about 2·10¹¹), and systems with
-  more than one qudit.
+  more than one qudit. (R45: one qudit per system over other fields, GF(5) exhaustively, below; more than one qudit
+  per system remains open.)
+
+*Other fields (R45) [the realisations certified, G41; the lists exhaustive over GF(2) to GF(5), G38 and G41b,
+complete only empirically over the larger fields; Propositions 15 and 16 proved; two independent referees].*
+
+Over F = GF(q), q = p^k, the graph normal form above works verbatim with F-linear local symplectic maps, so the
+cut-rank vectors of the weighted graphs over F on seven vertices are exactly the entropy vectors, in units of log q, of
+the F-linear stabilizer states of seven systems with one F-qudit each. Restriction of scalars puts them in Stab⁽ᵖ⁾_6:
+with the trace form tr∘ω and a trace-dual basis of F over GF(p), each F-qudit becomes k qudits over ℤ_p and the state
+a ℤ_p stabilizer state, whose entropies in units of log p are k times those in units of log q (as in Proposition
+10(c)).
+
+* **Lists.**
+  * GF(2), GF(3): the exhaustive lists above.
+  * GF(4), GF(5): exhaustive, `cc/s40_enum7q.c`. Besides scaling it uses relabelling: vertex 6 has the largest degree
+    of the seven, and the degrees of vertices 0..5 in the graph without vertex 6 do not increase. Every graph can be
+    relabelled so (take a vertex of largest degree as 6, then sort the others by their degree without it), and
+    relabelling permutes the vector by an element of S₇; so the output, closed under S₇, is the complete list. For
+    each graph on vertices 0..5 the program enumerates the column spaces of its blocks A[X, Y] once (Y = {0..5} ∖ X);
+    the weights a of vertex 6 then enter through S(X) = rank A[X, Y] + [a_X ∉ column space of A[X, Y]]. Over GF(4)
+    it examines 131,137,334 seven-vertex graphs, over GF(5) 3,823,392,553 (4.6 min on two cores). Checks (G41b): over
+    GF(2) and GF(3) the closed outputs are the lists of `cc/s35_enum7.c`, which uses scaling only; without the
+    relabelling the GF(2) output is that list itself. The referee's own program enumerated all 10,606,673,088 scaling
+    normal forms over GF(4), without relabelling, and found the same list.
+  * GF(7), GF(8), GF(9), GF(11), GF(13), GF(16), GF(25), GF(27), GF(49): random weighted graphs
+    (`cc/s39_sample7q.c`: 10⁸ graphs per field, 5·10⁷ over GF(11), GF(13) and GF(49); weights uniform, all 1, all ±1
+    or from a small random set; density uniform), each list closed under S₇. Complete only empirically (below). Over
+    GF(7) the exhaustive program would examine 815,738,564,501 graphs, about 15 to 30 CPU-hours at the rates measured
+    on slices; it was not run.
+* **Orbit table** (`data/s36_one_qudit_fields.npz`, gate G41). Over the 13 fields the vectors fall into **136 orbits**
+  of S₇ (36,430 vectors). For every field and every orbit met over it, the file holds a graph over that field
+  realising the orbit representative exactly; all 1,646 are re-checked with a separate implementation of GF(q)
+  [certified].
+
+  | field | GF(2) | GF(3) | GF(4) | GF(5) | GF(7), GF(9), GF(11), GF(13), GF(25), GF(27), GF(49) | GF(8), GF(16) |
+  | --- | --- | --- | --- | --- | --- | --- |
+  | orbits | 59 | 111 | 127 | 134 | 135 | 135 |
+  | vectors | 10,773 | 27,334 | 33,860 | 36,399 | 36,400 | 36,220 |
+
+* **Only 2 against odd** [certified for the orbits met; their completeness empirical]. Over each tested field with at
+  least seven elements the orbits are 134 common ones and one more: the orbit of S_NF (210 vectors) in odd
+  characteristic, that of the Steane vector S_F (30 vectors) in characteristic 2. The unions over the tested fields of
+  each characteristic are the same 135 orbits for the characteristics 3, 5, 7, 11 and 13, and differ from the union
+  for characteristic 2 exactly by S_NF against S_F. So for the tested fields, with one qudit per system, the
+  characteristic enters only through the pair of §4.8 and §4.11, that is, through whether it is 2. No field of
+  characteristic 17 or more was tested.
+* **Small fields** [certified; the lists exhaustive]. Relative to the union for its characteristic, GF(2) misses 76
+  orbits, GF(3) 24, GF(4) 8 and GF(5) 1, and each of them reappears over a larger field of the same characteristic
+  (G41). The orbit missing over GF(5) is that of the symmetric vector S(X) = min(|X|, 7 − |X|, 2); the eight missing
+  over GF(4) include the U₂,₆ orbit (one unentangled system, and S(X) = min(|X|, 6 − |X|, 2) on the other six;
+  7 vectors). For these two the reason is the size of the field (Proposition 15): the symmetric vector is met exactly
+  over the fields with at least seven elements, the U₂,₆ orbit over those with at least five. This is not a uniform
+  mechanism: the AME orbit, S(X) = min(|X|, 7 − |X|), is met over GF(3), although a CSS state with that vector needs
+  U₃,₇ or U₄,₇, that is seven points in general position in a projective plane, so q ≥ 7.
+* **Completeness** [exhaustive over GF(2) to GF(5); empirical over the larger fields]. The evidence for the sampled
+  fields:
+  * over GF(4) and GF(5) the samples (2·10⁷ and 10⁸ graphs) had met every vector of the exhaustive lists, not only
+    every orbit;
+  * the seven tested fields of odd characteristic with at least seven elements give the same 135 orbits, and GF(8) and
+    GF(16) the same 135 orbits of characteristic 2;
+  * the referee's own sampler (2.58·10⁸ states over GF(4), GF(5) and the sampled fields: graphs with ten weight and
+    density distributions, random walks biased towards rarely met orbits, CSS states of random codes) met no vector
+    outside the 136 orbits and in every field exactly the orbits of the table, and met every orbit at least 308
+    times in the modes not seeded from the table's certificates; with the S_NF orbit removed from its reference list
+    it reported exactly those 210 vectors as new.
+* **Two odd primes at n = 6 (§5).** Stab⁽ᵖ⁾_6 is the closed convex cone generated by the entropy vectors of ℤ_p
+  stabilizer states, so if Stab⁽ᵖ⁾_6 ⊄ Stab⁽q⁾_6, the entropy vector of a single ℤ_p stabilizer state lies outside
+  Stab⁽q⁾_6. If that state has every S(P) ≤ 1, its vector is in the GF(p) list. For distinct p, q in {3, 5, 7, 11, 13}:
+  * p = 3 or 5 [certified]: the GF(p) list is exhaustive, and each of its orbits is certified over a field of
+    characteristic q (G41), so it lies in Stab⁽q⁾_6.
+  * p = 7, 11 or 13 [empirical]: the same holds for the sampled GF(p) list, whose completeness is empirical.
+
+  So for these pairs a witness, if there is one, is a state with S(P) ≥ 2 for one of its seven systems (the purifier
+  included). Nothing is claimed for primes 17 or larger.
+
+**Proposition 15 (U₂,ₙ states need large fields) [proved] (R45).** Let n ≥ 6, F = GF(q), and let L be a pure F-linear
+stabilizer state of n systems with one F-qudit each, such that S(X) = |X| for |X| ≤ 2 and S(T) ≤ 2 for every 3-set T.
+Then q ≥ n − 1. Conversely, for q ≥ n − 1 the CSS state of U₂,ₙ (the code spanned by the rows of a 2 × n matrix whose
+columns represent n distinct points of PG(1, q)) has S(X) = min(|X|, n − |X|, 2).
+
+*Proof.* As in Proposition 10, dim L_X = |X| − S(X), where L_X is the set of elements of L supported in X. So L_X = 0
+for |X| ≤ 2, and every 3-set T has some s_T ≠ 0 in L_T, whose support is all of T. If two 3-sets T, T′ meet in one
+system i, isotropy gives ω_i(π_i s_T, π_i s_T′) = ω(s_T, s_T′) = 0, so the nonzero vectors π_i s_T and π_i s_T′ of F²
+are parallel. The 3-sets through i correspond to the 2-subsets of the other n − 1 systems, and two of them meet only
+in i exactly when these 2-subsets are disjoint, that is, adjacent in the Kneser graph K(n − 1, 2), which is connected
+for n − 1 ≥ 5. So all π_i s_T with T ∋ i lie on one line d_i ⊆ F², and C′ = span{s_T} lies in ⊕_i d_i ≅ Fⁿ, with
+C′ ∩ F^X ⊆ L_X for every X. Let G be a matrix whose rows span the orthogonal complement of C′ (dot product), so that
+C′ = ker G and dim(C′ ∩ F^X) = |X| − rk G[X], where G[X] consists of the columns in X. For a pair X this is 0, so any
+two columns of G are independent; for a 3-set it is at least 1 (it contains s_T), so any three columns are dependent.
+Hence G has rank 2 and its n columns represent n distinct points of PG(1, q), which has q + 1 points: q ≥ n − 1. The
+converse is the CSS formula S(X) = r(X) + r(E ∖ X) − r(E) of §2, step 2, with r the rank function of U₂,ₙ. ∎
+
+For n = 7 the symmetric vector satisfies the hypothesis: q ≥ 6, so it is not met over GF(4) or GF(5). For n = 6 the
+U₂,₆ orbit, without its unentangled seventh system, satisfies it: q ≥ 5, so it is not met over GF(4). Both bounds
+are attained: the table certifies the symmetric vector over GF(7) and the U₂,₆ orbit over GF(5). Check (G41b):
+`cc/s36_target7.c` finds no graph with the symmetric vector over GF(4) or GF(5) and finds one over GF(7), and no graph
+with the U₂,₆ representative over GF(4) and one over GF(5); every solution printed is re-checked.
+
+**Proposition 16 (the eight-element analogue of the Fano pair) [proved] (R45).** Let v₁, …, v₄, w₁, …, w₄ be vectors
+of F⁴ over a field F such that v₁, …, v₄ is a basis, no three of the eight vectors are dependent, and the ten 4-sets
+{v_j : j ≠ m} ∪ {w_m} (four sets) and {v_k, v_l, w_k, w_l} (six sets) are dependent. Then, after rescaling the
+vectors, w_m = Σ_{j≠m} v_j: the configuration is [I₄ | J₄ − I₄], unique up to scaling. Its 4 × 4 minors are 0 at the
+ten sets, ±1 at 55 sets, ±2 at the four sets {v_k} ∪ {w_j : j ≠ k}, and −3 at {w₁, …, w₄}. So its matroid is
+* AG(3, 2) if char F = 2 (14 dependent 4-sets: the ten and the four sets {v_k} ∪ {w_j : j ≠ k});
+* T₈ if char F = 3 (11: the ten and {w₁, …, w₄});
+* T₈′ otherwise (exactly the ten).
+
+Here T₈′ (our notation) is the rank-4 sparse paving matroid on these eight elements whose circuit-hyperplanes are the
+ten sets, that is, T₈ with its circuit-hyperplane {w₁, …, w₄} relaxed. In particular T₈ is representable exactly over
+the fields of characteristic 3, as stated in DFZ arXiv:1401.2507, §3 (§4.5 discusses their eight-variable inequalities
+built on T₈), and T₈′ exactly over the fields of characteristic neither 2 nor 3; each representation is unique up to
+scaling.
+
+*Proof.* Take v₁, …, v₄ as the standard basis. Since {v_j : j ≠ m} ∪ {w_m} is dependent and no three vectors are,
+w_m = Σ_{j≠m} β_{mj} v_j with all β_{mj} ≠ 0. For distinct k, l with complement {i, j}, the set {v_k, v_l, w_k, w_l}
+is dependent exactly when the images of w_k and w_l in F⁴/⟨v_k, v_l⟩ ≅ F² are dependent, that is,
+β_{ki}β_{lj} = β_{kj}β_{li}. So the ratio ρ(i, j) = β_{ki}/β_{kj} does not depend on k ∉ {i, j}, and
+ρ(j, 1)·ρ(1, 2) = ρ(j, 2) (evaluate both at the index k ∉ {1, 2, j}). Put y₁ = 1, y_j = ρ(j, 1) (j ≠ 1),
+x_k = β_{k1} (k ≠ 1) and x₁ = β₁₂/y₂. Then β_{kj} = x_k y_j for all k ≠ j: for k ≠ 1 this is the definition of ρ
+(with j = 1 trivially), and for k = 1 it reads β₁ⱼ/β₁₂ = ρ(j, 2) = y_j/y₂. Replacing v_j by y_j v_j and w_k by
+w_k/x_k gives [I₄ | J₄ − I₄]. The 70 minors are computed exactly, and the three matroids are read off from them; no
+three of the eight columns are dependent in any characteristic. ∎
+
+Check (G41b): the 70 minors; and a brute-force count over GF(2), GF(3), GF(4), GF(5), GF(7), GF(8), GF(9) of the
+configurations with v₁, …, v₄ the standard basis, w₁ = (0, 1, 1, 1) and w₂, w₃, w₄ with zero in their own coordinate,
+the other three entries nonzero and the first of them 1. Every representation of T₈, T₈′ or AG(3, 2) has this form
+after a change of basis taking v₁, …, v₄ to the standard basis and rescaling: the zero pattern of the w_m is forced by
+the matroid, and only w₁ = (0, 1, 1, 1) and the leading 1s are normalisations. The count is q − 1 for T₈ over GF(3)
+and GF(9), for T₈′ over GF(5) and GF(7), for AG(3, 2) over GF(2), GF(4) and GF(8), and 0 in every other case. The
+normalisation leaves a one-parameter group acting freely, so the count q − 1 also confirms uniqueness up to scaling
+over each tested field. (The second referee's brute force, with each w_m running over all projective points of the
+hyperplane x_m = 0 and no other normalisation, found (q − 1)³ configurations of the representable matroid and none of
+any other matroid with the ten dependencies.)
+
+*The analogy, and its limits.* At seven parties (eight systems) the CSS states of T₈ (over GF(3)) and of T₈′ (over
+fields of characteristic 5 or more) are the natural candidates for Stab⁽³⁾_7 ⊄ Stab⁽q⁾_7 and Stab⁽q⁾_7 ⊄ Stab⁽³⁾_7
+(q a prime ≥ 5), as the Steane and non-Fano states were at six. Their entropy vectors, S(X) = r(X) + r(E ∖ X) − 4,
+differ on exactly one cut, {v₁, …, v₄}|{w₁, …, w₄}, with values 3 against 4 [certified, G41b], as S_F and S_NF differ
+on one cut (2 against 3). This is a heuristic:
+* Proposition 16 excludes the configuration, not the vector S_T₈ realised by another state; no analogue of Theorem 9,
+  Proposition 10 or Theorem 12 is proved here.
+* The analogy is imperfect: the non-Fano matroid is representable in every characteristic other than 2, while T₈′
+  fails in characteristic 2 as well, where the forced configuration is AG(3, 2).
+* A certificate would be an eight-variable characteristic-dependent linear rank inequality that is not blind on the
+  self-dual slice, as f12 is at seven variables (§4.11). DFZ's T₈-based inequalities are the starting point
+  (arXiv:1401.2507: Theorems 3.1–3.2 for characteristic ≠ 3, Theorem 3.1 misprinted, §4.5; Theorems 4.1–4.2 for
+  characteristic 3, which with doubled codes give Stab⁽q⁾_8 ⊄ Stab⁽³⁾_8, §5).
+
+Neither question at n = 7 is settled here.
+
+*Independent referee (R45).* A separate agent, with its own code, re-checked all 1,646 certificates with its own field
+tables, recomputed the orbits and their sizes, re-enumerated GF(2), GF(3) and GF(4) exhaustively in its own normal
+form (2,097,152, 255,602,200 and 10,606,673,088 graphs; equal to the table), ran its own sampler (above), searched the
+symmetric vector exhaustively over GF(4) and GF(5) with its own program (no graph), checked Proposition 16 line by line,
+with its minors and a brute-force count, and checked the restriction of scalars numerically on eight GF(9) graphs
+mapped to two qutrits per system (entropies in units of log 3 twice those in units of log 9 on all 63 cuts). It found
+no numerical or mathematical error. Its points on scope and status are taken into the text: the certified/empirical
+split of the consequence, the range of "only 2 against odd", the support of the small-fields claim, the field range of
+T₈′, the limits of the analogy, the citation of DFZ for T₈, the evidence for completeness, a proof for the GF(5) case
+(now Proposition 15) and the reproducibility of the data. The exhaustive GF(5) run, `cc/s40_enum7q.c` and gate G41b
+came after its report.
+
+*Second referee (R45).* A second agent read `cc/s40_enum7q.c` line by line (normal forms, the rank update, the column
+spaces and bitsets, the degree pruning, the admissibility test for vertex 6, the packing, the hashing, slices and
+threads) and found no error; it checked the relabelling argument, and it ran the program over GF(2), GF(3) (with and
+without the relabelling) and GF(4): the closed outputs equal the stored lists and the first referee's GF(4) list,
+with identical sets on one and two threads. It counted the graphs examined from support patterns with its own code,
+reproducing every count of the manifest; it compared the GF(5) output on two slices with its own direct-rank
+enumerator (identical); and it confirmed that the GF(4) and GF(5) sampler outputs are the exhaustive lists. It checked
+Propositions 15 and 16 line by line, recomputed the table and all 1,646 certificates with its own code, and ran the
+brute force quoted above. Its points (two overclaims in the header paragraph, the GF(7) cost, a definition of T₈′,
+the wording of the brute-force normalisation and of the DFZ citation, a vacuous-pass guard in G41b, the missing
+results folder, and smaller ones) are taken into the text. The full GF(5) enumeration has been run only with
+`cc/s40_enum7q.c` (in the sandbox and in gate G41b), not with an independent program. Neither review is a check by
+hand.
 
 ### 4.11 Six parties, the other direction for the closed cones [proved; independent referee] (R42)
 
@@ -1765,7 +1954,13 @@ for the consequences.
     r + r* never violate (65) or (91) in any of the 5,040 relabellings (minimum 19 and 16), and a 240-second
     annealing probe over seven-party qutrit graph states found nothing either (best value 4 ≥ 0;
     `s27_cube_states.py --probe6`).
-  * n = 6 for odd primes p < q: open; Theorem 2′ needs 2p + 3 parties.
+  * n = 6 for odd primes p < q: open; Theorem 2′ needs 2p + 3 parties. (R45) Among the states with one qudit per
+    system there is no witness for any two of 3, 5, 7, 11, 13 (§4.10, *Other fields*; certified for p = 3, 5,
+    empirical for p = 7, 11, 13), so a witness needs S(P) ≥ 2 for one of the seven systems, the purifier included. A
+    certificate would be a seven-variable
+    linear rank inequality that separates two odd characteristics and is not blind on the self-dual slice; we know of
+    none (the seven-variable ones of §4.5 and §4.7 single out characteristic 2). At n = 7 the CSS states of T₈ and T₈′
+    are the natural candidates (Proposition 16), with the caveats stated there.
   * ~~n = 6 for Z_{2^k}, k ≥ 2: open in both directions against qubits and against odd d (§4.11, "Not covered").~~
     *Erratum (R43): this item, written in R42, called four directions open, but two of them were already decided
     (one of them as an inclusion):* Stab⁽²⁾ ⊆ Stab^(Z_{2^k}) holds for every n (Theorem 5), and
@@ -1787,7 +1982,8 @@ for the consequences.
   one direction for p = 3, Stab⁽q⁾_8 ⊄ Stab⁽³⁾_8, follows from the eight-variable characteristic-3 inequality of
   DFZ arXiv:1401.2507 (Theorems 4.1 and 4.2, not checked independently here) and doubled codes (§4.3); the other
   direction would need a correct inequality for characteristic ≠ 3, and the printed Theorem 3.1 is not usable
-  (§4.5).
+  (§4.5). (R45: at n = 7 the CSS states of T₈ and T₈′ are the natural candidates for p = 3 against q ≥ 5,
+  Proposition 16; at n = 6 there is no witness with one qudit per system for the tested primes, §4.10.)
 * **The 1,155 undecided orbits of the A2 catalogue**: see §3.1.
 * **Are Z_d stabilizer states ever beyond all prime ones?** Is Stab^(Z_d)_n always contained in the closed convex
   hull of the prime cones ∪_p Stab⁽ᵖ⁾_n? (The Z_4 cube state is inside.)
@@ -1804,7 +2000,8 @@ for the consequences.
 * **Smaller party counts for Theorem 5**, e.g. Z_4 against Z_6 below n = 15. (R42: for d not a power of 2 against
   d′ = 2, from n = 6, Theorem 12. R43: for every d ≥ 3 against d′ = 2, from n = 6, Corollary 13. R44: for every
   d ∤ 2^a against every power of two d′ = 2^a, from n = 6, Theorem 14. Open at n = 6: d′ with an odd prime factor,
-  for instance Z_4 against Z_6, and two odd primes.)
+  for instance Z_4 against Z_6, and two odd primes; R45: for two odd primes among 3, 5, 7, 11, 13 no witness with
+  one qudit per system, certified for p = 3, 5 and empirical for p = 7, 11, 13, §4.10.)
 * ~~**Five parties over every field**: lift or exclude the known extreme rays.~~ All 641 are certified for every d
   (§4.9, R38–R40). The n = 5 question now concerns extreme rays not yet known (first item).
 * ~~**Six parties**: is there a characteristic-dependent seven-variable inequality g with g∘D = g?~~ Yes: g = f9 + f9∘D
@@ -1845,6 +2042,12 @@ symplectic transfer; R43: nor for Corollary 13; R44: nor for §4.12, Theorem 14 
 is presented as new, a human check in the communities listed below is required, as for the earlier results. (R44:
 the entropy formula of Theorem 1(d), step 1, now has a proof in §4.6; the referee checked that Gross–Walter, Thm 2,
 states it for every d > 1.)
+
+**R45 (2026-10-15).** DFZ arXiv:1401.2507, §3: the sentence "The T8 matroid is representable over a field if and only
+if the field is of characteristic 3" was checked against the text of the arXiv PDF (by both referees).
+Proposition 16 reproves it, with uniqueness up to scaling, and adds the statements for T₈′ and AG(3, 2). Proposition 15
+ends in the standard fact that U₂,ₙ is representable over GF(q) exactly when n ≤ q + 1. No literature check was made
+for the T₈′ statement, for the argument of Proposition 15 from the entropies, or for the field survey of §4.10.
 
 Earlier record (R32–R36):
 
@@ -1926,10 +2129,16 @@ For §4.8 (R36), from an AI pre-check (web search, abstracts only):
     python3 scripts/s34_six_party_survey.py --transfer-anneal "2,2,2,2,2,2,2;3,3,3,3,3,3,3" --seconds 120   # §4.11
     python3 scripts/s35_two_power_transfer.py --check --full --trials 400   # §4.12: f^(a) and every step of its proof
     python3 scripts/s35_two_power_transfer.py --anneal "2:4:1,1,1,1,1,1,1;3:4:1,1,1,1,1,1,1" --seconds 120 --pull 0.3
-    python3 selftest.py                                              # gates G29-G40 (G29b, G31b-G40b with --full)
+    python3 scripts/s36_one_qudit_fields.py --check --full      # §4.10, other fields: table, GF(2)-GF(5) exhaustive,
+                                                                 #   Propositions 15 and 16 (~6 min on two cores)
+    python3 scripts/s36_one_qudit_fields.py --enumerate 5       # §4.10: cc/s40_enum7q.c over GF(5) (~5 min)
+    python3 scripts/s36_one_qudit_fields.py --sample 7 --samples 100000000 --seed 701 --out s_gf7   # the sampler
+    python3 scripts/s36_one_qudit_fields.py --build s_gf --out table.npz   # §4.10: the table from s_gf<q>.bin/.w
+    python3 scripts/s36_one_qudit_fields.py --prop16            # Proposition 16: minors, brute force, S_T8 / S_T8'
+    python3 selftest.py                                              # gates G29-G41 (G29b, G31b-G41b with --full)
 
 Raw output of the sandbox runs: `results/2026-10-02_r32-sandbox/`, `results/2026-10-02_r33-sandbox/`,
 `results/2026-10-02_r34-sandbox/`, `results/2026-10-02_r35-sandbox/`, `results/2026-10-02_r36-sandbox/`,
 `results/2026-10-13_r38-sandbox/`, `results/2026-10-14_r39-sandbox/`, `results/2026-10-14_r40-sandbox/`,
 `results/2026-10-14_r41-sandbox/`, `results/2026-10-14_r42-sandbox/`, `results/2026-10-15_r43-sandbox/`,
-`results/2026-10-15_r44-sandbox/`.
+`results/2026-10-15_r44-sandbox/`, `results/2026-10-15_r45-sandbox/`.
