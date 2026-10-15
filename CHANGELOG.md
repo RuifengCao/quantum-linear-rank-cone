@@ -1,5 +1,51 @@
 # CHANGELOG
 
+## R42 (2026-10-14) -- six parties, the other direction for the closed cones: qubits and every odd local dimension are incomparable from n = 6
+- **Result (proved; checked by an independent referee, an agent; not yet by hand; not in the paper).**
+  `docs/R32_reduction_and_local_dimension.md` §4.11.
+  - *Theorem 12.* Stab^(Z_d)_6 ⊄ Stab⁽²⁾_6 for every d ≥ 3 that is not a power of 2, hence for every n ≥ 6; for
+    n ≥ 7 this was known (Theorem 2 with Theorem 5), so the new case is n = 6. With Theorem 9, Stab⁽²⁾_n and
+    Stab^(Z_d)_n are incomparable for odd d from n = 6 on (before: n = 7), and Stab⁽²⁾_n ⊊ Stab^(Z_d)_n for even d
+    that is not a power of 2 (before: n = 7). This answers the question of the paper's Discussion that R41 had left
+    open for the closed cones.
+  - *Witness and certificate.* The non-Fano state S_NF, and a new inequality f12 ≥ 0 (31 terms on the six-party cuts)
+    valid for every qubit stabilizer state, with f12(S_NF) = −1 and f12(S_F) = 0.
+  - *Proof ("symplectic transfer").* For a state reduced to S(P) qubits per system, let Z₀ be the sum of the six line
+    pieces of the stabilizer group and D_P its restriction to P. Isotropy bounds dim D_P by linear forms in the
+    entropies: at a corner, three pairwise orthogonal restrictions (Lemma T1); at a diagonal point, the rank of the
+    form is transported along a line from its two corners (Lemmas T2, T3); and z(ABCZ) is bounded below (Lemma T4).
+    Lemma 4 (LA)₂ applied to the subspace arrangement dual to Z₀ (Lemma T5) then gives f12 ≥ 0. Only (LA)₂ needs
+    characteristic 2. This is the quantitative version of Proposition 10 that R41 proposed.
+  - *Side results.* g12 = f12∘π is a self-dual characteristic-2 linear rank inequality on seven variables with
+    g12(h_NF) = −2: the inequality Proposition 8 asks for in this direction, not a combination of Shannon and the
+    eight forms of Proposition 8. Theorem 12 does not use the Gross–Walter entropy formula (for composite d the
+    witness is a Z_d CSS state).
+- **Checks.**
+  - Gate G39: f12 built from its definition and pinned in the manifest (`s34_transfer_form`: sha256 of the 128
+    coefficients and the 31 terms); f12(S_NF) = −1, f12(S_F) = 0; f12 ≥ 0 on the GF(2) list of G38 (minimum 0, 38
+    zeros); on the GF(3) list f12 < 0 only at S_NF.
+  - Gate G39b: every step of the proof (`transfer_chain`) on 40 states: random compressed qubit graph states,
+    compressed CSS states of GF(2) families pushed towards the non-Fano dependencies, Steane copies after random
+    local symplectic maps; the dual arrangement built explicitly; the compression (symplectic reduction). A sandbox
+    run of 400 states found no failure.
+  - Adversarial search [empirical]: `cc/s37_minform7.c` (`--transfer-anneal`) minimises f12 over qubit graph states;
+    nine sandbox runs (1–3 qubits per system, two pulled towards 2·S_NF and 3·S_NF, about 6·10⁸ moves) never went
+    below 0, and every reported minimiser passed every step of the proof.
+- **Referee.** A separate agent, reading only the note and the data, recomputed the 31 terms (no difference) and
+  the values at S_NF and S_F, checked Lemmas T1–T5, every term of (LA) and the direction of every bound, and with its
+  own code checked every step on 26,549 qubit stabilizer states, all 2^21 seven-vertex qubit graph states, about 6 M
+  random states and 78 M annealing proposals: no negative value; weakened forms do go negative. Its corrections are
+  in the text: the new case is n = 6 (n ≥ 7 already followed from Theorems 2 and 5), no dependence on
+  Gross–Walter, g12 over infinite fields of characteristic 2, notation, and the passages of the note that still
+  called the question open (header, §4.7, §4.8, §4.10, §5).
+- **Code.** `scripts/s34_six_party_survey.py`: `transfer_form`, `transfer_terms`, `transfer_folded`, `transfer_sha`,
+  `transfer_chain`, `compress` (symplectic reduction to S(P) qubits per system), `transfer_check`, `transfer_ok`,
+  `transfer_anneal`; CLI `--transfer [--full --trials N]`, `--transfer-anneal`, `--pull-nf`, `--seed`. New
+  `cc/s37_minform7.c`. `selftest.py`: gates G39, G39b. `data/manifest_shas.json`: entry `s34_transfer_form`.
+- **Results.** `results/2026-10-14_r42-sandbox/` (sandbox, no server time).
+- **README.** Status, §0 (R42; R41, R36 and R35 entries annotated), the s34 row of the scripts table, §7 (⓪″).
+  `VERSION`: R42; `CITATION.cff` unchanged. No GitHub Release.
+
 ## R41 (2026-10-14) -- six parties, the other direction: no qubit realisation of the non-Fano state at any multiplicity; erratum to R40
 - **Result (proved; checked by an independent referee, an agent; not yet by hand; not in the paper).**
   `docs/R32_reduction_and_local_dimension.md` §4.10.

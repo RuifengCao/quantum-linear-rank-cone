@@ -47,7 +47,15 @@ multiple of S_NF, and S_NF is not a finite nonnegative combination of qubit stab
 So the cones generated without closure already separate in the other direction at n = 6; for the closed cones of the
 paper the question stays open (limits). Proved (Corollary 11 uses the certified face ranks of §4.8); independent
 referee; not yet checked by hand; not in the paper. R41 also corrects R40's Proposition 10(d), which was true only
-vacuously (erratum in §4.10).
+vacuously (erratum in §4.10). (R42: the closed cones are settled as well; next paragraph.)
+
+Round R42 adds §4.11: **Stab^(Z_d)_6 ⊄ Stab⁽²⁾_6 for every d that is not a power of 2** (Theorem 12), so at six
+parties qubits and every odd local dimension are incomparable (with Theorem 9; before, from n = 7). The witness is
+the non-Fano state; the certificate is a new inequality f12 ≥ 0 on qubit stabilizer states, with f12(S_NF) = −1. Its
+proof is a quantitative ("symplectic") version of the proof of Proposition 10: isotropy bounds the dimensions of the
+restrictions of the line pieces, and Lemma 4 (LA) is applied to a dual subspace arrangement built from them.
+f12∘π is a self-dual characteristic-2 linear rank inequality on seven variables that is not blind on the self-dual
+slice. Proved; independent referee; not yet checked by hand; not in the paper.
 
 ## 1. Setting
 
@@ -161,7 +169,7 @@ For every n ≥ 7 and every odd prime p,
 
     Stab⁽²⁾_n ⊄ Stab⁽ᵖ⁾_n   and   Stab⁽ᵖ⁾_n ⊄ Stab⁽²⁾_n.
 
-The first non-inclusion already holds for n = 6 (Theorem 9, §4.8).
+The first non-inclusion already holds for n = 6 (Theorem 9, §4.8), and so does the second (Theorem 12, §4.11; R42).
 
 ### 4.1 Witnesses: the cube states
 
@@ -597,13 +605,15 @@ In short:
 * n ≤ 4: no dependence on the local dimension at all, for any d (Theorem 7).
 * Dependence, pairwise:
   * qubits against every odd p: Stab⁽²⁾_n ⊄ Stab⁽ᵖ⁾_n from n = 6 (Theorem 9, §4.8; also against Z_d for every odd
-    d), and Stab⁽ᵖ⁾_n ⊄ Stab⁽²⁾_n from n = 7 (Theorem 2);
+    d), and Stab⁽ᵖ⁾_n ⊄ Stab⁽²⁾_n from n = 7 (Theorem 2; R42: from n = 6, Theorem 12, §4.11, also for Z_d with d
+    not a power of 2);
   * primes p < q from n = 2p + 3 (Theorem 2′);
   * Stab^(Z_d) ⊄ Stab^(Z_d′) for d ∤ d′ from n = 2·max(d, d′) + 3 (Theorem 5).
   * GF(4) and GF(2) never differ (§4.6).
-* Open: n = 5; at n = 6 the direction Stab⁽ᵖ⁾_6 ⊄ Stab⁽²⁾_6 (p odd) and all pairs of odd primes. The eight
-  characteristic-dependent seven-variable inequalities considered here are blind at n = 6 (Proposition 8); Theorem 9
-  goes through a derived family of subspaces.
+* Open: n = 5; at n = 6 all pairs of odd primes. (The direction Stab⁽ᵖ⁾_6 ⊄ Stab⁽²⁾_6, p odd, listed here until R41,
+  is Theorem 12, §4.11.) The eight characteristic-dependent seven-variable inequalities considered here are blind at
+  n = 6 (Proposition 8); Theorem 9 goes through a derived family of subspaces, Theorem 12 through the isotropy of the
+  stabilizer group.
 
 **Theorem 7 (four parties) [proved; computer-assisted: lrs enumeration (G29b) and stored lifts (G33)].** For every
 d ≥ 2,
@@ -738,7 +748,8 @@ the cube states violate them, so their symmetrisations are not Shannon.
 
 In particular Stab⁽²⁾_6 ⊄ Stab⁽ᵖ⁾_6 for every odd prime p. Since Stab⁽²⁾ ⊆ Stab^(Z_d′) for even d′ (Theorem 5), also
 Stab^(Z_d′)_n ⊄ Stab^(Z_d)_n for d′ even, d odd and n ≥ 6. Only this direction is shown: whether some state of odd
-local dimension leaves Stab⁽²⁾_6 is open (see the last remark).
+local dimension leaves Stab⁽²⁾_6 is open (see the last remark). (R42: it does; the non-Fano state, Theorem 12,
+§4.11.)
 
 *Labelling.* A, B, C, W, X, Y, Z = 100, 010, 001, 110, 101, 011, 111 (as in §4.1), with the seven Fano lines ABW,
 ACX, BCY, AYZ, BXZ, CWZ, WXY. Every point lies on three lines.
@@ -849,9 +860,9 @@ The result inherits the status of Theorem 1(d), steps 1–2 (the cited entropy f
   polymatroids stays in this face. Since D preserves LR⁽q⁾₇ and swaps r_F and r_F*, the key step h_F ∉ LR⁽q⁾₇ of
   Theorem 9 is equivalent to: LR⁽q⁾₇ contains no nonzero vector a·r_F + b·r_F* (q odd). The same holds verbatim for
   the non-Fano pair r_NF, r_NF* (ranks 125 and 126).
-* *The reverse direction at n = 6 (open for the closed cones; R41: settled without closure).* The natural candidate is
-  the non-Fano state, the same code over GF(3), with h_NF = r_NF + r_NF*. By the previous remark, h_NF ∈ LR⁽²⁾₇ if
-  and only if LR⁽²⁾₇ contains a nonzero vector a·r_NF + b·r_NF*.
+* *The reverse direction at n = 6 (R41: settled without closure; R42: settled, Theorem 12, §4.11).* The natural
+  candidate is the non-Fano state, the same code over GF(3), with h_NF = r_NF + r_NF*. By the previous remark,
+  h_NF ∈ LR⁽²⁾₇ if and only if LR⁽²⁾₇ contains a nonzero vector a·r_NF + b·r_NF*.
   * The same construction with (LA)₂ gives +27 on h_NF. The points W, X, Y lie on only two non-Fano lines each, and
     I(W; ABCZ) = 2, so for a general subspace family their two line pieces need not coincide. (R41: the analogous
     objects of a stabilizer state with entropy vector m·S_NF, the restrictions to W of its elements supported on the
@@ -870,6 +881,9 @@ The result inherits the status of Theorem 1(d), steps 1–2 (the cited entropy f
     only.
     R40 had written instead that in any qubit realisation the line pieces at one of W, X, Y differ; that was true
     only vacuously (erratum in §4.10).
+  * (R42) h_NF ∉ LR⁽²⁾₇, and S_NF ∉ Stab⁽²⁾_6: the characteristic-2 inequality g12 = f12∘π is valid on LR⁽²⁾₇ and
+    g12(h_NF) = −2 (Theorem 12, §4.11) [proved]. Its transfer uses the isotropy of a stabilizer group, which a
+    general subspace family lacks; that is why the rank-only transfer above gives +27.
   * Among the states over ℤ_3 with at most one qudit per system, h_NF is the only remaining candidate for this
     direction (§4.10) [certified].
 
@@ -1055,7 +1069,7 @@ Stab^(ℤ_d)_5 is independent of d (the main open question of the paper):
 * Stab₅ itself is not known: the catalogue has 1,155 undecided orbits and the enumeration of QLR₅ is incomplete.
 * Since R40 no known ray remains open.
 
-### 4.10 Six parties, the other direction: states with at most one qudit per system [certified; Proposition 10 and Corollary 11 proved; empirical for h_NF] (R40, R41)
+### 4.10 Six parties, the other direction: states with at most one qudit per system [certified; Proposition 10 and Corollary 11 proved; empirical for h_NF] (R40, R41; the closed cones: §4.11, R42)
 
 Question (§5): is Stab⁽ᵖ⁾_6 ⊄ Stab⁽²⁾_6 for some odd p? The only candidate so far is the non-Fano state
 h_NF = r_NF + r_NF* (§4.8). This section surveys all stabilizer states of seven systems (six parties and the
@@ -1175,7 +1189,7 @@ of finitely many entropy vectors of qubit stabilizer states, and h_NF is not a n
 many rank functions of subspace families over GF(2). Since S_NF is a GF(p) stabilizer entropy vector for every odd
 prime p, the convex cone generated by the entropy vectors of six-party GF(p) stabilizer states is not contained in the
 one generated by the qubit ones, for every odd p. For the closed cones Stab⁽ᵖ⁾_6 and Stab⁽²⁾_6 of the paper this
-remains open: S_NF could be a limit of such combinations.
+remains open: S_NF could be a limit of such combinations. (R42: it is not; Theorem 12, §4.11.)
 
 *Proof.* Let h_NF = Σ c_i h_i with c_i > 0, where each h_i is the rank function of a nonzero family of subspaces over
 GF(2) (for qubit states, h_i = h_{S_i}; §2, step 1). Each h_i is a polymatroid, and by the face remark of §4.8
@@ -1231,40 +1245,252 @@ caveats, the reason for the +27) are taken into the text. Not yet checked by han
 * (R41) For the cones generated without closure, the non-Fano state is a witness: no qubit stabilizer state has an
   entropy vector that is a positive multiple of S_NF, and no finite nonnegative combination of qubit entropy vectors
   equals S_NF (Proposition 10, Corollary 11). The annealing runs at m = 2, 3 are consistent with this.
-* For the closed cones of the paper the question remains open: S_NF could still be a limit of such combinations
-  (whose terms are never multiples of S_NF). A linear inequality valid on Stab⁽²⁾_6 and violated by S_NF would settle
-  it. By Theorem 1 it would be a characteristic-2 linear rank inequality on seven variables that is not blind on the
-  self-dual slice; none is known to us (Proposition 8 shows that the eight forms considered there are blind).
+* For the closed cones of the paper the question remained open in R41: S_NF could still be a limit of such
+  combinations (whose terms are never multiples of S_NF). A linear inequality valid on Stab⁽²⁾_6 and violated by
+  S_NF would settle it. By Theorem 1 it would be a characteristic-2 linear rank inequality on seven variables that is
+  not blind on the self-dual slice; none was known to us (Proposition 8 shows that the eight forms considered there
+  are blind). (R42: §4.11 gives one, f12, and settles the question: Theorem 12.)
 * Where to look: steps 1 and 1′ use the isotropy of the stabilizer group, while the transfer of §4.8 (which gave
   +27 with (LA)₂) works with ranks of subspaces derived from the family. Every family has a stabilizer state, its
   doubled CSS state (§2). A quantitative version of steps 1, 1′ and 2 for that state, with every defect bounded by a
-  linear form in the entropies as in the transfer, would give such an inequality, if the bounds close.
+  linear form in the entropies as in the transfer, would give such an inequality, if the bounds close. (R42: they
+  close; Lemmas T1–T5 of §4.11.)
 * Not covered: p ≥ 5 with one qudit per system (for p = 5 the normal forms number about 2·10¹¹), and systems with
   more than one qudit.
+
+### 4.11 Six parties, the other direction for the closed cones [proved; independent referee] (R42)
+
+**Theorem 12 [proved].** For every d ≥ 3 that is not a power of 2,
+
+    Stab^(Z_d)_6 ⊄ Stab⁽²⁾_6 ,
+
+and hence Stab^(Z_d)_n ⊄ Stab⁽²⁾_n for every n ≥ 6. For n ≥ 7 this was known: Theorem 2 gives
+Stab⁽ᵖ⁾_n ⊄ Stab⁽²⁾_n for an odd prime p dividing d, and Stab⁽ᵖ⁾ ⊆ Stab^(Z_d) by Theorem 5. The new case is n = 6.
+In particular:
+
+* Stab⁽ᵖ⁾_6 ⊄ Stab⁽²⁾_6 for every odd prime p;
+* with Theorem 9, Stab⁽²⁾_n and Stab^(Z_d)_n are incomparable for every odd d ≥ 3 from n = 6 on (before: from
+  n = 7);
+* for even d that is not a power of 2, Stab⁽²⁾_n ⊊ Stab^(Z_d)_n from n = 6 on (before: from n = 7).
+
+The witness is the non-Fano state, and the certificate is the inequality f12 ≥ 0 below. This answers the question
+left open in §4.7, §4.8, §4.10 and §5 (and in the paper's Discussion). The display of f12 as 31 terms is
+computer-checked (G39); the proof uses only the structured form.
+
+*Labels.* As in §4.8 and §4.10: A, B, C, W, X, Y, Z = 100, 010, 001, 110, 101, 011, 111, Z is the purifier, and
+the non-Fano lines are ABW, ACX, BCY, AYZ, BXZ, CWZ. The *corners* A, B, C, Z lie on three lines each, the
+*diagonal points* W, X, Y on two, and every line consists of two corners and one diagonal point. The six *corner
+pairs* AB, AC, BC, AZ, BZ, CZ each lie on exactly one line. Two distinct lines meet in exactly one point.
+
+*The form.* For a pure-symmetric vector S on E = {A, B, C, W, X, Y, Z} put
+
+* k(T) = Σ_{P∈T} S(P) − S(T) for T ⊆ E;
+* d(P, ℓ) = k(ℓ) − k(ℓ∖P) for a line ℓ through P;
+* e_P(ℓ′, ℓ″) = 2S(P) − d(P, ℓ′) − d(P, ℓ″) at a corner P, for two of the lines through P;
+* U_Z = 4S(Z) − d(Z, AYZ) − d(Z, BXZ) − d(Z, CWZ);
+* U_W = 2S(W) − d(W, ABW) + e_A(ACX, AYZ) + e_B(BCY, BXZ);
+* U_X = 2S(X) − d(X, ACX) + e_A(ABW, AYZ) + e_C(BCY, CWZ);
+* U_Y = 2S(Y) − d(Y, BCY) + e_B(ABW, BXZ) + e_C(ACX, CWZ);
+
+and
+
+    f12 = 5·U_Z + 4·U_W + U_X + U_Y + k(WXY) + 6·k(ABC) + Σ_{corner pairs} k − Σ_{lines} k − 3·k(ABW) − 3·k(CWZ).
+
+Expanded on the 63 cuts of the visible parties (purity folds the sets containing Z onto their complements;
+`transfer_terms`, manifest entry `s34_transfer_form`):
+
+    f12 = + 3·S(A) + 3·S(B) + 3·S(C) − 3·S(W) − 5·S(AB) − 2·S(AC) − S(AW) − S(AX) − 5·S(AY) − 2·S(BC) − S(BW)
+          − 5·S(BX) − S(BY) − 5·S(CW) − 4·S(CX) − 4·S(CY) − 6·S(ABC) + 10·S(ABW) + 7·S(ACX) + 7·S(BCY) − S(WXY)
+          + 11·S(ABXY) + 11·S(ACWY) + 11·S(BCWX) − 5·S(ABCWX) − 5·S(ABCWY) − 2·S(ABCXY) − S(ABWXY) − S(ACWXY)
+          − S(BCWXY) + 2·S(ABCWXY)  ≥ 0 .
+
+(By purity S(ABXY) = S(CWZ), S(ACWY) = S(BXZ), S(BCWX) = S(AYZ) and S(ABCWXY) = S(Z). For instance, the
+coefficient 2 of S(Z) is 20 − 15 = 5 from 5·U_Z, + 3 from the pairs AZ, BZ, CZ, − 3 from the lines through Z and
+− 3 from −3·k(CWZ); the coefficient 11 of S(CWZ) is 5 from 5·U_Z, 1 each from U_X and U_Y, 1 from the lines and 3
+from −3·k(CWZ).)
+
+*Values [by hand].* For S_NF (one qutrit per system; S = π(r_NF)): S = 1 on points; k = 0 on pairs and on the
+non-line triples (ABC and WXY among them); k = 1 on the six lines. So every d(P, ℓ) = 1, every e_P = 0,
+U_Z = U_W = U_X = U_Y = 1, and
+
+    f12(S_NF) = 5 + 4 + 1 + 1 − 6 − 3 − 3 = −1 .
+
+For the Steane state S_F everything is the same except k(WXY) = 1 (WXY is a Fano line), so f12(S_F) = 0.
+
+*Setting of the proof.* By the reductions of §4.10 (a party-local Clifford factors out n_P − S(P) qubits of each
+system) every qubit stabilizer entropy vector is that of a state in which every system P holds exactly S(P) qubits.
+Let L ⊆ ⊕_P GF(2)^{2S(P)} be its stabilizer Lagrangian, ω = ⊕ ω_P, π_P the restriction to system P, and for X ⊆ E
+let L_X be the elements of L supported in X. As in the proof of Proposition 10 (with S(P) qubits on P),
+
+    dim L_X = Σ_{P∈X} S(P) − S(X) = k(X),
+
+in particular L_P = 0 for every system P. For a line ℓ and P ∈ ℓ the kernel of π_P on L_ℓ is L_{ℓ∖P}, so
+dim π_P(L_ℓ) = d(P, ℓ). If two lines ℓ, ℓ′ meet in P, then for s ∈ L_ℓ and s′ ∈ L_ℓ′ isotropy gives
+ω_P(π_P s, π_P s′) = ω(s, s′) = 0, so π_P(L_ℓ) ⊥ π_P(L_ℓ′) (step 1 of Proposition 10). For a subspace V of a
+symplectic space write rk(V) for the rank of the form restricted to V; then dim(V ∩ V^⊥) = dim V − rk(V).
+
+**Lemma T1 (corners) [proved].** Let V₁, V₂, V₃ be pairwise orthogonal subspaces of a symplectic space of dimension
+2s, of dimensions d₁, d₂, d₃. Then rk(V_i) ≤ 2s − d_j − d_k for {i, j, k} = {1, 2, 3}, and
+dim(V₁ + V₂ + V₃) ≤ 4s − d₁ − d₂ − d₃.
+
+*Proof.* Let U = V_j + V_k. Since U ⊆ V_i^⊥, V_i ∩ U ⊆ V_i ∩ V_i^⊥, so dim(V_i + U) ≥ d_i + dim U − (d_i − rk V_i)
+= dim U + rk V_i. The intersection V_j ∩ V_k is orthogonal to V_i, V_j and V_k, so it lies in (V_i + U)^⊥. Hence
+d_j + d_k = dim U + dim(V_j ∩ V_k) ≤ dim U + 2s − dim(V_i + U) ≤ 2s − rk V_i. For V_Σ = V₁ + V₂ + V₃: because the
+V_i are pairwise orthogonal, the pull-back of the form on V_Σ along the surjection V₁ ⊕ V₂ ⊕ V₃ → V_Σ is the direct
+sum of the forms on the V_i, so rk(V_Σ) = Σ_i rk(V_i) (pull-back along a surjection keeps the rank). Since
+V_Σ ∩ V_Σ^⊥ ⊆ V_Σ^⊥, dim V_Σ − rk V_Σ ≤ 2s − dim V_Σ, so
+dim V_Σ ≤ s + ½·Σ_i rk(V_i) ≤ s + ½·Σ_i (2s − d_j − d_k) = 4s − Σ_i d_i. ∎
+
+**Lemma T2 (a line transports the rank) [proved].** For a line ℓ = {P, P′, Q}:
+rk(π_Q L_ℓ) ≤ rk(π_P L_ℓ) + rk(π_P′ L_ℓ).
+
+*Proof.* For s, s′ ∈ L_ℓ, isotropy gives ω_P(π_P s, π_P s′) + ω_P′(π_P′ s, π_P′ s′) + ω_Q(π_Q s, π_Q s′) = 0. So the
+pull-back of the form on π_Q L_ℓ along the surjection π_Q: L_ℓ → π_Q L_ℓ is minus the sum of the pull-backs of the
+forms on π_P L_ℓ and π_P′ L_ℓ. Pull-back along a surjection keeps the rank, and the rank of a sum of forms is at most
+the sum of the ranks. ∎
+
+**Lemma T3 (the points) [proved].** Let Z₀ = Σ_ℓ L_ℓ ⊆ L (the six lines) and D_P = π_P(Z₀) = Σ_{ℓ∋P} π_P(L_ℓ).
+Then dim D_Z ≤ U_Z, dim D_W ≤ U_W, dim D_X ≤ U_X and dim D_Y ≤ U_Y.
+
+*Proof.* At Z the restrictions of L_AYZ, L_BXZ, L_CWZ are pairwise orthogonal, of dimensions d(Z, ·), and
+Lemma T1 gives dim D_Z ≤ U_Z. At W, D_W = V + V′ with V = π_W L_ABW and V′ = π_W L_CWZ ⊆ V^⊥ (the two lines meet
+only in W). So dim D_W ≤ dim(V + V^⊥) = 2S(W) − dim(V ∩ V^⊥) = 2S(W) − d(W, ABW) + rk(V). By Lemma T2,
+rk(V) ≤ rk(π_A L_ABW) + rk(π_B L_ABW), and Lemma T1 at the corner A (lines ABW, ACX, AYZ) and at the corner B
+(lines ABW, BCY, BXZ) bounds these by e_A(ACX, AYZ) and e_B(BCY, BXZ). For X use the line ACX (corners A and C,
+other lines ABW, AYZ and BCY, CWZ), for Y the line BCY (corners B and C, other lines ABW, BXZ and ACX, CWZ). ∎
+
+**Lemma T4 (supports in Z₀) [proved].** Let z(T) be the dimension of the space of elements of Z₀ supported in T.
+Then (i) z(T) ≤ k(T), so z(P) = 0 for every system P; (ii) z(ℓ) = k(ℓ) for every line ℓ; (iii)
+z(ABCZ) ≥ k(ABW) + k(CWZ) − dim D_W.
+
+*Proof.* (i) Z₀ ⊆ L. (ii) L_ℓ ⊆ Z₀. (iii) The map L_ABW ⊕ L_CWZ → GF(2)^{2S(W)}, (s, s′) ↦ π_W s + π_W s′, has image
+D_W (only these two lines contain W), so its kernel K has dimension k(ABW) + k(CWZ) − dim D_W. On K, the map
+(s, s′) ↦ s + s′ takes values in the elements of Z₀ supported in ABCZ, and it is injective: s + s′ = 0 means
+s = −s′ ∈ L_ABW ∩ L_CWZ = L_W = 0. ∎
+
+**Lemma T5 (the dual arrangement) [proved].** There are subspaces R_P (P ∈ E) of one vector space over GF(2) with
+dim Σ_{P∈T} R_P = Σ_{P∈T} dim D_P − z(T) for every T ⊆ E.
+
+*Proof.* As in step 2 of the proof of Proposition 10. Z₀ ⊆ ⊕_P D_P; identify each D_P with GF(2)^{dim D_P} through a
+basis, let G be a generator matrix of the complement of Z₀ for the standard dot product, and let R_P be the span of
+the columns of P. The linear dependencies among the columns of G are exactly the vectors of Z₀, so the columns of T
+have rank Σ_{P∈T} dim D_P − dim(Z₀ ∩ ⊕_{P∈T} D_P), and Z₀ ∩ ⊕_{P∈T} D_P consists of the elements of Z₀ supported
+in T. ∎
+
+Lemmas T1–T5 and their proofs hold verbatim over any field (with that field in place of GF(2)). For the GF(q)-linear
+states with entropy vector m·S_NF, which exist only for odd q (Proposition 10), every bound of Lemmas T1 and T3 is an
+equality, every e_P vanishes and each D_P is Lagrangian: Lemmas T1–T3 are the quantitative form of steps 1 and 1′
+of Proposition 10. Only the last step below needs characteristic 2.
+
+*Proof of Theorem 12.* Write δ_P = dim D_P (unrelated to the δ_i of Lemma 4 (LB)), and r(T) = Σ_{P∈T} δ_P − z(T)
+for the rank function of Lemma T5. Apply Lemma 4 (LA) with t = 2 (characteristic 2) and
+(A₁, A₂, A₃, B₁, B₂, B₃, C) = (A, B, C, Y, X, W, Z), the labelling of §4.8, to the family (R_P). By Lemma T4,
+r(P) = δ_P and r(ℓ) = Σ_{P∈ℓ} δ_P − k(ℓ), so
+
+* H(B₁, B₂, B₃) = r(WXY) = δ_W + δ_X + δ_Y − z(WXY), H(C) = δ_Z;
+* α = z(ABC), γ = H(Z | A, B, C) = δ_Z − z(ABCZ) + z(ABC);
+* ζ₁ = H(Y | B, C) = δ_Y − k(BCY) + z(BC), ζ₂ = H(X | A, C) = δ_X − k(ACX) + z(AC),
+  ζ₃ = H(W | A, B) = δ_W − k(ABW) + z(AB);
+* η₁ = H(Y | A, Z) = δ_Y − k(AYZ) + z(AZ), η₂ = H(X | B, Z) = δ_X − k(BXZ) + z(BZ),
+  η₃ = H(W | C, Z) = δ_W − k(CWZ) + z(CZ).
+
+The terms δ_A, δ_B, δ_C cancel, and (LA) becomes
+
+    0 ≤ 5·δ_Z + δ_W + δ_X + δ_Y + z(WXY) + 6·z(ABC) + Σ_{corner pairs} z − 3·z(ABCZ) − Σ_{lines} k .
+
+Bound z(WXY), z(ABC) and the z of the corner pairs from above by k (Lemma T4(i)), and −3·z(ABCZ) from above by
+−3·k(ABW) − 3·k(CWZ) + 3·δ_W (Lemma T4(iii)). Then δ_Z, δ_W, δ_X, δ_Y have the coefficients 5, 4, 1, 1, all
+positive, and Lemma T3 bounds them from above. The result is 0 ≤ f12(S). So f12 ≥ 0 on the entropy vector of every
+qubit stabilizer state of seven systems, and since f12 is linear, on the closed cone Stab⁽²⁾_6 (Z the purifier).
+
+The non-Fano matroid is representable over GF(p) for every odd prime p, and the CSS state of its code C_NF has
+entropy vector π(r_NF) = S_NF (Theorem 1, step 2), so S_NF ∈ Stab⁽ᵖ⁾_6 while f12(S_NF) = −1. If d has an odd prime
+factor p, the Z_d CSS state of the image of C_NF under Z_p ≅ (d/p)·Z_d ⊆ Z_d has entropy vector (log₂ p)·S_NF in
+bits (Theorem 1(d), step 3), so S_NF ∈ Stab^(Z_d)_6. For n > 6, merge the extra (empty) parties into the
+purifier. ∎
+
+Status: Lemmas T1–T5 and the assembly are elementary linear algebra; the characteristic enters only through
+Lemma 4 (LA) [proved; independent referee, R33]. Theorem 12 also uses Theorem 1 (step 2), for composite d step 3 of
+Theorem 1(d) (the CSS formula, proved here), and the reductions of §4.10. It does not use the cited entropy formula
+of Gross–Walter. The incomparability for composite odd d goes through Theorem 9 and inherits its status
+(Theorem 1(d), steps 1–2).
+
+**Remarks.**
+
+* *A self-dual characteristic-2 inequality.* With π the connectivity function of §1, g12 = f12∘π (63 terms on the
+  nonempty subsets of seven elements, h(E) included) is a linear rank inequality valid over every field of
+  characteristic 2: a family over GF(2) with rank function h has a CSS state with entropy vector π(h) (Theorem 1,
+  step 2); GF(2^k) reduces to GF(2) by restriction of scalars, and any other field of characteristic 2 to a finite
+  one by the reduction at the end of the proof of Theorem 1 (the residue fields are then finite of characteristic 2).
+  Since π(h*) = π(h), g12∘D = g12. g12(r_NF) = g12(r_NF*) = −1, so g12(h_NF) = −2, and g12(r_F) = 0. So g12 is
+  the inequality that Proposition 8 asks for in this direction, a
+  characteristic-2 seven-variable inequality that is not blind on the self-dual slice. It is not a nonnegative
+  combination of Shannon inequalities and the eight forms of Proposition 8 in any relabelling, since each of those is
+  ≥ 0 at the self-dual polymatroid h_NF. We know of no earlier inequality of this kind; no literature check was made.
+* *Why this transfer works where that of §4.8 gave +27.* The derived family of §4.8 sees only ranks, and for a
+  general subspace family the two line pieces at W, X, Y need not coincide. A stabilizer state carries isotropy:
+  Lemma T2 transports the (small) rank of the form from the two corners of a line to its diagonal point, which bounds
+  dim D_W, dim D_X, dim D_Y, and Lemma T1 bounds dim D_Z. The terms that cannot be bounded this way (δ_A, δ_B, δ_C)
+  cancel in (LA).
+* *Sharpness [certified, G39].* f12 = 0 at S_F; on the GF(2) list of §4.10 (10,773 vectors, at most one qubit per
+  system) the minimum of f12 is 0, attained 38 times; on the GF(3) list (27,334 vectors) f12 < 0 only at S_NF
+  itself. The other 209 vectors of the non-Fano orbit are separated by the relabelled forms f12∘σ.
+* *Probably not optimal [empirical].* f12 − Σ_{corner pairs} k and f12 − k(ABC), which are stronger, were not violated
+  on the GF(2) list or on random states (the referee's tests and ours), while f12 − Σ_{corner pairs} k − k(ABC) is
+  violated (−1 on the GF(2) list). The proof gives neither.
+* *Numerical check of the proof (G39b; checks, not proofs).* `transfer_chain` evaluates every step on a given
+  state: the dimensions d(P, ℓ) of the restrictions, the bounds of Lemmas T1 and T3, Lemma T4(iii), (LA) on the
+  rank function of Lemma T5, and f12 ≥ 0. It holds on random compressed qubit graph states with one to three qubits
+  per system, on compressed CSS states of random GF(2) families pushed towards the non-Fano dependencies, and on one
+  and two copies of the Steane state after random local symplectic maps (where f12 = 0); Lemma T5 is also checked by
+  building the arrangement explicitly, and the compression (symplectic reduction) against uncompressed states. The
+  gate runs 40 states; a sandbox run of 400 found no failure (`results/2026-10-14_r42-sandbox/`).
+* *Adversarial search [empirical].* `cc/s37_minform7.c` (`--transfer-anneal`) minimises f12 by simulated annealing
+  over qubit graph states with a given number of qubits per system, optionally pulled towards m·S_NF; the wrapper
+  recomputes the entropies of the best graph exactly and runs `transfer_chain` on it. Nine sandbox runs of 60–240 s
+  (1, 2 or 3 qubits per system, also unequal; two of them pulled towards 2·S_NF and 3·S_NF), about 6·10⁸ moves:
+  no run went below 0, six reached 0, and every reported minimiser passed every step of the proof
+  (`results/2026-10-14_r42-sandbox/transfer_anneal.log`).
+* *Not covered.* The proof needs a field of characteristic 2. For Z_{2^k} with k ≥ 2 (the Z_4 cube state violates
+  (LA)₂), whether Stab^(Z_d)_6 ⊄ Stab^(Z_{2^k})_6 for odd d is open, and so is Stab⁽²⁾_6 ⊊ Stab^(Z_{2^k})_6
+  (strict from n = 7, by the Z_4 cube state). Two odd primes at n = 6 remain open as well.
+* *Referee.* A separate agent, which read this note and the data but not the code of this section, checked
+  Theorem 12 line by line: the 31-term expansion recomputed from the structured form (no difference); the values at
+  S_NF and S_F (both vectors also from state vectors; f12(S_NF) = −1 from the non-Fano code over GF(3), GF(5), GF(7)
+  and GF(11)); the setting; Lemmas T1–T5; every term of (LA) and the direction of every bound; the consequences; and
+  the remarks on g12 (63 terms, g12∘D = g12, the four values). Verdict: proved as stated. With its own code it
+  checked every step on 26,549 qubit stabilizer states (about 19,900 of them needing the reduction to S(P) qubits;
+  among them Steane copies, CSS states of families pushed towards the non-Fano dependencies with m = 1, 2, 3, tensor
+  products and the 38 vectors of the GF(2) list with f12 = 0), enumerated all 2^21 seven-vertex qubit graph states
+  (minimum 0, on 686 graphs and 38 vectors), and evaluated 5.85 M random graph states and about 78 M annealing
+  proposals: f12 never went below 0. Weakened forms (without the e-terms, with 3·S(Z) in U_Z, or with U_W instead of
+  4·U_W) do go negative on the same families, so the tests can detect a violation. Its corrections are in the text:
+  for n ≥ 7 the statement was already known (Theorems 2 and 5), so the new case is n = 6; Theorem 12 does not depend
+  on the Gross–Walter formula; g12 over infinite fields of characteristic 2; notation (V_Σ, Q); and the statements
+  elsewhere in this note that still called the question open. Not yet checked by hand.
 
 ## 5. Open questions
 
 * **The smallest number of parties with a dimension dependence** is 5 or 6: for n ≤ 4 there is none, for any d
-  (Theorem 7), and at n = 6 there is one (Theorem 9).
+  (Theorem 7), and at n = 6 there is one (Theorem 9); at n = 6 qubits and every odd local dimension are incomparable
+  (Theorems 9 and 12, R42).
   * n = 5: by Theorem 1 this is equivalent to a characteristic dependence of the six-variable linear rank cone on
     its self-dual slice. No characteristic-dependent six-variable inequality is known; the smallest known ones
     have seven variables. All 641 known extreme rays of Stab₅ lie in Stab^(Z_d)_5 for every d (§4.9, R38–R40),
     so none of them can witness a dependence at n = 5. A witness would need an extreme ray of Stab₅ that is not yet
     known (the 1,155 undecided orbits of the catalogue are candidates, not the only ones), or, for d divisible by a
     square, a vector of Stab^(Z_d)_5 outside Stab₅ (the ℤ_d question below).
-  * n = 6, the other direction: is Stab⁽ᵖ⁾_6 ⊄ Stab⁽²⁾_6 for some odd p? Among the states over ℤ_3 with at most one
-    qudit per system, only the non-Fano state can be a witness (§4.10, R40). For the cones generated without closure
-    it is one: no qubit stabilizer state has an entropy vector that is a positive multiple of S_NF, and S_NF is not
-    a finite nonnegative combination of qubit entropy vectors (Proposition 10, Corollary 11, R41). For the closed
-    cones the question is open: S_NF could be a limit of such combinations. By the face remark of §4.8 it asks
-    whether LR⁽²⁾₇ meets cone(r_NF, r_NF*) outside 0; no GF(2) family's rank function does (R41), so only limits
-    can. A
-    quantitative ("symplectic") version of the proof of Proposition 10 is the natural route to an inequality that
-    excludes them (§4.10). The direct probes were negative
-    (they are explained by Proposition 8): symmetrised Fano and non-Fano polymatroids r + r* never violate (65) or
-    (91) in any of the 5,040 relabellings (minimum 19 and 16), and a 240-second annealing probe over seven-party
-    qutrit graph states found nothing either (best value 4 ≥ 0; `s27_cube_states.py --probe6`).
+  * ~~n = 6, the other direction: is Stab⁽ᵖ⁾_6 ⊄ Stab⁽²⁾_6 for some odd p?~~ Settled by Theorem 12 (§4.11, R42):
+    yes, for every odd p, and Stab^(Z_d)_6 ⊄ Stab⁽²⁾_6 for every d that is not a power of 2. The witness is the
+    non-Fano state; the certificate f12 is a quantitative ("symplectic") version of the proof of Proposition 10.
+    History: among the states over ℤ_3 with at most one qudit per system only the non-Fano state could be a witness
+    (§4.10, R40); for the cones generated without closure it was one (Proposition 10, Corollary 11, R41); the direct
+    probes had been negative (they are explained by Proposition 8): symmetrised Fano and non-Fano polymatroids
+    r + r* never violate (65) or (91) in any of the 5,040 relabellings (minimum 19 and 16), and a 240-second
+    annealing probe over seven-party qutrit graph states found nothing either (best value 4 ≥ 0;
+    `s27_cube_states.py --probe6`).
   * n = 6 for odd primes p < q: open; Theorem 2′ needs 2p + 3 parties.
+  * n = 6 for Z_{2^k}, k ≥ 2: open in both directions against qubits and against odd d (§4.11, "Not covered").
 * **The transfer for other primes.** Can the derived-family argument of §4.8 lower the bound 2p + 3 of Theorem 2′
   for odd p, for example by recovering the configuration J − I of Lemma 4 from a self-dual sum r + r*?
 * ~~**Different odd primes, and all pairs of primes.**~~ Settled by Theorem 2′ (R33): for primes p < q the cones
@@ -1286,11 +1512,13 @@ caveats, the reason for the +27) are taken into the text. Not yet checked by han
     questions "Γ^MixL_m = Γ^Abl_m?" for m = n and m = n + 1 variables.
   * Khazaei (arXiv:2608.09543) proves Γ^MixL ⊆ Γ^Abl and writes "We do not know whether the first inclusion can be
     strict."
-* **Smaller party counts for Theorem 5**, e.g. Z_4 against Z_6 below n = 15.
+* **Smaller party counts for Theorem 5**, e.g. Z_4 against Z_6 below n = 15. (R42: for d not a power of 2 against
+  d′ = 2, from n = 6, Theorem 12.)
 * ~~**Five parties over every field**: lift or exclude the known extreme rays.~~ All 641 are certified for every d
   (§4.9, R38–R40). The n = 5 question now concerns extreme rays not yet known (first item).
 * ~~**Six parties**: is there a characteristic-dependent seven-variable inequality g with g∘D = g?~~ Yes: g = f9 + f9∘D
-  (Theorem 9, R36). BKL's Theorems 6.4 and 6.6 were checked and are blind (Proposition 8).
+  (Theorem 9, R36), and for characteristic 2, g12 = f12∘π (Theorem 12, R42). BKL's Theorems 6.4 and 6.6 were checked
+  and are blind (Proposition 8).
 
 ## 6. Literature status
 
@@ -1320,6 +1548,10 @@ below did not know:
 * Feng and Luo (J. Phys. A 57, 395304 (2024)): the two usual definitions of qudit stabilizer states agree exactly
   when d is squarefree. This repository uses the definition through stabilizer groups, which allows non-free
   Lagrangian subgroups.
+
+**R42 (2026-10-14).** No literature check was made for §4.11 (Theorem 12, the inequalities f12 and g12, and the
+symplectic transfer). Before any of them is presented as new, a human check in the communities listed below is
+required, as for the earlier results.
 
 Earlier record (R32–R36):
 
@@ -1397,9 +1629,11 @@ For §4.8 (R36), from an AI pre-check (web search, abstracts only):
     python3 scripts/s34_six_party_survey.py --enumerate --out lists.npz   # §4.10: cc/s35_enum7.c, p = 2, 3 (~15 min)
     python3 scripts/s34_six_party_survey.py --fields 2,3,4,5,7,8,9   # §4.10: cc/s36_target7.c, S_F and S_NF (~4 min)
     python3 scripts/s34_six_party_survey.py --fields-python 2,3,4    # §4.10: the same counts in Python (~2 min)
-    python3 selftest.py                                              # gates G29-G38 (G29b, G31b-G38b with --full)
+    python3 scripts/s34_six_party_survey.py --transfer --full --trials 400   # §4.11: f12 and every step of its proof
+    python3 scripts/s34_six_party_survey.py --transfer-anneal "2,2,2,2,2,2,2;3,3,3,3,3,3,3" --seconds 120   # §4.11
+    python3 selftest.py                                              # gates G29-G39 (G29b, G31b-G39b with --full)
 
 Raw output of the sandbox runs: `results/2026-10-02_r32-sandbox/`, `results/2026-10-02_r33-sandbox/`,
 `results/2026-10-02_r34-sandbox/`, `results/2026-10-02_r35-sandbox/`, `results/2026-10-02_r36-sandbox/`,
 `results/2026-10-13_r38-sandbox/`, `results/2026-10-14_r39-sandbox/`, `results/2026-10-14_r40-sandbox/`,
-`results/2026-10-14_r41-sandbox/`.
+`results/2026-10-14_r41-sandbox/`, `results/2026-10-14_r42-sandbox/`.

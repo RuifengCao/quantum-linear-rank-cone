@@ -728,6 +728,26 @@ def main():
          f'{S38["without_qubit2_is_nonfano"]}; qubit-only = the 30 relabellings of the Steane state '
          f'{S38["qubit_only_is_steane"]}; file and content match the manifest {file38}')
 
+    # G39 (R42): six parties, the other direction for the closed cones (Theorem 12; docs/R32_reduction_and_local_dimension.md
+    # section 4.11).  The inequality f12 >= 0, valid on every qubit stabilizer state of seven systems (Z the purifier), is
+    # built from its definition (transfer_form) and pinned by the manifest (sha256 of the 128 coefficients, and the 31
+    # terms on the cuts of the visible parties).  Checked exactly: f12(S_NF) = -1 and f12(S_F) = 0; f12 >= 0 on the GF(2)
+    # list of G38 (every seven-qubit state with at most one qubit per system; minimum 0, attained 38 times); on the GF(3)
+    # list f12 < 0 only at S_NF.  G39b (--full): every step of the proof (transfer_chain: dim L_T = k(T), the restrictions
+    # of the line pieces and their orthogonality, Lemmas T1-T4, (LA)_2 on the arrangement of Lemma T5) on 40 states -- random
+    # compressed qubit graph states, compressed CSS states of random GF(2) families pushed towards the non-Fano
+    # dependencies, copies of the Steane state after random local symplectic maps -- the dual arrangement of Lemma T5
+    # built explicitly, and the compression (symplectic reduction) against uncompressed states.
+    T39 = _s38.transfer_check(log=lambda *_x: None)
+    M39 = MAN['s34_transfer_form']
+    pin39 = _s38.transfer_sha() == M39['sha256'] and [[n, c] for n, c in _s38.transfer_terms()] == M39['terms']
+    gate('G39 six parties, the closed cones (Theorem 12)', _s38.transfer_ok(T39) and pin39
+         and T39['f12_nonfano'] == M39['nonfano'] and T39['f12_fano'] == M39['fano'] and T39['gf2_zero'] == M39['gf2_zero']
+         and T39['gf3_negative'] == M39['gf3_negative'],
+         f'f12(S_NF) = {T39["f12_nonfano"]} (expect -1), f12(S_F) = {T39["f12_fano"]} (0); GF(2) list: minimum '
+         f'{T39["gf2_min"]} (0), {T39["gf2_zero"]} zeros (38); GF(3) list: {T39["gf3_negative"]} negative (1), the '
+         f'non-Fano vector {T39["gf3_negative_is_nonfano"]}; {T39["terms"]} terms, coefficients match the manifest {pin39}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:
@@ -799,6 +819,12 @@ def main():
              f'2 S_NF to sums of two {S38b["two_nf_l1_to_sums"]}; Python target search, (S_F, S_NF) solutions over '
              f'GF(2), GF(3), GF(4): {[F38b[q] for q in (2, 3, 4)]}, equal to the counts of cc/s36_target7.c {f38ok}; '
              f'line pieces of the Fano and non-Fano states (Proposition 10, steps 1 and 1\') {lp38}; s34 self-test {st38b}')
+
+        T39b = _s38.transfer_check(full_check=True, trials=40, log=lambda *_x: None)
+        gate('G39b Theorem 12, the proof step by step', _s38.transfer_ok(T39b, True),
+             f'{T39b["chain_states"]} states {T39b["chain_kinds"]}: steps failing on {T39b["chain_failed"]} (expect 0); '
+             f'minimum f12 {T39b["chain_min_f12"]}, {T39b["chain_f12_zero"]} states at 0; dual arrangement built explicitly '
+             f'{T39b["dual_identity"]}; compression keeps the entropies {T39b["compression"]}')
 
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)
