@@ -532,5 +532,49 @@
   "fano": 0,
   "gf2_zero": 38,
   "gf3_negative": 1
+ },
+ "s35_two_power_form": {
+  "note": "Theorem 14 (docs/R32_reduction_and_local_dimension.md section 4.12): f^(a) = f12 + (1 - 1/a) U_Z >= 0 on every Z_{2^a} stabilizer state of seven systems (Z the purifier), f^(a)(S_NF) = -1/a. sha256 of the 128 coefficients of U_Z = 4 S(Z) - d(Z, AYZ) - d(Z, BXZ) - d(Z, CWZ) (int64 little-endian, index = subset mask over A, B, C, W, X, Y, Z = bits 0..6; f12 is pinned by s34_transfer_form); its terms on the 63 cuts of the visible parties; the values f^(a)(S_NF) for a = 1..4; and the number of codes with f^(a) = 0 in the two exhaustive families of G40b.",
+  "uz_sha256": "39bc973a57b6c7b2810902336f9dfd05ca6bd65c234a37433ee865543cc3d09e",
+  "uz_terms": [
+   [
+    "AY",
+    -1
+   ],
+   [
+    "BX",
+    -1
+   ],
+   [
+    "CW",
+    -1
+   ],
+   [
+    "ABXY",
+    1
+   ],
+   [
+    "ACWY",
+    1
+   ],
+   [
+    "BCWX",
+    1
+   ],
+   [
+    "ABCWXY",
+    1
+   ]
+  ],
+  "nonfano": {
+   "1": "-1",
+   "2": "-1/2",
+   "3": "-1/3",
+   "4": "-1/4"
+  },
+  "lifts_zeros": {
+   "Z_4, all 3 x 7 0/1 codes": 34745,
+   "Z_8, seven-point + 2P": 2304
+  }
  }
 }

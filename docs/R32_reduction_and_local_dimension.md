@@ -66,6 +66,15 @@ that of every odd d. (Galois qudits GF(2^k) give exactly the qubit cone, §4.6.)
 and an exact computation); independent referee; like Theorem 12, not yet checked by hand; not in the paper. R43 also
 corrects an item of §5 written in R42 (erratum there).
 
+Round R44 adds §4.12: for every a ≥ 1, f^(a) = f12 + (1 − 1/a)·U_Z ≥ 0 on Stab^(Z_{2^a})_6 (Theorem 14), with
+f^(a)(S_NF) = −1/a. The proof is the symplectic transfer of Theorem 12 over finite abelian groups with a
+nondegenerate alternating form, with a version of Lemma 4 (LA) for groups of exponent 2^a (Lemma 4(G′), coefficient
+3 − 1/a instead of 2). Consequence: **for n ≥ 6, Stab^(Z_d)_n ⊆ Stab^(Z_{2^a})_n exactly when d divides 2^a.** So odd d
+and 2^a are incomparable from n = 6 on (the question left open in R43), and Z_2 ⊊ Z_4 ⊊ Z_8 ⊊ … from n = 6 on. R44
+also proves the entropy formula of Theorem 1(d), step 1, for every d (until now cited from Gross–Walter), and
+corrects the range of the question left open in R43 (erratum in §5). Proved; independent referee; not yet checked
+by hand; not in the paper.
+
 ## 1. Setting
 
 * n visible parties A₁, …, A_n and a purifier F; E is the set of all n + 1 parties. A *pure-symmetric* vector S
@@ -488,8 +497,26 @@ Both forms enter Proposition 8 (§4.7), (6.17) in its corrected form. Neither is
 
 *Proof.*
 
-1. *Entropy* [cited]. S(X) = log |proj_X L| − n_X·log d, where n_X is the number of qudits held by X
+1. *Entropy* [cited; R44: proved]. S(X) = log |proj_X L| − n_X·log d, where n_X is the number of qudits held by X
    (Gross–Walter arXiv:1302.6990, Thm 2, valid for every d; LMRW arXiv:1302.5453, Prop. 9, is equivalent).
+   (R44) The partial-trace argument in the proof of Lemma 1 of the A2 note proves this for every d [proved]:
+   * The stabilizer group G is an abelian group of Weyl operators c·X^a Z^b (c a phase) containing no multiple of the
+     identity other than I. Every X^a Z^b with (a, b) ≠ 0 mod d is traceless, so P = |G|^{−1} Σ_{g∈G} g, the
+     projector onto the common +1 eigenspace, has trace d^m/|G|. The state is the only common eigenvector, so
+     |G| = d^m and ρ = P.
+   * The map c·X^a Z^b ↦ (a, b) is a homomorphism on G, injective because G contains no nontrivial multiple of the
+     identity. Its image L is isotropic (commuting Weyl operators have a·b′ − b·a′ ≡ 0 mod d), and |L| = d^m with
+     |L^⊥| = d^{2m}/|L| (fact (S1) of §4.12) gives L = L^⊥.
+   * Let G_X be the elements of G that act outside X as a phase times the identity (the phase absorbed into the
+     X-part g|_X); the injective map takes G_X onto L_X, the elements of L supported in X. Tracing out a traceless
+     factor gives zero, so ρ_X = d^{−n_X} Σ_{g∈G_X} g|_X. The g|_X form a group without nontrivial multiples of the
+     identity (if g|_X = c·I then g = c·I ∈ G, so c = 1), hence |G_X|^{−1} Σ_{g∈G_X} g|_X is a projector of rank
+     d^{n_X}/|G_X|, and S(X) = n_X·log d − log |L_X|.
+   * Finally |proj_X L| = d^{2n_X}/|L_X|: L = L^⊥ gives (proj_X L)^⊥ = L_X inside Z_d^{2n_X}, whose standard
+     symplectic form is nondegenerate, and (S1) applies.
+
+   Only this part of Lemma 1 of the A2 note extends to every d; its normal form does not (a non-free L_P cannot be
+   moved to Z-type coordinates by a Clifford unitary), which is why §4.12 uses symplectic reduction instead.
 2. *h_S is a subgroup rank function.*
    * Let L_P ⊆ L consist of the elements supported on party P. Since L = L^⊥, proj_P L = L_P^⊥ inside
      Z_d^{2n_P}, so log |L_P| = 2n_P·log d − log |proj_P L|. Hence h_S(X) = log |proj_X L| − Σ_{P∈X} log |L_P|.
@@ -588,7 +615,8 @@ For more parties, merge empty parties into the purifier. ∎
 
 * *Prime powers.* For j ≥ 1 and n ≥ 2p^j + 3, Stab^(Z_{p^j})_n ⊊ Stab^(Z_{p^{j+1}})_n (t = p^j, witness over
   Z_{p^{j+1}}). For example, qubits ⊊ Z_4 from n = 7 (the Z_4 cube state), and Z_4 ⊊ Z_8 from n = 11. (R43:
-  qubits ⊊ Z_{2^k} for every k ≥ 2 already from n = 6, by the seven-point state over Z_{2^k}; Corollary 13, §4.11.)
+  qubits ⊊ Z_{2^k} for every k ≥ 2 already from n = 6, by the seven-point state over Z_{2^k}; Corollary 13, §4.11.
+  R44: Z_{2^j} ⊊ Z_{2^a} for all 1 ≤ j < a from n = 6; Theorem 14, §4.12.)
 * *Two theories of local dimension 4.* Galois qudits give exactly the qubit cone. Restriction of scalars gives
   Stab^(GF(4)) ⊆ Stab⁽²⁾ (R31, field reduction), and extension of scalars on CSS codes gives ⊇. Z_4 qudits give a
   strictly larger cone from n = 7 on (R43: from n = 6 on, Corollary 13).
@@ -619,10 +647,11 @@ In short:
     not a power of 2);
   * primes p < q from n = 2p + 3 (Theorem 2′);
   * Stab^(Z_d) ⊄ Stab^(Z_d′) for d ∤ d′ from n = 2·max(d, d′) + 3 (Theorem 5); (R43) for d′ = 2 and every d ≥ 3
-    from n = 6 (Corollary 13, §4.11).
+    from n = 6 (Corollary 13, §4.11); (R44) for every power of two d′ = 2^a and every d ∤ 2^a from n = 6
+    (Theorem 14, §4.12).
   * GF(4) and GF(2) never differ (§4.6).
-* Open: n = 5; at n = 6 all pairs of odd primes. (The direction Stab⁽ᵖ⁾_6 ⊄ Stab⁽²⁾_6, p odd, listed here until R41,
-  is Theorem 12, §4.11.) The eight characteristic-dependent seven-variable inequalities considered here are blind at
+* Open: n = 5; at n = 6 all pairs of odd primes, and Z_d against Z_d′ when d′ is not a power of 2 (R44). (The
+  direction Stab⁽ᵖ⁾_6 ⊄ Stab⁽²⁾_6, p odd, listed here until R41, is Theorem 12, §4.11.) The eight characteristic-dependent seven-variable inequalities considered here are blind at
   n = 6 (Proposition 8); Theorem 9 goes through a derived family of subspaces, Theorem 12 through the isotropy of the
   stabilizer group.
 
@@ -834,7 +863,8 @@ in an abelian group of exponent dividing d, hence of odd order (Theorem 1(d), st
 f9(h_S) ≥ 0, and by linearity and closedness f9 ≥ 0 on h(Stab^(Z_d)_6). The simplex-code state has f9(h_S) = −3.
 For n > 6, merge the extra (empty) parties into the purifier. ∎
 
-The result inherits the status of Theorem 1(d), steps 1–2 (the cited entropy formula of Gross–Walter).
+The result inherits the status of Theorem 1(d), steps 1–2 (the cited entropy formula of Gross–Walter). (R44: step 1
+is now proved in §4.6, so no cited input remains.)
 
 **Remarks.**
 
@@ -1424,7 +1454,7 @@ Status: Lemmas T1–T5 and the assembly are elementary linear algebra; the chara
 Lemma 4 (LA) [proved; independent referee, R33]. Theorem 12 also uses Theorem 1 (step 2), for composite d step 3 of
 Theorem 1(d) (the CSS formula, proved here), and the reductions of §4.10. It does not use the cited entropy formula
 of Gross–Walter. The incomparability for composite odd d goes through Theorem 9 and inherits its status
-(Theorem 1(d), steps 1–2).
+(Theorem 1(d), steps 1–2; R44: step 1 is now proved, §4.6).
 
 **Corollary 13 [proved; the values also computed exactly for 2 ≤ d ≤ 16 and from state vectors for d = 4, 6, 8
 (G39, G39b)] (R43).** For d ≥ 2 let S^(d) be the entropy vector, in bits, of the *seven-point state* over Z_d: the
@@ -1472,7 +1502,8 @@ f12(S_NF) = −1. For n > 6, merge the extra (empty) parties into the purifier, 
   the rank of a form as the index of its radical, character duality for T5) and checked it on the Z_4 seven-point
   state, where every step holds except the last [sketch, not refereed]. The dual arrangement then lives in a group of
   exponent 2^k, where (LA)₂ fails: it is proved for groups with 2·V = 0 only (Lemma 4(G)), and it fails by 1 bit on
-  the Z_4 seven-point configuration, as on the Z_4 cube state (§4.6).
+  the Z_4 seven-point configuration, as on the Z_4 cube state (§4.6). (R44: carried out, with Lemma 4(G′) for the
+  last step, and refereed: Theorem 14, §4.12.)
 * S^(4) = S_F + S_NF lies in Stab⁽²⁾ + Stab⁽³⁾. So, like the Z_4 cube state, it lies in the closed convex hull of the
   prime cones and does not bear on the Z_d question of §5.
 * Dependencies. The non-inclusion uses neither Theorem 5 nor the Gross–Walter formula. The strict inclusion for even
@@ -1520,7 +1551,8 @@ f12(S_NF) = −1. For n > 6, merge the extra (empty) parties into the purifier, 
 * *Not covered.* The proof needs a field of characteristic 2. For Z_{2^k} with k ≥ 2 (the Z_4 cube state violates
   (LA)₂), whether Stab^(Z_d)_6 ⊄ Stab^(Z_{2^k})_6 for odd d is open, and so is Stab⁽²⁾_6 ⊊ Stab^(Z_{2^k})_6
   (strict from n = 7, by the Z_4 cube state). Two odd primes at n = 6 remain open as well. (R43: the second question
-  is settled, Stab⁽²⁾_6 ⊊ Stab^(Z_{2^k})_6, Corollary 13; the first remains open.)
+  is settled, Stab⁽²⁾_6 ⊊ Stab^(Z_{2^k})_6, Corollary 13; the first remains open. R44: the first is settled too,
+  Stab^(Z_d)_6 ⊄ Stab^(Z_{2^k})_6 for every odd d, Theorem 14, §4.12.)
 * *Referee.* A separate agent, which read this note and the data but not the code of this section, checked
   Theorem 12 line by line: the 31-term expansion recomputed from the structured form (no difference); the values at
   S_NF and S_F (both vectors also from state vectors; f12(S_NF) = −1 from the non-Fano code over GF(3), GF(5), GF(7)
@@ -1536,12 +1568,187 @@ f12(S_NF) = −1. For n > 6, merge the extra (empty) parties into the purifier, 
   on the Gross–Walter formula; g12 over infinite fields of characteristic 2; notation (V_Σ, Q); and the statements
   elsewhere in this note that still called the question open. Not yet checked by hand.
 
+### 4.12 Six parties, powers of two [proved; independent referee] (R44)
+
+Corollary 13 shows that f12 fails on Z_{2^a} stabilizer states for every a ≥ 2. The proof of Theorem 12 shows how
+little is lost: Lemmas T1–T5 hold over Z_{2^a} with log|·| in place of dim, and only the last step, Lemma 4 (LA)₂,
+needs 2·V = 0. A version of (LA) for groups of exponent 2^a repairs that step. (In this section the exponent is a,
+to keep k(T) of §4.11 apart.)
+
+**Theorem 14 [proved].** For a ≥ 1 put
+
+    f^(a) = f12 + (1 − 1/a)·U_Z ,
+
+with f12 and U_Z as in §4.11 (so f^(1) = f12); explicitly U_Z = S(Z) + Σ_{lines ℓ ∋ Z} (S(ℓ) − S(ℓ∖Z))
+= S(Z) + S(AYZ) − S(AY) + S(BXZ) − S(BX) + S(CWZ) − S(CW). Then f^(a) ≥ 0 on Stab^(Z_{2^a})_6 (Z the purifier). In
+bits:
+
+* f^(a)(S_NF) = −1/a and f^(a)(S_F) = 1 − 1/a;
+* at the seven-point state over Z_d (Corollary 13), f^(a)(S^(d)) = [d even] − (log₂ d)/a; in particular
+  f^(a)(S^(2^j)) = 1 − j/a, which is 0 for j = a and negative for j > a.
+
+Consequently, for every n ≥ 6, d ≥ 2 and a ≥ 1,
+
+    Stab^(Z_d)_n ⊆ Stab^(Z_{2^a})_n   if and only if   d divides 2^a.
+
+In particular (for a = 1 these are Theorems 9 and 12 and Corollary 13):
+
+* For odd d ≥ 3, Stab^(Z_d)_n and Stab^(Z_{2^a})_n are incomparable for every n ≥ 6 (with Theorem 9). This settles
+  the question left open in §5 (R43). Before, Stab^(Z_d)_n ⊄ Stab^(Z_{2^a})_n (a ≥ 2) was known for n ≥ 2p + 3, p
+  the smallest prime factor of d (proof of Theorem 5, the GF(p) cube state and (LB)_p), and, if some prime q | d
+  satisfies q ∤ 2^a − 1, for n ≥ 2^{a+1} + 3: the GF(q) cube state with t = 2^a (§4.4; self-dual since
+  q ∤ t − 1) violates (LA)_{2^a}, which holds on Stab^(Z_{2^a}) by Lemma 4(G). (The second route was overlooked in
+  R43; erratum in §5.)
+* Stab^(Z_{2^j})_n ⊊ Stab^(Z_{2^a})_n for 1 ≤ j < a and every n ≥ 6. Before: from n = 2^{j+1} + 3 (§4.6, prime
+  powers: the Z_{2^{j+1}} cube state lies in Stab^(Z_{2^{j+1}}) ⊆ Stab^(Z_{2^a}) and violates (LA)_{2^j}), and for
+  j = 1 from n = 6 (Corollary 13).
+* Stab^(Z_d)_n ⊄ Stab^(Z_{2^a})_n for every d with an odd prime factor, whatever power of 2 divides d.
+
+*Proof of the consequences.* If d divides 2^a, Theorem 5 gives the inclusion for every n. Otherwise either d has an
+odd prime factor p, and then (log₂ p)·S_NF ∈ Stab^(Z_d)_6 as in the proof of Theorem 12, while
+f^(a)(S_NF) = −1/a < 0; or d = 2^j with j > a, and then the seven-point state over Z_d lies in Stab^(Z_d)_6 and
+f^(a)(S^(2^j)) = 1 − j/a < 0. Both witnesses are CSS states (Theorem 1(d), step 3). For n > 6 merge the extra
+parties into the purifier. For odd d, Stab^(Z_{2^a})_n ⊄ Stab^(Z_d)_n is Theorem 9 together with
+Stab⁽²⁾ ⊆ Stab^(Z_{2^a}) (Theorem 5). ∎
+
+*The values.* U_Z is linear in S, and U_Z(S_NF) = U_Z(S_F) = 4 − 3 = 1 (every d(Z, ·) is 1 there). So
+f^(a)(S_NF) = −1 + (1 − 1/a) and f^(a)(S_F) = 0 + (1 − 1/a). By Corollary 13, S^(d) = (log₂ d)·S_NF for odd d and
+S^(d) = S_F + (log₂ d − 1)·S_NF for even d, so U_Z(S^(d)) = log₂ d and f12(S^(d)) = [d even] − log₂ d.
+
+**Lemma 4(G′) [proved].** Let V be a finite abelian group, M = t + 1 ≥ 3 and a ≥ 1 with t^a·V = 0. For subgroups
+A_i, B_i, C of V, with the error terms of Lemma 4 and H = log|·|,
+
+    H(B₁, …, B_M) ≤ (M − 1/a)·H(C) + M·α + M·γ + Σ_i (ζ_i + η_i).
+
+For a = 1 this is (LA) of Lemma 4(G). It holds with equality on the configuration A_i = ⟨e_i⟩, B_i = ⟨c − e_i⟩,
+C = ⟨c⟩ over Z_{p^a} with t = p.
+
+*Proof.* Steps 0–2 and 4 of the proof of (LA) (§4.4; valid for groups, Lemma 4(G)) are unchanged. In step 3,
+Φ(y₁, …, y_M) = Σ_i β_i(y_i) on Y^M, Y = q(C_A), satisfies Φ(y, …, y) = t·y, because Σ_i π_i is the identity on
+Ā. So its kernel contains the diagonal of the t-torsion Y[t] = {y ∈ Y : t·y = 0}, and
+
+    log|q(Σ_i B″_i)| ≤ log|im Φ| ≤ M·log|Y| − log|Y[t]| .
+
+Since t^a·Y = 0, |Y[t]| ≥ |Y|^{1/a}: write Y as a direct sum of cyclic groups of prime-power order p^e; t^a·Y = 0
+forces e ≤ a·v_p(t), and the t-torsion of Z_{p^e} has order p^{min(e, v_p(t))} ≥ p^{e/a}. Hence
+log|q(Σ_i B″_i)| ≤ (M − 1/a)·log|Y| ≤ (M − 1/a)·H(C), and step 4 concludes as before. On the configuration over
+Z_{p^a} every error term vanishes, H(C) = a and H(B₁, …, B_M) = (M − 1)·a + (a − 1) (units of log p; the Smith
+form of J − I is diag(1, …, 1, t), §4.6), which is (M − 1/a)·a. ∎
+
+Only M = 3, t = 2 is used below, where the coefficient is 3 − 1/a.
+
+*Setting over Z_{2^a}.* A *symplectic group* is a finite abelian group V with a nondegenerate alternating form
+ω: V × V → Q/Z (biadditive, ω(v, v) = 0, and v ↦ ω(v, ·) is an isomorphism V → Hom(V, Q/Z)). For a subgroup U let
+U^⊥ be its orthogonal complement and rk(U) = log|U| − log|U ∩ U^⊥| the rank of ω restricted to U (log₂, bits).
+Facts used (elementary):
+
+* (S1) |U^⊥| = |V|/|U| and U^⊥⊥ = U. (Restriction Hom(V, Q/Z) → Hom(U, Q/Z) is onto, Q/Z being divisible, and
+  |Hom(U, Q/Z)| = |U|.)
+* (S2) |U + U′|·|U ∩ U′| = |U|·|U′|.
+* (S3) For an alternating biadditive form β on a finite abelian group W let rad β = {w : β(w, W) = 0} (left and
+  right radicals agree, as β is skew) and rk β = log|W / rad β|. Pull-back along a surjection keeps rk;
+  rk(β₁ + β₂) ≤ rk β₁ + rk β₂, because rad β₁ ∩ rad β₂ ⊆ rad(β₁ + β₂) and W/(R₁ ∩ R₂) embeds into W/R₁ × W/R₂;
+  the rank of an orthogonal direct sum is the sum of the ranks; rk(−β) = rk β.
+
+A system P with n_P qudits of a Z_N stabilizer state (N = 2^a) carries V_P = Z_N^{2n_P} with
+ω_P(u, v) = (u_x·v_z − u_z·v_x)/N mod 1. The stabilizer group maps onto a Lagrangian L = L^⊥ of V = ⊕_P V_P, and by
+Theorem 1(d), step 1, S(X) = n_X·a − log|L_X| bits, where L_X is the set of elements of L supported in X
+(equivalently log|proj_X L| − n_X·a, since proj_X L = (L_X)^⊥ inside V_X).
+
+*Compression (symplectic reduction).* L_P is isotropic in V_P, and proj_P L = L_P^⊥. Replace V_P by
+V′_P = L_P^⊥/L_P with the induced form, which is nondegenerate by (S1), and L by its image L′ in V′ = ⊕_P V′_P.
+The kernel of L → L′ is ⊕_P L_P (an element of L whose P-components all lie in the L_P is the sum of those
+components, each in L), so |L′|² = |L|²/Π_P|L_P|² = |V′|; L′ is isotropic, hence Lagrangian. For every X the kernel
+of proj_X L → proj_X L′ is ⊕_{P∈X} L_P, so S(X) = log|proj_X L| − ½·log|V_X| is unchanged, and L′_P = 0. So we may
+assume L_P = 0 for every P; then S(P) = ½·log|V_P| and log|L_X| = k(X) for every X. (V′_P need not be of the form
+Z_N^{2m}: one Z_4 qudit with L_P = ⟨(2, 0)⟩ gives V′_P ≅ Z_2² with ω = ½ on a basis pair. Nothing below needs it.
+This is why the normal form of Lemma 1 of the A2 note is replaced here: a non-free L_P cannot be moved to Z-type
+coordinates by a Clifford unitary.)
+
+**Lemmas T1–T5 over Z_{2^a} [proved].** For a Lagrangian L in V = ⊕_P V_P as above (symplectic groups of exponent
+dividing 2^a, L_P = 0, log|V_P| = 2S(P)), Lemmas T1–T5 of §4.11 hold with log|·| (bits) in place of dim and with
+the same proofs, using (S1)–(S3) in place of linear algebra:
+
+* T1: |V_i + U| ≥ |V_i|·|U|/|V_i ∩ V_i^⊥| is (S2) with V_i ∩ U ⊆ V_i ∩ V_i^⊥; the bound
+  d_j + d_k ≤ log|U| + 2s − log|V_i + U| is (S2) for V_j, V_k and (S1) for (V_i + U)^⊥ ⊇ V_j ∩ V_k; the bound on
+  V_Σ uses (S3) for the pull-back along V₁ ⊕ V₂ ⊕ V₃ → V_Σ and (S1) for V_Σ^⊥.
+* T2 is (S3).
+* T3: |V + V^⊥| = |V|·|V^⊥|/|V ∩ V^⊥| by (S2), and |V^⊥| = |V_W|/|V| by (S1).
+* T4 is verbatim (|K| = |L_ABW|·|L_CWZ|/|D_W|).
+* T5: let G = ⊕_P D_P; Z₀ ⊆ G, since every element of Z₀ has its P-component in D_P. Let R_P be the image of D_P
+  in G/Z₀. Then Σ_{P∈T} R_P = (G_T + Z₀)/Z₀ with G_T = ⊕_{P∈T} D_P, of order |G_T|/|G_T ∩ Z₀|, and G_T ∩ Z₀ is the
+  set of elements of Z₀ supported in T. So log|Σ_{P∈T} R_P| = Σ_{P∈T} δ_P − z(T), and G/Z₀ has exponent dividing
+  2^a. (Over fields this is a shorter construction than the one in §4.11.)
+
+*Proof of Theorem 14.* As the proof of Theorem 12, with Lemma 4(G′) (M = 3, t = 2, exponent dividing 2^a) in place
+of Lemma 4 (LA)₂. Its right-hand side has (3 − 1/a)·H(C) = 2·δ_Z + (1 − 1/a)·δ_Z, so the displayed inequality of
+that proof becomes
+
+    0 ≤ (6 − 1/a)·δ_Z + δ_W + δ_X + δ_Y + z(WXY) + 6·z(ABC) + Σ_{corner pairs} z − 3·z(ABCZ) − Σ_{lines} k ,
+
+and the same bounds (Lemma T4(i) and (iii), then Lemma T3, all coefficients positive) give
+0 ≤ f12(S) + (1 − 1/a)·U_Z(S) = f^(a)(S) for the entropy vector S of every Z_{2^a} stabilizer state of seven
+systems. Since f^(a) is linear, it holds on the closed cone. ∎
+
+Status: Lemma 4(G′), the setting, the compression and Lemmas T1–T5 over groups are elementary. Theorem 14 uses
+step 1 of Theorem 1(d) (the entropy formula, proved in §4.6 since R44), step 3 for the witnesses, and Theorems 5 and 9
+for the consequences.
+
+*Remarks on Theorem 14.*
+
+* *Tightness.* f^(a) = 0 at the seven-point state over Z_{2^a}. There every bound of Lemmas T1 and T3 is attained
+  (δ_P = U_P = a at Z, W, X, Y), and Lemma 4(G′) holds with equality on the dual arrangement [checked, G40]. The
+  coefficient 1 − 1/a cannot be lowered: f12 + c·U_Z is negative at S^(2^a) for every c < 1 − 1/a.
+* *The limit a → ∞.* S^(2^a)/a = S_F/a + (1 − 1/a)·S_NF lies in Stab^(Z_{2^a})_6 and tends to S_NF. So S_NF lies in
+  the closure of the union of the cones Stab^(Z_{2^a})_6, but in none of them, and the union is not closed. In the
+  same way f12 + U_Z ≥ 0 holds on every Z_{2^a} cone (f12 + U_Z ≥ f^(a), as U_Z ≥ δ_Z ≥ 0 by Lemma T3) and vanishes
+  at S_NF.
+* *Where the 2-torsion enters.* On the seven-point configuration over Z_{2^a} the group Y of step 3 is Z_{2^a}, and
+  the kernel of Φ is exactly the diagonal of Y[2], of order 2: the image of Φ has 2^{3a−1} elements, one bit less
+  than Y³.
+* *Not covered.* The transfer needs t = 2 (the configuration J − I with M = 3 has seven elements). At n = 6 it says
+  nothing about two odd primes, or about Z_d against Z_{d′} when d′ is not a power of 2 (for example Z_4 against
+  Z_6: the Z_4 seven-point state S_F + S_NF lies in Stab⁽²⁾ + Stab⁽³⁾ ⊆ Stab^(Z_6)).
+* *Numerical checks (G40b; checks, not proofs).* `scripts/s35_two_power_transfer.py` (`chain`) evaluates every step
+  of the proof on a given state over Z_{2^a} without compressing it: each quantity of the compressed state is
+  computed from preimages, with log|L_P| subtracted once per system. It checks the sizes of the line pieces and of
+  their restrictions, orthogonality, Lemmas T1–T4, the arrangement of Lemma T5 built explicitly, Lemma 4(G′) on it,
+  the algebra of the assembly, and f^(a) ≥ 0. States: weighted graph states, CSS states of random and non-free
+  codes, standard non-free Lagrangians after random symplectic maps, CSS states of families pushed towards the
+  seven-point configuration, perturbed seven-point codes after local symplectic maps, and sums of seven-point
+  states. The gate runs 60 states over Z_4 and 60 over Z_8; a sandbox run of 400 + 400 found no failure (minimum 0,
+  attained 39 and 27 times). The entropy formula agrees with state vectors of Z_4 and Z_8 graph and CSS states,
+  non-free ones included (largest deviation 1.3·10⁻¹⁵).
+* *Exhaustive families and adversarial search [empirical].* `cc/s38_minform_zn.c` enumerates the codes B + 2^s·P,
+  P a 0/1 matrix, one qudit per system: every 3 × 7 0/1 code over Z_4, Z_8 and Z_16; every 4 × 7 0/1 code over Z_4
+  (2^28 codes; minimum 0, attained by 4,216,321 codes); the lifts
+  seven-point + 2^s·P over Z_4, Z_8 (s = 1, 2) and Z_16, and Z_4-seven-point + 4P over Z_8; and lifts of eight random
+  0/1 bases over Z_4 (2^21 codes in each family). The minimum of a·f^(a) is 0 (positive on the random bases and on
+  Z_4-seven-point + 4P over Z_8), while the four forms the proof does not give (U_Z coefficient lowered by 1/(2a),
+  e-terms dropped, 3·S(Z) in U_Z, U_W instead of 4·U_W) go negative on the 0/1 families. Annealing over CSS codes
+  over Z_4 and Z_8 (one and two qudits per system; unpulled, pulled towards S^(2^a), or pulled towards full
+  single-system entropies; ten processes of 120 s, 6.5·10⁷ moves) never went below 0, and every reported minimiser
+  passed every step of the proof. Unpulled, the annealer tends to settle on states with small entropies, so near the
+  boundary the evidence comes mainly from the structured and exhaustive families.
+* *Referee.* A separate agent, which read this note but not the code of this section, checked by hand Lemma 4(G′),
+  (S1)–(S3), the compression, Lemmas T1–T5 over groups, the assembly, the values, the consequences, the remarks and
+  the new proof of step 1 of Theorem 1(d) (§4.6). Verdict: proved as stated. With its own code (exact arithmetic over
+  Z_{p^K}, validated against brute force on 2,200 cases) it ran the full chain of the proof on about 8,300 states
+  over Z_4, Z_8, Z_16 and Z_32, 4,340 of them needing a nontrivial compression: no failure, minimum 0. It checked the
+  entropy formula against 13 state vectors (six non-free and non-CSS, with L read off the vectors) and the
+  compression by brute force on 31 states, ran about 3·10⁷ annealing proposals (never negative) and 200,338
+  evaluations of Lemma 4(G′) on Z_{2^K}-, Z_{3^K}- and mixed groups (never violated; the form for the next smaller
+  exponent was violated 1,960 times), and found weakened forms of f^(a) negative on its families. Its corrections
+  are in the text: the earlier party counts in the bullets after the theorem (both were too high), the erratum to
+  R43 (§5), passages of the note not yet updated for R44, the exponent renamed a, and details of the step-1 proof.
+  Not yet checked by hand.
+
 ## 5. Open questions
 
 * **The smallest number of parties with a dimension dependence** is 5 or 6: for n ≤ 4 there is none, for any d
   (Theorem 7), and at n = 6 there is one (Theorem 9); at n = 6 qubits and every odd local dimension are incomparable
   (Theorems 9 and 12, R42), and the qubit cone is strictly smaller than that of every even d ≥ 4 (Corollary 13,
-  R43).
+  R43). (R44) At n = 6, Stab^(Z_d)_6 ⊆ Stab^(Z_{2^a})_6 exactly when d | 2^a (Theorem 14, §4.12).
   * n = 5: by Theorem 1 this is equivalent to a characteristic dependence of the six-variable linear rank cone on
     its self-dual slice. No characteristic-dependent six-variable inequality is known; the smallest known ones
     have seven variables. All 641 known extreme rays of Stab₅ lie in Stab^(Z_d)_5 for every d (§4.9, R38–R40),
@@ -1563,11 +1770,16 @@ f12(S_NF) = −1. For n > 6, merge the extra (empty) parties into the purifier, 
     *Erratum (R43): this item, written in R42, called four directions open, but two of them were already decided
     (one of them as an inclusion):* Stab⁽²⁾ ⊆ Stab^(Z_{2^k}) holds for every n (Theorem 5), and
     Stab^(Z_{2^k})_6 ⊄ Stab^(Z_d)_6 for odd d follows from Theorem 9 (the Steane state) with that inclusion. Of the
-    other two, Stab^(Z_{2^k})_6 ⊄ Stab⁽²⁾_6 is now Corollary 13 (R43). **Open:** is Stab^(Z_d)_n ⊆ Stab^(Z_{2^k})_n
-    for odd d, k ≥ 2 and 6 ≤ n ≤ 2p + 2, where p is the smallest prime factor of d (for example n = 6, 7, 8 for
-    d = 3 against Z_4)? For n ≥ 2p + 3 the proof of Theorem 5 (case j = 0: the GF(p) cube state and (LB)_p) shows
-    that the inclusion fails. At n = 6 the question is, for instance, whether the non-Fano state lies in the closed
-    Z_4 cone; f12 does not decide it, since it fails for Z_4 (Corollary 13).
+    other two, Stab^(Z_{2^k})_6 ⊄ Stab⁽²⁾_6 is now Corollary 13 (R43). ~~**Open:** is Stab^(Z_d)_n ⊆
+    Stab^(Z_{2^k})_n for odd d, k ≥ 2 and 6 ≤ n ≤ 2p + 2, where p is the smallest prime factor of d (for example
+    n = 6, 7, 8 for d = 3 against Z_4)? For n ≥ 2p + 3 the proof of Theorem 5 (case j = 0: the GF(p) cube state and
+    (LB)_p) shows that the inclusion fails. At n = 6 the question is, for instance, whether the non-Fano state lies in
+    the closed Z_4 cone; f12 does not decide it, since it fails for Z_4 (Corollary 13).~~ Settled by Theorem 14
+    (§4.12, R44): the inclusion fails for every n ≥ 6, and the non-Fano state is in no Z_{2^k} cone.
+    *Erratum (R44, found by the referee): the range 6 ≤ n ≤ 2p + 2 written in R43 was too large.* If some prime
+    q | d satisfies q ∤ 2^k − 1, the GF(q) cube state with t = 2^k (§4.4; self-dual since q ∤ t − 1) violates
+    (LA)_{2^k}, which holds on Stab^(Z_{2^k}) by Lemma 4(G), so the inclusion already failed for n ≥ 2^{k+1} + 3; for
+    example d = 5 against Z_4 from n = 11 (value −2, checked by the referee), not only from n = 13.
 * **The transfer for other primes.** Can the derived-family argument of §4.8 lower the bound 2p + 3 of Theorem 2′
   for odd p, for example by recovering the configuration J − I of Lemma 4 from a self-dual sum r + r*?
 * ~~**Different odd primes, and all pairs of primes.**~~ Settled by Theorem 2′ (R33): for primes p < q the cones
@@ -1590,7 +1802,9 @@ f12(S_NF) = −1. For n > 6, merge the extra (empty) parties into the purifier, 
   * Khazaei (arXiv:2608.09543) proves Γ^MixL ⊆ Γ^Abl and writes "We do not know whether the first inclusion can be
     strict."
 * **Smaller party counts for Theorem 5**, e.g. Z_4 against Z_6 below n = 15. (R42: for d not a power of 2 against
-  d′ = 2, from n = 6, Theorem 12. R43: for every d ≥ 3 against d′ = 2, from n = 6, Corollary 13.)
+  d′ = 2, from n = 6, Theorem 12. R43: for every d ≥ 3 against d′ = 2, from n = 6, Corollary 13. R44: for every
+  d ∤ 2^a against every power of two d′ = 2^a, from n = 6, Theorem 14. Open at n = 6: d′ with an odd prime factor,
+  for instance Z_4 against Z_6, and two odd primes.)
 * ~~**Five parties over every field**: lift or exclude the known extreme rays.~~ All 641 are certified for every d
   (§4.9, R38–R40). The n = 5 question now concerns extreme rays not yet known (first item).
 * ~~**Six parties**: is there a characteristic-dependent seven-variable inequality g with g∘D = g?~~ Yes: g = f9 + f9∘D
@@ -1627,8 +1841,10 @@ below did not know:
   Lagrangian subgroups.
 
 **R42 (2026-10-14).** No literature check was made for §4.11 (Theorem 12, the inequalities f12 and g12, and the
-symplectic transfer; R43: nor for Corollary 13). Before any of them is presented as new, a human check in the
-communities listed below is required, as for the earlier results.
+symplectic transfer; R43: nor for Corollary 13; R44: nor for §4.12, Theorem 14 and Lemma 4(G′)). Before any of them
+is presented as new, a human check in the communities listed below is required, as for the earlier results. (R44:
+the entropy formula of Theorem 1(d), step 1, now has a proof in §4.6; the referee checked that Gross–Walter, Thm 2,
+states it for every d > 1.)
 
 Earlier record (R32–R36):
 
@@ -1708,9 +1924,12 @@ For §4.8 (R36), from an AI pre-check (web search, abstracts only):
     python3 scripts/s34_six_party_survey.py --fields-python 2,3,4    # §4.10: the same counts in Python (~2 min)
     python3 scripts/s34_six_party_survey.py --transfer --full --trials 400   # §4.11: f12 and every step of its proof
     python3 scripts/s34_six_party_survey.py --transfer-anneal "2,2,2,2,2,2,2;3,3,3,3,3,3,3" --seconds 120   # §4.11
-    python3 selftest.py                                              # gates G29-G39 (G29b, G31b-G39b with --full)
+    python3 scripts/s35_two_power_transfer.py --check --full --trials 400   # §4.12: f^(a) and every step of its proof
+    python3 scripts/s35_two_power_transfer.py --anneal "2:4:1,1,1,1,1,1,1;3:4:1,1,1,1,1,1,1" --seconds 120 --pull 0.3
+    python3 selftest.py                                              # gates G29-G40 (G29b, G31b-G40b with --full)
 
 Raw output of the sandbox runs: `results/2026-10-02_r32-sandbox/`, `results/2026-10-02_r33-sandbox/`,
 `results/2026-10-02_r34-sandbox/`, `results/2026-10-02_r35-sandbox/`, `results/2026-10-02_r36-sandbox/`,
 `results/2026-10-13_r38-sandbox/`, `results/2026-10-14_r39-sandbox/`, `results/2026-10-14_r40-sandbox/`,
-`results/2026-10-14_r41-sandbox/`, `results/2026-10-14_r42-sandbox/`.
+`results/2026-10-14_r41-sandbox/`, `results/2026-10-14_r42-sandbox/`, `results/2026-10-15_r43-sandbox/`,
+`results/2026-10-15_r44-sandbox/`.

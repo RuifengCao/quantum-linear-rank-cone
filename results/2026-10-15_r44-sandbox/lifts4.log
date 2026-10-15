@@ -1,0 +1,3 @@
+  Z_4, base [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0]], + 2^0 P: 268435456 codes; a f^(a): min 0 (recomputed 0); U_Z coefficient (1 - 1/a) - 1/(2a), times 2a: min -2 (recomputed -2); f^(a) without the e-terms: min -48 (recomputed -48); f^(a) with 3 S(Z) in U_Z: min -22 (recomputed -22); f^(a) with U_W instead of 4 U_W: min -24 (recomputed -24); zeros of the first form 4216321; proof steps at its minimiser: all hold
+  (4694 s)
+ALL OK

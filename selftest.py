@@ -753,6 +753,32 @@ def main():
          f'seven-point states over Z_d, d = {T39["seven_point_d"]}: 2^f12 = gcd(d, 2)/d {T39["seven_point_closed_form"]} '
          f'(Z_4: {T39["seven_point_z4"]}), Smith invariants {T39["seven_point_smith"]}')
 
+    # G40 (R44): six parties, powers of two (Theorem 14; docs/R32_reduction_and_local_dimension.md section 4.12).  The
+    # inequality f^(a) = f12 + (1 - 1/a) U_Z >= 0 holds on Stab^(Z_{2^a})_6 (Z the purifier); U_Z is pinned by the
+    # manifest (sha256 of its 128 coefficients), f12 by G39.  Checked exactly: f^(a)(S_NF) = -1/a and f^(a)(S_F) = 1 - 1/a
+    # for a = 1..4; f^(1) = f12; at the seven-point state over Z_{2^j}, 2^(a f^(a)) = 2^(a - j) for a = 1..4, j = 1..5,
+    # and over Z_d with an odd factor 2^(a f^(a)) = 2^(a [d even]) / d; the seven-point states over Z_2, Z_4, Z_8 realised
+    # as Z_8 stabilizer states; and the tight case: on the seven-point state over Z_{2^a} (a = 1, 2, 3) every step of the
+    # proof holds (scripts/s35_two_power_transfer.py, chain), f^(a) = 0, Lemma 4(G') is attained and delta_P = U_P = a.
+    # G40b (--full): every step of the proof (chain: the sizes of the line pieces and of their restrictions,
+    # orthogonality, Lemmas T1-T4 over Z_{2^a}, the dual arrangement of Lemma T5 built explicitly, Lemma 4(G') on it,
+    # the algebra of the assembly) on 60 random states over Z_4 and over Z_8 (graph, CSS of non-free codes, non-free
+    # Lagrangians after random symplectic maps, families near the seven-point configuration, sums of seven-point
+    # states); the entropy formula against state vectors; Lemma 4(G') on 150 configurations per case (valid forms >= 0,
+    # the coefficient for a smaller exponent < 0); and two exhaustive families (cc/s38_minform_zn.c): every 3 x 7 0/1
+    # code over Z_4 and every lift seven-point + 2P over Z_8 (2^21 codes each), where a f^(a) >= 0 with minimum 0 while
+    # forms the proof does not give go negative.
+    import s35_two_power_transfer as _s40
+    T40 = _s40.check(log=lambda *_x: None)
+    M40 = MAN['s35_two_power_form']
+    gate('G40 six parties, powers of two (Theorem 14)', _s40.check_ok(T40) and T40['uz_sha'] == M40['uz_sha256']
+         and T40['nf'] == {int(x): v for x, v in M40['nonfano'].items()},
+         f'f^(a)(S_NF) = {T40["nf"]} (expect -1/a), f^(a)(S_F) = {T40["steane"]} (1 - 1/a); f^(1) = f12 {T40["f1_is_f12"]}; '
+         f'seven-point states over Z_(2^j): f^(a) = 1 - j/a {T40["seven_point_two_powers"]}, over Z_d with odd factors '
+         f'{T40["seven_point_other_d"]}, realised over Z_8 {T40["seven_point_realised"]}; tight case, every step of the proof '
+         f'on the seven-point state over Z_(2^a), a = 1, 2, 3: {T40["tight"]}; U_Z matches the manifest '
+         f'{T40["uz_sha"] == M40["uz_sha256"]}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:
@@ -831,6 +857,18 @@ def main():
              f'minimum f12 {T39b["chain_min_f12"]}, {T39b["chain_f12_zero"]} states at 0; dual arrangement built explicitly '
              f'{T39b["dual_identity"]}; compression keeps the entropies {T39b["compression"]}; seven-point states from '
              f'state vectors: largest deviation {T39b["seven_point_sv_dev"]:.1e}, f12 {T39b["seven_point_sv_f12"]} bits')
+
+        T40b = _s40.check(full_check=True, trials=60, log=lambda *_x: None)
+        ch40 = T40b['chain']
+        lf40 = T40b['lifts']
+        gate('G40b Theorem 14, the proof step by step', _s40.check_ok(T40b, True)
+             and all(lf40[n]['zeros'] == M40['lifts_zeros'][n] for n in lf40),
+             '; '.join(f'Z_{1 << k}: {v["failed"]} of {sum(v["kinds"].values())} states fail a step (expect 0), minimum '
+                       f'a f^(a) {v["min_kfk"]}, {v["at_zero"]} at 0, minimum f12 {v["min_f12"]}' for k, v in ch40.items())
+             + f'; state vectors: largest deviation {T40b["state_vector_dev"]:.1e}; Lemma 4(G\') minima {T40b["lemma_tests"]} '
+             f'(valid >= 0, smaller exponent < 0); exhaustive: '
+             + '; '.join(f'{n}: {v["codes"]} codes, minimum {v["min"]} (0), {v["zeros"]} at 0, weakened forms '
+                         f'{v["weakened"]}' for n, v in lf40.items()))
 
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)

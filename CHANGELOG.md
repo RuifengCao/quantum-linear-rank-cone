@@ -1,5 +1,65 @@
 # CHANGELOG
 
+## R44 (2026-10-15) -- six parties, powers of two: Stab^(Z_d)_n ⊆ Stab^(Z_{2^a})_n exactly when d | 2^a, from n = 6; erratum to R43
+- **Result (proved; checked by an independent referee, an agent; not yet checked by hand; not in the paper).**
+  `docs/R32_reduction_and_local_dimension.md` §4.12, Theorem 14.
+  - For every a ≥ 1, f^(a) = f12 + (1 − 1/a)·U_Z ≥ 0 on Stab^(Z_{2^a})_6 (Z the purifier), where
+    U_Z = S(Z) + S(AYZ) − S(AY) + S(BXZ) − S(BX) + S(CWZ) − S(CW). f^(1) = f12 (Theorem 12).
+  - Values: f^(a)(S_NF) = −1/a; f^(a)(S_F) = 1 − 1/a; at the seven-point state over Z_{2^j}, f^(a) = 1 − j/a bits
+    (0 for j = a, negative for j > a).
+  - Consequence: for every n ≥ 6, d ≥ 2 and a ≥ 1, Stab^(Z_d)_n ⊆ Stab^(Z_{2^a})_n exactly when d divides 2^a. So
+    odd d and 2^a are incomparable from n = 6 on (the question R43 left open), Z_2 ⊊ Z_4 ⊊ Z_8 ⊊ … from n = 6 on
+    (before: Z_{2^j} ⊊ Z_{2^a} from n = 2^{j+1} + 3), and the non-Fano state is in no Z_{2^a} cone. It lies in the
+    closure of their union (S^(2^a)/a → S_NF), so the union is not closed.
+  - Proof: the symplectic transfer of Theorem 12 over finite abelian groups with a nondegenerate alternating form
+    (facts S1–S3; compression by symplectic reduction L_P^⊥/L_P, which may leave non-free groups; Lemmas T1–T5 with
+    log|·|; T5 now built as the images of the D_P in (⊕D_P)/Z₀), and *Lemma 4(G′)*: if t^a·V = 0, then
+    H(B₁, …, B_M) ≤ (M − 1/a)·H(C) + M·α + M·γ + Σ(ζ_i + η_i), because the kernel of the map Φ in the proof of (LA)
+    contains the diagonal of the t-torsion, of order ≥ |Y|^{1/a}. It is attained on J − I over Z_{p^a}.
+  - Theorem 1(d), step 1 (the entropy formula S(X) = log|proj_X L| − n_X log d for Z_d stabilizer states) is now
+    proved for every d (§4.6), by the partial-trace argument of Lemma 1 of the A2 note, instead of being cited from
+    Gross–Walter. The results of §4.6–§4.12 that used step 1 (Theorems 5, 9 and 14 among them) no longer depend on
+    that citation.
+- **Erratum (R43).** §5 called the inclusion Stab^(Z_d)_n ⊆ Stab^(Z_{2^k})_n open for odd d and 6 ≤ n ≤ 2p + 2. That
+  range was too large: if some prime q | d has q ∤ 2^k − 1, the GF(q) cube state with t = 2^k violates (LA)_{2^k},
+  valid on Stab^(Z_{2^k}) by Lemma 4(G), so the inclusion already failed for n ≥ 2^{k+1} + 3 (for example d = 5
+  against Z_4 from n = 11; the referee checked the value −2). Found by the referee; corrected in §5, where the whole
+  item is now settled by Theorem 14. The R43 entry below is left as it was.
+- **Referee.** A separate agent, which read the note but not the new code, checked by hand Lemma 4(G′), S1–S3, the
+  compression, Lemmas T1–T5 over groups, the assembly, the values, the consequences, the remarks and the new step-1
+  proof: proved as stated. With its own code (exact arithmetic over Z_{p^K}, routines validated against brute force
+  on 2,200 cases) it ran the full chain of the proof on about 8,300 states over Z_4, Z_8, Z_16 and Z_32 (graph
+  states, CSS states of non-free codes, non-free Lagrangians after random symplectic maps, perturbed seven-point
+  codes, direct sums, annealing minimisers; 4,340 needed a nontrivial compression): no failure, minimum f^(a) = 0.
+  Further: the entropy formula against 13 state vectors (six of them non-free and non-CSS, with L read off the
+  vectors), the compression by brute force on 31 states, about 3·10⁷ annealing proposals (f^(a) never negative),
+  200,338 evaluations of Lemma 4(G′) on Z_{2^K}- and Z_{3^K}-groups and mixed groups (never violated; the form for the
+  next smaller exponent violated 1,960 times), and weakened forms of f^(a) (e-terms dropped, 3·S(Z) in U_Z, U_W
+  instead of 4·U_W, smaller U_Z coefficient, f^(a−1)) negative on its families. Its corrections are in the text:
+  the earlier party counts in the bullets after the theorem (both were stated too high), the R43 erratum above,
+  passages of the note that were not yet updated, the exponent renamed a (k(T) keeps its meaning), and details of
+  the step-1 proof (|G| = d^m from the trace, L = L^⊥, phases, why only the partial-trace half of A2 Lemma 1
+  extends to every d).
+- **Checks.** Gate G40: the values above exactly (a = 1..4; seven-point states over Z_{2^j}, j = 1..5, and over Z_d
+  with odd factors), U_Z pinned in the manifest, and every step of the proof at the tight case (the seven-point state
+  over Z_{2^a}, a = 1, 2, 3: f^(a) = 0, Lemma 4(G′) attained, δ_P = U_P = a). Gate G40b: every step of the proof on 60
+  random states over Z_4 and over Z_8, the entropy formula against state vectors, Lemma 4(G′) on 150 configurations
+  per case (the form for a smaller exponent goes negative), and two exhaustive families of 2^21 codes each.
+  Sandbox: the proof step by step on 400 random states over Z_4 and 400 over Z_8 (no failure; minimum 0); sixteen
+  exhaustive families of 2^21 codes (3 × 7, B + 2^s·P: all 0/1 codes over Z_4, Z_8, Z_16, lifts of the seven-point
+  code, lifts of random 0/1 bases) and all 2^28 codes 4 × 7 with 0/1 entries over Z_4: minimum of a·f^(a) 0, and the
+  four weakened forms negative on the 0/1 families; annealing over CSS codes over Z_4 and Z_8, ten processes of 120 s (6.5·10⁷ moves): never below 0,
+  every minimiser passed every step of the proof; `selftest.py --full` (53 gate lines) on a clean clone of R42 with
+  the R43 and R44 changes, Python 3.12: all pass.
+- **Code.** New `scripts/s35_two_power_transfer.py` (linear algebra over Z_{2^a}, stabilizer states as Lagrangians,
+  `chain`: every step of the proof on uncompressed states, values, state vectors, Lemma 4(G′) tests, `anneal`,
+  `lifts`, `weakened_forms`) and `cc/s38_minform_zn.c` (annealing over CSS codes over Z_{2^a}, and an exhaustive mode
+  over codes B + 2^s·P with P a 0/1 matrix). `selftest.py`: gates G40, G40b. `data/manifest_shas.json`: entry
+  `s35_two_power_form`.
+- **Results.** `results/2026-10-15_r44-sandbox/` (sandbox, no server time).
+- **README.** Status, §0 (R44), the scripts table (s35; the selftest row now counts 53 gate lines), §7 (⓪″).
+  `VERSION`: R44; `CITATION.cff` unchanged. No GitHub Release.
+
 ## R43 (2026-10-15) -- from six parties on, the qubit cone differs from that of every other local dimension; erratum to R42
 - **Result (proved; checked by an independent referee, an agent; like Theorem 12 not yet checked by hand; not in the
   paper).** `docs/R32_reduction_and_local_dimension.md` §4.11, Corollary 13.

@@ -1,0 +1,49 @@
+# Z_4, all 0/1 codes
+  Z_4, base [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0]], + 2^0 P: 2097152 codes; a f^(a): min 0 (recomputed 0); U_Z coefficient (1 - 1/a) - 1/(2a), times 2a: min -2 (recomputed -2); f^(a) without the e-terms: min -48 (recomputed -48); f^(a) with 3 S(Z) in U_Z: min -22 (recomputed -22); f^(a) with U_W instead of 4 U_W: min -24 (recomputed -24); zeros of the first form 34745; proof steps at its minimiser: all hold
+  (27 s)
+# Z_4, seven-point + 2P
+  Z_4, base [[1, 0, 0, 1, 1, 0, 1], [0, 1, 0, 1, 0, 1, 1], [0, 0, 1, 0, 1, 1, 1]], + 2^1 P: 2097152 codes; a f^(a): min 0 (recomputed 0); U_Z coefficient (1 - 1/a) - 1/(2a), times 2a: min -2 (recomputed -2); f^(a) without the e-terms: min 0 (recomputed 0); f^(a) with 3 S(Z) in U_Z: min -22 (recomputed -22); f^(a) with U_W instead of 4 U_W: min -12 (recomputed -12); zeros of the first form 32768; proof steps at its minimiser: all hold
+  (24 s)
+# Z_8, all 0/1 codes
+  Z_8, base [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0]], + 2^0 P: 2097152 codes; a f^(a): min 0 (recomputed 0); U_Z coefficient (1 - 1/a) - 1/(2a), times 2a: min -3 (recomputed -3); f^(a) without the e-terms: min -108 (recomputed -108); f^(a) with 3 S(Z) in U_Z: min -51 (recomputed -51); f^(a) with U_W instead of 4 U_W: min -54 (recomputed -54); zeros of the first form 34745; proof steps at its minimiser: all hold
+  (27 s)
+# Z_8, seven-point + 2P
+  Z_8, base [[1, 0, 0, 1, 1, 0, 1], [0, 1, 0, 1, 0, 1, 1], [0, 0, 1, 0, 1, 1, 1]], + 2^1 P: 2097152 codes; a f^(a): min 0 (recomputed 0); U_Z coefficient (1 - 1/a) - 1/(2a), times 2a: min -3 (recomputed -3); f^(a) without the e-terms: min 0 (recomputed 0); f^(a) with 3 S(Z) in U_Z: min -51 (recomputed -51); f^(a) with U_W instead of 4 U_W: min -27 (recomputed -27); zeros of the first form 2304; proof steps at its minimiser: all hold
+  (25 s)
+# Z_8, seven-point + 4P
+  Z_8, base [[1, 0, 0, 1, 1, 0, 1], [0, 1, 0, 1, 0, 1, 1], [0, 0, 1, 0, 1, 1, 1]], + 2^2 P: 2097152 codes; a f^(a): min 0 (recomputed 0); U_Z coefficient (1 - 1/a) - 1/(2a), times 2a: min -3 (recomputed -3); f^(a) without the e-terms: min 0 (recomputed 0); f^(a) with 3 S(Z) in U_Z: min -51 (recomputed -51); f^(a) with U_W instead of 4 U_W: min -27 (recomputed -27); zeros of the first form 32768; proof steps at its minimiser: all hold
+  (24 s)
+# Z_8, Z_4 seven-point in Z_8 + 4P
+  Z_8, base [[2, 0, 0, 2, 2, 0, 2], [0, 2, 0, 2, 0, 2, 2], [0, 0, 2, 0, 2, 2, 2]], + 2^2 P: 2097152 codes; a f^(a): min 1 (recomputed 1); U_Z coefficient (1 - 1/a) - 1/(2a), times 2a: min 0 (recomputed 0); f^(a) without the e-terms: min 1 (recomputed 1); f^(a) with 3 S(Z) in U_Z: min -33 (recomputed -33); f^(a) with U_W instead of 4 U_W: min -17 (recomputed -17); zeros of the first form 0; proof steps at its minimiser: all hold
+  (36 s)
+# Z_16, all 0/1 codes
+  Z_16, base [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0]], + 2^0 P: 2097152 codes; a f^(a): min 0 (recomputed 0); U_Z coefficient (1 - 1/a) - 1/(2a), times 2a: min -4 (recomputed -4); f^(a) without the e-terms: min -192 (recomputed -192); f^(a) with 3 S(Z) in U_Z: min -92 (recomputed -92); f^(a) with U_W instead of 4 U_W: min -96 (recomputed -96); zeros of the first form 34745; proof steps at its minimiser: all hold
+  (26 s)
+# Z_16, seven-point + 8P
+  Z_16, base [[1, 0, 0, 1, 1, 0, 1], [0, 1, 0, 1, 0, 1, 1], [0, 0, 1, 0, 1, 1, 1]], + 2^3 P: 2097152 codes; a f^(a): min 0 (recomputed 0); U_Z coefficient (1 - 1/a) - 1/(2a), times 2a: min -4 (recomputed -4); f^(a) without the e-terms: min 0 (recomputed 0); f^(a) with 3 S(Z) in U_Z: min -92 (recomputed -92); f^(a) with U_W instead of 4 U_W: min -48 (recomputed -48); zeros of the first form 32768; proof steps at its minimiser: all hold
+  (23 s)
+# Z_4, random 0/1 base #0 + 2P
+  Z_4, base [[1, 1, 0, 1, 1, 0, 0], [0, 0, 1, 1, 1, 1, 1], [0, 1, 1, 1, 0, 0, 0]], + 2^1 P: 2097152 codes; a f^(a): min 178 (recomputed 178); U_Z coefficient (1 - 1/a) - 1/(2a), times 2a: min 350 (recomputed 350); f^(a) without the e-terms: min 102 (recomputed 102); f^(a) with 3 S(Z) in U_Z: min 156 (recomputed 156); f^(a) with U_W instead of 4 U_W: min 118 (recomputed 118); zeros of the first form 0; proof steps at its minimiser: all hold
+  (24 s)
+# Z_4, random 0/1 base #1 + 2P
+  Z_4, base [[0, 0, 1, 0, 1, 1, 1], [0, 1, 1, 0, 1, 1, 1], [1, 1, 1, 0, 1, 0, 1]], + 2^1 P: 2097152 codes; a f^(a): min 10 (recomputed 10); U_Z coefficient (1 - 1/a) - 1/(2a), times 2a: min 18 (recomputed 18); f^(a) without the e-terms: min -10 (recomputed -10); f^(a) with 3 S(Z) in U_Z: min -12 (recomputed -12); f^(a) with U_W instead of 4 U_W: min -2 (recomputed -2); zeros of the first form 0; proof steps at its minimiser: all hold
+  (31 s)
+# Z_4, random 0/1 base #2 + 2P
+  Z_4, base [[0, 0, 1, 1, 0, 1, 1], [0, 1, 1, 1, 1, 1, 0], [0, 1, 1, 0, 1, 1, 1]], + 2^1 P: 2097152 codes; a f^(a): min 60 (recomputed 60); U_Z coefficient (1 - 1/a) - 1/(2a), times 2a: min 116 (recomputed 116); f^(a) without the e-terms: min 44 (recomputed 44); f^(a) with 3 S(Z) in U_Z: min 38 (recomputed 38); f^(a) with U_W instead of 4 U_W: min 36 (recomputed 36); zeros of the first form 0; proof steps at its minimiser: all hold
+  (30 s)
+# Z_4, random 0/1 base #3 + 2P
+  Z_4, base [[1, 1, 0, 0, 1, 1, 0], [0, 0, 0, 0, 0, 1, 0], [0, 0, 1, 0, 0, 0, 1]], + 2^1 P: 2097152 codes; a f^(a): min 64 (recomputed 64); U_Z coefficient (1 - 1/a) - 1/(2a), times 2a: min 124 (recomputed 124); f^(a) without the e-terms: min 24 (recomputed 24); f^(a) with 3 S(Z) in U_Z: min 42 (recomputed 42); f^(a) with U_W instead of 4 U_W: min 34 (recomputed 34); zeros of the first form 0; proof steps at its minimiser: all hold
+  (25 s)
+# Z_4, random 0/1 base #4 + 2P
+  Z_4, base [[1, 0, 0, 0, 0, 1, 0], [1, 1, 0, 1, 1, 0, 0], [1, 1, 0, 1, 1, 1, 0]], + 2^1 P: 2097152 codes; a f^(a): min 8 (recomputed 8); U_Z coefficient (1 - 1/a) - 1/(2a), times 2a: min 16 (recomputed 16); f^(a) without the e-terms: min -16 (recomputed -16); f^(a) with 3 S(Z) in U_Z: min 6 (recomputed 6); f^(a) with U_W instead of 4 U_W: min -10 (recomputed -10); zeros of the first form 0; proof steps at its minimiser: all hold
+  (29 s)
+# Z_4, random 0/1 base #5 + 2P
+  Z_4, base [[1, 0, 0, 0, 1, 0, 1], [1, 1, 1, 0, 0, 1, 1], [0, 1, 0, 0, 1, 0, 0]], + 2^1 P: 2097152 codes; a f^(a): min 43 (recomputed 43); U_Z coefficient (1 - 1/a) - 1/(2a), times 2a: min 83 (recomputed 83); f^(a) without the e-terms: min 17 (recomputed 17); f^(a) with 3 S(Z) in U_Z: min 21 (recomputed 21); f^(a) with U_W instead of 4 U_W: min 25 (recomputed 25); zeros of the first form 0; proof steps at its minimiser: all hold
+  (28 s)
+# Z_4, random 0/1 base #6 + 2P
+  Z_4, base [[0, 0, 0, 1, 1, 0, 0], [1, 0, 0, 1, 0, 0, 1], [0, 0, 1, 0, 0, 1, 1]], + 2^1 P: 2097152 codes; a f^(a): min 116 (recomputed 116); U_Z coefficient (1 - 1/a) - 1/(2a), times 2a: min 226 (recomputed 226); f^(a) without the e-terms: min 86 (recomputed 86); f^(a) with 3 S(Z) in U_Z: min 94 (recomputed 94); f^(a) with U_W instead of 4 U_W: min 86 (recomputed 86); zeros of the first form 0; proof steps at its minimiser: all hold
+  (31 s)
+# Z_4, random 0/1 base #7 + 2P
+  Z_4, base [[1, 0, 1, 1, 0, 1, 0], [1, 0, 1, 0, 0, 0, 0], [0, 0, 0, 1, 1, 0, 1]], + 2^1 P: 2097152 codes; a f^(a): min 150 (recomputed 150); U_Z coefficient (1 - 1/a) - 1/(2a), times 2a: min 294 (recomputed 294); f^(a) without the e-terms: min 118 (recomputed 118); f^(a) with 3 S(Z) in U_Z: min 128 (recomputed 128); f^(a) with U_W instead of 4 U_W: min 120 (recomputed 120); zeros of the first form 0; proof steps at its minimiser: all hold
+  (27 s)
+ALL OK

@@ -1,0 +1,16 @@
+# run 0: [(2, 3, [1, 1, 1, 1, 1, 1, 1]), (3, 3, [1, 1, 1, 1, 1, 1, 1])] {}
+  Z_4, 3 rows, sizes [1, 1, 1, 1, 1, 1, 1]: min 0 (recomputed 0), objective 0, 205 restarts, 11098623 moves; at the minimiser a f^(a) = 0, f12 = 0, S(P) = [0, 1, 0, 0, 0, 1, 0]; proof steps there: all hold
+  Z_8, 3 rows, sizes [1, 1, 1, 1, 1, 1, 1]: min 0 (recomputed 0), objective 0, 168 restarts, 10157361 moves; at the minimiser a f^(a) = 0, f12 = 0, S(P) = [1, 1, 0, 1, 0, 1, 0]; proof steps there: all hold
+# run 1: [(2, 4, [1, 1, 1, 1, 1, 1, 1]), (3, 4, [1, 1, 1, 1, 1, 1, 1])] {'mu': 1.0, 'singles': True}
+  Z_4, 4 rows, sizes [1, 1, 1, 1, 1, 1, 1]: min 0 (recomputed 0), objective 2, 123 restarts, 7673847 moves; at the minimiser a f^(a) = 0, f12 = 0, S(P) = [1, 1, 0, 0, 1, 1, 0]; proof steps there: all hold
+  Z_8, 4 rows, sizes [1, 1, 1, 1, 1, 1, 1]: min 0 (recomputed 0), objective 3, 102 restarts, 7030150 moves; at the minimiser a f^(a) = 0, f12 = 0, S(P) = [0, 1, 0, 1, 0, 0, 0]; proof steps there: all hold
+# run 2: [(2, 4, [1, 1, 1, 1, 1, 1, 1]), (3, 4, [1, 1, 1, 1, 1, 1, 1])] {'mu': 0.3}
+  Z_4, 4 rows, sizes [1, 1, 1, 1, 1, 1, 1]: min 0 (recomputed 0), objective 0, 123 restarts, 7790886 moves; at the minimiser a f^(a) = 0, f12 = 0, S(P) = [2, 2, 2, 2, 2, 2, 0]; proof steps there: all hold
+  Z_8, 4 rows, sizes [1, 1, 1, 1, 1, 1, 1]: min 0 (recomputed 0), objective 0, 103 restarts, 7203719 moves; at the minimiser a f^(a) = 0, f12 = 0, S(P) = [2, 2, 3, 3, 2, 2, 0]; proof steps there: all hold
+# run 3: [(2, 6, [2, 2, 2, 2, 2, 2, 2]), (3, 6, [2, 2, 2, 2, 2, 2, 2])] {'mu': 0.3}
+  Z_4, 6 rows, sizes [2, 2, 2, 2, 2, 2, 2]: min 0 (recomputed 0), objective 30, 48 restarts, 3197040 moves; at the minimiser a f^(a) = 0, f12 = 0, S(P) = [3, 2, 4, 1, 4, 4, 0]; proof steps there: all hold
+  Z_8, 6 rows, sizes [2, 2, 2, 2, 2, 2, 2]: min 0 (recomputed 0), objective 80, 37 restarts, 2689954 moves; at the minimiser a f^(a) = 0, f12 = 0, S(P) = [2, 2, 6, 3, 4, 3, 0]; proof steps there: all hold
+# run 4: [(2, 5, [2, 1, 2, 1, 2, 1, 2]), (2, 6, [2, 2, 2, 1, 1, 1, 2])] {'mu': 1.0, 'singles': True}
+  Z_4, 5 rows, sizes [2, 1, 2, 1, 2, 1, 2]: min 0 (recomputed 0), objective 6, 69 restarts, 4334196 moves; at the minimiser a f^(a) = 0, f12 = 0, S(P) = [1, 0, 2, 0, 3, 0, 0]; proof steps there: all hold
+  Z_4, 6 rows, sizes [2, 2, 2, 1, 1, 1, 2]: min 0 (recomputed 0), objective 10, 56 restarts, 3435975 moves; at the minimiser a f^(a) = 0, f12 = 0, S(P) = [0, 2, 4, 2, 2, 2, 0]; proof steps there: all hold
+ALL OK

@@ -5,7 +5,7 @@ Machine-certified data and tools for the **five-party quantum linear rank cone**
 suite of verification gates. Self-contained: no `psitip` dependency, all input
 data bundled, a static Normaliz binary included, resumable long runs.
 
-> **Status (R43, 2026-10-15).** R38–R43 add results obtained after the paper (§0,
+> **Status (R44, 2026-10-15).** R38–R44 add results obtained after the paper (§0,
 > first items); they are certified by the gates and checked by an independent referee (an agent), not yet by
 > hand. Release R37
 > is the archived version cited by the paper *Stabilizer entropy cones as self-dual slices of linear rank cones:
@@ -96,6 +96,21 @@ and the changelog is explained in the glossary at the end.
   the catalogue has diminishing scientific value; the A1′ campaign is closed
   and server time goes to A2 tools from here on. **Interpretation guard:** an
   unwitnessed orbit is not an unrealisable one.
+- [x] **R44 (2026-10-15): six parties, powers of two — Stab^(Z_d)_n ⊆ Stab^(Z_{2^a})_n exactly when d divides 2^a,
+  for every n ≥ 6** (`docs/R32_reduction_and_local_dimension.md` §4.12, Theorem 14; proved; independent referee
+  (agent); not yet checked by hand; not in the paper).
+  - For every a ≥ 1, f^(a) = f12 + (1 − 1/a)·U_Z ≥ 0 on Stab^(Z_{2^a})_6, with U_Z = S(Z) + S(AYZ) − S(AY) + S(BXZ)
+    − S(BX) + S(CWZ) − S(CW); f^(a)(S_NF) = −1/a, and f^(a) = 1 − j/a at the seven-point state over Z_{2^j}. So odd d
+    and 2^a are incomparable from n = 6 on (the question R43 left open), and Z_2 ⊊ Z_4 ⊊ Z_8 ⊊ … from n = 6 on.
+  - Proof: the symplectic transfer of Theorem 12 over finite abelian groups with an alternating form, with a version
+    of Lemma 4 (LA) for groups of exponent 2^a (Lemma 4(G′): coefficient 3 − 1/a instead of 2). R44 also proves the
+    entropy formula of Theorem 1(d), step 1, for every d (until now cited).
+  - Checks in gates G40 (exact values, the tight case step by step) and G40b (every step of the proof on random Z_4
+    and Z_8 states, state vectors, Lemma 4(G′) tests, two exhaustive families of 2^21 codes); new script
+    `scripts/s35_two_power_transfer.py` and annealer/enumerator `cc/s38_minform_zn.c`; sandbox logs in
+    `results/2026-10-15_r44-sandbox/`.
+  - Erratum: the range of the question R43 left open was too large (for d = 5 against Z_4, n ≥ 11 was already
+    decided); corrected in §5 of the note.
 - [x] **R43 (2026-10-15): from six parties on, the qubit cone differs from the Z_d cone of every d ≥ 3**
   (`docs/R32_reduction_and_local_dimension.md` §4.11, Corollary 13; proved; independent referee (agent); like
   Theorem 12 not yet checked by hand; not in the paper).
@@ -597,7 +612,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 
 | Stage | Command essentials | Purpose / expectation |
 | --- | --- | --- |
-| selftest | `selftest.py [--full] [--workers N]` | 49 regression gate lines (G0–G38, G29b, G31b–G36b, G38b) + ALL PASS; run first on any machine |
+| selftest | `selftest.py [--full] [--workers N]` | 53 regression gate lines (G0–G40, G29b, G31b–G36b, G38b–G40b) + ALL PASS; run first on any machine |
 | s1 | `--variant pure28` (current) / `pure`, `v3`, `pure2` (historical) | build the H-representation; seconds |
 | s2 | `s2_judge.py <H.npy>` | 760 graph-state judge; `pure*` variants must give 0 violations |
 | s3 | `s3_rank19.py <H.npy> [--extra-rows X]` | tight-rank test of the 19 HEC rays; pure28 → 18/19 |
@@ -622,6 +637,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | s32 | `s32_unimodular.py --check [--full]` ; `--search --seconds S [--resume] [--rows …] [--strategies …] --out …` ; `--cover --out … --cover-out … [--rows …] [--seconds S] [--rounds R] [--rings …] [--kappa2]` ; `--check-cover` ; `--self-test` | R38–R40: unimodular realisations and covering certificates of the known extreme rays of Stab₅ (kernel `cc/s32_unimodular.c`: annealing over {-1, 0, 1}, neutral moves, restriction of scalars from quadratic orders); exact certification by diagonal forms over Z, rational rank + minors with gcd 1, GF(p) ranks and Z_d state vectors; covering certificates by recomputed bad primes |
 | s33 | `s33_ci_oddchar.py --rows … [--pairs disjoint/all] [--out …]` | R38: exploratory screen -- common information + the seven-variable forms valid in odd characteristic (DFZ (65), (LB)_2, BKL (6.17) corrected) on the extension; floating-point verdicts |
 | s34 | `s34_six_party_survey.py --check [--full]` ; `--self-test` ; `--enumerate --out …` ; `--survey --lists … --out … --seconds S` ; `--nonfano --lams 2,3 --seconds S` ; `--fields 2,3,4,5,7,8,9 [--controls K]` ; `--fields-python 2,3,4` ; `--transfer [--full --trials N]` ; `--transfer-anneal "n0,…,n6;…" --seconds S [--pull-nf μ]` | R40: six parties, the other direction -- every entropy vector of seven-system qubit and qutrit stabilizer states with at most one qudit per system (`cc/s35_enum7.c`, weighted graphs up to scaling), the qutrit-only orbits and their qubit realisations at multiplicity 2 (`cc/s34_anneal7.c`), and graphs over GF(q) with a prescribed cut-rank vector (`cc/s36_target7.c`; Proposition 10); exact checks over GF(2), GF(3) and GF(q). R42: Theorem 12 -- the inequality f12, every step of its proof on given states (gates G39/G39b), and the adversarial search `cc/s37_minform7.c` |
+| s35 | `s35_two_power_transfer.py --check [--full --trials N]` ; `--anneal "a:rows:n0,…,n6;…" --seconds S [--pull μ [--singles]] [--weakened c]` | R44: Theorem 14 -- the inequality f^(a) = f12 + (1 − 1/a)·U_Z on Z_{2^a} stabilizer states: exact linear algebra over Z_{2^a}, stabilizer states as Lagrangian subgroups (graph, CSS of non-free codes, non-free Lagrangians after random symplectic maps), every step of the proof on given states without compressing them (gates G40/G40b), Lemma 4(G′) tests; annealing over CSS codes and exhaustive families of codes B + 2^s·P (`cc/s38_minform_zn.c`) |
 | s20 | `s20_residuals.py <rays.npy> --lam 1 --seconds 20 --runs 3` | where qubit annealing gets stuck: residual vector of the best state of several independent runs (diagnostic; also keeps any hit as a certificate) |
 | s21 | `s21_qudit_search.py <rays.npy> --p 3 --lams 1 --seconds 60` ; `--self-test` | qudit (p = 3, 5, 7) graph-state search (`cc/s21_anneal_gfp.c`), independent GF(p) re-verification; the self-test checks S(X) = rank_GF(p) W[X, X^c] against exact state vectors |
 | s5 | `s5_orbits.py clr5.out [--raw] [--expect 162]` | rays → S₅ orbits; reconcile against 162 |
@@ -898,8 +914,9 @@ combination of qubit entropy vectors (R41, Proposition 10 and Corollary 11); S_N
 so Stab^(Z_d)_6 ⊄ Stab⁽²⁾_6 for every d that is not a power of 2 (R42, Theorem 12, §4.11; a quantitative
 "symplectic" version of the proof of Proposition 10), and for every d ≥ 3 by the seven-point state over Z_d (R43,
 Corollary 13). Not yet checked by hand; for the paper, a revision could state that from six parties on the qubit cone
-differs from the Z_d cone of every d ≥ 3. The survey for p = 5 is no longer needed for this question. Still
-open at n = 6: two odd primes, and whether Stab^(Z_d)_6 ⊆ Stab^(Z_{2^k})_6 for odd d and k ≥ 2.
+differs from the Z_d cone of every d ≥ 3. The survey for p = 5 is no longer needed for this question. R44 settles the
+powers of two: for n ≥ 6, Stab^(Z_d)_n ⊆ Stab^(Z_{2^a})_n exactly when d | 2^a (Theorem 14, §4.12). Still open at
+n = 6: two odd primes, and Z_d against Z_d′ when d′ has an odd prime factor (for example Z_4 against Z_6).
 
 **① Completeness cross-certification of the 162 (closed at the logical level,
 R9; file optional).** Proposition: the extreme-ray set of a cone is an
