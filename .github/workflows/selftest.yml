@@ -3,7 +3,7 @@ on: [push, pull_request]
 jobs:
   gates:
     runs-on: ubuntu-24.04   # pinned: ubuntu-latest moves to 26.04 from 2026-10-19
-    timeout-minutes: 55     # GitHub's default is 6 h; run #17 hung in apt-get update for over an hour
+    timeout-minutes: 60     # GitHub's default is 6 h; run #17 hung in apt-get update for over an hour
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
@@ -21,4 +21,4 @@ jobs:
       - run: pip install -r requirements.txt
         timeout-minutes: 8
       - run: python3 selftest.py --full
-        timeout-minutes: 35     # R40: G38, G38b add about 3 min (8 min in the sandbox, without lrs); R45: G41b about 6 min in the sandbox (GF(5) exhaustive)
+        timeout-minutes: 40     # R40: G38, G38b add about 3 min (8 min in the sandbox, without lrs); R45: G41b about 6 min in the sandbox (GF(5) exhaustive); R46: G42b about 3 min

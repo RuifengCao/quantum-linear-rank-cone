@@ -1,5 +1,55 @@
 # CHANGELOG
 
+## R46 (2026-10-16) -- fewer parties for two primes: incomparable from n = 2p + 2; the T8 and T8' vectors lie in every cone
+- **Result (Lemma 4\*, Theorem 17, Corollary 19 and Proposition 18 proved; certified by G42/G42b; checked by an
+  independent referee, an agent; not yet checked by hand; not in the paper).** `docs/R32_reduction_and_local_dimension.md`
+  §4.13, §4.14, §4.5.
+  - Lemma 4\*: Lemma 4 applied with the derived subspace C = (A_1 + B_1) ∩ ... ∩ (A_M + B_M). The C-terms are bounded
+    by those of the 2M variables (a modular-law chain gives H(C) >= L; I(C; A_{!=i}) and H(B_i | A_i, C) through
+    intersections with A_{j(i)} + B_{j(i)}), which gives two (2M)-variable inequalities: (LB\*) when the characteristic
+    does not divide t, (LA\*) when it does; also for abelian groups (gcd(t, |V|) = 1, resp. tV = 0). For M >= 4 each
+    fails by 1 on T(t) = [I_M | J_M - I_M] in the other characteristic; over Z_N the values are -log gcd(t, N) and
+    -log(N / gcd(t, N)).
+  - Theorem 17: through doubled codes of T(p), Stab^(p)_n and Stab^(q)_n are incomparable for every odd prime p, every
+    prime q != p and every n >= 2p + 2. With Theorems 9 and 12 (p = 2, n >= 6): for primes p < q, incomparable from
+    n = 2p + 2 on (the paper's Theorem 2' has 2p + 3). For p = 3: n = 8 in both directions, without DFZ (the paper
+    cites DFZ for one direction at n = 8). Corollary 19: Theorem 5 from 2 max(d, d') + 2 parties; Z_{p^j} strictly
+    inside Z_{p^{j+1}} from 2p^j + 2 (p odd).
+  - Proposition 18: both seven-party candidates of R45 fail. 2 S_T8' is the entropy vector of a qutrit state (a
+    "twisted" two-copy family over GF(3), 2 qutrits per system; also 12 S_T8' from a GF(9) + GF(3) mixture) and of a
+    qubit state (the transversal N(H_123, A_4) over GF(4)); 2 S_T8 that of a Z_p state for every prime p >= 5 (an
+    integer two-copy family with rank function h_T8 = r_T8 + r_T8* over Q, bad primes 2 and 3 only), and 6 S_T8 that of
+    a qubit state (N1 over GF(8) and AG(3,2), with r_T8 + r_T8* = r_N1 + r_AG). So S_T8 and S_T8' lie in
+    Stab^(Z_d)_7 for every d, and neither witnesses a non-inclusion. One copy of the configuration is pinned down by
+    its matroid (Proposition 16), two twisted copies are not: unlike the Fano pair at six parties (Theorems 9, 12).
+    The analogy paragraph of §4.10 and §5 are updated accordingly.
+  - DFZ arXiv:1401.2507 (PDF provided by the user, 2026-10-15): the misprint of Theorem 3.1 is in the final expansion of
+    its proof (coefficients 46, 3, 7 of H(X|A,C,D), H(C|B,X,Y), H(C|A,W,Y) instead of 50, 7, 3); the re-expanded form
+    passes all small tests but rests on the rest of their proof and is not used. Theorem 4.1 transcribed twice and
+    checked; balanced, it is >= 42 on h_T8' in all 8! relabellings, as Proposition 18 requires.
+- **Referee.** A separate agent, which read the statements, the proofs and §§2-4.12 of the note but not the code of this
+  round, checked Lemma 4\*, Theorem 17, Corollary 19 and Proposition 18 line by line (verdict: proved as stated) and with
+  its own code: values on T(t) for M = 3..8 over nine fields and over Z_N for 70 cases; about 3.5 M explicit-generator
+  and 13 M lattice configurations over fields and 13 M over 13 abelian groups (never below 0 for a claimed-valid form);
+  each step of the proof on 72,000 configurations; weakened forms go negative; the doubled-code states for p = 3, 5, 7
+  and their Z_N analogues with entropies from the stabilizer group; Proposition 18 with explicit families, stabilizer
+  groups and state vectors (the two-copy GF(3) state of T8' on 68 cuts; the integer family for T8 over Q by Smith forms
+  and Bareiss minors, mod p for 17 primes up to 1009, entropies over GF(5), GF(7), GF(13)). Its corrections are in the
+  text (the M >= 4 restriction over Z_N, the status of p = 2, wording of Corollary 19, the bound (n - 2)/2, the wording
+  of the consequence of Proposition 18); it also sketched stronger forms of Lemma 4* (recorded as a remark, not used).
+- **Checks.** New `scripts/s37_derived_c.py` (gates G42, G42b), `data/s37_derived_forms.npz` (the forms, pinned by the
+  manifest entry `s37_derived_forms`). G42 (~4 s): values, witnesses, Z_N, Proposition 18, DFZ. G42b (~3 min): all
+  8-tuples of subspaces of GF(2)^2, GF(3)^2, GF(5)^2; coordinate lines with every line of GF(2)^4 and GF(3)^4 (no
+  violation; in the other characteristic exactly 1 and 8 violating tuples: AG(3,2) and T8); 1.6 M random arrangements;
+  M = 8 values.
+- README (status, §0, tables, roadmap, pitfall 20, §9); CI time caps 60 min (job) and 40 min (selftest --full);
+  VERSION R46. `results/2026-10-16_r46-sandbox/`: the check logs and selftest --full.
+- Process: the T8' line of the R46 survey (direction two) was found to be a dead end by computation first (the balanced
+  DFZ 4.1 is blind on h_T8'), then explained by Proposition 18; the T8 line (direction one) fell to an exhaustive
+  search for two-copy families over GF(5) and GF(7), whose solutions lift to the integer family. The derived subspace C
+  was proposed in the survey for the self-dual seven-party problem, where it is blind (+35); in the doubled-code
+  setting at eight parties it works directly, which gives Theorem 17.
+
 ## R45 (2026-10-15) -- six parties, one qudit per system over 13 fields: only characteristic 2 stands out; two odd primes at n = 6 assessed
 - **Result (certified; Propositions 15 and 16 proved; checked by two independent referees, agents; not yet checked
   by hand; not in the paper).** `docs/R32_reduction_and_local_dimension.md` §4.10, *Other fields*.

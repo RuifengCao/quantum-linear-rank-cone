@@ -620,5 +620,52 @@
     29990
    ]
   }
+ },
+ "s37_derived_forms": {
+  "note": "Sections 4.13, 4.14, 4.5 (R46): Lemma 4* -- the forms (LB*) and (LA*) obtained from Lemma 4 with the derived subspace C = (A_1 + B_1) ∩ ... ∩ (A_M + B_M), for M = 4 (t = 3; variables A, B, C, D, W, X, Y, Z = bits 0..7) and M = 6 (t = 5; A_1..A_6, B_1..B_6 = bits 0..11), j(i) = i + 1 mod M; DFZ arXiv:1401.2507 Theorem 4.1 (as printed), Theorem 3.1 as printed and re-expanded from the bounds of its proof.  sha256 of each form (int64 little-endian, index = subset mask), of the file and of its content; the balanced values on the doubled-code witnesses of Theorem 17; the counts of the exhaustive coordinate-line runs of G42b [total, negative, minimum].",
+  "file_sha256": "18f9667e6e4dc8cc2acf1d12f353639eac533e97a9639430a05406f3f67aac8e",
+  "sha256": "139f3a9fca0fa1aa48b5c419aef27bf1ed3a5f0b569ee31bb694d3e29ffd53e9",
+  "forms": {
+   "LB4": "1cbb0bf5d5b33b9a623e399d05f699b8cf52407442a0583578179f3903b83500",
+   "LA4": "5bcb34f6a21fdc403d58f7213294aa7efd2c17a1a4a12019f72e9f332c88e452",
+   "LB6": "d243bdb66a2f85ed57f7b858dd57788d6e95a6f8d5b8e6ab6fac7a116322dbfe",
+   "LA6": "37758def2e6123b844e959f6bd6cfdf6f000747441199ed49ec7470958b6e4a9",
+   "DFZ41": "6a021d05de52a6f2d7fdffe31d51e318005a348a86b5829cbd8382952e3d03bb",
+   "DFZ31_printed": "6c845ed5f0442f20074d1b36c4d411553b200ee5c004b559e428f28b72305b0f",
+   "DFZ31_reexpanded": "07bf88631716039fd8cfddbaae59656365279fad6a05f85b44248bbd8d9fe7b6"
+  },
+  "witness": {
+   "t=3,LB,GF(3)": -1,
+   "t=3,LB,GF(2)": 0,
+   "t=3,LB,GF(5)": 0,
+   "t=3,LA,GF(2)": -1,
+   "t=3,LA,GF(5)": -1,
+   "t=3,LA,GF(7)": -1,
+   "t=3,LA,GF(3)": 0,
+   "t=5,LB,GF(5)": -1,
+   "t=5,LA,GF(3)": -1
+  },
+  "coordinate_lines": {
+   "LB*,GF(2)": [
+    50625,
+    0,
+    0
+   ],
+   "LA*,GF(3)": [
+    2560000,
+    0,
+    0
+   ],
+   "LA*,GF(2) (not claimed)": [
+    50625,
+    1,
+    -1
+   ],
+   "LB*,GF(3) (not claimed)": [
+    2560000,
+    8,
+    -1
+   ]
+  }
  }
 }

@@ -88,6 +88,18 @@ Fano pair, [I₄ | J₄ − I₄]: its matroid is T₈ in characteristic 3, T₈
 the candidates at seven parties. Certified and proved; two independent referees (the second on the exhaustive
 enumerator, Proposition 15 and the final text); not yet checked by hand; not in the paper.
 
+Round R46 adds §4.13 and §4.14. §4.13: Lemma 4 applied with the *derived* subspace C = (A₁ + B₁) ∩ … ∩ (A_M + B_M)
+gives two inequalities on the 2M variables alone (Lemma 4*), valid when the characteristic does not divide t and
+when it does (also for abelian groups); for M ≥ 4 each fails by 1 on T(t) = [I_M | J_M − I_M] in the other case.
+With doubled codes (§4.3): **for primes p < q, Stab⁽ᵖ⁾_n and Stab⁽q⁾_n are incomparable from n = 2p + 2 on**
+(Theorem 17; Theorem 2′ had 2p + 3; for p = 2 this is Theorems 9 and 12). For p = 3 that is n = 8 in both
+directions, without DFZ. Theorem 5 holds from 2·max(d, d′) + 2 parties (Corollary 19). §4.14: both seven-party
+candidates of R45 fail: the T₈ and T₈′ vectors lie in Stab^(Z_d)_7 for every d (Proposition 18; "twisted" two-copy
+families over ℚ and GF(3), one copy over GF(4), and GF(8) + GF(2)). §4.5: the misprint in DFZ Theorem 3.1 sits in the
+final expansion of its proof; DFZ Theorem 4.1 is checked.
+Proved (Lemma 4*, Theorem 17, Corollary 19, Proposition 18); certified (G42, G42b); independent referee; not yet
+checked by hand; not in the paper.
+
 ## 1. Setting
 
 * n visible parties A₁, …, A_n and a purifier F; E is the set of all n + 1 parties. A *pure-symmetric* vector S
@@ -441,6 +453,9 @@ the cube {0,1}³, i.e. the cube states of §4.1. For Theorem 2′ take t = p, ov
    * The GF(q) state takes the value −2 on the pulled-back (LA), which holds for every p-qudit stabilizer state.
 4. n > 2p + 3: merge empty parties into the purifier. ∎
 
+(R46: one party less, from n = 2p + 2 on, with C derived from the other 2M subspaces and doubled codes of
+T(p) = [I_M | J_M − I_M] in place of the cube states: Theorem 17, §4.13.)
+
 Notes:
 
 * For t = 2, Lemma 4 also re-proves Theorem 2 without DFZ.
@@ -468,6 +483,28 @@ checked. Theorem 4.1 of the same paper (valid for characteristic 3) passes the s
 used either. Section 4.4 needs neither. (R37) Sec. V A of the paper uses DFZ's Theorems 4.1 and 4.2, as stated
 there, together with Proposition 3 of §4.3, for one direction at eight parties; that inequality was not checked
 independently beyond the exhaustive test above.
+
+**DFZ (R46), with the arXiv PDF in hand.** (Theorem and page numbers of arXiv:1401.2507v1; the paper's App. H records
+that Theorem 3.1 is identical in the published version.)
+
+* *Where the misprint sits.* The proof of Theorem 3.1 ends (p. 25) with
+  H(A) ≤ 6Δ_A* + (singles) + Δ_B + Δ_B̂ + Δ_C + Δ_C̃ + 3Δ_Ĉ, then substitutes Δ_A* (eq. (63), p. 19) and reaches
+  18Δ_A + 7Δ_B + Δ_B̂ + 7Δ_C + 7Δ_C̃ + 3Δ_Ĉ + 6Δ_D, which is correct. Expanding these bounds as defined on pp. 13–16
+  gives the coefficients 46, 3 and 7 for H(X|A,C,D), H(C|B,X,Y) and H(C|A,W,Y), where the statement prints 50, 7
+  and 3; every other coefficient agrees. The re-expanded form takes the value 0 on the counterexample above and −1
+  on T₈ over GF(3), and it is nonnegative on all 8-tuples of subspaces of GF(2)², GF(3)² and GF(5)² and on 200,000
+  random arrangements over GF(5) (G42, G42b; `scripts/s37_derived_c.py`). Its validity rests on the rest of the
+  proof, which we have not checked. It is not used: (LB*) of Lemma 4* with t = 3 (§4.13) is a self-contained
+  eight-variable inequality of the same kind.
+* *Theorem 4.1* (characteristic 3), transcribed twice (as a coefficient list and as a functional, typed separately;
+  they agree) and checked against the rendered pp. 31–32. It takes the value −1 on [I₄ | J₄ − I₄] over every tested
+  field of characteristic ≠ 3 (GF(2), 4, 5, 7, 8, 11, 13; Theorem 4.2) and 0 over GF(3) and GF(9), and it is
+  nonnegative on all 8-tuples of subspaces of GF(3)² and on 200,000 random GF(3) arrangements. Balanced
+  (coefficients 17, 18, 25, 28 on W, X, Y, Z), it is at least 42 on h_T8′ = r_T8′ + r_T8′* and on h_T8 in all 8!
+  relabellings, and −2 on h_AG = 2r_AG (1,344 relabellings). On h_T8′ this blindness is forced: S_T8′ lies in
+  Stab⁽³⁾_7 (Proposition 18, §4.14).
+* The use of Theorems 4.1–4.2 in Sec. V A of the paper is superseded by Theorem 17 (§4.13), which gives both
+  directions at eight parties for p = 3 without DFZ.
 
 **BKL (R36).** Blasiak–Kleinberg–Lubetzky, arXiv:1108.2489v1, Section 6, give two seven-variable inequalities on the
 points of GF(2)³ (transcribed term by term from the rendered PDF, p. 19 eq. (6.8) and p. 22 eq. (6.17), into
@@ -610,7 +647,8 @@ The entropies of the Z_4 cube state also agree with its state vector (4^8 amplit
 
 So for n ≥ 2·max(d, d′) + 3, Stab^(Z_d)_n ⊆ Stab^(Z_d′)_n holds exactly when d divides d′. In particular, the cones
 of the local dimensions 2 ≤ d ≤ (n − 3)/2 are pairwise distinct. For two primes, Theorem 2′ gives the better bound
-n ≥ 2·min(p, q) + 3.
+n ≥ 2·min(p, q) + 3. (R46: every bound of this theorem and of Theorem 2′ holds with one party less, 2·max(d, d′) + 2
+and 2·min(p, q) + 2, and the cones of 2 ≤ d ≤ (n − 2)/2 are pairwise distinct: Corollary 19 and Theorem 17, §4.13.)
 
 *Proof.* If d | d′, then Γ^(d) ⊆ Γ^(d′), and Theorem 1(d) gives the inclusion. If d ∤ d′, choose a prime p with
 v_p(d) > v_p(d′) =: j.
@@ -629,7 +667,8 @@ For more parties, merge empty parties into the purifier. ∎
 * *Prime powers.* For j ≥ 1 and n ≥ 2p^j + 3, Stab^(Z_{p^j})_n ⊊ Stab^(Z_{p^{j+1}})_n (t = p^j, witness over
   Z_{p^{j+1}}). For example, qubits ⊊ Z_4 from n = 7 (the Z_4 cube state), and Z_4 ⊊ Z_8 from n = 11. (R43:
   qubits ⊊ Z_{2^k} for every k ≥ 2 already from n = 6, by the seven-point state over Z_{2^k}; Corollary 13, §4.11.
-  R44: Z_{2^j} ⊊ Z_{2^a} for all 1 ≤ j < a from n = 6; Theorem 14, §4.12.)
+  R44: Z_{2^j} ⊊ Z_{2^a} for all 1 ≤ j < a from n = 6; Theorem 14, §4.12. R46: for odd p from n = 2p^j + 2, for
+  example Z_3 ⊊ Z_9 from n = 8; Corollary 19, §4.13.)
 * *Two theories of local dimension 4.* Galois qudits give exactly the qubit cone. Restriction of scalars gives
   Stab^(GF(4)) ⊆ Stab⁽²⁾ (R31, field reduction), and extension of scalars on CSS codes gives ⊇. Z_4 qudits give a
   strictly larger cone from n = 7 on (R43: from n = 6 on, Corollary 13).
@@ -658,8 +697,9 @@ In short:
   * qubits against every odd p: Stab⁽²⁾_n ⊄ Stab⁽ᵖ⁾_n from n = 6 (Theorem 9, §4.8; also against Z_d for every odd
     d), and Stab⁽ᵖ⁾_n ⊄ Stab⁽²⁾_n from n = 7 (Theorem 2; R42: from n = 6, Theorem 12, §4.11, also for Z_d with d
     not a power of 2);
-  * primes p < q from n = 2p + 3 (Theorem 2′);
-  * Stab^(Z_d) ⊄ Stab^(Z_d′) for d ∤ d′ from n = 2·max(d, d′) + 3 (Theorem 5); (R43) for d′ = 2 and every d ≥ 3
+  * primes p < q from n = 2p + 3 (Theorem 2′); (R46) from n = 2p + 2 (Theorem 17, §4.13);
+  * Stab^(Z_d) ⊄ Stab^(Z_d′) for d ∤ d′ from n = 2·max(d, d′) + 3 (Theorem 5); (R46) from 2·max(d, d′) + 2
+    (Corollary 19, §4.13); (R43) for d′ = 2 and every d ≥ 3
     from n = 6 (Corollary 13, §4.11); (R44) for every power of two d′ = 2^a and every d ∤ 2^a from n = 6
     (Theorem 14, §4.12).
   * GF(4) and GF(2) never differ (§4.6).
@@ -1460,7 +1500,10 @@ on one cut (2 against 3). This is a heuristic:
   (arXiv:1401.2507: Theorems 3.1–3.2 for characteristic ≠ 3, Theorem 3.1 misprinted, §4.5; Theorems 4.1–4.2 for
   characteristic 3, which with doubled codes give Stab⁽q⁾_8 ⊄ Stab⁽³⁾_8, §5).
 
-Neither question at n = 7 is settled here.
+Neither question at n = 7 is settled here. (R46: the heuristic fails. Proposition 18 (§4.14) puts S_T8 and S_T8′ in
+Stab^(Z_d)_7 for every d: one copy of the configuration is pinned down by its matroid, but two "twisted" copies reach
+h_T8 over ℚ (hence over GF(p), p ≥ 5) and h_T8′ over GF(3). At eight parties both directions hold for 3 against every
+q ≠ 3, by Theorem 17, §4.13.)
 
 *Independent referee (R45).* A separate agent, with its own code, re-checked all 1,646 certificates with its own field
 tables, recomputed the orbits and their sizes, re-enumerated GF(2), GF(3) and GF(4) exhaustively in its own normal
@@ -1932,6 +1975,209 @@ for the consequences.
   R43 (§5), passages of the note not yet updated for R44, the exponent renamed a, and details of the step-1 proof.
   Not yet checked by hand.
 
+### 4.13 Fewer parties for two primes: the derived subspace C [proved; independent referee] (R46)
+
+Theorem 2′ evaluates Lemma 4 on the 2M + 1 points e_i, c − e_i, c, through self-dual cube states with 2p + 3 parties.
+The point c is determined by the other 2M: on T(t) = [I_M | J_M − I_M] (A_i = ⟨e_i⟩, B_i = ⟨c − e_i⟩, M = t + 1) it
+spans (A₁ + B₁) ∩ … ∩ (A_M + B_M), since c = e_i + (c − e_i). Deriving C in this way and bounding its terms by those
+of the 2M variables gives inequalities on 2M variables, and the doubled codes of §4.3 need one party per variable.
+
+**Lemma 4\* [proved].** Let M = t + 1 ≥ 3, and let A₁, …, A_M, B₁, …, B_M be subspaces of a finite-dimensional vector
+space over a field F, or subgroups of a finite abelian group V (H = log |·|). Write P_m = A_m + B_m,
+p_S = H(Σ_{m∈S} P_m) (so p_m = H(A_m, B_m), p₁₂ = H(A₁, B₁, A₂, B₂), …), A = Σ_k A_k, A_{≠i} = Σ_{j≠i} A_j, and fix
+for every i an index j(i) ≠ i. With α = Σ_k H(A_k) − H(A) and ζ_i = H(B_i | A_{≠i}) as in Lemma 4, put
+
+* L = p₁ + p₂ − p₁₂ + Σ_{k=3}^{M} (p_k − p_{1k} − p_{2k} + p_{12k}),
+* κ = H(A₁, …, A_M, B₁, …, B_M) − H(A),
+* δ*_i = I(A_{j(i)}, B_{j(i)} ; B_i) + I(A_i ; A_{≠i} | B_i),
+* θ_i = I(A_i ; A_{j(i)}, B_{j(i)}).
+
+Then
+
+* (LB\*) if char F does not divide t (groups: gcd(t, |V|) = 1):
+  M·L ≤ H(B₁, …, B_M) + M·[κ + M·α + Σ_i (δ*_i + ζ_i)];
+* (LA\*) if char F divides t (groups: t·V = 0):
+  H(B₁, …, B_M) ≤ Σ_i (p_i − H(A_i)) − L + Σ_i θ_i + M·α + M·κ + Σ_i ζ_i.
+
+On T(t) with M ≥ 4 every error term vanishes (α = κ = ζ_i = δ*_i = θ_i = 0), p_i − H(A_i) = 1, and L = 1
+(p_m = 2, p₁₂ = 3, p_{12k} = 4), while H(B₁, …, B_M) = M − 1 if char F | t and M otherwise (§4.4). So (LB\*) fails
+by 1 when char F | t, and (LA\*) fails by 1 when char F ∤ t. Over Z_N (M ≥ 4), (LA\*) takes the value
+−log(N / gcd(t, N)) and (LB\*) the value −log gcd(t, N): the Smith form of J − I is diag(1, …, 1, t), and every other
+term is its value over a field, in units of log N. For M = 3, L = 0 on T(2) and neither form fails: the six points
+without c do not pin down the characteristic, which is why p = 2 needs the transfers of §4.8 and §4.11.
+
+*Proof.* Let C = P₁ ∩ … ∩ P_M and apply Lemma 4, or Lemma 4(G), to (A_i, B_i, C). The terms that involve C are
+bounded as follows.
+
+1. H(C) ≥ L. For subspaces, (X ∩ Y) + Z ⊆ (X + Z) ∩ (Y + Z). Put X₂ = P₁ ∩ P₂, of dimension p₁ + p₂ − p₁₂, and
+   X_k = X_{k−1} ∩ P_k. Since X_{k−1} ⊆ P₁ ∩ P₂, X_{k−1} + P_k ⊆ (P₁ + P_k) ∩ (P₂ + P_k), whose dimension is
+   p_{1k} + p_{2k} − p_{12k}; so dim X_k ≥ dim X_{k−1} + p_k − p_{1k} − p_{2k} + p_{12k}, and C = X_M.
+2. γ = H(C | A) ≤ κ, since C lies in the sum of all A_m and B_m.
+3. ε_i = H(C | A_i, B_i) = 0, since C ⊆ P_i.
+4. δ_i = I(C ; A_{≠i}) ≤ δ*_i. Let L_i = P_i ∩ A_{≠i} ⊇ N_i = B_i ∩ A_{≠i}. Since P_i + A_{≠i} = A + B_i, the
+   dimension formula gives dim L_i − dim N_i = H(A_i | B_i) − H(A_i | B_i, A_{≠i}) = I(A_i ; A_{≠i} | B_i). With
+   j = j(i), C ∩ A_{≠i} ⊆ P_j ∩ L_i, and (P_j ∩ L_i)/(P_j ∩ N_i) embeds in L_i/N_i; hence
+   dim(C ∩ A_{≠i}) ≤ dim(P_j ∩ B_i) + I(A_i ; A_{≠i} | B_i) = δ*_i.
+5. η_i = H(B_i | A_i, C) = p_i − H(A_i) − H(C) + dim(A_i ∩ C), since A_i + B_i + C = P_i; and
+   dim(A_i ∩ C) ≤ dim(A_i ∩ P_{j(i)}) = θ_i.
+
+(LB) reads M·H(C) ≤ H(B) + M·[γ + M·α + Σ_i (δ_i + ε_i + ζ_i)]: use 1 on the left and 2–4 on the right. In (LA),
+H(B) ≤ (M − 1)·H(C) + M·α + M·γ + Σ_i (ζ_i + η_i), step 5 turns the right side into
+Σ_i (p_i − H(A_i)) − H(C) + Σ_i dim(A_i ∩ C) + M·α + M·γ + Σ_i ζ_i; then use 1, 5 and 2. For groups every step uses
+only |X + Y|·|X ∩ Y| = |X|·|Y|, inclusions and embeddings of quotients, and Lemma 4(G) has exactly the stated
+hypotheses. ∎
+
+For t = 3 the two forms have 34 and 30 terms (`python3 scripts/s37_derived_c.py --forms`); (LB\*) is an eight-variable
+inequality for characteristic ≠ 3 violated by T₈, the role of DFZ's misprinted Theorem 3.1, and (LA\*) one for
+characteristic 3 violated by T₈′ and by AG(3, 2), the role of DFZ's Theorem 4.1 (§4.5).
+
+**Theorem 17 [proved].** For every odd prime p, every prime q ≠ p and every n ≥ 2p + 2,
+
+    Stab⁽ᵖ⁾_n ⊄ Stab⁽q⁾_n   and   Stab⁽q⁾_n ⊄ Stab⁽ᵖ⁾_n.
+
+So for primes p < q the two cones are incomparable from n = 2p + 2 on: for odd p by Theorem 17, for p = 2 by
+Theorems 9 and 12 (n ≥ 6 = 2p + 2; with Theorem 12's status). Theorem 2′ had 2p + 3. For p = 3: 3 against every
+q ≥ 5 from n = 8 on, in both directions (before: n = 9, and one direction at n = 8 through DFZ, §4.5). For q < p, or
+q = 2, the statement holds but is weaker than results already known.
+
+*Proof.* Let t = p, M = p + 1 ≥ 4 and n = 2M. (LB\*) holds on every GF(q)-representable polymatroid (q ∤ p), hence on
+LR⁽q⁾_n, and T(p) over GF(p) violates it by 1; so LR⁽ᵖ⁾_n ⊄ LR⁽q⁾_n. Likewise (LA\*) holds on LR⁽ᵖ⁾_n, and T(p) over
+GF(q) violates it, so LR⁽q⁾_n ⊄ LR⁽ᵖ⁾_n. The Corollary of Proposition 3 (§4.3) turns both into the claimed
+non-inclusions. Explicitly, the witnesses are the doubled-code states of T(p): the CSS state of [G | G], G = [I | J − I]
+(M × 2M), in which each of the 2p + 2 parties holds one qudit and the purifier the 2p + 2 copies. On them
+h_S = r + (modular) on the visible parties, and the balanced forms take the value −1, because T(p) has no coloops
+(e_i = (c − e_j) − Σ_{k≠i,j} e_k and c − e_i = Σ_{j≠i} e_j). For n > 2p + 2, add empty parties. ∎
+
+**Corollary 19 (Theorem 5 with one party less) [proved].** Let d, d′ ≥ 2 with d ∤ d′. Then
+Stab^(Z_d)_n ⊄ Stab^(Z_d′)_n for every n ≥ 2·max(d, d′) + 2. So for n ≥ 2·max(d, d′) + 2, Stab^(Z_d)_n ⊆ Stab^(Z_d′)_n
+exactly when d | d′, and the cones of the local dimensions 2 ≤ d ≤ (n − 2)/2 are pairwise distinct. For every odd
+prime p and j ≥ 1, Stab^(Z_{p^j})_n ⊊ Stab^(Z_{p^{j+1}})_n from n = 2p^j + 2 on (for example Z_3 ⊊ Z_9 from n = 8).
+
+*Proof.* As for Theorem 5 (§4.6): choose a prime p with v_p(d) > v_p(d′) = j.
+
+* j = 0, p odd: the doubled-code state of T(p) over GF(p) (2p + 2 ≤ 2d + 2 parties) lies in Stab⁽ᵖ⁾ ⊆ Stab^(Z_d) and
+  violates the balanced (LB\*) with t = p by log p; (LB\*) holds on Stab^(Z_d′) by Lemma 4\* for groups
+  (gcd(p, |V|) = 1) and Theorem 1(d). j = 0, p = 2: d is even and d′ odd, and Theorem 9 gives n ≥ 6.
+* j ≥ 1 and d′ ≥ 3: take t = d′ and N = p^{j+1}, which divides d. The doubled-code state of T(d′) over Z_N
+  (2d′ + 2 parties) lies in Stab^(Z_N) ⊆ Stab^(Z_d) and violates the balanced (LA\*) with t = d′ by
+  log(N / gcd(d′, N)) = log p; (LA\*) holds on Stab^(Z_d′), since d′·V = 0 for every group of exponent dividing d′.
+  Proposition 3 holds over Z_N (with the CSS formula of Theorem 1(d), step 3, and the equal sizes of row and column
+  spaces mod N), and T(d′) has no coloops over Z_N either.
+* j ≥ 1 and d′ = 2: then 4 | d, and the witness of Theorem 5 has 2d′ + 3 = 7 ≤ 2·max(d, d′) + 2 parties.
+
+The prime powers are the case d = p^{j+1}, d′ = p^j ≥ 3 of the second item; for p = 2, Theorem 14 gives n ≥ 6. ∎
+
+*Remarks.*
+
+* *Stronger forms [sketch by the referee, not refereed further; not used].* (LA\*) holds without the θ and κ terms
+  (contract by Σ_i (A_i ∩ C) first), and (LB\*) without κ and α and with coefficient 1 on Σ_i δ*_i (in the counting
+  proof of Lemma 4(G), |Y| = |C₁| / |C₁ ∩ O| and C₁ ⊆ A). The numerical checks below agree with both.
+* *Below 2p + 2.* Through the sandwich, fewer parties would need (2p + 1)-variable inequalities that separate the
+  two characteristics; Lemma 4\* has 2p + 2 variables. Otherwise the witnesses are not doubled codes, like the
+  Steane and non-Fano states at n = 6 for p = 2 (§4.8, §4.11). For p = 3 at n = 7 see §4.14.
+
+*Checks (G42, G42b; `scripts/s37_derived_c.py`; certified).* The forms for M = 4 and 6 are pinned by the manifest
+(`data/s37_derived_forms.npz`). On T(t) over GF(2), GF(3), GF(4), GF(5), GF(7), GF(8), GF(9), GF(11) for M = 4, 5, 6,
+and over GF(3), GF(7) for M = 8, the values are exactly as stated, for all 81 choices of j(·) at M = 4. Over Z_9, Z_4,
+Z_8, Z_27, Z_25 the values are −log gcd(t, N) and −log(N / gcd(t, N)). The balancing coefficients are nonnegative
+(9 and 5 on B₁, …, B₄ for M = 4). The doubled-code states of T(3) and T(5), with entropies computed from the
+[G | G] code, give −1 on the witnesses and 0 in the matching characteristic. Validity tests: all 8-tuples of
+subspaces of GF(2)², GF(3)² and GF(5)² (16,777,216 over GF(5)): no violation of either form; coordinate lines A..D
+with every line W..Z of GF(2)⁴ (50,625 tuples, (LB\*)) and of GF(3)⁴ (2,560,000, (LA\*)): no violation, while in the
+other characteristic exactly 1 and 8 tuples violate (AG(3, 2) and the scalings of T₈); 1.2 M random arrangements of
+subspaces of GF(2)⁴, GF(3)⁴, GF(5)⁴: minimum 0.
+
+*Independent referee (R46).* A separate agent, which read the statements, the proofs and §§2–4.12 of this note but
+not the code of this round, checked Lemma 4\*, Theorem 17, Corollary 19 and Proposition 18 line by line. Verdict:
+proved as stated. With its own code it confirmed the values on T(t) for M = 3–8 over nine fields and five choices
+of j(·), and over Z_N for M = 4–10 and ten moduli (70 cases); about 3.5 M explicit-generator configurations and
+13 M lattice configurations over fields (perturbed T(t), near-J − I scalings, T(t) ⊗ F² under random maps, direct
+sums, random), and 13 M over 13 abelian groups, with hill-climbing, never went below 0 for a claimed-valid form;
+each step of the proof held on 72,000 configurations with C computed explicitly; weakened forms (without δ*, ζ or
+α) went negative; it built the doubled-code states for p = 3, 5, 7 against several q and their Z_N analogues for
+nine (N, t), computing the entropies from the stabilizer group. Its corrections are in the text: the M ≥ 4
+restriction for the values over Z_N, the status of the case p = 2, the wording "for every odd prime p and j ≥ 1"
+in Corollary 19, the bound (n − 2)/2, and the stronger forms in the first remark. Not yet checked by hand.
+
+### 4.14 Seven parties: the T₈ and T₈′ vectors lie in every cone [proved; certified; independent referee] (R46)
+
+Notation of §4.10 (Proposition 16): v₁, …, v₄ = A, B, C, D and w₁, …, w₄ = W, X, Y, Z; the six type-2 sets
+{v_k, v_l, w_k, w_l}; H_m = {v_j : j ≠ m} ∪ {w_m} and its complement A_m = {v_m} ∪ {w_j : j ≠ m}. For S, S′ ⊆ {1, …, 4},
+N(H_S, A_{S′}) is the rank-4 sparse paving matroid on the eight elements whose circuit-hyperplanes are the six
+type-2 sets, the H_m with m ∈ S and the A_m with m ∈ S′ (so T₈′ = N(H_{1234}, ∅) and AG(3, 2) = N(H_{1234}, A_{1234}));
+N1 is the one with the six type-2 sets and {v₁, …, v₄}, {w₁, …, w₄}. S_T8 = π(r_T8) over GF(3), S_T8′ = π(r_T8′) over
+GF(5), π(r)(X) = r(X) + r(E ∖ X) − r(E) (Theorem 1, step 2), and h_T8 = r_T8 + r_T8*, h_T8′ = r_T8′ + r_T8′*.
+
+**Proposition 18 [proved; certified (G42)].**
+
+1. 2·S_T8′ is the entropy vector of a qutrit stabilizer state with two qutrits per system, and of a qubit
+   stabilizer state with two qubits per system.
+2. For every prime p ≥ 5, 2·S_T8 is the entropy vector of a Z_p stabilizer state with two qudits per system; and
+   6·S_T8 is that of a qubit stabilizer state with six qubits per system.
+
+Hence S_T8 and S_T8′ lie in Stab^(Z_d)_7 for every d ≥ 2 (S_T8 for p = 3 and S_T8′ for p ≥ 5 through the CSS states of
+T₈ and T₈′ themselves; Stab⁽ᵖ⁾ ⊆ Stab^(Z_d) for p | d by Theorem 5). So neither witnesses a non-inclusion between the
+stabilizer cones of two local dimensions: the eight-element analogue of the Fano / non-Fano pair (§4.10) fails at
+seven parties.
+
+*Proof.* Each state is the CSS state of a family of subspaces with rank function g, and its entropy vector is π(g)
+(Theorem 1, step 2; for GF(4) and GF(8), read the family over the prime field by restriction of scalars). For a
+matroid, π(r*) = π(r), so π(h_T8) = 2·S_T8 and π(h_T8′) = 2·S_T8′. In the families below, a subspace is the column
+span of an 8 × 2 matrix written as four 2 × 2 blocks (blocks 1, …, 4 of (F²)⁴).
+
+1. Over GF(3): v_j is the j-th coordinate block, and w_m has the block τ_m = I + ρ_m^{-1} in place m and I elsewhere,
+   with (ρ_m) = ([[0,1],[1,0]], [[0,1],[2,1]], [[0,1],[2,1]], [[0,2],[2,0]]), that is,
+   (τ_m) = ([[1,1],[1,1]], [[2,2],[1,1]], [[2,2],[1,1]], [[1,2],[2,1]]). Its rank function is h_T8′ (all 255 sets,
+   exact), so its CSS state has entropy vector 2·S_T8′. Over GF(4) = GF(2)[ω], the vectors v_j = e_j and w_m =
+   (1, …, 1) with the entry t_m in place m, t = (0, 0, 0, ω), represent N(H_{123}, A_4), which contains exactly one of
+   H_m, A_m for every m; since π(r_N)(X) = 4 − [X ∈ N] − [E ∖ X ∈ N] on 4-sets and the type-2 sets come in
+   complementary pairs, π(r) = S_T8′, and read over GF(2) the family has two columns per element.
+2. Over ℚ, with blocks A, B, C, W: v₁, v₂, v₃, w₁ (A, B, C, W) are the four coordinate blocks,
+   X = [I; I; 0; I], Y = [I; 0; I; I], Z = [I; J; BJ; R₄] and D = [S₁; I; B; S₄], where
+   J = [[1,1],[0,1]], B = [[0,−1],[1,1]], BJ = [[0,−1],[1,2]], R₄ = [[0,0],[4,3]], S₁ = [[2,−1],[−4,2]],
+   S₄ = [[1,0],[0,0]]. Its rank function over ℚ is h_T8 (all 255 sets, exact). The only primes that divide a nonzero
+   invariant factor of the integer matrix of some set are 2 and 3 (Smith forms); since the rank mod p is the number of
+   invariant factors not divisible by p, the reduction mod p has rank function h_T8 for every prime p ≥ 5 (mod 2 and
+   mod 3 it does not). Its CSS state over GF(p) has entropy vector 2·S_T8. For qubits: N1 is represented over
+   GF(8) = GF(2)[x]/(x³ + x + 1) by v₁, v₂, v₃ = e₁, e₂, e₃, v₄ = v₁ + v₂ + v₃ and w_m = s_m v_m + e₄ with
+   (1/s_m) = (1, x, x², 1 + x + x²), AG(3, 2) is [I₄ | J₄ − I₄] over GF(2) (Proposition 16), and
+   r_T8 + r_T8* = r_N1 + r_AG (both sides have deficiency 2 on the type-2 sets and 1 on every H_m, A_m, {v}, {w}); so
+   π(3·r_N1 + 3·r_AG) = 6·S_T8, a GF(2) family with six columns per element. ∎
+
+*How the families were found [exploratory; not used in the proof].*
+
+* T₈′: up to a change of basis, an a-fold family on the 9-dimensional face of h_T8′ (R46 survey; its rays are the 256
+  matroids N(H_S, A_{S′})) is v_j = e_j ⊗ I_a and w_m with blocks I and τ_m in place m. With ρ_m = (τ_m − I)^{-1},
+  the deficiency of H_m is dim ker(I + ρ_m), that of A_m is dim ker(I + Σ_{j≠m} ρ_j), and the face requires
+  I + ρ_k + ρ_l (k ≠ l) and I + ρ₁ + … + ρ₄ to be invertible. One copy over GF(3) allows only ρ = (−1, −1, −1, 1) up to
+  order (three H and three A), but 2 × 2 blocks reach one of H_m, A_m per m on average. (A second construction, also
+  checked by G42: two copies of the GF(9) family with ρ = (−1, −1, −1, i), which represents N(H_{123}, ∅), plus one of
+  the GF(3) family with ρ = (−1, −1, −1, 1), N(H_{123}, A_{123}), summed over the four transpositions of the index m
+  with 4, give π(g) = 12·S_T8′.)
+* T₈: a family on the segment [r_T8, r_T8*] with deficiency x on H_m and {w}, y = a − x on A_m and {v}, and with A, B,
+  C, W as coordinate blocks, has X = [I; I; 0; I] and Y = [I; 0; I; I] after normalisation; the type-2 sets force
+  Z = [I; R₂; R₃; R₄] and D = [S₁; I; S₃; S₄] with R₃ = S₃R₂ and S₄ = S₁ + (R₄ − I)R₂^{-1}, and the remaining
+  conditions are ten rank conditions on the blocks. For a = 1 they force 3 = 0 (T₈ and T₈*, characteristic 3 only);
+  for a = 2 they have solutions over ℚ, such as item 2 (R₂ = J, S₃ = B). An exhaustive search over GF(2) (2 × 2 blocks)
+  found none.
+
+*Remarks.*
+
+* *Contrast with six parties.* The Fano and non-Fano vectors stay rigid for any number of copies (Theorems 9 and 12;
+  Proposition 10: isotropy pins the line pieces). Their eight-element analogues do not: two "twisted" copies, which do
+  not split into one-copy families, reach h_T8 in every characteristic other than 2 and 3, and h_T8′ over GF(3).
+* DFZ's Theorem 4.1, balanced, is ≥ 42 on h_T8′ and h_T8 in all 8! relabellings (§4.5), as it must be.
+* *Seven parties, p = 3 against q ≥ 5:* open in both directions, with no candidate left from this line.
+
+*Checks (G42).* The circuit-hyperplanes of the GF(9), GF(3), GF(4), GF(8) and GF(2) configurations; the rank
+functions of the two-fold GF(3) family (h_T8′) and of the integer family over ℚ and mod 2, 3, 5, 7, 11, 13, 17 (h_T8
+exactly for p ≥ 5); the primes of its Smith forms ({2, 3}); π(g) = 2·S_T8′ (GF(3)), 2·S_T8′ (GF(4)), 2·S_T8 (GF(5)),
+6·S_T8 and 12·S_T8′; r_T8 + r_T8* = r_N1 + r_AG. The referee of §4.13 checked everything independently and exactly:
+the rank functions (over ℚ also through Bareiss minors), the invariant factors (mod 2 the integer family differs from
+h_T8 on 23 sets, mod 3 on 2, mod p equal for 17 primes from 5 to 1009), the entropies of the states from their
+stabilizer groups (GF(3), GF(5), GF(7), GF(13)), and state vectors: the two-fold GF(3) state (16 qutrits, 68 cuts),
+T₈, T₈′, AG(3, 2), N(H_{123}, A_{123}) and the GF(4) state (deviations below 10⁻¹⁴). Its wording is used above.
+
 ## 5. Open questions
 
 * **The smallest number of parties with a dimension dependence** is 5 or 6: for n ≤ 4 there is none, for any d
@@ -1960,7 +2206,10 @@ for the consequences.
     certificate would be a seven-variable
     linear rank inequality that separates two odd characteristics and is not blind on the self-dual slice; we know of
     none (the seven-variable ones of §4.5 and §4.7 single out characteristic 2). At n = 7 the CSS states of T₈ and T₈′
-    are the natural candidates (Proposition 16), with the caveats stated there.
+    are the natural candidates (Proposition 16), with the caveats stated there. (R46: Theorem 17 needs 2p + 2
+    parties, so for odd p < q the question is open for 5 ≤ n ≤ 2p + 1, n = 5 as in the first item. At n = 7 for
+    p = 3 both candidates fail: S_T8 and S_T8′ lie in every Stab^(Z_d)_7 (Proposition 18, §4.14); no candidate is
+    left.)
   * ~~n = 6 for Z_{2^k}, k ≥ 2: open in both directions against qubits and against odd d (§4.11, "Not covered").~~
     *Erratum (R43): this item, written in R42, called four directions open, but two of them were already decided
     (one of them as an inclusion):* Stab⁽²⁾ ⊆ Stab^(Z_{2^k}) holds for every n (Theorem 5), and
@@ -1976,14 +2225,20 @@ for the consequences.
     (LA)_{2^k}, which holds on Stab^(Z_{2^k}) by Lemma 4(G), so the inclusion already failed for n ≥ 2^{k+1} + 3; for
     example d = 5 against Z_4 from n = 11 (value −2, checked by the referee), not only from n = 13.
 * **The transfer for other primes.** Can the derived-family argument of §4.8 lower the bound 2p + 3 of Theorem 2′
-  for odd p, for example by recovering the configuration J − I of Lemma 4 from a self-dual sum r + r*?
+  for odd p, for example by recovering the configuration J − I of Lemma 4 from a self-dual sum r + r*? (R46: by
+  one party, yes, with a derived C and doubled codes instead of self-dual witnesses: Theorem 17, §4.13. Below 2p + 2,
+  doubled codes would need (2p + 1)-variable inequalities that separate the characteristics, and otherwise the
+  witnesses are not doubled codes, as at n = 6 for p = 2. For p = 3 at n = 7 the natural ones, the CSS states of T₈ and
+  T₈′, lie in every cone (Proposition 18).)
 * ~~**Different odd primes, and all pairs of primes.**~~ Settled by Theorem 2′ (R33): for primes p < q the cones
   are incomparable from n = 2p + 3 on. Whether fewer parties suffice for odd p is open. For example, at n = 8
   one direction for p = 3, Stab⁽q⁾_8 ⊄ Stab⁽³⁾_8, follows from the eight-variable characteristic-3 inequality of
   DFZ arXiv:1401.2507 (Theorems 4.1 and 4.2, not checked independently here) and doubled codes (§4.3); the other
   direction would need a correct inequality for characteristic ≠ 3, and the printed Theorem 3.1 is not usable
   (§4.5). (R45: at n = 7 the CSS states of T₈ and T₈′ are the natural candidates for p = 3 against q ≥ 5,
-  Proposition 16; at n = 6 there is no witness with one qudit per system for the tested primes, §4.10.)
+  Proposition 16; at n = 6 there is no witness with one qudit per system for the tested primes, §4.10.) (R46: both
+  directions at n = 8, and n = 2p + 2 for every odd p, by Theorem 17 (§4.13), without DFZ; at n = 7 both T₈
+  candidates are gone, Proposition 18, §4.14.)
 * **The 1,155 undecided orbits of the A2 catalogue**: see §3.1.
 * **Are Z_d stabilizer states ever beyond all prime ones?** Is Stab^(Z_d)_n always contained in the closed convex
   hull of the prime cones ∪_p Stab⁽ᵖ⁾_n? (The Z_4 cube state is inside.)
@@ -1997,7 +2252,8 @@ for the consequences.
     questions "Γ^MixL_m = Γ^Abl_m?" for m = n and m = n + 1 variables.
   * Khazaei (arXiv:2608.09543) proves Γ^MixL ⊆ Γ^Abl and writes "We do not know whether the first inclusion can be
     strict."
-* **Smaller party counts for Theorem 5**, e.g. Z_4 against Z_6 below n = 15. (R42: for d not a power of 2 against
+* **Smaller party counts for Theorem 5**, e.g. Z_4 against Z_6 below n = 15 (R46: below n = 14, Corollary 19).
+  (R42: for d not a power of 2 against
   d′ = 2, from n = 6, Theorem 12. R43: for every d ≥ 3 against d′ = 2, from n = 6, Corollary 13. R44: for every
   d ∤ 2^a against every power of two d′ = 2^a, from n = 6, Theorem 14. Open at n = 6: d′ with an odd prime factor,
   for instance Z_4 against Z_6, and two odd primes; R45: for two odd primes among 3, 5, 7, 11, 13 no witness with
@@ -2048,6 +2304,14 @@ if the field is of characteristic 3" was checked against the text of the arXiv P
 Proposition 16 reproves it, with uniqueness up to scaling, and adds the statements for T₈′ and AG(3, 2). Proposition 15
 ends in the standard fact that U₂,ₙ is representable over GF(q) exactly when n ≤ q + 1. No literature check was made
 for the T₈′ statement, for the argument of Proposition 15 from the entropies, or for the field survey of §4.10.
+
+**R46 (2026-10-16).** No literature check was made for Lemma 4\*, Theorem 17, Corollary 19 or Proposition 18.
+Points to check: whether (2t + 2)-variable characteristic-dependent inequalities for the configuration J − I without
+c are in the literature (DFZ arXiv:1401.2507 has the case t = 3, by a different route; Peña-Macias–Sarria's
+Theorems 7 and 9 use the 2t + 3 points, App. E of the paper); and the representability of the matroids
+N(H_S, A_{S′}) and N1 of §4.14 (T₈ and its relaxations are classical, Oxley's appendix). DFZ arXiv:1401.2507v1,
+Theorems 3.1, 4.1 and 4.2, were read in the PDF provided by the user (2026-10-15); the statements of 3.1 and 4.1 were
+checked against the rendered pages 11 and 31–32, and the proof of 3.1 against pp. 13–19 and 25 (§4.5).
 
 Earlier record (R32–R36):
 
@@ -2135,10 +2399,13 @@ For §4.8 (R36), from an AI pre-check (web search, abstracts only):
     python3 scripts/s36_one_qudit_fields.py --sample 7 --samples 100000000 --seed 701 --out s_gf7   # the sampler
     python3 scripts/s36_one_qudit_fields.py --build s_gf --out table.npz   # §4.10: the table from s_gf<q>.bin/.w
     python3 scripts/s36_one_qudit_fields.py --prop16            # Proposition 16: minors, brute force, S_T8 / S_T8'
-    python3 selftest.py                                              # gates G29-G41 (G29b, G31b-G41b with --full)
+    python3 scripts/s37_derived_c.py --check --full             # §4.13, §4.14, §4.5: Lemma 4*, Theorem 17, Corollary 19,
+                                                                 #   Proposition 18, DFZ 3.1 / 4.1 (~3 min)
+    python3 scripts/s37_derived_c.py --forms                    # (LB*) and (LA*) for t = 3, term by term
+    python3 selftest.py                                              # gates G29-G42 (G29b, G31b-G42b with --full)
 
 Raw output of the sandbox runs: `results/2026-10-02_r32-sandbox/`, `results/2026-10-02_r33-sandbox/`,
 `results/2026-10-02_r34-sandbox/`, `results/2026-10-02_r35-sandbox/`, `results/2026-10-02_r36-sandbox/`,
 `results/2026-10-13_r38-sandbox/`, `results/2026-10-14_r39-sandbox/`, `results/2026-10-14_r40-sandbox/`,
 `results/2026-10-14_r41-sandbox/`, `results/2026-10-14_r42-sandbox/`, `results/2026-10-15_r43-sandbox/`,
-`results/2026-10-15_r44-sandbox/`, `results/2026-10-15_r45-sandbox/`.
+`results/2026-10-15_r44-sandbox/`, `results/2026-10-15_r45-sandbox/`, `results/2026-10-16_r46-sandbox/`.

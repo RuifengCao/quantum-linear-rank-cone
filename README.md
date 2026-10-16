@@ -5,9 +5,10 @@ Machine-certified data and tools for the **five-party quantum linear rank cone**
 suite of verification gates. Self-contained: no `psitip` dependency, all input
 data bundled, a static Normaliz binary included, resumable long runs.
 
-> **Status (R45, 2026-10-15).** R38–R45 add results obtained after the paper (§0,
+> **Status (R46, 2026-10-16).** R38–R46 add results obtained after the paper (§0,
 > first items); they are certified by the gates and checked by an independent referee (an agent), not yet by
-> hand. Release R37
+> hand. R46 lowers the party count of the paper's Theorem 2′ by one: for primes p < q the stabilizer cones are
+> incomparable from n = 2p + 2 on. Release R37
 > is the archived version cited by the paper *Stabilizer entropy cones as self-dual slices of linear rank cones:
 > a five-party gap and dependence on the local dimension* (X. Song and R. Cao,
 > 2026, [arXiv:2610.18905](https://arxiv.org/abs/2610.18905)). Everything in `data/` is machine-certified by the
@@ -96,6 +97,28 @@ and the changelog is explained in the glossary at the end.
   the catalogue has diminishing scientific value; the A1′ campaign is closed
   and server time goes to A2 tools from here on. **Interpretation guard:** an
   unwitnessed orbit is not an unrealisable one.
+- [x] **R46 (2026-10-16): fewer parties for two primes — incomparable from n = 2p + 2 on; the T₈ and T₈′ vectors lie
+  in every cone** (`docs/R32_reduction_and_local_dimension.md` §4.13, §4.14, §4.5; Lemma 4\*, Theorem 17,
+  Corollary 19 and Proposition 18 proved; certified; independent referee (agent); not yet checked by hand; not in the
+  paper).
+  - Lemma 4\*: Lemma 4 applied with the derived subspace C = (A₁ + B₁) ∩ … ∩ (A_M + B_M), its C-terms bounded by
+    those of the 2M variables (modular law, dimension counts), gives two (2M)-variable inequalities, (LB\*) for
+    characteristic not dividing t and (LA\*) for characteristic dividing t, also for abelian groups. For M ≥ 4 each
+    fails by 1 on T(t) = [I_M | J_M − I_M] in the other characteristic.
+  - Theorem 17: with doubled codes, **Stab⁽ᵖ⁾_n and Stab⁽q⁾_n are incomparable for every odd prime p, every prime
+    q ≠ p and every n ≥ 2p + 2** (the paper's Theorem 2′: 2p + 3; p = 2 is Theorems 9 and 12, n ≥ 6). For p = 3 this
+    is n = 8 in both directions, without DFZ. Corollary 19: Theorem 5 from 2·max(d, d′) + 2 parties.
+  - Proposition 18: both seven-party candidates of R45 fail. 2·S_T8′ is the entropy vector of a qutrit state and of a
+    qubit state (two qudits per system: a "twisted" two-copy family over GF(3); one copy over GF(4)); 2·S_T8 that of a
+    Z_p state for every prime p ≥ 5 (an integer two-copy family whose only bad primes are 2 and 3), and 6·S_T8 that of
+    a qubit state (N1 over GF(8) and AG(3, 2)). So S_T8 and S_T8′ lie in Stab^(Z_d)_7 for every d.
+  - DFZ arXiv:1401.2507 (the PDF provided by the user): the misprint of Theorem 3.1 is in the final expansion of its
+    proof (46, 3, 7 instead of 50, 7, 3); Theorem 4.1 checked, and its balanced form is ≥ 42 on h_T8′, as
+    Proposition 18 requires.
+  - Checks in gates G42 (values of the forms, Theorem 17 witnesses from the [G | G] codes, Z_N values, Proposition 18,
+    DFZ) and G42b (all 8-tuples of subspaces of GF(2)², GF(3)², GF(5)²; coordinate lines with all lines of GF(2)⁴ and
+    GF(3)⁴; random arrangements; M = 8); new `scripts/s37_derived_c.py`, `data/s37_derived_forms.npz`; sandbox logs
+    in `results/2026-10-16_r46-sandbox/`.
 - [x] **R45 (2026-10-15): six parties, one qudit per system over 13 fields — only characteristic 2 stands out**
   (`docs/R32_reduction_and_local_dimension.md` §4.10, *Other fields*; certified, Propositions 15 and 16 proved;
   two independent referees (agents); not yet checked by hand; not in the paper).
@@ -633,7 +656,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 
 | Stage | Command essentials | Purpose / expectation |
 | --- | --- | --- |
-| selftest | `selftest.py [--full] [--workers N]` | 55 regression gate lines (G0–G41 with G2b and G10b, G29b, G31b–G36b, G38b–G41b) + ALL PASS; run first on any machine |
+| selftest | `selftest.py [--full] [--workers N]` | 57 regression gate lines (G0–G42 with G2b and G10b, G29b, G31b–G36b, G38b–G42b) + ALL PASS; run first on any machine |
 | s1 | `--variant pure28` (current) / `pure`, `v3`, `pure2` (historical) | build the H-representation; seconds |
 | s2 | `s2_judge.py <H.npy>` | 760 graph-state judge; `pure*` variants must give 0 violations |
 | s3 | `s3_rank19.py <H.npy> [--extra-rows X]` | tight-rank test of the 19 HEC rays; pure28 → 18/19 |
@@ -660,6 +683,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | s34 | `s34_six_party_survey.py --check [--full]` ; `--self-test` ; `--enumerate --out …` ; `--survey --lists … --out … --seconds S` ; `--nonfano --lams 2,3 --seconds S` ; `--fields 2,3,4,5,7,8,9 [--controls K]` ; `--fields-python 2,3,4` ; `--transfer [--full --trials N]` ; `--transfer-anneal "n0,…,n6;…" --seconds S [--pull-nf μ]` | R40: six parties, the other direction -- every entropy vector of seven-system qubit and qutrit stabilizer states with at most one qudit per system (`cc/s35_enum7.c`, weighted graphs up to scaling), the qutrit-only orbits and their qubit realisations at multiplicity 2 (`cc/s34_anneal7.c`), and graphs over GF(q) with a prescribed cut-rank vector (`cc/s36_target7.c`; Proposition 10); exact checks over GF(2), GF(3) and GF(q). R42: Theorem 12 -- the inequality f12, every step of its proof on given states (gates G39/G39b), and the adversarial search `cc/s37_minform7.c` |
 | s35 | `s35_two_power_transfer.py --check [--full --trials N]` ; `--anneal "a:rows:n0,…,n6;…" --seconds S [--pull μ [--singles]] [--weakened c]` | R44: Theorem 14 -- the inequality f^(a) = f12 + (1 − 1/a)·U_Z on Z_{2^a} stabilizer states: exact linear algebra over Z_{2^a}, stabilizer states as Lagrangian subgroups (graph, CSS of non-free codes, non-free Lagrangians after random symplectic maps), every step of the proof on given states without compressing them (gates G40/G40b), Lemma 4(G′) tests; annealing over CSS codes and exhaustive families of codes B + 2^s·P (`cc/s38_minform_zn.c`) |
 | s36 | `s36_one_qudit_fields.py --check [--full]` ; `--enumerate q [--all] [--slice s --nslices n] [--out F]` ; `--sample q --samples N --seed S --out P` ; `--build P --out F` ; `--prop16` | R45: six parties, one qudit per system over 13 fields -- the S₇-orbit table of the entropy vectors of GF(q)-linear states with a realising graph per field and orbit (gates G41/G41b), exhaustive lists with `cc/s40_enum7q.c` (scaling and relabelling reductions; GF(2)–GF(5)), the sampler `cc/s39_sample7q.c`, target searches for Proposition 15, and Proposition 16 (minors, brute-force representability of T₈, T₈′, AG(3,2), S_T8 against S_T8′) |
+| s37 | `s37_derived_c.py --check [--full]` ; `--forms` ; `--write-data` | R46: Lemma 4\* (Lemma 4 with the derived subspace C = ∩(A_m + B_m)): the forms (LB\*), (LA\*) for M = 4, 6, their values on T(t) over eight fields and over Z_N, the Theorem 17 witnesses (doubled codes, entropies from the [G \| G] code), validity tests (exhaustive over GF(q)², coordinate lines, random); Proposition 18 (the T₈ and T₈′ vectors in every cone: the two-copy families over GF(3) and over ℚ, and the other constructions); DFZ arXiv:1401.2507 Theorems 3.1 (re-expanded) and 4.1 (gates G42/G42b) |
 | s20 | `s20_residuals.py <rays.npy> --lam 1 --seconds 20 --runs 3` | where qubit annealing gets stuck: residual vector of the best state of several independent runs (diagnostic; also keeps any hit as a certificate) |
 | s21 | `s21_qudit_search.py <rays.npy> --p 3 --lams 1 --seconds 60` ; `--self-test` | qudit (p = 3, 5, 7) graph-state search (`cc/s21_anneal_gfp.c`), independent GF(p) re-verification; the self-test checks S(X) = rank_GF(p) W[X, X^c] against exact state vectors |
 | s5 | `s5_orbits.py clr5.out [--raw] [--expect 162]` | rays → S₅ orbits; reconcile against 162 |
@@ -789,7 +813,11 @@ passed in the sandbox (and, optionally, in the manual CI workflow
     which is proved in the note (`s28_generalized_cubes.py --dfz1401` reproduces
     the counterexample). Moral: before citing a linear rank inequality, test it on all small
     arrangements (`s28_generalized_cubes.py --exhaustive2` style); a published
-    statement can be wrong as printed.
+    statement can be wrong as printed. (R46: the error sits in the last expansion
+    of the proof, p. 25: the coefficients of H(X|A,C,D), H(C|B,X,Y), H(C|A,W,Y)
+    should be 46, 3, 7, not 50, 7, 3; `s37_derived_c.py` recomputes them from the
+    proof's own bounds. A second moral: re-expanding a proof's last display is
+    cheap and found the misprint at once.)
 21. **A second misprinted inequality (R36).** Eq. (6.17) of
     Blasiak–Kleinberg–Lubetzky arXiv:1108.2489v1 (Theorem 6.6, characteristic ≠
     2) is false as printed: A, B, C, Z spanned by e₁, e₂, e₃, e₁ + e₂ + e₃ and
@@ -851,6 +879,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | `s32_stab5_cover.npz` | 125 + 74 | R38–R40: covering certificates for the other 75 rows: pieces (row, kind Q = rational realisation with its bad primes, or GF = realisation over GF(prime), kappa, sizes, N, W, bad, detail); for each row the bad-prime sets of the Q pieces intersect inside the primes of its GF pieces, so the ray lies in Stab^(Z_d)_5 for every d (§4.9), gate G37 |
 | `s34_seven_qudit_vectors.npz` | 10,773 + 27,334 | R40: every entropy vector (63 cuts) of seven-system stabilizer states with at most one qudit per system over GF(2) (`gf2`) and GF(3) (`gf3`); one representative of each of the 53 S₇-orbits of qutrit-only vectors (`orbit_vector`, `orbit_size`) with a GF(3) graph realising it (`orbit_weights`), and a 14-qubit graph state realising twice the vector (`qubit2`, `has_qubit2`: all but the non-Fano orbit, `nonfano`), §4.10 of the R32 note, gates G38/G38b; the manifest entry also records the counts of `cc/s36_target7.c` for S_F and S_NF over GF(2), …, GF(9) |
 | `s36_one_qudit_fields.npz` | 136 orbits | R45: the S₇ orbits (36,430 vectors) of the entropy vectors of GF(q)-linear stabilizer states of seven systems with one qudit each, over GF(2), 3, 4, 5, 7, 8, 9, 11, 13, 16, 25, 27, 49 (`reps`, `sizes`, `fields`), for every field and orbit met over it a graph realising the representative (`cert`, 255 = none; edge order (0,1), (0,2), …, (5,6)), and the Steane and non-Fano orbits (`steane`, `nonfano`); §4.10 of the R32 note, gates G41/G41b; the manifest entry also records the counts of the exhaustive runs of `cc/s40_enum7q.c` |
+| `s37_derived_forms.npz` | 7 forms | R46: (LB\*) and (LA\*) of Lemma 4\* for M = 4 (`LB4`, `LA4`; variables A, B, C, D, W, X, Y, Z = bits 0..7) and M = 6 (`LB6`, `LA6`; A₁..A₆, B₁..B₆ = bits 0..11), DFZ arXiv:1401.2507 Theorem 4.1 (`DFZ41`) and Theorem 3.1 as printed and re-expanded from its proof (`DFZ31_printed`, `DFZ31_reexpanded`); int64, index = subset mask, f·h ≥ 0; §4.13 and §4.5 of the R32 note, gates G42/G42b |
 | `s27_cube_witnesses.npz` | 4 | R32: entropy vectors of the qubit and odd-p cube states (127 coordinates, parties A,B,C,W,X,Y,Z = vertices 100,…,111, purifier 000) and the pulled-back seven-party inequalities F65 (odd p) and F91 (p = 2), gate G30 |
 | `sixvar_template.csv` | — | transcription template for s9 |
 | `manifest_shas.json` | — | canonical sha256 of every row family (`sha_rows`; `sha_rows_wide` for wide coordinates) |
@@ -945,7 +974,9 @@ system (certified for p = 3, 5, empirical for 7, 11, 13), and no seven-variable 
 characteristics is known to us; so this question is not within reach of the present methods. The next candidates are
 at seven parties: the CSS states of T₈ (characteristic 3) and T₈′ (characteristic ≥ 5), Proposition 16; a
 certificate would be an eight-variable characteristic-dependent inequality not blind on the self-dual slice (DFZ's
-T₈-based ones, arXiv:1401.2507, are the starting point). Making the GF(7) list exhaustive would take about 15 to 30
+T₈-based ones, arXiv:1401.2507, are the starting point). R46: both fail, the T₈ and T₈′ vectors lie in every
+Stab^(Z_d)_7 (Proposition 18, §4.14), so no candidate is left at seven parties; at eight parties, 3 and every q ≠ 3
+are incomparable (Theorem 17, §4.13), and in general p < q from n = 2p + 2. Making the GF(7) list exhaustive would take about 15 to 30
 CPU-hours with `cc/s40_enum7q.c` (815,738,564,501 graphs; not registered as a server job: it would only move p = 7
 from empirical to certified).
 
@@ -1005,7 +1036,7 @@ This repository is public at
 
 - **CI:** `.github/workflows/selftest.yml` installs `lrslib` and the Python
   requirements and runs `python3 selftest.py --full` on every push and pull
-  request (all 55 gate lines must pass). Every step has a time cap (job 55 min, `selftest.py --full` 35 min;
+  request (all 57 gate lines must pass). Every step has a time cap (job 60 min, `selftest.py --full` 40 min;
   each `apt-get update` attempt 150 s, three attempts), so a stalled package
   mirror fails the run within minutes instead of hanging for GitHub's 6-hour
   default; such a failure says nothing about the code -- re-run the job.

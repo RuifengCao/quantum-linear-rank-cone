@@ -1,0 +1,28 @@
+values_ok: True
+values: {'M=4,GF(2)': (0, -1), 'M=4,GF(3)': (-1, 0), 'M=4,GF(4)': (0, -1), 'M=4,GF(5)': (0, -1), 'M=4,GF(7)': (0, -1), 'M=4,GF(8)': (0, -1), 'M=4,GF(9)': (-1, 0), 'M=4,GF(11)': (0, -1), 'M=5,GF(2)': (-1, 0), 'M=5,GF(3)': (0, -1), 'M=5,GF(4)': (-1, 0), 'M=5,GF(5)': (0, -1), 'M=5,GF(7)': (0, -1), 'M=5,GF(8)': (-1, 0), 'M=5,GF(9)': (0, -1), 'M=5,GF(11)': (0, -1), 'M=6,GF(2)': (0, -1), 'M=6,GF(3)': (0, -1), 'M=6,GF(4)': (0, -1), 'M=6,GF(5)': (-1, 0), 'M=6,GF(7)': (0, -1), 'M=6,GF(8)': (0, -1), 'M=6,GF(9)': (0, -1), 'M=6,GF(11)': (0, -1)}
+jmap_values: [(-1, 0, 0, -1)]
+M3_values: [(2, 1), (3, 0)]
+balancing: {4: ([0, 0, 0, 0, 9, 9, 9, 9], [0, 0, 0, 0, 5, 5, 5, 5]), 6: ([0, 0, 0, 0, 0, 0, 13, 13, 13, 13, 13, 13], [0, 0, 0, 0, 0, 0, 7, 7, 7, 7, 7, 7])}
+balancing_nonneg: True
+witness: {'t=3,LB,GF(3)': -1, 't=3,LB,GF(2)': 0, 't=3,LB,GF(5)': 0, 't=3,LA,GF(2)': -1, 't=3,LA,GF(5)': -1, 't=3,LA,GF(7)': -1, 't=3,LA,GF(3)': 0, 't=5,LB,GF(5)': -1, 't=5,LA,GF(3)': -1}
+witness_ok: True
+zn: {'T(3) over Z_9': (-1.0, -1.0), 'T(3) over Z_4': (0.0, -2.0), 'T(4) over Z_8': (-2.0, -1.0), 'T(3) over Z_27': (-1.0, -2.0), 'T(5) over Z_25': (-1.0, -1.0)}
+zn_ok: True
+prop18: {'one_cut': [('ABCD', 3, 4), ('WXYZ', 3, 4)], 'gf9_N_H123': True, 'gf3_N_H123_A123': True, 'qutrit_12': True, 'gf4_N_H123_A4': True, 'qubit_2': True, 'gf8_N1': True, 'gf2_AG': True, 'T8_plus_dual': True, 'qubit_6': True, 'qutrit_2': True, 'rational_two_fold_T8': True, 'bad_primes_T8': [2, 3], 'two_fold_T8_mod_p': {2: False, 3: False, 5: True, 7: True, 11: True, 13: True, 17: True}, 'qudit_2_T8': True}
+prop18_ok: True
+dfz41_transcriptions_agree: True
+dfz41_thm42: {2: -1, 3: 0, 4: -1, 5: -1, 7: -1, 8: -1, 9: 0, 11: -1, 13: -1}
+dfz41_balancing: [0, 0, 0, 0, 17, 18, 25, 28]
+dfz41_relabel_min: {"h_T8'": (42, 0), 'h_T8': (42, 0), 'h_AG': (-2, 1344)}
+dfz31_difference: [('ACD', 4), ('AWY', -4), ('BXY', 4), ('ACDX', -4), ('ACWY', 4), ('BCXY', -4)]
+dfz31_cx: (-4, 0)
+dfz31_T8: {2: 34, 3: -1, 5: 34, 7: 34}
+data_ok: True
+sha: {'LB4': '1cbb0bf5d5b33b9a623e399d05f699b8cf52407442a0583578179f3903b83500', 'LA4': '5bcb34f6a21fdc403d58f7213294aa7efd2c17a1a4a12019f72e9f332c88e452', 'LB6': 'd243bdb66a2f85ed57f7b858dd57788d6e95a6f8d5b8e6ab6fac7a116322dbfe', 'LA6': '37758def2e6123b844e959f6bd6cfdf6f000747441199ed49ec7470958b6e4a9', 'DFZ41': '6a021d05de52a6f2d7fdffe31d51e318005a348a86b5829cbd8382952e3d03bb', 'DFZ31_printed': '6c845ed5f0442f20074d1b36c4d411553b200ee5c004b559e428f28b72305b0f', 'DFZ31_reexpanded': '07bf88631716039fd8cfddbaae59656365279fad6a05f85b44248bbd8d9fe7b6'}
+time_fast: 4.6
+exhaustive_2dim: {'LB*,GF(2)^2': (390625, 0, 0), 'LA*,GF(2)^2': (390625, 0, 0), 'LB*,GF(3)^2': (1679616, 0, 0), 'LA*,GF(3)^2': (1679616, 0, 0), 'LB*,GF(5)^2': (16777216, 0, 0), 'LA*,GF(5)^2': (16777216, 0, 0), 'DFZ41,GF(3)^2': (1679616, 0, 0), 'DFZ31 re-expanded,GF(2)^2': (390625, 0, 0), 'DFZ31 re-expanded,GF(5)^2': (16777216, 0, 0), 'DFZ31 printed,GF(2)^2': (390625, 125, -8)}
+coordinate_lines: {'LB*,GF(2)': (50625, 0, 0), 'LA*,GF(3)': (2560000, 0, 0), 'LA*,GF(2) (not claimed)': (50625, 1, -1), 'LB*,GF(3) (not claimed)': (2560000, 8, -1)}
+random: {'LB*,GF(2)': 0, 'LB*,GF(5)': 0, 'LA*,GF(3)': 0, 'DFZ41,GF(3)': 0, 'DFZ31 re-expanded,GF(5)': 0}
+M8: {7: (-1, 0), 3: (0, -1)}
+time_full: 168.3
+OK

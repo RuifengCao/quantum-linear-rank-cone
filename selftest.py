@@ -808,6 +808,34 @@ def main():
          f'reappear in the same characteristic {T41["reappear"]}; symmetric vector over {T41["symmetric_fields"]}; file and '
          f'content match the manifest {file41}')
 
+    # G42 (R46): fewer parties for two primes, and the T8 / T8' vectors (docs/R32_reduction_and_local_dimension.md
+    # sections 4.13, 4.14, 4.5).  Lemma 4*: the forms (LB*), (LA*) for M = 4, 6 recomputed and pinned by the manifest;
+    # on T(t) = [I_M | J_M - I_M] over GF(2), GF(3), GF(4), GF(5), GF(7), GF(8), GF(9), GF(11), M = 4, 5, 6, (LB*) = -1
+    # exactly when the characteristic divides t and (LA*) = -1 exactly when it does not (0 otherwise), for every choice
+    # of j(i) at M = 4; nonnegative balancing coefficients; over Z_N, (LA*) = -log(N / gcd(t, N)) and
+    # (LB*) = -log gcd(t, N); Theorem 17: the balanced forms on the doubled-code states of T(3) and T(5) (entropies from
+    # the [G | G] code), -1 on the witnesses.  Proposition 18: the GF(9), GF(3), GF(4), GF(8), GF(2) configurations and
+    # pi(g) = 12 S_T8', 2 S_T8', 6 S_T8; the two-copy GF(3) family of h_T8'; the integer two-copy family of h_T8 (rank
+    # function over Q exact, Smith-form primes {2, 3}, equal to h_T8 mod 5, 7, 11, 13, 17 and not mod 2, 3).  DFZ arXiv:1401.2507: Theorem 4.1 transcribed twice, -1 on [I_4 | J_4 - I_4] in
+    # every characteristic but 3, its balanced form >= 42 on h_T8' and h_T8 in all 8! relabellings and -2 on h_AG;
+    # Theorem 3.1 re-expanded from the bounds of its proof differs from the print in H(X|A,C,D), H(C|B,X,Y), H(C|A,W,Y).
+    # G42b (--full): exhaustive over all 8-tuples of subspaces of GF(2)^2, GF(3)^2, GF(5)^2 (both forms, DFZ 4.1 and the
+    # re-expanded 3.1; the printed 3.1 fails 125 times over GF(2)^2); exhaustive over coordinate lines A..D and all
+    # lines W..Z of GF(2)^4 (LB*) and GF(3)^4 (LA*), with the counts of the configurations violating the forms in the
+    # other characteristic (1 and 8: AG(3,2) and T8); 1.6 M random arrangements; M = 8 values over GF(7), GF(3).
+    import s37_derived_c as _s42
+    T42 = _s42.check(log=lambda *_x: None)
+    M42 = MAN['s37_derived_forms']
+    file42 = (_h33.sha256(open(os.path.join(core.DATA, 's37_derived_forms.npz'), 'rb').read()).hexdigest()
+              == M42['file_sha256'] and _s42.content_sha() == M42['sha256'])
+    gate('G42 fewer parties for two primes (Lemma 4*, Theorem 17), T8 / T8\' (Proposition 18)',
+         _s42.check_ok(T42) and file42 and T42['sha'] == M42['forms'] and T42['witness'] == M42['witness'],
+         f'values on T(t) as claimed {T42["values_ok"]} (M = 4, 5, 6; eight fields); every j(i): {T42["jmap_values"]}; '
+         f'Z_N {T42["zn_ok"]}; witnesses {T42["witness"]}; Proposition 18 {T42["prop18_ok"]} (one cut '
+         f'{T42["prop18"]["one_cut"]}); DFZ 4.1: transcriptions agree {T42["dfz41_transcriptions_agree"]}, Thm 4.2 values '
+         f'{T42["dfz41_thm42"]}, balanced min over 8! relabellings {T42["dfz41_relabel_min"]}; DFZ 3.1 re-expanded - '
+         f'printed {T42["dfz31_difference"]}; forms, file and content match the manifest {file42 and T42["sha"] == M42["forms"]}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:
@@ -908,6 +936,12 @@ def main():
                        for k, v in en41.items())
              + f'; target searches {T41b["targets"]}; sampling {T41b["sampling"]}; Proposition 16: minors '
              f'{T41b["prop16_minors_ok"]}, brute force {T41b["prop16_brute"]}, S_T8/S_T8\' one cut {T41b["prop16_one_cut"]}')
+
+        T42b = _s42.check(full_check=True, log=lambda *_x: None)
+        gate('G42b Lemma 4*: exhaustive and random arrangements', _s42.check_ok(T42b, True)
+             and {k: list(v) for k, v in T42b['coordinate_lines'].items()} == M42['coordinate_lines'],
+             f'all 8-tuples of subspaces of GF(q)^2: {T42b["exhaustive_2dim"]}; coordinate lines + all lines '
+             f'{T42b["coordinate_lines"]}; random minima {T42b["random"]}; M = 8 over GF(7), GF(3): {T42b["M8"]}')
 
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)
