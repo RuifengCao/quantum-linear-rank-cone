@@ -1,13 +1,13 @@
-"""Checks for the revised paper (2026-10), Sec. II E 5 and Supplementary Note 7: the form f_12 (Eq. (14)) and its
-expansion (Eq. (S8)), Theorem 7, Corollary 4, Remark 4 and Theorem 8.  Independent of the repository code.
+"""Checks for the revised paper (2026-10), Sec. II D 6 and Supplementary Note 7: the form f_12 (Eq. (14)) and its
+expansion (Eq. (S7)), Proposition 3 and Theorem 5, Corollary 4, Remark 2 and Theorem 6.  Independent of the repository code.
 
 Labels: A, B, C, W, X, Y, Z = 100, 010, 001, 110, 101, 011, 111; Z is the purifier.  A pure-symmetric vector S on the
 seven systems is a dict {frozenset: value} on all subsets, with S(empty) = S(all) = 0 and S(T) = S(complement).
 
 What is proved here exactly: the expansion of f_12 and of U_Z; the values on the Steane, non-Fano and seven-point
 states (from the codes, and against state vectors numerically); the Smith invariants used in Corollary 4; the values
-of Theorem 8 and Remark 4.  What is only tested: f_12 >= 0 on random qubit stabilizer states and every step of the
-proof of Theorem 7 on them (Lemmas 7.1-7.5, (LA), the assembly), and f^(a) >= 0 on random Z_4 and Z_8 states.
+of Theorem 6 and Remark 2.  What is only tested: f_12 >= 0 on random qubit stabilizer states and every step of the
+proof of Proposition 3 on them (Lemmas 7.1-7.5, (LA), the assembly), and f^(a) >= 0 on random Z_4 and Z_8 states.
 """
 import itertools, math, os, random, sys
 from fractions import Fraction
@@ -74,14 +74,14 @@ def basis_vector(T):
     return S
 
 
-# Eq. (S8) of the paper (Supplementary Note 7), transcribed term by term
+# Eq. (S7) of the paper (Supplementary Note 7), transcribed term by term
 EXPANSION = {'A': 3, 'B': 3, 'C': 3, 'W': -3, 'AB': -5, 'AC': -2, 'AW': -1, 'AX': -1, 'AY': -5, 'BC': -2, 'BW': -1,
              'BX': -5, 'BY': -1, 'CW': -5, 'CX': -4, 'CY': -4, 'ABC': -6, 'ABW': 10, 'ACX': 7, 'BCY': 7, 'WXY': -1,
              'ABXY': 11, 'ACWY': 11, 'BCWX': 11, 'ABCWX': -5, 'ABCWY': -5, 'ABCXY': -2, 'ABWXY': -1, 'ACWXY': -1,
              'BCWXY': -1, 'ABCWXY': 2}
 coef = {T: f12(basis_vector(T)) for T in PARTY_SUBSETS}
 nz = {''.join(c for c in L7 if c in T): v for T, v in coef.items() if v != 0}
-report('expansion of f_12 (Eq. (14)) on the 63 party subsets equals Eq. (S8) term by term (%d terms)' % len(nz),
+report('expansion of f_12 (Eq. (14)) on the 63 party subsets equals Eq. (S7) term by term (%d terms)' % len(nz),
        nz == EXPANSION and len(nz) == 31)
 
 
@@ -280,7 +280,7 @@ S4 = {X: log2_exact(v) for X, v in css_orders(COLS, 4).items()}
 report('S^(4) = S_F + S_NF on all 128 subsets (bits; S_NF normalized to S(P) = 1)',
        all(S4[X] == S_F[X] + SNF[X] for X in SUBSETS))
 
-# ------------------------------------------------------------------------------------------- Theorem 8 values
+# ------------------------------------------------------------------------------------------- Theorem 6 values
 bad = []
 for a in range(1, 7):
     if f12(SNF) + (1 - Fraction(1, a)) * U_Z(SNF) != -Fraction(1, a):
@@ -292,11 +292,11 @@ for a in range(1, 7):
             bad.append((a, j))
         if not all(Sj[X] == S_F[X] + (j - 1) * SNF[X] for X in SUBSETS):
             bad.append(('decomposition', j))
-report('Theorem 8: f^(a)(S_NF) = -1/a, U_Z(S^(2^j)) = j, f_12(S^(2^j)) = 1 - j, f^(a)(S^(2^j)) = 1 - j/a, and '
+report('Theorem 6: f^(a)(S_NF) = -1/a, U_Z(S^(2^j)) = j, f_12(S^(2^j)) = 1 - j, f^(a)(S^(2^j)) = 1 - j/a, and '
        'S^(2^j) = S_F + (j-1) S_NF (a, j = 1..6)', not bad, str(bad[:4]))
 
 
-# ------------------------------------------------------------------------------------------------- Remark 4
+# ------------------------------------------------------------------------------------------------- Remark 2
 def lam(hf):
     return {X: hf[X] + hf[ALL - X] - hf[ALL] for X in SUBSETS}
 
@@ -316,7 +316,7 @@ okD = True
 for _ in range(200):
     hf = {X: (rng.randint(0, 9) if X else 0) for X in SUBSETS}
     okD = okD and g12(dual(hf)) == g12(hf)
-report('Remark 4: g_12(r_NF) = g_12(r_NF*) = -1, g_12(r_F) = g_12(r_F*) = 0, g_12(h_NF) = -2, and g_12 o D = g_12 '
+report('Remark 2: g_12(r_NF) = g_12(r_NF*) = -1, g_12(r_F) = g_12(r_F*) = 0, g_12(h_NF) = -2, and g_12 o D = g_12 '
        '(200 random set functions)',
        (g12(rNF), g12(dual(rNF)), g12(rF), g12(dual(rF)), g12(hNF)) == (-1, -1, 0, 0, -2) and okD)
 
@@ -404,7 +404,7 @@ report('f^(a) >= 0 on random Z_4 (a = 2) and Z_8 (a = 3) states: graph states, C
        all(v[1] >= 0 for v in res.values()) and all(v[2] < 0 for v in res.values()))
 
 
-# ------------------------------------------------------- the proof of Theorem 7 step by step (qubits; tests)
+# ------------------------------------------------------- the proof of Proposition 3 step by step (qubits; tests)
 XM = int('01' * 64, 2)       # x bits at even positions (bit 2q), z bits at odd positions (bit 2q + 1)
 
 
@@ -483,7 +483,7 @@ def chain_check(adj, owner):
 
 
 def chain_check_L(Lb, owner):
-    """runs every step of the proof of Theorem 7 on the stabilizer state with Lagrangian span(Lb) (qubit q owned by
+    """runs every step of the proof of Proposition 3 on the stabilizer state with Lagrangian span(Lb) (qubit q owned by
     owner[q]); entropies from S(X) = m_X - dim L_X (Lemma A.1). Returns the list of failed steps, or None if the
     state is not in normal form."""
     n = len(owner)
@@ -561,11 +561,11 @@ def chain_check_L(Lb, owner):
     if slackLA < 0:
         fails.append('(LA)')
     if slackLA != G1:
-        fails.append('assembly identity (S7)')
+        fails.append('assembly identity (S6)')
     G1b = (5 * delta['Z'] + 4 * delta['W'] + delta['X'] + delta['Y'] + k('WXY') + 6 * k('ABC') + sum(k(x) for x in cp)
            - 3 * k('ABW') - 3 * k('CWZ') - sum(k(l) for l in LINES))
     if not (G1 <= G1b <= f):
-        fails.append('bounds after (S7)')
+        fails.append('bounds after (S6)')
     if f < 0:
         fails.append('f12 < 0')
     return fails
@@ -584,8 +584,8 @@ for m, nsamp in ((1, 300), (2, 200), (3, 40)):
         nst += 1
         for fl in fl_list:
             failed[fl] = failed.get(fl, 0) + 1
-report('proof of Theorem 7 step by step on %d random qubit graph states in normal form (1, 2 or 3 qubits per system): '
-       'dim L_T = k(T), k_P(l), orthogonality, Lemmas 7.1-7.5 (7.5 built explicitly), (LA), the identity (S7), the '
+report('proof of Proposition 3 step by step on %d random qubit graph states in normal form (1, 2 or 3 qubits per system): '
+       'dim L_T = k(T), k_P(l), orthogonality, Lemmas 7.1-7.5 (7.5 built explicitly), (LA), the identity (S6), the '
        'bounds after it, f_12 >= 0' % nst, not failed, str(failed))
 
 
@@ -672,7 +672,7 @@ for trial in range(240):
     fvals.append(f12(S_))
     for fl in fl_list:
         failed2[fl] = failed2.get(fl, 0) + 1
-report('proof of Theorem 7 step by step on %d structured qubit states in normal form (Steane copies after random '
+report('proof of Proposition 3 step by step on %d structured qubit states in normal form (Steane copies after random '
        'local symplectic maps; perturbed one- and two-copy point codes): every step holds; f_12 = 0 on %d of them, '
        'minimum %d' % (nst2, fvals.count(0), min(fvals)), not failed2 and nst2 > 50 and min(fvals) >= 0, str(failed2))
 

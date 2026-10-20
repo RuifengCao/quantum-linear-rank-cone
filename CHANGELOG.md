@@ -1,5 +1,45 @@
 # CHANGELOG
 
+## R48 (2026-10-20) -- (★) is a facet for every local dimension; five-party facets for every d; secret sharing schemes with ratio 2
+- **(★) is a facet of Stab^(ℤ_d)_5 for every d (proved; the computation is checked by `checks/check_rev_sec4.py`;
+  not yet checked by hand).** `docs/A2_stabilizer_vs_QLR.md` §3, R48 addendum. Before, the facet statement was for
+  qubits only. Six-vertex graph states with 0/1 weights have cut blocks with at most three rows or columns, whose
+  minors lie in {0, ±1, ±2}; so over every odd prime field their entropy vectors are the rational cut-rank vectors:
+  835 distinct vectors of rank 31, containing the 760 qubit vectors, and the same 140 vectors attain equality in (★)
+  (rank 30). Corollary 3 of the paper (Stab^(p) ⊆ Stab^(ℤ_d) for p | d) gives every d.
+- **119 single-CI classes are facets of Stab^(ℤ_d)_5 for every d (exact computation, checked by
+  `checks/check_rev_stab5.py`, not by a gate; not yet checked by hand).**
+  `docs/A2_stabilizer_vs_QLR.md` §4, R48 addendum. The 760 vectors above and the S₆ images of the 641 known extreme-ray
+  orbits, which lie in Stab^(ℤ_d)_5 for every d by R32 §4.9 (R38–R40), give 30 linearly independent tight vectors for
+  119 of the 747 classes. The earlier count of 119 for the qubit cone took 12 of the rays from the literature.
+- **Secret sharing: linear schemes give stabilizer schemes, and schemes with information ratio 2 (Lemma 22 proved;
+  Proposition 23 proved for Γ_F and checked by computer for Γ_NF; not yet checked by hand).**
+  `docs/R32_reduction_and_local_dimension.md` §4.17. Lemma 22: the CSS state of a linear scheme for an access structure
+  in which a set is authorised iff its complement is not is a pure stabilizer scheme with the same share sizes; with
+  Lemma 20, for prime p the optimal ratios of stabilizer schemes of local dimension p and of GF(p)-linear schemes
+  coincide. Proposition 23: a decomposition into seven relabelled ideal schemes of the cube code over ℤ_d gives ratio 2
+  for Γ_F and every odd d; an explicit binary code gives ratio 2 for Γ_NF and qubits. So the optimal ratios lie in
+  [4/3, 2] (and in [43/41, 2] for Γ_F and every odd d).
+- **Checks.**
+  - New `checks/check_rev_sec4.py` (no repository data, about 15 s): the minors of all 0/1 matrices of size at most 3;
+    GF(3), GF(5) and GF(7) cut ranks equal the rational ones for all 2^15 graphs; the counts and ranks above.
+  - New `checks/check_rev_stab5.py` (about 1 min): the 566 unimodular realisations and the 75 covering certificates of
+    R32 §4.9, re-verified without Smith forms (rational rank and one nonzero maximal minor per cut block by
+    fraction-free elimination, then ranks modulo the prime factors of that minor); coverage of all 641 rows; explicit
+    qubit and qutrit realisations of every row; the facet count 119 for every d.
+  - `checks/check_rev_qss.py`: new part (f) for Lemma 22 and Proposition 23 (the decomposition scheme over ℤ_d for
+    d = 3, 5, 7, 9, 15, 21, 25, 27 on all 128 player sets, its CSS state, a negative control; the binary scheme for
+    Γ_NF); the margins of the seven-party cube states (DFZ (65) and (91) through the origin), which the paper no
+    longer quotes, and with them the input `data/dfz_char_dependent.csv`, are no longer checked there.
+  - `checks/README.md`: rows for the new scripts; numbering of the revised paper; `check_rev_qss.py` no longer reads
+    a transcription.
+  - Docstrings and printed labels of `checks/check_rev_sec5.py`, `checks/check_rev_sec6.py` and `checks/check_rev_qss.py`
+    follow the numbering of the reorganised revised paper (no change to what they compute).
+- README (status: R37 is cited by arXiv v1, R48 by the revised version and its Table S3; §0 item), the round list
+  of `docs/R32_reduction_and_local_dimension.md` (R48 paragraph), VERSION, CITATION.cff (version R48; the revised
+  version). No data, no code under `scripts/`, `cc/` or `epr1kit/`, and no gates changed: `selftest.py --full` is
+  unchanged (59 gate lines).
+
 ## R47 (2026-10-20) -- stabilizer secret sharing: the information ratio depends on the local dimension; distances of the witnesses
 - **Result (Lemma 20 and Proposition 21; the bounds 4/3 proved from Jafari–Khazaei, the bound 43/41 certified by
   G43/G43b and computer-assisted; checked by an independent referee, an agent; not yet checked by hand).**

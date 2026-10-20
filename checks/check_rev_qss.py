@@ -4,9 +4,8 @@ Proposition "Secret sharing", Supplementary Note 10) and of the distances of the
 
 Independent of the repository code: nothing from epr1kit/ or scripts/ is imported, and the paper source is not read.
 The script reads only the data files data/s38_qss_certificates.json (rational dual certificates of the two linear
-programs with Lemma 1 (LB), t = 2), data/dfz_char_dependent.csv (transcription of the inequalities (65) and (91) of
-Dougherty, Freiling and Zeger, arXiv:1311.4601v1; used for the margins) and data/s31_six_party.npz (key 'f9', the form
-f9 on the 128 subsets of A,B,C,W,X,Y,Z in mask order; used for the margins).  The repository is found through the
+programs with Lemma 1 (LB), t = 2) and data/s31_six_party.npz (key 'f9', the form f9 on the 128 subsets of
+A,B,C,W,X,Y,Z in mask order; used for the margins).  The repository is found through the
 environment variable EPR1_REPO, or else as the parent directory of the directory of this script (the repository itself
 when the script sits in <repo>/checks/).  Requirements: Python 3.8+, numpy.  Running time: well under a minute.
 
@@ -37,9 +36,11 @@ What is checked:
      against the access structure of (a); purity rows as consequences of h* = h; forms LB2 on seven-element minors that
      remove E when E is present), the identity c - sum y a - sum z e >= 0 exactly, bound 43/41, row counts, negative
      controls; the sizes of the linear programs; the controls (LA2 or Shannon only: optimum 1).
- (e) the margins v/||g||_1 and v/||g||_2 for f9 (Steane state), f12 (built from its definition; non-Fano state) and
-     DFZ (65)/(91) pulled back through the purifier O of the seven-party cube states.
-The validity of Lemma 1, of the results of Jafari-Khazaei and of DFZ is an input; it is only tested here.
+ (e) the margins v/||g||_1 and v/||g||_2 for f9 (Steane state) and f12 (built from its definition; non-Fano state).
+ (f) the schemes with information ratio 2 of Proposition 6 (iii): the decomposition scheme for Gamma_F over Z_d for
+     d = 3, 5, 7, 9, 15, 21, 25, 27 (all 128 player sets, orders of projections computed exactly, and the CSS state),
+     with a negative control; the binary scheme for Gamma_NF of Supplementary Note 10 and its CSS state.
+The validity of Lemma 1 and of the results of Jafari-Khazaei is an input; it is only tested here.
 """
 import itertools, json, math, os, random, sys
 from fractions import Fraction
@@ -913,27 +914,13 @@ report('controls: the program with LA2 in place of LB2 and the program with Shan
 print('(e) distances of the witnesses from the cones')
 
 
-def read_dfz(path):
-    forms = {}
-    for line in open(path):
-        line = line.strip()
-        if not line or line.startswith('#') or line.startswith('ineq_id'):
-            continue
-        nm, subset, coeff = [x.strip() for x in line.split(',')]
-        forms.setdefault(nm, {})
-        forms[nm][mask(subset)] = forms[nm].get(mask(subset), 0) + int(coeff)
-    return {k: {m: c for m, c in v.items() if c} for k, v in forms.items()}
-
-
-DFZ = read_dfz(os.path.join(DATA, 'dfz_char_dependent.csv'))
 f9arr = np.load(os.path.join(DATA, 's31_six_party.npz'))['f9']
 F9 = {m: int(f9arr[m]) for m in range(128) if f9arr[m]}
 hF = [a + b for a, b in zip(rF, dual(rF, 7))]
 SF7, SNF7 = conn(rF, 7), conn(rNF, 7)
-report('margin inputs: DFZ (65) = -1 on the Fano and (91) = -1 on the non-Fano configuration; f9 has 67 terms and '
-       'f9(h_F) = -3 with h_F = r_F + r_F^* computed here; the lift of the Steane state S_F = lambda_{r_F} is h_F',
-       ev(DFZ['dfz65_odd'], rF) == -1 and ev(DFZ['dfz91_even'], rNF) == -1 and len(F9) == 67 and ev(F9, hF) == -3
-       and lift(SF7, 7) == hF)
+report('margin inputs: f9 has 67 terms and f9(h_F) = -3 with h_F = r_F + r_F^* computed here; the lift of the '
+       'Steane state S_F = lambda_{r_F} is h_F',
+       len(F9) == 67 and ev(F9, hF) == -3 and lift(SF7, 7) == hF)
 
 
 def h_form_to_S7(f):
@@ -1000,33 +987,148 @@ report('f12 from its definition: %d terms; f12(S_NF) = %d, f12(S_F) = %d'
        % (len(g12), val12, sum(v * SF7[T] for T, v in g12.items())),
        len(g12) == 31 and val12 == -1 and sum(v * SF7[T] for T, v in g12.items()) == 0)
 margins['f12, non-Fano state, purifier Z'] = (-val12,) + norms(g12)
-for nm, q in (('dfz65_odd', 2), ('dfz91_even', 3)):
-    g = {}
-    for T in range(1, 128):
-        S = [0] * 256
-        S[T] = S[255 ^ T] = 1
-        hS = lift(S, 8)
-        v = ev(DFZ[nm], [hS[U | 128] - hS[128] for U in range(128)])
-        if v:
-            g[T] = v
-    val = sum(v * cube[q]['S'][T] for T, v in g.items())
-    margins['DFZ (%s) pulled back, GF(%d) cube state, purifier O' % (nm[3:5], q)] = (-val,) + norms(g)
 print('     %-50s %3s %6s %9s %6s %10s %9s' % ('form, witness', 'v', '||g||1', '||g||2', 'terms', 'v/||g||1', 'v/||g||2'))
 for k_, (v, nt, l1, l2, sq) in margins.items():
     print('     %-50s %3d %6d %9.3f %6d %10s %9.5f' % (k_, v, l1, l2, nt, Fraction(v, l1), v / l2))
 m9, m12 = margins['f9, Steane state, purifier Z'], margins['f12, non-Fano state, purifier Z']
-m65 = margins['DFZ (65) pulled back, GF(2) cube state, purifier O']
-m91 = margins['DFZ (91) pulled back, GF(3) cube state, purifier O']
 report('f9: v = 3, ||g||_1 = 2856, ||g||_2 = sqrt(348372) = 590.2 for every choice of purifier; 1/952 = 1.05e-3 and '
        'Euclidean %.5f >= 5.0e-3' % (3 / m9[3]),
        m9[0] == 3 and m9[2] == 2856 and m9[4] == 348372 and all(x == (3, 2856, m9[3]) for x in [a[:3] for a in f9_all])
        and Fraction(3, 2856) == Fraction(1, 952) and 5.0e-3 <= 3 / m9[3] < 5.1e-3)
 report('f12: v = 1, ||g||_1 = 129, ||g||_2 = sqrt(839) = 28.97; 1/129 and Euclidean %.4f >= 0.034' % (1 / m12[3]),
        m12[0] == 1 and m12[2] == 129 and m12[4] == 839 and 0.034 <= 1 / m12[3] < 0.035)
-report('DFZ (65), (91) pulled back through O: v = 2, ||g||_1 = 90 and 105 (1/45, 2/105), ||g||_2 = %.2f and %.2f, '
-       'Euclidean %.4f and %.4f' % (m65[3], m91[3], 2 / m65[3], 2 / m91[3]),
-       m65[0] == 2 and m91[0] == 2 and m65[2] == 90 and m91[2] == 105 and abs(m65[3] - 20.05) < 0.005
-       and abs(m91[3] - 25.90) < 0.005 and 0.099 <= 2 / m65[3] < 0.1 and 0.077 <= 2 / m91[3] < 0.078)
+
+# ============================================================================== (f) schemes with information ratio 2
+print('(f) schemes with information ratio 2 (Lemma "Linear schemes give stabilizer schemes", Proposition 6 (iii))')
+ELL = {'A': 'BCY', 'B': 'ACX', 'C': 'ABW', 'Z': 'WXY', 'W': 'AYZ', 'X': 'CWZ', 'Y': 'BXZ'}
+INV = {v: k for k, v in VERT.items()}
+report('the bijection q -> l_q of the paper: l_q is a line, q not on it, all seven lines used; on A, B, C, Z it is the '
+       'polarity q -> {x : q.x = 0}',
+       all(ELL[q] in LINES7 and q not in ELL[q] for q in L7) and len(set(ELL.values())) == 7
+       and all(set(ELL[q]) == {P for P in L7 if sum(a * b for a, b in zip(VERT[q], VERT[P])) % 2 == 0}
+               for q in 'ABCZ'))
+
+
+def gf2_apply(M, v):
+    return tuple(sum(M[i][j] * v[j] for j in range(3)) % 2 for i in range(3))
+
+
+COLL = []
+for e in itertools.product((0, 1), repeat=9):
+    M = (e[0:3], e[3:6], e[6:9])
+    img = {gf2_apply(M, VERT[P]) for P in L7}
+    if len(img) == 7 and (0, 0, 0) not in img:
+        COLL.append({P: INV[gf2_apply(M, VERT[P])] for P in L7})
+SIG = {}
+for q in L7:
+    SIG[q] = next(c for c in COLL if {c[P] for P in 'WXY'} == set(ELL[q]))
+report('168 collineations of the Fano plane; for each q one with sigma_q(WXY) = l_q',
+       len(COLL) == 168 and all(all(''.join(sorted(SIG[q][P] for P in l)) in [''.join(sorted(m)) for m in LINES7]
+                                     for l in LINES7) for q in L7))
+
+
+def decomposition_code(cvec):
+    """coordinates of the combined code as integer functionals on the parameters (s in Z^3, a_q in Z^3 for the seven
+    q); returns {owner: [functional, ...]} with owners 'R' and the players."""
+    cols = {'R': [[1 if j == i else 0 for j in range(24)] for i in range(3)]}
+    for P in L7:
+        cols[P] = []
+        for jq, q in enumerate(L7):
+            if q == P:
+                continue
+            x = VERT[next(Q for Q in L7 if SIG[q][Q] == P)]          # the cube point of P in the scheme of q
+            f = [0] * 24
+            for i in range(3):
+                f[i] = cvec[q][i]
+                f[3 + 3 * jq + i] = x[i]
+            cols[P].append(f)
+    return cols
+
+
+def factor_small(d):
+    out, x, f = {}, d, 2
+    while x > 1:
+        while x % f == 0:
+            out[f] = out.get(f, 0) + 1
+            x //= f
+        f += 1
+    return out
+
+
+def order_zd(functionals, d):
+    """order of the projection: the subgroup of Z_d^k generated by the images of the 24 parameter vectors"""
+    if not functionals:
+        return 1
+    vecs = [[f[i] for f in functionals] for i in range(24)]
+    o = 1
+    for pr, a in factor_small(d).items():
+        o *= pr ** zn_log_order(vecs, len(functionals), pr ** a, pr)
+    return o
+
+
+def scheme_report(cols, d, minsets, label, ratio_num):
+    owners = ['R'] + list(L7)
+    def o_of(mask8):
+        fs = [f for i, w in enumerate(owners) if mask8 >> i & 1 for f in cols[w]]
+        return order_zd(fs, d)
+    O = {m: o_of(m) for m in range(256)}
+    oR = O[1]
+    auth = lambda T: any(T & mm == mm for mm in minsets)
+    acc_ok = True
+    for T in range(128):
+        mT = T << 1
+        acc_ok &= (O[mT | 1] == O[mT]) if auth(T) else (O[mT | 1] == O[mT] * oR)
+    full = 255
+    E = {m: Fraction(O[m] * O[full ^ m], O[full]) for m in range(256)}
+    css_ok = E[1] == oR
+    for T in range(128):
+        mT = T << 1
+        I = E[1] * E[mT] / E[mT | 1]
+        css_ok &= (I == E[1] ** 2) if auth(T) else (I == 1)
+    shares_ok = all(O[1 << (i + 1)] == d ** ratio_num for i in range(7)) and oR == d ** 3
+    return acc_ok, css_ok, shares_ok
+
+
+CVEC = {q: VERT[q] for q in L7}
+for d in (3, 5, 7, 9, 15, 21, 25, 27):
+    cols = decomposition_code(CVEC)
+    acc_ok, css_ok, sh_ok = scheme_report(cols, d, MIN_F, 'F', 6)
+    report('Z_%d: the decomposition scheme is a scheme for Gamma_F on all 128 player sets (orders of projections from '
+           'Smith-type elimination); secret Z_d^3, each player 6 coordinates of full rank; its CSS state has S(R) = 3 log d '
+           'and I(R;T) = 2 S(R) on Gamma_F and 0 elsewhere' % d, acc_ok and css_ok and sh_ok)
+bad = decomposition_code({q: (1, 0, 0) for q in L7})
+acc_bad, _, _ = scheme_report(bad, 3, MIN_F, 'F', 6)
+report('negative control: with c_q = (1,0,0) for every q the combined code is not a scheme for Gamma_F', not acc_bad)
+
+NF_G = ['100000001111111', '010000001111001', '001000011011011', '000100000010011', '000010001001110',
+        '000001000010110', '000000100101011']        # the generator matrix printed in Supplementary Note 10
+NF_cols = {'R': [[int(r[0]) for r in NF_G]]}
+for i, P in enumerate(L7):
+    NF_cols[P] = [[int(r[1 + 2 * i + j]) for r in NF_G] for j in range(2)]
+
+
+def gf2_scheme(cols, minsets):
+    owners = ['R'] + list(L7)
+    rk = {}
+    for m in range(256):
+        vs = [v for i, w in enumerate(owners) if m >> i & 1 for v in cols[w]]
+        rk[m] = rank_mod_p(vs, 2) if vs else 0
+    auth = lambda T: any(T & mm == mm for mm in minsets)
+    ok = rk[1] == 1 and all(rk[1 << (i + 1)] == 2 for i in range(7))
+    for T in range(128):
+        mT = T << 1
+        ok &= (rk[mT | 1] == rk[mT]) if auth(T) else (rk[mT | 1] == rk[mT] + 1)
+    S = {m: rk[m] + rk[255 ^ m] - rk[255] for m in range(256)}
+    for T in range(128):
+        mT = T << 1
+        I = S[1] + S[mT] - S[mT | 1]
+        ok &= (I == 2 * S[1]) if auth(T) else (I == 0)
+    return ok
+
+
+report('the binary code of Supplementary Note 10 (secret 1 coordinate, 2 per player) is a scheme for Gamma_NF on all 128 '
+       'player sets, and its CSS state is a qubit scheme for Gamma_NF with ratio 2', gf2_scheme(NF_cols, MIN_NF))
+report('negative control: the same code is not a scheme for Gamma_F', not gf2_scheme(NF_cols, MIN_F))
 
 print('ALL OK' if ok_all else 'FAILURE')
 sys.exit(0 if ok_all else 1)

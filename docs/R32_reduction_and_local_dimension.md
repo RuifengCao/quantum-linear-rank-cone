@@ -112,6 +112,17 @@ Theorems 2, 9 and 12 are from the cones they leave (at least 1/952 bit in some e
 (the 4/3 bounds rest on Jafari–Khazaei, Propositions 4.4 and 4.5); certified (G43, G43b); independent referee; not yet
 checked by hand.
 
+Round R48 adds §4.17 and two addenda to `docs/A2_stabilizer_vs_QLR.md`. §4.17: linear schemes give stabilizer schemes
+(Lemma 22), so for prime p the optimal information ratios of stabilizer schemes of local dimension p and of
+GF(p)-linear schemes coincide; Γ_F has stabilizer schemes with information ratio 2 for every odd d, and Γ_NF for qubits
+(Proposition 23), so the optimal ratios lie in [4/3, 2] ([43/41, 2] for Γ_F and every odd d). A2 §3 and §4, R48
+addenda: (★) and 118 further single-CI classes are facets of Stab^(Z_d)_5 for every d, with the realisations of §4.9.
+Proved (Lemma 22; Proposition 23 for Γ_F); checked by computer (Proposition 23 for Γ_NF; the facet counts, by
+`checks/check_rev_sec4.py` and `checks/check_rev_stab5.py`, not by a gate); independent referee; not yet checked by
+hand. The revised version of the paper (October 2026) contains the results of R38–R40, R42–R44, R46 (§4.13), R47 and
+R48 and cites release R48; its Table S3 maps them to this note, to the A2 note, to the gates and to the scripts in
+`checks/`. The remarks "not in the paper" above refer to its first version.
+
 ## 1. Setting
 
 * n visible parties A₁, …, A_n and a purifier F; E is the set of all n + 1 parties. A *pure-symmetric* vector S
@@ -2285,8 +2296,8 @@ the minors (and (LA) minimum 0); on the GF(3) cube state (LB) has minimum 0 and 
   without self-duality, gives exactly 4/3: they imply t ≥ 4/3 (a line, or three of A, B, C, Z, has h-sum ≥ 4h(R) = 8,
   and h(P) ≤ 2t), and the rounded HiGHS solutions are exactly feasible with t = 4/3. So purity does not raise their
   bound in these programs.
-* *Scope.* Lower bounds only; the optimal ratios of stabilizer schemes for Γ_F (odd p) and Γ_NF (qubits) are not
-  known; linear schemes for the six-player ports attain 4/3. Nothing is said about schemes that are not stabilizer
+* *Scope.* Lower bounds only here; (R48) schemes with ratio 2 exist (§4.17), and the optimal ratios of stabilizer
+  schemes for Γ_F (odd p) and Γ_NF (qubits) are not known; linear schemes for the six-player ports attain 4/3. Nothing is said about schemes that are not stabilizer
   schemes. Earlier quantum examples of a dependence on the local dimension were threshold effects (no ((2,3)) scheme
   for qubits with qubit shares, Cleve–Gottesman–Lo; qutrit versus qubit graph states, Keet–Fortescue–Markham–Sanders, PRA 82,
   062315 (2010)); Sarvepalli (PRA 83, 042324 (2011)) gave share-size lower bounds above 1 from entropy inequalities.
@@ -2320,6 +2331,66 @@ n + 1 systems and the witnesses of the first two rows are invariant under the co
 (Steane) or are evaluated with the purifier of Theorem 12 (Z), the choice of the purifier does not affect the
 statements. These are lower bounds from one inequality each; the distances to the cones themselves were not
 computed. On the invariant slice of §4.8 the region excluded by f9 is μ > 210β + 30α + 21ν.
+
+### 4.17 Stabilizer secret sharing: linear schemes give stabilizer schemes, and schemes with ratio 2 [proved; checked by computer] (R48)
+
+**Lemma 22 [proved].** Let Γ be an access structure on a player set P_all in which a set is authorised iff its
+complement in P_all is not (every pure-state scheme requires this). Let C ≤ Z_d^m be a code whose coordinates are
+distributed among R and the players, R holding m_R of them, such that a uniformly random codeword is a classical
+scheme for Γ whose secret (its part at R) is uniform on Z_d^{m_R}. Then the CSS state |C⟩ (§1), with R as the reference,
+is a pure stabilizer scheme for Γ; its secret is m_R qudits, and each player holds one qudit per coordinate.
+
+*Proof.* r(X) = log|pr_X C|, N = P_all ∪ {R}, S = λ_r (Lemma A-css). P_all is authorised, so r(N) = r(P_all) and
+S(R) = r(R) = m_R log d. For T ⊆ P_all and U = P_all ∖ T:
+I(R:T) = [r(R) + r(T) − r(RT)] + [r(RU) − r(U)] + [r(P_all) − r(N)], and the last bracket is 0. If T is authorised,
+U is not, and both remaining brackets equal r(R); if T is unauthorised, U is authorised, and both vanish. ∎
+
+With Lemma 20: for prime p and such Γ, the optimal information ratio of stabilizer schemes of local dimension p equals
+that of GF(p)-linear (multi-linear) schemes.
+
+**Proposition 23 [proved for Γ_F; checked by computer for Γ_NF].**
+
+1. For every odd d, and for Galois qudits of odd characteristic, Γ_F has a stabilizer scheme with information ratio 2.
+2. For qubits, and for Galois qudits of characteristic 2, Γ_NF has a stabilizer scheme with information ratio 2.
+
+So the optimal ratios lie in [4/3, 2] (Γ_F, odd squarefree d or odd-characteristic Galois qudits; Γ_NF, qubits) and
+in [43/41, 2] (Γ_F, every odd d).
+
+*Proof of 1.* Over Z_d (d odd) the cube code has Smith invariants 1 or 2 on every set of columns, so its scheme is an
+ideal scheme for Γ_NF (§4.15). Bijection q ↦ ℓ_q with q ∉ ℓ_q: A ↦ BCY, B ↦ ACX, C ↦ ABW, Z ↦ WXY (the polarity
+q ↦ {x : q·x = 0}), W ↦ AYZ, X ↦ CWZ, Y ↦ BXZ. For each q pick a collineation σ_q with σ_q(WXY) = ℓ_q; scheme q
+draws f_q(x) = c_q·s + a_q·x (a_q uniform in Z_d^3, c_q = the point q as a 0/1 vector, s ∈ Z_d^3 the secret) and gives
+player P ≠ q the value f_q(σ_q^{-1}(P)). Its access structure is σ_q(Γ_NF) = (Γ_F ∖ {ℓ_q}) ∪ {complement of ℓ_q},
+restricted to the players other than q; since q lies in the complement of ℓ_q, all its authorised sets lie in Γ_F.
+A line ℓ is authorised in the schemes of the three points of its complement other than the one q with ℓ_q = ℓ; these
+are non-collinear, so their 0/1 vectors have odd determinant in {0, ±1, ±2}, i.e. ±1, and ℓ recovers s. Sets outside
+Γ_F are unauthorised in all seven schemes (independent randomness). Secret 3 coordinates, shares 6: ratio 2 by
+Lemma 22. Galois qudits of dimension p^k: the same code over GF(p^k). ∎
+
+*Proof of 2.* The binary code with systematic generator matrix (columns R | A A | B B | C C | W W | X X | Y Y | Z Z)
+
+    1 | 00 00 00 01 11 11 11
+    0 | 10 00 00 01 11 10 01
+    0 | 01 00 00 11 01 10 11
+    0 | 00 10 00 00 01 00 11
+    0 | 00 01 00 01 00 11 10
+    0 | 00 00 10 00 01 01 10
+    0 | 00 00 01 00 10 10 11
+
+is a scheme for Γ_NF (all 128 sets of players checked); Lemma 22 gives a qubit scheme with ratio 2, and the same
+matrix over GF(2^k) one for Galois qudits. Found by a randomised search (annealing on the generator matrix); a linear
+program over the binary ideal sub-schemes found by a search gives only ratio 3 for Γ_NF, so this scheme is not a
+decomposition of that kind [empirical]. For Γ_F the decomposition bound is 2 [empirical: among GF(3) ideal sub-schemes
+of Γ_F found by random search, none authorises more than three lines with six participants].
+
+*Searches for ratios below 2 [empirical, R48 sandbox, not in the repository].* Annealing over GF(3) for schemes for Γ_F
+with (secret, share) dimensions (2, 3) and (3, 4), with and without imposing the cyclic symmetry of the Fano plane,
+and, with the cyclic symmetry, (3, 5), (4, 6) and (4, 7) (runs of at most 7 minutes, two seeds each), found none; the
+best residuals stayed at one or more unmet rank conditions. This does not show that no such scheme exists.
+
+*Checks.* `checks/check_rev_qss.py`, part (f): the scheme of 1 over Z_d for d = 3, 5, 7, 9, 15, 21, 25, 27 (all 128
+player sets, orders of projections computed exactly, the CSS state), with a negative control; the matrix of 2 and its
+CSS state.
 
 ## 5. Open questions
 

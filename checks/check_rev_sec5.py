@@ -1,13 +1,13 @@
-"""Checks for the revised paper (2026-10), Sec. II D and Supplementary Note 3: Lemma 2 (the derived subgroup C), Theorem 4 from
-2p + 2 parties for odd p, and Theorem 5 from 2 max(d, d') + 2 parties.  Independent of the repository code.
+"""Checks for the revised paper (2026-10), Sec. II E and Supplementary Note 4: Lemma 3 (the derived subgroup C), Theorem 7 from
+2p + 2 parties for odd p, and Theorem 8 from 2 max(d, d') + 2 parties.  Independent of the repository code.
 
 Conventions.  A subgroup of Z_N^D is given by generator vectors (integers); its order is computed exactly from the
 lattice spanned by the generators and N Z^D.  For a prime N this is a subspace of GF(N)^D.  The rank function is
 h(X) = log2 |sum of the subgroups in X|; a linear form with integer coefficients is evaluated exactly as the rational
 number 2^value = prod |.|^coefficient.
 
-Variables of Lemma 2: A_1..A_M are 0..M-1 and B_1..B_M are M..2M-1; the lower bound Lambda for h(C) is called L in the
-code, and gamma* is kappa (as in the R32 note).  The configuration (6) without C:
+Variables of Lemma 3: A_1..A_M are 0..M-1 and B_1..B_M are M..2M-1; the lower bound Lambda for h(C) is called L in the
+code, and gamma* is kappa (as in the R32 note).  The configuration (7) without C:
 A_i = <e_i>, B_i = <c - e_i> in R^M, R = GF(l) or Z_N.
 """
 import itertools, math, os, random, sys
@@ -130,7 +130,7 @@ def mi(X, Y, Z=()):      # I(X; Y | Z)
 
 
 def lemma2_forms(M, jmap):
-    """the forms (LB*) and (LA*) of Lemma 2 as right-hand side minus left-hand side (>= 0 when valid)."""
+    """the forms (LB*) and (LA*) of Lemma 3 as right-hand side minus left-hand side (>= 0 when valid)."""
     A = list(range(M))
     B = list(range(M, 2 * M))
     P = lambda m: {A[m], B[m]}
@@ -181,7 +181,7 @@ def jmaps(M, count, rng):
 rng = random.Random(20261016)
 PRIMES = [2, 3, 5, 7, 11, 13]
 
-# ----------------------------------------------------------------------- (1) values on the configuration (6)
+# ----------------------------------------------------------------------- (1) values on the configuration (7)
 bad = []
 for t in range(3, 9):
     M = t + 1
@@ -194,7 +194,7 @@ for t in range(3, 9):
             eLA = Fraction(1) if t % l == 0 else Fraction(1, l)
             if (vLB, vLA, vL) != (eLB, eLA, Fraction(l)):
                 bad.append((t, l, jm, vLB, vLA, vL))
-report('Lemma 2 on (6) over GF(l), l in %s, t = 3..8, four choices of j(.) each: (LB*) = -[l|t], (LA*) = -[l does '
+report('Lemma 3 on (7) over GF(l), l in %s, t = 3..8, four choices of j(.) each: (LB*) = -[l|t], (LA*) = -[l does '
        'not divide t], Lambda = 1 (units of log l)' % PRIMES, not bad, str(bad[:3]))
 
 bad = []
@@ -207,7 +207,7 @@ for t in range(3, 9):
             g = math.gcd(t, N)
             if (LB.value(arr), LA.value(arr), L.value(arr)) != (Fraction(1, g), Fraction(g, N), Fraction(N)):
                 bad.append((t, N, jm))
-report('Lemma 2 on (6) over Z_N, N in {4,6,8,9,12,18,25,27}, t = 3..8, three choices of j(.) each: '
+report('Lemma 3 on (7) over Z_N, N in {4,6,8,9,12,18,25,27}, t = 3..8, three choices of j(.) each: '
        '(LB*) = -log gcd(t,N), (LA*) = -log(N/gcd(t,N)), Lambda = log N', not bad, str(bad[:3]))
 
 bad = []
@@ -225,7 +225,7 @@ def random_subgroup(D, N, rng, maxgens=2):
 
 
 def perturbed_T(M, N, rng, p_add=0.25, p_clear=0.1):
-    """the configuration (6) with random extra generators and random dropped generators."""
+    """the configuration (7) with random extra generators and random dropped generators."""
     U = [[[1 if k == i else 0 for k in range(M)]] for i in range(M)]
     U += [[[0 if k == i else 1 for k in range(M)]] for i in range(M)]
     for s in U:
@@ -257,10 +257,10 @@ for t, N, kind in [(3, 2, 'LB'), (3, 5, 'LB'), (3, 4, 'LB'), (3, 3, 'LA'), (6, 6
             nv += 1
     counts[(t, N, kind)] = n
     viol[(t, N, kind)] = nv
-report('Lemma 2, random and perturbed arrangements where the hypothesis holds (13 cases, %d arrangements): no '
+report('Lemma 3, random and perturbed arrangements where the hypothesis holds (13 cases, %d arrangements): no '
        'violation' % sum(counts.values()), all(v == 0 for v in viol.values()), str({k: v for k, v in viol.items() if v}))
 
-# control: the same tests find violations when the hypothesis fails (the configuration (6) in the other characteristic)
+# control: the same tests find violations when the hypothesis fails (the configuration (7) in the other characteristic)
 ctrl = {}
 for t, N, kind in [(3, 3, 'LB'), (3, 2, 'LA'), (4, 2, 'LB'), (4, 3, 'LA'), (5, 5, 'LB'), (5, 2, 'LA')]:
     M = t + 1
@@ -397,11 +397,11 @@ for p in [2, 3, 5]:
                     fails.append('step5b')
             for f in fails:
                 step_fail[f] = step_fail.get(f, 0) + 1
-report('proof of Lemma 2 step by step with C computed explicitly (GF(2), GF(3), GF(5); t = 3, 4; %d arrangements): '
+report('proof of Lemma 3 step by step with C computed explicitly (GF(2), GF(3), GF(5); t = 3, 4; %d arrangements): '
        'h(C) >= Lambda, gamma <= gamma*, eps_i = 0, delta_i <= delta*_i, the formula for eta_i, h(A_i cap C) <= theta_i'
        % nchk, not step_fail, str(step_fail))
 
-# ------------------------------------------------- (4) Theorem 4: doubled-code witnesses, entropies from codes
+# ------------------------------------------------- (4) Theorem 7: doubled-code witnesses, entropies from codes
 def css_entropy(code_rows, owner, nsys, N):
     """entropy vector (log2) of the CSS state of the code spanned by code_rows over Z_N, coordinates owned by
     systems 0..nsys-1: S(X) = r(X) + r(complement) - r(all), r(X) = log2 |projection to X| (Lemma A.5).
@@ -464,7 +464,7 @@ for (p, q, N), (vLB, vLA, same, nocoloop) in wit.items():
     exp_LB = Fraction(1, p) if N == p else Fraction(1)
     exp_LA = Fraction(1) if N == p else Fraction(1, q)
     good = good and same and nocoloop and vLB == exp_LB and vLA == exp_LA
-report('Theorem 4, n = 2p + 2: on the doubled-code states of [I | J - I] (entropies from the code [G | G]), (LB*) = '
+report('Theorem 7, n = 2p + 2: on the doubled-code states of [I | J - I] (entropies from the code [G | G]), (LB*) = '
        '-log p over GF(p) and 0 over GF(q), (LA*) = -log q over GF(q) and 0 over GF(p); S = r on parties; no coloops '
        '(p = 3, 5, 7 against several q)', good)
 
@@ -481,7 +481,7 @@ for t in (3, 5):
 report('balancing coefficients f(1_i) of (LB*) and (LA*) are nonnegative (t = 3, 5)', balok,
        't=3: LB* %s, LA* %s' % (bal[(3, 'LB*')], bal[(3, 'LA*')]))
 
-# ------------------------------------------------------------------ (5) Theorem 5: witnesses with 2 max + 2
+# ------------------------------------------------------------------ (5) Theorem 8: witnesses with 2 max + 2
 cases = []
 for d, dp in [(9, 3), (8, 4), (4, 6), (8, 6), (27, 9), (25, 5), (3, 2), (15, 4), (5, 4), (9, 6), (4, 2), (2, 3)]:
     assert dp % d != 0          # d does not divide d'
@@ -499,7 +499,7 @@ for d, dp in [(9, 3), (8, 4), (4, 6), (8, 6), (27, 9), (25, 5), (3, 2), (15, 4),
     elif j >= 1 and dp >= 3:
         t, N, form_kind = dp, p ** (j + 1), 'LA'
     else:
-        cases.append((d, dp, p, j, 'other witness (Theorem 6 or the Z_4 cube state)', None, None))
+        cases.append((d, dp, p, j, 'other witness (Theorem 4 or the Z_4 cube state)', None, None))
         continue
     M = t + 1
     LB, LA, L = lemma2_forms(M, [(i + 1) % M for i in range(M)])
@@ -561,9 +561,9 @@ v_gf2 = LB1.value(cube_state_pulled_back(2, 2))
 v_z4 = LA1.value(cube_state_pulled_back(2, 4))
 cases.append((2, 3, 2, 0, 'cube state over GF(2), pulled-back (LB) with t=2, 7 parties', v_gf2, Fraction(1, 4)))
 cases.append((4, 2, 2, 1, 'cube state over Z_4, pulled-back (LA) with t=2, 7 parties', v_z4, Fraction(1, 4)))
-cases = [c for c in cases if c[4] != 'other witness (Theorem 6 or the Z_4 cube state)']
+cases = [c for c in cases if c[4] != 'other witness (Theorem 4 or the Z_4 cube state)']
 good = all(c[5] == c[6] for c in cases)
-report('Theorem 5: the witnesses of the four cases take the value -log p (doubled codes, from the codes) or -2 bits '
+report('Theorem 8: the witnesses of the four cases take the value -log p (doubled codes, from the codes) or -2 bits '
        '(generalized cube states over GF(2) and Z_4, Lemma 1 pulled back), with at most 2 max(d,d\') + 2 parties', good,
        '; '.join('(%d,%d): %s' % (c[0], c[1], c[4]) for c in cases))
 

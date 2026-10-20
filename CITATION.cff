@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use these data or this code, please cite them as below."
 type: software
 title: "quantum-linear-rank-cone: Data, certificates and code for stabilizer entropy cones"
-version: R47
+version: R48
 date-released: 2026-10-20
 authors:
   - family-names: Cao
@@ -24,7 +24,7 @@ abstract: >-
   sharing schemes, a self-test suite of verification gates, and the verification
   scripts (directory checks) of the paper "Stabilizer entropy cones as self-dual
   slices of linear rank cones: a five-party gap and dependence on the local
-  dimension" by X. Song and R. Cao (arXiv:2610.18905). The code is under the MIT license, the data
+  dimension" by X. Song and R. Cao (arXiv:2610.18905) and of its revised version. The code is under the MIT license, the data
   (directories data and results) are under the CC BY 4.0 license, and bin/normaliz
   is an unmodified binary of Normaliz under its own license (GPL-3).
 keywords:

@@ -5,14 +5,19 @@ Machine-certified data and tools for the **five-party quantum linear rank cone**
 suite of verification gates. Self-contained: no `psitip` dependency, all input
 data bundled, a static Normaliz binary included, resumable long runs.
 
-> **Status (R47, 2026-10-20).** R38–R47 add results obtained after the paper (§0,
-> first items); they are certified by the gates and checked by an independent referee (an agent), not yet by
-> hand. R47 adds a consequence for quantum secret sharing: for the access structure of Steane's code, every
-> stabilizer scheme of odd prime local dimension has information ratio at least 4/3, while qubits are ideal.
+> **Status (R48, 2026-10-20).** R38–R48 add results obtained after the paper (§0,
+> first items); they are certified by the gates (the computations of R48 by the scripts in `checks/` only) and
+> checked by an independent referee (an agent), not yet by hand. R47 adds a consequence for quantum secret sharing: for the access structure of Steane's code, every
+> stabilizer scheme of odd prime local dimension has information ratio at least 4/3, while qubits admit an ideal
+> scheme. R48 shows that the five-party inequality (★) and 118 further single-CI inequality classes are facets of
+> the stabilizer cone of every local dimension, and that stabilizer schemes with information ratio 2 exist for
+> both access structures of R47 (linear schemes give stabilizer schemes).
 > Release R37
-> is the archived version cited by the paper *Stabilizer entropy cones as self-dual slices of linear rank cones:
-> a five-party gap and dependence on the local dimension* (X. Song and R. Cao,
-> 2026, [arXiv:2610.18905](https://arxiv.org/abs/2610.18905)). Everything in `data/` is machine-certified by the
+> is the archived version cited by the first version of the paper *Stabilizer entropy cones as self-dual slices of
+> linear rank cones: a five-party gap and dependence on the local dimension* (X. Song and R. Cao,
+> 2026, [arXiv:2610.18905v1](https://arxiv.org/abs/2610.18905v1)); release R48 is the version cited by its revised
+> version (October 2026), whose Table S3 maps each result to the notes, the gates and the scripts in `checks/`.
+> Everything in `data/` is machine-certified by the
 > gates in `selftest.py`, and the numbers quoted in the paper are recomputed by the
 > separate scripts in `checks/`. The proofs used in the paper and the
 > transcriptions they rely on were checked line by line by hand before the paper
@@ -39,10 +44,11 @@ and the changelog is explained in the glossary at the end.
   on the local dimension. Its results are those of rounds R27-R36, written up in
   `docs/A2_stabilizer_vs_QLR.md` and `docs/R32_reduction_and_local_dimension.md`;
   Table VI of the paper maps each result to these notes, to the gates of
-  `selftest.py` and to the scripts below. (R47) A revised version of the paper,
-  in preparation, also contains the results of R42–R47; the scripts
-  `checks/check_rev_*.py` check them, and `checks/README.md` maps every script
-  to both versions.
+  `selftest.py` and to the scripts below. (R47, R48) A revised version of the
+  paper (October 2026) also contains the results of R38–R40, R42–R44, R46
+  (§4.13), R47 and R48 and cites release R48; its Table S3 plays the role of
+  Table VI. The scripts `checks/check_rev_*.py` check these results, and
+  `checks/README.md` maps every script to both versions.
 - **`checks/`.** The verification scripts of the paper. They read `data/` and
   `results/` but not the code of the repository, except for the transcriptions
   of the published seven-variable inequalities used by `check_sec6.py`. Run
@@ -101,6 +107,16 @@ and the changelog is explained in the glossary at the end.
   the catalogue has diminishing scientific value; the A1′ campaign is closed
   and server time goes to A2 tools from here on. **Interpretation guard:** an
   unwitnessed orbit is not an unrealisable one.
+- [x] **R48 (2026-10-20): (★) is a facet of the five-party stabilizer cone of every local dimension; secret sharing schemes with ratio 2** (`docs/A2_stabilizer_vs_QLR.md`
+  §3, R48 addendum; proved; computation checked by `checks/check_rev_sec4.py`, no repository data; not yet checked by hand).
+  Six-vertex graph states with 0/1 weights have cut blocks with minors in {0, ±1, ±2}, so over every odd prime field
+  their entropy vectors are the rational cut-rank vectors: 835 distinct vectors of rank 31, and the same 140 that are
+  tight for qubits are tight on (★) (rank 30). With Corollary 3 of the paper, (★) is a facet of Stab^(ℤ_d)_5 for every d
+  and of Stab₅.
+  The same holds for 119 of the 747 single-CI classes (`checks/check_rev_stab5.py`, which also re-verifies the
+  realisations of R32 §4.9 for every d without Smith forms). Secret sharing (R32 §4.17): the CSS state of a linear
+  scheme is a stabilizer scheme (Lemma 22), and schemes with ratio 2 exist for Γ_F (every odd d) and Γ_NF (qubits)
+  (Proposition 23; `checks/check_rev_qss.py`, part (f)).
 - [x] **R47 (2026-10-20): stabilizer secret sharing — the information ratio depends on the local dimension; distances
   of the witnesses from the cones; checks for the revision** (`docs/R32_reduction_and_local_dimension.md` §4.15,
   §4.16; Lemma 20 and Proposition 21 proved, the 4/3 bounds from Jafari–Khazaei, the 43/41 bound certified and

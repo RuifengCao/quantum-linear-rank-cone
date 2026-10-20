@@ -128,6 +128,15 @@ Moreover (★) is a facet of the qubit stabilizer cone: 30 linearly independent
 known qubit stabilizer entropy vectors attain equality
 (`data/s17_ineq_tight_rank.npy`, class 29). ∎
 
+*R48 addendum (proved; checked by `checks/check_rev_sec4.py`; not yet checked by hand): (★) is a facet of
+Stab^(ℤ_d)_5 for every d, and of Stab₅.* For an odd prime p, the graph state of six qudits with a 0/1 adjacency
+matrix has S(X) = rank over GF(p) of the cut block, in units of log p. A cut block has at most three rows or
+columns, and the minors of 0/1 matrices of size at most 3 lie in {0, ±1, ±2}, so the rank over GF(p) is the
+rational rank for every odd p. The 2^15 graphs give 835 distinct vectors of rank 31, containing the 760 qubit
+vectors; exactly 140 of them, the same 140 as for qubits, attain equality in (★), with rank 30. So (★) is a facet of
+Stab^(p)_5 for every prime p. For any d, take p | d: Stab^(p)_5 ⊆ Stab^(ℤ_d)_5 ⊆ Stab₅ (paper, Corollary 3), (★) is
+valid on Stab₅, and the 30 independent tight vectors lie in Stab^(p)_5.
+
 ## 4. Scale
 
 * Frontier (all catalogue orbits with maximum coordinate ≤ 5 that are neither
@@ -149,6 +158,14 @@ known qubit stabilizer entropy vectors attain equality
 * **Facets of Stab₅.** 119 of the 747 classes are certified facets of the qubit
   stabilizer cone: on each hyperplane lie 30 linearly independent known
   realisable vectors (`scripts/s19_facet_check.py`).
+  (R48) The same 119 classes are facets of Stab^(ℤ_d)_5 for every d ≥ 2: the
+  760 six-qubit graph-state vectors are also cut-rank vectors over every odd
+  prime field (§3, R48 addendum), and all 641 known extreme-ray orbits lie in
+  Stab^(ℤ_d)_5 for every d by the realisations of R32 §4.9 (R38–R40); with
+  these vectors 119 classes have 30 linearly independent tight vectors
+  (`checks/check_rev_stab5.py`). The count of 119 above for the qubit cone used,
+  for 12 of the rays, membership from the literature (hypergraphs and Walter–
+  Witteveen); it no longer depends on it.
 * Literature anchor: the six-variable inequalities (44)–(48) printed in DFZ §6
   (Theorem 3 type), applied with the purifier as the sixth variable, already
   exclude 45,292 catalogue orbits; of the frontier rays only (45) excludes one.
