@@ -35,6 +35,14 @@
     a transcription.
   - Docstrings and printed labels of `checks/check_rev_sec5.py`, `checks/check_rev_sec6.py` and `checks/check_rev_qss.py`
     follow the numbering of the reorganised revised paper (no change to what they compute).
+- **Addendum (same day, after a further review of the paper).** `docs/R32_reduction_and_local_dimension.md` §4.17:
+  Proposition 24 [proved; not yet checked by hand]: Γ_F has no ideal stabilizer scheme of Z_d qudits when d has an odd
+  prime factor, and Γ_NF none when d ≡ 2 (mod 4); among squarefree d, Γ_F has one exactly for d = 2 and Γ_NF exactly
+  for odd d (Sylow factorization; each factor meets the access conditions; the bounds 43/41 and 4/3 of Proposition 21).
+  §4.16: the Steane vector lies within 1/12 bit, in every entropy, of (5/36) Σ_ℓ S_NF^(ℓ), a positive combination of
+  relabeled non-Fano vectors, so its distance from the cones of odd local dimension lies between 1/952 and 1/12 bit.
+  `checks/check_rev_qss.py`: new part (g), the exact check of this bound; `checks/README.md` row updated;
+  `checks/references_log.md`: the three references added to the paper in this review.
 - README (status: R37 is cited by arXiv v1, R48 by the revised version and its Table S3; §0 item), the round list
   of `docs/R32_reduction_and_local_dimension.md` (R48 paragraph), VERSION, CITATION.cff (version R48; the revised
   version). No data, no code under `scripts/`, `cc/` or `epr1kit/`, and no gates changed: `selftest.py --full` is

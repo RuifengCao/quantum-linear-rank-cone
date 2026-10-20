@@ -40,6 +40,9 @@ What is checked:
  (f) the schemes with information ratio 2 of Proposition 6 (iii): the decomposition scheme for Gamma_F over Z_d for
      d = 3, 5, 7, 9, 15, 21, 25, 27 (all 128 player sets, orders of projections computed exactly, and the CSS state),
      with a negative control; the binary scheme for Gamma_NF of Supplementary Note 10 and its CSS state.
+ (g) an upper bound on the distance of the Steane state from the cones of odd local dimension (Methods): the non-Fano
+     vector relabeled by the 168 collineations of the Fano plane gives S_F plus 1 on a line and its complement, and
+     (5/36) times the sum over the 7 lines lies within 1/12 of S_F in every entropy (exact fractions).
 The validity of Lemma 1 and of the results of Jafari-Khazaei is an input; it is only tested here.
 """
 import itertools, json, math, os, random, sys
@@ -1129,6 +1132,59 @@ def gf2_scheme(cols, minsets):
 report('the binary code of Supplementary Note 10 (secret 1 coordinate, 2 per player) is a scheme for Gamma_NF on all 128 '
        'player sets, and its CSS state is a qubit scheme for Gamma_NF with ratio 2', gf2_scheme(NF_cols, MIN_NF))
 report('negative control: the same code is not a scheme for Gamma_F', not gf2_scheme(NF_cols, MIN_F))
+
+
+print('(g) an upper bound on the distance of the Steane state from the cones of odd local dimension')
+
+LINE_MASKS = {mask(l) for l in LINES7}
+
+
+def is_collineation(perm):
+    """perm maps the i-th point of L7 to the point perm[i]; collineations map lines to lines."""
+    return all(mask(''.join(L7[perm[L7.index(c)]] for c in l)) in LINE_MASKS for l in LINES7)
+
+
+def relabel_vec(S, perm):
+    """S' with S'(sigma(X)) = S(X) for the permutation sigma of the seven systems given by perm."""
+    out = [0] * 128
+    for X in range(128):
+        Y = 0
+        for i in range(7):
+            if X >> i & 1:
+                Y |= 1 << perm[i]
+        out[Y] = S[X]
+    return out
+
+
+colls = [perm for perm in itertools.permutations(range(7)) if is_collineation(perm)]
+wxy = mask('WXY')
+relabeled = {}
+for perm in colls:
+    img = 0
+    for i in range(7):
+        if wxy >> i & 1:
+            img |= 1 << perm[i]
+    relabeled.setdefault(img, relabel_vec(SNF7, perm))
+delta_ok = True
+for lm, vec in relabeled.items():
+    for X in range(128):
+        extra = 1 if X in (lm, 127 ^ lm) else 0
+        delta_ok &= vec[X] == SF7[X] + extra
+report('the Fano plane has 168 collineations; for each of the 7 lines l, the non-Fano vector relabeled so that WXY goes '
+       'to l equals S_F plus 1 on l and on its complement', len(colls) == 168 and len(relabeled) == 7 and delta_ok)
+comb = [Fraction(5, 36) * sum(vec[X] for vec in relabeled.values()) for X in range(128)]
+devs = {comb[X] - SF7[X] for X in range(1, 127)}
+dev_max = max(abs(x) for x in devs)
+report('(5/36) times the sum of the 7 relabeled non-Fano vectors differs from S_F by %s on the nonempty proper subsets, '
+       'so it lies within %s of S_F in every entropy (and 1/952 < 1/12)'
+       % (', '.join(str(x) for x in sorted(devs)), dev_max),
+       devs == {Fraction(-1, 36), Fraction(-1, 18), Fraction(-1, 12), Fraction(1, 12)} and dev_max == Fraction(1, 12)
+       and Fraction(1, 952) < Fraction(1, 12))
+on_line = [any(X in (lm, 127 ^ lm) for lm in relabeled) for X in range(128)]
+best = min(max(abs(c * (SF7[X] + Fraction(int(on_line[X]), 7)) - SF7[X]) for X in range(1, 127))
+           for c in [Fraction(k, 360) for k in range(300, 361)])
+report('within the family c * (1/7) * sum, the coefficient c = 35/36 (that is, 5/36 for the sum) is optimal on a grid of '
+       'step 1/360: best maximal deviation %s' % best, best == Fraction(1, 12))
 
 print('ALL OK' if ok_all else 'FAILURE')
 sys.exit(0 if ok_all else 1)

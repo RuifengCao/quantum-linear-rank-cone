@@ -116,7 +116,9 @@ and the changelog is explained in the glossary at the end.
   The same holds for 119 of the 747 single-CI classes (`checks/check_rev_stab5.py`, which also re-verifies the
   realisations of R32 §4.9 for every d without Smith forms). Secret sharing (R32 §4.17): the CSS state of a linear
   scheme is a stabilizer scheme (Lemma 22), and schemes with ratio 2 exist for Γ_F (every odd d) and Γ_NF (qubits)
-  (Proposition 23; `checks/check_rev_qss.py`, part (f)).
+  (Proposition 23; `checks/check_rev_qss.py`, part (f)). Addendum: Γ_F has no ideal stabilizer scheme when d has an
+  odd prime factor, Γ_NF none when d ≡ 2 (mod 4) (Proposition 24); the Steane state lies within 1/12 bit of the cones of
+  odd local dimension in every entropy (R32 §4.16; `checks/check_rev_qss.py`, part (g)).
 - [x] **R47 (2026-10-20): stabilizer secret sharing — the information ratio depends on the local dimension; distances
   of the witnesses from the cones; checks for the revision** (`docs/R32_reduction_and_local_dimension.md` §4.15,
   §4.16; Lemma 20 and Proposition 21 proved, the 4/3 bounds from Jafari–Khazaei, the 43/41 bound certified and

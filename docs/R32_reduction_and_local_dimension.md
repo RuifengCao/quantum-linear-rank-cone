@@ -121,7 +121,10 @@ Proved (Lemma 22; Proposition 23 for Γ_F); checked by computer (Proposition 23 
 `checks/check_rev_sec4.py` and `checks/check_rev_stab5.py`, not by a gate); independent referee; not yet checked by
 hand. The revised version of the paper (October 2026) contains the results of R38–R40, R42–R44, R46 (§4.13), R47 and
 R48 and cites release R48; its Table S3 maps them to this note, to the A2 note, to the gates and to the scripts in
-`checks/`. The remarks "not in the paper" above refer to its first version.
+`checks/`. The remarks "not in the paper" above refer to its first version. R48 addendum (same day): Proposition 24 in
+§4.17 (Γ_F has no ideal stabilizer scheme when d has an odd prime factor, Γ_NF none when d ≡ 2 mod 4), and an upper
+bound 1/12 for the distance of the Steane state from the cones of odd local dimension in §4.16 (checked by
+`checks/check_rev_qss.py`, part (g)). Proved; independent referee (agent); not yet checked by hand.
 
 ## 1. Setting
 
@@ -2332,7 +2335,15 @@ n + 1 systems and the witnesses of the first two rows are invariant under the co
 statements. These are lower bounds from one inequality each; the distances to the cones themselves were not
 computed. On the invariant slice of §4.8 the region excluded by f9 is μ > 210β + 30α + 21ν.
 
-### 4.17 Stabilizer secret sharing: linear schemes give stabilizer schemes, and schemes with ratio 2 [proved; checked by computer] (R48)
+*Upper bound for the Steane state [proved; checked by `checks/check_rev_qss.py`, part (g)] (R48 addendum).* Relabel
+the non-Fano vector S_NF by a collineation of the Fano plane that maps WXY to a line ℓ; the result is S_NF^(ℓ) =
+S_F + δ_ℓ, where δ_ℓ is 1 on ℓ and on its complement and 0 elsewhere (S_F is invariant under the 168 collineations).
+The vector (5/36) Σ_ℓ S_NF^(ℓ) = (35/36) S_F + (5/36) Σ_ℓ δ_ℓ is a positive combination of entropy vectors of
+GF(p) stabilizer states for every odd p, and it differs from S_F by 1/12 on the lines and their complements (S_F = 2
+there) and by −S_F(X)/36 ∈ {−1/36, −1/18, −1/12} elsewhere. So the ℓ∞ distance of the Steane vector from Stab^(Z_d)_6,
+d odd, lies between 1/952 and 1/12 bit. No comparable upper bound has been computed for the non-Fano vector.
+
+### 4.17 Stabilizer secret sharing: linear schemes give stabilizer schemes, schemes with ratio 2, and no ideal schemes [proved; checked by computer] (R48)
 
 **Lemma 22 [proved].** Let Γ be an access structure on a player set P_all in which a set is authorised iff its
 complement in P_all is not (every pure-state scheme requires this). Let C ≤ Z_d^m be a code whose coordinates are
@@ -2382,6 +2393,22 @@ matrix over GF(2^k) one for Galois qudits. Found by a randomised search (anneali
 program over the binary ideal sub-schemes found by a search gives only ratio 3 for Γ_NF, so this scheme is not a
 decomposition of that kind [empirical]. For Γ_F the decomposition bound is 2 [empirical: among GF(3) ideal sub-schemes
 of Γ_F found by random search, none authorises more than three lines with six participants].
+
+**Proposition 24 [proved] (R48 addendum).** For Z_d qudits, Γ_F has no ideal stabilizer scheme if d has an odd prime
+factor, and Γ_NF has none if d ≡ 2 (mod 4). Hence, among squarefree d, Γ_F has an ideal stabilizer scheme exactly for
+d = 2, and Γ_NF exactly for odd d.
+
+*Proof.* The state of a stabilizer scheme of Z_d qudits is the tensor product of stabilizer states of Z_{p^a} qudits,
+one for each prime power p^a that divides d exactly (Sylow components of the Lagrangian subgroup; each is Lagrangian,
+since it is isotropic of order at most p^{am} and the orders multiply to d^m), and S = Σ_p S_p. Since
+0 ≤ I_p(R:T) ≤ 2 S_p(R) and I = Σ_p I_p, each factor meets the access conditions by itself. Every player P lies in a
+minimal authorized set T, so 2S(R) = I(R:T) − I(R:T∖P) = I(R:P|T∖P) ≤ 2S(P), and likewise in each factor. If the
+scheme is ideal, then S(P) ≤ log dim P ≤ S(R) for every P; hence every share is maximally mixed with S(P) = S(R), and
+S_p(P) = S_p(R) in each factor. Since S(R) > 0, every player holds m_P ≥ 1 qudits, so S_p(P) = m_P a log p > 0. For an
+odd p and Γ_F, the factor is a stabilizer scheme of odd local dimension p^a in which every share has the entropy of the
+reference, contradicting the bound 43/41 of Proposition 21 (the linear program bounds max_P S(P)/S(R)). For p = 2,
+a = 1 and Γ_NF, it contradicts the qubit inequality S(P) + S(P′) + S(P″) ≥ 4S(R) of Proposition 21. Conversely, the
+qubit cube state is ideal for Γ_F, and the cube state over Z_d with d odd is ideal for Γ_NF (Smith invariants 1 or 2). ∎
 
 *Searches for ratios below 2 [empirical, R48 sandbox, not in the repository].* Annealing over GF(3) for schemes for Γ_F
 with (secret, share) dimensions (2, 3) and (3, 4), with and without imposing the cyclic symmetry of the Fano plane,
