@@ -1,0 +1,17 @@
+  F_pure_LB2: certified 43/41 (expected 43/41), 72 inequality and 109 equality rows, LP 1.048780487805, exact feasible point with t = 43/41 [7s]
+  F_mixed_LB2: certified 43/41 (expected 43/41), 140 inequality and 201 equality rows, LP 1.048780487805, exact feasible point with t = 43/41 [17s]
+  control F_pure_LA2: LP 1.000000000000 (expected 1)
+  control F_pure_shannon: LP 1.000000000000 (expected 1)
+access structures differ in {'F_only': ['WXY'], 'NF_only': ['ABCZ'], 'F_is_lines': True}
+minimum over all seven-element minors and labellings: {'LB2 on GF(2)': -2, 'LA2 on GF(2)': 0, 'LB2 on GF(3)': 0, 'LA2 on GF(3)': -2}
+contractions by one player: Gamma_F/q = F of Jafari-Khazaei for every q; Gamma_NF/q = N for q in ABCZ: True {'A': 'BCZ', 'B': 'ACZ', 'C': 'ABZ', 'W': None, 'X': None, 'Y': None, 'Z': 'ABC'}
+programs with the Jafari-Khazaei inequalities on contractions (optimum, exact feasible point): {'F_pure_JK': {'lp': 1.3333333333333335, 'exact': '4/3'}, 'F_classical_JK': {'lp': 1.3333333333333333, 'exact': '4/3'}, 'NF_pure_JK': {'lp': 1.3333333333333333, 'exact': '4/3'}, 'NF_classical_JK': {'lp': 1.3333333333333333, 'exact': '4/3'}}
+margin f9 (Steane): value -3, ||g||_1 = 2856, eps_inf = 1/952, Euclidean distance >= 0.00508
+margin f12 (non-Fano): value -1, ||g||_1 = 129, eps_inf = 1/129, Euclidean distance >= 0.03452
+margin dfz65_odd (cube): value -2, ||g||_1 = 90, eps_inf = 1/45, Euclidean distance >= 0.09975
+margin dfz91_even (cube): value -2, ||g||_1 = 105, eps_inf = 2/105, Euclidean distance >= 0.07721
+ALL OK
+
+real	0m28.845s
+user	0m27.963s
+sys	0m0.796s

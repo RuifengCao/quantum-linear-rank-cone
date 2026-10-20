@@ -667,5 +667,45 @@
     -1
    ]
   }
+ },
+ "s38_qss_certificates": {
+  "note": "Sections 4.15 and 4.16 (R47): stabilizer secret sharing.  Rational dual certificates of the two linear programs of scripts/s38_secret_sharing.py for Gamma_F with Lemma 4 (LB), t = 2, on all seven-element minors (pure; mixed with an environment E), each a list of [row descriptor, multiplier]; sha256 of the file and of its content (canonical JSON); the certified bounds, the numbers of inequality and equality rows used, the minima of (LB) and (LA) over all seven-element minors of the two cube states, the contraction checks against the access structures F and N of Jafari and Khazaei, and the margins of section 4.16 (v / ||g||_1).",
+  "file_sha256": "24a151c89405ebe2edd5933efcb8b7ccf05ce8dbcf1d830af966bb1fd4264f32",
+  "sha256": "8d5ee8542dfca59d114e2d7260fb698cf7ab924e708ee8a19741c2549628ea11",
+  "bounds": {
+   "F_pure_LB2": "43/41",
+   "F_mixed_LB2": "43/41"
+  },
+  "rows": {
+   "F_pure_LB2": [
+    72,
+    109
+   ],
+   "F_mixed_LB2": [
+    140,
+    201
+   ]
+  },
+  "controls": {
+   "LB2 on GF(2)": -2,
+   "LA2 on GF(2)": 0,
+   "LB2 on GF(3)": 0,
+   "LA2 on GF(3)": -2
+  },
+  "ports_456": {
+   "A": "BCZ",
+   "B": "ACZ",
+   "C": "ABZ",
+   "W": null,
+   "X": null,
+   "Y": null,
+   "Z": "ABC"
+  },
+  "margins": {
+   "f9 (Steane)": "1/952",
+   "f12 (non-Fano)": "1/129",
+   "dfz65_odd (cube)": "1/45",
+   "dfz91_even (cube)": "2/105"
+  }
  }
 }

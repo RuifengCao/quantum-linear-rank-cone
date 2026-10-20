@@ -100,6 +100,18 @@ final expansion of its proof; DFZ Theorem 4.1 is checked.
 Proved (Lemma 4*, Theorem 17, Corollary 19, Proposition 18); certified (G42, G42b); independent referee; not yet
 checked by hand; not in the paper.
 
+Round R47 adds §4.15 and §4.16. §4.15: stabilizer quantum secret sharing. In normal form the lift of a stabilizer
+scheme of prime local dimension p is the entropy function of a GF(p)-linear classical scheme for the same access
+structure (Lemma 20), so classical bounds apply. For the access structure Γ_F of Steane's code with a reference qubit
+(minimal authorised sets: the lines of the Fano plane) qubit schemes are ideal, but **every stabilizer scheme of odd
+squarefree local dimension, pure or mixed, has information ratio at least 4/3**, by Jafari and Khazaei's bound for the
+Fano port (J. Cryptol. 2021) applied to contractions; at least 43/41 for every odd local dimension (Lemma 4 (LB) on all
+minors, certified linear program). For the access structure Γ_NF of the odd-characteristic cube state, schemes over
+GF(p) are ideal and every qubit scheme has ratio at least 4/3 (Proposition 21). §4.16: how far the witnesses of
+Theorems 2, 9 and 12 are from the cones they leave (at least 1/952 bit in some entropy for the Steane state). Proved
+(the 4/3 bounds rest on Jafari–Khazaei, Propositions 4.4 and 4.5); certified (G43, G43b); independent referee; not yet
+checked by hand.
+
 ## 1. Setting
 
 * n visible parties A₁, …, A_n and a purifier F; E is the set of all n + 1 parties. A *pure-symmetric* vector S
@@ -2178,6 +2190,137 @@ h_T8 on 23 sets, mod 3 on 2, mod p equal for 17 primes from 5 to 1009), the entr
 stabilizer groups (GF(3), GF(5), GF(7), GF(13)), and state vectors: the two-fold GF(3) state (16 qutrits, 68 cuts),
 T₈, T₈′, AG(3, 2), N(H_{123}, A_{123}) and the GF(4) state (deviations below 10⁻¹⁴). Its wording is used above.
 
+### 4.15 Stabilizer secret sharing: the information ratio depends on the local dimension [proved; certified] (R47)
+
+*Setting.* In a quantum secret sharing scheme (Cleve–Gottesman–Lo, PRL 83, 648 (1999); Gottesman, PRA 61, 042311
+(2000)) a dealer encodes a quantum secret into shares held by players. Let R be maximally entangled with the secret,
+so that S(R) is the logarithm of its dimension, and let E purify the joint state of R and the shares (E is trivial for
+a pure-state scheme; every scheme is a pure-state scheme with one share discarded, Gottesman 2000). Following Imai,
+Müller-Quade, Nascimento, Tuyls and Winter (QIC 5, 68 (2005)), a set A of players is *authorised* if I(R:A) = 2S(R)
+and *unauthorised* if I(R:A) = 0. The *information ratio* is the largest ratio log|P| / log|secret| over the players P.
+A *stabilizer scheme* of local dimension d is one whose joint state of R, the shares and E is a stabilizer state of
+Z_d qudits or of Galois qudits of dimension d.
+
+For the lift h = h_S (§1), h(R) + h(A) − h(RA) = I(R:A), because the singleton terms cancel. So A is authorised iff
+h(RA) = h(A) and unauthorised iff h(RA) = h(A) + h(R).
+
+*Access structures.* Take the cube states of §4.1 (t = 2), with the origin as R and the seven other vertices
+A, B, C, W, X, Y, Z = 100, 010, 001, 110, 101, 011, 111 as the players; every system holds one qudit and h = 2r, so the
+schemes are ideal. A set of players is authorised iff the origin column (1, 0, 0, 0)ᵀ of the generator lies in the
+span of its columns; every set is authorised or unauthorised, A is authorised iff its complement is unauthorised, and
+64 sets (counting ∅) are of each kind.
+
+* Γ_F, over GF(2): the qubit cube state is (|0⟩_R|0_L⟩ + |1⟩_R|1_L⟩)/√2 for Steane's code. A set is authorised iff it
+  contains a line of the Fano plane; the minimal authorised sets are the seven lines. The matroid is AG(3, 2), and
+  Γ_F is its port at R. (Liu–Shao, arXiv:2510.07753, classify pure qubit schemes with one-qubit shares for up to
+  seven players; for seven players the Fano-plane access structure appears. Two readings of their text disagree on the
+  theorem number and on whether the uniqueness concerns the scheme or the access structure; not verified, not used.)
+* Γ_NF, over GF(p), p odd: the same except that WXY is unauthorised and ABCZ authorised; minimal authorised sets: the
+  six lines other than WXY, and ABCZ, AWXY, BWXY, CWXY, WXYZ. All minors of the integer generator lie in
+  {0, ±1, ±2}, so Γ_NF is the same for every odd p. The matroid is the real affine cube R8, AG(3, 2) with the two
+  complementary circuit-hyperplanes {R, W, X, Y} and {A, B, C, Z} relaxed (determinants ±2); Γ_NF is its port at R.
+
+Both are instances of Sarvepalli–Raussendorf (PRA 81, 052333 (2010)): an identically self-dual matroid
+representable over a finite field induces a pure-state scheme with information rate one.
+
+**Lemma 20 [proved].** Let p be prime. Every stabilizer scheme of local dimension p, pure or mixed, can be brought
+to the normal form of Lemma A-normal (§1; every system P holds S(P)/log p qudits) without changing its access
+structure or increasing its information ratio, which is then max_P S(P)/S(R). In normal form, h_S is the entropy
+function of a GF(p)-linear classical secret sharing scheme for the same access structure (a uniformly random
+element of the Lagrangian subgroup, its coordinates distributed among the systems), with secret entropy 2S(R) and
+share entropies 2S(P).
+
+*Proof.* The normal form changes no entropy and only removes qudits. In it, dim pr_X L = h_S(X) (units of log p), and
+by the identity above the quantum and the classical conditions for authorised and unauthorised sets coincide. ∎
+
+*Classical input.* Jafari and Khazaei (J. Cryptol. 34(4) (2021), doi:10.1007/s00145-021-09410-2; IACR ePrint 2019/575)
+consider F = 14 + 25 + 36 + 123 + 156 + 246 + 345 (the port of the Fano matroid) and N = F + 456 (a port of the
+non-Fano matroid). Proposition 4.4: in every linear scheme for F over a field of odd characteristic,
+dim T_i + dim T_j + dim T_k ≥ 4 dim T_0 for every minimal qualified set {i, j, k} (II); the optimal maximum and
+average information ratios are 4/3. Proposition 4.5: in every linear scheme for N in characteristic 2,
+dim T_4 + dim T_5 + dim T_6 ≥ 4 dim T_0 (III); maximum 4/3, average 23/18. "Linear" includes multi-linear schemes.
+(Statements checked against the ePrint text on 2026-10-20; the proofs are theirs and were not re-checked.)
+Peña-Macias (Kybernetika 59 (2023) 198–208, Corollary 2.9) obtained lower bounds for ports of the Fano and non-Fano
+matroids by linear programming with characteristic-dependent rank inequalities (4/3 and 5/4 for n = 3).
+
+*Contractions [certified (G43)].* For a player q, Γ/q = {A : A ∪ {q} ∈ Γ}. Conditioning a linear scheme on the share
+of an unauthorised player q gives a linear scheme for Γ/q with entropy function T ↦ h(Tq) − h(q): the same secret
+(h(Rq) = h(R) + h(q)) and shares h(Pq) − h(q) ≤ h(P). Γ_F/q ≅ F for every player q, its minimal sets of size 3 being
+the four lines that miss q; Γ_NF/q ≅ N for q ∈ {A, B, C, Z}, the triple 456 of N being the other three of A, B, C, Z
+(for q ∈ {W, X, Y}, neither).
+
+**Proposition 21 [proved; the bound 43/41 certified (G43, G43b), computer-assisted].**
+
+1. The qubit cube state is an ideal scheme for Γ_F. Every stabilizer scheme for Γ_F, pure or mixed, whose local
+   dimension is odd and squarefree, or which consists of Galois qudits of odd characteristic, satisfies
+   Σ_{P ∈ L} S(P) ≥ 4 S(R) for every line L of the Fano plane; so its information ratio is at least 4/3. If its local
+   dimension is odd, its information ratio is at least 43/41.
+2. For every odd prime p, the cube state over GF(p) is an ideal scheme for Γ_NF. Every stabilizer scheme for Γ_NF of
+   qubits or of Galois qudits of characteristic 2, pure or mixed, satisfies S(P) + S(P′) + S(P″) ≥ 4 S(R) for any three
+   of A, B, C, Z; so its information ratio is at least 4/3.
+
+*Proof.* (1), odd prime p: Lemma 20 (normal form); for a line L and q ∉ L, the contracted scheme is a linear scheme
+for Γ_F/q ≅ F with L a minimal qualified triple, so Σ_{P∈L} (h(Pq) − h(q)) ≥ 4h(R) (Proposition 4.4 (II)), hence
+Σ_{P∈L} h(P) ≥ 4h(R), i.e. Σ_{P∈L} S(P) ≥ 4S(R); some P ∈ L has S(P) ≥ (4/3) S(R), and S(P) ≤ log|P|,
+S(R) = log|secret|. Galois qudits: restriction of scalars (§4.6) keeps the state, the entropies and the dimensions.
+Squarefree d: L ≤ Z_d^{2m} is the direct sum of its Sylow components L_p ≤ Z_p^{2m}, which are Lagrangian (isotropic,
+and ∏|L_p| = d^m); |pr_X L| = ∏ |pr_X L_p|, so S = Σ_p S_p (Theorem 1(d), step 1); since 0 ≤ I_p(R:A) ≤ 2S_p(R) and
+I = Σ_p I_p, each component meets the conditions of Γ_F by itself, and the line inequalities add up. (2): contract by
+q ∈ {A, B, C, Z} and use Proposition 4.5 (III). The bound 43/41 for every odd d: next paragraph. ∎
+
+*The linear program for every odd d [certified].* Lemma 4 (LB) with t = 2 holds for subgroup arrangements in groups
+of odd order (multiplication by 2 is injective), hence on every seven-element minor of the lift of a stabilizer
+state of odd local dimension (Theorem 1(d)). Minimise t subject to: the elemental Shannon inequalities; self-duality;
+the access equations of Γ_F for all 127 nonempty sets of players; h(R) = 2; h(P) ≤ 2t; and (LB) with t = 2 on all
+seven-element minors (one element removed, or E and one more; contracted or deleted; all 5040 labellings): 82,447
+inequalities and 256 equations without E, 165,904 and 384 with E. Both optima are 43/41: rational dual certificates
+(`data/s38_qss_certificates.json`, 72 + 109 rows without E, 140 + 201 with E) prove the lower bound, and the rounded
+HiGHS solutions are exactly feasible with t = 43/41 (G43b). On the qubit cube state (LB) with t = 2 has minimum −2 over
+the minors (and (LA) minimum 0); on the GF(3) cube state (LB) has minimum 0 and (LA) minimum −2 (G43). Controls: with
+(LA) in place of (LB), or with Shannon inequalities only, the optimum is 1 (G43b).
+
+*Remarks.*
+
+* *Purity.* [certified (G43b)] Adding the Jafari–Khazaei inequalities on all contractions to the programs, with or
+  without self-duality, gives exactly 4/3: they imply t ≥ 4/3 (a line, or three of A, B, C, Z, has h-sum ≥ 4h(R) = 8,
+  and h(P) ≤ 2t), and the rounded HiGHS solutions are exactly feasible with t = 4/3. So purity does not raise their
+  bound in these programs.
+* *Scope.* Lower bounds only; the optimal ratios of stabilizer schemes for Γ_F (odd p) and Γ_NF (qubits) are not
+  known; linear schemes for the six-player ports attain 4/3. Nothing is said about schemes that are not stabilizer
+  schemes. Earlier quantum examples of a dependence on the local dimension were threshold effects (no ((2,3)) scheme
+  for qubits with qubit shares, Cleve–Gottesman–Lo; qutrit versus qubit graph states, Keet–Fortescue–Markham–Sanders, PRA 82,
+  062315 (2010)); Sarvepalli (PRA 83, 042324 (2011)) gave share-size lower bounds above 1 from entropy inequalities.
+* *History of this section (R47).* The first version (2026-10-16 to 10-20, not released) used linear programs with
+  DFZ (65), DFZ (91) and f9 on the minors and certified 20/19 (odd primes) and 128/127 (odd d) for Γ_F and 199/189
+  for Γ_NF with qubits, and 67/64 and 245/234 for classical schemes without self-duality. A literature check then
+  found the results of Jafari and Khazaei and of Peña-Macias, which with Lemma 20 give 4/3; (LB) with t = 2 gives
+  43/41 for every odd d. The weaker bounds were dropped before release.
+
+*Checks.* `scripts/s38_secret_sharing.py` (`--verify`, gate G43: contractions, access structures, certificates, minima
+over all minors, margins of §4.16; `--solve`, gate G43b: the programs, exact feasible points, controls and the
+Jafari–Khazaei programs with exact feasible points); `checks/check_rev_qss.py` (written by the referee without the
+repository code: certificates, contractions, access structures, distances).
+
+### 4.16 How far the witnesses are from the cones [certified (G43)] (R47)
+
+Let g·S ≥ 0 hold on a cone, written in the 2ⁿ − 1 entropies S(X) of the nonempty sets of parties (the purifier
+eliminated by purity), and let g·S_w = −v < 0. For every S in the cone, v ≤ g·(S − S_w) ≤ ‖g‖₁ max_X |S(X) − S_w(X)|
+and ≤ ‖g‖₂ ‖S − S_w‖₂. So every vector of the cone differs from S_w by at least v/‖g‖₁ in some entropy, and its
+Euclidean distance from S_w is at least v/‖g‖₂.
+
+| witness | form (purifier) | v | ‖g‖₁ | ‖g‖₂ | v/‖g‖₁ | v/‖g‖₂ |
+| --- | --- | --- | --- | --- | --- | --- |
+| Steane state, out of every odd cone (Theorem 9) | f9, lift on seven systems (Z) | 3 bits | 2856 | 590.23 | 1/952 | 0.00508 |
+| non-Fano state, out of the qubit cone (Theorem 12) | f12 (Z) | 1 | 129 | 28.97 | 1/129 | 0.0345 |
+| cube state over GF(2), seven parties (Theorem 2) | DFZ (65) pulled back through the origin | 2 | 90 | 20.05 | 1/45 | 0.0998 |
+| cube state over GF(p), p odd, seven parties | DFZ (91) pulled back through the origin | 2 | 105 | 25.90 | 2/105 | 0.0772 |
+
+Units: bits for the Steane state, log p for the others. Since the cones are invariant under permutations of all
+n + 1 systems and the witnesses of the first two rows are invariant under the collineations of the Fano plane
+(Steane) or are evaluated with the purifier of Theorem 12 (Z), the choice of the purifier does not affect the
+statements. These are lower bounds from one inequality each; the distances to the cones themselves were not
+computed. On the invariant slice of §4.8 the region excluded by f9 is μ > 210β + 30α + 21ν.
+
 ## 5. Open questions
 
 * **The smallest number of parties with a dimension dependence** is 5 or 6: for n ≤ 4 there is none, for any d
@@ -2263,6 +2406,13 @@ T₈, T₈′, AG(3, 2), N(H_{123}, A_{123}) and the GF(4) state (deviations bel
 * ~~**Six parties**: is there a characteristic-dependent seven-variable inequality g with g∘D = g?~~ Yes: g = f9 + f9∘D
   (Theorem 9, R36), and for characteristic 2, g12 = f12∘π (Theorem 12, R42). BKL's Theorems 6.4 and 6.6 were checked
   and are blind (Proposition 8).
+
+* **(R47) Secret sharing.** The optimal information ratio of stabilizer schemes for Γ_F in odd prime local dimension
+  and for Γ_NF with qubits (§4.15): at least 4/3; linear schemes for the six-player ports attain 4/3 (Jafari–Khazaei);
+  whether stabilizer schemes for the seven-player structures do is open, and adding the Jafari–Khazaei inequalities to
+  the self-dual programs does not raise 4/3 (G43b). For Γ_F in odd local dimension divisible by a square (Z_9,
+  Z_27, …) only 43/41 is known. Not studied: Z_{2^a} schemes for Γ_NF (Lemma 4(G′)) and the generalized cube access
+  structures of Theorem 2′ for other pairs of primes.
 
 ## 6. Literature status
 
@@ -2363,6 +2513,24 @@ For §4.8 (R36), from an AI pre-check (web search, abstracts only):
   results); Bérczi et al. (arXiv:2507.10709; skew-representability, tensor products, rank inequalities).
 * Peña-Macias–Sarria-Zapata, arXiv:1903.11587 (characteristic-dependent inequalities via complementary vector
   spaces) was not transcribed or checked here.
+
+For §4.15 (R47), from a literature check by a separate agent (web; sources quoted, statements checked against the
+texts where marked):
+
+* Jafari and Khazaei, *On abelian and homomorphic secret sharing schemes*, J. Cryptol. 34(4) (2021), IACR ePrint
+  2019/575: Propositions 4.4 and 4.5 (statements checked against the ePrint text): optimal linear information ratio
+  4/3 for the Fano access structure in odd characteristic and for the non-Fano access structure N in characteristic 2.
+  With Lemma 20 these give the bounds 4/3 of Proposition 21. Peña-Macias (Kybernetika 59 (2023) 198, Corollary 2.9,
+  checked): linear programs with characteristic-dependent rank inequalities, lower bounds 4/3 and 5/4 (n = 3) for ports
+  of the Fano and non-Fano matroids (the classical half of the first version of §4.15). Khazaei–Parviz (ePrint 2026/1971, abstract only): 5/4 for the
+  non-Fano port with the port point on the relaxed line.
+* Quantum side: no prior statement found of a characteristic-type dependence of quantum secret sharing on the local
+  dimension. Earlier effects are threshold ones (Cleve–Gottesman–Lo: no ((2,3)) scheme for qubits with qubit shares; Keet,
+  Fortescue, Markham, Sanders, PRA 82, 062315 (2010): qutrit versus qubit graph states). Sarvepalli, PRA 83, 042324
+  (2011): share-size lower bounds above 1 from entropy inequalities. Imai et al., QIC 5, 68 (2005): the conditions
+  I(R:A) = I(R:S) and I(R:A) = 0. Liu–Shao, arXiv:2510.07753: a classification of small pure qubit schemes (not verified; see
+  above). Sarvepalli–Raussendorf (2010): their
+  extended-Hamming-code example realises Γ_F.
 
 ## 7. Reproduce
 

@@ -1,5 +1,49 @@
 # CHANGELOG
 
+## R47 (2026-10-20) -- stabilizer secret sharing: the information ratio depends on the local dimension; distances of the witnesses
+- **Result (Lemma 20 and Proposition 21; the bounds 4/3 proved from Jafari–Khazaei, the bound 43/41 certified by
+  G43/G43b and computer-assisted; checked by an independent referee, an agent; not yet checked by hand).**
+  `docs/R32_reduction_and_local_dimension.md` §4.15.
+  - For the lift h of a stabilizer state, h(R) + h(A) − h(RA) = I(R:A), so the conditions of a quantum secret sharing
+    scheme (authorised: I(R:A) = 2S(R); unauthorised: I(R:A) = 0; Imai et al. 2005) are linear in h.
+  - The cube states of §4.1 (t = 2) with the origin as the reference R are ideal schemes: over GF(2) (Steane's code
+    with a reference qubit) for Γ_F, whose minimal authorised sets are the seven Fano lines (the port of AG(3, 2)), over
+    GF(p), p odd, for Γ_NF (WXY unauthorised, ABCZ authorised; the port of R8).
+  - Lemma 20: in normal form, the lift of a stabilizer scheme of prime local dimension p is the entropy function of a
+    GF(p)-linear classical scheme for the same access structure. Contracting a player turns Γ_F into the Fano access
+    structure F and Γ_NF (players A, B, C, Z) into the non-Fano access structure N of Jafari and Khazaei (J. Cryptol.
+    34(4) (2021); ePrint 2019/575, Propositions 4.4 and 4.5). Proposition 21: every stabilizer scheme for Γ_F of odd
+    squarefree local dimension (or Galois, odd characteristic), pure or mixed, has Σ_{P∈L} S(P) ≥ 4 S(R) on every
+    Fano line and information ratio ≥ 4/3; every qubit (or GF(2^k)) scheme for Γ_NF has ratio ≥ 4/3; for every odd
+    local dimension, Lemma 4 (LB) with t = 2 on all seven-element minors gives ratio ≥ 43/41 (linear programs over
+    self-dual polymatroids, pure and with an environment E; exact rational dual certificates and exactly feasible
+    points). Adding the Jafari–Khazaei inequalities to the programs gives exactly 4/3, with or without purity (they
+    imply t >= 4/3, and exact feasible points attain it).
+  - Erratum before release: the first version of this section (not released) certified 20/19 (odd primes) and
+    128/127 (odd d) for Γ_F, 199/189 for Γ_NF with qubits, and 67/64 and 245/234 for classical schemes, from DFZ (65),
+    DFZ (91) and f9 on the minors. A literature check found Jafari–Khazaei (exact linear ratios 4/3 for the Fano and
+    non-Fano ports) and Peña-Macias (Kybernetika 2023: the same linear-programming method for classical schemes); with
+    Lemma 20 these supersede those bounds, which were dropped.
+- **§4.16: distances of the witnesses from the cones (certified by G43).** For a valid form g and a witness with
+  g·S_w = −v: every vector of the cone differs from S_w by ≥ v/‖g‖₁ in some cut entropy. f9 and the Steane state:
+  1/952 bit (‖g‖₁ = 2856, for any choice of the purifier); f12 and the non-Fano state: 1/129; DFZ (65) and (91) pulled
+  back through the origin, the seven-party cube states: 1/45 and 2/105. Lower bounds from one inequality each.
+- **Checks.** New `scripts/s38_secret_sharing.py` (gate G43: the contractions against F and N, the access structures,
+  the certificates, the minima of (LB) and (LA) over all minors of the two cube states, the margins; gate G43b,
+  `--full`: the programs re-solved with exact feasible points, two controls with optimum 1, the Jafari–Khazaei
+  programs with exact feasible points), `data/s38_qss_certificates.json` (pinned by the manifest). New independent scripts in
+  `checks/`: `check_rev_sec5.py` and `check_rev_sec6.py` (written for the revision of the paper: Lemma 4*, the
+  witnesses of Theorems 17 and 5, f12 and Theorem 12 step by step, Corollary 13, Theorem 14) and `check_rev_qss.py`
+  (§4.15–4.16, written by the referee without the repository code); `checks/README.md` maps the scripts to the
+  numbering of the revised paper; `checks/references_log.md` records how the references added for §4.15 were checked
+  (Crossref records and the sources). CI time caps: 70 min (job), 50 min (selftest --full).
+- **Referee.** A separate agent that had not seen the production of these results checked the first version of
+  §4.15 (all certificates with its own code, the access structures, the margins; verdict: correct, no errors) and
+  then the revised version (Lemma 20, the contractions, the use of Jafari–Khazaei, the Sylow and Galois steps, the
+  (LB) programs, re-solved independently with exact feasible points; verdict: correct, no errors). Its wording,
+  scope and citation corrections are in the text; an unverifiable citation (Liu–Shao, theorem number) was dropped
+  from the paper. A second agent made the literature check.
+
 ## R46 (2026-10-16) -- fewer parties for two primes: incomparable from n = 2p + 2; the T8 and T8' vectors lie in every cone
 - **Result (Lemma 4\*, Theorem 17, Corollary 19 and Proposition 18 proved; certified by G42/G42b; checked by an
   independent referee, an agent; not yet checked by hand; not in the paper).** `docs/R32_reduction_and_local_dimension.md`

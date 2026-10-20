@@ -836,6 +836,37 @@ def main():
          f'{T42["dfz41_thm42"]}, balanced min over 8! relabellings {T42["dfz41_relabel_min"]}; DFZ 3.1 re-expanded - '
          f'printed {T42["dfz31_difference"]}; forms, file and content match the manifest {file42 and T42["sha"] == M42["forms"]}')
 
+    # G43 (R47): stabilizer secret sharing (docs/R32_reduction_and_local_dimension.md sections 4.15 and 4.16).  The
+    # bound 4/3 of Proposition 21 is a proof from the results of Jafari and Khazaei; the gate checks the combinatorial
+    # facts it uses: contracting one player turns Gamma_F into their Fano access structure F (for every player, with
+    # the size-3 minimal sets equal to the Fano lines that miss it) and Gamma_NF into their non-Fano access structure N
+    # (for A, B, C, Z, with the triple 456 of N equal to the other three), the minimal authorised sets of Gamma_F are
+    # the lines, Gamma_NF is the same for p = 3, 5, 7, and the two access structures differ exactly in WXY and ABCZ.
+    # The bound 43/41 for every odd local dimension: the rational dual certificates of the two linear programs (Lemma 4
+    # (LB), t = 2, on all seven-element minors; pure and with an environment E) rebuilt row by row from their
+    # descriptors, checked to be admissible rows and verified in exact arithmetic; (LB) is negative on the qubit cube
+    # state on some minor and (LA) on the odd one, each form nonnegative on the other cube state over all minors and
+    # labellings; the margins of section 4.16 (1/952, 1/129, 1/45, 2/105).
+    # G43b (--full): the programs and two controls (optimum 1) re-solved with HiGHS, with an exact feasible point
+    # attaining 43/41; the programs with the Jafari-Khazaei inequalities on contractions: optimum 4/3, exact feasible
+    # points (the inequalities themselves imply t >= 4/3).
+    import s38_secret_sharing as _s43
+    T43 = _s43.check(log=lambda *_x: None)
+    M43 = MAN['s38_qss_certificates']
+    file43 = (_h33.sha256(open(os.path.join(core.DATA, 's38_qss_certificates.json'), 'rb').read()).hexdigest()
+              == M43['file_sha256'] and _s43.content_sha() == M43['sha256'])
+    cases43 = {k: v['certified'] for k, v in T43['cases'].items()}
+    rows43 = {k: v['rows'] for k, v in T43['cases'].items()}
+    ports43 = {q: v.get('456') for q, v in T43['ports']['NF'].items()}
+    gate('G43 secret sharing: contractions, certificates, controls, margins',
+         T43['ok'] and file43 and cases43 == M43['bounds'] and rows43 == M43['rows'] and T43['controls'] == M43['controls']
+         and ports43 == M43['ports_456'] and {k: v['eps_inf'] for k, v in T43['margins'].items()} == M43['margins'],
+         f'Gamma_F/q = F (Jafari-Khazaei) for all q and Gamma_NF/q = N for q in ABCZ: {_s43.ports_ok(T43["ports"])} '
+         f'(456 of N: {ports43}); access structures differ in {T43["access"]["F_only"]} / {T43["access"]["NF_only"]}; '
+         f'certified bounds {cases43} with rows {rows43}; minima over all minors {T43["controls"]}; margins '
+         + ', '.join(f'{k} {v["eps_inf"]}' for k, v in T43['margins'].items())
+         + f'; file and content match the manifest {file43}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:
@@ -942,6 +973,14 @@ def main():
              and {k: list(v) for k, v in T42b['coordinate_lines'].items()} == M42['coordinate_lines'],
              f'all 8-tuples of subspaces of GF(q)^2: {T42b["exhaustive_2dim"]}; coordinate lines + all lines '
              f'{T42b["coordinate_lines"]}; random minima {T42b["random"]}; M = 8 over GF(7), GF(3): {T42b["M8"]}')
+
+        T43b = _s43.check(solve=True, log=lambda *_x: None)
+        gate('G43b secret sharing: the linear programs re-solved', T43b['ok'],
+             'HiGHS optima ' + ', '.join(f'{k} {v["lp"]:.9f} (exact feasible point, t = {v["primal"]})'
+                                         for k, v in T43b['cases'].items())
+             + '; controls (expect 1) ' + ', '.join(f'{k} {v:.9f}' for k, v in T43b['control_lp'].items())
+             + '; with the Jafari-Khazaei inequalities (expect 4/3) '
+             + ', '.join(f'{k} {v["lp"]:.9f} (exact feasible point, t = {v["exact"]})' for k, v in T43b['jk_lp'].items()))
 
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)

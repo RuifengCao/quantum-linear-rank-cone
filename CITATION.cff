@@ -2,8 +2,8 @@ cff-version: 1.2.0
 message: "If you use these data or this code, please cite them as below."
 type: software
 title: "quantum-linear-rank-cone: Data, certificates and code for stabilizer entropy cones"
-version: R37
-date-released: 2026-10-11
+version: R47
+date-released: 2026-10-20
 authors:
   - family-names: Cao
     given-names: Ruifeng
@@ -20,7 +20,8 @@ abstract: >-
   quantum linear rank cone and a catalog of its extreme rays, exact certificates
   that separate the five-party stabilizer entropy cone from it, graph-state
   realizations of extreme rays, the dependence of stabilizer entropy cones on the
-  local dimension, a self-test suite of verification gates, and the verification
+  local dimension, bounds on the information ratio of stabilizer quantum secret
+  sharing schemes, a self-test suite of verification gates, and the verification
   scripts (directory checks) of the paper "Stabilizer entropy cones as self-dual
   slices of linear rank cones: a five-party gap and dependence on the local
   dimension" by X. Song and R. Cao (arXiv:2610.18905). The code is under the MIT license, the data
