@@ -43,6 +43,23 @@
   relabeled non-Fano vectors, so its distance from the cones of odd local dimension lies between 1/952 and 1/12 bit.
   `checks/check_rev_qss.py`: new part (g), the exact check of this bound; `checks/README.md` row updated;
   `checks/references_log.md`: the three references added to the paper in this review.
+- **Addendum 2 (same day, while looking for further results).** `docs/R32_reduction_and_local_dimension.md` §4.17,
+  Proposition 25 [proved; checked by computer; not yet checked by hand]: Γ_F has a stabilizer scheme with information
+  ratio 7/5 for every odd d (and Galois qudits of odd characteristic). The seven cube schemes over Z_d, relabelled so
+  that their special line runs through the seven lines, share the coordinates of a codeword of the zero-sum code in
+  Z_d^7, s = Σ_i u_i (e_{i+1} − e_7) + ζ (1,1,1,1,1,−1,−4): a set containing a line learns six coordinates and recovers
+  the secret u ∈ Z_d^5; a set containing no line learns at most one, which is independent of u. This is a (λ, ω) = (6, 1)
+  decomposition in the sense of van Dijk, Jackson and Martin (1998). So the optimal ratio for Γ_F lies in [4/3, 7/5] for
+  odd squarefree d (was [4/3, 2]); for a secret of five qudits, shares of seven are optimal. §4.18, Proposition 26 [proved; not yet checked by hand]:
+  if the qudits outside seven coordinates P of a code determine the codeword, the seven qudits of P have S(X) = r(X) in
+  the CSS state (as for the doubled codes of §4.3); so the CSS states of the binary simplex codes of dimension m ≥ 4,
+  the logical zero states of the quantum Hamming codes [[2^m − 1, 2^m − 1 − 2m, 3]] (and for m = 4 of the [[15,1,3]]
+  quantum Reed–Muller code), lie outside the cone of every odd local dimension, with the qubits of a Fano subplane as
+  the parties; and the p-ary simplex codes of dimension 3, with the qudits {0,1}^3 ∖ 0, lie outside the qubit cone.
+  `checks/check_rev_qss.py`: new part (h) (the scheme over Z_d for d = 3, 5, 7, 9, 11, 13, 15, 21, 25, 27, 45, all 128
+  player sets, the CSS state, a negative control); `checks/check_rev_sec6.py`: new reports on the simplex codes (exact
+  ranks for m = 4, 5 and p = 3, 5, 7, the balanced (LB) and (LA), state vectors); `checks/README.md` rows updated.
+  VERSION stays R48.
 - README (status: R37 is cited by arXiv v1, R48 by the revised version and its Table S3; §0 item), the round list
   of `docs/R32_reduction_and_local_dimension.md` (R48 paragraph), VERSION, CITATION.cff (version R48; the revised
   version). No data, no code under `scripts/`, `cc/` or `epr1kit/`, and no gates changed: `selftest.py --full` is

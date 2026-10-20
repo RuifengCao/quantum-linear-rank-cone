@@ -11,7 +11,8 @@ data bundled, a static Normaliz binary included, resumable long runs.
 > stabilizer scheme of odd prime local dimension has information ratio at least 4/3, while qubits admit an ideal
 > scheme. R48 shows that the five-party inequality (★) and 118 further single-CI inequality classes are facets of
 > the stabilizer cone of every local dimension, and that stabilizer schemes with information ratio 2 exist for
-> both access structures of R47 (linear schemes give stabilizer schemes).
+> both access structures of R47 (linear schemes give stabilizer schemes); its second addendum lowers this to 7/5 for
+> the access structure of Steane's code and every odd local dimension.
 > Release R37
 > is the archived version cited by the first version of the paper *Stabilizer entropy cones as self-dual slices of
 > linear rank cones: a five-party gap and dependence on the local dimension* (X. Song and R. Cao,
@@ -118,7 +119,10 @@ and the changelog is explained in the glossary at the end.
   scheme is a stabilizer scheme (Lemma 22), and schemes with ratio 2 exist for Γ_F (every odd d) and Γ_NF (qubits)
   (Proposition 23; `checks/check_rev_qss.py`, part (f)). Addendum: Γ_F has no ideal stabilizer scheme when d has an
   odd prime factor, Γ_NF none when d ≡ 2 (mod 4) (Proposition 24); the Steane state lies within 1/12 bit of the cones of
-  odd local dimension in every entropy (R32 §4.16; `checks/check_rev_qss.py`, part (g)).
+  odd local dimension in every entropy (R32 §4.16; `checks/check_rev_qss.py`, part (g)). Addendum 2: Γ_F has stabilizer schemes with information
+  ratio 7/5 for every odd d (Proposition 25; part (h)), so its optimal ratio for odd squarefree d lies in [4/3, 7/5];
+  the logical zero states of the quantum Hamming codes of length 2^m − 1 ≥ 15 lie outside the cone of every odd local
+  dimension, with the seven qubits of a Fano subplane as parties (R32 §4.18, Proposition 26; `checks/check_rev_sec6.py`).
 - [x] **R47 (2026-10-20): stabilizer secret sharing — the information ratio depends on the local dimension; distances
   of the witnesses from the cones; checks for the revision** (`docs/R32_reduction_and_local_dimension.md` §4.15,
   §4.16; Lemma 20 and Proposition 21 proved, the 4/3 bounds from Jafari–Khazaei, the 43/41 bound certified and

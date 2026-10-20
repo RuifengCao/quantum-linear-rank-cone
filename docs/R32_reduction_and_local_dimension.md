@@ -115,7 +115,8 @@ checked by hand.
 Round R48 adds §4.17 and two addenda to `docs/A2_stabilizer_vs_QLR.md`. §4.17: linear schemes give stabilizer schemes
 (Lemma 22), so for prime p the optimal information ratios of stabilizer schemes of local dimension p and of
 GF(p)-linear schemes coincide; Γ_F has stabilizer schemes with information ratio 2 for every odd d, and Γ_NF for qubits
-(Proposition 23), so the optimal ratios lie in [4/3, 2] ([43/41, 2] for Γ_F and every odd d). A2 §3 and §4, R48
+(Proposition 23), so the optimal ratios lie in [4/3, 2] ([43/41, 2] for Γ_F and every odd d; for Γ_F the upper bound
+is 7/5 since addendum 2). A2 §3 and §4, R48
 addenda: (★) and 118 further single-CI classes are facets of Stab^(Z_d)_5 for every d, with the realisations of §4.9.
 Proved (Lemma 22; Proposition 23 for Γ_F); checked by computer (Proposition 23 for Γ_NF; the facet counts, by
 `checks/check_rev_sec4.py` and `checks/check_rev_stab5.py`, not by a gate); independent referee; not yet checked by
@@ -124,7 +125,14 @@ R48 and cites release R48; its Table S3 maps them to this note, to the A2 note, 
 `checks/`. The remarks "not in the paper" above refer to its first version. R48 addendum (same day): Proposition 24 in
 §4.17 (Γ_F has no ideal stabilizer scheme when d has an odd prime factor, Γ_NF none when d ≡ 2 mod 4), and an upper
 bound 1/12 for the distance of the Steane state from the cones of odd local dimension in §4.16 (checked by
-`checks/check_rev_qss.py`, part (g)). Proved; independent referee (agent); not yet checked by hand.
+`checks/check_rev_qss.py`, part (g)). Proved; independent referee (agent); not yet checked by hand. R48 addendum 2
+(same day): Proposition 25 in §4.17 (Γ_F has stabilizer schemes with information ratio 7/5 for every odd d, from the
+seven relabelled cube schemes and the zero-sum code; checked by `checks/check_rev_qss.py`, part (h)), so the optimal
+ratio for Γ_F lies in [4/3, 7/5] for odd squarefree d; and §4.18 (Proposition 26: the CSS states of the binary simplex
+codes of dimension m ≥ 4, which are the logical zero states of the quantum Hamming codes, lie outside the cone of every
+odd local dimension, with the seven qubits of a Fano subplane as parties; likewise the p-ary simplex codes of dimension
+3 and the qubit cone; checked by `checks/check_rev_sec6.py`). The scheme of Proposition 25 is a (λ, ω)-decomposition of van Dijk, Jackson and Martin. Proved; independent referee
+(agent); not yet checked by hand.
 
 ## 1. Setting
 
@@ -2299,8 +2307,8 @@ the minors (and (LA) minimum 0); on the GF(3) cube state (LB) has minimum 0 and 
   without self-duality, gives exactly 4/3: they imply t ≥ 4/3 (a line, or three of A, B, C, Z, has h-sum ≥ 4h(R) = 8,
   and h(P) ≤ 2t), and the rounded HiGHS solutions are exactly feasible with t = 4/3. So purity does not raise their
   bound in these programs.
-* *Scope.* Lower bounds only here; (R48) schemes with ratio 2 exist (§4.17), and the optimal ratios of stabilizer
-  schemes for Γ_F (odd p) and Γ_NF (qubits) are not known; linear schemes for the six-player ports attain 4/3. Nothing is said about schemes that are not stabilizer
+* *Scope.* Lower bounds only here; (R48) schemes with ratio 2 exist (§4.17), and for Γ_F with ratio 7/5 (R48
+  addendum 2, Proposition 25); the optimal ratios of stabilizer schemes for Γ_F (odd p) and Γ_NF (qubits) are not known; linear schemes for the six-player ports attain 4/3. Nothing is said about schemes that are not stabilizer
   schemes. Earlier quantum examples of a dependence on the local dimension were threshold effects (no ((2,3)) scheme
   for qubits with qubit shares, Cleve–Gottesman–Lo; qutrit versus qubit graph states, Keet–Fortescue–Markham–Sanders, PRA 82,
   062315 (2010)); Sarvepalli (PRA 83, 042324 (2011)) gave share-size lower bounds above 1 from entropy inequalities.
@@ -2343,7 +2351,7 @@ GF(p) stabilizer states for every odd p, and it differs from S_F by 1/12 on the 
 there) and by −S_F(X)/36 ∈ {−1/36, −1/18, −1/12} elsewhere. So the ℓ∞ distance of the Steane vector from Stab^(Z_d)_6,
 d odd, lies between 1/952 and 1/12 bit. No comparable upper bound has been computed for the non-Fano vector.
 
-### 4.17 Stabilizer secret sharing: linear schemes give stabilizer schemes, schemes with ratio 2, and no ideal schemes [proved; checked by computer] (R48)
+### 4.17 Stabilizer secret sharing: linear schemes give stabilizer schemes, schemes with ratios 2 and 7/5, and no ideal schemes [proved; checked by computer] (R48)
 
 **Lemma 22 [proved].** Let Γ be an access structure on a player set P_all in which a set is authorised iff its
 complement in P_all is not (every pure-state scheme requires this). Let C ≤ Z_d^m be a code whose coordinates are
@@ -2365,7 +2373,7 @@ that of GF(p)-linear (multi-linear) schemes.
 2. For qubits, and for Galois qudits of characteristic 2, Γ_NF has a stabilizer scheme with information ratio 2.
 
 So the optimal ratios lie in [4/3, 2] (Γ_F, odd squarefree d or odd-characteristic Galois qudits; Γ_NF, qubits) and
-in [43/41, 2] (Γ_F, every odd d).
+in [43/41, 2] (Γ_F, every odd d). (R48 addendum 2: for Γ_F the upper bound 2 is superseded by 7/5, Proposition 25.)
 
 *Proof of 1.* Over Z_d (d odd) the cube code has Smith invariants 1 or 2 on every set of columns, so its scheme is an
 ideal scheme for Γ_NF (§4.15). Bijection q ↦ ℓ_q with q ∉ ℓ_q: A ↦ BCY, B ↦ ACX, C ↦ ABW, Z ↦ WXY (the polarity
@@ -2418,6 +2426,105 @@ best residuals stayed at one or more unmet rank conditions. This does not show t
 *Checks.* `checks/check_rev_qss.py`, part (f): the scheme of 1 over Z_d for d = 3, 5, 7, 9, 15, 21, 25, 27 (all 128
 player sets, orders of projections computed exactly, the CSS state), with a negative control; the matrix of 2 and its
 CSS state.
+
+**Proposition 25 [proved; checked by computer] (R48 addendum 2).** For every odd d, and for Galois qudits of odd
+characteristic, Γ_F has a stabilizer scheme with information ratio 7/5. Hence the optimal information ratio of
+stabilizer schemes for Γ_F lies in [4/3, 7/5] for odd squarefree d and for Galois qudits of odd characteristic, and in
+[43/41, 7/5] for every odd d. For odd squarefree d, a secret of five qudits needs a share of at least 20/3, hence 7,
+qudits (Proposition 21: some line has share entropies summing to at least 4 S(R)), so the scheme is optimal for that
+secret size.
+
+*Proof.* This is a (λ, ω)-decomposition in the sense of van Dijk, Jackson and Martin (Des. Codes Cryptogr. 15 (1998)
+301–321; definition and theorem as reviewed by Gharahi and Khazaei, IACR ePrint 2017/1232, Definition 3.1 and
+Theorem 3.1), with λ = 6 and ω = 1, written out over Z_d. Let Q be the set of players. For each of the seven lines ℓ
+pick a collineation σ_ℓ with σ_ℓ(WXY) = ℓ. The scheme of ℓ draws a uniformly random affine function
+f_ℓ(x) = s_ℓ + a_ℓ·x on {0,1}^3 (a_ℓ uniform in Z_d^3) and gives every player P the value f_ℓ(σ_ℓ^{-1}(P)); no player
+is deleted. As in the proof of Proposition 23, it is an ideal (perfect) scheme with secret s_ℓ for
+σ_ℓ(Γ_NF) = (Γ_F ∖ {ℓ}) ∪ {Q ∖ ℓ}: every line is authorised in six of the seven schemes (λ = 6), every complement of a
+line, a maximal unauthorised set of Γ_F, in one (ω = 1). Number the lines ℓ_1, …, ℓ_7, let e_1, …, e_7 be the standard
+basis of Z_d^7, and let the seven schemes, with independent a_ℓ, share the coordinates of
+
+    s = u_1(e_2 − e_7) + u_2(e_3 − e_7) + u_3(e_4 − e_7) + u_4(e_5 − e_7) + u_5(e_6 − e_7) + ζ b,
+    b = (1, 1, 1, 1, 1, −1, −4),
+
+where u ∈ Z_d^5 is the secret and ζ ∈ Z_d is uniform. The vector b has coordinate sum 0 and first coordinate 1, so b
+and e_2 − e_7, …, e_6 − e_7 form a basis of the zero-sum code {s ∈ Z_d^7 : Σ_j s_j = 0} (the linear (7; 6, 1) ramp
+scheme); any six coordinates of s determine the seventh, hence s, u and ζ. Every b_j is a unit modulo odd d, so each
+single coordinate s_j is uniform and independent of u. A set of players that contains a line ℓ₀ contains a line other
+than ℓ for every ℓ ≠ ℓ₀, so it is authorised in six of the schemes, learns six coordinates of s and recovers u. A set T
+that contains no line is authorised in the scheme of ℓ only if T ⊇ Q ∖ ℓ, i.e. T = Q ∖ ℓ, since a proper superset of
+Q ∖ ℓ contains a line; so T learns at most one coordinate of s and, the schemes being independent and perfect, nothing
+about u. Every player holds seven coordinates (one per scheme) and the secret has five: ratio 7/(λ − ω) = 7/5. Γ_F is
+self-dual, so Lemma 22 turns this linear scheme into a pure stabilizer scheme with ratio 7/5. Galois qudits of
+dimension p^k: the same construction over GF(p^k), which is GF(p)-linear by restriction of scalars. ∎
+
+*Remarks.*
+* The decomposition bound 2 of Proposition 23 counts only sub-schemes whose access structures lie inside Γ_F (ω = 0,
+  Stinson's λ-decompositions). Here every sub-scheme authorises one forbidden set Q ∖ ℓ, and the ramp scheme makes the
+  leak harmless.
+* Within this family the count is tight [proved]: if a function u′ of s is determined by any six coordinates and is
+  independent of each single one, then for lines ℓ ≠ ℓ′, H(u′) = H(u′ | s_ℓ′) ≤ H(the five coordinates other than
+  s_ℓ, s_ℓ′) ≤ 5 log d. With symmetric weights, adding variants with one deleted player (on the line or on its
+  complement) or two deleted players on the line gives no better ratio [elementary count; not an optimality proof].
+* The same construction works for every d ≡ 2 (mod 4) [proved; the referee agent checked d = 2, 6, 10, 14, 18, 30]: in
+  the Z_2 factor the relabelled cube schemes are Steane schemes, which are perfect for Γ_F, so no set learns any
+  coordinate it should not, and any six coordinates still determine s. It fails when 4 | d, since the Z_4 cube code is
+  not a perfect scheme. Not in the paper.
+* The searches below 2 reported above tried the (secret, share) dimensions (2, 3), (3, 4), (3, 5), (4, 6) and (4, 7),
+  not (5, 7).
+
+*Checks.* `checks/check_rev_qss.py`, part (h): the scheme over Z_d for d = 3, 5, 7, 9, 11, 13, 15, 21, 25, 27, 45 (all
+128 player sets, orders of projections computed exactly, the CSS state, shares of seven and secret of five
+coordinates), with a negative control (without ζ a line complement learns a coordinate of u). The referee agent
+recomputed it independently for 23 odd d up to 243.
+
+### 4.18 Familiar code states as witnesses [proved; checked by computer] (R48 addendum 2)
+
+**Proposition 26 [proved].** Let C ≤ Z_d^N be a code, and let P be a set of seven of its coordinates such that the
+coordinates outside P determine the codeword. In the CSS state |C⟩, take the seven qudits of P as parties and all
+other qudits as the purifier. Then S(X) = r_C(X) for every set X of parties (r_C the rank function of the projections).
+Consequently:
+
+1. if d = 2 and r_C restricted to P is the rank function r_F of the Fano configuration, the state lies outside
+   Stab^(Z_{d′})_7 for every odd d′ (and outside the cones of Galois qudits of odd characteristic);
+2. if d = p is an odd prime and r_C restricted to P is the non-Fano rank function r_NF, the state lies outside
+   Stab⁽²⁾_7 (and outside the cones of Galois qudits of characteristic 2).
+
+With every qudit a party, the same states lie outside the corresponding cones for N − 1 parties, since grouping
+parties maps stabilizer cones into stabilizer cones.
+
+*Proof.* As in Proposition 3 (§4.3): the complement of X contains the qudits outside P, which determine the codeword,
+so S(X) = r_C(X) + r_C(all) − r_C(all) = r_C(X). For 1: (LB) with t = 2 holds for subgroup arrangements in abelian
+groups of odd order (Lemma 4(G)) and fails by one unit on the Fano configuration over GF(2). Balance it over the seven
+parties (not over all eight systems), as in step 2 of the proof of the sandwich corollary in §4.3: f_bal(h) = f(h) −
+Σ_{i∈P} f(e_i) h(i | P ∖ i). r_F has no coloops, so f_bal(r_F) = f(r_F) = −1. As a form on the eight systems, f_bal
+is balanced (it vanishes on every modular unit, including that of the purifier, which it does not involve) and valid
+on the eight-variable cone of every odd d′ (restriction to the seven parties, then the balancing argument of the
+paper's Supplementary Note 1.6 on seven elements). So the paper's Corollary 2 excludes the state: f_bal(S) =
+f_bal(S|_P) = f_bal(r_F) = −1. (Balancing over all eight systems instead gives +20 for (LB) and +7 for (LA) on these
+states, and no conclusion.) For 2: the same with (LA) with t = 2, which holds over
+GF(2) and fails by one unit on the non-Fano configuration. ∎
+
+*Examples.*
+* The binary simplex code of dimension m ≥ 4 (columns: all nonzero vectors of GF(2)^m), with P a Fano subplane. The
+  qubits outside the subplane contain the affine points, which span. Its CSS state is the logical zero state of the
+  CSS code built from the Hamming code of length 2^m − 1 (the quantum Hamming code [[2^m − 1, 2^m − 1 − 2m, 3]]); for
+  m = 4 it is also the logical zero state of the [[15, 1, 3]] quantum Reed–Muller code, whose X-type stabilisers
+  come from the [15, 4] simplex code. The logical |+…+⟩ state is the CSS state of the Hamming code, with the same
+  entropy vector (λ_r = λ_{r*}).
+* For an odd prime p, the p-ary simplex code of dimension 3 (one representative of each point of PG(2, p)), with
+  P = {0,1}^3 ∖ {0}; the other p² + p − 6 points span the plane.
+* For Steane's code (m = 3) and the non-Fano state no qudit lies outside P: the seven qudits are the whole state, the
+  lift is self-dual, and the eight inequalities of Proposition 8 are blind there. This is why Theorem 9 needs the
+  transfer of §4.8, and Theorem 12 that of §4.11.
+* The condition that the other qudits determine the codeword matters: the [8, 4, 4] cube code over GF(2) contains the
+  Fano configuration after contracting the origin, but with the seven nonzero vertices as parties the balanced (LB) is
+  at least 36 in all 5040 labellings (referee agent), although that state is outside the odd cones by Theorem 2.
+
+*Checks.* `checks/check_rev_sec6.py` (the reports on simplex codes): S on P equals r_F for the binary simplex codes
+with m = 4, 5, and r_NF for the p-ary ones with p = 3, 5, 7 (exact ranks; the purifier determines the codeword); the
+balanced (LB) and (LA) with t = 2 take −1 there and are ≥ 0 on the other configuration; the 15-qubit and 13-qutrit
+state vectors give the same entropies.
 
 ## 5. Open questions
 
@@ -2508,7 +2615,8 @@ CSS state.
 * **(R47) Secret sharing.** The optimal information ratio of stabilizer schemes for Γ_F in odd prime local dimension
   and for Γ_NF with qubits (§4.15): at least 4/3; linear schemes for the six-player ports attain 4/3 (Jafari–Khazaei);
   whether stabilizer schemes for the seven-player structures do is open, and adding the Jafari–Khazaei inequalities to
-  the self-dual programs does not raise 4/3 (G43b). For Γ_F in odd local dimension divisible by a square (Z_9,
+  the self-dual programs does not raise 4/3 (G43b). Upper bounds: 7/5 for Γ_F and every odd d (Proposition 25), 2 for
+  Γ_NF with qubits (Proposition 23). For Γ_F in odd local dimension divisible by a square (Z_9,
   Z_27, …) only 43/41 is known. Not studied: Z_{2^a} schemes for Γ_NF (Lemma 4(G′)) and the generalized cube access
   structures of Theorem 2′ for other pairs of primes.
 

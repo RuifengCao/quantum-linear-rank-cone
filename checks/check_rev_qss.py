@@ -37,12 +37,18 @@ What is checked:
      remove E when E is present), the identity c - sum y a - sum z e >= 0 exactly, bound 43/41, row counts, negative
      controls; the sizes of the linear programs; the controls (LA2 or Shannon only: optimum 1).
  (e) the margins v/||g||_1 and v/||g||_2 for f9 (Steane state) and f12 (built from its definition; non-Fano state).
- (f) the schemes with information ratio 2 of Proposition 6 (iii): the decomposition scheme for Gamma_F over Z_d for
-     d = 3, 5, 7, 9, 15, 21, 25, 27 (all 128 player sets, orders of projections computed exactly, and the CSS state),
-     with a negative control; the binary scheme for Gamma_NF of Supplementary Note 10 and its CSS state.
+ (f) the schemes with information ratio 2: the decomposition scheme for Gamma_F over Z_d of R48 (R32 Proposition 23;
+     in the paper it is superseded by the scheme of (h)) for d = 3, 5, 7, 9, 15, 21, 25, 27 (all 128 player sets,
+     orders of projections computed exactly, and the CSS state), with a negative control; the binary scheme for
+     Gamma_NF of Proposition 6 (iii) and Supplementary Note 10, and its CSS state.
  (g) an upper bound on the distance of the Steane state from the cones of odd local dimension (Methods): the non-Fano
      vector relabeled by the 168 collineations of the Fano plane gives S_F plus 1 on a line and its complement, and
      (5/36) times the sum over the 7 lines lies within 1/12 of S_F in every entropy (exact fractions).
+ (h) the scheme with information ratio 7/5 for Gamma_F of Proposition 6 (iii) (R32 Proposition 25, R48 addendum 2), a
+     (lambda, omega) = (6, 1) decomposition in the sense of van Dijk, Jackson and Martin: seven cube schemes over Z_d,
+     relabeled by collineations that map WXY to the seven lines, share the coordinates of a codeword of the zero-sum
+     code; for d = 3, 5, 7, 9, 11, 13, 15, 21, 25, 27, 45, all 128 player sets (orders of projections computed exactly)
+     and the CSS state; negative control without the uniform coefficient zeta.
 The validity of Lemma 1 and of the results of Jafari-Khazaei is an input; it is only tested here.
 """
 import itertools, json, math, os, random, sys
@@ -1185,6 +1191,81 @@ best = min(max(abs(c * (SF7[X] + Fraction(int(on_line[X]), 7)) - SF7[X]) for X i
            for c in [Fraction(k, 360) for k in range(300, 361)])
 report('within the family c * (1/7) * sum, the coefficient c = 35/36 (that is, 5/36 for the sum) is optimal on a grid of '
        'step 1/360: best maximal deviation %s' % best, best == Fraction(1, 12))
+
+
+# ============================================================================== (h) a scheme with information ratio 7/5
+print('(h) a scheme with information ratio 7/5 for Gamma_F and every odd d (Proposition 6 (iii))')
+SIG_L = {l: next(c for c in COLL if {c[P] for P in 'WXY'} == set(l)) for l in LINES7}
+report('for each of the 7 lines l a collineation sigma_l with sigma_l(WXY) = l',
+       all(''.join(sorted(SIG_L[l][P] for P in 'WXY')) == ''.join(sorted(l)) for l in LINES7))
+B_RAMP = (1, 1, 1, 1, 1, -1, -4)
+NPAR_H = 5 + 1 + 21            # the secret u in Z^5, zeta, and a_l in Z^3 for the seven lines
+
+
+def ramp_code(b, use_zeta=True):
+    """functionals on the parameters: the secret u (5 coordinates at R) and, for each player, the value of the
+    affine function s_l + a_l . x of the scheme of the line l at the player's cube vertex, where
+    s = u_1 (e_2 - e_7) + ... + u_5 (e_6 - e_7) + zeta b."""
+    comb = []
+    for j in range(7):
+        f = [0] * 6
+        if 1 <= j <= 5:
+            f[j - 1] = 1
+        if j == 6:
+            f[0:5] = [-1] * 5
+        if use_zeta:
+            f[5] = b[j]
+        comb.append(f)
+    cols = {'R': [[1 if k == i else 0 for k in range(NPAR_H)] for i in range(5)]}
+    for P in L7:
+        cols[P] = []
+        for j, l in enumerate(LINES7):
+            x = VERT[next(Q for Q in L7 if SIG_L[l][Q] == P)]          # the cube vertex of P in the scheme of l
+            f = comb[j][:] + [0] * 21
+            for i in range(3):
+                f[6 + 3 * j + i] = x[i]
+            cols[P].append(f)
+    return cols
+
+
+def order_zd_h(functionals, d):
+    if not functionals:
+        return 1
+    vecs = [[f[i] for f in functionals] for i in range(NPAR_H)]
+    o = 1
+    for pr, a in factor_small(d).items():
+        o *= pr ** zn_log_order(vecs, len(functionals), pr ** a, pr)
+    return o
+
+
+def scheme_report_h(cols, d):
+    owners = ['R'] + list(L7)
+    O = {}
+    for m8 in range(256):
+        O[m8] = order_zd_h([f for i, w in enumerate(owners) if m8 >> i & 1 for f in cols[w]], d)
+    oR = O[1]
+    auth = lambda T: any(T & mm == mm for mm in MIN_F)
+    acc = all((O[(T << 1) | 1] == O[T << 1]) if auth(T) else (O[(T << 1) | 1] == O[T << 1] * oR) for T in range(128))
+    full = 255
+    E = {m8: Fraction(O[m8] * O[full ^ m8], O[full]) for m8 in range(256)}
+    css = E[1] == oR and all((E[1] * E[T << 1] / E[(T << 1) | 1] == E[1] ** 2) if auth(T)
+                             else (E[1] * E[T << 1] / E[(T << 1) | 1] == 1) for T in range(128))
+    sizes = oR == d ** 5 and all(O[1 << (i + 1)] == d ** 7 for i in range(7))
+    return acc, css, sizes
+
+
+zero_sum_basis_ok = sum(B_RAMP) == 0 and B_RAMP[0] == 1
+report('b = (1,1,1,1,1,-1,-4): coordinate sum 0, first coordinate 1, so b and e_2 - e_7, ..., e_6 - e_7 form a basis of '
+       'the zero-sum code; every coordinate of b is a unit modulo every odd d', zero_sum_basis_ok
+       and all(math.gcd(x, d) == 1 for x in B_RAMP for d in (3, 5, 7, 9, 11, 13, 15, 21, 25, 27, 45)))
+for d in (3, 5, 7, 9, 11, 13, 15, 21, 25, 27, 45):
+    acc, css, sizes = scheme_report_h(ramp_code(B_RAMP), d)
+    report('Z_%d: the seven relabeled cube schemes with the zero-sum code are a scheme for Gamma_F on all 128 player '
+           'sets; secret Z_d^5, each player 7 coordinates of full rank (ratio 7/5); the CSS state has S(R) = 5 log d and '
+           'I(R;T) = 2 S(R) on Gamma_F and 0 elsewhere' % d, acc and css and sizes)
+acc_bad, _, _ = scheme_report_h(ramp_code(B_RAMP, use_zeta=False), 3)
+report('negative control: without zeta (s = the five secret coordinates only) the code is not a scheme for Gamma_F '
+       '(a line complement learns one coordinate of the secret)', not acc_bad)
 
 print('ALL OK' if ok_all else 'FAILURE')
 sys.exit(0 if ok_all else 1)

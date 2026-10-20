@@ -676,5 +676,151 @@ report('proof of Proposition 3 step by step on %d structured qubit states in nor
        'local symplectic maps; perturbed one- and two-copy point codes): every step holds; f_12 = 0 on %d of them, '
        'minimum %d' % (nst2, fvals.count(0), min(fvals)), not failed2 and nst2 > 50 and min(fvals) >= 0, str(failed2))
 
+# ------------------------------- familiar code states as witnesses (R48 addendum 2; R32 Proposition 26, Discussion)
+def lemma1_forms_sets(perm=('A', 'B', 'C', 'Y', 'X', 'W', 'Z')):
+    """(LB) and (LA) with t = 2 (the paper's Lemma 1) as dicts {frozenset: coefficient} on the subsets of the seven
+    elements, with (A_1, A_2, A_3, B_1, B_2, B_3, C) = perm; for the labels above, A_i = <e_i>, B_i = <c - e_i>, C = <c>."""
+    M = 3
+    A, B, C = [fs(x) for x in perm[:3]], [fs(x) for x in perm[3:6]], fs(perm[6])
+    allA = fs().union(*A)
+
+    def H(X, c=1):
+        return {X: c} if X else {}
+
+    def add(*forms):
+        out = {}
+        for f in forms:
+            for k, v in f.items():
+                out[k] = out.get(k, 0) + v
+        return {k: v for k, v in out.items() if v}
+
+    def sc(f, c):
+        return {k: c * v for k, v in f.items()}
+
+    def Hc(x, y):
+        return add(H(x | y), H(y, -1))
+
+    def I(x, y):
+        return add(H(x), H(y), H(x | y, -1))
+    alpha = add(*[H(a) for a in A], H(allA, -1))
+    gamma = Hc(C, allA)
+    delta = add(*[I(C, allA - A[i]) for i in range(M)])
+    eps = add(*[Hc(C, A[i] | B[i]) for i in range(M)])
+    zeta = add(*[Hc(B[i], allA - A[i]) for i in range(M)])
+    eta = add(*[Hc(B[i], A[i] | C) for i in range(M)])
+    HB = H(fs().union(*B))
+    LB = add(HB, sc(add(gamma, sc(alpha, M), delta, eps, zeta), M), H(C, -M))
+    LA = add(H(C, M - 1), sc(alpha, M), sc(gamma, M), zeta, eta, sc(HB, -1))
+    return LB, LA
+
+
+def evalf(f, h):
+    return sum(c * h[X] for X, c in f.items())
+
+
+def balanced_value(f, h):
+    """f_bal(h) = f(h) - sum_i f(1_i) (h(all) - h(all - i)), balanced over the seven elements (the parties), as in the
+    proof of Proposition 4 (Supplementary Note 8.1); balancing over all eight systems, as in the proof of Corollary 2,
+    would give +20 (LB) and +7 (LA) on the code states below."""
+    return evalf(f, h) - sum(sum(c for X, c in f.items() if P in X) * (h[ALL] - h[ALL - fs(P)]) for P in L7)
+
+
+LB2, LA2 = lemma1_forms_sets()
+rF = rank_function(COLS, 2)
+rNF = {p: rank_function(COLS, p) for p in (3, 5, 7)}
+report('(LB) with t = 2, balanced over the seven elements, is -1 on the Fano rank function r_F; (LA) with t = 2, '
+       'balanced, is -1 on the non-Fano rank function over GF(3), GF(5), GF(7); each is >= 0 on the other one',
+       balanced_value(LB2, rF) == -1 and all(balanced_value(LA2, rNF[p]) == -1 for p in rNF)
+       and all(balanced_value(LB2, rNF[p]) >= 0 for p in rNF) and balanced_value(LA2, rF) >= 0)
+report('contrast (Proposition 1): on the Steane vector S_F itself the balanced (LB) with t = 2 is >= 0 (value %d), '
+       'and the balanced (LA) is >= 0 on S_NF (value %d)' % (balanced_value(LB2, S_F), balanced_value(LA2, SNF)),
+       balanced_value(LB2, S_F) >= 0 and balanced_value(LA2, SNF) >= 0)
+rng_fam = random.Random(26)
+okv = True
+for p, form in ((3, LB2), (5, LB2), (2, LA2)):
+    for _ in range(150):
+        cols_r = {P: [rng_fam.randrange(p) for _ in range(3)] for P in L7}
+        okv &= balanced_value(form, rank_function(cols_r, p)) >= 0
+report('tests (not proofs): the balanced (LB) is >= 0 on 300 random rank functions over GF(3) and GF(5), the balanced '
+       '(LA) on 150 over GF(2)', okv)
+
+
+def projective_points(p, m):
+    """one representative (first nonzero coordinate 1) of each point of PG(m-1, p)"""
+    pts = []
+    for v in itertools.product(range(p), repeat=m):
+        nz = [x for x in v if x]
+        if nz and nz[0] == 1:
+            pts.append(tuple(v))
+    return pts
+
+
+def subconfiguration_entropies(p, m):
+    """the CSS state of the p-ary simplex code of dimension m (one qudit per point of PG(m-1, p)); the seven parties are
+    the points (POINT[P], 0, ..., 0), all other qudits form the purifier.  Returns S on the subsets of the seven parties
+    (in units of log p), from S(X) = r(X) + r(rest) - r(all) with r the column rank, and the rank of the purifier."""
+    pts = projective_points(p, m)
+    party = {P: tuple(POINT[P]) + (0,) * (m - 3) for P in L7}
+    assert all(v in pts for v in party.values())
+    rest = [v for v in pts if v not in party.values()]
+    r_all = rank_mod_p(pts, p)
+    S = {}
+    for X in SUBSETS:
+        inX = [party[P] for P in X]
+        out = rest + [party[P] for P in L7 if P not in X]
+        S[X] = (rank_mod_p(inX, p) if inX else 0) + rank_mod_p(out, p) - r_all
+    return S, rank_mod_p(rest, p), r_all, len(pts)
+
+
+fam_ok, fam_txt = True, []
+for p, m, target in ((2, 4, rF), (2, 5, rF), (3, 3, rNF[3]), (5, 3, rNF[5]), (7, 3, rNF[7])):
+    S_fam, r_rest, r_all, npts = subconfiguration_entropies(p, m)
+    good = r_rest == r_all and all(S_fam[X] == target[X] for X in SUBSETS)
+    form = LB2 if p == 2 else LA2
+    good &= balanced_value(form, S_fam) == -1
+    fam_ok &= good
+    fam_txt.append('p=%d m=%d (%d qudits)' % (p, m, npts))
+report('simplex codes: in the CSS state of the binary simplex code of dimension m = 4, 5 the qubits outside a Fano '
+       'subplane determine the codeword and the seven qubits of the subplane have S = r_F; for the p-ary simplex code '
+       'of dimension 3, p = 3, 5, 7, the seven qudits {0,1}^3 minus 0 have S = r_NF; the balanced (LB), resp. (LA), with '
+       't = 2 is -1 there', fam_ok, ', '.join(fam_txt))
+
+
+def simplex_state_entropies(p, m, maxsize):
+    """state vector of the CSS state of the p-ary simplex code of dimension m; entropies (in units of log p) of the
+    sets X of the seven parties with |X| <= maxsize, from singular values"""
+    pts = projective_points(p, m)
+    party_idx = {P: pts.index(tuple(POINT[P]) + (0,) * (m - 3)) for P in L7}
+    n = len(pts)
+    G = np.array(pts).T
+    psi = np.zeros(p ** n)
+    for y in itertools.product(range(p), repeat=m):
+        w = (np.array(y) @ G) % p
+        idx = 0
+        for x in w:
+            idx = idx * p + int(x)
+        psi[idx] = 1.0
+    psi /= np.linalg.norm(psi)
+    T0 = psi.reshape([p] * n)
+    out = {}
+    for X in SUBSETS:
+        if not X or len(X) > maxsize:
+            continue
+        pos = [party_idx[P] for P in L7 if P in X]
+        rest = [i for i in range(n) if i not in pos]
+        T = T0.transpose(pos + rest).reshape(p ** len(pos), p ** len(rest))
+        s = np.linalg.svd(T, compute_uv=False) ** 2
+        s = s[s > 1e-14]
+        out[X] = float(-(s * np.log(s)).sum() / math.log(p))
+    return out
+
+
+dev = 0.0
+for p, m, target, maxsize in ((2, 4, rF, 7), (3, 3, rNF[3], 4)):
+    num = simplex_state_entropies(p, m, maxsize)
+    dev = max(dev, max(abs(num[X] - target[X]) for X in num))
+report('state vectors: the 15-qubit binary and the 13-qutrit ternary simplex states give the same entropies on the seven '
+       'parties (all subsets, resp. those of size <= 4; largest deviation %.1e)' % dev, dev < 1e-9)
+
 print('ALL OK' if ok else 'FAILURE')
 sys.exit(0 if ok else 1)
