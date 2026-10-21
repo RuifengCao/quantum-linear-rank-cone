@@ -132,7 +132,16 @@ ratio for Γ_F lies in [4/3, 7/5] for odd squarefree d; and §4.18 (Proposition 
 codes of dimension m ≥ 4, which are the logical zero states of the quantum Hamming codes, lie outside the cone of every
 odd local dimension, with the seven qubits of a Fano subplane as parties; likewise the p-ary simplex codes of dimension
 3 and the qubit cone; checked by `checks/check_rev_sec6.py`). The scheme of Proposition 25 is a (λ, ω)-decomposition of van Dijk, Jackson and Martin. Proved; independent referee
-(agent); not yet checked by hand.
+(agent); not yet checked by hand. R48 addendum 3 (2026-10-21): §4.19. Lemma 27 (a decomposition in which one line
+and its complement at a time exchange their status) and Proposition 28: for qubits and for Galois qudits of
+characteristic 2, Γ_NF has stabilizer schemes with information ratio 7/5 (was 2), the mirror image of Proposition 25:
+a (λ, ω) = (6, 1) decomposition into the binary cube scheme and six relabellings of a GF(4) code that differs from the
+cube code in two entries and whose matroid is AG(3,2) with four circuit-hyperplanes relaxed (checked by
+`checks/check_rev_qss.py`, part (i)); so the optimal ratio for Γ_NF with qubits lies in [4/3, 7/5]. Proposition 29: no
+(λ, ω)-decomposition of Γ_F into ideal linear schemes of odd characteristic has ratio below 7/5 (finite part checked by
+part (j)). Found with a decomposition linear program over sampled ideal sub-schemes, symmetrised under the
+automorphisms of the access structure (the search is not in the repository). Proved; independent referee (agent); not
+yet checked by hand.
 
 ## 1. Setting
 
@@ -2308,7 +2317,8 @@ the minors (and (LA) minimum 0); on the GF(3) cube state (LB) has minimum 0 and 
   and h(P) ≤ 2t), and the rounded HiGHS solutions are exactly feasible with t = 4/3. So purity does not raise their
   bound in these programs.
 * *Scope.* Lower bounds only here; (R48) schemes with ratio 2 exist (§4.17), and for Γ_F with ratio 7/5 (R48
-  addendum 2, Proposition 25); the optimal ratios of stabilizer schemes for Γ_F (odd p) and Γ_NF (qubits) are not known; linear schemes for the six-player ports attain 4/3. Nothing is said about schemes that are not stabilizer
+  addendum 2, Proposition 25), and for Γ_NF with qubits (R48 addendum 3, Proposition 28); the optimal ratios of
+  stabilizer schemes for Γ_F (odd p) and Γ_NF (qubits) are not known; linear schemes for the six-player ports attain 4/3. Nothing is said about schemes that are not stabilizer
   schemes. Earlier quantum examples of a dependence on the local dimension were threshold effects (no ((2,3)) scheme
   for qubits with qubit shares, Cleve–Gottesman–Lo; qutrit versus qubit graph states, Keet–Fortescue–Markham–Sanders, PRA 82,
   062315 (2010)); Sarvepalli (PRA 83, 042324 (2011)) gave share-size lower bounds above 1 from entropy inequalities.
@@ -2373,7 +2383,8 @@ that of GF(p)-linear (multi-linear) schemes.
 2. For qubits, and for Galois qudits of characteristic 2, Γ_NF has a stabilizer scheme with information ratio 2.
 
 So the optimal ratios lie in [4/3, 2] (Γ_F, odd squarefree d or odd-characteristic Galois qudits; Γ_NF, qubits) and
-in [43/41, 2] (Γ_F, every odd d). (R48 addendum 2: for Γ_F the upper bound 2 is superseded by 7/5, Proposition 25.)
+in [43/41, 2] (Γ_F, every odd d). (R48 addendum 2: for Γ_F the upper bound 2 is superseded by 7/5, Proposition 25.
+R48 addendum 3: for Γ_NF too, Proposition 28; the binary code of 2 remains optimal for a secret of one qubit.)
 
 *Proof of 1.* Over Z_d (d odd) the cube code has Smith invariants 1 or 2 on every set of columns, so its scheme is an
 ideal scheme for Γ_NF (§4.15). Bijection q ↦ ℓ_q with q ∉ ℓ_q: A ↦ BCY, B ↦ ACX, C ↦ ABW, Z ↦ WXY (the polarity
@@ -2399,7 +2410,8 @@ Lemma 22. Galois qudits of dimension p^k: the same code over GF(p^k). ∎
 is a scheme for Γ_NF (all 128 sets of players checked); Lemma 22 gives a qubit scheme with ratio 2, and the same
 matrix over GF(2^k) one for Galois qudits. Found by a randomised search (annealing on the generator matrix); a linear
 program over the binary ideal sub-schemes found by a search gives only ratio 3 for Γ_NF, so this scheme is not a
-decomposition of that kind [empirical]. For Γ_F the decomposition bound is 2 [empirical: among GF(3) ideal sub-schemes
+decomposition of that kind [empirical]. (R48 addendum 3: with GF(4) sub-schemes a decomposition gives 7/5,
+Proposition 28.) For Γ_F the decomposition bound is 2 [empirical: among GF(3) ideal sub-schemes
 of Γ_F found by random search, none authorises more than three lines with six participants].
 
 **Proposition 24 [proved] (R48 addendum).** For Z_d qudits, Γ_F has no ideal stabilizer scheme if d has an odd prime
@@ -2526,6 +2538,142 @@ with m = 4, 5, and r_NF for the p-ary ones with p = 3, 5, 7 (exact ranks; the pu
 balanced (LB) and (LA) with t = 2 take −1 there and are ≥ 0 on the other configuration; the 15-qubit and 13-qutrit
 state vectors give the same entropies.
 
+### 4.19 Stabilizer secret sharing: ratio 7/5 for Γ_NF with qubits, and the limit of decompositions [proved; checked by computer] (R48 addendum 3)
+
+*Notation.* For a set S of lines of the Fano plane let Γ^S be the access structure on the seven players in which a
+set is authorised iff it contains a line not in S, or a line in S and one more player, or the complement of a line in
+S: each line in S and its complement exchange their status. So Γ^∅ = Γ_F, Γ^{WXY} = Γ_NF, and Γ^{ℓ} = σ(Γ_NF) for a
+collineation σ with σ(WXY) = ℓ. Every Γ^S is self-dual (T authorised iff its complement is not). Its minimal
+authorised sets are the lines not in S, the complements of the lines in S, and the sets ℓ ∪ {x} with ℓ ∈ S and x ∉ ℓ:
+the 35 four-sets are the seven line complements, which contain no line, and the 28 sets ℓ ∪ {x}, and every five-set
+contains two lines (both statements checked for all 128 sets S); its maximal unauthorised
+sets are the complements of these: the complements of the lines not in S, the lines in S, and the 3-sets
+(Q ∖ ℓ) ∖ {x}, which are not lines.
+
+**Lemma 27 (swap decomposition) [proved].** Let K be Z_d with d odd, or a finite field with more than two elements,
+and let b ∈ K^7 have unit coordinates with sum 0. If for every line ℓ the access structure Γ^{S △ {ℓ}} has an ideal
+K-linear scheme, then Γ^S has a K-linear scheme in which the secret has five coordinates and every player holds
+seven: information ratio 7/5.
+
+*Proof.* A line or a line complement has, in Γ^{S △ {ℓ}}, the status it has in Γ^S unless it is ℓ or Q ∖ ℓ. A set
+ℓ′ ∪ {x} with ℓ′ ∈ S is authorised in every Γ^{S′} (it contains ℓ′ and one more player if ℓ′ ∈ S′, and ℓ′ if not),
+and a 3-set that is not a line is unauthorised in every Γ^{S′}. So in the seven ideal schemes every minimal authorised
+set of Γ^S is authorised at least six times (λ = 6) and every maximal unauthorised set at most once (ω = 1): a
+(λ, ω)-decomposition of van Dijk, Jackson and Martin. Share the coordinates of the zero-sum codeword
+s = Σ_{i=1}^{5} u_i (e_{i+1} − e_7) + ζ b, one per scheme, with independent randomness, exactly as in Proposition 25:
+any six coordinates determine s and u (b_1 is a unit), every single coordinate is uniform and independent of u (every
+b_j is a unit). An authorised set of Γ^S learns at least six coordinates; an unauthorised one at most one, and nothing
+else (the schemes are perfect and independent). ∎ Proposition 25 is the case S = ∅, K = Z_d (b = (1,1,1,1,1,−1,−4)).
+
+**Proposition 28 [proved; checked by computer].** For qubits, and for Galois qudits of characteristic 2, Γ_NF has a
+stabilizer scheme with information ratio 7/5. Hence the optimal ratio of stabilizer schemes for Γ_NF lies in
+[4/3, 7/5] for qubits and for Galois qudits of characteristic 2, the mirror image of Γ_F in odd characteristic
+(Propositions 21 and 25). A secret of ten qubits (five Galois qudits of dimension 4) needs, by Proposition 21, a share
+of at least 40/3, hence 14, qubits (20/3, hence 7, such qudits), so the scheme is optimal for that size of the secret;
+a secret of one qubit needs a share of at least two qubits, which the binary code of Proposition 23 (2) attains.
+
+*Proof.* Take S = {WXY}, K = GF(4) = {0, 1, α, α²} with α² = α + 1, and b = (1, 1, 1, 1, 1, α, α²) (nonzero
+coordinates, sum 1 + α + α² = 0, b_1 = 1). The neighbours are Γ^∅ = Γ_F, which has the binary cube code (also a
+GF(4)-linear ideal scheme), and Γ^{WXY, ℓ} for the six lines ℓ ≠ WXY. For ℓ = ACX take the GF(4) code with
+generator matrix (rows = coordinates; columns R, A, B, C | W, X, Y, Z)
+
+    1 0 0 0 | 1 1 1 α
+    0 1 0 0 | 1 1 0 1
+    0 0 1 0 | 1 α 1 1
+    0 0 0 1 | 0 1 1 1
+
+which is the binary cube code in systematic form (the matrix with α replaced by 0 has the row space of the affine
+functions on {0,1}^3) with two entries changed from 0 to α. Its matroid is AG(3,2) with the four circuit-hyperplanes
+{R,W,X,Y}, {A,B,C,Z}, {R,A,C,X} and {B,W,Y,Z} relaxed (all 256 ranks checked), so its port at R is Γ^{WXY, ACX}: an
+ideal GF(4)-linear scheme. The 24 collineations fixing the line WXY act transitively on the other six lines;
+relabelling the code by one that maps ACX to ℓ gives an ideal scheme for Γ^{WXY, ℓ}. Lemma 27 gives a GF(4)-linear
+scheme with secret GF(4)^5 and seven coordinates per player. Writing every element of GF(4) as c_0 + c_1 α
+(restriction of scalars) gives a binary scheme with secret of 10 and shares of 14 bits, and Γ_NF is self-dual, so
+Lemma 22 gives a qubit stabilizer scheme with ratio 7/5. Galois qudits of dimension 2^k: the binary code over
+GF(2^k). ∎
+
+*Remarks.*
+* *How it was found [empirical; search not in the repository].* A decomposition linear program: variables are weights
+  of ideal sub-schemes, described by which minimal authorised and maximal unauthorised sets of the target they
+  authorise and by their participants; constraints λ ≥ …, ω ≤ …, λ − ω = 1; objective the largest player load. The
+  library was sampled: matroid ports of random vectors in GF(q)^r (q = 2, 4, 8, 16; r ≤ 6; about 45 million samples;
+  1.45 million distinct access structures over GF(2) and GF(4) alone; 142,589 distinct patterns for Γ_NF over all four
+  fields, 160,124 after symmetrisation). For Γ_NF the program gave 19/12 on the raw library and exactly 7/5 after
+  closing it under the 24 automorphisms of Γ_NF (the sampling had found only two of the six relabellings of the GF(4)
+  code); the optimum used exactly the seven sub-schemes above. A search
+  over matrices that differ from the systematic cube matrix in at most three entries then gave the representation
+  with two entries α, for ℓ = ABW, ACX and BCY (three entries are needed in this basis for AYZ, BXZ, CWZ). For Γ_F
+  the same program over sampled ideal sub-schemes over GF(3), GF(5), GF(7) and GF(9), closed under the 168
+  collineations, gives exactly 7/5 (the seven sub-schemes of Proposition 25), in line with Proposition 29.
+* *Representability [computed by the referee agent; not in the paper].* The matroid of Γ^{WXY, ACX} (AG(3,2) with
+  two complementary pairs of circuit-hyperplanes relaxed) is a tipless 4-spike with four transversal
+  circuit-hyperplanes and is identically self-dual. An exhaustive search over normalised representations found none
+  over GF(2) and GF(3), and 2, 2, 4, 6, 6, 8 over GF(4), GF(5), GF(7), GF(8), GF(9), GF(11); it is none of the
+  named matroids Q8, F8, L8, P8, P8″, R8, J of the Sage catalogue. (An earlier hill-climbing search had found
+  representations over GF(4), GF(5), GF(7), GF(8).)
+* An earlier version of this note's Proposition 23 (2) remark said that a linear program over binary ideal
+  sub-schemes gives only ratio 3 for Γ_NF; that program used binary sub-schemes only.
+* The Γ_NF analogue of Proposition 29 is open: the uniform weights of its proof do not work there, because Γ_NF has
+  minimal authorised sets (ℓ ∪ {x} with ℓ = WXY) outside the seven line–complement pairs.
+
+**Proposition 29 [proved; finite part checked by computer].** Let p be an odd prime. In every (λ, ω)-decomposition of
+Γ_F whose sub-schemes are ideal linear schemes over fields of characteristic p, the average share is at least 7/5
+times the secret, and so is the information ratio. So Proposition 25 is optimal among such decompositions.
+
+*Proof.* The decomposition construction gives player P one sub-share for each sub-scheme in which it takes part, say
+m_P of them, and a secret of λ − ω > 0 sub-secrets; its ratio is max_P m_P/(λ − ω). Let the sub-schemes be Σ_j, Σ_j
+ideal for an access structure Γ_j on a set P_j of players; dropping players that lie in no minimal authorised set of
+Γ_j changes no access condition and does not increase any m_P, so assume P_j is the union of the minimal authorised
+sets of Γ_j. Let n_j = |P_j|, and let a_j and c_j be the numbers of lines and of line complements authorised in Σ_j
+(a set T counts as authorised if T ∩ P_j ∈ Γ_j). Every line is authorised in at least λ sub-schemes and every line
+complement, a maximal unauthorised set of Γ_F, in at most ω, so Σ_j a_j ≥ 7λ and Σ_j c_j ≤ 7ω, while
+Σ_P m_P = Σ_j n_j. Hence the average of m_P/(λ − ω) over the seven players is at least Σ_j n_j / Σ_j (a_j − c_j),
+and it suffices to show 5 n_j ≥ 7 (a_j − c_j) for every j.
+* n_j = 7. Suppose a_j − c_j ≥ 6. Extend scalars to a field of characteristic p with at least 168 elements (this keeps
+  Σ_j ideal) and relabel Σ_j by the 168 collineations of the Fano plane; the stabiliser of a line has order 24, so each
+  line is authorised in exactly 24 a_j of the 168 relabelled schemes and each line complement in 24 c_j, and every
+  player participates in all of them. The decomposition construction of van Dijk, Jackson and Martin, with the ramp
+  scheme that evaluates at 168 distinct points a polynomial of degree < 24 a_j whose 24 c_j lowest coefficients are
+  random and whose other coefficients are the secret, gives a linear scheme for Γ_F with ratio
+  168/(24(a_j − c_j)) ≤ 7/6, and Lemma 22 a stabilizer scheme of Galois qudits of characteristic p with that ratio,
+  contradicting the bound 4/3 of Proposition 21. So a_j − c_j ≤ 5 and 5 · 7 ≥ 7 · 5.
+* n_j ≤ 6. A line can be authorised only if its trace ℓ ∩ P_j is nonempty and in Γ_j, and then every line
+  complement c with c ∩ P_j ⊇ ℓ ∩ P_j is authorised too. Over all P_j and all sets of lines with nonempty traces,
+  this forces a_j − c_j ≤ 4, 2, 1, 1, 0, 0 for n_j = 6, 5, 4, 3, 2, 1 (finite check), and 5 n_j ≥ 7(a_j − c_j). For
+  n_j = 6 by hand: if P_j misses x, the three lines through x meet P_j in the pairs π_1, π_2, π_3 of a partition of P_j
+  and the other four lines lie in P_j; the complement of the line through x and π_i is π_k ∪ π_m. If t of the pairs
+  are authorised, then 0, 2, 3, 3 complements are forced for t = 0, 1, 2, 3, so a_j − c_j ≤ 4 + t − (0, 2, 3, 3) ≤ 4. ∎
+
+The bound is attained: the sub-schemes of Proposition 25 have n = 7, a = 6, c = 1. Because the proof bounds the average
+share, it also covers direct sums over several primes (squarefree d) and multilinear ideal sub-schemes [remark of the
+referee agent]. It does not cover the weighted decompositions of Gharahi and Khazaei (IACR ePrint 2017/1232, Def. 3.5),
+whose sub-schemes have secrets of several elements that a set may learn in part, nor sub-schemes over Z_{p^a} with
+a ≥ 2, for which only the bound 43/41 is known.
+
+*Remark (non-ideal sub-schemes) [proved, using the standard duality of linear schemes (the dual code gives a scheme
+for the dual access structure with the same share sizes); not in the paper].* The bound 7/5 also holds for
+decompositions into linear sub-schemes over fields of characteristic p, each sharing one sub-secret, that need not be
+ideal, as long as none of them is a scheme for Γ_F itself. Let σ_j be the sum of the share sizes of Σ_j, in units of
+its sub-secret. Pieces with a_j − c_j ≤ 5 satisfy 5 σ_j ≥ 7(a_j − c_j) as before (every essential player has a share at
+least as large as the sub-secret, and the trace argument only uses the access structure). Pieces with a_j − c_j = 7
+are schemes for Γ_F. There remain (a, c) = (7, 1) and (6, 0), and both need σ_j ≥ 9 > 42/5:
+* (7, 1): the access structure is Γ_F plus one line complement c, and possibly some 3-subsets of c. For q on the line
+  ℓ_1 = Q ∖ c, the contraction is exactly the Fano port F (c and its 3-subsets, with q, already contain a line through
+  q), so Jafari–Khazaei gives a share sum ≥ 4 on every line other than ℓ_1, and summing (each point of ℓ_1 lies on two
+  of these lines, each point of c on three, every share ≥ 1) gives σ_j ≥ 9.
+* (6, 0): the access structure is ⟨the six lines other than ℓ_0⟩ plus some sets ℓ_0 ∪ {x}. Its dual is Γ_F plus
+  either c_0 = Q ∖ ℓ_0 or some 3-subsets of c_0; its contraction at q ∈ ℓ_0 is exactly F, and the same count gives
+  σ_j ≥ 9 for the dual scheme, which has the same share sizes.
+So a (λ, ω)-decomposition below 7/5 would need a sub-scheme for Γ_F itself below 7/5. (An annealing search for a
+scheme for ⟨six lines⟩ with total share 8 over GF(3) found none, in line with this.)
+
+*Checks.* `checks/check_rev_qss.py`, part (i): Γ^∅ = Γ_F and Γ^{WXY} = Γ_NF; self-duality of all Γ^S; the
+systematic cube matrix and the GF(4) matrix (two entries differ); the ports and the matroid (all 256 ranks); the 24
+collineations fixing WXY and their action on the other lines; the seven sub-schemes and λ = 6, ω = 1 on the 11
+minimal authorised and 11 maximal unauthorised sets of Γ_NF; b; the combined code over GF(4) and its binary version
+(restriction of scalars) on all 128 player sets, with the CSS states; negative controls (b_7 = 0; the cube code as all
+seven sub-schemes). Part (j): the finite check for n_j ≤ 6, the orbit counts, and the attaining sub-scheme.
+
 ## 5. Open questions
 
 * **The smallest number of parties with a dimension dependence** is 5 or 6: for n ≤ 4 there is none, for any d
@@ -2615,8 +2763,13 @@ state vectors give the same entropies.
 * **(R47) Secret sharing.** The optimal information ratio of stabilizer schemes for Γ_F in odd prime local dimension
   and for Γ_NF with qubits (§4.15): at least 4/3; linear schemes for the six-player ports attain 4/3 (Jafari–Khazaei);
   whether stabilizer schemes for the seven-player structures do is open, and adding the Jafari–Khazaei inequalities to
-  the self-dual programs does not raise 4/3 (G43b). Upper bounds: 7/5 for Γ_F and every odd d (Proposition 25), 2 for
-  Γ_NF with qubits (Proposition 23). For Γ_F in odd local dimension divisible by a square (Z_9,
+  the self-dual programs does not raise 4/3 (G43b). Upper bounds: 7/5 for Γ_F and every odd d (Proposition 25) and
+  for Γ_NF with qubits (Proposition 28). For Γ_F no (λ, ω)-decomposition into ideal schemes of odd characteristic
+  does better (Proposition 29), so a better scheme would have to be of another kind; for Γ_NF the analogue is open (a
+  symmetrised decomposition linear program over sampled ideal sub-schemes of characteristic 2 gives 7/5, §4.19
+  [empirical]). Adding the 6,720 Ingleton instances on the eight systems to the self-dual programs with the
+  Jafari–Khazaei inequalities leaves 4/3 for both Γ_F (odd characteristic) and Γ_NF (qubits) [empirical, R48
+  addendum 3]. For Γ_F in odd local dimension divisible by a square (Z_9,
   Z_27, …) only 43/41 is known. Not studied: Z_{2^a} schemes for Γ_NF (Lemma 4(G′)) and the generalized cube access
   structures of Theorem 2′ for other pairs of primes.
 

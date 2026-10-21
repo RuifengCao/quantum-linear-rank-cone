@@ -40,7 +40,7 @@ What is checked:
  (f) the schemes with information ratio 2: the decomposition scheme for Gamma_F over Z_d of R48 (R32 Proposition 23;
      in the paper it is superseded by the scheme of (h)) for d = 3, 5, 7, 9, 15, 21, 25, 27 (all 128 player sets,
      orders of projections computed exactly, and the CSS state), with a negative control; the binary scheme for
-     Gamma_NF of Proposition 6 (iii) and Supplementary Note 10, and its CSS state.
+     Gamma_NF of Supplementary Note 10 (a secret of one qubit, shares of two; R32 Proposition 23), and its CSS state.
  (g) an upper bound on the distance of the Steane state from the cones of odd local dimension (Methods): the non-Fano
      vector relabeled by the 168 collineations of the Fano plane gives S_F plus 1 on a line and its complement, and
      (5/36) times the sum over the 7 lines lies within 1/12 of S_F in every entropy (exact fractions).
@@ -49,6 +49,17 @@ What is checked:
      relabeled by collineations that map WXY to the seven lines, share the coordinates of a codeword of the zero-sum
      code; for d = 3, 5, 7, 9, 11, 13, 15, 21, 25, 27, 45, all 128 player sets (orders of projections computed exactly)
      and the CSS state; negative control without the uniform coefficient zeta.
+ (i) the scheme with information ratio 7/5 for Gamma_NF, qubits and characteristic 2 (Proposition 6 (iii); R32 Lemma 27
+     and Proposition 28, R48 addendum 3): the access structures Gamma^S, in which the lines in S and their complements
+     exchange their status (Gamma^{} = Gamma_F, Gamma^{WXY} = Gamma_NF); the GF(4) code obtained from the binary cube
+     code by changing two entries to alpha, its port Gamma^{WXY,ACX} and its matroid (AG(3,2) with four
+     circuit-hyperplanes relaxed); the seven sub-schemes (the cube code and six relabelings of the GF(4) code by
+     collineations that fix WXY), with lambda = 6 and omega = 1 on the minimal authorized and maximal unauthorized
+     sets of Gamma_NF; the combined code over GF(4) with b = (1,1,1,1,1,alpha,alpha^2) and its binary version
+     (restriction of scalars) on all 128 player sets, and the CSS states; two negative controls.
+ (j) the finite part of the bound for decompositions of Gamma_F into ideal schemes of odd characteristic (R32
+     Proposition 29): for supports of at most six players, a_j - c_j <= 4, 2, 1, 1, 0, 0; the orbit counts used for
+     full supports; the bound is attained by the sub-schemes of (h).
 The validity of Lemma 1 and of the results of Jafari-Khazaei is an input; it is only tested here.
 """
 import itertools, json, math, os, random, sys
@@ -1008,7 +1019,7 @@ report('f12: v = 1, ||g||_1 = 129, ||g||_2 = sqrt(839) = 28.97; 1/129 and Euclid
        m12[0] == 1 and m12[2] == 129 and m12[4] == 839 and 0.034 <= 1 / m12[3] < 0.035)
 
 # ============================================================================== (f) schemes with information ratio 2
-print('(f) schemes with information ratio 2 (Lemma "Linear schemes give stabilizer schemes", Proposition 6 (iii))')
+print('(f) schemes with information ratio 2 (Lemma "Linear schemes give stabilizer schemes", Supplementary Note 10)')
 ELL = {'A': 'BCY', 'B': 'ACX', 'C': 'ABW', 'Z': 'WXY', 'W': 'AYZ', 'X': 'CWZ', 'Y': 'BXZ'}
 INV = {v: k for k, v in VERT.items()}
 report('the bijection q -> l_q of the paper: l_q is a line, q not on it, all seven lines used; on A, B, C, Z it is the '
@@ -1266,6 +1277,264 @@ for d in (3, 5, 7, 9, 11, 13, 15, 21, 25, 27, 45):
 acc_bad, _, _ = scheme_report_h(ramp_code(B_RAMP, use_zeta=False), 3)
 report('negative control: without zeta (s = the five secret coordinates only) the code is not a scheme for Gamma_F '
        '(a line complement learns one coordinate of the secret)', not acc_bad)
+
+# ============================================================================ (i) ratio 7/5 for Gamma_NF and qubits
+print('(i) a scheme with information ratio 7/5 for Gamma_NF, qubits and characteristic 2 (Proposition 6 (iii))')
+# GF(4) = {0, 1, 2, 3} with 2 = alpha, 3 = alpha^2 = alpha + 1; addition is XOR.
+G4_EXP = [1, 2, 3]
+G4_LOG = {1: 0, 2: 1, 3: 2}
+
+
+def g4_mul(a, b):
+    return 0 if a == 0 or b == 0 else G4_EXP[(G4_LOG[a] + G4_LOG[b]) % 3]
+
+
+def g4_inv(a):
+    return G4_EXP[(-G4_LOG[a]) % 3]
+
+
+def rank_gf4(rows):
+    """rank over GF(4) of a list of vectors with entries in {0, 1, 2, 3}"""
+    M = [list(r) for r in rows if any(r)]
+    rk = 0
+    ncol = len(M[0]) if M else 0
+    for col in range(ncol):
+        piv = next((i for i in range(rk, len(M)) if M[i][col]), None)
+        if piv is None:
+            continue
+        M[rk], M[piv] = M[piv], M[rk]
+        iv = g4_inv(M[rk][col])
+        M[rk] = [g4_mul(iv, x) for x in M[rk]]
+        for i in range(len(M)):
+            if i != rk and M[i][col]:
+                f = M[i][col]
+                M[i] = [x ^ g4_mul(f, y) for x, y in zip(M[i], M[rk])]
+        rk += 1
+    return rk
+
+
+def gamma_swap(S):
+    """Gamma^S: a set of players is authorized iff it contains a line not in S, or a line in S and one more player,
+    or the complement of a line in S (each line in S and its complement exchange their status)."""
+    Sm = {mask(l) for l in S}
+    def auth(T):
+        if any(T & mask(l) == mask(l) and mask(l) not in Sm for l in LINES7):
+            return True
+        if any(T & m == m and T != m for m in Sm):
+            return True
+        return any(T & (127 ^ m) == (127 ^ m) for m in Sm)
+    return auth
+
+
+def minimal_of(auth):
+    return sorted(T for T in range(1, 128) if auth(T) and not any(auth(T ^ (1 << i)) for i in range(7) if T >> i & 1))
+
+
+def expected_minimal(S):
+    Sm = [mask(l) for l in S]
+    out = [mask(l) for l in LINES7 if mask(l) not in Sm] + [127 ^ m for m in Sm]
+    out += [m | (1 << i) for m in Sm for i in range(7) if not m >> i & 1]
+    return sorted(out)
+
+
+ALL_S = [S for k in range(8) for S in itertools.combinations(LINES7, k)]
+report('Gamma^{} = Gamma_F and Gamma^{WXY} = Gamma_NF (minimal authorized sets as in (a)); for all 128 sets S of lines, '
+       'Gamma^S is self-dual (T authorized iff its complement is not) and its minimal authorized sets are the lines not '
+       'in S, the complements of the lines in S and the sets l + x with l in S, x not on l',
+       minimal_of(gamma_swap([])) == MIN_F and minimal_of(gamma_swap(['WXY'])) == MIN_NF
+       and all(all(gamma_swap(S)(T) != gamma_swap(S)(127 ^ T) for T in range(128)) for S in ALL_S)
+       and all(minimal_of(gamma_swap(S)) == expected_minimal(S) for S in ALL_S))
+# generator matrices: rows = coordinates, columns R, A, B, C, W, X, Y, Z
+E8 = 'RABCWXYZ'
+CUBE_SYS = [[1, 0, 0, 0, 1, 1, 1, 0],
+            [0, 1, 0, 0, 1, 1, 0, 1],
+            [0, 0, 1, 0, 1, 0, 1, 1],
+            [0, 0, 0, 1, 0, 1, 1, 1]]
+SWAP_G4 = [[1, 0, 0, 0, 1, 1, 1, 2],
+           [0, 1, 0, 0, 1, 1, 0, 1],
+           [0, 0, 1, 0, 1, 2, 1, 1],
+           [0, 0, 0, 1, 0, 1, 1, 1]]
+CUBE_AFF = [[1] * 8] + [[0] + [VERT[P][i] for P in 'ABCWXYZ'] for i in range(3)]   # affine functions, R = origin
+report('the matrix with columns R, A, B, C = unit vectors and W, X, Y, Z = (1,1,1,0), (1,1,0,1), (1,0,1,1), '
+       '(0,1,1,1) generates the binary cube code (same row space over GF(2) as the affine functions); the GF(4) matrix '
+       'differs from it in two entries, alpha at (row 1, Z) and (row 3, X)',
+       rank_mod_p(CUBE_SYS, 2) == 4 and rank_mod_p(CUBE_AFF, 2) == 4 and rank_mod_p(CUBE_SYS + CUBE_AFF, 2) == 4
+       and sum(1 for i in range(4) for j in range(8) if SWAP_G4[i][j] != CUBE_SYS[i][j]) == 2
+       and SWAP_G4[0][7] == 2 and SWAP_G4[2][5] == 2)
+
+
+def columns(G):
+    return {E8[j]: tuple(G[i][j] for i in range(4)) for j in range(8)}
+
+
+def port_of(cols, rankf):
+    out = {}
+    for T in range(128):
+        vs = [cols[P] for i, P in enumerate(L7) if T >> i & 1]
+        out[T] = bool(vs) and rankf(vs + [cols['R']]) == rankf(vs)
+    return out
+
+
+def rk8(cols, X, rankf):
+    vs = [cols[c] for c in X]
+    return rankf(vs) if vs else 0
+
+
+C_CUBE = columns(CUBE_SYS)
+C_SWAP = columns(SWAP_G4)
+port_cube = port_of(C_CUBE, rank_gf4)
+port_swap = port_of(C_SWAP, rank_gf4)
+target_swap = gamma_swap(['WXY', 'ACX'])
+report('over GF(4) the cube code is an ideal scheme for Gamma_F (= Gamma^{}), and the GF(4) code is an ideal scheme for '
+       'Gamma^{WXY,ACX}: WXY and ACX unauthorized, ABCZ and BWYZ authorized, all other sets as in Gamma_F (128 sets)',
+       all(port_cube[T] == gamma_swap([])(T) for T in range(128))
+       and all(port_swap[T] == target_swap(T) for T in range(128))
+       and all(rank_gf4([C_SWAP[P]]) == 1 for P in E8))
+relaxed = [set('RWXY'), set('ABCZ'), set('RACX'), set('BWYZ')]
+mat_ok = True
+n_planes = 0
+for k in range(9):
+    for X in itertools.combinations(E8, k):
+        rc, rs = rk8(C_CUBE, X, rank_gf4), rk8(C_SWAP, X, rank_gf4)
+        n_planes += (k == 4 and rc == 3)
+        mat_ok &= rs == (4 if (k == 4 and set(X) in relaxed) else rc)
+report('matroids: the cube code gives AG(3,2) (14 four-element circuits); the GF(4) code gives AG(3,2) with the four '
+       'circuit-hyperplanes RWXY, ABCZ, RACX, BWYZ relaxed (all 256 ranks)', mat_ok and n_planes == 14)
+COLL_WXY = [g for g in COLL if {g[P] for P in 'WXY'} == set('WXY')]
+others = [l for l in LINES7 if l != 'WXY']
+report('24 collineations fix the line WXY and act transitively on the other six lines',
+       len(COLL_WXY) == 24 and {''.join(sorted(g[P] for P in 'ACX')) for g in COLL_WXY} == {''.join(sorted(l))
+                                                                                         for l in others})
+
+
+def relabel_cols(cols, g):
+    out = {'R': cols['R']}
+    for P in L7:
+        out[g[P]] = cols[P]
+    return out
+
+
+PIECES_NF = {'WXY': C_CUBE}
+for l in others:
+    g = next(g for g in COLL_WXY if {g[P] for P in 'ACX'} == set(l))
+    PIECES_NF[l] = relabel_cols(C_SWAP, g)
+PORTS_NF = {l: port_of(PIECES_NF[l], rank_gf4) for l in LINES7}
+report('the seven sub-schemes: the cube code for Gamma^{} and, for each line l other than WXY, the relabeled GF(4) code '
+       'for Gamma^{WXY,l} (128 sets each)',
+       all(all(PORTS_NF[l][T] == (gamma_swap([]) if l == 'WXY' else gamma_swap(['WXY', l]))(T) for T in range(128))
+           for l in LINES7))
+MAXU_NF = sorted(127 ^ m for m in MIN_NF)
+lam = min(sum(PORTS_NF[l][M] for l in LINES7) for M in MIN_NF)
+omg = max(sum(PORTS_NF[l][U] for l in LINES7) for U in MAXU_NF)
+report('(lambda, omega)-decomposition of Gamma_NF: every one of its 11 minimal authorized sets is authorized in at least '
+       '6 sub-schemes, every one of its 11 maximal unauthorized sets in at most 1', lam == 6 and omg == 1,
+       'lambda = %d, omega = %d' % (lam, omg))
+B4 = (1, 1, 1, 1, 1, 2, 3)          # (1,1,1,1,1,alpha,alpha^2)
+s4 = 0
+for x in B4:
+    s4 ^= x
+report('b = (1,1,1,1,1,alpha,alpha^2) over GF(4): nonzero coordinates, coordinate sum 0, first coordinate 1',
+       all(B4) and s4 == 0 and B4[0] == 1)
+NPAR_I = 5 + 1 + 21            # the secret u in GF(4)^5, zeta, and 3 random coordinates for each sub-scheme
+
+
+def nf_code(b, pieces):
+    """GF(4) functionals on the parameters: R holds u; player P holds, for each line l (numbered as in LINES7), the
+    coordinate of P in the sub-scheme of l, whose message is (s_l, three random coordinates), with
+    s = u_1 (e_2 + e_7) + ... + u_5 (e_6 + e_7) + zeta b (characteristic 2)."""
+    comb = []
+    for j in range(7):
+        f = [0] * 6
+        if 1 <= j <= 5:
+            f[j - 1] = 1
+        if j == 6:
+            f[0:5] = [1] * 5
+        f[5] = b[j]
+        comb.append(f)
+    cols = {'R': [[1 if k == i else 0 for k in range(NPAR_I)] for i in range(5)]}
+    for P in L7:
+        cols[P] = []
+        for j, l in enumerate(LINES7):
+            v = pieces[l][P]
+            f = [g4_mul(v[0], x) for x in comb[j]] + [0] * 21
+            for t in range(3):
+                f[6 + 3 * j + t] = v[1 + t]
+            cols[P].append(f)
+    return cols
+
+
+def to_binary(fs):
+    """restriction of scalars: a GF(4)-linear functional on GF(4)^27 gives two GF(2)-linear functionals on GF(2)^54
+    (each element written as c0 + c1 alpha)"""
+    out = []
+    for f in fs:
+        for comp in (0, 1):
+            row = []
+            for a in f:
+                for basis in (1, 2):
+                    pr = g4_mul(a, basis)
+                    row.append((pr >> comp) & 1)
+            out.append(row)
+    return out
+
+
+def nf_report(cols, field):
+    owners = ['R'] + list(L7)
+    if field == 4:
+        rk = lambda fs: rank_gf4(fs) if fs else 0
+        sec, sh = 5, 7
+    else:
+        rk = lambda fs: rank_mod_p(to_binary(fs), 2) if fs else 0
+        sec, sh = 10, 14
+    O = {m8: rk([f for i, w in enumerate(owners) if m8 >> i & 1 for f in cols[w]]) for m8 in range(256)}
+    auth = gamma_swap(['WXY'])
+    acc = all((O[(T << 1) | 1] == O[T << 1]) if auth(T) else (O[(T << 1) | 1] == O[T << 1] + O[1]) for T in range(128))
+    S = {m8: O[m8] + O[255 ^ m8] - O[255] for m8 in range(256)}
+    css = S[1] == O[1] and all((S[1] + S[T << 1] - S[(T << 1) | 1] == 2 * S[1]) if auth(T)
+                               else (S[1] + S[T << 1] - S[(T << 1) | 1] == 0) for T in range(128))
+    sizes = O[1] == sec and all(O[1 << (i + 1)] == sh for i in range(7))
+    return acc, css, sizes
+
+
+acc4, css4, sz4 = nf_report(nf_code(B4, PIECES_NF), 4)
+report('GF(4): the seven sub-schemes with the zero-sum code are a scheme for Gamma_NF on all 128 player sets; secret '
+       'GF(4)^5, each player 7 coordinates of full rank (ratio 7/5); its CSS state (Galois qudits of dimension 4) has '
+       'I(R;T) = 2 S(R) on Gamma_NF and 0 elsewhere', acc4 and css4 and sz4)
+acc2, css2, sz2 = nf_report(nf_code(B4, PIECES_NF), 2)
+report('binary code by restriction of scalars: a scheme for Gamma_NF with secret of 10 and shares of 14 coordinates; its '
+       'CSS state is a qubit scheme with ratio 7/5 (all 128 player sets, ranks over GF(2))', acc2 and css2 and sz2)
+bad1, _, _ = nf_report(nf_code((1, 1, 1, 1, 1, 1, 0), PIECES_NF), 4)
+bad2, _, _ = nf_report(nf_code(B4, {l: C_CUBE for l in LINES7}), 4)
+report('negative controls: with b = (1,1,1,1,1,1,0) (zero sum, b_7 not a unit), and with the cube code as all seven '
+       'sub-schemes, the code is not a scheme for Gamma_NF', not bad1 and not bad2)
+
+# ============================================================== (j) decompositions of Gamma_F into ideal schemes
+print('(j) decompositions of Gamma_F into ideal schemes give no ratio below 7/5 (Supplementary Note 10)')
+LM7 = [mask(l) for l in LINES7]
+CM7 = [127 ^ m for m in LM7]
+best = {}
+viol = 0
+for Pm in range(1, 127):
+    sz = popcount(Pm)
+    tr = [m & Pm for m in LM7]
+    cand = [i for i in range(7) if tr[i]]
+    for k in range(len(cand) + 1):
+        for A in itertools.combinations(cand, k):
+            bmin = sum(1 for c in CM7 if any((c & Pm) & tr[i] == tr[i] for i in A))
+            best[sz] = max(best.get(sz, -99), k - bmin)
+            viol += 5 * sz < 7 * (k - bmin)
+report('for every set P_j of at most six players and every set of lines whose traces on P_j are authorized, the '
+       'complements forced by monotonicity give a_j - c_j <= 4, 2, 1, 1, 0, 0 for n_j = |P_j| = 6, ..., 1, so '
+       '5 n_j >= 7 (a_j - c_j)', viol == 0 and best == {6: 4, 5: 2, 4: 1, 3: 1, 2: 0, 1: 0}, str(dict(sorted(best.items()))))
+stab = [g for g in COLL if {g[P] for P in 'WXY'} == set('WXY')]
+report('the 168 collineations act transitively on the lines and on their complements, and the stabilizer of a line has '
+       'order 24 (so the 168 relabelings of a sub-scheme authorize each line 24 a_j times and each complement 24 c_j '
+       'times)', len(stab) == 24 and len({''.join(sorted(g[P] for P in 'WXY')) for g in COLL}) == 7)
+pr48 = port_of(columns([[x % 3 for x in r] for r in CUBE_AFF]), lambda vs: rank_mod_p(vs, 3))
+a48 = sum(pr48[m] for m in LM7)
+b48 = sum(pr48[c] for c in CM7)
+report('the bound is attained: the cube code over GF(3) (a sub-scheme of the scheme of (h)) has n = 7, a = 6, c = 1, '
+       'so 5 n = 35 = 7 (a - c)', a48 == 6 and b48 == 1)
 
 print('ALL OK' if ok_all else 'FAILURE')
 sys.exit(0 if ok_all else 1)

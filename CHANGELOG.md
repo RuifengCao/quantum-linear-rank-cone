@@ -60,6 +60,24 @@
   player sets, the CSS state, a negative control); `checks/check_rev_sec6.py`: new reports on the simplex codes (exact
   ranks for m = 4, 5 and p = 3, 5, 7, the balanced (LB) and (LA), state vectors); `checks/README.md` rows updated.
   VERSION stays R48.
+- **Addendum 3 (2026-10-21, while looking for further results).** `docs/R32_reduction_and_local_dimension.md` §4.19.
+  Lemma 27 [proved]: write Γ^S for Γ_F with the lines in a set S and their complements exchanged (Γ^∅ = Γ_F, Γ^{WXY} =
+  Γ_NF); if the seven Γ^{S △ {ℓ}} have ideal K-linear schemes, the zero-sum code combines them into a scheme for Γ^S
+  with ratio 7/5 ((λ, ω) = (6, 1)); Proposition 25 is the case S = ∅. Proposition 28 [proved; checked by computer; not
+  yet checked by hand]: for qubits and Galois qudits of characteristic 2, Γ_NF has a stabilizer scheme with
+  information ratio 7/5 (was 2): the binary cube scheme and six relabellings, by collineations fixing WXY, of a GF(4)
+  code obtained from the cube code by changing two entries to α; its matroid is AG(3,2) with the four
+  circuit-hyperplanes RWXY, ABCZ, RACX and BWYZ relaxed, its port Γ^{WXY,ACX}. Restriction of scalars gives a binary
+  scheme with secret of 10 and shares of 14 bits. So the optimal ratio for Γ_NF with qubits lies in [4/3, 7/5], the
+  mirror image of Γ_F in odd characteristic; a secret of ten qubits needs shares of at least fourteen, and the binary
+  code of Proposition 23 remains optimal for a secret of one qubit. Proposition 29 [proved; finite part checked by
+  computer]: in every (λ, ω)-decomposition of Γ_F into ideal linear schemes over fields of an odd characteristic, the
+  average share, and hence the information ratio, is at least 7/5 times the secret. Found with a decomposition linear
+  program over sampled ideal sub-schemes, closed under the automorphisms of the access structure (the search is not in
+  the repository). `checks/check_rev_qss.py`: new parts (i) (Γ^S for all 128 sets S of lines, the GF(4) code, its
+  port and matroid, the seven sub-schemes, λ and ω, the combined code over GF(4) and in binary on all 128 player sets, the CSS states, two
+  negative controls) and (j) (the finite part of Proposition 29); docstring of part (f). `checks/README.md` row
+  updated. VERSION stays R48.
 - README (status: R37 is cited by arXiv v1, R48 by the revised version and its Table S3; §0 item), the round list
   of `docs/R32_reduction_and_local_dimension.md` (R48 paragraph), VERSION, CITATION.cff (version R48; the revised
   version). No data, no code under `scripts/`, `cc/` or `epr1kit/`, and no gates changed: `selftest.py --full` is
