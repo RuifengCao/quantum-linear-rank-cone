@@ -141,7 +141,11 @@ cube code in two entries and whose matroid is AG(3,2) with four circuit-hyperpla
 (λ, ω)-decomposition of Γ_F into ideal linear schemes of odd characteristic has ratio below 7/5 (finite part checked by
 part (j)). Found with a decomposition linear program over sampled ideal sub-schemes, symmetrised under the
 automorphisms of the access structure (the search is not in the repository). Proved; independent referee (agent); not
-yet checked by hand.
+yet checked by hand. R48 addendum 5 (2026-10-21): §4.20, Proposition 30: for Z_d qudits, Γ_F has an ideal stabilizer
+scheme if and only if d = 2, and Γ_NF if and only if d is odd (a forcing lemma certified by 2 × 2 × 255 exact linear
+programming certificates, `data/s39_ideal_certificates.json`, and a normal form over Z_{2^a}; checked by
+`scripts/s39_ideal_schemes.py` and `checks/check_rev_qss.py`, part (k)). Proved; independent referee (agent); not yet
+checked by hand.
 
 ## 1. Setting
 
@@ -2414,7 +2418,7 @@ decomposition of that kind [empirical]. (R48 addendum 3: with GF(4) sub-schemes 
 Proposition 28.) For Γ_F the decomposition bound is 2 [empirical: among GF(3) ideal sub-schemes
 of Γ_F found by random search, none authorises more than three lines with six participants].
 
-**Proposition 24 [proved] (R48 addendum).** For Z_d qudits, Γ_F has no ideal stabilizer scheme if d has an odd prime
+**Proposition 24 [proved; superseded by Proposition 30, §4.20] (R48 addendum).** For Z_d qudits, Γ_F has no ideal stabilizer scheme if d has an odd prime
 factor, and Γ_NF has none if d ≡ 2 (mod 4). Hence, among squarefree d, Γ_F has an ideal stabilizer scheme exactly for
 d = 2, and Γ_NF exactly for odd d.
 
@@ -2674,6 +2678,92 @@ minimal authorised and 11 maximal unauthorised sets of Γ_NF; b; the combined co
 (restriction of scalars) on all 128 player sets, with the CSS states; negative controls (b_7 = 0; the cube code as all
 seven sub-schemes). Part (j): the finite check for n_j ≤ 6, the orbit counts, and the attaining sub-scheme.
 
+### 4.20 Stabilizer secret sharing: which local dimensions admit ideal schemes [proved; the forcing lemma certified by computer] (R48 addendum 5)
+
+**Proposition 30 [proved; Lemma 30a computer-assisted with exact certificates].** For Z_d qudits, Γ_F has an ideal
+stabilizer scheme (pure or mixed) if and only if d = 2, and Γ_NF has one if and only if d is odd. This is the paper's
+Proposition 6 (iv); it supersedes Proposition 24, which left open Γ_F with d = 2^a, a ≥ 2, and Γ_NF with 4 | d.
+
+*Proof.* Let M be AG(3,2) for Γ_F and R8 for Γ_NF, so that Γ is the port of M at R (§4.15). Consider an ideal
+scheme, pure or mixed, and let the reference hold m qudits. Since R is maximally entangled with the secret,
+S(R) = m log d, and since the scheme is ideal, every player holds at most m qudits. As in the proof of Proposition 24,
+the Lagrangian subgroup is the direct sum of its Sylow components L_p, one for each prime power p^a that divides d
+exactly, S = Σ_p S_p for the stabilizer states of Z_{p^a} qudits with Lagrangian subgroups L_p (by the Chinese
+remainder theorem the state is their tensor product), and each factor meets the access conditions by itself. Every
+player P lies in a minimal authorised set T, so 2S_p(R) = I_p(R:T) − I_p(R:T∖P) ≤ 2S_p(P); with S_p(P) ≤ ma log p and
+Σ_p S_p(R) = S(R) = Σ_p ma log p this gives S_p(R) = S_p(P) = ma log p for every factor and every player. So each
+factor is an ideal scheme of Z_{p^a} qudits with m qudits in the reference and in every player, all maximally mixed,
+and by Lemma 30a, applied to its lift restricted to R and the players and divided by 2ma log p, this restriction is
+2ma log p · r_M. For an odd prime p and Γ_F, contracting it by R gives 2ma log p times the rank function of the Fano
+configuration; but the lift of the factor is a subgroup rank function in a group of odd order, and so are its
+deletions and contractions, on which (LB) of Lemma 4 with t = 2 is nonnegative, whereas (LB) takes the value −1 on the
+Fano configuration: a contradiction. (This replaces an appeal to the bound 43/41 of Proposition 21, which would also
+do, and makes the proof rest only on the certificates of Lemma 30a; remark of the referee agent.) For p = 2,
+Lemma 30b leaves only Γ_F and a = 1. Conversely, the qubit cube state is ideal for Γ_F, and the cube state over Z_d
+with d odd is ideal for Γ_NF (all minors of its generator matrix lie in {0, ±1, ±2}, so every projection of the code
+over Z_d has order d^r with r the rational rank). ∎
+
+**Lemma 30a (forcing) [certified].** Let g be a polymatroid on {R} ∪ Q with g(R) = g(P) = 1 for every player P,
+g(RT) = g(T) for every authorised set T of players and g(RT) = g(T) + 1 for every other nonempty set T of players.
+Then g = r_M.
+
+*Proof.* r_M satisfies these conditions. For every nonempty set X of the eight elements, the linear programs
+min g(X) and max g(X) over the polymatroids with these properties (variables g(Y), Y ≠ ∅, unrestricted; the 8 + 28·64
+elemental Shannon inequalities; the 8 normalisations and the 127 access equalities) have the value r_M(X), certified by
+rational multipliers y ≥ 0 on the elemental inequalities a·g ≥ 0 and z on the equalities e·g = b with
+s·1_X = Σ y a + Σ z e as linear forms and Σ z b = s·r_M(X), for s = +1 and s = −1. For every feasible g this gives
+g(X) ≥ r_M(X) and g(X) ≤ r_M(X). ∎ The 2 × 2 × 255 certificates are in `data/s39_ideal_certificates.json` (at most
+155 rows and denominators at most 14 for Γ_F; at most 181 rows and denominators at most 89 for Γ_NF).
+
+**Lemma 30b (powers of two) [proved].** Let a ≥ 1. If Γ has an ideal stabilizer scheme of Z_{2^a} qudits in which the
+reference and every player hold m ≥ 1 qudits, all maximally mixed, then Γ = Γ_F and a = 1.
+
+*Proof.* Let L be the Lagrangian subgroup of the joint state (with E for a mixed scheme) and V_P = Z_{2^a}^{2m} the
+phase space of P ∈ {R} ∪ Q. Since these systems are maximally mixed, the entropy formula gives h_S(X) = log|pr_X L|
+for X ⊆ {R} ∪ Q, and Lemma 30a applied to h_S/(2ma) gives log|pr_X L| = 2ma r_M(X). Let L″ be the projection to the
+players of {v ∈ L : pr_R v = 0}. For a set T of players, restriction maps pr_{RT} L onto pr_R L with kernel isomorphic
+to pr_T L″, so log|pr_T L″| = 2ma (r_M(RT) − 1). All sets RT used below have the same rank in both matroids, except
+RWXY.
+1. r_M(RABC) = r_M(R ∪ Q) = 4, so pr_{ABC} maps L″ bijectively onto V_A ⊕ V_B ⊕ V_C: L″ consists of the vectors
+   (u, v, w) at A, B, C and uΦ_{AP} + vΦ_{BP} + wΦ_{CP} at P ∈ {W, X, Y, Z}, u, v, w ∈ V = Z_{2^a}^{2m}.
+2. The planes RABW, RACX, RBCY have rank 3, so the coordinate at W (X, Y) is a function of those at AB (AC, BC):
+   Φ_{CW} = Φ_{BX} = Φ_{AY} = 0.
+3. For the other nine blocks Φ_{IP}, the set R ∪ ({A, B, C} ∖ {I}) ∪ {P} is not a plane and has rank 4, so the
+   projection to its players is injective on L″, and Φ_{IP} is injective, hence invertible.
+4. Automorphisms of V applied to the coordinates of one player change no order |pr_T L″|. Applying them to A and B,
+   then to X and C, then to Y, the coordinates at W, X, Y become u + v, u + w, vΦ + w, and the one at Z is
+   uΨ_A + vΨ_B + wΨ_C, with Φ and the Ψ_I invertible.
+5. The planes RAYZ, RBXZ, RCWZ have rank 3, so the coordinate at Z is a function of those at AY, at BX and at CW:
+   Ψ_B = ΦΨ_C, Ψ_A = Ψ_C and Ψ_A = Ψ_B, so (Φ − 1)Ψ_C = 0 and Φ = 1. After an automorphism of Z,
+   L″ = {(u, v, w, u + v, u + w, v + w, u + v + w) : u, v, w ∈ V} (players in the order A, B, C, W, X, Y, Z).
+6. The kernel of (u, v, w) ↦ (u + v, u + w, v + w) is {(x, −x, −x) : 2x = 0}, of order 2^{2m}, so
+   log|pr_{WXY} L″| = 6ma − 2m. It must equal 2ma (r_M(RWXY) − 1), which is 4ma for AG(3,2) and 6ma for R8. For Γ_F
+   this gives a = 1, and for Γ_NF it gives m = 0, a contradiction. ∎
+
+*Remarks.* For a = 1 the normal form is the binary cube code read on m copies. For Galois qudits the same dichotomy
+holds by characteristic: the bounds 4/3 of Proposition 21 extend to Galois qudits by restriction of scalars (the
+paper's Proposition 6 (i), (ii)), and the cube codes over GF(q) are ideal, with matroid AG(3,2) in characteristic 2 and
+R8 otherwise [proved; not stated in the paper]. The proof uses no bound on non-ideal schemes: for Z_{2^a}, a ≥ 2, the optimal ratios of
+both structures, and for Z_{p^a}, p odd, a ≥ 2, that of Γ_F (only 43/41 is known), remain open.
+
+*Referee (agent, 2026-10-21).* No error or gap found. The referee re-derived Lemma 30a with its own linear programs and
+exact multipliers (denominators at most 3 for Γ_F and 7 for Γ_NF; also for the port of AG(3,2) with only RWXY
+relaxed), verified all 1020 stored certificates with its own checker, checked every step of Lemma 30b for
+(a, m) = (1, 1), …, (3, 2) and by an exhaustive search over the normalised family of step 4 over Z_2 and Z_4, and
+found no ideal scheme in an exhaustive search over all 65,536 Z_4 lifts of the systematic binary cube code nor in
+random searches over Z_4 and Z_8 (systematic codes, graph states, mixed graph states, non-free CSS codes), with
+positive controls over Z_2 and Z_3 [empirical; the scripts are not in the repository]. It suggested the argument for
+odd p above. It also noted that Lemma 30a may follow without a computer from the Brickell–Davenport theorem in its
+polymatroid form (Martí-Farré and Padró) and Lehman's theorem that a connected matroid is determined by the circuits
+through one element [not verified against the sources; not used].
+
+*Checks.* `scripts/s39_ideal_schemes.py --verify`: the 1020 certificates rebuilt from their descriptors and verified
+in exact arithmetic, the feasibility of r_M, and the orders of the projections of the normal form for a ≤ 3 (m = 1);
+`--certify` regenerates the file (HiGHS, then an exact repair of the multipliers on their support; deterministic,
+about 20 s). `checks/check_rev_qss.py`, part (k), independently: the same certificates with its own row builders and
+the matroids of part (a), negative controls, the normal form for a = 1, 2, 3 (also by enumeration over Z_4^2) and its
+kernel, and the cube codes over Z_d for d = 9, 15, 21, 25, 27, 45.
+
 ## 5. Open questions
 
 * **The smallest number of parties with a dimension dependence** is 5 or 6: for n ≤ 4 there is none, for any d
@@ -2770,8 +2860,9 @@ seven sub-schemes). Part (j): the finite check for n_j ≤ 6, the orbit counts, 
   [empirical]). Adding the 6,720 Ingleton instances on the eight systems to the self-dual programs with the
   Jafari–Khazaei inequalities leaves 4/3 for both Γ_F (odd characteristic) and Γ_NF (qubits) [empirical, R48
   addendum 3]. For Γ_F in odd local dimension divisible by a square (Z_9,
-  Z_27, …) only 43/41 is known. Not studied: Z_{2^a} schemes for Γ_NF (Lemma 4(G′)) and the generalized cube access
-  structures of Theorem 2′ for other pairs of primes.
+  Z_27, …) only 43/41 is known. Ideal schemes are classified (Proposition 30, §4.20); the optimal non-ideal ratios of
+  Z_{2^a} schemes (a ≥ 2) are not studied, nor are the generalized cube access structures of Theorem 2′ for other pairs
+  of primes.
 
 ## 6. Literature status
 

@@ -86,10 +86,35 @@
   (checked by hand; for n = 2 also by `checks/check_sec6.py`); the paper of van Dijk, Jackson and Martin (1998) still
   could not be read; the Calderbank-Shor and Steane citations now support Remark 5. No data, code, gates or printed
   output changed. VERSION stays R48.
+- **Addendum 5 (2026-10-21, with the revised paper's classification of ideal schemes).**
+  `docs/R32_reduction_and_local_dimension.md` §4.20, Proposition 30 [proved; the forcing lemma computer-assisted with
+  exact certificates; independent referee (agent); not yet checked by hand]: for Z_d qudits, Γ_F has an ideal
+  stabilizer scheme if and only if d = 2, and Γ_NF if and only if d is odd (the paper's Proposition 6 (iv)). It
+  supersedes Proposition 24, which left open Γ_F with d = 2^a, a ≥ 2, and Γ_NF with 4 | d. Lemma 30a (forcing): a
+  polymatroid on R and the seven players with g(R) = g(P) = 1 and the access equalities of Γ_F (Γ_NF) is the rank
+  function of AG(3,2) (R8); certified by 2 × 2 × 255 rational certificates for the minimum and the maximum of every
+  value. Lemma 30b: an ideal Z_{2^a} scheme with m qudits per system has, after automorphisms of the systems, the
+  normal form {(u, v, w, u+v, u+w, v+w, u+v+w)} on the players; its projection to WXY has order 2^{6ma−2m}, which forces
+  a = 1 for Γ_F and is impossible for Γ_NF. For odd p and Γ_F, Lemma 30a and (LB) of Lemma 4 give the contradiction
+  directly (no appeal to the bound 43/41). Independent referee (agent): no error or gap; Lemma 30a re-derived, the
+  stored certificates re-verified, Lemma 30b checked by brute force, and no ideal Z_4 or Z_8 scheme in exhaustive and
+  random searches.
+  - New `scripts/s39_ideal_schemes.py` (`--verify`: exact checks in about a second; `--certify`: regenerates the
+    certificates with HiGHS and an exact repair, deterministic, about 20 s) and new
+    `data/s39_ideal_certificates.json` (sha256 0b81f9f0186bad9a61f00551e57d8fbfa991e5457cd12913b14e13f9523bcb4b).
+  - `checks/check_rev_qss.py`: new part (k), independent of the script: the certificates rebuilt and verified with its
+    own row builders against the matroids of part (a), the feasibility of r_M, negative controls, the orders of the
+    projections of the normal form over Z_2, Z_4, Z_8 (also by enumeration over Z_4^2) and its kernel, and the cube
+    codes over Z_d for d = 9, 15, 21, 25, 27, 45 as ideal schemes for Γ_NF. Running time still a few seconds.
+  - `checks/README.md`: the row of `check_rev_qss.py` (part (k)); the rows of `check_sec3.py` and `check_rev_sec5.py`
+    give the new locations in the revised paper of Example 1 (Supplementary Note 3.2) and of the doubled-code witnesses
+    of Theorem 7 (Supplementary Note 8.1).
+  - No gates changed: `selftest.py --full` is unchanged (59 gate lines); the new data are checked by the script and by
+    `checks/check_rev_qss.py`. VERSION stays R48.
 - README (status: R37 is cited by arXiv v1, R48 by the revised version and its Table S3; §0 item), the round list
   of `docs/R32_reduction_and_local_dimension.md` (R48 paragraph), VERSION, CITATION.cff (version R48; the revised
-  version). No data, no code under `scripts/`, `cc/` or `epr1kit/`, and no gates changed: `selftest.py --full` is
-  unchanged (59 gate lines).
+  version). No code under `cc/` or `epr1kit/` and no gates changed (addendum 5 adds one script and one data file,
+  checked outside the gates): `selftest.py --full` is unchanged (59 gate lines).
 
 ## R47 (2026-10-20) -- stabilizer secret sharing: the information ratio depends on the local dimension; distances of the witnesses
 - **Result (Lemma 20 and Proposition 21; the bounds 4/3 proved from Jafari–Khazaei, the bound 43/41 certified by

@@ -4,8 +4,9 @@ Proposition "Secret sharing", Supplementary Note 10) and of the distances of the
 
 Independent of the repository code: nothing from epr1kit/ or scripts/ is imported, and the paper source is not read.
 The script reads only the data files data/s38_qss_certificates.json (rational dual certificates of the two linear
-programs with Lemma 1 (LB), t = 2) and data/s31_six_party.npz (key 'f9', the form f9 on the 128 subsets of
-A,B,C,W,X,Y,Z in mask order; used for the margins).  The repository is found through the
+programs with Lemma 1 (LB), t = 2), data/s39_ideal_certificates.json (rational certificates of the forcing lemma of
+part (k)) and data/s31_six_party.npz (key 'f9', the form f9 on the 128 subsets of A,B,C,W,X,Y,Z in mask order; used
+for the margins).  The repository is found through the
 environment variable EPR1_REPO, or else as the parent directory of the directory of this script (the repository itself
 when the script sits in <repo>/checks/).  Requirements: Python 3.8+, numpy.  Running time: well under a minute.
 
@@ -60,6 +61,13 @@ What is checked:
  (j) the finite part of the bound for decompositions of Gamma_F into ideal schemes of odd characteristic (R32
      Proposition 29): for supports of at most six players, a_j - c_j <= 4, 2, 1, 1, 0, 0; the orbit counts used for
      full supports; the bound is attained by the sub-schemes of (h).
+ (k) ideal schemes (Proposition 6 (iv); R32 Proposition 30, R48 addendum 5): the 2 x 2 x 255 certificates of the
+     forcing lemma (a polymatroid g on R and the seven players with g(R) = g(P) = 1 and the access equalities of
+     Gamma_F, resp. Gamma_NF, equals the rank function of AG(3,2), resp. R8): every row rebuilt from its descriptor
+     and checked to be admissible, every identity checked in exact arithmetic, the rank function a feasible point,
+     negative controls; the orders of the projections of the normal form {(u,v,w,u+v,u+w,v+w,u+v+w)} over Z_{2^a},
+     a = 1, 2, 3 (only WXY differs from AG(3,2) when a >= 2, with order 2^{6ma-2m}), also by direct enumeration over
+     Z_4^2, and its kernel; the cube codes over Z_d, d = 9, 15, 21, 25, 27, 45, are ideal schemes for Gamma_NF.
 The validity of Lemma 1 and of the results of Jafari-Khazaei is an input; it is only tested here.
 """
 import itertools, json, math, os, random, sys
@@ -1535,6 +1543,144 @@ a48 = sum(pr48[m] for m in LM7)
 b48 = sum(pr48[c] for c in CM7)
 report('the bound is attained: the cube code over GF(3) (a sub-scheme of the scheme of (h)) has n = 7, a = 6, c = 1, '
        'so 5 n = 35 = 7 (a - c)', a48 == 6 and b48 == 1)
+
+# ============================================================================ (k) ideal schemes (Proposition 6 (iv))
+print('(k) ideal schemes (Proposition 6 (iv)): forcing of the lift and the normal form over Z_{2^a}')
+# Data: data/s39_ideal_certificates.json, for 'F' (Gamma_F, matroid AG(3,2)) and 'NF' (Gamma_NF, matroid R8), and for
+# every nonempty set X of the eight elements (mask, players bits 0..6 in the order A,B,C,W,X,Y,Z, R = bit 7) a 'lower'
+# and an 'upper' certificate {'ineq': [[descriptor, y], ...], 'eq': [[descriptor, z], ...]} with rational y, z.
+# Descriptors: ['mono', i]  : g(full) - g(full - i) >= 0;   ['sub', i, j, K] : I(i; j | K) >= 0  (i < j, K disjoint);
+#              ['norm', i]  : g(i) = 1;  ['auth', T] : g(RT) - g(T) = 0;  ['unauth', T] : g(RT) - g(T) = 1.
+# Lower certificate:  sum y a + sum z e = +1_X and sum z b = r_M(X)   (so g(X) >= r_M(X) for every feasible g);
+# upper certificate:  sum y a + sum z e = -1_X and sum z b = -r_M(X)  (so g(X) <= r_M(X)).
+CERT39 = json.load(open(os.path.join(DATA, 's39_ideal_certificates.json')))
+RM39 = {'F': cube[2]['r'], 'NF': rQ}                     # AG(3,2) over GF(2); R8 = the cube over Q, from (a)
+AUTH39 = {'F': {T: ACC[2][T] == 'auth' for T in range(1, 128)}, 'NF': {T: ACC[3][T] == 'auth' for T in range(1, 128)}}
+report('the ports at R of AG(3,2) and of R8 are Gamma_F and Gamma_NF: T authorized iff r(RT) = r(T), and r(RT) = r(T) + 1 '
+       'for every other nonempty set T of players',
+       all((RM39[c][T | 128] == RM39[c][T]) == AUTH39[c][T] and (AUTH39[c][T] or RM39[c][T | 128] == RM39[c][T] + 1)
+           for c in ('F', 'NF') for T in range(1, 128)))
+
+
+def row39_ineq(desc):
+    if desc[0] == 'mono' and len(desc) == 2 and 0 <= desc[1] < 8:
+        return {255: 1, 255 ^ (1 << desc[1]): -1}
+    if desc[0] == 'sub' and len(desc) == 4:
+        i, j, K = desc[1], desc[2], desc[3]
+        if 0 <= i < j < 8 and 0 <= K < 256 and not K & (1 << i | 1 << j):
+            out = {}
+            for Y, c in ((K | 1 << i, 1), (K | 1 << j, 1), (K | 1 << i | 1 << j, -1), (K, -1)):
+                if Y:
+                    out[Y] = out.get(Y, 0) + c
+            return out
+    return None
+
+
+def row39_eq(desc, case):
+    if desc[0] == 'norm' and len(desc) == 2 and 0 <= desc[1] < 8:
+        return {1 << desc[1]: 1}, 1
+    if desc[0] in ('auth', 'unauth') and len(desc) == 2 and 0 < desc[1] < 128 \
+            and AUTH39[case][desc[1]] == (desc[0] == 'auth'):
+        return {desc[1] | 128: 1, desc[1]: -1}, (0 if desc[0] == 'auth' else 1)
+    return None
+
+
+def check39(cert, X, sense, value, case):
+    tot, bound = {}, Fraction(0)
+    for desc, y in cert['ineq']:
+        a, y = row39_ineq(desc), Fraction(y)
+        if a is None or y < 0:
+            return False
+        for Y, c in a.items():
+            tot[Y] = tot.get(Y, Fraction(0)) + y * c
+    for desc, z in cert['eq']:
+        e, z = row39_eq(desc, case), Fraction(z)
+        if e is None:
+            return False
+        for Y, c in e[0].items():
+            tot[Y] = tot.get(Y, Fraction(0)) + z * c
+        bound += z * e[1]
+    return {Y: c for Y, c in tot.items() if c} == {X: Fraction(sense)} and bound == sense * value
+
+
+stats39 = {}
+for case in ('F', 'NF'):
+    good = sorted(CERT39[case]) == sorted(str(X) for X in range(1, 256)) and all(
+        check39(CERT39[case][str(X)][key], X, s, RM39[case][X], case) for X in range(1, 256)
+        for key, s in (('lower', 1), ('upper', -1)))
+    feas = is_polymatroid(RM39[case], 8) and all(RM39[case][1 << i] == 1 for i in range(8))
+    nrows = [len(CERT39[case][str(X)][k]['ineq']) + len(CERT39[case][str(X)][k]['eq'])
+             for X in range(1, 256) for k in ('lower', 'upper')]
+    dens = max(Fraction(v).denominator for X in range(1, 256) for k in ('lower', 'upper')
+               for part in ('ineq', 'eq') for _, v in CERT39[case][str(X)][k][part])
+    stats39[case] = (max(nrows), dens)
+    report('%s: the 510 certificates verify exactly (every row rebuilt from its descriptor and admissible for %s), and '
+           'the rank function of %s is a feasible point; so every polymatroid g with g(R) = g(P) = 1 and the access '
+           'equalities equals r_M (Lemma "Forcing")' % (case, 'Gamma_F' if case == 'F' else 'Gamma_NF',
+                                                          'AG(3,2)' if case == 'F' else 'R8'),
+           good and feas, 'at most %d rows per certificate, largest denominator %d' % stats39[case])
+X184 = mask('WXY') | 128                                   # R W X Y: rank 3 in AG(3,2), 4 in R8
+bad1 = check39(CERT39['F'][str(X184)]['lower'], X184, 1, RM39['NF'][X184], 'F')
+bad2 = check39(CERT39['NF'][str(X184)]['upper'], X184, -1, RM39['F'][X184], 'NF')
+tampered = json.loads(json.dumps(CERT39['F'][str(X184)]['lower']))
+tampered['ineq'][0][1] = str(2 * Fraction(tampered['ineq'][0][1]))
+bad3 = check39(tampered, X184, 1, RM39['F'][X184], 'F')
+bad4 = any(check39(CERT39['F'][str(X)][k], X, s, RM39['F'][X], 'NF') is False for X in range(1, 256)
+           for k, s in (('lower', 1), ('upper', -1)))
+report('negative controls: r(RWXY) = %d (AG(3,2)) and %d (R8); the AG(3,2) certificate does not prove the R8 value, nor '
+       'conversely; doubling one multiplier breaks a certificate; some Gamma_F certificates are inadmissible for '
+       'Gamma_NF' % (RM39['F'][X184], RM39['NF'][X184]),
+       RM39['F'][X184] == 3 and RM39['NF'][X184] == 4 and not bad1 and not bad2 and not bad3 and bad4)
+
+# the normal form L'' = {(u, v, w, u+v, u+w, v+w, u+v+w)}, u, v, w in V = Z_q^{2m}, q = 2^a: the map is a 0/1 matrix
+# tensored with the identity on Z_q^{2m}, so log2 |pr_T L''| = 2m log2 |image of Z_q^3|.
+NF_ROWS = {'A': (1, 0, 0), 'B': (0, 1, 0), 'C': (0, 0, 1), 'W': (1, 1, 0), 'X': (1, 0, 1), 'Y': (0, 1, 1),
+           'Z': (1, 1, 1)}
+
+
+def image_log2(rows, q):
+    img = {tuple(sum(r[k] * x[k] for k in range(3)) % q for r in rows) for x in itertools.product(range(q), repeat=3)}
+    return len(img).bit_length() - 1
+
+
+simplex_ok = all(tuple(x % 2 for x in NF_ROWS[P]) == VERT[P] for P in L7)
+report('for q = 2 the normal form is the binary simplex code (the cube codewords vanishing at R): the coordinate at '
+       'each player is its cube vertex applied to (u, v, w)', simplex_ok)
+for a in (1, 2, 3):
+    q = 2 ** a
+    diff = []
+    for T in range(1, 128):
+        e = 2 * image_log2([NF_ROWS[P] for i, P in enumerate(L7) if T >> i & 1], q)      # m = 1
+        if e != 2 * a * (RM39['F'][T | 128] - 1):
+            diff.append((name(T, L7), e, 2 * a * (RM39['F'][T | 128] - 1), 2 * a * (RM39['NF'][T | 128] - 1)))
+    want = [] if a == 1 else [('WXY', 6 * a - 2, 4 * a, 6 * a)]
+    report('Z_%d, m = 1: log2 |pr_T L\'\'| = 2a (r(RT) - 1) for AG(3,2) on every set T of players%s' %
+           (q, '' if a == 1 else ' except T = WXY, where it is 6a - 2 = %d, against %d for AG(3,2) and %d for R8'
+            % (6 * a - 2, 4 * a, 6 * a)), diff == want, str(diff) if diff != want else '')
+# direct check without the tensor shortcut: q = 4, V = Z_4^2 (m = 1), and the kernel of (u,v,w) -> (u+v, u+w, v+w)
+V4 = list(itertools.product(range(4), repeat=2))
+add4 = lambda x, y: tuple((s + t) % 4 for s, t in zip(x, y))
+pts4 = [(u, v, w, add4(u, v), add4(u, w), add4(v, w), add4(add4(u, v), w)) for u in V4 for v in V4 for w in V4]
+direct = all(len({tuple(p[i] for i in range(7) if T >> i & 1) for p in pts4}).bit_length() - 1
+             == 2 * image_log2([NF_ROWS[P] for i, P in enumerate(L7) if T >> i & 1], 4) for T in range(1, 128))
+ker = [p for p in pts4 if p[3] == p[4] == p[5] == (0, 0)]
+report('Z_4, V = Z_4^2 by enumeration of all 4096 elements: the orders of all 127 projections agree with the tensor '
+       'computation; the kernel of (u,v,w) -> (u+v, u+w, v+w) is {(x,-x,-x) : 2x = 0}, of order 2^{2m} = 4',
+       direct and len(ker) == 4 and all(p[1] == tuple(-s % 4 for s in p[0]) == p[2] and all(2 * s % 4 == 0 for s in p[0])
+                                        for p in ker))
+# the converse direction: the cube state over Z_d, d odd, is an ideal scheme for Gamma_NF
+for d in (9, 15, 21, 25, 27, 45):
+    O = {}
+    for X in range(1, 256):
+        cols = [CUBE_COLS[i] for i in range(8) if X >> i & 1]
+        vecs = [[c[k] for c in cols] for k in range(4)]
+        o = 1
+        for pr, e in factor_small(d).items():
+            o *= pr ** zn_log_order(vecs, len(cols), pr ** e, pr)
+        O[X] = o
+    free = all(O[X] == d ** rQ[X] for X in range(1, 256))
+    report('Z_%d: the cube code has |pr_X C| = %d^{r_Q(X)} for every set X of the eight vertices, so the cube state is '
+           'the R8 scheme: ideal (one qudit per system, all maximally mixed) for Gamma_NF' % (d, d), free)
 
 print('ALL OK' if ok_all else 'FAILURE')
 sys.exit(0 if ok_all else 1)
