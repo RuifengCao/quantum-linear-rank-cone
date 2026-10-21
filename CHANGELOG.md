@@ -78,6 +78,14 @@
   port and matroid, the seven sub-schemes, λ and ω, the combined code over GF(4) and in binary on all 128 player sets, the CSS states, two
   negative controls) and (j) (the finite part of Proposition 29); docstring of part (f). `checks/README.md` row
   updated. VERSION stays R48.
+- **Addendum 4 (2026-10-21, after a further review of the paper; text only).** The revised paper now states the code
+  states of R32 Proposition 26 as its Remark 5 instead of in the Discussion: `checks/README.md` and a comment in
+  `checks/check_rev_sec6.py` say so, and the README row of `checks/check_rev_sec5.py` also names Supplementary Note 8.5
+  (the proof of Theorem 8). `checks/references_log.md`: Theorem 9 of Pena-Macias and Sarria (2021) for general n, as
+  read from the arXiv text, gives the identity between (LB) and their Theorem 9 that Sec. II E 2 states for every t
+  (checked by hand; for n = 2 also by `checks/check_sec6.py`); the paper of van Dijk, Jackson and Martin (1998) still
+  could not be read; the Calderbank-Shor and Steane citations now support Remark 5. No data, code, gates or printed
+  output changed. VERSION stays R48.
 - README (status: R37 is cited by arXiv v1, R48 by the revised version and its Table S3; §0 item), the round list
   of `docs/R32_reduction_and_local_dimension.md` (R48 paragraph), VERSION, CITATION.cff (version R48; the revised
   version). No data, no code under `scripts/`, `cc/` or `epr1kit/`, and no gates changed: `selftest.py --full` is

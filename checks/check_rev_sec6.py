@@ -676,7 +676,7 @@ report('proof of Proposition 3 step by step on %d structured qubit states in nor
        'local symplectic maps; perturbed one- and two-copy point codes): every step holds; f_12 = 0 on %d of them, '
        'minimum %d' % (nst2, fvals.count(0), min(fvals)), not failed2 and nst2 > 50 and min(fvals) >= 0, str(failed2))
 
-# ------------------------------- familiar code states as witnesses (R48 addendum 2; R32 Proposition 26, Discussion)
+# ------------------------------- familiar code states as witnesses (R48 addendum 2; R32 Proposition 26, Remark 5)
 def lemma1_forms_sets(perm=('A', 'B', 'C', 'Y', 'X', 'W', 'Z')):
     """(LB) and (LA) with t = 2 (the paper's Lemma 1) as dicts {frozenset: coefficient} on the subsets of the seven
     elements, with (A_1, A_2, A_3, B_1, B_2, B_3, C) = perm; for the labels above, A_i = <e_i>, B_i = <c - e_i>, C = <c>."""
