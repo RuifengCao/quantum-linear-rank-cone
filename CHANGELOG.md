@@ -111,6 +111,18 @@
     of Theorem 7 (Supplementary Note 8.1).
   - No gates changed: `selftest.py --full` is unchanged (59 gate lines); the new data are checked by the script and by
     `checks/check_rev_qss.py`. VERSION stays R48.
+- **Addendum 6 (2026-10-27, with a revision of the paper's narrative).** `checks/check_rev_qss.py`: new part (l), the
+  counts that the revised paper adds to Sec. II F and its Introduction: the erasure of a set of qubits of Steane's code
+  is correctable (no nontrivial logical operator is supported in it) exactly when the set contains no line of the Fano
+  plane, exactly when it is unauthorized for Gamma_F; the correctable sets by size are 1, 7, 21, 28, 7, so 35 lie beyond
+  the distance 3 (the 28 triples that are not lines and the 7 complements of lines); summing the line inequalities of
+  Proposition 6 (i) gives sum_P S(P) >= (28/3) S(R) [proved, one line; not yet checked by hand], and a five-qudit
+  secret needs a share of at least 7 qudits. `checks/README.md`: the row of `check_rev_qss.py`.
+  `checks/references_log.md`: the five references that the revised paper adds to its Introduction and Discussion
+  (Gross 2006; Howard, Wallman, Veitch and Emerson 2014; Campbell 2014; Ringbauer et al. 2022; Brock et al. 2025), with
+  the sources against which they were checked, and three new uses of references already cited (Pastawski et al. 2015,
+  Ketkar et al. 2006, Dougherty, Freiling and Zeger 2015). No data or gates changed: `selftest.py --full` is unchanged
+  (59 gate lines). VERSION stays R48.
 - README (status: R37 is cited by arXiv v1, R48 by the revised version and its Table S3; §0 item), the round list
   of `docs/R32_reduction_and_local_dimension.md` (R48 paragraph), VERSION, CITATION.cff (version R48; the revised
   version). No code under `cc/` or `epr1kit/` and no gates changed (addendum 5 adds one script and one data file,

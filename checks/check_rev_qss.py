@@ -68,6 +68,13 @@ What is checked:
      negative controls; the orders of the projections of the normal form {(u,v,w,u+v,u+w,v+w,u+v+w)} over Z_{2^a},
      a = 1, 2, 3 (only WXY differs from AG(3,2) when a >= 2, with order 2^{6ma-2m}), also by direct enumeration over
      Z_4^2, and its kernel; the cube codes over Z_d, d = 9, 15, 21, 25, 27, 45, are ideal schemes for Gamma_NF.
+ (l) the counts in Sec. II F and the Introduction: the erasure of a set E of qubits of Steane's code [[7,1,3]] is
+     correctable (no nontrivial logical operator, i.e. no Hamming codeword outside the simplex code, is supported in
+     E) exactly when E contains no line of the Fano plane, exactly when E is unauthorized for Gamma_F of (k); the
+     correctable sets by size are 1, 7, 21, 28, 7, so 35 of them (the 28 triples that are not lines and the 7
+     complements of lines) lie beyond the distance 3; every point lies on three lines, so summing the line
+     inequalities of Proposition 6 (i) gives sum_P S(P) >= (28/3) S(R), and a five-qudit secret needs a share of at
+     least ceil(20/3) = 7 qudits, as in the schemes of (h).
 The validity of Lemma 1 and of the results of Jafari-Khazaei is an input; it is only tested here.
 """
 import itertools, json, math, os, random, sys
@@ -1681,6 +1688,43 @@ for d in (9, 15, 21, 25, 27, 45):
     free = all(O[X] == d ** rQ[X] for X in range(1, 256))
     report('Z_%d: the cube code has |pr_X C| = %d^{r_Q(X)} for every set X of the eight vertices, so the cube state is '
            'the R8 scheme: ideal (one qudit per system, all maximally mixed) for Gamma_NF' % (d, d), free)
+
+# ----------------------------------------------------------------------------------------------------------------------
+print('(l) erasures of Steane\'s code and the average share size (Sec. II F, Introduction)')
+GEN = [[VERT[P][k] for P in L7] for k in range(3)]                    # 3 x 7: columns are the cube vertices
+HAM = [v for v in itertools.product((0, 1), repeat=7)
+       if all(sum(r[i] * v[i] for i in range(7)) % 2 == 0 for r in GEN)]
+SIMP = {tuple(sum(c[k] * GEN[k][i] for k in range(3)) % 2 for i in range(7)) for c in itertools.product((0, 1), repeat=3)}
+LOGICAL = [v for v in HAM if v not in SIMP]                         # nontrivial logical X (and, the code being CSS with
+                                                                     # equal X and Z parts, logical Z) operators
+line_masks = [mask(l) for l in LINES7]
+size_count, beyond, agree, agree_access = {}, [], True, True
+for E in range(128):
+    corr = not any(all(v[i] == 0 or E >> i & 1 for i in range(7)) for v in LOGICAL)
+    noline = not any(lm & E == lm for lm in line_masks)
+    agree = agree and corr == noline
+    if E:
+        agree_access = agree_access and corr == (not AUTH39['F'][E])
+    if corr:
+        size_count[popcount(E)] = size_count.get(popcount(E), 0) + 1
+        if popcount(E) >= 3:
+            beyond.append(E)
+complements = sorted(127 ^ lm for lm in line_masks)
+report('Steane\'s code: %d Hamming codewords, %d in the simplex code, %d nontrivial logical representatives; the erasure '
+       'of E is correctable exactly when E contains no line of the Fano plane, exactly when E is unauthorized for '
+       'Gamma_F' % (len(HAM), len(SIMP), len(LOGICAL)), len(HAM) == 16 and len(SIMP) == 8 and agree and agree_access)
+report('correctable erasures by size 0..7: %s; the %d of size 3 or 4 (beyond the distance 3) are the 28 triples that are '
+       'not lines and the 7 complements of lines'
+       % ([size_count.get(k, 0) for k in range(8)], len(beyond)),
+       [size_count.get(k, 0) for k in range(8)] == [1, 7, 21, 28, 7, 0, 0, 0] and len(beyond) == 35
+       and sorted(E for E in beyond if popcount(E) == 4) == complements
+       and all(E not in line_masks for E in beyond if popcount(E) == 3))
+on_lines = [sum(1 for lm in line_masks if lm >> i & 1) for i in range(7)]
+coef = Fraction(7 * 4, on_lines[0])
+report('every point lies on %s lines, so the seven line inequalities of Proposition 6 (i), sum_{P in l} S(P) >= 4 S(R), '
+       'add up to sum_P S(P) >= %s S(R) (average share >= %s S(R)); a five-qudit secret needs a share of at least %d '
+       'qudits' % (on_lines[0], coef, coef / 7, math.ceil(Fraction(20, 3))),
+       on_lines == [3] * 7 and coef == Fraction(28, 3) and coef / 7 == Fraction(4, 3) and math.ceil(Fraction(20, 3)) == 7)
 
 print('ALL OK' if ok_all else 'FAILURE')
 sys.exit(0 if ok_all else 1)
