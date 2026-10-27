@@ -123,6 +123,34 @@
   the sources against which they were checked, and three new uses of references already cited (Pastawski et al. 2015,
   Ketkar et al. 2006, Dougherty, Freiling and Zeger 2015). No data or gates changed: `selftest.py --full` is unchanged
   (59 gate lines). VERSION stays R48.
+- **Addendum 7 (2026-10-27, the bound 4/3 for every odd local dimension and, in qudits, for every d that is not a power of 2).** `docs/R32_reduction_and_local_dimension.md`
+  §4.21: Lemma 31a [proved; not yet checked by hand], a seven-variable rank inequality for subgroups of a finite abelian
+  group of odd order (and subspaces in characteristic other than 2) that fails on the Fano configuration, with a
+  slightly stronger form: the kernel argument of Jafari and Khazaei (J. Cryptol. 2021, Prop. 4.4, for p-linear schemes)
+  with quotients in place of complements; over fields, Peña-Macías gave characteristic-dependent rank inequalities
+  for this configuration (Kybernetika 2023, Cor. 2.7). Proposition 31 [proved; not yet checked by hand]: every stabilizer scheme for Gamma_F, pure or mixed, of
+  odd local dimension (Z_d with d odd, not only squarefree, or Galois qudits of odd characteristic) has
+  sum_{P in L} S(P) >= 4 S(R) on every Fano line, so information ratio >= 4/3 and average share >= 4/3 of the secret;
+  for stabilizer states I(R:T) = log|U_R ∩ U_T| and 2S(R) - I(R:T) = log[U_R : U_R ∩ U_T] are 0 or at least one bit,
+  and a scheme that holds up to eps bits loses at most (11/2) eps in the line sums. This supersedes the squarefree
+  restriction and the bound 43/41 of Proposition 21 (R47), whose certificates and gates (G43, G43b) stay unchanged;
+  for Gamma_F the optimal ratio now lies in [4/3, 7/5] for every odd local dimension. Proposition 31 (iv), (v): by the
+  decomposition of a stabilizer state of Z_d qudits into prime powers, every stabilizer scheme for Gamma_F of Z_d qudits
+  with d not a power of 2 has, on every line, shares of at least 4 times as many qudits as the secret, and every one
+  for Gamma_NF with d = 2 (mod 4) the same on any three of A, B, C, Z, both for secrets of whole qudits (S(R) = m log d;
+  without this the bounds fail for even d); for d = 2r, r odd, products of qubit and Z_r
+  schemes have ratio 7/5 for Gamma_NF and, if r > 1, for Gamma_F. Remark (6): abelian schemes for the twelve-player
+  structure F + N of Jafari and Khazaei whose Sylow 2-subgroup is elementary abelian have information ratio > 7/6. The
+  paper's Lemma 7, Proposition 6 (i)-(iii) and Supplementary Note 10.2. `checks/check_rev_qss.py`: new part (m) (the form of the lemma, its value -1 on the Fano
+  configuration, tests over GF(3), GF(5), Z_9, Z_25, Z_27 and Z_4, the incidences of the proof for all 28 pairs (line,
+  point off it), the stronger form and its relation to the lemma, the constant 11/2, the Fano port of Jafari and
+  Khazaei, and an integer polymatroid on which the Shannon and Ingleton inequalities and the four known odd-characteristic
+  seven-variable inequalities hold in all labelings but Lemma 7 fails, and one with ratio 23/22 for the Fano port) and part (n) (the product schemes over Z_6, Z_10, Z_18, Z_30, and the Z_6 scheme with a secret that is not a whole
+  number of qudits and ratio 7 log 6/(7 log 2 + 5 log 3) < 4/3). `checks/README.md`: the row of
+  `check_rev_qss.py`. `checks/references_log.md`: Bravyi and Kitaev 2005 (the 15-qubit distillation code, whose X-type
+  stabilizers are the simplex code [15,4], so that a logical basis state is the m = 4 state of R32 §4.18) and the new
+  uses of Jafari and Khazaei 2021 and Peña-Macías 2023; Khazaei 2026 is now cited next to the comparison program. README (status and §0). No data or gates changed: `selftest.py --full` is unchanged
+  (59 gate lines). VERSION stays R48.
 - README (status: R37 is cited by arXiv v1, R48 by the revised version and its Table S3; §0 item), the round list
   of `docs/R32_reduction_and_local_dimension.md` (R48 paragraph), VERSION, CITATION.cff (version R48; the revised
   version). No code under `cc/` or `epr1kit/` and no gates changed (addendum 5 adds one script and one data file,

@@ -14,7 +14,9 @@ data bundled, a static Normaliz binary included, resumable long runs.
 > both access structures of R47 (linear schemes give stabilizer schemes); its second and third addenda lower this to
 > 7/5 for both: for the access structure of Steane's code and every odd local dimension, and for the other access
 > structure with qubits. Its fifth addendum shows that among all Z_d only qubits admit an ideal stabilizer scheme
-> for the access structure of Steane's code, and only the odd d for the other.
+> for the access structure of Steane's code, and only the odd d for the other. Its seventh addendum extends the bound
+> 4/3 for the access structure of Steane's code from odd prime (and squarefree) to every odd local dimension and,
+> counted in qudits, to every d that is not a power of 2.
 > Release R37
 > is the archived version cited by the first version of the paper *Stabilizer entropy cones as self-dual slices of
 > linear rank cones: a five-party gap and dependence on the local dimension* (X. Song and R. Cao,
@@ -133,6 +135,13 @@ and the changelog is explained in the glossary at the end.
   (R32 §4.20, Proposition 30, superseding Proposition 24; a forcing lemma certified by exact linear-programming
   certificates, `data/s39_ideal_certificates.json` and `scripts/s39_ideal_schemes.py`, and a normal form over Z_{2^a};
   `checks/check_rev_qss.py`, part (k)).
+  Addendum 7: every stabilizer scheme for Γ_F of odd local dimension, not only squarefree, has line sums
+  Σ_{P∈L} S(P) ≥ 4 S(R), so information ratio ≥ 4/3 and average share ≥ 4/3 of the secret (R32 §4.21, Lemma 31a and
+  Proposition 31: the kernel argument of Jafari and Khazaei holds in every abelian group of odd order; approximate
+  schemes lose at most (11/2)ε; `checks/check_rev_qss.py`, part (m)). This supersedes the bound 43/41 of R47 for
+  Z_9, Z_27, …; its certificates stay in `data/`. Counted in qudits, the bound holds for Z_d whenever d is not a power
+  of 2, that for Γ_NF whenever d ≡ 2 (mod 4), both for secrets of whole qudits, and for d = 2r, r odd, Γ_NF and (r > 1)
+  Γ_F have schemes with ratio 7/5 (products over prime powers; part (n)).
 - [x] **R47 (2026-10-20): stabilizer secret sharing — the information ratio depends on the local dimension; distances
   of the witnesses from the cones; checks for the revision** (`docs/R32_reduction_and_local_dimension.md` §4.15,
   §4.16; Lemma 20 and Proposition 21 proved, the 4/3 bounds from Jafari–Khazaei, the 43/41 bound certified and
@@ -1041,7 +1050,8 @@ are incomparable (Theorem 17, §4.13), and in general p < q from n = 2p + 2. Mak
 CPU-hours with `cc/s40_enum7q.c` (815,738,564,501 graphs; not registered as a server job: it would only move p = 7
 from empirical to certified).
 
-**⓪‴ (R47) Stabilizer secret sharing.** Done for the bounds in §4.15 of the R32 note: 4/3 for Γ_F in odd squarefree
+**⓪‴ (R47) Stabilizer secret sharing.** (R48 addendum 7: 4/3 for Γ_F in every odd local dimension, R32 §4.21.) Done
+for the bounds in §4.15 of the R32 note: 4/3 for Γ_F in odd squarefree
 local dimension and for Γ_NF with qubits (through Lemma 20 and the results of Jafari and Khazaei), 43/41 for Γ_F in
 every odd local dimension (certified linear program). Open: the optimal information ratios of stabilizer schemes for
 Γ_F and Γ_NF in the other characteristic (linear schemes for the six-player ports attain 4/3; whether stabilizer

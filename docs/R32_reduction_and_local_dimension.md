@@ -145,7 +145,16 @@ yet checked by hand. R48 addendum 5 (2026-10-21): §4.20, Proposition 30: for Z_
 scheme if and only if d = 2, and Γ_NF if and only if d is odd (a forcing lemma certified by 2 × 2 × 255 exact linear
 programming certificates, `data/s39_ideal_certificates.json`, and a normal form over Z_{2^a}; checked by
 `scripts/s39_ideal_schemes.py` and `checks/check_rev_qss.py`, part (k)). Proved; independent referee (agent); not yet
-checked by hand.
+checked by hand. R48 addendum 7 (2026-10-27): §4.21, Lemma 31a and Proposition 31: the kernel argument of Jafari and
+Khazaei for the Fano port holds in every abelian group of odd order (Lemma 31a, a seven-variable rank inequality that
+fails on the Fano configuration; the paper's Lemma 7), so every stabilizer scheme for Γ_F of odd local dimension, not
+only squarefree, has Σ_{P∈L} S(P) ≥ 4 S(R), information ratio ≥ 4/3 and average share ≥ 4/3 of the secret; for
+stabilizer states I(R:T) and 2S(R) − I(R:T) are 0 or at least one bit, and approximate schemes lose at most (11/2)ε;
+counted in qudits, the bound 4/3 for Γ_F holds for Z_d qudits whenever d is not a power of 2, and that for Γ_NF
+whenever d ≡ 2 (mod 4), and for d = 2r, r odd, Γ_NF and (if r > 1) Γ_F have schemes with ratio 7/5 (Proposition 31
+(iv), (v): products over prime powers).
+This supersedes the squarefree restriction and the bound 43/41 of Proposition 21 (checked by `checks/check_rev_qss.py`,
+part (m)). Proved; independent referee (agent); not yet checked by hand.
 
 ## 1. Setting
 
@@ -2284,7 +2293,8 @@ of an unauthorised player q gives a linear scheme for Γ/q with entropy function
 the four lines that miss q; Γ_NF/q ≅ N for q ∈ {A, B, C, Z}, the triple 456 of N being the other three of A, B, C, Z
 (for q ∈ {W, X, Y}, neither).
 
-**Proposition 21 [proved; the bound 43/41 certified (G43, G43b), computer-assisted].**
+**Proposition 21 [proved; the bound 43/41 certified (G43, G43b), computer-assisted].** (R48 addendum 7: for Γ_F the
+squarefree restriction and the bound 43/41 are superseded by Proposition 31, §4.21: 4/3 for every odd local dimension.)
 
 1. The qubit cube state is an ideal scheme for Γ_F. Every stabilizer scheme for Γ_F, pure or mixed, whose local
    dimension is odd and squarefree, or which consists of Galois qudits of odd characteristic, satisfies
@@ -2387,7 +2397,8 @@ that of GF(p)-linear (multi-linear) schemes.
 2. For qubits, and for Galois qudits of characteristic 2, Γ_NF has a stabilizer scheme with information ratio 2.
 
 So the optimal ratios lie in [4/3, 2] (Γ_F, odd squarefree d or odd-characteristic Galois qudits; Γ_NF, qubits) and
-in [43/41, 2] (Γ_F, every odd d). (R48 addendum 2: for Γ_F the upper bound 2 is superseded by 7/5, Proposition 25.
+in [43/41, 2] (Γ_F, every odd d). (R48 addendum 7: for Γ_F the lower bound is 4/3 for every odd d, Proposition 31.)
+(R48 addendum 2: for Γ_F the upper bound 2 is superseded by 7/5, Proposition 25.
 R48 addendum 3: for Γ_NF too, Proposition 28; the binary code of 2 remains optimal for a secret of one qubit.)
 
 *Proof of 1.* Over Z_d (d odd) the cube code has Smith invariants 1 or 2 on every set of columns, so its scheme is an
@@ -2448,7 +2459,8 @@ characteristic, Γ_F has a stabilizer scheme with information ratio 7/5. Hence t
 stabilizer schemes for Γ_F lies in [4/3, 7/5] for odd squarefree d and for Galois qudits of odd characteristic, and in
 [43/41, 7/5] for every odd d. For odd squarefree d, a secret of five qudits needs a share of at least 20/3, hence 7,
 qudits (Proposition 21: some line has share entropies summing to at least 4 S(R)), so the scheme is optimal for that
-secret size.
+secret size. (R48 addendum 7: by Proposition 31, [4/3, 7/5] and the optimality for a five-qudit secret hold for every
+odd d.)
 
 *Proof.* This is a (λ, ω)-decomposition in the sense of van Dijk, Jackson and Martin (Des. Codes Cryptogr. 15 (1998)
 301–321; definition and theorem as reviewed by Gharahi and Khazaei, IACR ePrint 2017/1232, Definition 3.1 and
@@ -2652,7 +2664,8 @@ The bound is attained: the sub-schemes of Proposition 25 have n = 7, a = 6, c = 
 share, it also covers direct sums over several primes (squarefree d) and multilinear ideal sub-schemes [remark of the
 referee agent]. It does not cover the weighted decompositions of Gharahi and Khazaei (IACR ePrint 2017/1232, Def. 3.5),
 whose sub-schemes have secrets of several elements that a set may learn in part, nor sub-schemes over Z_{p^a} with
-a ≥ 2, for which only the bound 43/41 is known.
+a ≥ 2, for which only the bound 43/41 was known (R48 addendum 7: Proposition 31 gives 4/3 for every odd local
+dimension; whether the argument above extends to sub-schemes over Z_{p^a} we have not examined).
 
 *Remark (non-ideal sub-schemes) [proved, using the standard duality of linear schemes (the dual code gives a scheme
 for the dual access structure with the same share sizes); not in the paper].* The bound 7/5 also holds for
@@ -2744,7 +2757,8 @@ RWXY.
 holds by characteristic: the bounds 4/3 of Proposition 21 extend to Galois qudits by restriction of scalars (the
 paper's Proposition 6 (i), (ii)), and the cube codes over GF(q) are ideal, with matroid AG(3,2) in characteristic 2 and
 R8 otherwise [proved; not stated in the paper]. The proof uses no bound on non-ideal schemes: for Z_{2^a}, a ≥ 2, the optimal ratios of
-both structures, and for Z_{p^a}, p odd, a ≥ 2, that of Γ_F (only 43/41 is known), remain open.
+both structures, and for Z_{p^a}, p odd, a ≥ 2, that of Γ_F (in [4/3, 7/5] since R48 addendum 7, Proposition 31),
+remain open.
 
 *Referee (agent, 2026-10-21).* No error or gap found. The referee re-derived Lemma 30a with its own linear programs and
 exact multipliers (denominators at most 3 for Γ_F and 7 for Γ_NF; also for the port of AG(3,2) with only RWXY
@@ -2763,6 +2777,186 @@ in exact arithmetic, the feasibility of r_M, and the orders of the projections o
 about 20 s). `checks/check_rev_qss.py`, part (k), independently: the same certificates with its own row builders and
 the matroids of part (a), negative controls, the normal form for a = 1, 2, 3 (also by enumeration over Z_4^2) and its
 kernel, and the cube codes over Z_d for d = 9, 15, 21, 25, 27, 45.
+
+### 4.21 Stabilizer secret sharing: the bound 4/3 for every odd local dimension, and for every d that is not a power of 2 [proved] (R48 addendum 7)
+
+**Lemma 31a (Fano lines in groups of odd order) [proved].** Let T_0, T_1, …, T_6 be subgroups of a finite abelian group
+of odd order, with rank function h(X) = log|T_X|, T_X = Σ_{i∈X} T_i, and I(0:X) = h(0) + h(X) − h(0X) = log|T_0 ∩ T_X|.
+Then
+
+    I(0:123) ≤ h(1|04) + h(2|05) + h(3|06) + I(0:234) + I(0:135) + I(0:126) + I(0:456),           (*)
+
+and hence, adding I(1:4) + I(2:5) + I(3:6) ≥ 0 (h(i|0,i+3) = h(i) − I(0:i,i+3) + I(0:i+3) − I(i:i+3)),
+
+    h(1) + h(2) + h(3) ≥ I(0:123) + I(0:14) + I(0:25) + I(0:36) − I(0:4) − I(0:5) − I(0:6)
+                         − I(0:234) − I(0:135) − I(0:126) − I(0:456).                               (**)
+
+The same holds for subspaces of a vector space over a field of characteristic ≠ 2, with h the dimension. On the Fano
+configuration over GF(2) labelled so that 014, 025, 036, 234, 135, 126 and 456 are its lines (for instance
+T_0 = ⟨111⟩, T_1, T_2, T_3 = ⟨e_1⟩, ⟨e_2⟩, ⟨e_3⟩, T_4, T_5, T_6 = ⟨011⟩, ⟨101⟩, ⟨110⟩) the two sides of (*) are 1 and 0,
+and those of (**) are 3 and 4. (**) is the paper's Lemma 7; the proof of (*) is in its Supplementary Note 10.2.
+Attribution: the argument is the kernel argument of Jafari and Khazaei for their Proposition 4.4 (II) (p-linear
+schemes, p odd), with quotients in place of complements, which need not exist in groups. Over finite fields of
+characteristic ≠ 2, Peña-Macías (Kybernetika 59 (2023), Cor. 2.7 with n = 3) proved characteristic-dependent rank
+inequalities for this configuration and obtained 4/3 for the Fano port by linear programming (his Cor. 2.9). As far
+as an extraction of his formula allows (partly garbled; checked by an agent and by a web-fetch tool), his inequality
+has the form 4h(C) ≤ Σ h(A_i) + 4·(error terms) with error terms that include ours, so (**) would imply it over fields;
+this comparison is not used anywhere. What is new here is the validity in every abelian group of odd order.
+
+*Proof of (*).* Let D be the group of triples a = (a_1, a_2, a_3) ∈ T_1 × T_2 × T_3 with σ(a) = a_1 + a_2 + a_3 ∈ T_0.
+Then σ(D) = T_0 ∩ T_123, so |D| = |T_0 ∩ T_123| · |ker σ|. Put Y_i = T_i ∩ (T_0 + T_{i+3}) and let D_0 be the kernel of
+D → ⊕_i T_i/Y_i, a ↦ (a_i + Y_i); so |D|/|D_0| ≤ Π_i [T_i : Y_i], and by the second isomorphism theorem
+T_i/Y_i ≅ (T_0 + T_i + T_{i+3})/(T_0 + T_{i+3}), so log[T_i : Y_i] = h(i | 0, i+3). For a ∈ D_0 and s = σ(a) write
+a_i = s_i + b_{i+3} with s_i ∈ T_0, b_{i+3} ∈ T_{i+3}. Then k_1 = s − s_1 = a_2 + a_3 + b_4 ∈ T_0 ∩ T_234,
+k_2 = a_1 + a_3 + b_5 ∈ T_0 ∩ T_135 and k_3 = a_1 + a_2 + b_6 ∈ T_0 ∩ T_126, so b_4 + b_5 + b_6 = k_1 + k_2 + k_3 − 2s
+lies in T_0 ∩ T_456, and 2s lies in K = (T_0 ∩ T_234) + (T_0 ∩ T_135) + (T_0 ∩ T_126) + (T_0 ∩ T_456) ≤ T_0. Doubling is
+an automorphism of T_0 (odd order; only here is the order used), so |σ(D_0)| ≤ |K| and |D_0| ≤ |ker σ| · |K|. Hence
+|T_0 ∩ T_123| = |D|/|ker σ| ≤ |K| · |D|/|D_0| ≤ |K| · Π_i [T_i : Y_i], and |K| is at most the product of the orders of
+its summands; take logarithms. Over a field of characteristic ≠ 2 the same argument works with dimensions. ∎
+
+**Proposition 31 [proved].** (i) Every stabilizer scheme for Γ_F, pure or mixed, of odd local dimension (Z_d qudits,
+d odd, including d = 9, 27, 45, …; or Galois qudits of odd characteristic) satisfies Σ_{P∈L} S(P) ≥ 4 S(R) for every
+Fano line L; so its information ratio is at least 4/3 and Σ_P S(P) ≥ (28/3) S(R). (ii) For every stabilizer state and
+every set T of players, I(R:T) = log|U_R ∩ U_T| and 2S(R) − I(R:T) = log[U_R : U_R ∩ U_T] (the subgroups U_P of the
+lift, Theorem 1(d), §4.6, with U_X their sum); both are logarithms of orders of groups of exponent dividing d, hence 0 or
+at least log₂ p ≥ 1 bits for the smallest prime factor p of d, and a stabilizer state in which every set of an access
+structure Γ has 2S(R) − I(R:T) < 1 bit and every other set of players has I(R:T) < 1 bit is a scheme for
+Γ. (iii) If a stabilizer state of odd local dimension has I(R:T) ≥ 2S(R) − ε for every T ∈ Γ_F and I(R:T) ≤ ε for every
+other nonempty set of players, then Σ_{P∈L} S(P) ≥ 4 S(R) − (11/2) ε (informative only for ε ≥ log₂ 3, since smaller
+errors force an exact scheme). (iv) For Z_d qudits with d not a power of 2, every stabilizer scheme for Γ_F, pure or
+mixed, in which the secret consists of m qudits and player P holds n_P qudits has Σ_{P∈L} n_P ≥ 4m for every Fano line
+L, so information ratio ≥ 4/3 and Σ_P n_P ≥ (28/3) m (with errors as in (iii), Σ_{P∈L} n_P ≥ 4m − 11ε/(2a log₂ p) for
+an odd prime power p^a ∥ d, since the factor of Z_{p^a} qudits meets the conditions of (iii) with the same ε); for
+d ≡ 2 (mod 4), every stabilizer scheme for Γ_NF has
+n_P + n_P′ + n_P″ ≥ 4m for any three of A, B, C, Z, so information ratio ≥ 4/3. (v) For d = 2r with r odd, Γ_NF has a
+stabilizer scheme of Z_d qudits with information ratio 7/5 (secret of ten qudits), and so has Γ_F if r > 1 (secret of
+five qudits). The hypothesis "the secret consists of m qudits" (S(R) = m log d) in (iv) is needed for even d: otherwise
+the factors can be balanced (as in the mixed-linear schemes of Jafari and Khazaei), and for d = 6 seven qubit cube
+states times the Z_3 scheme of Proposition 25, with two qutrits |0⟩ added to R, give a scheme for Γ_F with ratio
+7 log 6/(7 log 2 + 5 log 3) ≈ 1.212 < 4/3 [found and checked exactly by the third referee agent]. (i)–(v) are the paper's
+Proposition 6 (i)–(iii) and the paragraphs after it; (i) and (iv) supersede the
+restriction to odd squarefree d and the bound 43/41 of Proposition 21 (§4.15), which remain correct; the certificates
+of the 43/41 programs stay in the repository (G43, G43b).
+
+*Proof.* (i) Read Galois qudits of dimension p^k as k qudits of dimension p. The lift of the joint state, restricted
+to R and the players, is the rank function of subgroups U_P of a group of exponent dividing d (Theorem 1(d), §4.6),
+hence of odd order. Let L = {x_1, x_2, x_3}, q a player not on L, and x_{i+3} the third point of the line through q
+and x_i (so x_4, x_5, x_6 are the points off L ∪ {q}). Apply (**) to the contraction by q (the images of U_R and
+U_{x_i} in the quotient by U_q, a group of odd order). Each term is I(0:X) = I(R:X′q) − I(R:q), with I(R:q) = 0: it is
+2S(R) for X = 123, 14, 25, 36 (X′ ∪ q contains a line), 0 for X = 4, 5, 6, 234, 135, 126, 456 (X′ ∪ q is a pair or
+the complement of a line, hence unauthorized), and the left side is Σ_i (h(x_i q) − h(q)) ≤ Σ_i h(x_i) = 2 Σ_i S(x_i).
+So Σ_{P∈L} S(P) ≥ 4 S(R); every player lies on three lines. (ii) h(R) = 2S(R) and
+I(R:T) = h(R) + h(T) − h(RT) = log|U_R| + log|U_T| − log|U_R + U_T|. (iii) In (i) the right side of (**) equals
+Σ_{4 positive} I(R:X′q) − Σ_{7 negative} I(R:X′q) + 3 I(R:q) ≥ 4(2S(R) − ε) − 7ε. (iv) The Lagrangian subgroup of a
+stabilizer state of Z_d qudits is the direct sum of its Sylow components, so the state is the tensor product of
+stabilizer states of Z_{p^a} qudits, one for each prime power p^a ∥ d, with as many qudits per system as the state;
+I(R:T) = Σ_p I_p(R:T) and 0 ≤ I_p(R:T) ≤ 2S_p(R), so each factor is a scheme for the same access structure (paper,
+Supplementary Note 10.2; used before for Proposition 30, §4.20). A secret of m qudits makes R maximally mixed, so
+S_p(R) = m a log p, while S_p(P) ≤ n_P a log p. For an odd p | d, (i) for the factor of Z_{p^a} qudits gives
+Σ_{P∈L} n_P a log p ≥ Σ_{P∈L} S_p(P) ≥ 4 m a log p. For d ≡ 2 (mod 4), Proposition 21 (2) (Jafari–Khazaei,
+Prop. 4.5 (III)) for the factor of qubits gives the bound for Γ_NF. (v) Conversely, the direct sum of Lagrangian
+subgroups of the Sylow components is Lagrangian (the symplectic form of Z_d^{2k} is the sum of those of the
+components), so tensor products of stabilizer states of Z_{p^a} qudits with equal numbers of qudits per system are
+stabilizer states of Z_d qudits, and tensor products of schemes for the same access structure are schemes. For Γ_F
+take five qubit cube states (two qubits |0⟩ added per player) times the Z_r scheme of Proposition 25 (secret 5,
+shares 7); for Γ_NF the qubit scheme of Proposition 28 (secret 10 qubits, shares 14) times ten cube states over Z_r
+(four qudits |0⟩ added per player); the decomposition holds for any coprime factorization d = d_1 d_2. ∎
+
+*Remarks.* (1) Classical secret sharing: for an abelian scheme in the sense of Jafari and Khazaei (subgroups G_i of a
+finite abelian group G, entropies log[G : ∩_{i∈A} G_i]) the annihilators U_i ≤ Ĝ give the same function as a subgroup
+rank function, so Lemma 31a gives their Proposition 4.4 (II) for abelian schemes of odd order: for the Fano port F the
+three shares of every minimal triple sum to at least 4 times the secret, and the information ratio is at least 4/3.
+Their paper proves it for p-linear schemes and leaves open whether their bounds for F ⊕ N are optimal for abelian
+schemes (their §6.2); we have not examined F ⊕ N. (2) Lemma 31a does not follow from (LB) on minors: the program of
+Proposition 21 (self-dual polymatroids, the access equations of Γ_F, (LB) with t = 2 on all seven-element minors) has
+an exactly feasible point with t = 43/41 (G43b), at which h(P) ≤ 86/41, so every line has Σ h(P) ≤ 258/41 < 8 = 4h(R).
+The referee agent also found an exact rational seven-element polymatroid that satisfies the Shannon inequalities, (LB)
+with t = 2 in all 5040 labellings and all 210 single-element Ingleton instances, on which (**) takes the value −10/31
+[exact; the script is not in the repository]. Stronger [exact; `checks/check_rev_qss.py`, part (m)]: an integer
+polymatroid W on seven elements, W(N) = 120, satisfies the Shannon inequalities, all 57,120 Ingleton instances on
+disjoint sets and the four odd-characteristic seven-variable inequalities (65), (6.17) corrected, (b) and (LB) of §4.7
+in all 5040 labellings, and (**) takes the value −37 on it; so Lemma 31a is not a consequence of these
+inequalities (W was found by a floating-point linear program from the second referee agent and rounded; the check is
+exact). For the Fano port F the same inequalities with the access equations allow information ratio 23/22 [exact,
+part (m): an integer polymatroid with secret 22 and shares 23], whereas Lemma 31a gives 4/3. Peña-Macías obtained 4/3
+from his Cor. 2.7 by linear programming, so his inequalities are not among these four; they were not tested here (the
+extracted text of the formula is garbled). (3) For an arbitrary finite abelian group the same proof gives
+h(1) + h(2) + h(3) + log|T_0[2]| ≥ (right side of (**)), with T_0[2] the 2-torsion of T_0; it is tight on the Fano
+configuration [proved by the referee agent; not used]. (4) [empirical; scripts not in the repository] Adding to the
+program of Proposition 21 the 28 instances of Lemma 31a on contractions gives exactly 4/3 (HiGHS), also with one
+common-information extension (all 72 orbits of pairs of disjoint sets of the eight systems); without Lemma 31a, one or
+two common-information extensions raise 43/41 only to about 1.070 and 1.097. (5) The upper bound remains 7/5
+(Proposition 25), so for Γ_F the optimal ratio lies in [4/3, 7/5] for every odd local dimension; Proposition 29
+(decompositions) is unchanged. With (iv) and (v), the optimal ratio lies in [4/3, 7/5] also for
+Z_d with d = 2r, r > 1 odd (Γ_F), and for Z_d with d = 2r, r odd (Γ_NF), for secrets of whole qudits. Only the absence of ideal schemes is known
+for Γ_F with Z_{2^a}, a ≥ 2, and for Γ_NF with 4 | d (§4.20); the argument of Lemma 31a needs 2 to be invertible,
+and Jafari–Khazaei Prop. 4.5 (III) is for fields of characteristic 2. (6) [proved; checked by the third referee agent; in the paper, Supplementary Note 10.2] F ⊕ N (the twelve-player structure of Jafari and Khazaei, §6.2, and of Khazaei, IACR ePrint 2026/1644):
+an abelian scheme splits into its Sylow 2-part and its odd part, each a scheme for F ⊕ N, hence for F and for N on
+their players, with secret entropies σ_2 + σ_o = H(S). By Lemma 31a, every minimal triple of F has share entropies
+≥ 4σ_o + 3σ_2 (each share is at least the secret); if the Sylow 2-subgroup is elementary abelian, the 2-part is
+GF(2)-linear and Prop. 4.5 (III) of Jafari–Khazaei gives ≥ 4σ_2 + 3σ_o on the triple 456 of N. The two bounds sum to
+7 H(S), so some share has entropy ≥ (7/6) H(S): information ratio ≥ 7/6 for these abelian schemes, and > 7/6, since
+equality needs σ_2 = σ_o (the logarithm of a power of 2 and that of an odd number), hence H(S) = 0. Mixed-linear
+schemes (direct sums of linear schemes over fields) are of this kind. Jafari and Khazaei (§6.2, Remark 6.3, read
+through a web-fetch tool) give mixed-linear schemes with ratio 7/6 + ε for every ε > 0, state that they "have verified
+by a computer that these values are tight for mixed-linear schemes" (their App. B) and that "it remains open if these
+bounds are optimal for abelian schemes"; the remark answers this for abelian schemes with an elementary abelian Sylow
+2-subgroup (for them, stronger than the bound 43/41 of Khazaei 2026 for homomorphic schemes). (R48 addendum 7, later:
+in the paper, Supplementary Note 10.2, after a referee agent confirmed the argument.)
+
+*Checks.* `checks/check_rev_qss.py`, part (m): the 26-term form of (**) built from the statement; on the Fano
+configuration in the labelling above the two sides are 3 and 4; the same vectors over GF(3), GF(5), GF(7) satisfy it
+in all 5040 labellings; tests on 40 random and perturbed arrangements each over GF(3), GF(5), Z_9, Z_25, Z_27 (minimum
+≥ 0 in all labellings) and the configuration over Z_4 (negative); the incidences of the proof of (i) for all 28 pairs
+(L, q) and all orders of the points of L; the 17-term form (*), its relation to (**) and its value −1 on the Fano
+configuration; the constant 11/2; the labels for the Fano port F and the transitivity of its 24 automorphisms on its
+four triples. Part (n): the product schemes of (v) over Z_6, Z_10, Z_18, Z_30 (all 128 player sets, orders of
+projections computed exactly, and the CSS states; two negative controls), and the Z_6 scheme for Γ_F with a secret of
+dimension 2^7 3^5 and ratio ≈ 1.212 that shows the need for the hypothesis of (iv). [empirical, not in the repository] An
+exhaustive evaluation over all 62,748,517 ordered 7-tuples of
+points of PG(2,3) gives minimum 0; over PG(2,2) the 168 labelled Fano planes are the only violations (−1).
+
+*Referee (agent, 2026-10-27).* No mathematical error. It re-derived every step of the proof and of the application,
+checked (**) and (*) in exact integer arithmetic on about 36 million random and perturbed arrangements in groups of odd
+order (also mixed groups such as Z_3 × Z_9 and Z_9 × Z_27²), exhaustively on all subspace configurations of GF(3)³ and
+GF(5)³, on Z_9², Z_3 × Z_27 and on the points of PG(2,q), q = 3, 5, 7, and on random stabilizer states over
+d = 3, 5, 9, 15, 25, 27, 45 (no violation); even groups give violations of exactly log 2. Its findings, all adopted:
+cite Peña-Macías 2023 (Cor. 2.7, 2.9) at the lemma and qualify "new"; the robust constant is 11/2, not 15/2 (an earlier
+draft bounded I(R:q) in opposite directions); state the quantization threshold log₂ p; the stronger form (*), with a
+shorter proof through the second isomorphism theorem; "which local dimensions divisible by the square of an odd prime
+require" instead of "composite"; a wording in the paper's Discussion about approximate codes; notation U_P. Literature:
+it found nothing that extends Proposition 4.4 of Jafari and Khazaei to abelian schemes; the PDF of Khazaei's IACR
+ePrint 2026/1644 is blocked for the fetch tool, so overlap with its body could not be excluded (its abstract gives
+43/41 for homomorphic and abelian schemes for F ⊕ N).
+
+*Referee (second agent, 2026-10-27, the changes of the paper from v10 to v11).* No mathematical error in Lemma 31a,
+(i)–(iii) or the abelian extension; random and local-search tests in Z_9², Z_3 × Z_9, Z_27 × Z_3, Z_15², Z_45,
+Z_5 × Z_25, Z_3³ and Z_9 × Z_3² found no violation, and the Fano vectors over Z_2³, Z_4³ and the 2-part of Z_6³ give −1.
+Its findings on the wording, all adopted in the paper: the robust bound (iii) still excludes shares of the size of the
+secret only while ε < 2S(R)/11; the conditions are 2S(R) − I(R:T) < 1 bit and I(R:T) < 1 bit (not "what a set
+learns"); the extension to abelian schemes needs odd order (GF(2)-linear schemes are abelian and ideal for F); the
+proof follows the argument of Jafari and Khazaei, and over fields Peña-Macías gave rank inequalities for this configuration;
+Jafari and Khazaei's Prop. 2.3 gives the subgroup-sum form of abelian random variables; the 43/41 of Khazaei is
+mentioned only next to the comparison program (paper, Supplementary Note 10.4). It read the Bravyi–Kitaev code: the
+m = 4 state is a logical basis state of the 15-qubit code (the −1 eigenstate of their logical Z, by their sign
+convention). Its uncertified linear programs (not in the repository) suggest that (**) does not follow from the
+Shannon inequalities and the four odd-characteristic inequalities of the paper's Table III in all labellings, and that
+these give only about 1.0455 for the Fano port F. (iv) and (v) were added after this review.
+
+*Referee (third agent, 2026-10-27, (iv), (v), remark (6) and part (n)).* Every step of (iv) and (v) is correct with the
+hypothesis that the secret consists of m whole qudits: the Sylow decomposition of L, the tensor-product structure
+(also for mixed schemes, through the purification), each factor a scheme, S_p(R) = m a log p and S_p(P) ≤ n_P a log p,
+the converse and the padding, and the approximate count bound. Its independent code confirmed the product schemes over
+Z_6, Z_10, Z_18 and Z_30 and, with explicit state vectors, the decomposition of Z_d stabilizer states into prime-power
+factors. Its main finding, adopted: without the hypothesis the ratio bounds fail for even d (the Z_6 scheme for Γ_F
+above, ratio ≈ 1.212; for Γ_NF, the binary scheme with a one-qubit secret times two Z_3 cube states, ratio
+log 36/log 18 ≈ 1.240), and even with secrets of whole qudits the entropy form fails for even d (for the Z_6 product
+scheme of (v), Σ_{P∈L} S(P) − 4 S(R) = log(3/32) < 0), so for even d the bound is a statement about numbers of qudits.
+Also adopted: for even d, errors below log₂ 3 need not force an exact scheme (only the factor of Z_{p^a} qudits is
+forced, with threshold log₂ p); the notation d = 2r; coprime factorizations; the unit multiple of the symplectic form
+in the decomposition; remark (6) is right with its hypotheses, and its report of Jafari and Khazaei §6.2 was corrected
+(they give 7/6 + ε and verified by computer that 7/6 is tight for mixed-linear schemes; in this class 7/6 itself is not
+attained). Part (n) tests what it claims; its negative controls also exercise the CSS branch.
 
 ## 5. Open questions
 
@@ -2859,8 +3053,8 @@ kernel, and the cube codes over Z_d for d = 9, 15, 21, 25, 27, 45.
   symmetrised decomposition linear program over sampled ideal sub-schemes of characteristic 2 gives 7/5, §4.19
   [empirical]). Adding the 6,720 Ingleton instances on the eight systems to the self-dual programs with the
   Jafari–Khazaei inequalities leaves 4/3 for both Γ_F (odd characteristic) and Γ_NF (qubits) [empirical, R48
-  addendum 3]. For Γ_F in odd local dimension divisible by a square (Z_9,
-  Z_27, …) only 43/41 is known. Ideal schemes are classified (Proposition 30, §4.20); the optimal non-ideal ratios of
+  addendum 3]. For Γ_F the bound 4/3 holds in every odd local dimension
+  (Proposition 31, §4.21; before R48 addendum 7 only 43/41 was known for Z_9, Z_27, …). Ideal schemes are classified (Proposition 30, §4.20); the optimal non-ideal ratios of
   Z_{2^a} schemes (a ≥ 2) are not studied, nor are the generalized cube access structures of Theorem 2′ for other pairs
   of primes.
 

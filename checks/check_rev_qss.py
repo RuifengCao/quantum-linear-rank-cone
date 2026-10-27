@@ -75,7 +75,26 @@ What is checked:
      complements of lines) lie beyond the distance 3; every point lies on three lines, so summing the line
      inequalities of Proposition 6 (i) gives sum_P S(P) >= (28/3) S(R), and a five-qudit secret needs a share of at
      least ceil(20/3) = 7 qudits, as in the schemes of (h).
-The validity of Lemma 1 and of the results of Jafari-Khazaei is an input; it is only tested here.
+ (m) Lemma 7 (Fano lines in groups of odd order; R32 Proposition 31, R48 addendum 7) and the bound 4/3 of
+     Proposition 6 (i) for every odd local dimension: the 26-term form built from the statement; on the Fano
+     configuration in the labeling of the lemma (lines 014, 025, 036, 234, 135, 126, 456) the left side is 3 and the
+     right side 4; the same vectors over GF(3), GF(5), GF(7) satisfy it in all 5040 labelings; tests on random and
+     perturbed arrangements over GF(3), GF(5), Z_9, Z_25, Z_27 (>= 0) and Z_4 (< 0); the incidences used in the proof
+     for all 28 pairs (line, player off it); the stronger form of Supplementary Note 10.2 and its relation to the
+     lemma; the constant 11/2 for approximate schemes; the labels for the Fano port
+     F of Jafari-Khazaei (classical abelian schemes) and the transitivity of its automorphisms on its four triples; an
+     integer polymatroid on which the Shannon inequalities, all Ingleton instances and the four odd-characteristic
+     forms of Supplementary Table S2 hold in all labelings, but the form of Lemma 7 is -37; and one that satisfies
+     them and the access equations of the Fano port F with information ratio 23/22.
+ (n) the schemes of Proposition 6 (iii) for Z_d qudits with d = 2r, r odd (R32 Proposition 31 (v), R48 addendum 7):
+     the code over Z_d whose reduction modulo 2 is five binary cube codes (two vanishing coordinates added per player)
+     and modulo r the code of (h) is a scheme for Gamma_F, and the code whose reduction modulo 2 is the binary code of
+     (i) and modulo r ten cube codes (four vanishing coordinates added per player) is a scheme for Gamma_NF, both with
+     ratio 7/5, for d = 6, 10, 18, 30 (all 128 player sets, orders of projections computed exactly, and the CSS states);
+     two negative controls; and, for the paragraph after Proposition 6, the scheme over Z_6 for Gamma_F with a secret of
+     dimension 2^7 3^5 (not a whole number of qudits) and information ratio 7 log 6/(7 log 2 + 5 log 3) < 4/3.
+The validity of Lemma 1 and of the results of Jafari-Khazaei is an input; it is only tested here. Lemma 7 is proved in
+the paper (Supplementary Note 10.2); it is only tested here.
 """
 import itertools, json, math, os, random, sys
 from fractions import Fraction
@@ -1725,6 +1744,360 @@ report('every point lies on %s lines, so the seven line inequalities of Proposit
        'add up to sum_P S(P) >= %s S(R) (average share >= %s S(R)); a five-qudit secret needs a share of at least %d '
        'qudits' % (on_lines[0], coef, coef / 7, math.ceil(Fraction(20, 3))),
        on_lines == [3] * 7 and coef == Fraction(28, 3) and coef / 7 == Fraction(4, 3) and math.ceil(Fraction(20, 3)) == 7)
+
+# ----------------------------------------------------------------------------------------------------------------------
+print('(m) Lemma 7 (Fano lines in groups of odd order) and the bound 4/3 for every odd local dimension (Sec. II F)')
+# The form of Lemma 7 on the variables T_0, ..., T_6 = bits 0..6, built from its definition:
+#   g = h(1)+h(2)+h(3) - [I(0;123)+I(0;14)+I(0;25)+I(0;36)] + [I(0;4)+I(0;5)+I(0;6)]
+#       + [I(0;234)+I(0;135)+I(0;126)+I(0;456)] >= 0,   I(0;X) = h(0)+h(X)-h(0X).
+L7F = {}
+
+
+def _add(form, X, c):
+    if X and c:
+        form[X] = form.get(X, 0) + c
+        if form[X] == 0:
+            del form[X]
+
+
+def _I0(form, X, c):
+    _add(form, 1, c); _add(form, X, c); _add(form, X | 1, -c)
+
+
+_b = lambda *ii: sum(1 << i for i in ii)
+for i in (1, 2, 3):
+    _add(L7F, _b(i), 1)
+_I0(L7F, _b(1, 2, 3), -1)
+for i in (1, 2, 3):
+    _I0(L7F, _b(i, i + 3), -1)
+    _I0(L7F, _b(i + 3), 1)
+for SS in ((2, 3, 4), (1, 3, 5), (1, 2, 6), (4, 5, 6)):
+    _I0(L7F, _b(*SS), 1)
+FV7 = form_vector(L7F)
+# the Fano configuration in the labeling of Lemma 7: lines 014, 025, 036, 234, 135, 126, 456
+FCONF = [(1, 1, 1), (1, 0, 0), (0, 1, 0), (0, 0, 1), (0, 1, 1), (1, 0, 1), (1, 1, 0)]
+lines_lab = [(0, 1, 4), (0, 2, 5), (0, 3, 6), (2, 3, 4), (1, 3, 5), (1, 2, 6), (4, 5, 6)]
+rF7 = rank_function(FCONF, 2)
+lines_ok = all(rF7[_b(*L)] == 2 for L in lines_lab) and sum(1 for L in itertools.combinations(range(7), 3)
+                                                            if rF7[_b(*L)] == 2) == 7
+lhs = rF7[_b(1)] + rF7[_b(2)] + rF7[_b(3)]
+i0 = lambda h, X: h[1] + h[X] - h[X | 1]
+rhs = (i0(rF7, _b(1, 2, 3)) + i0(rF7, _b(1, 4)) + i0(rF7, _b(2, 5)) + i0(rF7, _b(3, 6)) - i0(rF7, _b(4)) - i0(rF7, _b(5))
+       - i0(rF7, _b(6)) - i0(rF7, _b(2, 3, 4)) - i0(rF7, _b(1, 3, 5)) - i0(rF7, _b(1, 2, 6)) - i0(rF7, _b(4, 5, 6)))
+report('the form of Lemma 7 has %d terms; the configuration (1,1,1), e_1, e_2, e_3, e_2+e_3, e_1+e_3, e_1+e_2 over '
+       'GF(2) has exactly the seven lines 014, 025, 036, 234, 135, 126, 456 (the Fano plane); there the left side is %d '
+       'and the right side %d, so the form equals %d' % (len(L7F), lhs, rhs, ev(L7F, rF7)),
+       lines_ok and lhs == 3 and rhs == 4 and ev(L7F, rF7) == -1)
+vals = {}
+for q in (2, 3, 5, 7):
+    rk = np.array(rank_function(FCONF, q), dtype=np.int64)
+    vals[q] = (int(ev(L7F, [int(x) for x in rk])), int((rk[PMAP] @ FV7).min()))
+report('the same vectors over GF(3), GF(5), GF(7) (the non-Fano configuration: 4, 5, 6 not collinear): the form is '
+       '>= 0 in all 5040 labelings; over GF(2) its minimum over the labelings is -1',
+       vals[2] == (-1, -1) and all(vals[q][0] >= 0 and vals[q][1] >= 0 for q in (3, 5, 7)), str(vals))
+tests7, ARR7 = {}, []
+for ring in (('field', 3, 3), ('field', 5, 5), ('ring', 9, 3), ('ring', 25, 5), ('ring', 27, 3)):
+    mn = None
+    for trial in range(40):
+        rk = random_rank_function(ring, rng) if trial % 2 == 0 else perturbed_configuration(ring, rng)
+        ARR7.append(np.array(rk, dtype=np.int64))
+        v = int((ARR7[-1][PMAP] @ FV7).min())
+        mn = v if mn is None else min(mn, v)
+    tests7['%s%d' % ('GF' if ring[0] == 'field' else 'Z', ring[1])] = mn
+z4 = [zn_log_order([v for i in range(7) if m >> i & 1 for v in [FCONF[i]]], 3, 4, 2) if m else 0 for m in range(128)]
+z9 = [zn_log_order([v for i in range(7) if m >> i & 1 for v in [FCONF[i]]], 3, 9, 3) if m else 0 for m in range(128)]
+report('test (the lemma is proved by hand): the form is >= 0 in all 5040 labelings on 40 random and perturbed '
+       'arrangements each over GF(3), GF(5), Z_9, Z_25, Z_27 (groups of odd order); on the configuration above it is '
+       '>= 0 over Z_9 and negative over Z_4',
+       all(v >= 0 for v in tests7.values()) and ev(L7F, z9) >= 0 and ev(L7F, z4) < 0,
+       'minima %s; configuration: Z_9 %d, Z_4 %d (units of log 3, log 2)' % (tests7, ev(L7F, z9), ev(L7F, z4)))
+# the incidences used in the proof of Proposition 6 (i), for all 28 pairs (line, point off the line)
+inc_ok, npairs = True, 0
+for lm in [mask(l) for l in LINES7]:
+    for qi in range(7):
+        if lm >> qi & 1:
+            continue
+        npairs += 1
+        xs = [i for i in range(7) if lm >> i & 1]
+        third = {}
+        for x in xs:
+            th = [l for l in LINES7 if mask(l) >> x & 1 and mask(l) >> qi & 1]
+            third[x] = [i for i in range(7) if mask(th[0]) >> i & 1 and i not in (x, qi)][0]
+        for perm in itertools.permutations(xs):
+            lab = list(perm) + [third[x] for x in perm]          # x_1, x_2, x_3, x_4, x_5, x_6
+            setq = lambda ii: sum(1 << lab[i - 1] for i in ii) | (1 << qi)
+            pos = [setq(X) for X in ((1, 2, 3), (1, 4), (2, 5), (3, 6))]
+            neg = [setq(X) for X in ((4,), (5,), (6,), (2, 3, 4), (1, 3, 5), (1, 2, 6), (4, 5, 6))]
+            inc_ok = inc_ok and all(AUTH39['F'][T] for T in pos) and not any(AUTH39['F'][T] for T in neg) \
+                and not AUTH39['F'][1 << qi] and sorted(lab[3:]) == sorted(set(range(7)) - set(xs) - {qi})
+report('for all %d pairs (line l, player q not on l) and every order of the points x_1, x_2, x_3 of l, with x_{i+3} the '
+       'third point of the line through q and x_i: X u {q} is authorized for Gamma_F for X = 123, 14, 25, 36 and '
+       'unauthorized for X = 4, 5, 6, 234, 135, 126, 456; q is unauthorized; x_4, x_5, x_6 are the points off l u {q}'
+       % npairs, npairs == 28 and inc_ok)
+# the stronger form proved in Supplementary Note 10.2:
+#   I(0;123) <= h(1|04) + h(2|05) + h(3|06) + I(0;234) + I(0;135) + I(0;126) + I(0;456);
+# the form of Lemma 7 equals this one plus I(1;4) + I(2;5) + I(3;6) (an identity of linear forms)
+STRONG = {}
+_I0(STRONG, _b(1, 2, 3), -1)
+for i in (1, 2, 3):
+    _add(STRONG, _b(0, i, i + 3), 1); _add(STRONG, _b(0, i + 3), -1)           # + h(i | 0, i+3)
+for SS in ((2, 3, 4), (1, 3, 5), (1, 2, 6), (4, 5, 6)):
+    _I0(STRONG, _b(*SS), 1)
+SUM_I = {}
+for i in (1, 2, 3):
+    _add(SUM_I, _b(i), 1); _add(SUM_I, _b(i + 3), 1); _add(SUM_I, _b(i, i + 3), -1)
+comb = dict(STRONG)
+for m, c in SUM_I.items():
+    _add(comb, m, c)
+report('the stronger form of Supplementary Note 10.2 (%d terms) plus I(1;4) + I(2;5) + I(3;6) is the form of Lemma 7, '
+       'term by term; on the Fano configuration its left side is 1 and its right side 0 (value -1); on the odd-'
+       'characteristic configuration and on the random and perturbed arrangements above it is >= 0'
+       % len(STRONG),
+       comb == L7F and ev(STRONG, rF7) == -1 and all(int((np.array(rank_function(FCONF, q), dtype=np.int64)[PMAP]
+                                                          @ form_vector(STRONG)).min()) >= 0 for q in (3, 5, 7))
+       and all(int((a[PMAP] @ form_vector(STRONG)).min()) >= 0 for a in ARR7))
+# the constant 11/2 for approximate schemes: on the contraction by q the right side of Lemma 7 is
+# sum over the four positive sets of I(R;X'q) - sum over the seven negative sets + 3 I(R;q)
+s_, e_ = Fraction(1), Fraction(1)
+worst_rhs = 4 * (2 * s_ - e_) - 7 * e_ + 3 * 0
+report('approximate schemes: the right side of Lemma 7 on the contraction by q is the sum of I(R;X\'q) over the four '
+       'positive sets minus the sum over the seven negative sets plus 3 I(R;q); with the first >= 2S(R) - eps, the '
+       'second <= eps and I(R;q) >= 0 it is >= 8 S(R) - 11 eps, so sum_{P in l} S(P) >= 4 S(R) - (11/2) eps',
+       worst_rhs == 8 * s_ - 11 * e_ and (8 * s_ - 11 * e_) / 2 == 4 * s_ - Fraction(11, 2) * e_
+       and sum(1 for X in ((1, 2, 3), (1, 4), (2, 5), (3, 6))) == 4 and 7 - 4 == 3)
+# classical abelian schemes for the Fano port F of Jafari-Khazaei: the labels of Lemma 7 for the triple 123
+F6set = closure6(JK_F)
+mk6 = lambda ii: sum(1 << (i - 1) for i in ii)
+labels_ok = all(mk6(X) in F6set for X in ((1, 2, 3), (1, 4), (2, 5), (3, 6))) and \
+    not any(mk6(X) in F6set for X in ((4,), (5,), (6,), (2, 3, 4), (1, 3, 5), (1, 2, 6), (4, 5, 6)))
+autF = [pm for pm in itertools.permutations(range(6))
+        if {sum(1 << pm[i] for i in range(6) if A >> i & 1) for A in F6set} == F6set]
+triples = [mk6(t) for t in ((1, 2, 3), (1, 5, 6), (2, 4, 6), (3, 4, 5))]
+orbit = {sum(1 << pm[i] for i in range(6) if triples[0] >> i & 1) for pm in autF}
+cover = [sum(1 for t in triples if t >> i & 1) for i in range(6)]
+report('the Fano port F = 14+25+36+123+156+246+345: for the triple 123 the sets 123, 14, 25, 36 are authorized and 4, 5, 6, '
+       '234, 135, 126, 456 unauthorized; its %d automorphisms act transitively on the four triples, and every player '
+       'lies in two of them, so the four triple inequalities give an average share >= 4/3' % len(autF),
+       labels_ok and orbit == set(triples) and cover == [2] * 6)
+
+# Lemma 7 is not a consequence of the known odd-characteristic seven-variable inequalities (Supplementary Note 10.4):
+# an integer polymatroid W on seven elements (bit i <-> 'ABCWXYZ'[i], W(N) = 120) satisfies the elemental Shannon
+# inequalities, all Ingleton instances I(A;B|K) <= I(A;B|CK) + I(A;B|DK) + I(C;D|K) on disjoint sets and the forms
+# (65), (6.17) corrected, (b) (times 3) and LB of Supplementary Table S2 in all 5040 labelings, while the form of
+# Lemma 7, with T_0, ..., T_6 = bits 0..6, takes the value -37 on it.  The coefficients below are transcribed from that
+# table (sets of the seven points A, B, C, W, X, Y, Z).  W was found by a linear program in floating point and rounded;
+# here it is checked exactly.
+W120 = [
+    0, 39, 38, 77, 38, 77, 76, 115, 38, 77, 76, 115, 76, 115, 114, 115,
+    44, 83, 82, 83, 81, 120, 119, 120, 81, 120, 119, 120, 81, 120, 119, 120,
+    44, 83, 81, 120, 82, 83, 119, 120, 81, 120, 81, 120, 119, 120, 119, 120,
+    82, 120, 119, 120, 119, 120, 119, 120, 119, 120, 119, 120, 119, 120, 119, 120,
+    44, 83, 81, 120, 81, 120, 81, 120, 82, 83, 119, 120, 119, 120, 119, 120,
+    82, 120, 119, 120, 119, 120, 119, 120, 119, 120, 119, 120, 119, 120, 119, 120,
+    82, 120, 119, 120, 119, 120, 119, 120, 119, 120, 119, 120, 119, 120, 119, 120,
+    82, 120, 119, 120, 119, 120, 119, 120, 119, 120, 119, 120, 119, 120, 119, 120,
+]
+ODD4 = {
+    '(65)': {'A': 3, 'B': 4, 'C': 3, 'W': 1, 'X': 1, 'Y': 1, 'Z': 1, 'AB': -5, 'AX': -2, 'BC': -5, 'CW': -3, 'WY': -3,
+             'XZ': -1, 'YZ': -2, 'ABC': -5, 'ABW': 5, 'ACX': 2, 'AYZ': 2, 'BCY': 5, 'BXZ': 1, 'CWZ': 3, 'WXY': 3},
+    '(6.17) corrected': {'A': 3, 'B': 3, 'C': 9, 'Z': 6, 'AB': 6, 'AY': -3, 'BX': -3, 'CW': -3, 'ABC': -12, 'ABW': 3,
+                         'ABZ': -3, 'ACX': 3, 'ACZ': -3, 'AYZ': 3, 'BCY': 3, 'BCZ': -3, 'BXZ': 3, 'CWZ': 3, 'WXY': 1,
+                         'ABCZ': 3},
+    '(b) times 3': {'A': 6, 'B': 3, 'C': 6, 'Z': 6, 'AB': 3, 'AY': -3, 'BC': 3, 'BX': -3, 'CW': -3, 'ABC': -12,
+                    'ABW': 3, 'ABZ': -3, 'ACX': 3, 'ACZ': -3, 'AYZ': 3, 'BCY': 3, 'BCZ': -3, 'BXZ': 3, 'CWZ': 3,
+                    'WXY': 1, 'ABCZ': 3},
+    'LB': {'A': 9, 'B': 9, 'C': 9, 'Z': 6, 'AY': -3, 'BX': -3, 'CW': -3, 'ABC': -12, 'ABW': 3, 'ABZ': -3, 'ACX': 3,
+           'ACZ': -3, 'AYZ': 3, 'BCY': 3, 'BCZ': -3, 'BXZ': 3, 'CWZ': 3, 'WXY': 1, 'ABCZ': 3},
+}
+W7 = np.array(W120, dtype=np.int64)
+_LET = 'ABCWXYZ'
+odd_vecs = {}
+for nm, f in ODD4.items():
+    v = np.zeros(128, dtype=np.int64)
+    for S_, c_ in f.items():
+        v[sum(1 << _LET.index(ch) for ch in S_)] += c_
+    odd_vecs[nm] = v
+# each transcribed form is -1 on the Fano configuration (A..Z = 100, 010, 001, 110, 101, 011, 111 over GF(2)) and >= 0
+# on the same vectors over GF(3)
+VEC_AZ = [(1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 1, 0), (1, 0, 1), (0, 1, 1), (1, 1, 1)]
+rF_AZ = np.array(rank_function(VEC_AZ, 2), dtype=np.int64)
+rNF_AZ = np.array(rank_function(VEC_AZ, 3), dtype=np.int64)
+transc_ok = all(int(rF_AZ @ v) == -1 and int(rNF_AZ @ v) >= 0 for v in odd_vecs.values())
+def _I(h_, a_, b_, k_=0):
+    return int(h_[a_ | k_] + h_[b_ | k_] - h_[a_ | b_ | k_] - h_[k_])
+shannon_ok = W7[0] == 0 and all(W7[127] - W7[127 ^ (1 << i)] >= 0 for i in range(7))
+for i_, j_ in itertools.combinations(range(7), 2):
+    rest_ = [k for k in range(7) if k not in (i_, j_)]
+    for s_ in range(32):
+        K_ = sum(1 << rest_[t] for t in range(5) if s_ >> t & 1)
+        shannon_ok = shannon_ok and _I(W7, 1 << i_, 1 << j_, K_) >= 0
+ingleton_ok, n_ing = True, 0
+for assign_ in itertools.product(range(6), repeat=7):        # each element in none, A, B, C, D or K
+    SS_ = [0] * 6
+    for i_, g_ in enumerate(assign_):
+        SS_[g_] |= 1 << i_
+    a_, b_, c_, d_, K_ = SS_[1:]
+    if a_ and b_ and c_ and d_:
+        n_ing += 1
+        ingleton_ok = ingleton_ok and (_I(W7, a_, b_, c_ | K_) + _I(W7, a_, b_, d_ | K_) + _I(W7, c_, d_, K_)
+                                       - _I(W7, a_, b_, K_)) >= 0
+odd_min = {nm: int((W7[PMAP] @ v).min()) for nm, v in odd_vecs.items()}
+l7_val = int(ev(L7F, [int(x) for x in W7]))
+report('Lemma 7 does not follow from the Shannon inequalities, the Ingleton inequalities (all %d instances with disjoint '
+       'nonempty A, B, C, D and any disjoint K) and the forms (65), (6.17) corrected, (b) and LB in all 5040 labelings: '
+       'the transcribed forms are -1 on the Fano and >= 0 on the non-Fano configuration; the integer polymatroid W '
+       '(W(N) = 120) satisfies all of them (minima %s), and the form of Lemma 7 is %d < 0 on it' % (n_ing, odd_min, l7_val),
+       transc_ok and shannon_ok and ingleton_ok and n_ing == 57120 and min(odd_min.values()) >= 0 and l7_val == -37)
+
+# The four forms allow the information ratio 23/22 for the Fano port F of Jafari-Khazaei (Supplementary Note 10.4): an integer polymatroid
+# V on the secret (bit 0) and the players 1..6 (bits 1..6, labels of F) with V(secret) = 22 and every share V(i) <= 23
+# satisfies the elemental Shannon inequalities, all Ingleton instances, the four forms in all 5040 labelings and the
+# access equations of F (V(Xs) = V(X) for qualified X, V(Xs) = V(X) + V(s) otherwise); Lemma 7 rules it out.
+V22 = [
+    0, 22, 23, 45, 23, 45, 46, 68, 23, 45, 46, 68, 46, 68, 69, 69,
+    23, 45, 46, 46, 46, 68, 69, 69, 46, 68, 69, 69, 48, 70, 70, 70,
+    23, 45, 46, 68, 46, 46, 69, 69, 46, 68, 48, 70, 69, 69, 70, 70,
+    46, 68, 69, 69, 69, 69, 70, 70, 69, 69, 70, 70, 70, 70, 70, 70,
+    23, 45, 46, 68, 46, 68, 48, 70, 46, 46, 69, 69, 69, 69, 70, 70,
+    46, 68, 69, 69, 69, 69, 70, 70, 69, 69, 70, 70, 70, 70, 70, 70,
+    46, 68, 69, 69, 69, 69, 70, 70, 69, 69, 70, 70, 70, 70, 70, 70,
+    48, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70, 70,
+]
+V7 = np.array(V22, dtype=np.int64)
+F_JK = [(1, 4), (2, 5), (3, 6), (1, 2, 3), (1, 5, 6), (2, 4, 6), (3, 4, 5)]
+FJm = [sum(1 << i for i in t) for t in F_JK]
+qual_ = lambda X: any((X & mm) == mm for mm in FJm)
+acc_ok = all((V7[X | 1] == V7[X]) if qual_(X) else (V7[X | 1] == V7[X] + V7[1]) for X in range(2, 128, 2))
+sh_ok = V7[0] == 0 and all(V7[127] - V7[127 ^ (1 << i)] >= 0 for i in range(7))
+for i_, j_ in itertools.combinations(range(7), 2):
+    rest_ = [k for k in range(7) if k not in (i_, j_)]
+    for s_ in range(32):
+        K_ = sum(1 << rest_[t] for t in range(5) if s_ >> t & 1)
+        sh_ok = sh_ok and _I(V7, 1 << i_, 1 << j_, K_) >= 0
+ing_ok = True
+for assign_ in itertools.product(range(6), repeat=7):
+    SS_ = [0] * 6
+    for i_, g_ in enumerate(assign_):
+        SS_[g_] |= 1 << i_
+    a_, b_, c_, d_, K_ = SS_[1:]
+    if a_ and b_ and c_ and d_:
+        ing_ok = ing_ok and (_I(V7, a_, b_, c_ | K_) + _I(V7, a_, b_, d_ | K_) + _I(V7, c_, d_, K_) - _I(V7, a_, b_, K_)) >= 0
+odd_min22 = {nm: int((V7[PMAP] @ v).min()) for nm, v in odd_vecs.items()}
+shares_ = [int(V7[1 << i]) for i in range(1, 7)]
+triples_ok = all(sum(int(V7[1 << i]) for i in t) < 4 * int(V7[1]) for t in F_JK if len(t) == 3)
+report('the four forms allow the information ratio 23/22 for the Fano port F: an integer polymatroid with secret 22 and shares %s '
+       'satisfies the Shannon inequalities, all Ingleton instances, the four forms in all 5040 labelings (minima %s) and '
+       'the access equations of F; every minimal triple has share sum < 4 x secret, as Lemma 7 forbids'
+       % (shares_, odd_min22), acc_ok and sh_ok and ing_ok and min(odd_min22.values()) >= 0 and V7[1] == 22
+       and max(shares_) == 23 and triples_ok)
+
+# ======================================================= (n) products over prime powers: d = 2r with r odd
+print('(n) products over prime powers: ratio 7/5 for Gamma_F and Gamma_NF with Z_d qudits, d = 2r, r odd (Prop. 6 (iii))')
+
+
+def order_gen(functionals, d):
+    """order of the projection: the subgroup of Z_d^k (k = number of functionals) generated by the images of the
+    parameter vectors, computed for each prime power p^a of d after reduction modulo p^a"""
+    if not functionals:
+        return 1
+    npar = len(functionals[0])
+    o = 1
+    for pr, a in factor_small(d).items():
+        N = pr ** a
+        vecs = [[f[i] % N for f in functionals] for i in range(npar)]
+        vecs = [v for v in vecs if any(v)]
+        o *= pr ** zn_log_order(vecs, len(functionals), N, pr) if vecs else 1
+    return o
+
+
+def product_code(cols2, colsq, d, q):
+    """the code over Z_d (d = 2r, r odd; the argument q is r) whose reduction modulo 2 is the binary code cols2 and whose
+    reduction modulo r is the code colsq over Z_r, on disjoint parameters; e2 = r and eq = 1 - r are the idempotents"""
+    e2, eq = q % d, (1 - q) % d
+    out = {}
+    for w in cols2:
+        assert len(cols2[w]) == len(colsq[w])
+        out[w] = [[e2 * x % d for x in f2] + [eq * x % d for x in fq] for f2, fq in zip(cols2[w], colsq[w])]
+    return out
+
+
+def pad(cols, k):
+    """add coordinates that vanish on the code (qudits in the state |0>) until every player holds k"""
+    npar = len(cols['R'][0])
+    return {w: fs + ([[0] * npar for _ in range(k - len(fs))] if w != 'R' else []) for w, fs in cols.items()}
+
+
+def cube_copies(c):
+    """c copies of the cube code (affine functions s + a.x on {0,1}^3, the origin R holds s); parameters (s, a) per copy"""
+    npar = 4 * c
+    cols = {'R': [[1 if k == 4 * j else 0 for k in range(npar)] for j in range(c)]}
+    for P in L7:
+        cols[P] = []
+        for j in range(c):
+            f = [0] * npar
+            f[4 * j] = 1
+            for i in range(3):
+                f[4 * j + 1 + i] = VERT[P][i]
+            cols[P].append(f)
+    return cols
+
+
+def product_report(cols, d, auth, sec, sh):
+    owners = ['R'] + list(L7)
+    O = {m8: order_gen([f for i, w in enumerate(owners) if m8 >> i & 1 for f in cols[w]], d) for m8 in range(256)}
+    oR = O[1]
+    acc = all((O[(T << 1) | 1] == O[T << 1]) if auth(T) else (O[(T << 1) | 1] == O[T << 1] * oR) for T in range(128))
+    full = 255
+    E = {m8: Fraction(O[m8] * O[full ^ m8], O[full]) for m8 in range(256)}
+    css = E[1] == oR and all((E[1] * E[T << 1] / E[(T << 1) | 1] == E[1] ** 2) if auth(T)
+                             else (E[1] * E[T << 1] / E[(T << 1) | 1] == 1) for T in range(128))
+    sizes = oR == d ** sec and all(len(cols[P]) == sh for P in L7)      # shares of sh qudits; padded ones are not full rank
+    return acc, css, sizes
+
+
+AUTH_F = lambda T: any(T & mm == mm for mm in MIN_F)
+AUTH_NF = gamma_swap(['WXY'])
+NF_BIN = {w: to_binary(fs) for w, fs in nf_code(B4, PIECES_NF).items()}       # the qubit scheme of (i): 10 and 14
+for q_ in (3, 5, 9, 15):
+    d_ = 2 * q_
+    accF, cssF, szF = product_report(product_code(pad(cube_copies(5), 7), ramp_code(B_RAMP), d_, q_), d_, AUTH_F, 5, 7)
+    report('Z_%d: five qubit cube states (two |0> added per player) times the Z_%d scheme of (h) is a scheme for Gamma_F '
+           'on all 128 player sets; secret Z_d^5 (full rank), each player 7 coordinates (ratio 7/5); its CSS state has '
+           'I(R;T) = 2 S(R) on Gamma_F and 0 elsewhere' % (d_, q_), accF and cssF and szF)
+    accN, cssN, szN = product_report(product_code(NF_BIN, pad(cube_copies(10), 14), d_, q_), d_, AUTH_NF, 10, 14)
+    report('Z_%d: the qubit scheme of (i) times ten Z_%d cube states (four |0> added per player) is a scheme for '
+           'Gamma_NF on all 128 player sets; secret Z_d^10 (full rank), each player 14 coordinates (ratio 7/5); its CSS '
+           'state has I(R;T) = 2 S(R) on Gamma_NF and 0 elsewhere' % (d_, q_), accN and cssN and szN)
+badF, cssF_bad, _ = product_report(product_code(pad(cube_copies(5), 7), pad(cube_copies(5), 7), 6, 3), 6, AUTH_F, 5, 7)
+badN, cssN_bad, _ = product_report(product_code(pad(cube_copies(10), 14), pad(cube_copies(10), 14), 6, 3), 6, AUTH_NF,
+                                   10, 14)
+report('negative controls over Z_6: qubit cube states times qutrit cube states is not a scheme for Gamma_F (the qutrit '
+       'cube state is ideal for Gamma_NF, not Gamma_F) and not one for Gamma_NF (the qubit cube state is ideal for '
+       'Gamma_F, not Gamma_NF); both as classical schemes and through the entropies of the CSS states',
+       not badF and not badN and not cssF_bad and not cssN_bad)
+
+
+def pad_ref(cols, k):
+    """add coordinates at R that vanish on the code (reference qudits in a fixed state) until R holds k"""
+    npar = len(cols['R'][0])
+    out = dict(cols)
+    out['R'] = cols['R'] + [[0] * npar for _ in range(k - len(cols['R']))]
+    return out
+
+
+# For even d the counts in qudits need secrets of whole qudits (Sec. II F, the paragraph after Proposition 6): over
+# Z_6, seven qubit cube states times the Z_3 scheme of (h), with two qutrits in a fixed state added to R, is a scheme
+# for Gamma_F whose secret has dimension 2^7 3^5 and whose shares have 7 qudits each.
+mixed6 = product_code(cube_copies(7), pad_ref(ramp_code(B_RAMP), 7), 6, 3)
+accM, cssM, _ = product_report(mixed6, 6, AUTH_F, 7, 7)
+oRM = order_gen(mixed6['R'], 6)
+ratioM = 7 * math.log(6) / math.log(oRM)
+report('Z_6, a secret that is not a whole number of qudits: seven qubit cube states times the Z_3 scheme of (h), with '
+       'two qutrits in a fixed state added to R, is a scheme for Gamma_F on all 128 player sets (classically and through '
+       'the entropies of its CSS state); its secret has order 2^7 3^5 = %d and every share 7 qudits, so its information '
+       'ratio is 7 log 6/(7 log 2 + 5 log 3) = %.4f < 4/3 (the example after Proposition 6)' % (oRM, ratioM),
+       accM and cssM and oRM == 2 ** 7 * 3 ** 5 and all(len(mixed6[P]) == 7 for P in L7)
+       and abs(ratioM - 7 * math.log(6) / (7 * math.log(2) + 5 * math.log(3))) < 1e-12 and ratioM < 4 / 3)
 
 print('ALL OK' if ok_all else 'FAILURE')
 sys.exit(0 if ok_all else 1)
