@@ -21,7 +21,10 @@ data bundled, a static Normaliz binary included, resumable long runs.
 > `checks/`, the notes and this README to the version submitted in October 2026 (theorem and corollary numbers are
 > unchanged). Its ninth addendum adds `checks/check_color_code.py`: the cube state over Z_d is the seven-qudit color
 > code with a reference system, so the Steane state, the non-Fano state and the seven-point states of the revised
-> paper are logical basis states of that code, the qudit counterpart of Steane's code.
+> paper are logical basis states of that code, the qudit counterpart of Steane's code. Its tenth addendum changes no result:
+> it updates the numbers of the revised paper quoted in `checks/`, the notes and this README to its restructured
+> version, which also adds a theorem on codes that are not stabilizer codes (proved in its Supplementary Note 10.7,
+> not in the notes; the CHANGELOG maps the numbers).
 > Release R37
 > is the archived version cited by the first version of the paper *Stabilizer entropy cones as self-dual slices of
 > linear rank cones: a five-party gap and dependence on the local dimension* (X. Song and R. Cao,

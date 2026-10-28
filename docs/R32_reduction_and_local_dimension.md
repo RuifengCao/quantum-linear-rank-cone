@@ -147,7 +147,7 @@ programming certificates, `data/s39_ideal_certificates.json`, and a normal form 
 `scripts/s39_ideal_schemes.py` and `checks/check_rev_qss.py`, part (k)). Proved; independent referee (agent); not yet
 checked by hand. R48 addendum 7 (2026-10-27): §4.21, Lemma 31a and Proposition 31: the kernel argument of Jafari and
 Khazaei for the Fano port holds in every abelian group of odd order (Lemma 31a, a seven-variable rank inequality that
-fails on the Fano configuration; the paper's Lemma 5), so every stabilizer scheme for Γ_F of odd local dimension, not
+fails on the Fano configuration; the paper's Lemma 3), so every stabilizer scheme for Γ_F of odd local dimension, not
 only squarefree, has Σ_{P∈L} S(P) ≥ 4 S(R), information ratio ≥ 4/3 and average share ≥ 4/3 of the secret; for
 stabilizer states I(R:T) and 2S(R) − I(R:T) are 0 or at least one bit, and approximate schemes lose at most (11/2)ε;
 counted in qudits, the bound 4/3 for Γ_F holds for Z_d qudits whenever d is not a power of 2, and that for Γ_NF
@@ -1054,7 +1054,7 @@ as an entropy vector (no closure).
 *Proof.* For a graph state of ℤ_d qudits, S(X) = log |W[Q_X, Q_{N∖X}] ℤ_d^{N∖X}| (paper, Appendix A 1). Write the
 block as U·D·V with U, V unimodular over ℤ and D = diag(1, …, 1, 0, …, 0) with κ·r(X) ones. U and V stay invertible
 mod d, so the image is isomorphic to ℤ_d^{κ r(X)}. ∎ (For prime d this is the argument of Theorem 7; for composite d
-it avoids Corollary 3 of the paper.)
+it avoids Corollary 2 of the revised paper, Corollary 3 of its first version.)
 
 *Result [certified: exact Smith forms by two independent methods, gates G36, G36b, G37; independent referee].*
 `data/s32_stab5_unimodular.npz` stores a unimodular realisation for **566 of the 641** known extreme-ray orbits
@@ -1079,8 +1079,8 @@ Stab^(ℤ_d)_5 for every d ≥ 2 (R38: 577; R39 added 2 unimodular and 57 covere
   computed exactly. For every prime p ∉ bad(W), W mod p realises κ·r over GF(p): a block of rational rank t keeps
   rank t mod p exactly when p does not divide its t-th determinantal divisor.
 * Suppose rational realisations W_1, …, W_m (of multiples of r) and realisations over GF(p_1), …, GF(p_l) satisfy
-  bad(W_1) ∩ … ∩ bad(W_m) ⊆ {p_1, …, p_l}. Then r ∈ Stab⁽ᵖ⁾_5 for every prime p. By Corollary 3 of the paper
-  (Stab⁽ᵖ⁾ ⊆ Stab^(ℤ_d) when p divides d), r ∈ Stab^(ℤ_d)_5 for every d. A unimodular realisation is the case
+  bad(W_1) ∩ … ∩ bad(W_m) ⊆ {p_1, …, p_l}. Then r ∈ Stab⁽ᵖ⁾_5 for every prime p. By Corollary 2 of the revised paper
+  (Corollary 3 of its first version; Stab⁽ᵖ⁾ ⊆ Stab^(ℤ_d) when p divides d), r ∈ Stab^(ℤ_d)_5 for every d. A unimodular realisation is the case
   bad(W) = ∅.
 * `data/s32_stab5_cover.npz` stores such certificates for the 75 rows that have no unimodular realisation here:
   125 rational realisations (3 of them at κ = 2), with their bad primes, and 74 realisations over
@@ -2528,7 +2528,7 @@ parties (not over all eight systems), as in step 2 of the proof of the sandwich 
 Σ_{i∈P} f(e_i) h(i | P ∖ i). r_F has no coloops, so f_bal(r_F) = f(r_F) = −1. As a form on the eight systems, f_bal
 is balanced (it vanishes on every modular unit, including that of the purifier, which it does not involve) and valid
 on the eight-variable cone of every odd d′ (restriction to the seven parties, then the balancing argument of the
-paper's Supplementary Note 1.7 on seven elements). So the paper's Corollary 2 excludes the state: f_bal(S) =
+paper's Supplementary Note 1.7 on seven elements). So the paper's Corollary 4 excludes the state: f_bal(S) =
 f_bal(S|_P) = f_bal(r_F) = −1. (Balancing over all eight systems instead gives +20 for (LB) and +7 for (LA) on these
 states, and no conclusion.) For 2: the same with (LA) with t = 2, which holds over
 GF(2) and fails by one unit on the non-Fano configuration. ∎
@@ -2695,7 +2695,7 @@ seven sub-schemes). Part (j): the finite check for n_j ≤ 6, the orbit counts, 
 
 **Proposition 30 [proved; Lemma 30a computer-assisted with exact certificates].** For Z_d qudits, Γ_F has an ideal
 stabilizer scheme (pure or mixed) if and only if d = 2, and Γ_NF has one if and only if d is odd. This is the paper's
-Proposition 4 (iv); it supersedes Proposition 24, which left open Γ_F with d = 2^a, a ≥ 2, and Γ_NF with 4 | d.
+Proposition 1 (iv); it supersedes Proposition 24, which left open Γ_F with d = 2^a, a ≥ 2, and Γ_NF with 4 | d.
 
 *Proof.* Let M be AG(3,2) for Γ_F and R8 for Γ_NF, so that Γ is the port of M at R (§4.15). Consider an ideal
 scheme, pure or mixed, and let the reference hold m qudits. Since R is maximally entangled with the secret,
@@ -2755,7 +2755,7 @@ RWXY.
 
 *Remarks.* For a = 1 the normal form is the binary cube code read on m copies. For Galois qudits the same dichotomy
 holds by characteristic: the bounds 4/3 of Proposition 21 extend to Galois qudits by restriction of scalars (the
-paper's Proposition 4 (i), (ii)), and the cube codes over GF(q) are ideal, with matroid AG(3,2) in characteristic 2 and
+paper's Proposition 1 (i), (ii)), and the cube codes over GF(q) are ideal, with matroid AG(3,2) in characteristic 2 and
 R8 otherwise [proved; not stated in the paper]. The proof uses no bound on non-ideal schemes: for Z_{2^a}, a ≥ 2, the optimal ratios of
 both structures, and for Z_{p^a}, p odd, a ≥ 2, that of Γ_F (in [4/3, 7/5] since R48 addendum 7, Proposition 31),
 remain open.
@@ -2794,7 +2794,7 @@ and hence, adding I(1:4) + I(2:5) + I(3:6) ≥ 0 (h(i|0,i+3) = h(i) − I(0:i,i+
 The same holds for subspaces of a vector space over a field of characteristic ≠ 2, with h the dimension. On the Fano
 configuration over GF(2) labelled so that 014, 025, 036, 234, 135, 126 and 456 are its lines (for instance
 T_0 = ⟨111⟩, T_1, T_2, T_3 = ⟨e_1⟩, ⟨e_2⟩, ⟨e_3⟩, T_4, T_5, T_6 = ⟨011⟩, ⟨101⟩, ⟨110⟩) the two sides of (*) are 1 and 0,
-and those of (**) are 3 and 4. (**) is the paper's Lemma 5; the proof of (*) is in its Supplementary Note 10.2.
+and those of (**) are 3 and 4. (**) is the paper's Lemma 3; the proof of (*) is in its Supplementary Note 10.2.
 Attribution: the argument is the kernel argument of Jafari and Khazaei for their Proposition 4.4 (II) (p-linear
 schemes, p odd), with quotients in place of complements, which need not exist in groups. Over finite fields of
 characteristic ≠ 2, Peña-Macías (Kybernetika 59 (2023), Cor. 2.7 with n = 3) proved characteristic-dependent rank
@@ -2834,7 +2834,7 @@ five qudits). The hypothesis "the secret consists of m qudits" (S(R) = m log d) 
 the factors can be balanced (as in the mixed-linear schemes of Jafari and Khazaei), and for d = 6 seven qubit cube
 states times the Z_3 scheme of Proposition 25, with two qutrits |0⟩ added to R, give a scheme for Γ_F with ratio
 7 log 6/(7 log 2 + 5 log 3) ≈ 1.212 < 4/3 [found and checked exactly by the third referee agent]. (i)–(v) are the paper's
-Proposition 4 (i)–(iii) and the paragraphs after it; (i) and (iv) supersede the
+Proposition 1 (i)–(iii) and its discussion (Sec. II D and Supplementary Note 10.3); (i) and (iv) supersede the
 restriction to odd squarefree d and the bound 43/41 of Proposition 21 (§4.15), which remain correct; the certificates
 of the 43/41 programs stay in the repository (G43, G43b).
 

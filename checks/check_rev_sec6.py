@@ -1,14 +1,14 @@
-"""Checks for the revised paper (2026-10), Sec. II D 5 and Supplementary Note 7: the form f_12 (Eq. (12)) and its
-expansion (Eq. (S9)), Proposition 2 and Theorem 5, Corollary 4, the form g_12 (Supplementary Note 7.2) and Theorem 6.
+"""Checks for the revised paper (2026-10), Methods Sec. IV E and Supplementary Note 7: the form f_12 (Eq. (11)) and its
+expansion (Eq. (S9)), Proposition 3 and Theorem 3, Corollary 3, the form g_12 (Supplementary Note 7.2) and Theorem 6.
 Independent of the repository code.
 
 Labels: A, B, C, W, X, Y, Z = 100, 010, 001, 110, 101, 011, 111; Z is the purifier.  A pure-symmetric vector S on the
 seven systems is a dict {frozenset: value} on all subsets, with S(empty) = S(all) = 0 and S(T) = S(complement).
 
 What is proved here exactly: the expansion of f_12 and of U_Z; the values on the Steane, non-Fano and seven-point
-states (from the codes, and against state vectors numerically); the Smith invariants used in Corollary 4; the values
+states (from the codes, and against state vectors numerically); the Smith invariants used in Corollary 3; the values
 of Theorem 6 and of g_12 (Supplementary Note 7.2).  What is only tested: f_12 >= 0 on random qubit stabilizer states
-and every step of the proof of Proposition 2 on them (Supplementary Lemmas 7.1-7.5, (LA), the assembly), and
+and every step of the proof of Proposition 3 on them (Supplementary Lemmas 7.1-7.5, (LA), the assembly), and
 f^(a) >= 0 on random Z_4 and Z_8 states.
 """
 import itertools, math, os, random, sys
@@ -43,7 +43,7 @@ def lines_through(P):
     return [l for l in LINES if P in l]
 
 
-# ------------------------------------------------------------------------------------- the form f_12, Eq. (12)
+# ------------------------------------------------------------------------------------- the form f_12, Eq. (11)
 def f12_parts(S):
     k = lambda T: sum(S[fs(P)] for P in T) - S[fs(T)]
     d = lambda P, l: k(l) - k(l.replace(P, ''))
@@ -83,7 +83,7 @@ EXPANSION = {'A': 3, 'B': 3, 'C': 3, 'W': -3, 'AB': -5, 'AC': -2, 'AW': -1, 'AX'
              'BCWXY': -1, 'ABCWXY': 2}
 coef = {T: f12(basis_vector(T)) for T in PARTY_SUBSETS}
 nz = {''.join(c for c in L7 if c in T): v for T, v in coef.items() if v != 0}
-report('expansion of f_12 (Eq. (12)) on the 63 party subsets equals Eq. (S9) term by term (%d terms)' % len(nz),
+report('expansion of f_12 (Eq. (11)) on the 63 party subsets equals Eq. (S9) term by term (%d terms)' % len(nz),
        nz == EXPANSION and len(nz) == 31)
 
 
@@ -232,7 +232,7 @@ report('seven-point states over Z_2, Z_3, Z_4, Z_6 from state vectors: entropies
        '(largest deviation %.1e bits)' % worst, worst < 1e-9)
 
 
-# ------------------------------------------------------------------------------------------- Corollary 4
+# ------------------------------------------------------------------------------------------- Corollary 3
 def det(m):
     m = [list(r) for r in m]
     n = len(m)
@@ -275,7 +275,7 @@ for dd in range(2, 33):
         F *= Sd[fs(T)] ** v
     if F != Fraction(math.gcd(dd, 2), dd):
         bad.append(dd)
-report('Corollary 4: 2^f_12(S^(d)) = gcd(d,2)/d exactly, i.e. f_12(S^(d)) = -log2(d/gcd(d,2)), for d = 2..32',
+report('Corollary 3: 2^f_12(S^(d)) = gcd(d,2)/d exactly, i.e. f_12(S^(d)) = -log2(d/gcd(d,2)), for d = 2..32',
        not bad, str(bad))
 
 S4 = {X: log2_exact(v) for X, v in css_orders(COLS, 4).items()}
@@ -406,7 +406,7 @@ report('f^(a) >= 0 on random Z_4 (a = 2) and Z_8 (a = 3) states: graph states, C
        all(v[1] >= 0 for v in res.values()) and all(v[2] < 0 for v in res.values()))
 
 
-# ------------------------------------------------------- the proof of Proposition 2 step by step (qubits; tests)
+# ------------------------------------------------------- the proof of Proposition 3 step by step (qubits; tests)
 XM = int('01' * 64, 2)       # x bits at even positions (bit 2q), z bits at odd positions (bit 2q + 1)
 
 
@@ -485,7 +485,7 @@ def chain_check(adj, owner):
 
 
 def chain_check_L(Lb, owner):
-    """runs every step of the proof of Proposition 2 on the stabilizer state with Lagrangian span(Lb) (qubit q owned by
+    """runs every step of the proof of Proposition 3 on the stabilizer state with Lagrangian span(Lb) (qubit q owned by
     owner[q]); entropies from S(X) = m_X - dim L_X (Lemma A.1). Returns the list of failed steps, or None if the
     state is not in normal form."""
     n = len(owner)
@@ -586,7 +586,7 @@ for m, nsamp in ((1, 300), (2, 200), (3, 40)):
         nst += 1
         for fl in fl_list:
             failed[fl] = failed.get(fl, 0) + 1
-report('proof of Proposition 2 step by step on %d random qubit graph states in normal form (1, 2 or 3 qubits per system): '
+report('proof of Proposition 3 step by step on %d random qubit graph states in normal form (1, 2 or 3 qubits per system): '
        'dim L_T = k(T), k_P(l), orthogonality, Lemmas 7.1-7.5 (7.5 built explicitly), (LA), the identity (S8), the '
        'bounds after it, f_12 >= 0' % nst, not failed, str(failed))
 
@@ -674,7 +674,7 @@ for trial in range(240):
     fvals.append(f12(S_))
     for fl in fl_list:
         failed2[fl] = failed2.get(fl, 0) + 1
-report('proof of Proposition 2 step by step on %d structured qubit states in normal form (Steane copies after random '
+report('proof of Proposition 3 step by step on %d structured qubit states in normal form (Steane copies after random '
        'local symplectic maps; perturbed one- and two-copy point codes): every step holds; f_12 = 0 on %d of them, '
        'minimum %d' % (nst2, fvals.count(0), min(fvals)), not failed2 and nst2 > 50 and min(fvals) >= 0, str(failed2))
 
@@ -722,7 +722,7 @@ def evalf(f, h):
 
 def balanced_value(f, h):
     """f_bal(h) = f(h) - sum_i f(1_i) (h(all) - h(all - i)), balanced over the seven elements (the parties), as in the
-    proof of Proposition 3 (Supplementary Note 8.1); balancing over all eight systems, as in the proof of Corollary 2,
+    proof of Proposition 4 (Supplementary Note 8.1); balancing over all eight systems, as in the proof of Corollary 4,
     would give +20 (LB) and +7 (LA) on the code states below."""
     return evalf(f, h) - sum(sum(c for X, c in f.items() if P in X) * (h[ALL] - h[ALL - fs(P)]) for P in L7)
 
@@ -734,7 +734,7 @@ report('(LB) with t = 2, balanced over the seven elements, is -1 on the Fano ran
        'balanced, is -1 on the non-Fano rank function over GF(3), GF(5), GF(7); each is >= 0 on the other one',
        balanced_value(LB2, rF) == -1 and all(balanced_value(LA2, rNF[p]) == -1 for p in rNF)
        and all(balanced_value(LB2, rNF[p]) >= 0 for p in rNF) and balanced_value(LA2, rF) >= 0)
-report('contrast (Proposition 1): on the Steane vector S_F itself the balanced (LB) with t = 2 is >= 0 (value %d), '
+report('contrast (Proposition 2): on the Steane vector S_F itself the balanced (LB) with t = 2 is >= 0 (value %d), '
        'and the balanced (LA) is >= 0 on S_NF (value %d)' % (balanced_value(LB2, S_F), balanced_value(LA2, SNF)),
        balanced_value(LB2, S_F) >= 0 and balanced_value(LA2, SNF) >= 0)
 rng_fam = random.Random(26)

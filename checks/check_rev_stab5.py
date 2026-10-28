@@ -1,4 +1,4 @@
-"""Revised paper, Sec. II C 3 and Supplementary Note 3.2: the 641 known orbits of extreme rays of Stab_5 lie in the
+"""Revised paper, Sec. II E and Supplementary Note 3.2: the 641 known orbits of extreme rays of Stab_5 lie in the
 stabilizer cone of every local dimension d, and 119 of the 747 single-CI inequality classes are facets of
 Stab^(d)_5 for every d.
 
@@ -19,7 +19,7 @@ Checks:
   (2) unimodular file: rational rank k*r(X) on all 31 cuts and no bad prime (566 rows; k = 1, 2, 3 for 515, 50, 1);
   (3) cover file: every rational piece has rational ranks k*r(X) and exactly the stored bad primes; every GF(p)
       piece has ranks k*r(X) modulo p; for each of the 75 rows the bad sets of its (one or more) rational pieces meet
-      in a set of primes covered by its GF pieces (so the row lies in Stab^(p)_5 for every prime p, hence, by Corollary 3, in
+      in a set of primes covered by its GF pieces (so the row lies in Stab^(p)_5 for every prime p, hence, by Corollary 2, in
       Stab^(d)_5 for every d); the 566 + 75 rows are disjoint and cover all 641;
   (4) every row has an explicit qubit realization and an explicit qutrit realization among these matrices;
   (5) facet count: the 760 entropy vectors of six-vertex 0/1 graph states over GF(2), which are also cut-rank vectors
@@ -324,7 +324,7 @@ for c in range(len(CL)):
 ok(len(facets) == 119, '%d of the 747 classes have 30 linearly independent pool vectors on their hyperplane, so they are '
                        'facets of Stab^(d)_5 for every d (expect 119)' % len(facets))
 
-# the class of the inequality (star) of Theorem 3 (transcribed from the paper) is one of them
+# the class of the inequality (star) of Theorem 9 (transcribed from the paper) is one of them
 STAR_L = {'BCD': 1, 'ABCD': 1, 'ABE': 1, 'BCE': 2, 'ADE': 2, 'CDE': 1}
 STAR_R = {'BC': 2, 'ABD': 1, 'ACD': 1, 'AE': 1, 'DE': 1, 'BCDE': 1, 'ABCDE': 1}
 star = [0] * 31

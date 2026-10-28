@@ -187,6 +187,32 @@
   `checks/references_log.md`: the five references added to the paper (Bombin and Martin-Delgado 2006; Landahl,
   Anderson and Rice 2011; Watson et al. 2015; Chan and Yeung 2002; Kalantari and Khazaei 2026). No result of earlier
   rounds, no data and no gate changed: `selftest.py --full` is unchanged (59 gate lines). VERSION stays R48.
+- **Addendum 10 (2026-10-28, the numbering of the restructured paper).** No result, data, gate or computation
+  changed. Before submission the revised paper was restructured: the Results now run Sec. II A (the dictionary), II B
+  (six parties: Steane's code and the seven-qudit color code), II C (divisibility), II D (secret sharing) and II E (four
+  and five parties); proof outlines moved to the Methods (Secs. IV A-H), and Table I moved to the Supplementary
+  Information (Table S6), and the figure of Steane's code and the color code now comes first (Figs. 1 and 2
+  exchanged). The paper also adds Theorem 7 (Supplementary Note 10.7): a quantum code, stabilizer or not, that encodes
+  one system of dimension D with the recovery pattern of Steane's code and one system of dimension D per site exists
+  if and only if D is a power of 2, and it is then, up to local unitaries, a stabilizer code of qudits whose
+  dimensions are powers of 2. Its proof is not computer-assisted except for the forcing lemma, whose certificates
+  `checks/check_rev_qss.py` verifies in part (k); it is not in the notes. A new part (o) of `checks/check_rev_qss.py`
+  recomputes the numbers of qudits of the codes for large secrets in Sec. II D (35 and 42 qutrits for secrets of four
+  and five qutrits, against at least 38 and 47 for stabilizer codes). Map from the numbering used by addenda 8 and 9 to
+  the new one: Theorems 2, 3, 4, 5, 6, 7, 8 -> 8, 9, 2, 3, 6, 5, 4 (Theorem 1
+  unchanged; Theorem 7 new); Corollaries 1, 2, 3, 4 -> 1, 4, 2, 3; Propositions 1, 2, 3, 4 -> 2, 3, 4, 1; Lemmas 1, 2,
+  5 -> 1, 2, 3, and Lemmas 3, 4 -> Supplementary Lemmas 10.1, 10.2; Supplementary Lemmas 10.1, 10.2 -> 10.3, 10.4;
+  Eq. (12) (f_12) -> Eq. (11); Table I -> Supplementary Table S6 (Tables S1-S5 unchanged); Sec. II B -> II A and IV A;
+  II C 1-3 -> II E and IV H; II D and II D 1 -> II B; II D 2-5 -> IV B-E; II E and II E 3 -> II C; II E 1 and II E 2
+  -> IV F; II F -> II D; the Z_6 example after Proposition 4 -> Supplementary Note 10.3; Figs. 1, 2 -> 2, 1. Updated:
+  `checks/README.md`;
+  the docstrings, comments and printed labels of `checks/check_rev_sec4.py`, `check_rev_stab5.py`, `check_rev_sec5.py`,
+  `check_rev_sec6.py`, `check_rev_qss.py` and `check_color_code.py`; `checks/references_log.md` (the places of the
+  citations, and the four references added to the paper: Hayden, Jozsa, Petz and Winter 2004; Knill 1996; Rather,
+  Ramadas, Kodiyalam and Lakshminarayan 2023; Matus 2012, Theorem 3); `docs/R32_reduction_and_local_dimension.md` (the
+  paper's Lemma 3, Proposition 1, Corollaries 2 and 4); `scripts/s39_ideal_schemes.py` (docstring); README (status).
+  The checks compute the same as before, and `check_rev_qss.py` also part (o): ALL OK on Python 3.12 and 3.13;
+  `s39 --verify` ALL OK; `selftest.py --full` is unchanged (59 gate lines). VERSION stays R48.
 - README (status: R37 is cited by arXiv v1, R48 by the revised version and its Table S3; §0 item), the round list
   of `docs/R32_reduction_and_local_dimension.md` (R48 paragraph), VERSION, CITATION.cff (version R48; the revised
   version). No code under `cc/` or `epr1kit/` and no gates changed (addendum 5 adds one script and one data file,

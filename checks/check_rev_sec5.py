@@ -1,5 +1,5 @@
-"""Checks for the revised paper (2026-10), Sec. II E and Supplementary Note 4: Supplementary Lemma 4.1 (the derived
-subgroup C), Theorem 7 from 2p + 2 parties for odd p, and Theorem 8 from 2 max(d, d') + 2 parties.  Independent of the
+"""Checks for the revised paper (2026-10), Sec. II C, Methods Sec. IV F and Supplementary Note 4: Supplementary Lemma 4.1 (the derived
+subgroup C), Theorem 5 from 2p + 2 parties for odd p, and Theorem 4 from 2 max(d, d') + 2 parties.  Independent of the
 repository code.
 
 Conventions.  A subgroup of Z_N^D is given by generator vectors (integers); its order is computed exactly from the
@@ -403,7 +403,7 @@ report('proof of Supplementary Lemma 4.1 step by step with C computed explicitly
        '%d arrangements): h(C) >= Lambda, gamma <= gamma*, eps_i = 0, delta_i <= delta*_i, the formula for eta_i, '
        'h(A_i cap C) <= theta_i' % nchk, not step_fail, str(step_fail))
 
-# ------------------------------------------------- (4) Theorem 7: doubled-code witnesses, entropies from codes
+# ------------------------------------------------- (4) Theorem 5: doubled-code witnesses, entropies from codes
 def css_entropy(code_rows, owner, nsys, N):
     """entropy vector (log2) of the CSS state of the code spanned by code_rows over Z_N, coordinates owned by
     systems 0..nsys-1: S(X) = r(X) + r(complement) - r(all), r(X) = log2 |projection to X| (Supplementary Lemma 1.5).
@@ -467,7 +467,7 @@ for (p, q, N), (vLB, vLA, same, nocoloop) in wit.items():
     exp_LB = Fraction(1, p) if N == p else Fraction(1)
     exp_LA = Fraction(1) if N == p else Fraction(1, q)
     good = good and same and nocoloop and vLB == exp_LB and vLA == exp_LA
-report('Theorem 7, n = 2p + 2: on the doubled-code states of [I | J - I] (entropies from the code [G | G]), (LB*) = '
+report('Theorem 5, n = 2p + 2: on the doubled-code states of [I | J - I] (entropies from the code [G | G]), (LB*) = '
        '-log p over GF(p) and 0 over GF(q), (LA*) = -log q over GF(q) and 0 over GF(p); S = r on parties; no coloops '
        '(p = 3, 5, 7 against several q)', good)
 
@@ -484,7 +484,7 @@ for t in (3, 5):
 report('balancing coefficients f(1_i) of (LB*) and (LA*) are nonnegative (t = 3, 5)', balok,
        't=3: LB* %s, LA* %s' % (bal[(3, 'LB*')], bal[(3, 'LA*')]))
 
-# ------------------------------------------------------------------ (5) Theorem 8: witnesses with 2 max + 2
+# ------------------------------------------------------------------ (5) Theorem 4: witnesses with 2 max + 2
 cases = []
 for d, dp in [(9, 3), (8, 4), (4, 6), (8, 6), (27, 9), (25, 5), (3, 2), (15, 4), (5, 4), (9, 6), (4, 2), (2, 3)]:
     assert dp % d != 0          # d does not divide d'
@@ -502,7 +502,7 @@ for d, dp in [(9, 3), (8, 4), (4, 6), (8, 6), (27, 9), (25, 5), (3, 2), (15, 4),
     elif j >= 1 and dp >= 3:
         t, N, form_kind = dp, p ** (j + 1), 'LA'
     else:
-        cases.append((d, dp, p, j, 'other witness (Theorem 4 or the Z_4 cube state)', None, None))
+        cases.append((d, dp, p, j, 'other witness (Theorem 2 or the Z_4 cube state)', None, None))
         continue
     M = t + 1
     LB, LA, L = lemma2_forms(M, [(i + 1) % M for i in range(M)])
@@ -564,9 +564,9 @@ v_gf2 = LB1.value(cube_state_pulled_back(2, 2))
 v_z4 = LA1.value(cube_state_pulled_back(2, 4))
 cases.append((2, 3, 2, 0, 'cube state over GF(2), pulled-back (LB) with t=2, 7 parties', v_gf2, Fraction(1, 4)))
 cases.append((4, 2, 2, 1, 'cube state over Z_4, pulled-back (LA) with t=2, 7 parties', v_z4, Fraction(1, 4)))
-cases = [c for c in cases if c[4] != 'other witness (Theorem 4 or the Z_4 cube state)']
+cases = [c for c in cases if c[4] != 'other witness (Theorem 2 or the Z_4 cube state)']
 good = all(c[5] == c[6] for c in cases)
-report('Theorem 8: the witnesses of the four cases take the value -log p (doubled codes, from the codes) or -2 bits '
+report('Theorem 4: the witnesses of the four cases take the value -log p (doubled codes, from the codes) or -2 bits '
        '(generalized cube states over GF(2) and Z_4, Lemma 1 pulled back), with at most 2 max(d,d\') + 2 parties', good,
        '; '.join('(%d,%d): %s' % (c[0], c[1], c[4]) for c in cases))
 
