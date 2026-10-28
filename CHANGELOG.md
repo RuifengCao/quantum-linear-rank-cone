@@ -151,6 +151,26 @@
   stabilizers are the simplex code [15,4], so that a logical basis state is the m = 4 state of R32 §4.18) and the new
   uses of Jafari and Khazaei 2021 and Peña-Macías 2023; Khazaei 2026 is now cited next to the comparison program. README (status and §0). No data or gates changed: `selftest.py --full` is unchanged
   (59 gate lines). VERSION stays R48.
+- **Addendum 8 (2026-10-27, the numbering of the submitted version).** No result, data, gate or computation changed.
+  The revised paper was submitted in a compressed form: theorem and corollary numbers are unchanged, but several
+  lemmas, propositions, remarks, tables, a figure and two subsections moved to the Supplementary Information, and the
+  other items were renumbered. The numbers quoted in `checks/README.md`, in the docstrings, comments and printed lines
+  of `checks/check_rev_sec5.py`, `checks/check_rev_sec6.py` and `checks/check_rev_qss.py`, in
+  `checks/references_log.md`, in `docs/R32_reduction_and_local_dimension.md`, in the docstring of
+  `scripts/s39_ideal_schemes.py` and in this README now follow the submitted version. The entries above for addenda
+  1-7 keep the numbers of the drafts of their time, which map as follows (draft -> submitted): Lemma 2 ->
+  Supplementary Lemma 6.1; Lemma 3 -> Supplementary Lemma 4.1; Lemmas 4, 5, 6, 7 -> Lemmas 2, 3, 4, 5; Proposition 2 ->
+  Supplementary Proposition 6.2; Propositions 3, 4 -> Propositions 2, 3; Proposition 5 -> Supplementary Proposition 8.2;
+  Proposition 6 -> Proposition 4; Remarks 1, 2, 4 -> Supplementary Notes 1.1, 7.2, 8.5; Remarks 3, 5 -> Remarks 1, 2;
+  Tables II, III -> Supplementary Tables S2, S3; Supplementary Tables S2, S3 -> S4, S5; Fig. 4 -> Supplementary
+  Fig. S1; Eqs. (9), (10) -> (S5), (S6); Eqs. (11)-(16) -> (9)-(14); Supplementary Eqs. (S5)-(S9) -> (S7)-(S11);
+  Supplementary Lemma 8.2 -> 8.3; Supplementary Notes 1.1-1.7 -> 1.2-1.8, 6.1-6.4 -> 6.2-6.5, 7.2-7.4 -> 7.3-7.5,
+  8.5 -> 8.6 and 11 -> 12 (new: 1.1 relation to earlier work, 6.1 the transfer lemma, 7.2 the form g_12, 8.5 the Z_4
+  cube state, 11 further discussion); Secs. II D 5 (faces) -> Supplementary Note 6.5, II D 6 -> II D 5, II E 2 (the
+  derived C) -> Supplementary Note 4.2, II E 3 -> II E 2 and II E 4 -> II E 3. Two references of `check_rev_sec5.py` to
+  the appendices of arXiv:2610.18905v1 (Lemmas A.5 and D.1) now name Supplementary Lemmas 1.5 and 8.1 of the revised
+  version. The three scripts run the same checks as before: ALL OK on Python 3.12 and 3.13 (9, 19 and 125 OK lines);
+  `selftest.py --full` is unchanged (59 gate lines). VERSION stays R48.
 - README (status: R37 is cited by arXiv v1, R48 by the revised version and its Table S3; §0 item), the round list
   of `docs/R32_reduction_and_local_dimension.md` (R48 paragraph), VERSION, CITATION.cff (version R48; the revised
   version). No code under `cc/` or `epr1kit/` and no gates changed (addendum 5 adds one script and one data file,

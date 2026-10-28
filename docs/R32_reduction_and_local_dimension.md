@@ -121,7 +121,7 @@ addenda: (★) and 118 further single-CI classes are facets of Stab^(Z_d)_5 for 
 Proved (Lemma 22; Proposition 23 for Γ_F); checked by computer (Proposition 23 for Γ_NF; the facet counts, by
 `checks/check_rev_sec4.py` and `checks/check_rev_stab5.py`, not by a gate); independent referee; not yet checked by
 hand. The revised version of the paper (October 2026) contains the results of R38–R40, R42–R44, R46 (§4.13), R47 and
-R48 and cites release R48; its Table S3 maps them to this note, to the A2 note, to the gates and to the scripts in
+R48 and cites release R48; its Supplementary Table S5 maps them to this note, to the A2 note, to the gates and to the scripts in
 `checks/`. The remarks "not in the paper" above refer to its first version. R48 addendum (same day): Proposition 24 in
 §4.17 (Γ_F has no ideal stabilizer scheme when d has an odd prime factor, Γ_NF none when d ≡ 2 mod 4), and an upper
 bound 1/12 for the distance of the Steane state from the cones of odd local dimension in §4.16 (checked by
@@ -147,7 +147,7 @@ programming certificates, `data/s39_ideal_certificates.json`, and a normal form 
 `scripts/s39_ideal_schemes.py` and `checks/check_rev_qss.py`, part (k)). Proved; independent referee (agent); not yet
 checked by hand. R48 addendum 7 (2026-10-27): §4.21, Lemma 31a and Proposition 31: the kernel argument of Jafari and
 Khazaei for the Fano port holds in every abelian group of odd order (Lemma 31a, a seven-variable rank inequality that
-fails on the Fano configuration; the paper's Lemma 7), so every stabilizer scheme for Γ_F of odd local dimension, not
+fails on the Fano configuration; the paper's Lemma 5), so every stabilizer scheme for Γ_F of odd local dimension, not
 only squarefree, has Σ_{P∈L} S(P) ≥ 4 S(R), information ratio ≥ 4/3 and average share ≥ 4/3 of the secret; for
 stabilizer states I(R:T) and 2S(R) − I(R:T) are 0 or at least one bit, and approximate schemes lose at most (11/2)ε;
 counted in qudits, the bound 4/3 for Γ_F holds for Z_d qudits whenever d is not a power of 2, and that for Γ_NF
@@ -2528,7 +2528,7 @@ parties (not over all eight systems), as in step 2 of the proof of the sandwich 
 Σ_{i∈P} f(e_i) h(i | P ∖ i). r_F has no coloops, so f_bal(r_F) = f(r_F) = −1. As a form on the eight systems, f_bal
 is balanced (it vanishes on every modular unit, including that of the purifier, which it does not involve) and valid
 on the eight-variable cone of every odd d′ (restriction to the seven parties, then the balancing argument of the
-paper's Supplementary Note 1.6 on seven elements). So the paper's Corollary 2 excludes the state: f_bal(S) =
+paper's Supplementary Note 1.7 on seven elements). So the paper's Corollary 2 excludes the state: f_bal(S) =
 f_bal(S|_P) = f_bal(r_F) = −1. (Balancing over all eight systems instead gives +20 for (LB) and +7 for (LA) on these
 states, and no conclusion.) For 2: the same with (LA) with t = 2, which holds over
 GF(2) and fails by one unit on the non-Fano configuration. ∎
@@ -2695,7 +2695,7 @@ seven sub-schemes). Part (j): the finite check for n_j ≤ 6, the orbit counts, 
 
 **Proposition 30 [proved; Lemma 30a computer-assisted with exact certificates].** For Z_d qudits, Γ_F has an ideal
 stabilizer scheme (pure or mixed) if and only if d = 2, and Γ_NF has one if and only if d is odd. This is the paper's
-Proposition 6 (iv); it supersedes Proposition 24, which left open Γ_F with d = 2^a, a ≥ 2, and Γ_NF with 4 | d.
+Proposition 4 (iv); it supersedes Proposition 24, which left open Γ_F with d = 2^a, a ≥ 2, and Γ_NF with 4 | d.
 
 *Proof.* Let M be AG(3,2) for Γ_F and R8 for Γ_NF, so that Γ is the port of M at R (§4.15). Consider an ideal
 scheme, pure or mixed, and let the reference hold m qudits. Since R is maximally entangled with the secret,
@@ -2755,7 +2755,7 @@ RWXY.
 
 *Remarks.* For a = 1 the normal form is the binary cube code read on m copies. For Galois qudits the same dichotomy
 holds by characteristic: the bounds 4/3 of Proposition 21 extend to Galois qudits by restriction of scalars (the
-paper's Proposition 6 (i), (ii)), and the cube codes over GF(q) are ideal, with matroid AG(3,2) in characteristic 2 and
+paper's Proposition 4 (i), (ii)), and the cube codes over GF(q) are ideal, with matroid AG(3,2) in characteristic 2 and
 R8 otherwise [proved; not stated in the paper]. The proof uses no bound on non-ideal schemes: for Z_{2^a}, a ≥ 2, the optimal ratios of
 both structures, and for Z_{p^a}, p odd, a ≥ 2, that of Γ_F (in [4/3, 7/5] since R48 addendum 7, Proposition 31),
 remain open.
@@ -2794,7 +2794,7 @@ and hence, adding I(1:4) + I(2:5) + I(3:6) ≥ 0 (h(i|0,i+3) = h(i) − I(0:i,i+
 The same holds for subspaces of a vector space over a field of characteristic ≠ 2, with h the dimension. On the Fano
 configuration over GF(2) labelled so that 014, 025, 036, 234, 135, 126 and 456 are its lines (for instance
 T_0 = ⟨111⟩, T_1, T_2, T_3 = ⟨e_1⟩, ⟨e_2⟩, ⟨e_3⟩, T_4, T_5, T_6 = ⟨011⟩, ⟨101⟩, ⟨110⟩) the two sides of (*) are 1 and 0,
-and those of (**) are 3 and 4. (**) is the paper's Lemma 7; the proof of (*) is in its Supplementary Note 10.2.
+and those of (**) are 3 and 4. (**) is the paper's Lemma 5; the proof of (*) is in its Supplementary Note 10.2.
 Attribution: the argument is the kernel argument of Jafari and Khazaei for their Proposition 4.4 (II) (p-linear
 schemes, p odd), with quotients in place of complements, which need not exist in groups. Over finite fields of
 characteristic ≠ 2, Peña-Macías (Kybernetika 59 (2023), Cor. 2.7 with n = 3) proved characteristic-dependent rank
@@ -2834,7 +2834,7 @@ five qudits). The hypothesis "the secret consists of m qudits" (S(R) = m log d) 
 the factors can be balanced (as in the mixed-linear schemes of Jafari and Khazaei), and for d = 6 seven qubit cube
 states times the Z_3 scheme of Proposition 25, with two qutrits |0⟩ added to R, give a scheme for Γ_F with ratio
 7 log 6/(7 log 2 + 5 log 3) ≈ 1.212 < 4/3 [found and checked exactly by the third referee agent]. (i)–(v) are the paper's
-Proposition 6 (i)–(iii) and the paragraphs after it; (i) and (iv) supersede the
+Proposition 4 (i)–(iii) and the paragraphs after it; (i) and (iv) supersede the
 restriction to odd squarefree d and the bound 43/41 of Proposition 21 (§4.15), which remain correct; the certificates
 of the 43/41 programs stay in the repository (G43, G43b).
 
@@ -2940,8 +2940,8 @@ Jafari and Khazaei's Prop. 2.3 gives the subgroup-sum form of abelian random var
 mentioned only next to the comparison program (paper, Supplementary Note 10.4). It read the Bravyi–Kitaev code: the
 m = 4 state is a logical basis state of the 15-qubit code (the −1 eigenstate of their logical Z, by their sign
 convention). Its uncertified linear programs (not in the repository) suggest that (**) does not follow from the
-Shannon inequalities and the four odd-characteristic inequalities of the paper's Table III in all labellings, and that
-these give only about 1.0455 for the Fano port F. (iv) and (v) were added after this review.
+Shannon inequalities and the four odd-characteristic inequalities of the paper's Supplementary Table S3 in all
+labellings, and that these give only about 1.0455 for the Fano port F. (iv) and (v) were added after this review.
 
 *Referee (third agent, 2026-10-27, (iv), (v), remark (6) and part (n)).* Every step of (iv) and (v) is correct with the
 hypothesis that the secret consists of m whole qudits: the Sylow decomposition of L, the tensor-product structure

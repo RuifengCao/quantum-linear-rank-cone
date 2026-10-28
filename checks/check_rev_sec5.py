@@ -1,13 +1,14 @@
-"""Checks for the revised paper (2026-10), Sec. II E and Supplementary Note 4: Lemma 3 (the derived subgroup C), Theorem 7 from
-2p + 2 parties for odd p, and Theorem 8 from 2 max(d, d') + 2 parties.  Independent of the repository code.
+"""Checks for the revised paper (2026-10), Sec. II E and Supplementary Note 4: Supplementary Lemma 4.1 (the derived
+subgroup C), Theorem 7 from 2p + 2 parties for odd p, and Theorem 8 from 2 max(d, d') + 2 parties.  Independent of the
+repository code.
 
 Conventions.  A subgroup of Z_N^D is given by generator vectors (integers); its order is computed exactly from the
 lattice spanned by the generators and N Z^D.  For a prime N this is a subspace of GF(N)^D.  The rank function is
 h(X) = log2 |sum of the subgroups in X|; a linear form with integer coefficients is evaluated exactly as the rational
 number 2^value = prod |.|^coefficient.
 
-Variables of Lemma 3: A_1..A_M are 0..M-1 and B_1..B_M are M..2M-1; the lower bound Lambda for h(C) is called L in the
-code, and gamma* is kappa (as in the R32 note).  The configuration (7) without C:
+Variables of Supplementary Lemma 4.1: A_1..A_M are 0..M-1 and B_1..B_M are M..2M-1; the lower bound Lambda for h(C)
+is called L in the code, and gamma* is kappa (as in the R32 note).  The configuration (7) without C:
 A_i = <e_i>, B_i = <c - e_i> in R^M, R = GF(l) or Z_N.
 """
 import itertools, math, os, random, sys
@@ -130,7 +131,7 @@ def mi(X, Y, Z=()):      # I(X; Y | Z)
 
 
 def lemma2_forms(M, jmap):
-    """the forms (LB*) and (LA*) of Lemma 3 as right-hand side minus left-hand side (>= 0 when valid)."""
+    """the forms (LB*) and (LA*) of Supplementary Lemma 4.1 as right-hand side minus left-hand side (>= 0 when valid)."""
     A = list(range(M))
     B = list(range(M, 2 * M))
     P = lambda m: {A[m], B[m]}
@@ -194,8 +195,8 @@ for t in range(3, 9):
             eLA = Fraction(1) if t % l == 0 else Fraction(1, l)
             if (vLB, vLA, vL) != (eLB, eLA, Fraction(l)):
                 bad.append((t, l, jm, vLB, vLA, vL))
-report('Lemma 3 on (7) over GF(l), l in %s, t = 3..8, four choices of j(.) each: (LB*) = -[l|t], (LA*) = -[l does '
-       'not divide t], Lambda = 1 (units of log l)' % PRIMES, not bad, str(bad[:3]))
+report('Supplementary Lemma 4.1 on (7) over GF(l), l in %s, t = 3..8, four choices of j(.) each: (LB*) = -[l|t], '
+       '(LA*) = -[l does not divide t], Lambda = 1 (units of log l)' % PRIMES, not bad, str(bad[:3]))
 
 bad = []
 for t in range(3, 9):
@@ -207,7 +208,7 @@ for t in range(3, 9):
             g = math.gcd(t, N)
             if (LB.value(arr), LA.value(arr), L.value(arr)) != (Fraction(1, g), Fraction(g, N), Fraction(N)):
                 bad.append((t, N, jm))
-report('Lemma 3 on (7) over Z_N, N in {4,6,8,9,12,18,25,27}, t = 3..8, three choices of j(.) each: '
+report('Supplementary Lemma 4.1 on (7) over Z_N, N in {4,6,8,9,12,18,25,27}, t = 3..8, three choices of j(.) each: '
        '(LB*) = -log gcd(t,N), (LA*) = -log(N/gcd(t,N)), Lambda = log N', not bad, str(bad[:3]))
 
 bad = []
@@ -257,8 +258,9 @@ for t, N, kind in [(3, 2, 'LB'), (3, 5, 'LB'), (3, 4, 'LB'), (3, 3, 'LA'), (6, 6
             nv += 1
     counts[(t, N, kind)] = n
     viol[(t, N, kind)] = nv
-report('Lemma 3, random and perturbed arrangements where the hypothesis holds (13 cases, %d arrangements): no '
-       'violation' % sum(counts.values()), all(v == 0 for v in viol.values()), str({k: v for k, v in viol.items() if v}))
+report('Supplementary Lemma 4.1, random and perturbed arrangements where the hypothesis holds (13 cases, %d '
+       'arrangements): no violation' % sum(counts.values()), all(v == 0 for v in viol.values()),
+       str({k: v for k, v in viol.items() if v}))
 
 # control: the same tests find violations when the hypothesis fails (the configuration (7) in the other characteristic)
 ctrl = {}
@@ -397,14 +399,14 @@ for p in [2, 3, 5]:
                     fails.append('step5b')
             for f in fails:
                 step_fail[f] = step_fail.get(f, 0) + 1
-report('proof of Lemma 3 step by step with C computed explicitly (GF(2), GF(3), GF(5); t = 3, 4; %d arrangements): '
-       'h(C) >= Lambda, gamma <= gamma*, eps_i = 0, delta_i <= delta*_i, the formula for eta_i, h(A_i cap C) <= theta_i'
-       % nchk, not step_fail, str(step_fail))
+report('proof of Supplementary Lemma 4.1 step by step with C computed explicitly (GF(2), GF(3), GF(5); t = 3, 4; '
+       '%d arrangements): h(C) >= Lambda, gamma <= gamma*, eps_i = 0, delta_i <= delta*_i, the formula for eta_i, '
+       'h(A_i cap C) <= theta_i' % nchk, not step_fail, str(step_fail))
 
 # ------------------------------------------------- (4) Theorem 7: doubled-code witnesses, entropies from codes
 def css_entropy(code_rows, owner, nsys, N):
     """entropy vector (log2) of the CSS state of the code spanned by code_rows over Z_N, coordinates owned by
-    systems 0..nsys-1: S(X) = r(X) + r(complement) - r(all), r(X) = log2 |projection to X| (Lemma A.5).
+    systems 0..nsys-1: S(X) = r(X) + r(complement) - r(all), r(X) = log2 |projection to X| (Supplementary Lemma 1.5).
     Returned as a function on frozensets of systems, with exact integer orders."""
     D = len(code_rows[0])
     k = len(code_rows)
@@ -451,7 +453,8 @@ for p, q in [(3, 2), (3, 5), (3, 7), (5, 2), (5, 3), (5, 7), (7, 3)]:
     for N in (p, q):
         rows, owner = doubled_code_T(M, N)
         S = css_entropy(rows, owner, 2 * M + 1, N)
-        # Lemma D.1: S(X) = r(X) for sets of parties; check on all parties and on each single party and its complement
+        # Supplementary Lemma 8.1: S(X) = r(X) for sets of parties; check on all parties and on each single party and
+        # its complement
         st = FromState(S)
         arr = config_T(M, N)
         same = all(S(X) == arr.order(X) for X in [frozenset(range(2 * M))] + [frozenset({i}) for i in range(2 * M)] +

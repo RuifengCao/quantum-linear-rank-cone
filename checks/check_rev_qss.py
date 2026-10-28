@@ -45,12 +45,12 @@ What is checked:
  (g) an upper bound on the distance of the Steane state from the cones of odd local dimension (Methods): the non-Fano
      vector relabeled by the 168 collineations of the Fano plane gives S_F plus 1 on a line and its complement, and
      (5/36) times the sum over the 7 lines lies within 1/12 of S_F in every entropy (exact fractions).
- (h) the scheme with information ratio 7/5 for Gamma_F of Proposition 6 (iii) (R32 Proposition 25, R48 addendum 2), a
+ (h) the scheme with information ratio 7/5 for Gamma_F of Proposition 4 (iii) (R32 Proposition 25, R48 addendum 2), a
      (lambda, omega) = (6, 1) decomposition in the sense of van Dijk, Jackson and Martin: seven cube schemes over Z_d,
      relabeled by collineations that map WXY to the seven lines, share the coordinates of a codeword of the zero-sum
      code; for d = 3, 5, 7, 9, 11, 13, 15, 21, 25, 27, 45, all 128 player sets (orders of projections computed exactly)
      and the CSS state; negative control without the uniform coefficient zeta.
- (i) the scheme with information ratio 7/5 for Gamma_NF, qubits and characteristic 2 (Proposition 6 (iii); R32 Lemma 27
+ (i) the scheme with information ratio 7/5 for Gamma_NF, qubits and characteristic 2 (Proposition 4 (iii); R32 Lemma 27
      and Proposition 28, R48 addendum 3): the access structures Gamma^S, in which the lines in S and their complements
      exchange their status (Gamma^{} = Gamma_F, Gamma^{WXY} = Gamma_NF); the GF(4) code obtained from the binary cube
      code by changing two entries to alpha, its port Gamma^{WXY,ACX} and its matroid (AG(3,2) with four
@@ -61,7 +61,7 @@ What is checked:
  (j) the finite part of the bound for decompositions of Gamma_F into ideal schemes of odd characteristic (R32
      Proposition 29): for supports of at most six players, a_j - c_j <= 4, 2, 1, 1, 0, 0; the orbit counts used for
      full supports; the bound is attained by the sub-schemes of (h).
- (k) ideal schemes (Proposition 6 (iv); R32 Proposition 30, R48 addendum 5): the 2 x 2 x 255 certificates of the
+ (k) ideal schemes (Proposition 4 (iv); R32 Proposition 30, R48 addendum 5): the 2 x 2 x 255 certificates of the
      forcing lemma (a polymatroid g on R and the seven players with g(R) = g(P) = 1 and the access equalities of
      Gamma_F, resp. Gamma_NF, equals the rank function of AG(3,2), resp. R8): every row rebuilt from its descriptor
      and checked to be admissible, every identity checked in exact arithmetic, the rank function a feasible point,
@@ -73,10 +73,10 @@ What is checked:
      E) exactly when E contains no line of the Fano plane, exactly when E is unauthorized for Gamma_F of (k); the
      correctable sets by size are 1, 7, 21, 28, 7, so 35 of them (the 28 triples that are not lines and the 7
      complements of lines) lie beyond the distance 3; every point lies on three lines, so summing the line
-     inequalities of Proposition 6 (i) gives sum_P S(P) >= (28/3) S(R), and a five-qudit secret needs a share of at
+     inequalities of Proposition 4 (i) gives sum_P S(P) >= (28/3) S(R), and a five-qudit secret needs a share of at
      least ceil(20/3) = 7 qudits, as in the schemes of (h).
- (m) Lemma 7 (Fano lines in groups of odd order; R32 Proposition 31, R48 addendum 7) and the bound 4/3 of
-     Proposition 6 (i) for every odd local dimension: the 26-term form built from the statement; on the Fano
+ (m) Lemma 5 (Fano lines in groups of odd order; R32 Proposition 31, R48 addendum 7) and the bound 4/3 of
+     Proposition 4 (i) for every odd local dimension: the 26-term form built from the statement; on the Fano
      configuration in the labeling of the lemma (lines 014, 025, 036, 234, 135, 126, 456) the left side is 3 and the
      right side 4; the same vectors over GF(3), GF(5), GF(7) satisfy it in all 5040 labelings; tests on random and
      perturbed arrangements over GF(3), GF(5), Z_9, Z_25, Z_27 (>= 0) and Z_4 (< 0); the incidences used in the proof
@@ -84,16 +84,16 @@ What is checked:
      lemma; the constant 11/2 for approximate schemes; the labels for the Fano port
      F of Jafari-Khazaei (classical abelian schemes) and the transitivity of its automorphisms on its four triples; an
      integer polymatroid on which the Shannon inequalities, all Ingleton instances and the four odd-characteristic
-     forms of Supplementary Table S2 hold in all labelings, but the form of Lemma 7 is -37; and one that satisfies
+     forms of Supplementary Table S4 hold in all labelings, but the form of Lemma 5 is -37; and one that satisfies
      them and the access equations of the Fano port F with information ratio 23/22.
- (n) the schemes of Proposition 6 (iii) for Z_d qudits with d = 2r, r odd (R32 Proposition 31 (v), R48 addendum 7):
+ (n) the schemes of Proposition 4 (iii) for Z_d qudits with d = 2r, r odd (R32 Proposition 31 (v), R48 addendum 7):
      the code over Z_d whose reduction modulo 2 is five binary cube codes (two vanishing coordinates added per player)
      and modulo r the code of (h) is a scheme for Gamma_F, and the code whose reduction modulo 2 is the binary code of
      (i) and modulo r ten cube codes (four vanishing coordinates added per player) is a scheme for Gamma_NF, both with
      ratio 7/5, for d = 6, 10, 18, 30 (all 128 player sets, orders of projections computed exactly, and the CSS states);
-     two negative controls; and, for the paragraph after Proposition 6, the scheme over Z_6 for Gamma_F with a secret of
+     two negative controls; and, for the paragraph after Proposition 4, the scheme over Z_6 for Gamma_F with a secret of
      dimension 2^7 3^5 (not a whole number of qudits) and information ratio 7 log 6/(7 log 2 + 5 log 3) < 4/3.
-The validity of Lemma 1 and of the results of Jafari-Khazaei is an input; it is only tested here. Lemma 7 is proved in
+The validity of Lemma 1 and of the results of Jafari-Khazaei is an input; it is only tested here. Lemma 5 is proved in
 the paper (Supplementary Note 10.2); it is only tested here.
 """
 import itertools, json, math, os, random, sys
@@ -1239,7 +1239,7 @@ report('within the family c * (1/7) * sum, the coefficient c = 35/36 (that is, 5
 
 
 # ============================================================================== (h) a scheme with information ratio 7/5
-print('(h) a scheme with information ratio 7/5 for Gamma_F and every odd d (Proposition 6 (iii))')
+print('(h) a scheme with information ratio 7/5 for Gamma_F and every odd d (Proposition 4 (iii))')
 SIG_L = {l: next(c for c in COLL if {c[P] for P in 'WXY'} == set(l)) for l in LINES7}
 report('for each of the 7 lines l a collineation sigma_l with sigma_l(WXY) = l',
        all(''.join(sorted(SIG_L[l][P] for P in 'WXY')) == ''.join(sorted(l)) for l in LINES7))
@@ -1313,7 +1313,7 @@ report('negative control: without zeta (s = the five secret coordinates only) th
        '(a line complement learns one coordinate of the secret)', not acc_bad)
 
 # ============================================================================ (i) ratio 7/5 for Gamma_NF and qubits
-print('(i) a scheme with information ratio 7/5 for Gamma_NF, qubits and characteristic 2 (Proposition 6 (iii))')
+print('(i) a scheme with information ratio 7/5 for Gamma_NF, qubits and characteristic 2 (Proposition 4 (iii))')
 # GF(4) = {0, 1, 2, 3} with 2 = alpha, 3 = alpha^2 = alpha + 1; addition is XOR.
 G4_EXP = [1, 2, 3]
 G4_LOG = {1: 0, 2: 1, 3: 2}
@@ -1570,8 +1570,8 @@ b48 = sum(pr48[c] for c in CM7)
 report('the bound is attained: the cube code over GF(3) (a sub-scheme of the scheme of (h)) has n = 7, a = 6, c = 1, '
        'so 5 n = 35 = 7 (a - c)', a48 == 6 and b48 == 1)
 
-# ============================================================================ (k) ideal schemes (Proposition 6 (iv))
-print('(k) ideal schemes (Proposition 6 (iv)): forcing of the lift and the normal form over Z_{2^a}')
+# ============================================================================ (k) ideal schemes (Proposition 4 (iv))
+print('(k) ideal schemes (Proposition 4 (iv)): forcing of the lift and the normal form over Z_{2^a}')
 # Data: data/s39_ideal_certificates.json, for 'F' (Gamma_F, matroid AG(3,2)) and 'NF' (Gamma_NF, matroid R8), and for
 # every nonempty set X of the eight elements (mask, players bits 0..6 in the order A,B,C,W,X,Y,Z, R = bit 7) a 'lower'
 # and an 'upper' certificate {'ineq': [[descriptor, y], ...], 'eq': [[descriptor, z], ...]} with rational y, z.
@@ -1740,14 +1740,14 @@ report('correctable erasures by size 0..7: %s; the %d of size 3 or 4 (beyond the
        and all(E not in line_masks for E in beyond if popcount(E) == 3))
 on_lines = [sum(1 for lm in line_masks if lm >> i & 1) for i in range(7)]
 coef = Fraction(7 * 4, on_lines[0])
-report('every point lies on %s lines, so the seven line inequalities of Proposition 6 (i), sum_{P in l} S(P) >= 4 S(R), '
+report('every point lies on %s lines, so the seven line inequalities of Proposition 4 (i), sum_{P in l} S(P) >= 4 S(R), '
        'add up to sum_P S(P) >= %s S(R) (average share >= %s S(R)); a five-qudit secret needs a share of at least %d '
        'qudits' % (on_lines[0], coef, coef / 7, math.ceil(Fraction(20, 3))),
        on_lines == [3] * 7 and coef == Fraction(28, 3) and coef / 7 == Fraction(4, 3) and math.ceil(Fraction(20, 3)) == 7)
 
 # ----------------------------------------------------------------------------------------------------------------------
-print('(m) Lemma 7 (Fano lines in groups of odd order) and the bound 4/3 for every odd local dimension (Sec. II F)')
-# The form of Lemma 7 on the variables T_0, ..., T_6 = bits 0..6, built from its definition:
+print('(m) Lemma 5 (Fano lines in groups of odd order) and the bound 4/3 for every odd local dimension (Sec. II F)')
+# The form of Lemma 5 on the variables T_0, ..., T_6 = bits 0..6, built from its definition:
 #   g = h(1)+h(2)+h(3) - [I(0;123)+I(0;14)+I(0;25)+I(0;36)] + [I(0;4)+I(0;5)+I(0;6)]
 #       + [I(0;234)+I(0;135)+I(0;126)+I(0;456)] >= 0,   I(0;X) = h(0)+h(X)-h(0X).
 L7F = {}
@@ -1774,7 +1774,7 @@ for i in (1, 2, 3):
 for SS in ((2, 3, 4), (1, 3, 5), (1, 2, 6), (4, 5, 6)):
     _I0(L7F, _b(*SS), 1)
 FV7 = form_vector(L7F)
-# the Fano configuration in the labeling of Lemma 7: lines 014, 025, 036, 234, 135, 126, 456
+# the Fano configuration in the labeling of Lemma 5: lines 014, 025, 036, 234, 135, 126, 456
 FCONF = [(1, 1, 1), (1, 0, 0), (0, 1, 0), (0, 0, 1), (0, 1, 1), (1, 0, 1), (1, 1, 0)]
 lines_lab = [(0, 1, 4), (0, 2, 5), (0, 3, 6), (2, 3, 4), (1, 3, 5), (1, 2, 6), (4, 5, 6)]
 rF7 = rank_function(FCONF, 2)
@@ -1784,7 +1784,7 @@ lhs = rF7[_b(1)] + rF7[_b(2)] + rF7[_b(3)]
 i0 = lambda h, X: h[1] + h[X] - h[X | 1]
 rhs = (i0(rF7, _b(1, 2, 3)) + i0(rF7, _b(1, 4)) + i0(rF7, _b(2, 5)) + i0(rF7, _b(3, 6)) - i0(rF7, _b(4)) - i0(rF7, _b(5))
        - i0(rF7, _b(6)) - i0(rF7, _b(2, 3, 4)) - i0(rF7, _b(1, 3, 5)) - i0(rF7, _b(1, 2, 6)) - i0(rF7, _b(4, 5, 6)))
-report('the form of Lemma 7 has %d terms; the configuration (1,1,1), e_1, e_2, e_3, e_2+e_3, e_1+e_3, e_1+e_2 over '
+report('the form of Lemma 5 has %d terms; the configuration (1,1,1), e_1, e_2, e_3, e_2+e_3, e_1+e_3, e_1+e_2 over '
        'GF(2) has exactly the seven lines 014, 025, 036, 234, 135, 126, 456 (the Fano plane); there the left side is %d '
        'and the right side %d, so the form equals %d' % (len(L7F), lhs, rhs, ev(L7F, rF7)),
        lines_ok and lhs == 3 and rhs == 4 and ev(L7F, rF7) == -1)
@@ -1811,7 +1811,7 @@ report('test (the lemma is proved by hand): the form is >= 0 in all 5040 labelin
        '>= 0 over Z_9 and negative over Z_4',
        all(v >= 0 for v in tests7.values()) and ev(L7F, z9) >= 0 and ev(L7F, z4) < 0,
        'minima %s; configuration: Z_9 %d, Z_4 %d (units of log 3, log 2)' % (tests7, ev(L7F, z9), ev(L7F, z4)))
-# the incidences used in the proof of Proposition 6 (i), for all 28 pairs (line, point off the line)
+# the incidences used in the proof of Proposition 4 (i), for all 28 pairs (line, point off the line)
 inc_ok, npairs = True, 0
 for lm in [mask(l) for l in LINES7]:
     for qi in range(7):
@@ -1836,7 +1836,7 @@ report('for all %d pairs (line l, player q not on l) and every order of the poin
        % npairs, npairs == 28 and inc_ok)
 # the stronger form proved in Supplementary Note 10.2:
 #   I(0;123) <= h(1|04) + h(2|05) + h(3|06) + I(0;234) + I(0;135) + I(0;126) + I(0;456);
-# the form of Lemma 7 equals this one plus I(1;4) + I(2;5) + I(3;6) (an identity of linear forms)
+# the form of Lemma 5 equals this one plus I(1;4) + I(2;5) + I(3;6) (an identity of linear forms)
 STRONG = {}
 _I0(STRONG, _b(1, 2, 3), -1)
 for i in (1, 2, 3):
@@ -1849,23 +1849,23 @@ for i in (1, 2, 3):
 comb = dict(STRONG)
 for m, c in SUM_I.items():
     _add(comb, m, c)
-report('the stronger form of Supplementary Note 10.2 (%d terms) plus I(1;4) + I(2;5) + I(3;6) is the form of Lemma 7, '
+report('the stronger form of Supplementary Note 10.2 (%d terms) plus I(1;4) + I(2;5) + I(3;6) is the form of Lemma 5, '
        'term by term; on the Fano configuration its left side is 1 and its right side 0 (value -1); on the odd-'
        'characteristic configuration and on the random and perturbed arrangements above it is >= 0'
        % len(STRONG),
        comb == L7F and ev(STRONG, rF7) == -1 and all(int((np.array(rank_function(FCONF, q), dtype=np.int64)[PMAP]
                                                           @ form_vector(STRONG)).min()) >= 0 for q in (3, 5, 7))
        and all(int((a[PMAP] @ form_vector(STRONG)).min()) >= 0 for a in ARR7))
-# the constant 11/2 for approximate schemes: on the contraction by q the right side of Lemma 7 is
+# the constant 11/2 for approximate schemes: on the contraction by q the right side of Lemma 5 is
 # sum over the four positive sets of I(R;X'q) - sum over the seven negative sets + 3 I(R;q)
 s_, e_ = Fraction(1), Fraction(1)
 worst_rhs = 4 * (2 * s_ - e_) - 7 * e_ + 3 * 0
-report('approximate schemes: the right side of Lemma 7 on the contraction by q is the sum of I(R;X\'q) over the four '
+report('approximate schemes: the right side of Lemma 5 on the contraction by q is the sum of I(R;X\'q) over the four '
        'positive sets minus the sum over the seven negative sets plus 3 I(R;q); with the first >= 2S(R) - eps, the '
        'second <= eps and I(R;q) >= 0 it is >= 8 S(R) - 11 eps, so sum_{P in l} S(P) >= 4 S(R) - (11/2) eps',
        worst_rhs == 8 * s_ - 11 * e_ and (8 * s_ - 11 * e_) / 2 == 4 * s_ - Fraction(11, 2) * e_
        and sum(1 for X in ((1, 2, 3), (1, 4), (2, 5), (3, 6))) == 4 and 7 - 4 == 3)
-# classical abelian schemes for the Fano port F of Jafari-Khazaei: the labels of Lemma 7 for the triple 123
+# classical abelian schemes for the Fano port F of Jafari-Khazaei: the labels of Lemma 5 for the triple 123
 F6set = closure6(JK_F)
 mk6 = lambda ii: sum(1 << (i - 1) for i in ii)
 labels_ok = all(mk6(X) in F6set for X in ((1, 2, 3), (1, 4), (2, 5), (3, 6))) and \
@@ -1880,11 +1880,11 @@ report('the Fano port F = 14+25+36+123+156+246+345: for the triple 123 the sets 
        'lies in two of them, so the four triple inequalities give an average share >= 4/3' % len(autF),
        labels_ok and orbit == set(triples) and cover == [2] * 6)
 
-# Lemma 7 is not a consequence of the known odd-characteristic seven-variable inequalities (Supplementary Note 10.4):
+# Lemma 5 is not a consequence of the known odd-characteristic seven-variable inequalities (Supplementary Note 10.4):
 # an integer polymatroid W on seven elements (bit i <-> 'ABCWXYZ'[i], W(N) = 120) satisfies the elemental Shannon
 # inequalities, all Ingleton instances I(A;B|K) <= I(A;B|CK) + I(A;B|DK) + I(C;D|K) on disjoint sets and the forms
-# (65), (6.17) corrected, (b) (times 3) and LB of Supplementary Table S2 in all 5040 labelings, while the form of
-# Lemma 7, with T_0, ..., T_6 = bits 0..6, takes the value -37 on it.  The coefficients below are transcribed from that
+# (65), (6.17) corrected, (b) (times 3) and LB of Supplementary Table S4 in all 5040 labelings, while the form of
+# Lemma 5, with T_0, ..., T_6 = bits 0..6, takes the value -37 on it.  The coefficients below are transcribed from that
 # table (sets of the seven points A, B, C, W, X, Y, Z).  W was found by a linear program in floating point and rounded;
 # here it is checked exactly.
 W120 = [
@@ -1943,16 +1943,16 @@ for assign_ in itertools.product(range(6), repeat=7):        # each element in n
                                        - _I(W7, a_, b_, K_)) >= 0
 odd_min = {nm: int((W7[PMAP] @ v).min()) for nm, v in odd_vecs.items()}
 l7_val = int(ev(L7F, [int(x) for x in W7]))
-report('Lemma 7 does not follow from the Shannon inequalities, the Ingleton inequalities (all %d instances with disjoint '
+report('Lemma 5 does not follow from the Shannon inequalities, the Ingleton inequalities (all %d instances with disjoint '
        'nonempty A, B, C, D and any disjoint K) and the forms (65), (6.17) corrected, (b) and LB in all 5040 labelings: '
        'the transcribed forms are -1 on the Fano and >= 0 on the non-Fano configuration; the integer polymatroid W '
-       '(W(N) = 120) satisfies all of them (minima %s), and the form of Lemma 7 is %d < 0 on it' % (n_ing, odd_min, l7_val),
+       '(W(N) = 120) satisfies all of them (minima %s), and the form of Lemma 5 is %d < 0 on it' % (n_ing, odd_min, l7_val),
        transc_ok and shannon_ok and ingleton_ok and n_ing == 57120 and min(odd_min.values()) >= 0 and l7_val == -37)
 
 # The four forms allow the information ratio 23/22 for the Fano port F of Jafari-Khazaei (Supplementary Note 10.4): an integer polymatroid
 # V on the secret (bit 0) and the players 1..6 (bits 1..6, labels of F) with V(secret) = 22 and every share V(i) <= 23
 # satisfies the elemental Shannon inequalities, all Ingleton instances, the four forms in all 5040 labelings and the
-# access equations of F (V(Xs) = V(X) for qualified X, V(Xs) = V(X) + V(s) otherwise); Lemma 7 rules it out.
+# access equations of F (V(Xs) = V(X) for qualified X, V(Xs) = V(X) + V(s) otherwise); Lemma 5 rules it out.
 V22 = [
     0, 22, 23, 45, 23, 45, 46, 68, 23, 45, 46, 68, 46, 68, 69, 69,
     23, 45, 46, 46, 46, 68, 69, 69, 46, 68, 69, 69, 48, 70, 70, 70,
@@ -1987,12 +1987,12 @@ shares_ = [int(V7[1 << i]) for i in range(1, 7)]
 triples_ok = all(sum(int(V7[1 << i]) for i in t) < 4 * int(V7[1]) for t in F_JK if len(t) == 3)
 report('the four forms allow the information ratio 23/22 for the Fano port F: an integer polymatroid with secret 22 and shares %s '
        'satisfies the Shannon inequalities, all Ingleton instances, the four forms in all 5040 labelings (minima %s) and '
-       'the access equations of F; every minimal triple has share sum < 4 x secret, as Lemma 7 forbids'
+       'the access equations of F; every minimal triple has share sum < 4 x secret, as Lemma 5 forbids'
        % (shares_, odd_min22), acc_ok and sh_ok and ing_ok and min(odd_min22.values()) >= 0 and V7[1] == 22
        and max(shares_) == 23 and triples_ok)
 
 # ======================================================= (n) products over prime powers: d = 2r with r odd
-print('(n) products over prime powers: ratio 7/5 for Gamma_F and Gamma_NF with Z_d qudits, d = 2r, r odd (Prop. 6 (iii))')
+print('(n) products over prime powers: ratio 7/5 for Gamma_F and Gamma_NF with Z_d qudits, d = 2r, r odd (Prop. 4 (iii))')
 
 
 def order_gen(functionals, d):
@@ -2085,7 +2085,7 @@ def pad_ref(cols, k):
     return out
 
 
-# For even d the counts in qudits need secrets of whole qudits (Sec. II F, the paragraph after Proposition 6): over
+# For even d the counts in qudits need secrets of whole qudits (Sec. II F, the paragraph after Proposition 4): over
 # Z_6, seven qubit cube states times the Z_3 scheme of (h), with two qutrits in a fixed state added to R, is a scheme
 # for Gamma_F whose secret has dimension 2^7 3^5 and whose shares have 7 qudits each.
 mixed6 = product_code(cube_copies(7), pad_ref(ramp_code(B_RAMP), 7), 6, 3)
@@ -2095,7 +2095,7 @@ ratioM = 7 * math.log(6) / math.log(oRM)
 report('Z_6, a secret that is not a whole number of qudits: seven qubit cube states times the Z_3 scheme of (h), with '
        'two qutrits in a fixed state added to R, is a scheme for Gamma_F on all 128 player sets (classically and through '
        'the entropies of its CSS state); its secret has order 2^7 3^5 = %d and every share 7 qudits, so its information '
-       'ratio is 7 log 6/(7 log 2 + 5 log 3) = %.4f < 4/3 (the example after Proposition 6)' % (oRM, ratioM),
+       'ratio is 7 log 6/(7 log 2 + 5 log 3) = %.4f < 4/3 (the example after Proposition 4)' % (oRM, ratioM),
        accM and cssM and oRM == 2 ** 7 * 3 ** 5 and all(len(mixed6[P]) == 7 for P in L7)
        and abs(ratioM - 7 * math.log(6) / (7 * math.log(2) + 5 * math.log(3))) < 1e-12 and ratioM < 4 / 3)
 

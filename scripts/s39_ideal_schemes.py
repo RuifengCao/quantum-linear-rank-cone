@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """s39: ideal stabilizer secret sharing schemes for Gamma_F and Gamma_NF, for every local dimension d (R48 addendum 5).
 
-Statement (docs/R32_reduction_and_local_dimension.md section 4.20, Proposition 30; the paper's Proposition 6 (iv)).
+Statement (docs/R32_reduction_and_local_dimension.md section 4.20, Proposition 30; the paper's Proposition 4 (iv)).
 For Z_d qudits, Gamma_F has an ideal stabilizer scheme if and only if d = 2, and Gamma_NF if and only if d is odd.
 
 Setting and notation as in scripts/s38_secret_sharing.py: the players A, B, C, W, X, Y, Z = 100, 010, 001, 110, 101,

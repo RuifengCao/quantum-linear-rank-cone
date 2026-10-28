@@ -16,12 +16,16 @@ data bundled, a static Normaliz binary included, resumable long runs.
 > structure with qubits. Its fifth addendum shows that among all Z_d only qubits admit an ideal stabilizer scheme
 > for the access structure of Steane's code, and only the odd d for the other. Its seventh addendum extends the bound
 > 4/3 for the access structure of Steane's code from odd prime (and squarefree) to every odd local dimension and,
-> counted in qudits, to every d that is not a power of 2.
+> counted in qudits, to every d that is not a power of 2. Its eighth addendum changes no result: it updates the
+> numbers of lemmas, propositions, remarks, tables, equations and Supplementary Notes of the revised paper quoted in
+> `checks/`, the notes and this README to the version submitted in October 2026 (theorem and corollary numbers are
+> unchanged).
 > Release R37
 > is the archived version cited by the first version of the paper *Stabilizer entropy cones as self-dual slices of
 > linear rank cones: a five-party gap and dependence on the local dimension* (X. Song and R. Cao,
 > 2026, [arXiv:2610.18905v1](https://arxiv.org/abs/2610.18905v1)); release R48 is the version cited by its revised
-> version (October 2026), whose Table S3 maps each result to the notes, the gates and the scripts in `checks/`.
+> version (October 2026), whose Supplementary Table S5 maps each result to the notes, the gates and the scripts in
+> `checks/`.
 > Everything in `data/` is machine-certified by the
 > gates in `selftest.py`, and the numbers quoted in the paper are recomputed by the
 > separate scripts in `checks/`. The proofs used in the paper and the
@@ -51,8 +55,8 @@ and the changelog is explained in the glossary at the end.
   Table VI of the paper maps each result to these notes, to the gates of
   `selftest.py` and to the scripts below. (R47, R48) A revised version of the
   paper (October 2026) also contains the results of R38–R40, R42–R44, R46
-  (§4.13), R47 and R48 and cites release R48; its Table S3 plays the role of
-  Table VI. The scripts `checks/check_rev_*.py` check these results, and
+  (§4.13), R47 and R48 and cites release R48; its Supplementary Table S5 plays the
+  role of Table VI. The scripts `checks/check_rev_*.py` check these results, and
   `checks/README.md` maps every script to both versions.
 - **`checks/`.** The verification scripts of the paper. They read `data/` and
   `results/` but not the code of the repository, except for the transcriptions
