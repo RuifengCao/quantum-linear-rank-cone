@@ -213,6 +213,23 @@
   paper's Lemma 3, Proposition 1, Corollaries 2 and 4); `scripts/s39_ideal_schemes.py` (docstring); README (status).
   The checks compute the same as before, and `check_rev_qss.py` also part (o): ALL OK on Python 3.12 and 3.13;
   `s39 --verify` ALL OK; `selftest.py --full` is unchanged (59 gate lines). VERSION stays R48.
+- **Addendum 11 (2026-10-28, checks for the final revision of the paper).** No result of the notes, no data and no
+  gate changed, and the paper's numbering is unchanged. The paper now proves its Theorem 7 without a computer and in a
+  stronger form: a code, stabilizer code or not, that encodes one system of dimension D with the recovery pattern of
+  Steane's code and one system of dimension D per site exists if and only if D is a power of 2, and it is then, up to
+  local unitaries, a stabilizer code of qubits, log2 D on each site (Supplementary Note 10.7; Supplementary Lemma 10.4
+  now holds for every finite abelian phase space: AG(3,2) forces exponent 2 and R8 odd order; the forcing lemma, whose
+  certificates part (k) of `checks/check_rev_qss.py` verifies, is kept as a cross-check). It also quotes the classical
+  counterpart (Matus 1999, Prop. 4.1) and the bounds of Pena-Macias (2023, Cor. 2.9) for the ports of the generalized
+  cube codes. New `checks/check_rev_blind_pm.py` (numpy and scipy, a few seconds): the inequality of Corollary 2.7 of
+  Pena-Macias (Kybernetika 59 (2023)) with n = 3 takes the value -1/4 on the Fano configuration and 3/4 over GF(3) and
+  GF(5), and 4(f + f o D) is a nonnegative rational combination of elemental Shannon inequalities, verified exactly, so
+  the inequality is blind on the self-dual slice (Supplementary Note 5). `checks/check_rev_qss.py`: new part (p), the
+  ports at O of the generalized cube codes, contracted at C, are the ports to which Corollary 2.9 of Pena-Macias
+  applies (t = 2, 3, 4; p = 2, 3, 5, 7). `checks/README.md`: rows for the new script and part (p).
+  `checks/references_log.md`: Lehman 1964; Matus 2012, Sec. 4; Pena-Macias 2023, Cors. 2.7 (n = 3) and 2.9; Matus
+  1999 (from secondary sources); Brickell and Davenport 1991; Kalantari and Khazaei 2026 is no longer cited. The other
+  checks compute the same as before: ALL OK on Python 3.12 and 3.13; `s39 --verify` ALL OK. VERSION stays R48.
 - README (status: R37 is cited by arXiv v1, R48 by the revised version and its Table S3; §0 item), the round list
   of `docs/R32_reduction_and_local_dimension.md` (R48 paragraph), VERSION, CITATION.cff (version R48; the revised
   version). No code under `cc/` or `epr1kit/` and no gates changed (addendum 5 adds one script and one data file,

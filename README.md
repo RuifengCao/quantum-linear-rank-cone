@@ -24,7 +24,9 @@ data bundled, a static Normaliz binary included, resumable long runs.
 > paper are logical basis states of that code, the qudit counterpart of Steane's code. Its tenth addendum changes no result:
 > it updates the numbers of the revised paper quoted in `checks/`, the notes and this README to its restructured
 > version, which also adds a theorem on codes that are not stabilizer codes (proved in its Supplementary Note 10.7,
-> not in the notes; the CHANGELOG maps the numbers).
+> not in the notes; the CHANGELOG maps the numbers). Its eleventh addendum adds `checks/check_rev_blind_pm.py` and a
+> part (p) of `checks/check_rev_qss.py` for the final revision of the paper, which proves that theorem without a
+> computer and in a stronger form: such codes are qubit stabilizer codes up to local unitaries.
 > Release R37
 > is the archived version cited by the first version of the paper *Stabilizer entropy cones as self-dual slices of
 > linear rank cones: a five-party gap and dependence on the local dimension* (X. Song and R. Cao,

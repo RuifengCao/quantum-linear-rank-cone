@@ -97,6 +97,10 @@ What is checked:
      m = ceil(k log2 d) is the least m with 2^m >= d^k and n = ceil(m log_d 2) the least n with d^n >= 2^m; for d = 3
      and k = 4, 5 this gives (m, n) = (7, 5), (8, 6), hence 7n = 35, 42 qutrits, against ceil(28k/3) = 38, 47 for
      every qutrit stabilizer scheme with such a secret; and n/k -> 1 for d = 3, 5, 6, 7 (n/k < 1.01 at k = 1000).
+ (p) the ports of the generalized cube codes (Supplementary Note 10.1): for t = 2, 3, 4 (M = t + 1) and p = 2, 3, 5, 7,
+     the port at O of the code with columns (1, v), v in {0, e_i, c - e_i, c}, contracted at the player C, has the
+     same authorized sets as the port at c of the configuration (JI) (c in the span), with the labels A_i and B_i
+     exchanged; this is the access structure Gamma_p of Corollary 2.9 of Pena-Macias (Kybernetika 2023).
 The validity of Lemma 1 and of the results of Jafari-Khazaei is an input; it is only tested here. Lemma 3 is proved in
 the paper (Supplementary Note 10.2); it is only tested here.
 """
@@ -2138,6 +2142,37 @@ for d_ in (3, 5, 6, 7):
     n_ = least_n(d_, least_m(d_, k_))
     lim.append(k_ <= n_ < 1.01 * k_)
 report('n/k tends to 1: for d = 3, 5, 6, 7 and k = 1000, k <= n < 1.01 k', all(lim))
+
+# ----------------------------------------------------------------------------------------------------------------------
+print('(p) ports of the generalized cube codes contracted at C (Supplementary Note 10.1)')
+
+
+def in_span(vecs, target, p):
+    """whether target lies in the GF(p)-span of vecs"""
+    return rank_mod_p(vecs + [target], p) == rank_mod_p(vecs, p)
+
+
+rows = []
+for t_ in (2, 3, 4):
+    M_ = t_ + 1
+    e_ = [[1 if j == i else 0 for j in range(M_)] for i in range(M_)]
+    c_ = [1] * M_
+    players = [('A', i) for i in range(M_)] + [('B', i) for i in range(M_)]
+    for p_ in (2, 3, 5, 7):
+        colA = [[1] + e_[i] for i in range(M_)]
+        colB = [[1] + [c_[j] - e_[i][j] for j in range(M_)] for i in range(M_)]
+        colC = [1] + c_
+        colO = [1] + [0] * M_
+        same = True
+        for r_ in range(len(players) + 1):
+            for T in itertools.combinations(players, r_):
+                ours = in_span([colA[i] if k == 'A' else colB[i] for k, i in T] + [colC], colO, p_)
+                conf = [[c_[j] - e_[i][j] for j in range(M_)] if k == 'A' else e_[i] for k, i in T]
+                theirs = in_span(conf, c_, p_) if conf else False
+                same = same and ours == theirs
+        rows.append(same)
+report('for t = 2, 3, 4 and p = 2, 3, 5, 7: the port at O of the generalized cube code, contracted at C, equals the port at '
+       'c of the configuration J - I with A_i and B_i exchanged (all 2^(2t+2) sets of the other players)', all(rows))
 
 print('ALL OK' if ok_all else 'FAILURE')
 sys.exit(0 if ok_all else 1)
