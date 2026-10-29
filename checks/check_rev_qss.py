@@ -9,7 +9,7 @@ programs with Lemma 1 (LB), t = 2), data/s39_ideal_certificates.json (rational c
 part (k)) and data/s31_six_party.npz (key 'f9', the form f9 on the 128 subsets of A,B,C,W,X,Y,Z in mask order; used
 for the margins).  The repository is found through the
 environment variable EPR1_REPO, or else as the parent directory of the directory of this script (the repository itself
-when the script sits in <repo>/checks/).  Requirements: Python 3.8+, numpy.  Running time: about half a minute.
+when the script sits in <repo>/checks/).  Requirements: Python 3.8+, numpy.  Running time: under a minute.
 
 Labels: players A,B,C,W,X,Y,Z = vertices 100,010,001,110,101,011,111 of the cube = bits 0..6; the reference R (the
 origin) is bit 7; for mixed schemes the environment E is bit 7 and R is bit 8.  Linear-program variables: h(X) for
@@ -118,9 +118,17 @@ What is checked:
      marking the orbits of the 5040 permutations and counted with Burnside's lemma, times the 127 nonempty
      neighborhoods of R; the GF(2) rank formula for graph-state entropies, cross-checked on explicit state vectors;
      3,414 graph states give codes of distance >= 3, each with at least 7 uncorrectable erasures of three sites.
+ (s) the ((2,3)) threshold structure (Supplementary Note 10.7; R48 addendum 15): the CSS state of the ternary tetracode
+     [4,2,3] (rows 1011, 0112 over GF(3)) is absolutely maximally entangled, S(X) = min(|X|, 4 - |X|) log 3, and a pure
+     ideal ((2,3)) scheme with any system as the reference; none of the 64 graph states of four qubits is absolutely
+     maximally entangled, so no four-qubit stabilizer state is; and none of the 46,656 graph states of four Z_6 qudits
+     (weights in Z_6, entropies from the orders of the images of the cut blocks, by enumeration) has S(X) = 2 log2 6
+     on all three splittings into pairs: the largest minimum is 1 + 2 log2 3 bits (a test of the argument of the
+     paper, which splits a stabilizer state of Z_6 qudits into a qubit and a qutrit factor).
 The validity of Lemma 1 and of the results of Jafari-Khazaei is an input; it is only tested here. So is the theorem
 that every qubit stabilizer state is local-Clifford equivalent to a graph state (Van den Nest, Dehaene and De Moor,
-Phys. Rev. A 69, 022316 (2004), Theorem 1), used in (r). Lemma 3 is proved in
+Phys. Rev. A 69, 022316 (2004), Theorem 1), used in (r) and (s); that no state of four qubits, stabilizer or not, is
+absolutely maximally entangled (Higuchi and Sudbery 2000) is cited by the paper and not checked here. Lemma 3 is proved in
 the paper (Supplementary Note 10.2); it is only tested here.
 """
 import itertools, json, math, os, random, sys
@@ -2453,6 +2461,66 @@ report('qubit stabilizer codes that encode one qubit into seven with distance >=
        '%d of the 1,044 x 127 graph states; uncorrectable erasures of three sites: %s; minimum %d, as for Steane\'s '
        'code, against %d for the color code' % (n_codes, dict(sorted(hist.items())), min(hist), FATAL[3][3]),
        n_codes == 3414 and min(hist) == 7 and FATAL[2][3] == 7 and FATAL[3][3] == 6)
+
+# ----------------------------------------------------------------------------------------------------------------------
+print('(s) the ((2,3)) threshold structure: absolutely maximally entangled states of four systems (Supplementary Note 10.7)')
+PAIRS4 = list(itertools.combinations(range(4), 2))
+CUTS4 = [(0b0011, 0b1100), (0b0101, 0b1010), (0b1001, 0b0110)]       # the three splittings of four systems into pairs
+
+
+def mutual(S, A, B):
+    return S[A] + S[B] - S[A | B]
+
+
+# the ternary tetracode, a [4,2,3] code over GF(3); its CSS state has the entropy vector lambda_r (units of log 3)
+TETRA = [[1, 0, 1, 1], [0, 1, 1, 2]]
+cols_t = [[TETRA[0][j], TETRA[1][j]] for j in range(4)]
+r_t = rank_function(cols_t, 3)
+S_t = [r_t[X] + r_t[15 ^ X] - r_t[15] for X in range(16)]
+mds_t = all(rank_mod_p([cols_t[i], cols_t[j]], 3) == 2 for i, j in PAIRS4)
+ame_t = all(S_t[X] == min(popcount(X), 4 - popcount(X)) for X in range(16))
+scheme_t = all(mutual(S_t, 1 << R, 1 << P) == 0
+               and all(mutual(S_t, 1 << R, 1 << P | 1 << Q) == 2 * S_t[1 << R] for Q in range(4) if Q not in (R, P))
+               for R in range(4) for P in range(4) if P != R)
+report('the CSS state of the ternary tetracode (rows 1011 and 0112 over GF(3)) is an absolutely maximally entangled '
+       'state of four qutrits: the code is MDS, S(X) = min(|X|, 4 - |X|) log 3, and with any system as the reference '
+       'it is a pure ideal scheme for the ((2,3)) threshold structure', mds_t and ame_t and scheme_t)
+
+
+def cut_entropy_bits(w, d, A):
+    """entropy (bits) of the systems A of the four-qudit graph state of Z_d with edge weights w (dict over pairs):
+    the logarithm of the order of the image of Z_d^{rest} under the cut block (row space of A against its complement),
+    by enumeration of the image."""
+    rest = [j for j in range(4) if not A >> j & 1]
+    rows = [i for i in range(4) if A >> i & 1]
+    img = set()
+    for coeffs in itertools.product(range(d), repeat=len(rest)):
+        img.add(tuple(sum(w[tuple(sorted((i, j)))] * c for j, c in zip(rest, coeffs)) % d for i in rows))
+    return math.log2(len(img))
+
+
+# all graph states of four qubits (64 graphs); every qubit stabilizer state is local-Clifford equivalent to one
+ame_q = 0
+for g in range(1 << 6):
+    w = {e: g >> k & 1 for k, e in enumerate(PAIRS4)}
+    if all(abs(cut_entropy_bits(w, 2, A) - 2) < 1e-9 for A, _ in CUTS4):
+        ame_q += 1
+report('no graph state of four qubits has S(X) = 2 bits for all three splittings into pairs, so no four-qubit '
+       'stabilizer state is absolutely maximally entangled (local-Clifford equivalence to graph states, as in (r))',
+       ame_q == 0, '%d of 64' % ame_q)
+
+# all graph states of four Z_6 qudits (6^6 weighted graphs): none is absolutely maximally entangled (a test)
+two_log6 = 2 * math.log2(6)
+best6, ame6 = 0.0, 0
+for ws in itertools.product(range(6), repeat=6):
+    w = dict(zip(PAIRS4, ws))
+    m = min(cut_entropy_bits(w, 6, A) for A, _ in CUTS4)
+    best6 = max(best6, m)
+    ame6 += abs(m - two_log6) < 1e-9
+report('no graph state of four Z_6 qudits (all 46,656 weight assignments) has S(X) = 2 log2 6 for all three splittings '
+       'into pairs; the largest minimum over the splittings is 1 + 2 log2 3 bits, as the decomposition into a qubit '
+       'and a qutrit factor predicts', ame6 == 0 and abs(best6 - (1 + 2 * math.log2(3))) < 1e-9,
+       'largest minimum %.6f bits, 2 log2 6 = %.6f' % (best6, two_log6))
 
 print('ALL OK' if ok_all else 'FAILURE')
 sys.exit(0 if ok_all else 1)

@@ -296,6 +296,33 @@
   the places of the citations that moved to Sec. II A); README (status). The
   checks compute the same as before: ALL OK on Python 3.12 and 3.13; `s39 --verify` ALL OK; the quick
   `selftest.py` ALL PASS; `selftest.py --full` is unchanged (59 gate lines). VERSION stays R48.
+- **Addendum 15 (2026-10-29, checks for the ((2,3)) threshold structure and for the color code of even dimension; the
+  references of the final text).** No
+  result of the notes, no data and no gate changed. The paper's Supplementary Note 10.7 now shows that the threshold
+  structure in which any two of three shares recover the secret is not rigid in dimension 6 [proved in the paper, not
+  in the notes; not yet checked by hand]: absolutely maximally entangled states of four systems of dimension 6 exist
+  (Rather et al. 2022), but none is a stabilizer state up to local unitaries, since such a stabilizer state is the
+  tensor product of a qubit and a qutrit stabilizer state and its qubit factor would be absolutely maximally entangled,
+  which no state of four qubits is (Higuchi and Sudbery 2000); in dimension 3 the structure is rigid (uniqueness by
+  Rather et al. 2023; the ternary tetracode). It replaces the earlier argument from infinitely many classes under local
+  unitaries. `checks/check_rev_qss.py`: new part (s): the CSS state of the ternary tetracode is absolutely maximally
+  entangled and a pure ideal ((2,3)) scheme with any system as the reference; none of the 64 graph states of four
+  qubits is absolutely maximally entangled, so no four-qubit stabilizer state is; none of the 46,656 graph states of
+  four Z_6 qudits is, the largest minimum entropy over the three splittings into pairs being 1 + 2 log2 3 bits [exact
+  enumerations; the last one is a test of the argument]. `checks/README.md` (part (s), running time, the even-d checks of `check_color_code.py`);
+  `checks/references_log.md` (three references added: Rains, Hardin, Shor and Sloane 1997, Wu et al. 2022 and Kubica
+  et al. 2023; Pippenger 2003 cited again; DOIs for Chan and Yeung 2002 and Farras et al. 2018; arXiv numbers for Rains
+  1999 and Rather et al. 2022 and 2023; new uses of Higuchi and Sudbery 2000, Rather et al. 2022 and 2023, Osthus 2024,
+  Jafari and Khazaei 2021 and Van den Nest et al. 2004; Brickell and Davenport 1991 now cited for matroid ports only;
+  for the final text: Wu et al. 2022 and Kubica et al. 2023 no longer cited, Bao et al. 2015 cited again, Rains,
+  Hardin, Shor and Sloane 1997 now cited in the Introduction only, new uses of Matus 1999, Pena-Macias and Sarria 2021,
+  Pena-Macias 2023 and Jafari and Khazaei 2021, Prop. 4.5); `checks/check_color_code.py`: for even d >= 4 the check now
+  also verifies that the sets in both Gamma_F and Gamma_NF recover the logical qudit and those in neither learn nothing,
+  that I(R;WXY) = 2 bits and I(R;ABCZ) = 2 log2(d/2) bits, and the numbers 7, 29, 21, 7 and 1 of uncorrectable erasures
+  of 3, ..., 7 sites, for every even d <= 30 (Supplementary Note 10.6 of the paper);
+  README (status). The numbering of the paper is unchanged. The checks pass: ALL OK on Python 3.12 and 3.13; `s39
+  --verify` ALL OK; the quick `selftest.py` ALL PASS; `selftest.py --full` is unchanged (no gate changed). VERSION
+  stays R48.
 - README (status: R37 is cited by arXiv v1, R48 by the revised version and its Table S3; §0 item), the round list
   of `docs/R32_reduction_and_local_dimension.md` (R48 paragraph), VERSION, CITATION.cff (version R48; the revised
   version). No code under `cc/` or `epr1kit/` and no gates changed (addendum 5 adds one script and one data file,

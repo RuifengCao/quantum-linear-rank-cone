@@ -34,6 +34,10 @@ data bundled, a static Normaliz binary included, resumable long runs.
 > the two codes, with an exhaustive search over the qubit stabilizer codes of the same length, rate and distance.
 > Its fourteenth addendum changes no result: it updates the numbers of the paper quoted in `checks/` and the notes to
 > the version prepared for submission, whose Results begin with the codes (the CHANGELOG maps the numbers).
+> Its fifteenth addendum adds part (s) of `checks/check_rev_qss.py` for the remark of the paper that the threshold
+> structure in which any two of three shares recover the secret is not rigid in dimension 6, extends
+> `checks/check_color_code.py` to the recovery pattern of the color code of even dimension, and updates the log of
+> the references.
 > Release R37
 > is the archived version cited by the first version of the paper *Stabilizer entropy cones as self-dual slices of
 > linear rank cones: a five-party gap and dependence on the local dimension* (X. Song and R. Cao,

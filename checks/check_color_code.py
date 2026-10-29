@@ -34,12 +34,16 @@ codes over Z_d from Smith invariants, computed as quotients of gcds of minors):
        that divide d exactly (compared as integers 2^S);
   (c') with the reference system, the code is the cube code over Z_d; its access structure is Gamma_F for
        d = 2 and Gamma_NF for every odd d, and for even d >= 4 every set of sites recovers the logical qudit or
-       learns nothing about it, except WXY and ABCZ, which learn part of it.
+       learns nothing about it, except WXY and ABCZ, which learn part of it: the sets that recover it are those
+       in both Gamma_F and Gamma_NF, those that learn nothing are those in neither, I(R;WXY) = 2 bits and
+       I(R;ABCZ) = 2 log2(d/2) bits, and the uncorrectable erasures (the sets that learn something) number
+       7, 29, 21, 7 and 1 for 3, 4, 5, 6 and 7 sites, and none for fewer.
 Negative controls: without the sign rule the checks do not commute for any d >= 3, and the entropy comparison
 rejects the Fano vector for d = 3. Standard library only.
 """
 import itertools
 import sys
+from fractions import Fraction
 
 LABELS = "ABCWXYZ"
 POINTS = [(1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 1, 0), (1, 0, 1), (0, 1, 1), (1, 1, 1)]
@@ -263,7 +267,22 @@ def check_all_d(dmax=30):
         elif d % 2:
             ok["access"] = (minimal == (lines - {"WXY"}) | {"ABCZ", "AWXY", "BWXY", "CWXY", "WXYZ"}) and not partial
         else:
-            ok["access"] = {names(T) for T in partial} == {"WXY", "ABCZ"}
+            min_nf = (lines - {"WXY"}) | {"ABCZ", "AWXY", "BWXY", "CWXY", "WXYZ"}
+            in_f = lambda s: any(set(m) <= set(s) for m in lines)
+            in_nf = lambda s: any(set(m) <= set(s) for m in min_nf)
+            sets = [names(T) for k in range(8) for T in itertools.combinations(range(1, 8), k)]
+            both = {s for s in sets if in_f(s) and in_nf(s)}
+            neither = {s for s in sets if not in_f(s) and not in_nf(s)}
+            info_of = {}
+            for k in range(8):
+                for T in itertools.combinations(range(1, 8), k):
+                    RT = tuple(sorted((0,) + T))
+                    info_of[names(T)] = Fraction(two8[(0,)] * two8[T], two8[RT])      # 2^I(R;T), exact
+            counts = [sum(1 for s in sets if len(s) == k and s not in neither) for k in range(8)]
+            ok["access"] = ({names(T) for T in partial} == {"WXY", "ABCZ"} and recn == both
+                            and {names(T) for T in nothing} == neither
+                            and info_of["WXY"] == 4 and info_of["ABCZ"] == Fraction(d // 2) ** 2
+                            and counts == [0, 0, 0, 7, 29, 21, 7, 1])
         res = all(ok.values())
         all_ok &= res
         print(f"d={d:2d}: " + ", ".join(f"{k} {v}" for k, v in ok.items()) + f" -> {'OK' if res else 'FAIL'}")
