@@ -1,5 +1,5 @@
-"""Checks for the revised paper (2026-10), Sec. II C, Methods Sec. IV F and Supplementary Note 4: Supplementary Lemma 4.1 (the derived
-subgroup C), Theorem 8 from 2p + 2 parties for odd p, and Theorem 4 from 2 max(d, d') + 2 parties.  Independent of the
+"""Checks for the revised paper (2026-10), Sec. II D, Methods Sec. IV F and Supplementary Note 4: Supplementary Lemma 4.1 (the derived
+subgroup C), Theorem 7 from 2p + 2 parties for odd p, and Theorem 4 from 2 max(d, d') + 2 parties.  Independent of the
 repository code.
 
 Conventions.  A subgroup of Z_N^D is given by generator vectors (integers); its order is computed exactly from the
@@ -403,7 +403,7 @@ report('proof of Supplementary Lemma 4.1 step by step with C computed explicitly
        '%d arrangements): h(C) >= Lambda, gamma <= gamma*, eps_i = 0, delta_i <= delta*_i, the formula for eta_i, '
        'h(A_i cap C) <= theta_i' % nchk, not step_fail, str(step_fail))
 
-# ------------------------------------------------- (4) Theorem 8: doubled-code witnesses, entropies from codes
+# ------------------------------------------------- (4) Theorem 7: doubled-code witnesses, entropies from codes
 def css_entropy(code_rows, owner, nsys, N):
     """entropy vector (log2) of the CSS state of the code spanned by code_rows over Z_N, coordinates owned by
     systems 0..nsys-1: S(X) = r(X) + r(complement) - r(all), r(X) = log2 |projection to X| (Supplementary Lemma 1.5).
@@ -467,11 +467,12 @@ for (p, q, N), (vLB, vLA, same, nocoloop) in wit.items():
     exp_LB = Fraction(1, p) if N == p else Fraction(1)
     exp_LA = Fraction(1) if N == p else Fraction(1, q)
     good = good and same and nocoloop and vLB == exp_LB and vLA == exp_LA
-report('Theorem 8, n = 2p + 2: on the doubled-code states of [I | J - I] (entropies from the code [G | G]), (LB*) = '
+report('Theorem 7, n = 2p + 2: on the doubled-code states of [I | J - I] (entropies from the code [G | G]), (LB*) = '
        '-log p over GF(p) and 0 over GF(q), (LA*) = -log q over GF(q) and 0 over GF(p); S = r on parties; no coloops '
        '(p = 3, 5, 7 against several q)', good)
 
-# balancing coefficients f(1_i) of the forms (Prop. 1: nonnegative), t = 3 and t = 5
+# balancing coefficients f(1_i) of the forms (nonnegative, since each 1_i is a subgroup rank function; proof of
+# Corollary 3), t = 3 and t = 5
 balok = True
 bal = {}
 for t in (3, 5):

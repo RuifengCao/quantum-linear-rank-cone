@@ -69,7 +69,7 @@ What is checked:
      negative controls; the orders of the projections of the normal form {(u,v,w,u+v,u+w,v+w,u+v+w)} over Z_{2^a},
      a = 1, 2, 3 (only WXY differs from AG(3,2) when a >= 2, with order 2^{6ma-2m}), also by direct enumeration over
      Z_4^2, and its kernel; the cube codes over Z_d, d = 9, 15, 21, 25, 27, 45, are ideal schemes for Gamma_NF.
- (l) the counts of Supplementary Note 10.6, Sec. II D and the Introduction: the erasure of a set E of qubits of Steane's code [[7,1,3]] is
+ (l) the counts of Supplementary Note 10.6, Sec. II A and the Introduction: the erasure of a set E of qubits of Steane's code [[7,1,3]] is
      correctable (no nontrivial logical operator, i.e. no Hamming codeword outside the simplex code, is supported in
      E) exactly when E contains no line of the Fano plane, exactly when E is unauthorized for Gamma_F of (k); the
      correctable sets by size are 1, 7, 21, 28, 7, so 35 of them (the 28 triples that are not lines and the 7
@@ -94,7 +94,7 @@ What is checked:
      ratio 7/5, for d = 6, 10, 18, 30 (all 128 player sets, orders of projections computed exactly, and the CSS states);
      two negative controls; and, for the ranges of the optimal ratios in Supplementary Note 10.3, the scheme over Z_6 for Gamma_F with a secret of
      dimension 2^7 3^5 (not a whole number of qudits) and information ratio 7 log 6/(7 log 2 + 5 log 3) < 4/3.
- (o) the numbers of the codes for large secrets of Sec. II D and Supplementary Note 10.7 (exact integer arithmetic):
+ (o) the numbers of the codes for large secrets of Sec. II A and Supplementary Note 10.7 (exact integer arithmetic):
      m = ceil(k log2 d) is the least m with 2^m >= d^k and n = ceil(m log_d 2) the least n with d^n >= 2^m; for d = 3
      and k = 4, 5 this gives (m, n) = (7, 5), (8, 6), hence 7n = 35, 42 qutrits, against ceil(28k/3) = 38, 47 for
      every qutrit stabilizer scheme with such a secret; and n/k -> 1 for d = 3, 5, 6, 7 (n/k < 1.01 at k = 1000).
@@ -102,7 +102,7 @@ What is checked:
      the port at O of the code with columns (1, v), v in {0, e_i, c - e_i, c}, contracted at the player C, has the
      same authorized sets as the port at c of the configuration (JI) (c in the span), with the labels A_i and B_i
      exchanged; this is the access structure Gamma_p of Corollary 2.9 of Pena-Macias (Kybernetika 2023).
- (q) the planes and good directions used in the proof of Theorem 5 (Supplementary Note 10.7; R48 addendum 13):
+ (q) the planes and good directions used in the proof of Theorem 1 (Supplementary Note 10.7; R48 addendum 13):
      AG(3,2) has 14 planes and R8 12 (the coplanar quadruples of vertices of the real cube, 6 faces and 6 diagonal
      rectangles: all those of AG(3,2) but the tetrahedra RWXY and ABCZ); in both, every set of at most three points
      is independent (A); the good directions (any two pairs of points along them form a plane) are all seven for
@@ -1736,7 +1736,7 @@ for d in (9, 15, 21, 25, 27, 45):
            'the R8 scheme: ideal (one qudit per system, all maximally mixed) for Gamma_NF' % (d, d), free)
 
 # ----------------------------------------------------------------------------------------------------------------------
-print('(l) erasures of Steane\'s code (Supplementary Note 10.6) and the average share size (Sec. II D, Introduction)')
+print('(l) erasures of Steane\'s code (Supplementary Note 10.6) and the average share size (Sec. II A, Introduction)')
 GEN = [[VERT[P][k] for P in L7] for k in range(3)]                    # 3 x 7: columns are the cube vertices
 HAM = [v for v in itertools.product((0, 1), repeat=7)
        if all(sum(r[i] * v[i] for i in range(7)) % 2 == 0 for r in GEN)]
@@ -1773,7 +1773,7 @@ report('every point lies on %s lines, so the seven line inequalities of Proposit
        on_lines == [3] * 7 and coef == Fraction(28, 3) and coef / 7 == Fraction(4, 3) and math.ceil(Fraction(20, 3)) == 7)
 
 # ----------------------------------------------------------------------------------------------------------------------
-print('(m) Lemma 3 (Fano lines in groups of odd order) and the bound 4/3 for every odd local dimension (Sec. II D)')
+print('(m) Lemma 3 (Fano lines in groups of odd order) and the bound 4/3 for every odd local dimension (Sec. II A)')
 # The form of Lemma 3 on the variables T_0, ..., T_6 = bits 0..6, built from its definition:
 #   g = h(1)+h(2)+h(3) - [I(0;123)+I(0;14)+I(0;25)+I(0;36)] + [I(0;4)+I(0;5)+I(0;6)]
 #       + [I(0;234)+I(0;135)+I(0;126)+I(0;456)] >= 0,   I(0;X) = h(0)+h(X)-h(0X).
@@ -2127,7 +2127,7 @@ report('Z_6, a secret that is not a whole number of qudits: seven qubit cube sta
        and abs(ratioM - 7 * math.log(6) / (7 * math.log(2) + 5 * math.log(3))) < 1e-12 and ratioM < 4 / 3)
 
 # ----------------------------------------------------------------------------------------------------------------------
-print('(o) codes for large secrets: the numbers of qudits (Sec. II D, Supplementary Note 10.7)')
+print('(o) codes for large secrets: the numbers of qudits (Sec. II A, Supplementary Note 10.7)')
 
 
 def least_m(d, k):
@@ -2194,7 +2194,7 @@ report('for t = 2, 3, 4 and p = 2, 3, 5, 7: the port at O of the generalized cub
        'c of the configuration J - I with A_i and B_i exchanged (all 2^(2t+2) sets of the other players)', all(rows))
 
 # ----------------------------------------------------------------------------------------------------------------------
-print('(q) planes and good directions of AG(3,2) and R8 (proof of Theorem 5, Supplementary Note 10.7)')
+print('(q) planes and good directions of AG(3,2) and R8 (proof of Theorem 1, Supplementary Note 10.7)')
 COORD = [VERT[c] for c in L7] + [(0, 0, 0)]                           # bit i -> point of {0,1}^3; R = origin = bit 7
 AT = {COORD[i]: i for i in range(8)}
 DIRS = [v for v in itertools.product((0, 1), repeat=3) if any(v)]

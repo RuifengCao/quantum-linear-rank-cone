@@ -2834,7 +2834,7 @@ five qudits). The hypothesis "the secret consists of m qudits" (S(R) = m log d) 
 the factors can be balanced (as in the mixed-linear schemes of Jafari and Khazaei), and for d = 6 seven qubit cube
 states times the Z_3 scheme of Proposition 25, with two qutrits |0⟩ added to R, give a scheme for Γ_F with ratio
 7 log 6/(7 log 2 + 5 log 3) ≈ 1.212 < 4/3 [found and checked exactly by the third referee agent]. (i)–(v) are the paper's
-Proposition 1 (i)–(iii) and its discussion (Sec. II D and Supplementary Note 10.3); (i) and (iv) supersede the
+Proposition 1 (i)–(iii) and its discussion (Sec. II A and Supplementary Note 10.3); (i) and (iv) supersede the
 restriction to odd squarefree d and the bound 43/41 of Proposition 21 (§4.15), which remain correct; the certificates
 of the 43/41 programs stay in the repository (G43, G43b).
 

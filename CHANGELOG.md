@@ -276,6 +276,26 @@
   Van den Nest et al. 2004 (Theorem 1); Brock et al. 2025 reworded); README (status). The numbering of the paper is
   unchanged. The checks pass: ALL OK on Python 3.12 and 3.13; `s39 --verify` ALL OK; `selftest.py --full` is
   unchanged (59 gate lines). VERSION stays R48.
+- **Addendum 14 (2026-10-29, the numbering of the paper as prepared for submission).** No result, data, gate or
+  computation changed. The Results of the paper now begin with the codes: Sec. II A (codes and secret sharing,
+  Theorem 1 and Proposition 1), II B (the dictionary), II C (six parties), II D (divisibility) and II E (four and five
+  parties). The dictionary and the four-party result are now propositions, since for prime d the first assembles
+  known facts and the second also follows from the literature. Map from the numbering of addenda 12 and 13 to the
+  new one: Theorem 1 -> Proposition 2; Theorem 5 -> Theorem 1; Theorems 6, 7, 8 -> 5, 6, 7; Theorem 9 ->
+  Proposition 6 (Theorems 2-4 unchanged); Propositions 2, 3, 4 -> 3, 4, 5 (Proposition 1 unchanged); Secs. II A,
+  II B, II C, II D -> II B, II C, II D, II A (Sec. II E and the Methods, Secs. IV A-L, unchanged). Corollaries,
+  lemmas, the definition, equations, figures and the Supplementary Information keep their numbers; the rows of
+  Supplementary Table S6 follow the new order. Updated: `checks/README.md` (also the place of the distances of the
+  witnesses from the cones, which the paper quotes in the Discussion); the docstrings, comments and printed labels of
+  `checks/check_rev_sec4.py`, `check_rev_stab5.py`, `check_rev_sec5.py`, `check_rev_sec6.py` and
+  `check_rev_qss.py` (`check_rev_sec6.py` also names Supplementary Lemmas 1.5 and 1.1 instead of Lemmas A.5 and A.1 of
+  arXiv:2610.18905v1, and a comment of `check_rev_sec5.py` gives the reason for the nonnegativity of the balancing
+  coefficients instead of an old proposition number); `docs/R32_reduction_and_local_dimension.md` (the paper's
+  section on secret sharing); `checks/references_log.md` (two references added: Rather et al. 2022 on Euler's
+  36 officers, cited in the Introduction, and Rains 1999 on the uniqueness of the five-qubit code, cited in Sec. II A;
+  the places of the citations that moved to Sec. II A); README (status). The
+  checks compute the same as before: ALL OK on Python 3.12 and 3.13; `s39 --verify` ALL OK; the quick
+  `selftest.py` ALL PASS; `selftest.py --full` is unchanged (59 gate lines). VERSION stays R48.
 - README (status: R37 is cited by arXiv v1, R48 by the revised version and its Table S3; §0 item), the round list
   of `docs/R32_reduction_and_local_dimension.md` (R48 paragraph), VERSION, CITATION.cff (version R48; the revised
   version). No code under `cc/` or `epr1kit/` and no gates changed (addendum 5 adds one script and one data file,
