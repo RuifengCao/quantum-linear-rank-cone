@@ -1,13 +1,14 @@
-"""Checks for the revised paper (2026-10), Methods Sec. IV E and Supplementary Note 7: the form f_12 (Eq. (11)) and its
-expansion (Eq. (S9)), Proposition 3 and Theorem 3, Corollary 3, the form g_12 (Supplementary Note 7.2) and Theorem 6.
+"""Checks for the revised paper (2026-10), Methods Sec. IV E and Supplementary Note 7: the form f_12 (Eq. (10)) and its
+expansion (Eq. (S9)), Proposition 3, Theorem 3 (with the seven-point states), the form g_12 (Supplementary Note 7.2) and
+Theorem 7.
 Independent of the repository code.
 
 Labels: A, B, C, W, X, Y, Z = 100, 010, 001, 110, 101, 011, 111; Z is the purifier.  A pure-symmetric vector S on the
 seven systems is a dict {frozenset: value} on all subsets, with S(empty) = S(all) = 0 and S(T) = S(complement).
 
 What is proved here exactly: the expansion of f_12 and of U_Z; the values on the Steane, non-Fano and seven-point
-states (from the codes, and against state vectors numerically); the Smith invariants used in Corollary 3; the values
-of Theorem 6 and of g_12 (Supplementary Note 7.2).  What is only tested: f_12 >= 0 on random qubit stabilizer states
+states (from the codes, and against state vectors numerically); the Smith invariants used in Theorem 3; the values
+of Theorem 7 and of g_12 (Supplementary Note 7.2).  What is only tested: f_12 >= 0 on random qubit stabilizer states
 and every step of the proof of Proposition 3 on them (Supplementary Lemmas 7.1-7.5, (LA), the assembly), and
 f^(a) >= 0 on random Z_4 and Z_8 states.
 """
@@ -43,7 +44,7 @@ def lines_through(P):
     return [l for l in LINES if P in l]
 
 
-# ------------------------------------------------------------------------------------- the form f_12, Eq. (11)
+# ------------------------------------------------------------------------------------- the form f_12, Eq. (10)
 def f12_parts(S):
     k = lambda T: sum(S[fs(P)] for P in T) - S[fs(T)]
     d = lambda P, l: k(l) - k(l.replace(P, ''))
@@ -83,7 +84,7 @@ EXPANSION = {'A': 3, 'B': 3, 'C': 3, 'W': -3, 'AB': -5, 'AC': -2, 'AW': -1, 'AX'
              'BCWXY': -1, 'ABCWXY': 2}
 coef = {T: f12(basis_vector(T)) for T in PARTY_SUBSETS}
 nz = {''.join(c for c in L7 if c in T): v for T, v in coef.items() if v != 0}
-report('expansion of f_12 (Eq. (11)) on the 63 party subsets equals Eq. (S9) term by term (%d terms)' % len(nz),
+report('expansion of f_12 (Eq. (10)) on the 63 party subsets equals Eq. (S9) term by term (%d terms)' % len(nz),
        nz == EXPANSION and len(nz) == 31)
 
 
@@ -232,7 +233,7 @@ report('seven-point states over Z_2, Z_3, Z_4, Z_6 from state vectors: entropies
        '(largest deviation %.1e bits)' % worst, worst < 1e-9)
 
 
-# ------------------------------------------------------------------------------------------- Corollary 3
+# ----------------------------------------------------------------- Theorem 3 (seven-point states)
 def det(m):
     m = [list(r) for r in m]
     n = len(m)
@@ -275,14 +276,14 @@ for dd in range(2, 33):
         F *= Sd[fs(T)] ** v
     if F != Fraction(math.gcd(dd, 2), dd):
         bad.append(dd)
-report('Corollary 3: 2^f_12(S^(d)) = gcd(d,2)/d exactly, i.e. f_12(S^(d)) = -log2(d/gcd(d,2)), for d = 2..32',
+report('Theorem 3: 2^f_12(S^(d)) = gcd(d,2)/d exactly, i.e. f_12(S^(d)) = -log2(d/gcd(d,2)), for d = 2..32',
        not bad, str(bad))
 
 S4 = {X: log2_exact(v) for X, v in css_orders(COLS, 4).items()}
 report('S^(4) = S_F + S_NF on all 128 subsets (bits; S_NF normalized to S(P) = 1)',
        all(S4[X] == S_F[X] + SNF[X] for X in SUBSETS))
 
-# ------------------------------------------------------------------------------------------- Theorem 6 values
+# ------------------------------------------------------------------------------------------- Theorem 7 values
 bad = []
 for a in range(1, 7):
     if f12(SNF) + (1 - Fraction(1, a)) * U_Z(SNF) != -Fraction(1, a):
@@ -294,7 +295,7 @@ for a in range(1, 7):
             bad.append((a, j))
         if not all(Sj[X] == S_F[X] + (j - 1) * SNF[X] for X in SUBSETS):
             bad.append(('decomposition', j))
-report('Theorem 6: f^(a)(S_NF) = -1/a, U_Z(S^(2^j)) = j, f_12(S^(2^j)) = 1 - j, f^(a)(S^(2^j)) = 1 - j/a, and '
+report('Theorem 7: f^(a)(S_NF) = -1/a, U_Z(S^(2^j)) = j, f_12(S^(2^j)) = 1 - j, f^(a)(S^(2^j)) = 1 - j/a, and '
        'S^(2^j) = S_F + (j-1) S_NF (a, j = 1..6)', not bad, str(bad[:4]))
 
 
@@ -678,7 +679,7 @@ report('proof of Proposition 3 step by step on %d structured qubit states in nor
        'local symplectic maps; perturbed one- and two-copy point codes): every step holds; f_12 = 0 on %d of them, '
        'minimum %d' % (nst2, fvals.count(0), min(fvals)), not failed2 and nst2 > 50 and min(fvals) >= 0, str(failed2))
 
-# ------------------------------- familiar code states as witnesses (R48 addendum 2; R32 Proposition 26, Remark 2)
+# --------- familiar code states as witnesses (R48 addendum 2; R32 Proposition 26; Supplementary Note 8.1)
 def lemma1_forms_sets(perm=('A', 'B', 'C', 'Y', 'X', 'W', 'Z')):
     """(LB) and (LA) with t = 2 (the paper's Lemma 1) as dicts {frozenset: coefficient} on the subsets of the seven
     elements, with (A_1, A_2, A_3, B_1, B_2, B_3, C) = perm; for the labels above, A_i = <e_i>, B_i = <c - e_i>, C = <c>."""
@@ -722,7 +723,7 @@ def evalf(f, h):
 
 def balanced_value(f, h):
     """f_bal(h) = f(h) - sum_i f(1_i) (h(all) - h(all - i)), balanced over the seven elements (the parties), as in the
-    proof of Proposition 4 (Supplementary Note 8.1); balancing over all eight systems, as in the proof of Corollary 4,
+    proof of Proposition 4 (Supplementary Note 8.1); balancing over all eight systems, as in the proof of Corollary 3,
     would give +20 (LB) and +7 (LA) on the code states below."""
     return evalf(f, h) - sum(sum(c for X, c in f.items() if P in X) * (h[ALL] - h[ALL - fs(P)]) for P in L7)
 

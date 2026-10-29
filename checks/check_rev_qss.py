@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """check_rev_qss.py -- independent check of the secret-sharing results (Lemma "Stabilizer schemes are linear schemes",
-Proposition "Secret sharing", Supplementary Note 10) and of the distances of the witnesses from the cones (Methods).
+Proposition "Stabilizer schemes", Supplementary Note 10) and of the distances of the witnesses from the cones
+(Supplementary Note 7.6).
 
 Independent of the repository code: nothing from epr1kit/ or scripts/ is imported, and the paper source is not read.
 The script reads only the data files data/s38_qss_certificates.json (rational dual certificates of the two linear
@@ -42,9 +43,9 @@ What is checked:
      in the paper it is superseded by the scheme of (h)) for d = 3, 5, 7, 9, 15, 21, 25, 27 (all 128 player sets,
      orders of projections computed exactly, and the CSS state), with a negative control; the binary scheme for
      Gamma_NF of Supplementary Note 10 (a secret of one qubit, shares of two; R32 Proposition 23), and its CSS state.
- (g) an upper bound on the distance of the Steane state from the cones of odd local dimension (Methods): the non-Fano
-     vector relabeled by the 168 collineations of the Fano plane gives S_F plus 1 on a line and its complement, and
-     (5/36) times the sum over the 7 lines lies within 1/12 of S_F in every entropy (exact fractions).
+ (g) an upper bound on the distance of the Steane state from the cones of odd local dimension (Supplementary Note 7.6):
+     the non-Fano vector relabeled by the 168 collineations of the Fano plane gives S_F plus 1 on a line and its
+     complement, and (5/36) times the sum over the 7 lines lies within 1/12 of S_F in every entropy (exact fractions).
  (h) the scheme with information ratio 7/5 for Gamma_F of Proposition 1 (iii) (R32 Proposition 25, R48 addendum 2), a
      (lambda, omega) = (6, 1) decomposition in the sense of van Dijk, Jackson and Martin: seven cube schemes over Z_d,
      relabeled by collineations that map WXY to the seven lines, share the coordinates of a codeword of the zero-sum

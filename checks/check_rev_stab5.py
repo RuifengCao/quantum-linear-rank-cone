@@ -324,7 +324,7 @@ for c in range(len(CL)):
 ok(len(facets) == 119, '%d of the 747 classes have 30 linearly independent pool vectors on their hyperplane, so they are '
                        'facets of Stab^(d)_5 for every d (expect 119)' % len(facets))
 
-# the class of the inequality (star) of Theorem 9 (transcribed from the paper) is one of them
+# the class of the inequality (star) of Theorem 6 (transcribed from the paper) is one of them
 STAR_L = {'BCD': 1, 'ABCD': 1, 'ABE': 1, 'BCE': 2, 'ADE': 2, 'CDE': 1}
 STAR_R = {'BC': 2, 'ABD': 1, 'ACD': 1, 'AE': 1, 'DE': 1, 'BCDE': 1, 'ABCDE': 1}
 star = [0] * 31

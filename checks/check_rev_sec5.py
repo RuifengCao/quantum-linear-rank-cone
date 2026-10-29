@@ -1,5 +1,5 @@
 """Checks for the revised paper (2026-10), Sec. II C, Methods Sec. IV F and Supplementary Note 4: Supplementary Lemma 4.1 (the derived
-subgroup C), Theorem 5 from 2p + 2 parties for odd p, and Theorem 4 from 2 max(d, d') + 2 parties.  Independent of the
+subgroup C), Theorem 8 from 2p + 2 parties for odd p, and Theorem 4 from 2 max(d, d') + 2 parties.  Independent of the
 repository code.
 
 Conventions.  A subgroup of Z_N^D is given by generator vectors (integers); its order is computed exactly from the
@@ -8,7 +8,7 @@ h(X) = log2 |sum of the subgroups in X|; a linear form with integer coefficients
 number 2^value = prod |.|^coefficient.
 
 Variables of Supplementary Lemma 4.1: A_1..A_M are 0..M-1 and B_1..B_M are M..2M-1; the lower bound Lambda for h(C)
-is called L in the code, and gamma* is kappa (as in the R32 note).  The configuration (7) without C:
+is called L in the code, and gamma* is kappa (as in the R32 note).  The configuration (4) without C:
 A_i = <e_i>, B_i = <c - e_i> in R^M, R = GF(l) or Z_N.
 """
 import itertools, math, os, random, sys
@@ -182,7 +182,7 @@ def jmaps(M, count, rng):
 rng = random.Random(20261016)
 PRIMES = [2, 3, 5, 7, 11, 13]
 
-# ----------------------------------------------------------------------- (1) values on the configuration (7)
+# ----------------------------------------------------------------------- (1) values on the configuration (4)
 bad = []
 for t in range(3, 9):
     M = t + 1
@@ -226,7 +226,7 @@ def random_subgroup(D, N, rng, maxgens=2):
 
 
 def perturbed_T(M, N, rng, p_add=0.25, p_clear=0.1):
-    """the configuration (7) with random extra generators and random dropped generators."""
+    """the configuration (4) with random extra generators and random dropped generators."""
     U = [[[1 if k == i else 0 for k in range(M)]] for i in range(M)]
     U += [[[0 if k == i else 1 for k in range(M)]] for i in range(M)]
     for s in U:
@@ -262,7 +262,7 @@ report('Supplementary Lemma 4.1, random and perturbed arrangements where the hyp
        'arrangements): no violation' % sum(counts.values()), all(v == 0 for v in viol.values()),
        str({k: v for k, v in viol.items() if v}))
 
-# control: the same tests find violations when the hypothesis fails (the configuration (7) in the other characteristic)
+# control: the same tests find violations when the hypothesis fails (the configuration (4) in the other characteristic)
 ctrl = {}
 for t, N, kind in [(3, 3, 'LB'), (3, 2, 'LA'), (4, 2, 'LB'), (4, 3, 'LA'), (5, 5, 'LB'), (5, 2, 'LA')]:
     M = t + 1
@@ -403,7 +403,7 @@ report('proof of Supplementary Lemma 4.1 step by step with C computed explicitly
        '%d arrangements): h(C) >= Lambda, gamma <= gamma*, eps_i = 0, delta_i <= delta*_i, the formula for eta_i, '
        'h(A_i cap C) <= theta_i' % nchk, not step_fail, str(step_fail))
 
-# ------------------------------------------------- (4) Theorem 5: doubled-code witnesses, entropies from codes
+# ------------------------------------------------- (4) Theorem 8: doubled-code witnesses, entropies from codes
 def css_entropy(code_rows, owner, nsys, N):
     """entropy vector (log2) of the CSS state of the code spanned by code_rows over Z_N, coordinates owned by
     systems 0..nsys-1: S(X) = r(X) + r(complement) - r(all), r(X) = log2 |projection to X| (Supplementary Lemma 1.5).
@@ -467,7 +467,7 @@ for (p, q, N), (vLB, vLA, same, nocoloop) in wit.items():
     exp_LB = Fraction(1, p) if N == p else Fraction(1)
     exp_LA = Fraction(1) if N == p else Fraction(1, q)
     good = good and same and nocoloop and vLB == exp_LB and vLA == exp_LA
-report('Theorem 5, n = 2p + 2: on the doubled-code states of [I | J - I] (entropies from the code [G | G]), (LB*) = '
+report('Theorem 8, n = 2p + 2: on the doubled-code states of [I | J - I] (entropies from the code [G | G]), (LB*) = '
        '-log p over GF(p) and 0 over GF(q), (LA*) = -log q over GF(q) and 0 over GF(p); S = r on parties; no coloops '
        '(p = 3, 5, 7 against several q)', good)
 

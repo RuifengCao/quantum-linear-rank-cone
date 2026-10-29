@@ -2528,7 +2528,7 @@ parties (not over all eight systems), as in step 2 of the proof of the sandwich 
 Σ_{i∈P} f(e_i) h(i | P ∖ i). r_F has no coloops, so f_bal(r_F) = f(r_F) = −1. As a form on the eight systems, f_bal
 is balanced (it vanishes on every modular unit, including that of the purifier, which it does not involve) and valid
 on the eight-variable cone of every odd d′ (restriction to the seven parties, then the balancing argument of the
-paper's Supplementary Note 1.7 on seven elements). So the paper's Corollary 4 excludes the state: f_bal(S) =
+paper's Supplementary Note 1.7 on seven elements). So the paper's Corollary 3 excludes the state: f_bal(S) =
 f_bal(S|_P) = f_bal(r_F) = −1. (Balancing over all eight systems instead gives +20 for (LB) and +7 for (LA) on these
 states, and no conclusion.) For 2: the same with (LA) with t = 2, which holds over
 GF(2) and fails by one unit on the non-Fano configuration. ∎

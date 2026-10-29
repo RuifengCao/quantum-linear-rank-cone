@@ -230,6 +230,26 @@
   `checks/references_log.md`: Lehman 1964; Matus 2012, Sec. 4; Pena-Macias 2023, Cors. 2.7 (n = 3) and 2.9; Matus
   1999 (from secondary sources); Brickell and Davenport 1991; Kalantari and Khazaei 2026 is no longer cited. The other
   checks compute the same as before: ALL OK on Python 3.12 and 3.13; `s39 --verify` ALL OK. VERSION stays R48.
+- **Addendum 12 (2026-10-29, the numbering of the paper as submitted).** No result, data, gate or computation
+  changed. Before submission the main text of the paper was shortened around its headline results: it keeps the
+  dictionary (Theorem 1), the six-party separations (Theorems 2 and 3; Theorem 3 now contains the seven-point states
+  of the former Corollary 3), divisibility (Theorem 4), codes that are not stabilizer codes (Theorem 5, with a new
+  Fig. 3 sketching its proof) and the five-party gap (Theorem 6); the theorems on powers of two, on any two primes and
+  on four parties move to the Methods (Secs. IV E, IV F and IV H). Map from the numbering of addenda 10 and 11 to the
+  new one: Theorems 5, 6, 7, 8, 9 -> 8, 7, 5, 9, 6 (Theorems 1-4 unchanged); Corollary 3 -> part of Theorem 3;
+  Corollary 4 -> Corollary 3; Remark 1 -> Supplementary Proposition 8.4; Remark 2 -> Supplementary Note 8.1;
+  Eqs. (3)-(13) -> (13), (3), (4), (5), (6), (7), (8), (9), (10), (11), (12) (the Ingleton inequality moved to Methods
+  Sec. IV H; Eq. (11) (f_12) is now Eq. (10)); Methods Sec. IV J (distances of the witnesses) -> Supplementary
+  Note 7.6, and Secs. IV K, IV L, IV M -> IV J, IV K, IV L; Proposition 1 is now named "Stabilizer schemes"; Fig. 3 is
+  new; all other numbers of the Supplementary Information are unchanged (Supplementary Note 7.6 and Supplementary
+  Proposition 8.4 are new). The paper and
+  its Supplementary Information are now separate documents, with separate reference lists. Updated: `checks/README.md`;
+  the docstrings, comments and printed labels of `checks/check_rev_sec4.py`, `check_rev_stab5.py`,
+  `check_rev_sec5.py` (also the number of the configuration (JI), now Eq. (4)), `check_rev_sec6.py`,
+  `check_rev_qss.py` and `check_color_code.py`; `checks/references_log.md` (no reference added; seven no longer
+  cited; the places of the moved citations); `docs/R32_reduction_and_local_dimension.md` (the paper's Corollary 3);
+  README (status). The checks compute the same as before: ALL OK on Python 3.12 and 3.13; `s39 --verify` ALL OK;
+  `selftest.py --full` is unchanged (59 gate lines). VERSION stays R48.
 - README (status: R37 is cited by arXiv v1, R48 by the revised version and its Table S3; §0 item), the round list
   of `docs/R32_reduction_and_local_dimension.md` (R48 paragraph), VERSION, CITATION.cff (version R48; the revised
   version). No code under `cc/` or `epr1kit/` and no gates changed (addendum 5 adds one script and one data file,

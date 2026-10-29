@@ -1,4 +1,4 @@
-"""Revised paper, Theorem 9 (Sec. II E, Methods Sec. IV H, Supplementary Note 3.1): the five-party inequality (star) defines a facet
+"""Revised paper, Theorem 6 (Sec. II E, Methods Sec. IV H, Supplementary Note 3.1): the five-party inequality (star) defines a facet
 of Stab^(d)_5 for every local dimension d, and of Stab_5.
 
 Six-vertex graph states with weights 0 and 1, one qudit for each of the parties A, ..., E and the purifier F. For such
@@ -12,7 +12,7 @@ Checks:
   (3) GF(2): 760 distinct vectors of rank 31; (star) >= 0 on all of them; 140 attain equality, of rank 30;
   (4) odd p (rational ranks): 835 distinct vectors of rank 31, containing the 760 qubit vectors; (star) >= 0 on all
       of them; the same 140 vectors attain equality, of rank 30.
-With the validity of (star) on Stab_5 (Theorem 9) and Corollary 2 (Stab^(p)_5 contained in Stab^(d)_5 for p | d),
+With the validity of (star) on Stab_5 (Theorem 6) and Corollary 2 (Stab^(p)_5 contained in Stab^(d)_5 for p | d),
 (3) and (4) give the facet statement for every d. Needs no repository data; runs in about 15 seconds.
 """
 import itertools, os, sys
