@@ -9,7 +9,7 @@ programs with Lemma 1 (LB), t = 2), data/s39_ideal_certificates.json (rational c
 part (k)) and data/s31_six_party.npz (key 'f9', the form f9 on the 128 subsets of A,B,C,W,X,Y,Z in mask order; used
 for the margins).  The repository is found through the
 environment variable EPR1_REPO, or else as the parent directory of the directory of this script (the repository itself
-when the script sits in <repo>/checks/).  Requirements: Python 3.8+, numpy.  Running time: well under a minute.
+when the script sits in <repo>/checks/).  Requirements: Python 3.8+, numpy.  Running time: about half a minute.
 
 Labels: players A,B,C,W,X,Y,Z = vertices 100,010,001,110,101,011,111 of the cube = bits 0..6; the reference R (the
 origin) is bit 7; for mixed schemes the environment E is bit 7 and R is bit 8.  Linear-program variables: h(X) for
@@ -69,7 +69,7 @@ What is checked:
      negative controls; the orders of the projections of the normal form {(u,v,w,u+v,u+w,v+w,u+v+w)} over Z_{2^a},
      a = 1, 2, 3 (only WXY differs from AG(3,2) when a >= 2, with order 2^{6ma-2m}), also by direct enumeration over
      Z_4^2, and its kernel; the cube codes over Z_d, d = 9, 15, 21, 25, 27, 45, are ideal schemes for Gamma_NF.
- (l) the counts in Sec. II D and the Introduction: the erasure of a set E of qubits of Steane's code [[7,1,3]] is
+ (l) the counts of Supplementary Note 10.6, Sec. II D and the Introduction: the erasure of a set E of qubits of Steane's code [[7,1,3]] is
      correctable (no nontrivial logical operator, i.e. no Hamming codeword outside the simplex code, is supported in
      E) exactly when E contains no line of the Fano plane, exactly when E is unauthorized for Gamma_F of (k); the
      correctable sets by size are 1, 7, 21, 28, 7, so 35 of them (the 28 triples that are not lines and the 7
@@ -102,7 +102,25 @@ What is checked:
      the port at O of the code with columns (1, v), v in {0, e_i, c - e_i, c}, contracted at the player C, has the
      same authorized sets as the port at c of the configuration (JI) (c in the span), with the labels A_i and B_i
      exchanged; this is the access structure Gamma_p of Corollary 2.9 of Pena-Macias (Kybernetika 2023).
-The validity of Lemma 1 and of the results of Jafari-Khazaei is an input; it is only tested here. Lemma 3 is proved in
+ (q) the planes and good directions used in the proof of Theorem 5 (Supplementary Note 10.7; R48 addendum 13):
+     AG(3,2) has 14 planes and R8 12 (the coplanar quadruples of vertices of the real cube, 6 faces and 6 diagonal
+     rectangles: all those of AG(3,2) but the tetrahedra RWXY and ABCZ); in both, every set of at most three points
+     is independent (A); the good directions (any two pairs of points along them form a plane) are all seven for
+     AG(3,2) and 100, 010, 001, 111 for R8, and along the face diagonals the two unions of pairs that are not planes
+     of R8 are the tetrahedra; the facts (G1)-(G4) of the proof; the circuits through R are R plus the minimal
+     authorized sets (7 and 11), and every element lies in one, so both matroids are connected; the ranks of the 23
+     sets RT used in the proof of Supplementary Lemma 10.4, which differ between the two matroids only on RWXY.
+ (r) erasures (Supplementary Note 10.6; R48 addendum 13): the uncorrectable erasures of Steane's code and of the
+     color code of odd local dimension, i.e. the authorized sets, by size (7, 28, 21, 7, 1 and 6, 29, 21, 7, 1 for
+     3..7 sites); P_color - P_Steane = -eps^3 (1-eps)^3 (1-2 eps) for the erasure channel (exact polynomials); and
+     an exhaustive search over the qubit stabilizer codes that encode one qubit into seven with distance >= 3, as
+     graph states on R and the seven sites: the 1,044 graphs on seven vertices up to isomorphism, generated here by
+     marking the orbits of the 5040 permutations and counted with Burnside's lemma, times the 127 nonempty
+     neighborhoods of R; the GF(2) rank formula for graph-state entropies, cross-checked on explicit state vectors;
+     3,414 graph states give codes of distance >= 3, each with at least 7 uncorrectable erasures of three sites.
+The validity of Lemma 1 and of the results of Jafari-Khazaei is an input; it is only tested here. So is the theorem
+that every qubit stabilizer state is local-Clifford equivalent to a graph state (Van den Nest, Dehaene and De Moor,
+Phys. Rev. A 69, 022316 (2004), Theorem 1), used in (r). Lemma 3 is proved in
 the paper (Supplementary Note 10.2); it is only tested here.
 """
 import itertools, json, math, os, random, sys
@@ -1718,7 +1736,7 @@ for d in (9, 15, 21, 25, 27, 45):
            'the R8 scheme: ideal (one qudit per system, all maximally mixed) for Gamma_NF' % (d, d), free)
 
 # ----------------------------------------------------------------------------------------------------------------------
-print('(l) erasures of Steane\'s code and the average share size (Sec. II D, Introduction)')
+print('(l) erasures of Steane\'s code (Supplementary Note 10.6) and the average share size (Sec. II D, Introduction)')
 GEN = [[VERT[P][k] for P in L7] for k in range(3)]                    # 3 x 7: columns are the cube vertices
 HAM = [v for v in itertools.product((0, 1), repeat=7)
        if all(sum(r[i] * v[i] for i in range(7)) % 2 == 0 for r in GEN)]
@@ -2174,6 +2192,267 @@ for t_ in (2, 3, 4):
         rows.append(same)
 report('for t = 2, 3, 4 and p = 2, 3, 5, 7: the port at O of the generalized cube code, contracted at C, equals the port at '
        'c of the configuration J - I with A_i and B_i exchanged (all 2^(2t+2) sets of the other players)', all(rows))
+
+# ----------------------------------------------------------------------------------------------------------------------
+print('(q) planes and good directions of AG(3,2) and R8 (proof of Theorem 5, Supplementary Note 10.7)')
+COORD = [VERT[c] for c in L7] + [(0, 0, 0)]                           # bit i -> point of {0,1}^3; R = origin = bit 7
+AT = {COORD[i]: i for i in range(8)}
+DIRS = [v for v in itertools.product((0, 1), repeat=3) if any(v)]
+
+
+def vxor(u, v):
+    return tuple((a + b) % 2 for a, b in zip(u, v))
+
+
+def dname(v):
+    return ''.join(str(x) for x in v)
+
+
+def coplanar_real(X):
+    pts = [COORD[i] for i in range(8) if X >> i & 1]
+    return rank_Q([[p[k] - pts[0][k] for k in range(3)] for p in pts[1:]]) <= 2
+
+
+def is_face(X):
+    pts = [COORD[i] for i in range(8) if X >> i & 1]
+    return any(len({p[k] for p in pts}) == 1 for k in range(3))
+
+
+def dpairs(delta):
+    out = []
+    for i in range(8):
+        j = AT[vxor(COORD[i], delta)]
+        if i < j:
+            out.append(1 << i | 1 << j)
+    return out
+
+
+def splits_along(X, delta):
+    return all(AT[vxor(COORD[i], delta)] in [k for k in range(8) if X >> k & 1] for i in range(8) if X >> i & 1)
+
+
+TETRA = {mask('WXY') | RB, mask('ABCZ')}
+PL = {}
+for nm_, r_ in (('AG(3,2)', rA), ('R8', rR)):
+    PL[nm_] = {X for X in range(256) if popcount(X) == 4 and r_[X] == 3}
+report('planes (sets of four points of rank 3): AG(3,2) has 14, the 4-sets with zero sum; R8 has 12, the 4-sets of '
+       'coplanar vertices of the real cube, namely those of AG(3,2) other than the tetrahedra RWXY and ABCZ: 6 faces '
+       'and 6 diagonal rectangles',
+       PL['AG(3,2)'] == planes and len(planes) == 14
+       and PL['R8'] == {X for X in range(256) if popcount(X) == 4 and coplanar_real(X)} and len(PL['R8']) == 12
+       and PL['AG(3,2)'] - PL['R8'] == TETRA and sum(1 for X in PL['R8'] if is_face(X)) == 6)
+report('(A): in both matroids every set of at most three points is independent',
+       all(r_[X] == popcount(X) for r_ in (rA, rR) for X in range(256) if popcount(X) <= 3))
+GOOD = {}
+for nm_, r_ in (('AG(3,2)', rA), ('R8', rR)):
+    GOOD[nm_] = [d for d in DIRS if all(r_[P | Q] == 3 for P, Q in itertools.combinations(dpairs(d), 2))]
+bad_unions = {dname(d): {P | Q for P, Q in itertools.combinations(dpairs(d), 2) if rR[P | Q] != 3}
+              for d in DIRS if d not in GOOD['R8']}
+report('good directions (any two pairs along them form a plane): all seven for AG(3,2); for R8 exactly 100, 010, 001 '
+       '(edges) and 111 (body diagonals); along each face diagonal 110, 101, 011, the two unions of two pairs that are '
+       'not planes of R8 are the tetrahedra RWXY and ABCZ',
+       len(GOOD['AG(3,2)']) == 7 and sorted(GOOD['R8']) == sorted([(1, 0, 0), (0, 1, 0), (0, 0, 1), (1, 1, 1)])
+       and sorted(bad_unions) == ['011', '101', '110'] and all(v == TETRA for v in bad_unions.values()),
+       'R8: ' + ' '.join(dname(d) for d in GOOD['R8']))
+g1, g2, g3, g4 = [], [], [], []
+for nm_, r_ in (('AG(3,2)', rA), ('R8', rR)):
+    gd = GOOD[nm_]
+    along = [sum(1 for d in gd if splits_along(X, d)) for X in PL[nm_]]
+    g1.append(set(along) == ({3} if nm_ == 'AG(3,2)' else {2}))
+    g2.append(all(r_[sum(1 << AT[p] for p in (v, vxor(v, d), vxor(v, c), vxor(vxor(v, d), c)))] == 3
+                  for d, c in itertools.permutations(gd, 2) for v in COORD))
+    g3.append(rank_mod_p([list(d) for d in gd], 2) == 3)
+    g4.append(all(any(not any(P & X == P for P in dpairs(d)) for X in PL[nm_]) for d in gd))
+report('(G1) every plane is split into pairs along good directions in exactly %s ways (AG(3,2), R8); (G2) any two good '
+       'directions and any point span a plane; (G3) the good directions span GF(2)^3; (G4) for every good direction '
+       'some plane contains none of its pairs' % '3 and 2', all(g1) and all(g2) and all(g3) and all(g4),
+       'G1-G4 for AG(3,2): %s, for R8: %s' % ([g1[0], g2[0], g3[0], g4[0]], [g1[1], g2[1], g3[1], g4[1]]))
+thr = {}
+for nm_, r_, mins_ in (('AG(3,2)', rA, MIN_F), ('R8', rR, MIN_NF)):
+    circ = circuits(r_, 8)
+    throughR = sorted((Cc ^ RB for Cc in circ if Cc & RB), key=lambda m: (popcount(m), m))
+    union = 0
+    for Cc in circ:
+        if Cc & RB:
+            union |= Cc
+    thr[nm_] = (sorted(throughR) == sorted(mins_), union == FULL8, len(throughR))
+report('the circuits through R, without R, are the minimal authorized sets (7 for Gamma_F, 11 for Gamma_NF), and every '
+       'element lies in one of them, so both matroids are connected (as used with Lehman\'s theorem)',
+       all(a and b for a, b, _ in thr.values()) and thr['AG(3,2)'][2] == 7 and thr['R8'][2] == 11)
+LEM = [('RABC', 4, 4), ('RABW', 3, 3), ('RACX', 3, 3), ('RBCY', 3, 3), ('RAB', 3, 3), ('RAC', 3, 3), ('RBC', 3, 3),
+       ('RAYZ', 3, 3), ('RBXZ', 3, 3), ('RCWZ', 3, 3), ('RAY', 3, 3), ('RBX', 3, 3), ('RCW', 3, 3), ('RWXY', 3, 4)]
+for I_ in 'ABC':
+    for P_ in 'WXYZ':
+        if (I_, P_) not in (('C', 'W'), ('B', 'X'), ('A', 'Y')):
+            LEM.append(('R' + ''.join(sorted(set('ABC') - {I_})) + P_, 4, 4))
+
+
+def rmask(s):
+    return sum(RB if ch == 'R' else 1 << L7.index(ch) for ch in s)
+
+
+report('Supplementary Lemma 10.4: the ranks of the %d sets RT used in its proof are as stated in both matroids (the nine '
+       'sets of step (3) have rank 4), and only RWXY differs: 3 in AG(3,2), 4 in R8' % len(LEM),
+       len(LEM) == 23 and all(rA[rmask(s)] == a and rR[rmask(s)] == b for s, a, b in LEM))
+
+# ----------------------------------------------------------------------------------------------------------------------
+print('(r) erasures: Steane\'s code, the color code and all qubit [[7,1,3]] stabilizer codes (Supplementary Note 10.6)')
+FATAL = {}
+for q in (2, 3):
+    cnt = [0] * 8
+    for E in range(1, 128):
+        if E in AUTH[q]:
+            cnt[popcount(E)] += 1
+    FATAL[q] = cnt
+selfdual = all((E in AUTH[q]) != ((127 ^ E) in AUTH[q]) for q in (2, 3) for E in range(1, 127))
+report('uncorrectable erasures, i.e. the authorized sets (a set is authorized exactly when its complement is not), by '
+       'size 0..7: Steane\'s code %s, the color code of odd local dimension %s' % (FATAL[2], FATAL[3]),
+       FATAL[2] == [0, 0, 0, 7, 28, 21, 7, 1] and FATAL[3] == [0, 0, 0, 6, 29, 21, 7, 1] and selfdual)
+
+
+def pmul(a, b):
+    out = [0] * (len(a) + len(b) - 1)
+    for i, x in enumerate(a):
+        for j, y in enumerate(b):
+            out[i + j] += x * y
+    return out
+
+
+def ppow(a, k):
+    out = [1]
+    for _ in range(k):
+        out = pmul(out, a)
+    return out
+
+
+def padd(a, b, s=1):
+    n_ = max(len(a), len(b))
+    a, b = a + [0] * (n_ - len(a)), b + [0] * (n_ - len(b))
+    out = [x + s * y for x, y in zip(a, b)]
+    while len(out) > 1 and out[-1] == 0:
+        out.pop()
+    return out
+
+
+EPS, ONE_M = [0, 1], [1, -1]                                          # eps and 1 - eps, coefficients by degree
+
+
+def p_fail(cnt):
+    tot = [0]
+    for k in range(8):
+        tot = padd(tot, [cnt[k] * c for c in pmul(ppow(EPS, k), ppow(ONE_M, 7 - k))])
+    return tot
+
+
+diffp = padd(p_fail(FATAL[3]), p_fail(FATAL[2]), -1)
+target = [-c for c in pmul(pmul(ppow(EPS, 3), ppow(ONE_M, 3)), [1, -2])]
+report('failure probabilities on the erasure channel: P_color(eps) - P_Steane(eps) = -eps^3 (1-eps)^3 (1-2eps) as '
+       'polynomials (exact integer coefficients)', diffp == padd(target, [0]), 'coefficients %s' % diffp)
+
+EDGES7 = list(itertools.combinations(range(7), 2))                     # the 21 possible edges among the seven sites
+EIDX = {e: k for k, e in enumerate(EDGES7)}
+PE = np.array([[EIDX[tuple(sorted((s[a], s[b])))] for a, b in EDGES7] for s in itertools.permutations(range(7))],
+              dtype=np.int64)                                         # 5040 x 21: image of each edge under each permutation
+
+
+def n_cycles(perm):
+    seen_, c = [False] * len(perm), 0
+    for i in range(len(perm)):
+        if not seen_[i]:
+            c += 1
+            j = i
+            while not seen_[j]:
+                seen_[j] = True
+                j = perm[j]
+    return c
+
+
+burnside = sum(2 ** n_cycles(row) for row in PE.tolist())
+WTS = np.left_shift(np.int64(1), PE)
+seen_g = np.zeros(1 << 21, dtype=bool)
+REPS, m_ = [], 0
+while m_ < (1 << 21):
+    m_ += int(np.argmin(seen_g[m_:]))
+    if seen_g[m_]:
+        break
+    REPS.append(m_)
+    seen_g[WTS @ (np.right_shift(np.int64(m_), np.arange(21, dtype=np.int64)) & 1)] = True
+    m_ += 1
+report('graphs on seven labeled vertices up to isomorphism: %d orbit representatives (every graph lies in the orbit of '
+       'exactly one); Burnside\'s lemma gives %d orbits' % (len(REPS), burnside // 5040),
+       len(REPS) == 1044 and burnside == 1044 * 5040 and bool(seen_g.all()))
+
+
+def rank2(rows):
+    rows, r = [x for x in rows if x], 0
+    while rows:
+        p = rows.pop()
+        r += 1
+        lb = p & -p
+        rows = [x ^ p if x & lb else x for x in rows]
+        rows = [x for x in rows if x]
+    return r
+
+
+def s_graph(adj, X):
+    """entropy (bits) of the subsystem X of the graph state with adjacency masks adj: the GF(2) rank of the
+    adjacency submatrix between X and its complement"""
+    comp = FULL8 & ~X
+    return rank2([adj[i] & comp for i in range(8) if X >> i & 1])
+
+
+def graph_adj(g, nbr):
+    adj = [0] * 8
+    for k, (a, b) in enumerate(EDGES7):
+        if g >> k & 1:
+            adj[a] |= 1 << b
+            adj[b] |= 1 << a
+    adj[7] = nbr
+    for i in range(7):
+        if nbr >> i & 1:
+            adj[i] |= RB
+    return adj
+
+
+def graph_state_entropies(adj):
+    """entropies (bits) of all subsystems of the eight-qubit graph state, from the explicit state vector"""
+    psi = np.array([(-1.0) ** (sum(popcount(adj[i] & x) for i in range(8) if x >> i & 1) // 2 % 2) / 16
+                    for x in range(256)])
+    T = psi.reshape([2] * 8)                                           # axis k <-> qubit 7 - k
+    out = [0.0] * 256
+    for X in range(1, 256):
+        A = [7 - i for i in range(8) if X >> i & 1]
+        B = [7 - i for i in range(8) if not X >> i & 1]
+        sv = np.linalg.svd(np.transpose(T, A + B).reshape(2 ** len(A), 2 ** len(B)), compute_uv=False) ** 2
+        sv = sv[sv > 1e-12]
+        out[X] = float(-(sv * np.log2(sv)).sum())
+    return out
+
+
+rng_r = random.Random(20261029)
+errs = []
+for _ in range(12):
+    adj_ = graph_adj(rng_r.randrange(1 << 21), rng_r.randrange(1, 128))
+    num = graph_state_entropies(adj_)
+    errs.append(max(abs(num[X] - s_graph(adj_, X)) for X in range(1, 256)))
+report('graph-state entropies: the GF(2) rank formula agrees with the explicit state vectors of 12 random eight-qubit '
+       'graph states on all 255 subsystems', max(errs) < 1e-9, 'max error %.1e' % max(errs))
+T12 = [1 << i for i in range(7)] + [1 << i | 1 << j for i, j in itertools.combinations(range(7), 2)]
+T3 = [1 << i | 1 << j | 1 << k for i, j, k in itertools.combinations(range(7), 3)]
+hist, n_codes = {}, 0
+for g in REPS:
+    for nbr in range(1, 128):
+        adj_ = graph_adj(g, nbr)
+        if any(1 + s_graph(adj_, T) - s_graph(adj_, T | RB) for T in T12):   # I(R;T) > 0 for some |T| <= 2
+            continue
+        n_codes += 1
+        f3 = sum(1 for T in T3 if 1 + s_graph(adj_, T) - s_graph(adj_, T | RB) > 0)
+        hist[f3] = hist.get(f3, 0) + 1
+report('qubit stabilizer codes that encode one qubit into seven with distance >= 3, as graph states on R and the sites '
+       '(every stabilizer state is local-Clifford equivalent to a graph state; local Cliffords keep all entropies): '
+       '%d of the 1,044 x 127 graph states; uncorrectable erasures of three sites: %s; minimum %d, as for Steane\'s '
+       'code, against %d for the color code' % (n_codes, dict(sorted(hist.items())), min(hist), FATAL[3][3]),
+       n_codes == 3414 and min(hist) == 7 and FATAL[2][3] == 7 and FATAL[3][3] == 6)
 
 print('ALL OK' if ok_all else 'FAILURE')
 sys.exit(0 if ok_all else 1)

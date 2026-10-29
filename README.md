@@ -29,6 +29,9 @@ data bundled, a static Normaliz binary included, resumable long runs.
 > computer and in a stronger form: such codes are qubit stabilizer codes up to local unitaries. Its twelfth addendum
 > changes no result: it updates the numbers of the paper quoted in `checks/`, the notes and this README to the version
 > submitted, whose main text keeps six theorems and moves the others to its Methods (the CHANGELOG maps the numbers).
+> Its thirteenth addendum adds parts (q) and (r) of `checks/check_rev_qss.py` for the extension of that theorem to the
+> recovery pattern of the seven-qudit color code of odd dimension (such codes exist exactly in odd dimensions) and for the erasures of
+> the two codes, with an exhaustive search over the qubit stabilizer codes of the same length, rate and distance.
 > Release R37
 > is the archived version cited by the first version of the paper *Stabilizer entropy cones as self-dual slices of
 > linear rank cones: a five-party gap and dependence on the local dimension* (X. Song and R. Cao,
