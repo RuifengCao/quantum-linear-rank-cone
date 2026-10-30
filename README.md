@@ -37,7 +37,8 @@ data bundled, a static Normaliz binary included, resumable long runs.
 > Its fifteenth addendum adds part (s) of `checks/check_rev_qss.py` for the remark of the paper that the threshold
 > structure in which any two of three shares recover the secret is not rigid in dimension 6, extends
 > `checks/check_color_code.py` to the recovery pattern of the color code of even dimension, and updates the log of
-> the references.
+> the references. Its sixteenth addendum adds `checks/check_thm5.py`, which checks the five-party gap of the paper
+> (Theorem 5) on its own, with the Python standard library and no data files.
 > Release R37
 > is the archived version cited by the first version of the paper *Stabilizer entropy cones as self-dual slices of
 > linear rank cones: a five-party gap and dependence on the local dimension* (X. Song and R. Cao,

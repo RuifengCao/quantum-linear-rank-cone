@@ -323,6 +323,20 @@
   README (status). The numbering of the paper is unchanged. The checks pass: ALL OK on Python 3.12 and 3.13; `s39
   --verify` ALL OK; the quick `selftest.py` ALL PASS; `selftest.py --full` is unchanged (no gate changed). VERSION
   stays R48.
+- **Addendum 16 (2026-10-30, a standalone check of the five-party gap).** No result, data, gate or existing script
+  changed. New `checks/check_thm5.py` (standard library only, no data files, under a second), written for referees who
+  want to check the five-party gap of Theorem 5 of the paper without the repository (the facet statement of Theorem 5
+  is checked by `checks/check_rev_sec4.py`, which needs no data either): the 31 facet classes of QLR₅, copied from
+  `data/qlr5_H_facets10860.npy`, give its 10,860 facets under S₆; the witness r satisfies them, and the 105 facets
+  tight at r have rank 30; the left side of (★) minus the right side is −1 at r (24 against 25); the 26 Shannon terms
+  of the certificate sum to the six-variable inequality (★-h) of the paper's Methods once Z is a common information of
+  AD and BE, and (★-h) pulls back to (★); controls: the ray q2 (in QLR₅, extreme, 295 tight facets, (★) satisfied),
+  two altered certificates that leave terms with Z, and the pull-back of h(ABCDEF). `checks/README.md` (the row and
+  the running time); README (status). ALL OK on Python 3.11, 3.12 and 3.13; the rebuilt facets equal
+  `data/qlr5_H_facets10860.npy` as a set, and r and q2 equal the rows of `data/a2_frontier300.npy` and
+  `data/stab5_extreme_reps.npy` that the earlier checks use; each of 21 altered copies of the script (wrong data, wrong
+  symmetry, wrong pull-back, wrong elimination of Z, wrong certificate, wrong (★)) ends with FAILURE or gives no
+  result; the quick `selftest.py` ALL PASS. VERSION stays R48.
 - README (status: R37 is cited by arXiv v1, R48 by the revised version and its Table S3; §0 item), the round list
   of `docs/R32_reduction_and_local_dimension.md` (R48 paragraph), VERSION, CITATION.cff (version R48; the revised
   version). No code under `cc/` or `epr1kit/` and no gates changed (addendum 5 adds one script and one data file,
