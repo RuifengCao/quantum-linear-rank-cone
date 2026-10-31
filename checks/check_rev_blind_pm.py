@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""check_rev_blind_pm.py -- the inequality of Corollary 2.7 of Pena-Macias (Kybernetika 59 (2023)) with n = 3 is blind
+"""check_rev_blind_pm.py -- the first inequality of Corollary 2.7 of Pena-Macias (Kybernetika 59 (2023)) with n = 3 is blind
 on the self-dual slice (Supplementary Note 5).
 
 Independent of the repository code: nothing from epr1kit/ or scripts/ is imported, no data file is read, and the paper
 source is not read.  Requirements: Python 3.8+, numpy, scipy.  Running time: a few seconds.
 
 The inequality, as transcribed from the journal PDF (the PDF itself is not used here), for subspaces A_1, A_2, A_3,
-B_1, B_2, B_3 and C of a vector space over a field whose characteristic does not divide n - 1 = 2, with
+B_1, B_2, B_3 and C of a vector space over a finite field whose characteristic does not divide n - 1 = 2, with
 h(X|Y) = h(XY) - h(Y) and I(X;Y) = h(X) + h(Y) - h(XY):
   h(C) <= (1/4)(h(A_1) + h(A_2) + h(A_3)) + h(C|A_1 A_2 A_3) + sum_i h(C|A_i B_i) + sum_i I(C; A_j, j != i)
           + sum_i I(C; B_i) + sum_i I(C; A_j, j != i, B_i) + I(C; B_1 B_2 B_3).

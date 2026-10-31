@@ -39,6 +39,8 @@ data bundled, a static Normaliz binary included, resumable long runs.
 > `checks/check_color_code.py` to the recovery pattern of the color code of even dimension, and updates the log of
 > the references. Its sixteenth addendum adds `checks/check_thm5.py`, which checks the five-party gap of the paper
 > (Theorem 5) on its own, with the Python standard library and no data files.
+> Its seventeenth addendum changes no result: it records in `checks/references_log.md` the reading of ten cited
+> sources in the original.
 > Release R37
 > is the archived version cited by the first version of the paper *Stabilizer entropy cones as self-dual slices of
 > linear rank cones: a five-party gap and dependence on the local dimension* (X. Song and R. Cao,

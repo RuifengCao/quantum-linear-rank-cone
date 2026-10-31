@@ -337,6 +337,19 @@
   `data/stab5_extreme_reps.npy` that the earlier checks use; each of 21 altered copies of the script (wrong data, wrong
   symmetry, wrong pull-back, wrong elimination of Z, wrong certificate, wrong (★)) ends with FAILURE or gives no
   result; the quick `selftest.py` ALL PASS. VERSION stays R48.
+- **Addendum 17 (2026-10-31, cited sources read in the original).** No result, data or gate changed. The authors
+  supplied the PDFs of ten cited sources that had been checked only through secondary sources, abstracts or a web-fetch
+  tool; `checks/references_log.md` gains a row for each: Matus 1999 (Definition 1.1, Props. 3.1 and 4.1 with the proof
+  of 4.1, Secs. 5.3 and 5.6), Lehman 1964 (Lemma (46), p. 721), Brickell-Davenport 1991 (Theorem 1, Proposition 1), van Dijk,
+  Jackson and Martin 1998 ((lambda, omega)-decompositions, Sec. 5; Theorem 4, Corollaries 5 and 6), Pena-Macias and
+  Sarria (arXiv v2: Theorems 7 and 9, and the exact relation of Theorem 9 to (LB) for every t), Pena-Macias 2023
+  (Corollaries 2.7 and 2.9), Matus 2012, Khazaei 2026 (Theorem 7), Yeung 1997 and Dougherty 2014, with what each
+  supports and the changes they caused in the paper. The main one: the proof of Prop. 4.1 of Matus 1999, with his
+  Prop. 3.1, already shows that the group defining a partition representation of the Fano matroid is a power of Z_2,
+  so the paper no longer says that its Supplementary Lemma 10.4 adds 2x = 0. `checks/check_rev_blind_pm.py` (docstring
+  only) and its row in `checks/README.md`: the first of the two inequalities of Corollary 2.7 of Pena-Macias 2023, over
+  a finite field; the script still ends with ALL OK. `checks/README.md` also says that the scripts end with `ALL OK`
+  if their checks pass (`check_color_code.py` prints `FAILED`, not `FAILURE`, otherwise). VERSION stays R48.
 - README (status: R37 is cited by arXiv v1, R48 by the revised version and its Table S3; §0 item), the round list
   of `docs/R32_reduction_and_local_dimension.md` (R48 paragraph), VERSION, CITATION.cff (version R48; the revised
   version). No code under `cc/` or `epr1kit/` and no gates changed (addendum 5 adds one script and one data file,
