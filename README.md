@@ -41,12 +41,19 @@ data bundled, a static Normaliz binary included, resumable long runs.
 > (Theorem 5) on its own, with the Python standard library and no data files.
 > Its seventeenth addendum changes no result: it records in `checks/references_log.md` the reading of ten cited
 > sources in the original.
-> Release R37
+> Its eighteenth addendum registers the server job `a2-long` (longer annealing of the 1,155 undecided orbits) and
+> stages sandbox results in `results/2026-11-16_s6-sandbox/`: one undecided orbit is realised by a 22-qubit graph
+> state, so 642 extreme-ray orbits of the qubit stabilizer cone are known; the known extreme rays do not generate that
+> cone; and three CI+Ingleton classes are further facets of it for every local dimension (exact certificates, checked
+> by an independent referee script, not yet by hand; `data/` and the gates are refreshed after the server job).
+> Release R37 ([10.5281/zenodo.23303466](https://doi.org/10.5281/zenodo.23303466))
 > is the archived version cited by the first version of the paper *Stabilizer entropy cones as self-dual slices of
 > linear rank cones: a five-party gap and dependence on the local dimension* (X. Song and R. Cao,
-> 2026, [arXiv:2610.18905v1](https://arxiv.org/abs/2610.18905v1)); release R48 is the version cited by its revised
-> version (October 2026), whose Supplementary Table S5 maps each result to the notes, the gates and the scripts in
-> `checks/`.
+> 2026, [arXiv:2610.18905v1](https://arxiv.org/abs/2610.18905v1)); release R48
+> ([10.5281/zenodo.23841282](https://doi.org/10.5281/zenodo.23841282)) is the version cited by its revised version,
+> *Arithmetic of qudit dimensions governs erasure correction on the Fano plane and stabilizer-state entanglement*
+> ([arXiv:2610.18905v2](https://arxiv.org/abs/2610.18905v2), 31 October 2026), whose Supplementary Table S5 maps each
+> result to the notes, the gates and the scripts in `checks/`.
 > Everything in `data/` is machine-certified by the
 > gates in `selftest.py`, and the numbers quoted in the paper are recomputed by the
 > separate scripts in `checks/`. The proofs used in the paper and the
@@ -66,7 +73,7 @@ and the changelog is explained in the glossary at the end.
 
 ## The paper and its verification scripts (R37)
 
-- **The paper** ([arXiv:2610.18905](https://arxiv.org/abs/2610.18905)). It shows that, after a linear lift,
+- **The paper** (first version, [arXiv:2610.18905v1](https://arxiv.org/abs/2610.18905v1)). It shows that, after a linear lift,
   the n-party stabilizer entropy cone of local dimension d is the self-dual slice of the cone of rank
   functions of n + 1 subgroups of abelian groups of exponent dividing d (for
   prime d, of subspaces over GF(d)). From this it derives a five-party gap
@@ -74,8 +81,10 @@ and the changelog is explained in the glossary at the end.
   on the local dimension. Its results are those of rounds R27-R36, written up in
   `docs/A2_stabilizer_vs_QLR.md` and `docs/R32_reduction_and_local_dimension.md`;
   Table VI of the paper maps each result to these notes, to the gates of
-  `selftest.py` and to the scripts below. (R47, R48) A revised version of the
-  paper (October 2026) also contains the results of R38–R40, R42–R44, R46
+  `selftest.py` and to the scripts below. (R47, R48) The revised version of the
+  paper, *Arithmetic of qudit dimensions governs erasure correction on the Fano plane and stabilizer-state
+  entanglement* ([arXiv:2610.18905v2](https://arxiv.org/abs/2610.18905v2), October 2026), also contains the results
+  of R38–R40, R42–R44, R46
   (§4.13), R47 and R48 and cites release R48; its Supplementary Table S5 plays the
   role of Table VI. The scripts `checks/check_rev_*.py` check these results, and
   `checks/README.md` maps every script to both versions.
@@ -737,6 +746,7 @@ Release instead). Engine options can be overridden after `--`.
 | `a2-survivors` | X | done 2026-10-01 (28 min on 208 cores): complete single-CI test on 2,566 orbits + annealing at λ = 1, 2 | 4 orbits, 3 s annealing (~40 s) |
 | `a2-ingleton` | X | done 2026-10-02 (40 min on 208 cores): complete CI+Ingleton test on 2,070 orbits (904 excluded), qutrit and second-seed qubit annealing at λ = 1, 60 s (0 + 11 realised) | 2 orbits, 3 s annealing (~3 min) |
 | `s32-unimodular` | S / X | done in the sandbox, R38–R40 (2026-10-13/14, 2 cores: all 641 rows certified); no open row is left, so the X variant finishes at once; kept for rows added to the catalogue later (the R39 covering search with rounds of 1,200 s) | rows 587, 589: one covering round at 3 s (~25 s) |
+| `a2-long` | X | ~1.5 h on 208 cores, ~8.5 h on 25 (about 197 core-hours): qubit annealing of the 1,155 undecided orbits with a new seed, by the qubit count N at λ = 1: λ = 1 for 120 s (N ≤ 32), 300 s (N = 33–40) and 900 s (N = 41–64); λ = 2 for 600 s (N ≤ 32); λ = 3 for 600 s (N ≤ 21) | 3 orbits per band, 3 s (~35 s) |
 
 **Rule:** every tier-X job is handed over only after its smoke variant has
 passed in the sandbox (and, optionally, in the manual CI workflow
@@ -1033,8 +1043,15 @@ published version of BKL's eq. (6.17) (pitfall 21; Peña-Macias and Sarria noted
 the error in 2021); read the "technical assumption on the local dimension" of
 Majenz's Cor. 5.12 (arXiv:1810.12845) by hand. (b) The 1,155 undecided orbits
 (`results/2026-10-02_a2-status/`): most need 21–40 qubits at λ = 1, where 60 s
-of annealing mostly ends far from a realisation, so stronger searches
-(longer, λ = 2, restarts from the best states) are the obvious server job.
+of annealing mostly ends far from a realisation. One annealing schedule of `cc/s16_anneal.c` (3,000 sweeps) takes
+about 3 s at 30 qubits, 10 s at 40 and 25–29 s at 50–52 on one core of the sandbox, so the 60 s budgets of R29/R30
+allowed only two or three schedules above 45 qubits; a 3 s sandbox pass over 200 of the orbits with at most 32 qubits
+realised row 51 (`results/2026-11-16_s6-sandbox/`, addendum 18). The server job `a2-long` runs longer searches at
+λ = 1, 2 and 3 (restarts from the best states are not implemented); realised rows then go through
+`scripts/s32_unimodular.py` for every d and into the catalogue. The same folder lists, for every undecided row, a facet
+of the cone of the known extreme rays that the row violates (800 S₆ classes; 158 cover all rows): excluding all 1,155
+rows amounts to proving those classes for Stab₅, which one common information, even with Ingleton on the extension,
+cannot do (every undecided row passes those tests).
 (c) The 10 orbits with at most 20 qubits survive everything tried (qubits at
 λ = 1, 2, qutrits, p = 5, 7, GF(4), CI+Ingleton, CI+Ingleton+DFZ, two common
 informations on small pairs), among them frontier ray 294. Untried: second

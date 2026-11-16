@@ -1,7 +1,9 @@
 # Independent checks for the paper
 
 These scripts recompute the numbers quoted in the paper by X. Song and R. Cao on stabilizer entropy cones
-(arXiv:2610.18905 and its revised version of October 2026). They read the data of the repository
+(arXiv:2610.18905v1 and its revised version, arXiv:2610.18905v2 of 31 October 2026, *Arithmetic of qudit
+dimensions governs erasure correction on the Fano plane and stabilizer-state entanglement*). They read the data
+of the repository
 https://github.com/RuifengCao/quantum-linear-rank-cone (release R48) but not its code, except for the
 transcriptions of the published seven-variable inequalities used in `check_sec6.py`.
 
@@ -19,8 +21,8 @@ except `check_sec4b_facet.py` and `check_facets119.py`, which print counts.
 The table gives the parts of the paper that each script checks, in the numbering of the revised version (Results
 Secs. II A–E, Discussion Sec. III, Methods Secs. IV A–L, Supplementary Notes 1–12) and, in brackets, the sections of
 arXiv:2610.18905v1. Numbers of theorems, propositions, lemmas, figures, tables and equations refer to the revised
-version as submitted (R48 addendum 14; the CHANGELOG entries of addenda 8, 10, 12 and 14 map the numbers of the
-earlier drafts).
+version as submitted, which is arXiv:2610.18905v2 (R48 addendum 14; the CHANGELOG entries of addenda 8, 10, 12 and
+14 map the numbers of the earlier drafts).
 
 | script | paper |
 | --- | --- |

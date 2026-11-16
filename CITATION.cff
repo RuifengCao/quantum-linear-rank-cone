@@ -3,7 +3,8 @@ message: "If you use these data or this code, please cite them as below."
 type: software
 title: "quantum-linear-rank-cone: Data, certificates and code for stabilizer entropy cones"
 version: R48
-date-released: 2026-10-20
+doi: 10.5281/zenodo.23841282
+date-released: 2026-10-31
 authors:
   - family-names: Cao
     given-names: Ruifeng
@@ -24,7 +25,9 @@ abstract: >-
   sharing schemes, a self-test suite of verification gates, and the verification
   scripts (directory checks) of the paper "Stabilizer entropy cones as self-dual
   slices of linear rank cones: a five-party gap and dependence on the local
-  dimension" by X. Song and R. Cao (arXiv:2610.18905) and of its revised version. The code is under the MIT license, the data
+  dimension" by X. Song and R. Cao (arXiv:2610.18905v1) and of its revised version,
+  "Arithmetic of qudit dimensions governs erasure correction on the Fano plane and
+  stabilizer-state entanglement" (arXiv:2610.18905v2). The code is under the MIT license, the data
   (directories data and results) are under the CC BY 4.0 license, and bin/normaliz
   is an unmodified binary of Normaliz under its own license (GPL-3).
 keywords:
@@ -35,6 +38,22 @@ keywords:
   - quantum information
 references:
   - type: article
+    title: "Arithmetic of qudit dimensions governs erasure correction on the Fano plane and stabilizer-state entanglement"
+    authors:
+      - family-names: Song
+        given-names: Xidan
+      - family-names: Cao
+        given-names: Ruifeng
+    year: 2026
+    url: "https://arxiv.org/abs/2610.18905v2"
+    identifiers:
+      - type: other
+        value: "arXiv:2610.18905v2"
+        description: "arXiv preprint, revised version (31 October 2026); cites release R48"
+      - type: doi
+        value: "10.48550/arXiv.2610.18905"
+        description: "DOI of the arXiv record"
+  - type: article
     title: "Stabilizer entropy cones as self-dual slices of linear rank cones: a five-party gap and dependence on the local dimension"
     authors:
       - family-names: Song
@@ -42,8 +61,8 @@ references:
       - family-names: Cao
         given-names: Ruifeng
     year: 2026
-    url: "https://arxiv.org/abs/2610.18905"
+    url: "https://arxiv.org/abs/2610.18905v1"
     identifiers:
       - type: other
-        value: "arXiv:2610.18905"
-        description: "arXiv preprint"
+        value: "arXiv:2610.18905v1"
+        description: "arXiv preprint, first version (11 October 2026); cites release R37"

@@ -1,0 +1,37 @@
+{
+ "date": "2026-11-16",
+ "tag": "s6-sandbox",
+ "note": "S6 sandbox (computed 2026-10-31): undecided row 51 realised (642 known orbits); four graph states outside the cone of the known rays; three more facet classes; 800 frontier facet classes; annealing benchmark",
+ "files": {
+  "README.txt": {
+   "bytes": 5102,
+   "sha256": "79de520959909e5df6ea8e62cf68b96b02fb2f1a37162f15dcd88b465fb852e5"
+  },
+  "orbit51_realisation.json": {
+   "bytes": 1152,
+   "sha256": "00c8b3e56dc557cf6cb2b02ce5a44813a10f4aac664e377ff82779deea62d5db"
+  },
+  "outside_known_cone.json": {
+   "bytes": 4513,
+   "sha256": "af135e21f6599a676aab933a13943f5151ac37362c48846df08fc316893eb80f"
+  },
+  "ci_ingleton_facets3.npy": {
+   "bytes": 872,
+   "sha256": "54584044d5e10c38f39eb3dc2bbe6fbd0bdbc856fe83fae95eee0f19ba62047c",
+   "rows": 3,
+   "sha_rows": "12d66858dae1ceedee4008e9c94fb55e5581f4fe1cc5ff8563b4c0ed4cde9ba3"
+  },
+  "frontier_facets.npz": {
+   "bytes": 18587,
+   "sha256": "7ef397beb09bdc6814d884ba96147a133d55bb601c69918f4fdbda1ecbad9bae"
+  },
+  "anneal_benchmark_20s.json": {
+   "bytes": 8424,
+   "sha256": "96c15ae425401b62c7bce1c72d783be6cee1e69a1839343d83275c844061a80a"
+  },
+  "near_realisation_sample.json": {
+   "bytes": 9122,
+   "sha256": "f10bad3709bcce3315a9ce857b6dd4b8ecb684af769e6d3b02687e6eab79c272"
+  }
+ }
+}
