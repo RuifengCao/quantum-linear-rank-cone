@@ -867,6 +867,56 @@ def main():
          + ', '.join(f'{k} {v["eps_inf"]}' for k, v in T43['margins'].items())
          + f'; file and content match the manifest {file43}')
 
+    # G44 (R49): undecided orbits realised after submission (results/2026-11-17_r49-sandbox).  data/ is unchanged, so
+    # the gates above and the scripts in checks/ still see the 641 orbits of the paper.  Each of the 141 stored
+    # certificates is a qubit graph state whose 31 cut ranks over GF(2), recomputed with epr1kit.stabcert, equal lam
+    # times its row of the R30 list results/2026-10-02_a2-status/undecided_reps.npy; every such row satisfies the 10,860
+    # facets of QLR5 with a tight set of rank 30 (an extreme ray of QLR5, hence of Stab5) and lies in an S6 orbit
+    # different from those of data/stab5_extreme_reps.npy and of the other 140 rows; undecided_reps.npy of the folder
+    # is the rest of the R30 list in the same order, and status.json gives 782 known / 1,014 undecided.  The unimodular
+    # realisations of every_d_sandbox.npz are exact (scripts/s32_unimodular.py check, catalogue extended by the 141
+    # rows as with --append), so those rows lie in Stab^(Z_d)_5 for every d.  File hashes match the folder manifest.
+    base44 = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'results')
+    D44 = os.path.join(base44, '2026-11-17_r49-sandbox')
+    M44 = _js20.load(open(os.path.join(D44, 'manifest.json')))
+    file44 = all(_h33.sha256(open(os.path.join(D44, f), 'rb').read()).hexdigest() == e['sha256']
+                 for f, e in M44['files'].items()) and len(M44['files']) == 6
+    R44 = np.load(os.path.join(D44, 'realisations_141.npz'), allow_pickle=False)
+    U44 = np.load(os.path.join(base44, '2026-10-02_a2-status', 'undecided_reps.npy')).astype(np.int64)
+    L44 = np.load(os.path.join(D44, 'undecided_reps.npy')).astype(np.int64)
+    rows44 = [int(x) for x in R44['row']]
+    keep44 = np.ones(U44.shape[0], dtype=bool)
+    keep44[rows44] = False
+    ok44a = (len(rows44) == len(set(rows44)) == 141 and np.array_equal(R44['rep'].astype(np.int64), U44[rows44])
+             and np.array_equal(L44, U44[keep44]))
+    nv44 = sum(_sc.verify_realisation(U44[r], int(R44['lam'][k]), R44['sizes'][k], R44['rows'][k])
+               for k, r in enumerate(rows44))
+    HF44 = core.load('qlr5_H_facets10860').astype(np.int64)
+    V44 = HF44 @ U44[rows44].T
+    ne44 = sum(1 for k in range(len(rows44)) if V44[:, k].min() >= 0 and core.rank_mod_p(HF44[V44[:, k] == 0]) == 30)
+    c44, _ = core.class_reps(np.vstack([core.load('stab5_extreme_reps').astype(np.int64), U44[rows44]]),
+                             core.perms31_s6(), offset=4096, width='u16')
+    no44 = len(set(c44[641:])) == 141 and not (set(c44[641:]) & set(c44[:641]))
+    ST44 = _js20.load(open(os.path.join(D44, 'status.json')))
+    acc44 = (ST44['known_extreme_ray_orbits'] == 641 + len(rows44) == 782 and ST44['undecided'] == L44.shape[0] == 1014
+             and ST44['realised_rows'] == rows44)
+    EV44 = np.load(os.path.join(D44, 'every_d_sandbox.npz'), allow_pickle=False)
+    _s36.APPEND = os.path.join(D44, 'realisations_141.npz')
+    try:
+        S44 = _s36.check(os.path.join(D44, 'every_d_sandbox.npz'), full=False, log=lambda *_x: None)
+    finally:
+        _s36.APPEND = None
+    ok44e = (S44['ok'] == S44['stored'] == S44['distinct_rows'] == len(ST44['every_d']['rows']) and S44['rep_ok']
+             and all(641 <= int(k) < 782 for k in EV44['row'])
+             and sorted(rows44[int(k) - 641] for k in EV44['row']) == ST44['every_d']['rows'])
+    lam44 = {int(l): int((R44['lam'] == l).sum()) for l in sorted(set(R44['lam'].tolist()))}
+    gate('G44 undecided orbits realised after submission', ok44a and nv44 == 141 and ne44 == 141 and no44 and acc44
+         and ok44e and file44,
+         f'{nv44}/141 certificates re-verified (GF(2) cut ranks, lambda {lam44}); {ne44}/141 extreme rays of QLR5 '
+         f'(tight rank 30); new S6 orbits {no44}; {ST44["known_extreme_ray_orbits"]} known / {ST44["undecided"]} '
+         f'undecided (data/ keeps the 641 of the paper); every d: {S44["ok"]}/{S44["stored"]} unimodular realisations '
+         f'exact; files match the folder manifest {file44}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:

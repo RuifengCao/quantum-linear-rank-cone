@@ -378,6 +378,37 @@
       classes; a greedy cover of all rows by 158 classes; computed, not checked by the referee); the annealing
       benchmark; a 3 s pass over 200 rows with at most 32 qubits.
   - `README.md` §7 ⓪(b): the job and these results.
+- **Addendum 19 (2026-11-17, results of `a2-long`; 141 undecided orbits realised; gate G44).** `data/` and gates
+  G0–G43 unchanged; the scripts in `checks/` read the same data as before. VERSION stays R48.
+  - `results/2026-11-17_a2-long/`: the job `a2-long` as staged by `run_job.py` (run on the authors' laptop, WSL2, 32
+    threads, 2026-11-17, 22,828 s, exit 0; repository at `e3f2b45`). Realised: 131 of the 626 orbits with N ≤ 32 at
+    λ = 1 (120 s), none of the 373 with N = 33–40 (300 s) or of the 156 with N = 41–64 (900 s), 2 at λ = 2 (600 s;
+    rows 484 and 981, N = 15 and 12; row 981 is frontier ray 294, the last undecided ray of the R27 frontier), none at
+    λ = 3 (600 s). Every certificate was re-verified by the job and again in the sandbox by an independent GF(2) routine.
+  - `results/2026-11-17_r49-sandbox/` (sandbox, 2 cores): one certificate for each of the 141 rows of the R30 undecided
+    list realised so far (133 by `a2-long`, 8 more by sandbox annealing on 2026-11-16/17 at 240–600 s per row; 32 rows
+    were found by both) with provenance; each row is an extreme ray of QLR₅ (tight rank 30), hence of Stab₅: 641 + 141 =
+    782 known orbits, and the other 1,014 rows (`undecided_reps.npy`, same order) stay undecided. Unimodular
+    realisations (κ = 1) of 10 of the 141 rows (`every_d_sandbox.npz`), so these lie in Stab^(ℤ_d)_5 for every d.
+    `frontier_782.npz`: 629 of the 800 frontier classes of addendum 18 are violated by a realised row, so they do not
+    hold on Stab₅; the cone of the 782 known orbits (318,932 rays) has a frontier of 429 classes (171 old, 258 new from
+    the linear program of addendum 18 on the 293 rows that no old class cuts; exact, validity and rank 30 re-checked on
+    all rays), 186 of which cover all 1,014 rows. The 641 rows of `data/stab5_extreme_reps.npy` are those of the paper
+    and stay as they are while the paper is under review (addendum 18 had announced a refresh of `data/`): appending
+    the 141 rows there would make G26 and two scripts of `checks/` fail and change numbers printed by two others.
+  - `selftest.py`: gate G44 re-verifies the 141 certificates with `epr1kit/stabcert.py`, their extremality in QLR₅
+    (the 10,860 facets), that their S₆ orbits are new, the accounting (782 / 1,014) and the 10 unimodular realisations
+    (with the catalogue extended as by `--append`), and the folder manifest. It fails on a certificate with one edge
+    flipped.
+  - `scripts/s32_unimodular.py`: option `--append FILE` (rows appended to the catalogue as rows 641, 642, ..., with
+    their qubit certificates; `--search` and `--cover` then refuse output paths in `data/`). Without it the script
+    behaves as before (`--self-test`, `--check --full` 566/566, `--check-cover` 75 rows and 199 pieces, as in R48).
+  - `jobs.json`: tier-X jobs `a2-long2` (the 485 rows with N ≤ 32 still undecided at λ = 1 for 900 s, the 10 with
+    N ≤ 21 at λ = 2 for 1,800 s; ~4.3 h on 32 threads) and `s32-new` (unimodular search for the 131 open rows of the
+    141 with `--append`: neutral, ring-eisenstein, plain, 300 s each; about 1 h on 32 threads), each with a smoke
+    variant that passes through `run_job.py` in the sandbox. `README.md` §2b: their rows, and `a2-long` marked done.
+  - `README.md` (header; the gate counts in §2, §3 and §9, which said 49, 59 and 57, now all say 60; §7 ⓪(b), (c) and
+    ⓪′), CHANGELOG.md: addendum 19. `selftest.py --full`: 60 gate lines, ALL PASS.
 - README (status: R37 is cited by arXiv v1, R48 by the revised version and its Table S3; §0 item), the round list
   of `docs/R32_reduction_and_local_dimension.md` (R48 paragraph), VERSION, CITATION.cff (version R48; the revised
   version). No code under `cc/` or `epr1kit/` and no gates changed (addendum 5 adds one script and one data file,

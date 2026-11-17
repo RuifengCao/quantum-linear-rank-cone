@@ -1,0 +1,33 @@
+{
+ "date": "2026-11-17",
+ "tag": "r49-sandbox",
+ "note": "undecided orbits realised after submission: 141 (a2-long and sandbox), 782 known / 1,014 undecided; every-d certificates for 10; frontier of the enlarged inner cone",
+ "files": {
+  "README.txt": {
+   "bytes": 4296,
+   "sha256": "62bc2ba4f2320b39d4fd639bc9fd3417b5b29511237fbeab14465d3769ba3039"
+  },
+  "realisations_141.npz": {
+   "bytes": 98013,
+   "sha256": "06a6f5a6ee7847060b7a594a092ad12bd379139c5eb39839079c793be8da8b5a"
+  },
+  "undecided_reps.npy": {
+   "bytes": 62996,
+   "sha256": "dfe0f1a753e716f594d41ca56d8935b2f76b1b3c606af496222036f8a822ea78",
+   "rows": 1014,
+   "sha_rows": "f2a745e5858f15715e7ddee64b85f144145450cfa3d2369cdbbfc5363ec6b7a5"
+  },
+  "status.json": {
+   "bytes": 1841,
+   "sha256": "a05073c6b564c56ac943984430eb30df84bd8ed292ec9f95348399b3286faf05"
+  },
+  "every_d_sandbox.npz": {
+   "bytes": 46328,
+   "sha256": "02732bd158f7978437eb2b717b387d690fc3e66618762a91de7e48aa0370d28b"
+  },
+  "frontier_782.npz": {
+   "bytes": 18950,
+   "sha256": "93be7a51829a862c0d692a682c50344795a0a76ebc222edb2cfcab40bc6edc16"
+  }
+ }
+}

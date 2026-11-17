@@ -46,6 +46,14 @@ data bundled, a static Normaliz binary included, resumable long runs.
 > state, so 642 extreme-ray orbits of the qubit stabilizer cone are known; the known extreme rays do not generate that
 > cone; and three CI+Ingleton classes are further facets of it for every local dimension (exact certificates, checked
 > by an independent referee script, not yet by hand; `data/` and the gates are refreshed after the server job).
+> Its nineteenth addendum stages the results of that job (`results/2026-11-17_a2-long/`, run on a 32-thread laptop)
+> and of sandbox runs (`results/2026-11-17_r49-sandbox/`): 141 of the 1,155 undecided orbits are realised by qubit
+> graph states (133 of them by `a2-long`), so 782 extreme-ray orbits of the qubit stabilizer cone are known and 1,014
+> remain undecided; 10 of the 141 are certified for every local dimension so far. Unlike what the eighteenth addendum
+> announced, `data/` is not refreshed while the paper is under review: it keeps the 641 orbits of the paper, so the
+> gates G0–G43 and the scripts in `checks/` are unchanged, and the new gate G44 checks the new folder. The addendum
+> also adds `--append` to `scripts/s32_unimodular.py` (certificates for every d for rows outside `data/`) and
+> registers the jobs `a2-long2` and `s32-new`.
 > Release R37 ([10.5281/zenodo.23303466](https://doi.org/10.5281/zenodo.23303466))
 > is the archived version cited by the first version of the paper *Stabilizer entropy cones as self-dual slices of
 > linear rank cones: a five-party gap and dependence on the local dimension* (X. Song and R. Cao,
@@ -671,7 +679,7 @@ single-source lines in `data/dfz_ref28.csv`; optional `rays5` cross-check.
 
 ```
 # ---- A. Verify the completed results (optional, ~3 minutes in total) ----
-python3 selftest.py --full            # 49 gate lines + ALL PASS, ~8 min; must be all green first
+python3 selftest.py --full            # 60 gate lines + ALL PASS, ~8 min; must be all green first
 python3 scripts/s1_build_qlr.py --variant pure28 --workers 25     # seconds
 python3 scripts/s2_judge.py QLR_H_pure28.npy                      # expect: violated 0
 python3 scripts/s3_rank19.py QLR_H_pure28.npy                     # expect: 18/19, only #19 has rank 29
@@ -746,7 +754,9 @@ Release instead). Engine options can be overridden after `--`.
 | `a2-survivors` | X | done 2026-10-01 (28 min on 208 cores): complete single-CI test on 2,566 orbits + annealing at λ = 1, 2 | 4 orbits, 3 s annealing (~40 s) |
 | `a2-ingleton` | X | done 2026-10-02 (40 min on 208 cores): complete CI+Ingleton test on 2,070 orbits (904 excluded), qutrit and second-seed qubit annealing at λ = 1, 60 s (0 + 11 realised) | 2 orbits, 3 s annealing (~3 min) |
 | `s32-unimodular` | S / X | done in the sandbox, R38–R40 (2026-10-13/14, 2 cores: all 641 rows certified); no open row is left, so the X variant finishes at once; kept for rows added to the catalogue later (the R39 covering search with rounds of 1,200 s) | rows 587, 589: one covering round at 3 s (~25 s) |
-| `a2-long` | X | ~1.5 h on 208 cores, ~8.5 h on 25 (about 197 core-hours): qubit annealing of the 1,155 undecided orbits with a new seed, by the qubit count N at λ = 1: λ = 1 for 120 s (N ≤ 32), 300 s (N = 33–40) and 900 s (N = 41–64); λ = 2 for 600 s (N ≤ 32); λ = 3 for 600 s (N ≤ 21) | 3 orbits per band, 3 s (~35 s) |
+| `a2-long` | X | done 2026-11-17 (6.3 h on a 32-thread laptop, `results/2026-11-17_a2-long/`): qubit annealing of the 1,155 undecided orbits with a new seed, by the qubit count N at λ = 1: λ = 1 for 120 s (N ≤ 32: 131 of 626 realised), 300 s (N = 33–40: 0 of 373) and 900 s (N = 41–64: 0 of 156); λ = 2 for 600 s (N ≤ 32: 2 realised); λ = 3 for 600 s (N ≤ 21: 0 of 12) | 3 orbits per band, 3 s (~35 s) |
+| `a2-long2` | X | ~4.3 h on 32 threads: the 485 orbits with N ≤ 32 still undecided after addendum 19 (`results/2026-11-17_r49-sandbox/undecided_reps.npy`) at λ = 1 for 900 s, and the 10 with N ≤ 21 at λ = 2 for 1,800 s | 3 orbits per band, 3 s (~15 s) |
+| `s32-new` | X | about 1 h on 32 threads: unimodular realisations (certificates for every d) for the 131 rows of `results/2026-11-17_r49-sandbox/realisations_141.npz` without one, with `s32_unimodular.py --search --append` (neutral, ring-eisenstein, plain; 300 s per row and strategy) | 3 rows, 3 s (~12 s) |
 
 **Rule:** every tier-X job is handed over only after its smoke variant has
 passed in the sandbox (and, optionally, in the manual CI workflow
@@ -757,7 +767,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 
 | Stage | Command essentials | Purpose / expectation |
 | --- | --- | --- |
-| selftest | `selftest.py [--full] [--workers N]` | 59 regression gate lines (G0–G43 with G2b and G10b, G29b, G31b–G36b, G38b–G43b) + ALL PASS; run first on any machine |
+| selftest | `selftest.py [--full] [--workers N]` | 60 regression gate lines (G0–G44 with G2b and G10b, G29b, G31b–G36b, G38b–G43b) + ALL PASS; run first on any machine |
 | s1 | `--variant pure28` (current) / `pure`, `v3`, `pure2` (historical) | build the H-representation; seconds |
 | s2 | `s2_judge.py <H.npy>` | 760 graph-state judge; `pure*` variants must give 0 violations |
 | s3 | `s3_rank19.py <H.npy> [--extra-rows X]` | tight-rank test of the 19 HEC rays; pure28 → 18/19 |
@@ -1046,21 +1056,30 @@ Majenz's Cor. 5.12 (arXiv:1810.12845) by hand. (b) The 1,155 undecided orbits
 of annealing mostly ends far from a realisation. One annealing schedule of `cc/s16_anneal.c` (3,000 sweeps) takes
 about 3 s at 30 qubits, 10 s at 40 and 25–29 s at 50–52 on one core of the sandbox, so the 60 s budgets of R29/R30
 allowed only two or three schedules above 45 qubits; a 3 s sandbox pass over 200 of the orbits with at most 32 qubits
-realised row 51 (`results/2026-11-16_s6-sandbox/`, addendum 18). The server job `a2-long` runs longer searches at
-λ = 1, 2 and 3 (restarts from the best states are not implemented); realised rows then go through
-`scripts/s32_unimodular.py` for every d and into the catalogue. The same folder lists, for every undecided row, a facet
-of the cone of the known extreme rays that the row violates (800 S₆ classes; 158 cover all rows): excluding all 1,155
-rows amounts to proving those classes for Stab₅, which one common information, even with Ingleton on the extension,
-cannot do (every undecided row passes those tests).
-(c) The 10 orbits with at most 20 qubits survive everything tried (qubits at
-λ = 1, 2, qutrits, p = 5, 7, GF(4), CI+Ingleton, CI+Ingleton+DFZ, two common
-informations on small pairs), among them frontier ray 294. Untried: second
+realised row 51 (`results/2026-11-16_s6-sandbox/`, addendum 18). The job `a2-long` (addendum 19, run 2026-11-17 on
+32 threads; restarts from the best states are not implemented) realised 133 rows, 131 at λ = 1 and rows 484 and 981
+(15 and 12 qubits at λ = 1) at λ = 2; sandbox runs realised 8 more. So 141 rows are realised
+(`results/2026-11-17_r49-sandbox/`, gate G44): 782 known orbits, 1,014 undecided (N ≤ 21: 10, N = 22–32: 475,
+N = 33–40: 373, N = 41–64: 156). No row with N ≥ 33 was realised; the realised fraction falls with N (16 of 17 rows at
+N = 22, 63 of 156 at 26, 12 of 162 at 28, 3 of 99 at 30, 0 of 120 at 32). The realised rows go through
+`scripts/s32_unimodular.py --append` for every d (10 so far; job `s32-new`) and into `data/` at a later release; job
+`a2-long2` anneals the 485 rows with N ≤ 32 longer. The facets of the cone of the known extreme rays that the
+undecided rows violate (addendum 18: 800 S₆ classes, 158 cover all rows) change with every realisation: 629 of the
+800 classes are violated by a row realised since, so they do not hold on Stab₅; for the cone of the 782 known orbits
+the frontier has 429 classes, 186 of which cover all 1,014 rows. Excluding the undecided rows amounts to proving such
+classes for Stab₅, which one common information, even with Ingleton on the extension, cannot do (every undecided row
+passes those tests).
+(c) Of the 10 orbits with at most 20 qubits, two are realised at λ = 2 by `a2-long` (addendum 19): row 981, which
+is frontier ray 294, the last undecided ray of the R27 frontier (`docs/A2_stabilizer_vs_QLR.md`; 12 qubits at λ = 1,
+a 24-qubit certificate), and row 484 (15 qubits; 30). The other 8 survive
+everything tried (qubits at λ = 1, 2, 3, qutrits, p = 5, 7, GF(4), CI+Ingleton, CI+Ingleton+DFZ, two common
+informations on small pairs). Untried: second
 common informations of pairs that involve the first, larger pairs, DFZ
 instances with unions of elements in one slot, and DFZ's own
 six-variable list (arXiv:0910.0284 §6: 3,490 inequalities, 2,395,095 with
 permuted forms; "hundreds" need two common informations) — if that list can
 be obtained (the authors' site `code.ucsd.edu/zeger/linrank`, which also hosts
-`rays5`), testing h_norm of the 10 orbits against it is cheap. (d) S7′ (all
+`rays5`), testing h_norm of the 8 orbits against it is cheap. (d) S7′ (all
 six-variable linear rank inequalities) holds (R32, Theorem 1).
 The A1′ catalogue campaign is closed (R26); `s4c_qlr.py` remains available.
 
@@ -1069,7 +1088,9 @@ The A1′ catalogue campaign is closed (R26); `s4c_qlr.py` remains available.
 (`data/s32_stab5_unimodular.npz`) and 75 by covering certificates
 (`data/s32_stab5_cover.npz`). A five-party dimension dependence would now need an extreme ray of Stab₅ that is not
 yet known (or, for d divisible by a square, a vector of Stab^(Z_d)_5 outside Stab₅). The server job
-`s32-unimodular` has nothing left to do.
+`s32-unimodular` has nothing left to do. The 141 orbits realised after submission (addendum 19) are not yet in `data/`:
+10 have unimodular realisations (`results/2026-11-17_r49-sandbox/every_d_sandbox.npz`, gate G44), and the job
+`s32-new` searches the other 131 with `--append`.
 
 **⓪″ (R40–R42) Six parties, the other direction (roadmap item M3): done.** Among the states with at most one qudit
 per system, only the non-Fano state can witness Stab⁽³⁾_6 ⊄ Stab⁽²⁾_6 (R40, §4.10 of the R32 note); no qubit
@@ -1156,7 +1177,7 @@ This repository is public at
 
 - **CI:** `.github/workflows/selftest.yml` installs `lrslib` and the Python
   requirements and runs `python3 selftest.py --full` on every push and pull
-  request (all 57 gate lines must pass). Every step has a time cap (job 60 min, `selftest.py --full` 40 min;
+  request (all 60 gate lines must pass). Every step has a time cap (job 60 min, `selftest.py --full` 40 min;
   each `apt-get update` attempt 150 s, three attempts), so a stalled package
   mirror fails the run within minutes instead of hanging for GitHub's 6-hour
   default; such a failure says nothing about the code -- re-run the job.

@@ -1,0 +1,79 @@
+{
+ "date": "2026-11-17",
+ "tag": "a2-long",
+ "note": "run_job a2-long exit 0 on ClarkDellG16",
+ "files": {
+  "a2l_b0.npy": {
+   "bytes": 872,
+   "sha256": "ab2f839172885a9e7f2d9aab55be2b1397935a2547439cf56672631e9a281384",
+   "rows": 12,
+   "sha_rows": "a4039cc8f8306997a29a72a70d073aa449e02e5bdce562002ae81db52301028a"
+  },
+  "a2l_b1.npy": {
+   "bytes": 38940,
+   "sha256": "da4915cd9a8570511409cfc384f0525994bd5362667d2346b6fba2465eb30293",
+   "rows": 626,
+   "sha_rows": "c84d3d2b5154b18873b7d2a988c2bc017c88686d0ea4cee01b4fa7163957307e"
+  },
+  "a2l_b2.npy": {
+   "bytes": 23254,
+   "sha256": "40e695e393b1b48b54a530a46145dea84a6ad66a78c928f5e1c74dd9e1012a26",
+   "rows": 373,
+   "sha_rows": "6318805f7ef01cbbbbdd16859ad0fffd2251e60b7728a22458f2d78028880dcc"
+  },
+  "a2l_b3.npy": {
+   "bytes": 9800,
+   "sha256": "cb233a7f1cf38dfcfd9861e66e1371943ebae963b07c1efb938a60d117ace865",
+   "rows": 156,
+   "sha_rows": "3ec29c77cf48c63e8846565ec23ff353aca08a4cffea8a79a7ba706f53af7435"
+  },
+  "a2l_b1_l1.npz": {
+   "bytes": 79167,
+   "sha256": "d101b50eb07f27182618f5d6c6a998f1708d015a152e2448cdbdd14a91c14778"
+  },
+  "a2l_b1_l1.npz.json": {
+   "bytes": 6937,
+   "sha256": "5ddcc0e3b35f448db8f47de9d7152bdca28c51dffdad2970299165e092786ad6"
+  },
+  "a2l_b2_l1.npz": {
+   "bytes": 1222,
+   "sha256": "4233809bd4591747443b2d047fa173ba5bce93a9860d9258443d28c3015ae9a9"
+  },
+  "a2l_b2_l1.npz.json": {
+   "bytes": 5483,
+   "sha256": "5a8379815b44fc7e3f0dd4887a553e424dfb5ebc713e976fac3b7f5344cab21b"
+  },
+  "a2l_b3_l1.npz": {
+   "bytes": 1222,
+   "sha256": "4233809bd4591747443b2d047fa173ba5bce93a9860d9258443d28c3015ae9a9"
+  },
+  "a2l_b3_l1.npz.json": {
+   "bytes": 2312,
+   "sha256": "7964c4989b66ef8d1262130ab3866f24f11f01ce0655fe69414afe59d7178e5d"
+  },
+  "a2l_b1_l2.npz": {
+   "bytes": 2412,
+   "sha256": "4e8e84ec577cb03a67c96583b083c2a0c0c812e956d417da343177c426af1e0e"
+  },
+  "a2l_b1_l2.npz.json": {
+   "bytes": 9373,
+   "sha256": "0d54fae46cf683d9abf7e52924f4ce61818e72634a55fb4c3638d586167323d9"
+  },
+  "a2l_b0_l3.npz": {
+   "bytes": 1222,
+   "sha256": "4233809bd4591747443b2d047fa173ba5bce93a9860d9258443d28c3015ae9a9"
+  },
+  "a2l_b0_l3.npz.json": {
+   "bytes": 238,
+   "sha256": "e76b769195b6a081b545bb984e9f29cf480276b7a78ceacc02e73ff5dd53e68a"
+  },
+  "a2-long.log": {
+   "bytes": 892,
+   "sha256": "bf16c97d7e1d6c9241096ff0532784cccc9d5ccbf6ff5f926aad00aff2c563ff"
+  },
+  "JOB_STATUS.json": {
+   "bytes": 1720,
+   "sha256": "b2b31a37f1585d7c72611a6bde26e027182256350005f37e9bcc132c5fc52d75"
+  }
+ }
+}

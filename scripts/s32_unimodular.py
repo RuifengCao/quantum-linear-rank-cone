@@ -47,6 +47,11 @@ Certification (`--check`, used by gate G36 of selftest.py) is exact and does not
   python3 scripts/s32_unimodular.py --cover --out FILE --cover-out FILE [--rows ...] [--seconds S] [--rounds R]
                                     [--rings ring-eisenstein,...] [--kappa2]   # covering certificates (cover_search)
   python3 scripts/s32_unimodular.py --check-cover     # bad primes recomputed, GF(p) pieces, coverage (gate G37)
+
+With --append FILE (an npz with fields rep, lam, sizes, rows, e.g. a file of new qubit realisations in the format of
+data/s16_realisations.npz), the rows of FILE are appended to the catalogue (they get the indices 641, 642, ...) and its
+certificates are added to the stored qubit certificates; --rows then indexes the extended catalogue.  data/ is not
+changed: with --append, --search and --cover need --out (and --cover-out) paths outside data/.
 """
 import argparse, itertools, json, os, random, shutil, subprocess, sys, tempfile, time
 from fractions import Fraction
@@ -94,8 +99,14 @@ def canon(v):
     return tuple(int(x) for x in imgs[np.lexsort(imgs.T[::-1])[0]])
 
 
+APPEND = None      # --append: npz (rep, lam, sizes, rows) of rows appended to the catalogue, with their certificates
+
+
 def catalogue():
-    return np.load(os.path.join(DATA, 'stab5_extreme_reps.npy')).astype(np.int64)
+    reps = np.load(os.path.join(DATA, 'stab5_extreme_reps.npy')).astype(np.int64)
+    if APPEND:
+        reps = np.vstack([reps, np.load(APPEND, allow_pickle=False)['rep'].astype(np.int64)])
+    return reps
 
 
 def qubit_certificates(reps):
@@ -109,7 +120,8 @@ def qubit_certificates(reps):
         out.setdefault(k, []).append((int(lam), [int(s) for s in sizes], adj, tag))
 
     for path, tag in ((os.path.join(DATA, 's16_realisations.npz'), 's16'),
-                      (os.path.join(ROOT, 'results', '2026-10-02_a2-ingleton', 'a2i_q2.npz'), 'a2i_q2')):
+                      (os.path.join(ROOT, 'results', '2026-10-02_a2-ingleton', 'a2i_q2.npz'), 'a2i_q2')) + \
+            (((APPEND, 'append'),) if APPEND else ()):
         z = np.load(path)
         for k in range(len(z['rep'])):
             sizes = [int(s) for s in z['sizes'][k]]; nv = sum(sizes)
@@ -868,7 +880,16 @@ def main():
     ap.add_argument('--kappa2', action='store_true', help='with --cover: rows without a rational realisation also get '
                     'a search at multiplicity 2 from two copies of their qubit certificate')
     ap.add_argument('--check-cover', action='store_true')
+    ap.add_argument('--append', default=None, help='npz (rep, lam, sizes, rows) of rows appended to the catalogue, '
+                    'with their qubit certificates; data/ is not changed')
     a = ap.parse_args()
+    if a.append:
+        global APPEND
+        APPEND = a.append
+        data_dir = os.path.realpath(DATA)
+        for path in ([a.out] if (a.search or a.cover) else []) + ([a.cover_out] if a.cover else []):
+            if os.path.dirname(os.path.realpath(path)) == data_dir:
+                raise SystemExit('with --append, --search and --cover need --out and --cover-out paths outside data/')
     if a.self_test:
         ok = self_test()
         print('ALL OK' if ok else 'FAILURE')
