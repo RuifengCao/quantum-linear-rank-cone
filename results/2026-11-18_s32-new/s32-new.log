@@ -1,0 +1,9 @@
+  neutral seed 20261118: 131 jobs, 37 reported, 1200 s
+  after neutral: 47 rows certified
+  ring-eisenstein seed 20261120: 94 jobs, 1 reported, 901 s
+  after ring-eisenstein: 48 rows certified
+  plain seed 20261122: 93 jobs, 0 reported, 900 s
+  after plain: 48 rows certified
+certified rows: 48 of 141
+{"stored": 48, "distinct_rows": 48, "rep_ok": true, "ok": 48, "kappa": {"1": 46, "2": 2}, "zd_checked": 0, "zd_ok": 0, "seconds": 0.6}
+ALL OK

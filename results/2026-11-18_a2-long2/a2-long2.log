@@ -1,0 +1,6 @@
+kernel: gcc -O3 -march=native -fopenmp; OpenMP threads 32
+lambda=1: 485 rays tried, 124 realised and independently verified (cumulative 124/485; 11893s)
+certificates -> a2l2_b1_l1.npz
+kernel: gcc -O3 -march=native -fopenmp; OpenMP threads 32
+lambda=2: 10 rays tried, 2 realised and independently verified (cumulative 2/10; 1800s)
+certificates -> a2l2_b0_l2.npz

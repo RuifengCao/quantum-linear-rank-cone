@@ -1,0 +1,12 @@
+{
+ "job": "a2-long2",
+ "mode": "full",
+ "host": "ClarkDellG16",
+ "nproc": 32,
+ "start_utc": "2026-11-18T04:47:31Z",
+ "end_utc": "2026-11-18T08:35:46Z",
+ "elapsed_s": 13694.4,
+ "exit_code": 0,
+ "cmd": "rm -f a2l2_b0.npy a2l2_b1.npy a2l2_b1_l1.npz a2l2_b1_l1.npz.json a2l2_b0_l2.npz a2l2_b0_l2.npz.json && python3 -c \"import numpy as np; U = np.load('results/2026-11-17_r49-sandbox/undecided_reps.npy'); N = U[:, [0, 1, 3, 7, 15]].sum(1).astype(int) + U[:, 30].astype(int); [np.save('a2l2_%s.npy' % k, U[s]) for k, s in [('b0', N <= 21), ('b1', N <= 32)]]\" && python3 scripts/s16_stab_search.py a2l2_b1.npy --lams 1 --seconds 900 --seed 20261118 --max-n 64 --out a2l2_b1_l1.npz && python3 scripts/s16_stab_search.py a2l2_b0.npy --lams 2 --seconds 1800 --seed 20261118 --max-n 64 --out a2l2_b0_l2.npz",
+ "checks": "two 'kernel: ... OpenMP threads <all cores>' lines and a result line for each run (lambda = 1, lambda = 2); every realisation is re-verified by the script before it is written; no WARNING / ABORT lines (NOTE lines are informational). The row indices in the .npz and .npz.json files refer to the band files a2l2_b*.npy, which are kept with the outputs"
+}

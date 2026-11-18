@@ -50,8 +50,9 @@ Certification (`--check`, used by gate G36 of selftest.py) is exact and does not
 
 With --append FILE (an npz with fields rep, lam, sizes, rows, e.g. a file of new qubit realisations in the format of
 data/s16_realisations.npz), the rows of FILE are appended to the catalogue (they get the indices 641, 642, ...) and its
-certificates are added to the stored qubit certificates; --rows then indexes the extended catalogue.  data/ is not
-changed: with --append, --search and --cover need --out (and --cover-out) paths outside data/.
+certificates are added to the stored qubit certificates; --rows then indexes the extended catalogue.  With
+--append FILE1,FILE2 the files are appended in that order.  data/ is not changed: with --append, --search and --cover
+need --out (and --cover-out) paths outside data/.
 """
 import argparse, itertools, json, os, random, shutil, subprocess, sys, tempfile, time
 from fractions import Fraction
@@ -99,13 +100,20 @@ def canon(v):
     return tuple(int(x) for x in imgs[np.lexsort(imgs.T[::-1])[0]])
 
 
-APPEND = None      # --append: npz (rep, lam, sizes, rows) of rows appended to the catalogue, with their certificates
+APPEND = None      # --append: npz files (rep, lam, sizes, rows) of rows appended to the catalogue, with their certificates
+
+
+def append_files():
+    """the files of --append, in order (APPEND is a comma-separated string or a list of paths)"""
+    if not APPEND:
+        return []
+    return [p for p in (APPEND.split(',') if isinstance(APPEND, str) else APPEND) if p]
 
 
 def catalogue():
     reps = np.load(os.path.join(DATA, 'stab5_extreme_reps.npy')).astype(np.int64)
-    if APPEND:
-        reps = np.vstack([reps, np.load(APPEND, allow_pickle=False)['rep'].astype(np.int64)])
+    for path in append_files():
+        reps = np.vstack([reps, np.load(path, allow_pickle=False)['rep'].astype(np.int64)])
     return reps
 
 
@@ -121,7 +129,7 @@ def qubit_certificates(reps):
 
     for path, tag in ((os.path.join(DATA, 's16_realisations.npz'), 's16'),
                       (os.path.join(ROOT, 'results', '2026-10-02_a2-ingleton', 'a2i_q2.npz'), 'a2i_q2')) + \
-            (((APPEND, 'append'),) if APPEND else ()):
+            tuple((path, 'append') for path in append_files()):
         z = np.load(path)
         for k in range(len(z['rep'])):
             sizes = [int(s) for s in z['sizes'][k]]; nv = sum(sizes)
@@ -880,8 +888,8 @@ def main():
     ap.add_argument('--kappa2', action='store_true', help='with --cover: rows without a rational realisation also get '
                     'a search at multiplicity 2 from two copies of their qubit certificate')
     ap.add_argument('--check-cover', action='store_true')
-    ap.add_argument('--append', default=None, help='npz (rep, lam, sizes, rows) of rows appended to the catalogue, '
-                    'with their qubit certificates; data/ is not changed')
+    ap.add_argument('--append', default=None, help='npz files (rep, lam, sizes, rows), comma-separated, whose rows are '
+                    'appended to the catalogue in that order, with their qubit certificates; data/ is not changed')
     a = ap.parse_args()
     if a.append:
         global APPEND

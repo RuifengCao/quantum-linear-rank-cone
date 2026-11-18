@@ -1,0 +1,12 @@
+{
+ "job": "s32-new",
+ "mode": "full",
+ "host": "ClarkDellG16",
+ "nproc": 32,
+ "start_utc": "2026-11-18T03:57:27Z",
+ "end_utc": "2026-11-18T04:47:31Z",
+ "elapsed_s": 3004.0,
+ "exit_code": 0,
+ "cmd": "rm -f s32n_unimodular.npz s32n_raw.txt && cp results/2026-11-17_r49-sandbox/every_d_sandbox.npz s32n_unimodular.npz && python3 scripts/s32_unimodular.py --search --append results/2026-11-17_r49-sandbox/realisations_141.npz --rows $(python3 -c \"print(','.join(map(str, range(641, 782))))\") --strategies neutral,ring-eisenstein,plain --seconds 300 --seed 20261118 --out s32n_unimodular.npz --resume --raw s32n_raw.txt && python3 scripts/s32_unimodular.py --check --full --append results/2026-11-17_r49-sandbox/realisations_141.npz --out s32n_unimodular.npz",
+ "checks": "the search prints 'certified rows: n of 141' (the 10 sandbox certificates included) and the final --check --full prints ALL OK; rows of s32n_unimodular.npz index the extended catalogue (641 + position in realisations_141.npz). Rows still open afterwards are left to a covering search (s32_unimodular.py --cover), sized on this result"
+}

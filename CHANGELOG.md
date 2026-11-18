@@ -409,6 +409,35 @@
     variant that passes through `run_job.py` in the sandbox. `README.md` §2b: their rows, and `a2-long` marked done.
   - `README.md` (header; the gate counts in §2, §3 and §9, which said 49, 59 and 57, now all say 60; §7 ⓪(b), (c) and
     ⓪′), CHANGELOG.md: addendum 19. `selftest.py --full`: 60 gate lines, ALL PASS.
+- **Addendum 20 (2026-11-18, results of `a2-long2` and `s32-new`; 126 more orbits realised; gate G45).** `data/` and
+  gates G0–G44 unchanged; the scripts in `checks/` read the same data as before. VERSION stays R48.
+  - `results/2026-11-18_s32-new/`, `results/2026-11-18_a2-long2/`: the two jobs as staged by `run_job.py` (the authors'
+    laptop, WSL2, 32 threads, 2026-11-18 03:57–08:36 UTC; repository at `8feb668`). `s32-new`: 48 of the 141 rows of
+    addendum 19 have unimodular realisations (10 from the sandbox; neutral found 37, ring-eisenstein 1, plain 0; 46 at
+    κ = 1, 2 at κ = 2). `a2-long2`: 124 of the 485 rows with N ≤ 32 realised at λ = 1 (900 s), and rows 273 and 434
+    (N = 15 and 13) at λ = 2 (1,800 s).
+  - `results/2026-11-18_r50-sandbox/` (sandbox): one certificate for each of the 126 rows, re-verified by an independent
+    GF(2) routine; each an extreme ray of QLR₅ (tight rank 30), in an S₆ orbit not known before: 641 + 141 + 126 = 908
+    known orbits, 888 undecided (`undecided_reps.npy`, same order as the R30 list; `status.json`). The 48 unimodular
+    realisations of `s32-new` were also re-checked by an integer Smith normal form written without
+    `scripts/s32_unimodular.py`. `frontier_908.npz`: 287 of the 429 classes of addendum 19 are violated by a row of
+    `a2-long2`; with the other 142 and 258 new classes from the linear program on the 296 rows that none of the 142
+    cuts, every undecided row violates a facet of the cone of the 908 known orbits (388,592 rays) in one of 400 classes,
+    184 of which cover all 888 rows.
+  - `selftest.py`: gate G45 checks the 126 certificates (`epr1kit/stabcert.py`), their extremality in QLR₅, that their
+    S₆ orbits are new, the accounting (908 / 888), the 48 unimodular realisations of `s32-new` (they include the 10 of
+    G44), and the manifests of the three new folders.
+  - `scripts/s32_unimodular.py`: `--append FILE1,FILE2` appends several files in order (one file as before).
+  - `jobs.json`: tier-X jobs `s32-new2` (unimodular search, neutral, 1,200 s per row, for the 219 rows without a
+    certificate for every d: 93 of addendum 19 and the 126; about 2.3 h on 32 threads) and `a2-long3` (the 241 rows with
+    N ≤ 30 still undecided at λ = 1 for 1,800 s; the 8 with N ≤ 21 at λ = 2 for 1,800 s, four searches per orbit; about
+    4.3 h), each with a smoke variant. `README.md` §2b: their rows; `a2-long2` and `s32-new` marked done. No covering
+    search is registered: a sandbox pilot of `s32_unimodular.py --cover` on rows 642 and 647 (60 s per job, two rounds)
+    ended at rational residuals 7–40 at κ = 1, while a covering certificate starts from a rational realisation.
+  - `README.md` (header; the gate counts in §2, §3 and §9 now say 61; §7 ⓪(b), (c) and ⓪′), CHANGELOG.md:
+    addendum 20. `selftest.py --full`: 61 gate lines, ALL PASS.
+  - Correction: the commit message of addendum 19 gave 45 gate lines for `selftest.py` without `--full`; it had 44
+    (G0–G44 without G3, G5 and G8, with G2b and G10b). With G45 it has 45.
 - README (status: R37 is cited by arXiv v1, R48 by the revised version and its Table S3; §0 item), the round list
   of `docs/R32_reduction_and_local_dimension.md` (R48 paragraph), VERSION, CITATION.cff (version R48; the revised
   version). No code under `cc/` or `epr1kit/` and no gates changed (addendum 5 adds one script and one data file,

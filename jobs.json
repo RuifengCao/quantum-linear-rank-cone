@@ -233,6 +233,40 @@
    ],
    "tag": "s32-new",
    "checks": "the search prints 'certified rows: n of 141' (the 10 sandbox certificates included) and the final --check --full prints ALL OK; rows of s32n_unimodular.npz index the extended catalogue (641 + position in realisations_141.npz). Rows still open afterwards are left to a covering search (s32_unimodular.py --cover), sized on this result"
+  },
+  "s32-new2": {
+   "tier": "X",
+   "needs": [
+    "gcc"
+   ],
+   "runtime": "about 2.3 h on 32 threads: unimodular search (strategy neutral, 1,200 s per row) for the 219 rows realised after submission that have no certificate for every d yet: the 93 of results/2026-11-17_r49-sandbox/realisations_141.npz left open by s32-new and the 126 of results/2026-11-18_r50-sandbox/realisations_126.npz; catalogue extended by both files with --append (rows 641-781 and 782-907); resumes from the 48 certificates of s32-new (at most 219 x 1,200 s / 32 threads)",
+   "cmd": "rm -f s32n2_unimodular.npz s32n2_raw.txt && cp results/2026-11-18_s32-new/s32n_unimodular.npz s32n2_unimodular.npz && python3 scripts/s32_unimodular.py --search --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz --rows $(python3 -c \"print(','.join(map(str, range(641, 908))))\") --strategies neutral --seconds 1200 --seed 20261119 --out s32n2_unimodular.npz --resume --raw s32n2_raw.txt && python3 scripts/s32_unimodular.py --check --full --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz --out s32n2_unimodular.npz",
+   "smoke": "rm -f s32n2_unimodular.npz s32n2_raw.txt && cp results/2026-11-18_s32-new/s32n_unimodular.npz s32n2_unimodular.npz && python3 scripts/s32_unimodular.py --search --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz --rows 642,782,783 --strategies neutral --seconds 3 --seed 20261119 --out s32n2_unimodular.npz --resume --raw s32n2_raw.txt && python3 scripts/s32_unimodular.py --check --full --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz --out s32n2_unimodular.npz",
+   "outputs": [
+    "s32n2_unimodular.npz",
+    "s32n2_raw.txt"
+   ],
+   "tag": "s32-new2",
+   "checks": "the search prints 'certified rows: n of 267' (the 48 of s32-new included) and the final --check --full prints ALL OK; rows of s32n2_unimodular.npz index the catalogue extended by realisations_141.npz and then realisations_126.npz"
+  },
+  "a2-long3": {
+   "tier": "X",
+   "needs": [
+    "gcc"
+   ],
+   "runtime": "~4.3 h on 32 threads: the orbits still undecided after R50 (results/2026-11-18_r50-sandbox/undecided_reps.npy) with N <= 30, where N is the qubit count at lambda = 1, annealed at lambda = 1 for 1,800 s with a new seed (241 orbits, about 3.8 h), and the 8 with N <= 21 at lambda = 2 for 1,800 s, each listed four times so that 32 searches with different seeds run at once (0.5 h)",
+   "cmd": "rm -f a2l3_b1.npy a2l3_b0x4.npy a2l3_b1_l1.npz a2l3_b1_l1.npz.json a2l3_b0x4_l2.npz a2l3_b0x4_l2.npz.json && python3 -c \"import numpy as np; U = np.load('results/2026-11-18_r50-sandbox/undecided_reps.npy'); N = U[:, [0, 1, 3, 7, 15]].sum(1).astype(int) + U[:, 30].astype(int); np.save('a2l3_b1.npy', U[N <= 30]); np.save('a2l3_b0x4.npy', np.repeat(U[N <= 21], 4, axis=0))\" && python3 scripts/s16_stab_search.py a2l3_b1.npy --lams 1 --seconds 1800 --seed 20261119 --max-n 64 --out a2l3_b1_l1.npz && python3 scripts/s16_stab_search.py a2l3_b0x4.npy --lams 2 --seconds 1800 --seed 20261119 --max-n 64 --out a2l3_b0x4_l2.npz",
+   "smoke": "rm -f a2l3_b1.npy a2l3_b0x4.npy a2l3_b1_l1.npz a2l3_b1_l1.npz.json a2l3_b0x4_l2.npz a2l3_b0x4_l2.npz.json && python3 -c \"import numpy as np; U = np.load('results/2026-11-18_r50-sandbox/undecided_reps.npy'); N = U[:, [0, 1, 3, 7, 15]].sum(1).astype(int) + U[:, 30].astype(int); np.save('a2l3_b1.npy', U[N <= 30][:3]); np.save('a2l3_b0x4.npy', np.repeat(U[N <= 21][:1], 4, axis=0))\" && python3 scripts/s16_stab_search.py a2l3_b1.npy --lams 1 --seconds 3 --seed 20261119 --max-n 64 --out a2l3_b1_l1.npz && python3 scripts/s16_stab_search.py a2l3_b0x4.npy --lams 2 --seconds 3 --seed 20261119 --max-n 64 --out a2l3_b0x4_l2.npz",
+   "outputs": [
+    "a2l3_b1.npy",
+    "a2l3_b0x4.npy",
+    "a2l3_b1_l1.npz",
+    "a2l3_b1_l1.npz.json",
+    "a2l3_b0x4_l2.npz",
+    "a2l3_b0x4_l2.npz.json"
+   ],
+   "tag": "a2-long3",
+   "checks": "two 'kernel: ... OpenMP threads <all cores>' lines and a result line for each run (lambda = 1, lambda = 2); every realisation is re-verified by the script before it is written; no WARNING / ABORT lines (NOTE lines are informational). The row indices in the .npz and .npz.json files refer to the band files a2l3_b*.npy, which are kept with the outputs; in a2l3_b0x4.npy rows 4i to 4i+3 are copies of the same orbit"
   }
  }
 }

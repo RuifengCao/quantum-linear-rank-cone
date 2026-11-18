@@ -1,0 +1,43 @@
+{
+ "date": "2026-11-18",
+ "tag": "a2-long2",
+ "note": "run_job a2-long2 exit 0 on ClarkDellG16",
+ "files": {
+  "a2l2_b0.npy": {
+   "bytes": 748,
+   "sha256": "296e06af2167621dae8acd4fd4b2a911d4898898ab2eeee99e42a0381022e06c",
+   "rows": 10,
+   "sha_rows": "8a87c41f8e32b3d140162c34ab3078f9e8bf5031adf89e6e730bb07ffa866d84"
+  },
+  "a2l2_b1.npy": {
+   "bytes": 30198,
+   "sha256": "018e66f5bf3aa5a018dbec82c8c7e6548b77d564def20629df3a092d123badf8",
+   "rows": 485,
+   "sha_rows": "819bd903b457b64550a31ea57f6d748d1152d46166fc929440743b62c6d4a588"
+  },
+  "a2l2_b1_l1.npz": {
+   "bytes": 75002,
+   "sha256": "018d92c52a1710711bea4dccca787449aca72131fedf75580f1ed0ed22870d52"
+  },
+  "a2l2_b1_l1.npz.json": {
+   "bytes": 5061,
+   "sha256": "c598cd2221d5705222a02db52d668922bf34a7766cda63c55b850fdaa78545cf"
+  },
+  "a2l2_b0_l2.npz": {
+   "bytes": 2412,
+   "sha256": "a0d828b9d7ea045bbddbb736915b3969f5a5c3cfcd3cf6a1ff8403287998b8c8"
+  },
+  "a2l2_b0_l2.npz.json": {
+   "bytes": 180,
+   "sha256": "19795c0ef8c5617589dc3b4b056e5871d89fde4a5999d4ff6cee0980dd30c4ce"
+  },
+  "a2-long2.log": {
+   "bytes": 361,
+   "sha256": "963eb04392d0a71c2afcfd6a17e3d12c11a0deea46fff2dc73b8d6d30f06677c"
+  },
+  "JOB_STATUS.json": {
+   "bytes": 1167,
+   "sha256": "cbdf4d73a4f59db37a076db155d767d550f5046847ce7f6e521a36b216ed0cb6"
+  }
+ }
+}

@@ -1,0 +1,29 @@
+{
+ "date": "2026-11-18",
+ "tag": "r50-sandbox",
+ "note": "undecided orbits realised after submission, second batch: 126 (a2-long2), 908 known / 888 undecided; every-d status after s32-new (48 of 267); frontier of the cone of the 908 known orbits",
+ "files": {
+  "README.txt": {
+   "bytes": 4197,
+   "sha256": "e3c31c2a613837dfac0277c2cec53638935c728cf096fc58a46210124c18e03e"
+  },
+  "realisations_126.npz": {
+   "bytes": 81714,
+   "sha256": "9410a34c76bc01342d87b82683aad813fdce0923e041957304f493cd9a2f9984"
+  },
+  "undecided_reps.npy": {
+   "bytes": 55184,
+   "sha256": "3ad409c06f0e162e5148b23f199df9988b968d3c85521c1116dc15099ce1e94c",
+   "rows": 888,
+   "sha_rows": "2205298d02b9518e56f33c4c3b8606c1d5c33920bab1ac65fcee18327069b61c"
+  },
+  "status.json": {
+   "bytes": 2114,
+   "sha256": "3eae1d8a6bd105276464f130e15771740cd86d823b516a563383d891d598f372"
+  },
+  "frontier_908.npz": {
+   "bytes": 15336,
+   "sha256": "d865befe07b9b3b7993ee49206f532ca67d86704008305f35e5238f9f33fdf4b"
+  }
+ }
+}
