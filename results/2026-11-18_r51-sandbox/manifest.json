@@ -1,0 +1,29 @@
+{
+ "date": "2026-11-18",
+ "tag": "r51-sandbox",
+ "note": "undecided orbits realised after submission, third batch: 73 (a2-long3), 981 known / 815 undecided; every-d status after s32-new2 (86 of 340); frontier of the cone of the 981 known orbits",
+ "files": {
+  "README.txt": {
+   "bytes": 4451,
+   "sha256": "a59bcea81e9d9e77d00fdd78cd41c6677c64c2c55801a5d854da97ebacf25597"
+  },
+  "realisations_73.npz": {
+   "bytes": 48059,
+   "sha256": "139607cd63bad6f6d5018000a6ca3d1fe4950de4b6dac4ad3c2b0c7b53a721bc"
+  },
+  "undecided_reps.npy": {
+   "bytes": 50658,
+   "sha256": "e8bf219657768a803db7d5e747cc3c9ad863e036c9153316da901b9935250ecc",
+   "rows": 815,
+   "sha_rows": "d9a862ea85d37ad69c58bf516de97408194f544df0d49934083a55503d12407e"
+  },
+  "status.json": {
+   "bytes": 2060,
+   "sha256": "46606bce9a0f834b47976dc0a9df8d742c716fe0b6a5baae1fbea72ec3af094a"
+  },
+  "frontier_981.npz": {
+   "bytes": 12808,
+   "sha256": "232a2da79540abc4a47ffe9ff09257ed7b5ee08094da456d73c2b8092539e016"
+  }
+ }
+}

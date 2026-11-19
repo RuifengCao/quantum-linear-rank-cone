@@ -969,6 +969,57 @@ def main():
          f'undecided; every d: {S45["ok"]}/{S45["stored"]} unimodular realisations exact (s32-new; kappa '
          f'{S45["kappa"]}); files match the manifests {file45}')
 
+    # G46 (R51): the third batch, results/2026-11-18_r51-sandbox, and the certificates for every d of the job s32-new2.
+    # As in G45: each of the 73 certificates (the job a2-long3) re-verified with epr1kit.stabcert against its row of the
+    # R30 list (and of the R50 list that a2-long3 searched); every row an extreme ray of QLR5 with tight rank 30; S6
+    # orbits new with respect to data/stab5_extreme_reps.npy, the rows of G44 and G45 and each other; undecided_reps.npy
+    # the rest of the R30 list; status.json 981 known / 815 undecided.  The unimodular realisations of
+    # results/2026-11-18_s32-new2/s32n2_unimodular.npz (rows: the catalogue extended by the 141 rows and then the 126)
+    # are exact, include those of G45, and match status.json; the hashes of the three new folders match their manifests.
+    D46 = os.path.join(base44, '2026-11-18_r51-sandbox')
+    file46 = True
+    for d46, n46 in ((D46, 5), (os.path.join(base44, '2026-11-18_s32-new2'), 4),
+                     (os.path.join(base44, '2026-11-18_a2-long3'), 8)):
+        M46 = _js20.load(open(os.path.join(d46, 'manifest.json')))
+        file46 = file46 and len(M46['files']) == n46 and all(
+            _h33.sha256(open(os.path.join(d46, f), 'rb').read()).hexdigest() == e['sha256'] for f, e in M46['files'].items())
+    R46 = np.load(os.path.join(D46, 'realisations_73.npz'), allow_pickle=False)
+    rows46 = [int(x) for x in R46['row']]
+    L46 = np.load(os.path.join(D46, 'undecided_reps.npy')).astype(np.int64)
+    keep46 = keep45.copy()
+    keep46[rows46] = False
+    ok46a = (len(rows46) == len(set(rows46)) == 73 and not set(rows46) & (set(rows44) | set(rows45))
+             and np.array_equal(R46['rep'].astype(np.int64), U44[rows46])
+             and np.array_equal(L45[[int(x) for x in R46['row50']]], U44[rows46])
+             and np.array_equal(L46, U44[keep46]))
+    nv46 = sum(_sc.verify_realisation(U44[r], int(R46['lam'][k]), R46['sizes'][k], R46['rows'][k])
+               for k, r in enumerate(rows46))
+    V46 = HF44 @ U44[rows46].T
+    ne46 = sum(1 for k in range(len(rows46)) if V46[:, k].min() >= 0 and core.rank_mod_p(HF44[V46[:, k] == 0]) == 30)
+    c46, _ = core.class_reps(U44[rows46], core.perms31_s6(), offset=4096, width='u16')
+    no46 = len(set(c46)) == 73 and not (set(c46) & (set(c44) | set(c45)))
+    ST46 = _js20.load(open(os.path.join(D46, 'status.json')))
+    acc46 = (ST46['known_extreme_ray_orbits'] == 641 + 141 + 126 + 73 == 981 and ST46['undecided'] == L46.shape[0] == 815
+             and ST46['realised_rows_r51'] == rows46)
+    P46 = os.path.join(base44, '2026-11-18_s32-new2', 's32n2_unimodular.npz')
+    EV46 = np.load(P46, allow_pickle=False)
+    _s36.APPEND = [os.path.join(D44, 'realisations_141.npz'), os.path.join(D45, 'realisations_126.npz')]
+    try:
+        S46 = _s36.check(P46, full=False, log=lambda *_x: None)
+    finally:
+        _s36.APPEND = None
+    rows46e = sorted(rows44[int(k) - 641] if int(k) < 782 else rows45[int(k) - 782] for k in EV46['row'])
+    ok46e = (S46['ok'] == S46['stored'] == S46['distinct_rows'] == ST46['every_d']['unimodular'] and S46['rep_ok']
+             and all(641 <= int(k) < 908 for k in EV46['row']) and rows46e == ST46['every_d']['rows']
+             and set(int(k) for k in EV45['row']) <= set(int(k) for k in EV46['row']))
+    lam46 = {int(l): int((R46['lam'] == l).sum()) for l in sorted(set(R46['lam'].tolist()))}
+    gate('G46 third batch realised after submission', ok46a and nv46 == 73 and ne46 == 73 and no46 and acc46
+         and ok46e and file46,
+         f'{nv46}/73 certificates re-verified (GF(2) cut ranks, lambda {lam46}); {ne46}/73 extreme rays of QLR5 '
+         f'(tight rank 30); new S6 orbits {no46}; {ST46["known_extreme_ray_orbits"]} known / {ST46["undecided"]} '
+         f'undecided; every d: {S46["ok"]}/{S46["stored"]} unimodular realisations exact (s32-new2; kappa '
+         f'{S46["kappa"]}); files match the manifests {file46}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:

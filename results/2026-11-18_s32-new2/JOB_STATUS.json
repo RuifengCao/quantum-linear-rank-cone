@@ -1,0 +1,12 @@
+{
+ "job": "s32-new2",
+ "mode": "full",
+ "host": "ClarkDellG16",
+ "nproc": 32,
+ "start_utc": "2026-11-18T12:58:27Z",
+ "end_utc": "2026-11-18T15:06:44Z",
+ "elapsed_s": 7697.2,
+ "exit_code": 0,
+ "cmd": "rm -f s32n2_unimodular.npz s32n2_raw.txt && cp results/2026-11-18_s32-new/s32n_unimodular.npz s32n2_unimodular.npz && python3 scripts/s32_unimodular.py --search --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz --rows $(python3 -c \"print(','.join(map(str, range(641, 908))))\") --strategies neutral --seconds 1200 --seed 20261119 --out s32n2_unimodular.npz --resume --raw s32n2_raw.txt && python3 scripts/s32_unimodular.py --check --full --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz --out s32n2_unimodular.npz",
+ "checks": "the search prints 'certified rows: n of 267' (the 48 of s32-new included) and the final --check --full prints ALL OK; rows of s32n2_unimodular.npz index the catalogue extended by realisations_141.npz and then realisations_126.npz"
+}
