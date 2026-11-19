@@ -1,5 +1,56 @@
 # CHANGELOG
 
+## R52 (2026-11-19) -- the CSS search; five more undecided orbits realised; gates G47, G47b; jobs `css-sweep` and `s32-new3`
+- **Numbering.** The rounds go on after R48: R49, R50 and R51 (gates G44–G46; `results/2026-11-17_r49-sandbox/`,
+  `results/2026-11-18_r50-sandbox/`, `results/2026-11-18_r51-sandbox/`) are recorded below as addenda 19, 20 and 21
+  to R48. From R52 on, `VERSION` names the round again and each round gets its own section. Release R48 (tag,
+  [10.5281/zenodo.23841282](https://doi.org/10.5281/zenodo.23841282)) remains the version cited by the paper, and
+  `CITATION.cff` still describes it. `data/` and gates G0–G46 are unchanged; the scripts in `checks/` read the same
+  data as before.
+- *Method.* For a five-party ray r with lift h_S, a binary matrix M with h_S(E) rows and column groups A..F of
+  widths h_S(i) = 2 S(i) whose column-group ranks are h_S gives the CSS state of the row space of M, with entropy
+  vector 2S (`docs/R32_reduction_and_local_dimension.md`, proof of Theorem 1, step 2, with the self-duality of
+  h_S; the remark "symplectic structure is irrelevant"): a qubit realisation at λ = 2. Every realisation at λ = 1
+  gives such an M ([I | W] for a graph state W), so the search space has the size of the λ = 1 graph-state search
+  and at least as many solutions. Row-reducing M to [I | A] on its pivot columns gives the bipartite graph state with
+  biadjacency A, which is the CSS state after Hadamards on the non-pivot qubits; certificates are stored in that
+  form, in the format of `data/s16_realisations.npz`, together with M.
+- `cc/s41_css_anneal.c` (new): simulated annealing on the columns of groups B..F (group A fixed to unit vectors);
+  moves add a column (or the sum of two) of other groups to a column, or flip a bit; for each subset of the other five
+  groups an echelon basis and the residuals of the moving group are cached, so a move costs 32 small ranks. Batch
+  input with a time budget per target, OpenMP.
+- `scripts/s41_css_search.py` (new): targets from a rays file, budgets by qubit count (`--budget`), multiplicity
+  `--kappa`; every hit re-verified before it is written (the 63 column-group ranks and the 31 cut ranks of the graph
+  with Python integers, and `epr1kit/stabcert.py` up to 64 qubits); outputs rewritten after every hit; `--check`;
+  `--self-test` (the CSS formula and the graph conversion against state vectors for 60 random codes, and a short
+  kernel run on two catalogue rows).
+- `results/2026-11-19_r52-sandbox/` (sandbox, 2 cores): R30 undecided rows 396, 551, 847, 970 and 995 (N = 18, 21,
+  21, 17, 18 qubits at λ = 1) realised at λ = 2 by the prototype of the kernel in 10–33 s each; rows 396, 970 and
+  995 are among the ten smallest undecided orbits, which graph-state searches at λ = 1, 2, 3 (at λ = 2 up to four
+  seeds of 1,800 s) and qutrit searches had not realised. Re-verified three ways (s41's checks, stabcert, and the
+  GF(2) routine of the earlier sandbox rounds); each an extreme ray of QLR₅ (tight rank 30) in a new S₆ orbit:
+  641 + 141 + 126 + 73 + 5 = 986 known orbits, 810 undecided (`undecided_reps.npy`, same order as the R30 list;
+  `status.json`). `frontier_986.npz`: 11 of the 344 classes of addendum 21 are violated by one of the five rows;
+  with the other 333 and 21 new classes from the linear program on the 22 rows that none of the 333 cuts, every
+  undecided row violates a facet of the cone of the 986 known orbits (428,942 rays) in one of 354 classes, 183 of
+  which cover all 810 rows. `s33_screen_254.json`: the odd-characteristic common-information screen of
+  `scripts/s33_ci_oddchar.py` on the 254 rows of addenda 19–21 without a certificate for every d (339,505 pairs,
+  all feasible; floating-point verdicts). `qutrit_pilot.json`: `scripts/s21_qudit_search.py` at N = 22 realised
+  neither three of those rows nor three controls with unimodular certificates, so it cannot tell them apart.
+  Other sandbox measurements (empirical): rows realised earlier only by graph-state searches at λ = 2 of 600–1,800 s
+  took 2–4 s; on rows realisable at λ = 1 with N = 24–26 the CSS search is about as fast as `cc/s16_anneal.c`;
+  samples of 23 undecided rows with N = 26–40 (60–300 s each) gave no hit.
+- `selftest.py`: gate G47 checks the five certificates twice (stabcert on the stored graphs; s41's verify on the
+  stored matrices), their extremality in QLR₅, that their S₆ orbits are new, the accounting (986 / 810), the
+  frontier's greedy cover, and the manifest; G47b (`--full`) runs `s41_css_search.py --self-test`.
+- `jobs.json`, README §2b: `css-sweep` (the CSS search on the 810 undecided rows: 4 × 3,600 s for the 3 with
+  N ≤ 22, 1,800 s for the 278 with N = 23–32, 300 s for the 529 with N = 33–64; ~6.1 h on 32 threads) and
+  `s32-new3` (neutral, 1,800 s per row, for the 259 rows realised after submission without a certificate for every
+  d; ~4.0 h); both smoke variants pass in the sandbox. The annealing job proposed in the evaluation (`a2-long4`) is
+  not registered.
+- `VERSION`: R52. `README.md` (header; §2, §3 and §9: 64 gate lines; §2b; §3 table: s41; §7 ⓪(b), (c) and ⓪′),
+  CHANGELOG.md: this section. `selftest.py`: 47 gate lines, ALL PASS; `selftest.py --full`: 64 gate lines, ALL PASS.
+
 ## R48 (2026-10-20) -- (★) is a facet for every local dimension; five-party facets for every d; secret sharing schemes with ratio 2
 - **(★) is a facet of Stab^(ℤ_d)_5 for every d (proved; the computation is checked by `checks/check_rev_sec4.py`;
   not yet checked by hand).** `docs/A2_stabilizer_vs_QLR.md` §3, R48 addendum. Before, the facet statement was for

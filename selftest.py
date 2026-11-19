@@ -1020,6 +1020,48 @@ def main():
          f'undecided; every d: {S46["ok"]}/{S46["stored"]} unimodular realisations exact (s32-new2; kappa '
          f'{S46["kappa"]}); files match the manifests {file46}')
 
+    # G47 (R52): the fourth batch, results/2026-11-19_r52-sandbox: five rows of the R30 list realised at lambda = 2 by
+    # the CSS search (scripts/s41_css_search.py).  Each certificate is checked twice: the stored bipartite graph with
+    # epr1kit.stabcert, and the stored matrix M with s41's verify (its 63 column-group ranks equal h_S, so the CSS state
+    # of its row space has entropy 2S; the graph built from M has cut ranks 2r; stabcert on that graph).  As in G46:
+    # rows of the R30 list (and of the R51 list) not realised before; extreme rays of QLR5 with tight rank 30; S6 orbits
+    # new with respect to all 981 known before and each other; undecided_reps.npy the rest of the R30 list; status.json
+    # 986 known / 810 undecided; the frontier's cut matrix is covered by its greedy cover; hashes match the manifest.
+    import s41_css_search as _css47
+    D47 = os.path.join(base44, '2026-11-19_r52-sandbox')
+    M47 = _js20.load(open(os.path.join(D47, 'manifest.json')))
+    file47 = len(M47['files']) == 7 and all(
+        _h33.sha256(open(os.path.join(D47, f), 'rb').read()).hexdigest() == e['sha256'] for f, e in M47['files'].items())
+    R47 = np.load(os.path.join(D47, 'realisations_5.npz'), allow_pickle=False)
+    rows47 = [int(x) for x in R47['row']]
+    L47 = np.load(os.path.join(D47, 'undecided_reps.npy')).astype(np.int64)
+    keep47 = keep46.copy()
+    keep47[rows47] = False
+    ok47a = (len(rows47) == len(set(rows47)) == 5 and not set(rows47) & (set(rows44) | set(rows45) | set(rows46))
+             and np.array_equal(R47['rep'].astype(np.int64), U44[rows47])
+             and np.array_equal(L46[[int(x) for x in R47['row51']]], U44[rows47])
+             and np.array_equal(L47, U44[keep47]) and (R47['lam'] == 2).all())
+    nv47 = sum(_sc.verify_realisation(U44[r], int(R47['lam'][k]), R47['sizes'][k], R47['rows'][k])
+               for k, r in enumerate(rows47))
+    nc47 = sum(_css47.verify(U44[r], 1, [int(c) for c in R47['cols'][k][:int(R47['m'][k])]])[0] for k, r in enumerate(rows47))
+    V47 = HF44 @ U44[rows47].T
+    ne47 = sum(1 for k in range(len(rows47)) if V47[:, k].min() >= 0 and core.rank_mod_p(HF44[V47[:, k] == 0]) == 30)
+    c47, _ = core.class_reps(U44[rows47], core.perms31_s6(), offset=4096, width='u16')
+    no47 = len(set(c47)) == 5 and not (set(c47) & (set(c44) | set(c45) | set(c46)))
+    ST47 = _js20.load(open(os.path.join(D47, 'status.json')))
+    acc47 = (ST47['known_extreme_ray_orbits'] == 641 + 141 + 126 + 73 + 5 == 986 and ST47['undecided'] == L47.shape[0] == 810
+             and ST47['realised_rows_r52'] == rows47 and ST47['every_d']['open'] == 259)
+    F47 = np.load(os.path.join(D47, 'frontier_986.npz'), allow_pickle=False)
+    fr47 = (F47['cut'].shape == (F47['classes'].shape[0], 810) and F47['cut'].any(0).all()
+            and F47['cut'][F47['greedy_cover']].any(0).all())
+    gate('G47 fourth batch (CSS search)', ok47a and nv47 == 5 and nc47 == 5 and ne47 == 5 and no47 and acc47 and fr47
+         and file47,
+         f'{nv47}/5 graph certificates re-verified at lambda 2 (GF(2) cut ranks); {nc47}/5 CSS matrices re-verified '
+         f'(column-group ranks = h_S, graph cut ranks, stabcert); {ne47}/5 extreme rays of QLR5 (tight rank 30); new S6 '
+         f'orbits {no47}; {ST47["known_extreme_ray_orbits"]} known / {ST47["undecided"]} undecided; frontier '
+         f'{F47["classes"].shape[0]} classes, greedy cover {len(F47["greedy_cover"])} covers all rows {fr47}; files match '
+         f'the manifest {file47}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:
@@ -1134,6 +1176,11 @@ def main():
              + '; controls (expect 1) ' + ', '.join(f'{k} {v:.9f}' for k, v in T43b['control_lp'].items())
              + '; with the Jafari-Khazaei inequalities (expect 4/3) '
              + ', '.join(f'{k} {v["lp"]:.9f} (exact feasible point, t = {v["exact"]})' for k, v in T43b['jk_lp'].items()))
+
+        ok47b = _css47.self_test(log=lambda *_x: None)
+        gate('G47b CSS search: formula, graph conversion, kernel', ok47b,
+             'CSS entropy formula and the bipartite-graph conversion against state vectors (60 random codes); '
+             'cc/s41_css_anneal.c realises rows 8 and 25 of the catalogue at lambda = 2, re-verified')
 
         V3 = core.build_qlr('v3')
         _, cv = core.judge(V3, GS)

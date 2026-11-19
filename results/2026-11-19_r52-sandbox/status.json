@@ -1,0 +1,93 @@
+{
+ "base": "results/2026-10-02_a2-status (R30): 1,915,910 excluded / 641 realised / 1,155 undecided",
+ "excluded": 1915910,
+ "known_extreme_ray_orbits": 986,
+ "in_data_stab5_extreme_reps": 641,
+ "realised_after_submission": 345,
+ "realised_r49": 141,
+ "realised_r50": 126,
+ "realised_r51": 73,
+ "realised_r52": 5,
+ "undecided": 810,
+ "realised_rows_r52": [
+  396,
+  551,
+  847,
+  970,
+  995
+ ],
+ "lambda_r52": {
+  "2": 5
+ },
+ "method_r52": "CSS search (scripts/s41_css_search.py)",
+ "provenance_r52": [
+  {
+   "row": 396,
+   "row51": 246,
+   "N": 18,
+   "qubits": 36,
+   "tight": 88,
+   "kernel": "prototype css_anneal.c (sandbox bundle EPR1_M2_css_sandbox_2026-11-19.zip)",
+   "seed": 247,
+   "seconds": 16.9,
+   "run": "css_small8.json"
+  },
+  {
+   "row": 551,
+   "row51": 363,
+   "N": 21,
+   "qubits": 42,
+   "tight": 76,
+   "kernel": "prototype css_anneal.c (sandbox bundle EPR1_M2_css_sandbox_2026-11-19.zip)",
+   "seed": 464,
+   "seconds": 32.5,
+   "run": "cssb_small4.json"
+  },
+  {
+   "row": 847,
+   "row51": 584,
+   "N": 21,
+   "qubits": 42,
+   "tight": 55,
+   "kernel": "prototype css_anneal.c (sandbox bundle EPR1_M2_css_sandbox_2026-11-19.zip)",
+   "seed": 585,
+   "seconds": 15.6,
+   "run": "css_small8.json"
+  },
+  {
+   "row": 970,
+   "row51": 669,
+   "N": 17,
+   "qubits": 34,
+   "tight": 76,
+   "kernel": "prototype css_anneal.c (sandbox bundle EPR1_M2_css_sandbox_2026-11-19.zip)",
+   "seed": 670,
+   "seconds": 13.7,
+   "run": "css_small8.json"
+  },
+  {
+   "row": 995,
+   "row51": 686,
+   "N": 18,
+   "qubits": 36,
+   "tight": 77,
+   "kernel": "prototype css_anneal.c (sandbox bundle EPR1_M2_css_sandbox_2026-11-19.zip)",
+   "seed": 687,
+   "seconds": 9.5,
+   "run": "css_small8.json"
+  }
+ ],
+ "undecided_by_N_band": {
+  "<=21": 2,
+  "22-32": 279,
+  "33-40": 373,
+  "41-64": 156
+ },
+ "every_d": {
+  "unimodular": 86,
+  "file": "results/2026-11-18_s32-new2/s32n2_unimodular.npz",
+  "open": 259,
+  "note": "the 254 open rows of r51 and the 5 rows of this folder"
+ },
+ "undecided_reps": "undecided_reps.npy: the 810 rows of results/2026-10-02_a2-status/undecided_reps.npy realised neither in R49, R50, R51 nor here, in the same order"
+}

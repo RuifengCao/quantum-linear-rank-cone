@@ -65,6 +65,14 @@ data bundled, a static Normaliz binary included, resumable long runs.
 > orbits are realised, so 981 extreme-ray orbits of the qubit stabilizer cone are known and 815 remain undecided; 86 of
 > the 340 orbits realised after submission are certified for every local dimension so far. `data/` and gates G0–G45
 > are unchanged; the new gate G46 checks the new folders. No new job is registered.
+> Round R52 (2026-11-19; the nineteenth to twenty-first addenda above are rounds R49–R51) adds the CSS search
+> (`scripts/s41_css_search.py`, `cc/s41_css_anneal.c`): by the
+> proof of Theorem 1, a binary matrix whose column groups have the rank function of the lifted vector gives a CSS
+> state with twice the entropy vector, so realisations at λ = 2 are searched for in a space of the size of the
+> λ = 1 search. In the sandbox it realised five more undecided orbits at λ = 2 (`results/2026-11-19_r52-sandbox/`),
+> three of them among the ten smallest, which no earlier search had realised: 986 orbits are known and 810 remain
+> undecided. `data/` and gates G0–G46 are unchanged; the new gates G47 and G47b check the new folder and the new
+> tool. The jobs `css-sweep` and `s32-new3` are registered.
 > Release R37 ([10.5281/zenodo.23303466](https://doi.org/10.5281/zenodo.23303466))
 > is the archived version cited by the first version of the paper *Stabilizer entropy cones as self-dual slices of
 > linear rank cones: a five-party gap and dependence on the local dimension* (X. Song and R. Cao,
@@ -690,7 +698,7 @@ single-source lines in `data/dfz_ref28.csv`; optional `rays5` cross-check.
 
 ```
 # ---- A. Verify the completed results (optional, ~3 minutes in total) ----
-python3 selftest.py --full            # 62 gate lines + ALL PASS, ~8 min; must be all green first
+python3 selftest.py --full            # 64 gate lines + ALL PASS, ~8 min; must be all green first
 python3 scripts/s1_build_qlr.py --variant pure28 --workers 25     # seconds
 python3 scripts/s2_judge.py QLR_H_pure28.npy                      # expect: violated 0
 python3 scripts/s3_rank19.py QLR_H_pure28.npy                     # expect: 18/19, only #19 has rank 29
@@ -770,6 +778,8 @@ Release instead). Engine options can be overridden after `--`.
 | `s32-new` | X | done 2026-11-18 (50 min on a 32-thread laptop, `results/2026-11-18_s32-new/`): unimodular realisations (certificates for every d) for the 131 rows of `results/2026-11-17_r49-sandbox/realisations_141.npz` without one, with `s32_unimodular.py --search --append` (neutral 37 found, ring-eisenstein 1, plain 0; 300 s per row and strategy): 48 of the 141 certified | 3 rows, 3 s (~12 s) |
 | `s32-new2` | X | done 2026-11-18 (2.1 h on a 32-thread laptop, `results/2026-11-18_s32-new2/`): unimodular search (neutral, 1,200 s per row) for the 219 rows realised after submission without a certificate for every d (93 of `realisations_141.npz`, all 126 of `results/2026-11-18_r50-sandbox/realisations_126.npz`), with `--append` of both files: 38 certified (10 of the 93, 28 of the 126), 86 of the 267 in all | 3 rows, 3 s (~10 s) |
 | `a2-long3` | X | done 2026-11-18 (3.9 h on a 32-thread laptop, `results/2026-11-18_a2-long3/`): the 241 orbits with N ≤ 30 still undecided after addendum 20 (`results/2026-11-18_r50-sandbox/undecided_reps.npy`) at λ = 1 for 1,800 s (72 realised), and the 8 with N ≤ 21 at λ = 2 for 1,800 s, four searches per orbit (row 517 realised) | 3 orbits, 4 copies of 1, 3 s (~15 s) |
+| `css-sweep` | X | ~6.1 h on 32 threads (R52): the CSS search (`scripts/s41_css_search.py`; hits are realisations at λ = 2) on the 810 orbits still undecided (`results/2026-11-19_r52-sandbox/undecided_reps.npy`): four searches of 3,600 s for each of the 3 with N ≤ 22, 1,800 s for the 278 with N = 23–32, 300 s for the 529 with N = 33–64 | 3 orbits, 3 s (~10 s) |
+| `s32-new3` | X | ~4.0 h on 32 threads (R52): unimodular search (neutral, 1,800 s per row, new seed) for the 259 rows realised after submission without a certificate for every d (254 of addenda 19–21; the 5 of R52 at κ = 2), catalogue extended by the four realisation files; resumes from the 86 of `s32-new2` | 3 rows, 3 s (~15 s) |
 
 **Rule:** every tier-X job is handed over only after its smoke variant has
 passed in the sandbox (and, optionally, in the manual CI workflow
@@ -780,7 +790,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 
 | Stage | Command essentials | Purpose / expectation |
 | --- | --- | --- |
-| selftest | `selftest.py [--full] [--workers N]` | 62 regression gate lines (G0–G46 with G2b and G10b, G29b, G31b–G36b, G38b–G43b) + ALL PASS; run first on any machine |
+| selftest | `selftest.py [--full] [--workers N]` | 64 regression gate lines (G0–G47 with G2b and G10b, G29b, G31b–G36b, G38b–G43b, G47b) + ALL PASS; run first on any machine |
 | s1 | `--variant pure28` (current) / `pure`, `v3`, `pure2` (historical) | build the H-representation; seconds |
 | s2 | `s2_judge.py <H.npy>` | 760 graph-state judge; `pure*` variants must give 0 violations |
 | s3 | `s3_rank19.py <H.npy> [--extra-rows X]` | tight-rank test of the 19 HEC rays; pure28 → 18/19 |
@@ -803,6 +813,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | s30 | `s30_dimension_profile.py [--n4] [--one-cut T …] [--six] [--bkl] [--probe6] [--n5-pilot K]` ; `--n4-search --out …` ; `--solve --out-certs …` | R35: Theorem 7 -- the 46 four-party extreme rays over every field (unimodular integer graph states); Proposition 6 -- one-cut rank changes over GF(ℓ) vs Q; Proposition 8 -- exact Shannon certificates for the self-dual symmetrisations of the eight seven-variable characteristic-dependent inequalities considered (BKL added in R36); `--bkl` BKL transcription checks and the (6.17) misprint (R36); `--probe6` encoding check; `--n5-pilot` five-party lifting pilot (not certified) |
 | s31 | `s31_six_party.py [--derive [--out …]] [--witness] [--invariant] [--face] [--lemmas N] [--stress N] [--exhaustive]` | R36: Theorem 9 -- the transfer form f9 recomputed exactly from Lemmas 0, A–E and Lemma 4 (LB)_2; the simplex-code state vector (h_S = r_F + r_F*, f9 = −3); Fano-invariant form; exact Shannon faces of h_F and h_NF; lemma-by-lemma checks with actual subspaces over GF(2), GF(3), GF(5); random and exhaustive validity tests |
 | s32 | `s32_unimodular.py --check [--full]` ; `--search --seconds S [--resume] [--rows …] [--strategies …] --out …` ; `--cover --out … --cover-out … [--rows …] [--seconds S] [--rounds R] [--rings …] [--kappa2]` ; `--check-cover` ; `--self-test` | R38–R40: unimodular realisations and covering certificates of the known extreme rays of Stab₅ (kernel `cc/s32_unimodular.c`: annealing over {-1, 0, 1}, neutral moves, restriction of scalars from quadratic orders); exact certification by diagonal forms over Z, rational rank + minors with gcd 1, GF(p) ranks and Z_d state vectors; covering certificates by recomputed bad primes |
+| s41 | `s41_css_search.py rays.npy --seconds S \| --budget N:S[xC],… --out … [--rows …] [--kappa K]` ; `--check certs.npz rays.npy` ; `--self-test` | R52: CSS search (kernel `cc/s41_css_anneal.c`): a binary matrix whose column groups A..F have the rank function κ·h_S gives a CSS state with entropy 2κS (R32 note, Theorem 1, proof), i.e. a qubit realisation at λ = 2κ found in a search space of the size of the graph-state search at κ; every hit re-verified (column-group ranks, cut ranks of the equivalent bipartite graph, `epr1kit/stabcert.py`); graph certificates in the format of s16 |
 | s33 | `s33_ci_oddchar.py --rows … [--pairs disjoint/all] [--out …]` | R38: exploratory screen -- common information + the seven-variable forms valid in odd characteristic (DFZ (65), (LB)_2, BKL (6.17) corrected) on the extension; floating-point verdicts |
 | s34 | `s34_six_party_survey.py --check [--full]` ; `--self-test` ; `--enumerate --out …` ; `--survey --lists … --out … --seconds S` ; `--nonfano --lams 2,3 --seconds S` ; `--fields 2,3,4,5,7,8,9 [--controls K]` ; `--fields-python 2,3,4` ; `--transfer [--full --trials N]` ; `--transfer-anneal "n0,…,n6;…" --seconds S [--pull-nf μ]` | R40: six parties, the other direction -- every entropy vector of seven-system qubit and qutrit stabilizer states with at most one qudit per system (`cc/s35_enum7.c`, weighted graphs up to scaling), the qutrit-only orbits and their qubit realisations at multiplicity 2 (`cc/s34_anneal7.c`), and graphs over GF(q) with a prescribed cut-rank vector (`cc/s36_target7.c`; Proposition 10); exact checks over GF(2), GF(3) and GF(q). R42: Theorem 12 -- the inequality f12, every step of its proof on given states (gates G39/G39b), and the adversarial search `cc/s37_minform7.c` |
 | s35 | `s35_two_power_transfer.py --check [--full --trials N]` ; `--anneal "a:rows:n0,…,n6;…" --seconds S [--pull μ [--singles]] [--weakened c]` | R44: Theorem 14 -- the inequality f^(a) = f12 + (1 − 1/a)·U_Z on Z_{2^a} stabilizer states: exact linear algebra over Z_{2^a}, stabilizer states as Lagrangian subgroups (graph, CSS of non-free codes, non-free Lagrangians after random symplectic maps), every step of the proof on given states without compressing them (gates G40/G40b), Lemma 4(G′) tests; annealing over CSS codes and exhaustive families of codes B + 2^s·P (`cc/s38_minform_zn.c`) |
@@ -1090,21 +1101,32 @@ undecided rows violate (addendum 18: 800 S₆ classes, 158 cover all rows) chang
 800 classes are violated by a row of addendum 19, 287 of the 429 classes of the cone of the 782 orbits by a row of
 addendum 20, and 198 of the 400 classes of the cone of the 908 orbits by a row of addendum 21, so none of these hold
 on Stab₅; for the cone of the 981 known orbits the frontier has 344 classes, 183 of which cover all 815 rows.
+R52 adds the CSS search (`scripts/s41_css_search.py`, `cc/s41_css_anneal.c`): by the proof of Theorem 1
+(R32 note, step 2, and the remark that symplectic structure is irrelevant), a binary matrix whose column groups
+have the rank function h_S gives a CSS state with entropy vector 2S, so realisations at λ = 2 are searched for in a
+space of the size of the λ = 1 graph-state search. In the sandbox it realised five rows at λ = 2
+(`results/2026-11-19_r52-sandbox/`, gate G47): 986 known orbits, 810 undecided (N ≤ 21: 2, N = 22–32: 279,
+N = 33–40: 373, N = 41–64: 156). 11 of the 344 classes are violated by one of them; the frontier of the cone of the
+986 orbits has 354 classes, 183 of which cover all 810 rows. Rows realised earlier only by graph-state searches at
+λ = 2 of 600–1,800 s took the CSS search 2–4 s; on rows realisable at λ = 1 with N = 24–26 it is about as fast as
+the graph-state search, and samples of the undecided rows with N = 26–40 (60–300 s per row) gave nothing
+[empirical]. The job `css-sweep` runs it on all 810 rows.
 Excluding the undecided rows amounts to proving such
 classes for Stab₅, which one common information, even with Ingleton on the extension, cannot do (every undecided row
 passes those tests).
-(c) Of the 10 orbits with at most 20 qubits, five are realised at λ = 2: by `a2-long` (addendum 19) row 981, which
+(c) Of the 10 orbits with at most 20 qubits, eight are realised at λ = 2: by `a2-long` (addendum 19) row 981, which
 is frontier ray 294, the last undecided ray of the R27 frontier (`docs/A2_stabilizer_vs_QLR.md`; 12 qubits at λ = 1,
-a 24-qubit certificate), and row 484 (15 qubits; 30); by `a2-long2` (addendum 20) rows 434 (13; 26) and 273 (15; 30); by `a2-long3` (addendum 21) row 517 (15; 30).
-The other 5 survive
+a 24-qubit certificate), and row 484 (15 qubits; 30); by `a2-long2` (addendum 20) rows 434 (13; 26) and 273 (15; 30); by `a2-long3` (addendum 21) row 517 (15; 30); by the CSS search (R52) rows 970 (17; 34), 396 and 995
+(18; 36), and also rows 551 and 847 with 21 qubits (42).
+The other 2 (rows 973 and 807, 16 and 18 qubits) survive
 everything tried (qubits at λ = 1, 2, 3, qutrits, p = 5, 7, GF(4), CI+Ingleton, CI+Ingleton+DFZ, two common
-informations on small pairs). Untried: second
+informations on small pairs, the CSS search for 420 s). Untried: second
 common informations of pairs that involve the first, larger pairs, DFZ
 instances with unions of elements in one slot, and DFZ's own
 six-variable list (arXiv:0910.0284 §6: 3,490 inequalities, 2,395,095 with
 permuted forms; "hundreds" need two common informations) — if that list can
 be obtained (the authors' site `code.ucsd.edu/zeger/linrank`, which also hosts
-`rays5`), testing h_norm of the 6 orbits against it is cheap. (d) S7′ (all
+`rays5`), testing h_norm of the remaining small orbits against it is cheap. (d) S7′ (all
 six-variable linear rank inequalities) holds (R32, Theorem 1).
 The A1′ catalogue campaign is closed (R26); `s4c_qlr.py` remains available.
 
@@ -1113,11 +1135,13 @@ The A1′ catalogue campaign is closed (R26); `s4c_qlr.py` remains available.
 (`data/s32_stab5_unimodular.npz`) and 75 by covering certificates
 (`data/s32_stab5_cover.npz`). A five-party dimension dependence would now need an extreme ray of Stab₅ that is not
 yet known (or, for d divisible by a square, a vector of Stab^(Z_d)_5 outside Stab₅). The server job
-`s32-unimodular` has nothing left to do. The 340 orbits realised after submission (addenda 19–21) are not yet in
+`s32-unimodular` has nothing left to do. The 345 orbits realised after submission (addenda 19–22) are not yet in
 `data/`: 86 have unimodular realisations (`results/2026-11-18_s32-new2/s32n2_unimodular.npz`, gate G46; it contains the
 48 of `results/2026-11-18_s32-new/`, gate G45, and the first 10 are also in
-`results/2026-11-17_r49-sandbox/every_d_sandbox.npz`, gate G44); 181 rows searched by `s32-new2` and the 73 of addendum
-21 are open. A pilot of the covering search on two of them (rows 642 and 647; 60 s per job, two rounds) ended at
+`results/2026-11-17_r49-sandbox/every_d_sandbox.npz`, gate G44); 181 rows searched by `s32-new2`, the 73 of addendum
+21 and the 5 of R52 are open (the job `s32-new3` searches these 259). The odd-characteristic
+common-information screen of `scripts/s33_ci_oddchar.py` excludes none of the 254 of addenda 19–21 from Stab^(p)_5 for
+odd p (`results/2026-11-19_r52-sandbox/s33_screen_254.json`; floating-point verdicts). A pilot of the covering search on two of them (rows 642 and 647; 60 s per job, two rounds) ended at
 rational residuals 7–40 at κ = 1, while a covering certificate starts from a rational realisation (residual 0).
 
 **⓪″ (R40–R42) Six parties, the other direction (roadmap item M3): done.** Among the states with at most one qudit
@@ -1205,7 +1229,7 @@ This repository is public at
 
 - **CI:** `.github/workflows/selftest.yml` installs `lrslib` and the Python
   requirements and runs `python3 selftest.py --full` on every push and pull
-  request (all 62 gate lines must pass). Every step has a time cap (job 60 min, `selftest.py --full` 40 min;
+  request (all 64 gate lines must pass). Every step has a time cap (job 60 min, `selftest.py --full` 40 min;
   each `apt-get update` attempt 150 s, three attempts), so a stalled package
   mirror fails the run within minutes instead of hanging for GitHub's 6-hour
   default; such a failure says nothing about the code -- re-run the job.

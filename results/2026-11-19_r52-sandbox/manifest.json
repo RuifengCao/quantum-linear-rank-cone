@@ -1,0 +1,37 @@
+{
+ "date": "2026-11-19",
+ "tag": "r52-sandbox",
+ "note": "R52: five undecided orbits realised at lambda = 2 by the CSS search (sandbox), frontier of the 986 known orbits, odd-characteristic screen of the 254 rows without a certificate for every d, qutrit pilot",
+ "files": {
+  "README.txt": {
+   "bytes": 5648,
+   "sha256": "3aade0c10d48b68cf16b5a87084dcc691ae8a0366fca5ee3f58d503b1a7f49d0"
+  },
+  "realisations_5.npz": {
+   "bytes": 10483,
+   "sha256": "247bb630b2907d8b5d858d74ca433460577dcd757dba4d7a2d243d20b2463429"
+  },
+  "undecided_reps.npy": {
+   "bytes": 50348,
+   "sha256": "7cd162117d58596c5e7d4b86c23dd7ce2e7cdbf89d63ba19b0d7d35d8052f5fb",
+   "rows": 810,
+   "sha_rows": "519cda85b901c8c0e44b0037d33174aff1ea8a5c6cfa58572288c365e8f98f8e"
+  },
+  "status.json": {
+   "bytes": 2151,
+   "sha256": "9781d557868ed32f80b27b7b5f761b37cceec667469934d09b0d9d09451e470d"
+  },
+  "frontier_986.npz": {
+   "bytes": 13336,
+   "sha256": "d1bedfcd66cd83862ce10509763fe8392bdb7838e00ef473ae83de39d5f019e8"
+  },
+  "s33_screen_254.json": {
+   "bytes": 23420,
+   "sha256": "c919869d32ca4b469e651c691cfdbe0fd4155b577ec990609db4669aebd91b81"
+  },
+  "qutrit_pilot.json": {
+   "bytes": 576,
+   "sha256": "15f8b8c7e9296d7284dcb49d7100e30ce4e4b5860d26e3f49a3d177927536bf0"
+  }
+ }
+}
