@@ -273,7 +273,7 @@
    "needs": [
     "gcc"
    ],
-   "runtime": "~6.1 h on 32 threads: the CSS search of R52 (scripts/s41_css_search.py, kernel cc/s41_css_anneal.c; a hit is a qubit realisation at lambda = 2) on the 810 orbits still undecided after R52 (results/2026-11-19_r52-sandbox/undecided_reps.npy), with budgets by N, the qubit count at lambda = 1: four searches of 3,600 s for each of the 3 orbits with N <= 22, 1,800 s for the 278 with N = 23-32 and 300 s for the 529 with N = 33-64 (at most (12 x 3,600 + 278 x 1,800 + 529 x 300) / 32 = 21,947 s); the longest searches start first",
+   "runtime": "~6.1 h on 32 threads: the CSS search of R52 (scripts/s41_css_search.py, kernel cc/s41_css_anneal.c; a hit is a qubit realisation at lambda = 2) on the 810 orbits still undecided after R52 (results/2026-11-19_r52-sandbox/undecided_reps.npy), with budgets by N, the qubit count at lambda = 1: four searches of 3,600 s for each of the 3 orbits with N <= 22, 1,800 s for the 278 with N = 23-32 and 300 s for the 529 with N = 33-64; the longest searches start first, so the run takes at most 22,200 s ((12 x 3,600 + 278 x 1,800 + 529 x 300) / 32 = 21,947 s is the mean load per thread)",
    "cmd": "rm -f css_sweep.npz css_sweep.npz.json css_sweep.plain.npz && python3 scripts/s41_css_search.py results/2026-11-19_r52-sandbox/undecided_reps.npy --budget 22:3600x4,32:1800,64:300 --seed 20261120 --out css_sweep.npz && python3 scripts/s41_css_search.py --check css_sweep.npz results/2026-11-19_r52-sandbox/undecided_reps.npy",
    "smoke": "rm -f css_sweep.npz css_sweep.npz.json css_sweep.plain.npz && python3 scripts/s41_css_search.py results/2026-11-19_r52-sandbox/undecided_reps.npy --rows 416,9,7 --budget 22:3x2,32:3,64:3 --seed 20261120 --out css_sweep.npz && python3 scripts/s41_css_search.py --check css_sweep.npz results/2026-11-19_r52-sandbox/undecided_reps.npy",
    "outputs": [
@@ -289,7 +289,7 @@
    "needs": [
     "gcc"
    ],
-   "runtime": "about 4.0 h on 32 threads: unimodular search (strategy neutral, 1,800 s per row, new seed) for the 259 rows realised after submission that have no certificate for every d: the 254 of R49-R51 left open by s32-new and s32-new2 and the 5 of R52 (searched at kappa = 2 from their lambda = 2 certificates); catalogue extended by the four realisation files with --append (rows 641-781, 782-907, 908-980, 981-985); resumes from the 86 certificates of s32-new2 (at most 259 x 1,800 s / 32 threads)",
+   "runtime": "4.0-4.5 h on 32 threads: unimodular search (strategy neutral, 1,800 s per row, new seed) for the 259 rows realised after submission that have no certificate for every d: the 254 of R49-R51 left open by s32-new and s32-new2 and the 5 of R52 (searched at kappa = 2 from their lambda = 2 certificates); catalogue extended by the four realisation files with --append (rows 641-781, 782-907, 908-980, 981-985); resumes from the 86 certificates of s32-new2 (259 searches of 1,800 s take nine rounds on 32 threads, at most 4.5 h; 259 x 1,800 s / 32 = 4.0 h is the mean load per thread)",
    "cmd": "rm -f s32n3_unimodular.npz s32n3_raw.txt && cp results/2026-11-18_s32-new2/s32n2_unimodular.npz s32n3_unimodular.npz && python3 scripts/s32_unimodular.py --search --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz,results/2026-11-18_r51-sandbox/realisations_73.npz,results/2026-11-19_r52-sandbox/realisations_5.npz --rows $(python3 -c \"print(','.join(map(str, range(641, 986))))\") --strategies neutral --seconds 1800 --seed 20261120 --out s32n3_unimodular.npz --resume --raw s32n3_raw.txt && python3 scripts/s32_unimodular.py --check --full --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz,results/2026-11-18_r51-sandbox/realisations_73.npz,results/2026-11-19_r52-sandbox/realisations_5.npz --out s32n3_unimodular.npz",
    "smoke": "rm -f s32n3_unimodular.npz s32n3_raw.txt && cp results/2026-11-18_s32-new2/s32n2_unimodular.npz s32n3_unimodular.npz && python3 scripts/s32_unimodular.py --search --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz,results/2026-11-18_r51-sandbox/realisations_73.npz,results/2026-11-19_r52-sandbox/realisations_5.npz --rows 647,981,985 --strategies neutral --seconds 3 --seed 20261120 --out s32n3_unimodular.npz --resume --raw s32n3_raw.txt && python3 scripts/s32_unimodular.py --check --full --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz,results/2026-11-18_r51-sandbox/realisations_73.npz,results/2026-11-19_r52-sandbox/realisations_5.npz --out s32n3_unimodular.npz",
    "outputs": [
@@ -298,6 +298,37 @@
    ],
    "tag": "s32-new3",
    "checks": "the search prints 'certified rows: n of 345' (the 86 of s32-new2 included) and the final --check --full prints ALL OK; rows of s32n3_unimodular.npz index the catalogue extended by realisations_141.npz, realisations_126.npz, realisations_73.npz and realisations_5.npz, in that order"
+  },
+  "css-sweep2": {
+   "tier": "X",
+   "needs": [
+    "gcc"
+   ],
+   "runtime": "at most 5.0 h on 32 threads: the CSS search of R52 (scripts/s41_css_search.py, kernel cc/s41_css_anneal.c; a hit is a qubit realisation at lambda = 2) on the 154 orbits with N <= 30 still undecided after R53 (results/2026-11-20_r53-sandbox/undecided_reps.npy; N, the qubit count at lambda = 1), one search of 3,600 s each with a new seed (154 searches are five rounds on 32 threads; 154 x 3,600 s / 32 = 4.8 h is the mean load per thread). css-sweep (1,800 s, and 4 x 3,600 s for N <= 22) realised 9 of the 163 rows with N <= 30 and ended at a best residual of at most 2 on 55 of these 154; the rows with N > 30 are left out (results/2026-11-20_r53-sandbox/status.json)",
+   "cmd": "rm -f css_sweep2.npz css_sweep2.npz.json css_sweep2.plain.npz && python3 scripts/s41_css_search.py results/2026-11-20_r53-sandbox/undecided_reps.npy --rows $(python3 -c \"import sys, numpy as np; sys.path.insert(0, 'scripts'); from s41_css_search import singles; U = np.load('results/2026-11-20_r53-sandbox/undecided_reps.npy').astype(np.int64); print(','.join(str(k) for k in range(len(U)) if sum(singles(U[k])) <= 30))\") --budget 30:3600 --seed 20261121 --out css_sweep2.npz && python3 scripts/s41_css_search.py --check css_sweep2.npz results/2026-11-20_r53-sandbox/undecided_reps.npy",
+   "smoke": "rm -f css_sweep2.npz css_sweep2.npz.json css_sweep2.plain.npz && python3 scripts/s41_css_search.py results/2026-11-20_r53-sandbox/undecided_reps.npy --rows 658,541,22 --budget 30:3 --seed 20261121 --out css_sweep2.npz && python3 scripts/s41_css_search.py --check css_sweep2.npz results/2026-11-20_r53-sandbox/undecided_reps.npy",
+   "outputs": [
+    "css_sweep2.npz",
+    "css_sweep2.npz.json",
+    "css_sweep2.plain.npz"
+   ],
+   "tag": "css-sweep2",
+   "checks": "a 'kernel: ... OpenMP threads <all cores>' line; one 'row k: FOUND after ... verified (...)' line for each hit (every hit is re-verified by the script before it is written: column-group ranks, cut ranks of the graph, and epr1kit/stabcert.py up to 64 qubits); the line 'lambda=2 (CSS, kappa=1): 154 rays tried, n realised and independently verified'; no WARNING lines (NOTE lines are informational); the --check run ends with ALL OK. Row indices in the outputs refer to results/2026-11-20_r53-sandbox/undecided_reps.npy. css_sweep2.npz holds the graph certificates with at most 64 qubits in the format of s16, css_sweep2.plain.npz the matrices of all hits; the outputs are rewritten after every hit, so an interrupted run keeps what it found"
+  },
+  "s32-new4": {
+   "tier": "X",
+   "needs": [
+    "gcc"
+   ],
+   "runtime": "at most 4.0 h on 32 threads: unimodular search (strategy neutral, 1,800 s per row, new seed) for the 253 rows realised after submission that have no certificate for every d: the 244 of R49-R52 left open by s32-new3 and the 9 of R53 (searched at kappa = 2 from their lambda = 2 certificates); catalogue extended by the five realisation files with --append (rows 641-781, 782-907, 908-980, 981-985, 986-994); resumes from the 101 certificates of s32-new3 (253 searches of 1,800 s are eight rounds on 32 threads; 253 x 1,800 s / 32 = 4.0 h is the mean load per thread)",
+   "cmd": "rm -f s32n4_unimodular.npz s32n4_raw.txt && cp results/2026-11-20_s32-new3/s32n3_unimodular.npz s32n4_unimodular.npz && python3 scripts/s32_unimodular.py --search --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz,results/2026-11-18_r51-sandbox/realisations_73.npz,results/2026-11-19_r52-sandbox/realisations_5.npz,results/2026-11-20_r53-sandbox/realisations_9.npz --rows $(python3 -c \"print(','.join(map(str, range(641, 995))))\") --strategies neutral --seconds 1800 --seed 20261121 --out s32n4_unimodular.npz --resume --raw s32n4_raw.txt && python3 scripts/s32_unimodular.py --check --full --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz,results/2026-11-18_r51-sandbox/realisations_73.npz,results/2026-11-19_r52-sandbox/realisations_5.npz,results/2026-11-20_r53-sandbox/realisations_9.npz --out s32n4_unimodular.npz",
+   "smoke": "rm -f s32n4_unimodular.npz s32n4_raw.txt && cp results/2026-11-20_s32-new3/s32n3_unimodular.npz s32n4_unimodular.npz && python3 scripts/s32_unimodular.py --search --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz,results/2026-11-18_r51-sandbox/realisations_73.npz,results/2026-11-19_r52-sandbox/realisations_5.npz,results/2026-11-20_r53-sandbox/realisations_9.npz --rows 647,986,994 --strategies neutral --seconds 3 --seed 20261121 --out s32n4_unimodular.npz --resume --raw s32n4_raw.txt && python3 scripts/s32_unimodular.py --check --full --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz,results/2026-11-18_r51-sandbox/realisations_73.npz,results/2026-11-19_r52-sandbox/realisations_5.npz,results/2026-11-20_r53-sandbox/realisations_9.npz --out s32n4_unimodular.npz",
+   "outputs": [
+    "s32n4_unimodular.npz",
+    "s32n4_raw.txt"
+   ],
+   "tag": "s32-new4",
+   "checks": "the search prints 'certified rows: n of 354' (the 101 of s32-new3 included) and the final --check --full prints ALL OK; rows of s32n4_unimodular.npz index the catalogue extended by realisations_141.npz, realisations_126.npz, realisations_73.npz, realisations_5.npz and realisations_9.npz, in that order"
   }
  }
 }

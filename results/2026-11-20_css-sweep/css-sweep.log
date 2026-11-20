@@ -1,0 +1,38 @@
+kernel: gcc -O3 -march=native -fopenmp; OpenMP threads 32
+row 416: FOUND after 346.1 s, verified (shape, column_ranks, graph_cut_ranks, stabcert); 1 found, 1 of 819 searches done (346 s)
+row 9: FOUND after 455.7 s, verified (shape, column_ranks, graph_cut_ranks, stabcert); 2 found, 3 of 819 searches done (456 s)
+row 22: FOUND after 604.6 s, verified (shape, column_ranks, graph_cut_ranks, stabcert); 3 found, 4 of 819 searches done (605 s)
+row 11: FOUND after 1212.6 s, verified (shape, column_ranks, graph_cut_ranks, stabcert); 4 found, 7 of 819 searches done (1213 s)
+row 50: FOUND after 1542.5 s, verified (shape, column_ranks, graph_cut_ranks, stabcert); 5 found, 25 of 819 searches done (1998 s)
+row 121: FOUND after 803.5 s, verified (shape, column_ranks, graph_cut_ranks, stabcert); 6 found, 31 of 819 searches done (3000 s)
+50 of 819 searches done, 6 found (3600 s)
+row 323: FOUND after 208.3 s, verified (shape, column_ranks, graph_cut_ranks, stabcert); 7 found, 92 of 819 searches done (5807 s)
+row 264: FOUND after 637.0 s, verified (shape, column_ranks, graph_cut_ranks, stabcert); 8 found, 94 of 819 searches done (6037 s)
+100 of 819 searches done, 8 found (7200 s)
+150 of 819 searches done, 8 found (9000 s)
+row 457: FOUND after 770.5 s, verified (shape, column_ranks, graph_cut_ranks, stabcert); 9 found, 161 of 819 searches done (9771 s)
+200 of 819 searches done, 9 found (12600 s)
+250 of 819 searches done, 9 found (14400 s)
+300 of 819 searches done, 9 found (16500 s)
+350 of 819 searches done, 9 found (17100 s)
+400 of 819 searches done, 9 found (17446 s)
+450 of 819 searches done, 9 found (18000 s)
+500 of 819 searches done, 9 found (18470 s)
+550 of 819 searches done, 9 found (18900 s)
+600 of 819 searches done, 9 found (19500 s)
+650 of 819 searches done, 9 found (19800 s)
+700 of 819 searches done, 9 found (20400 s)
+750 of 819 searches done, 9 found (20713 s)
+800 of 819 searches done, 9 found (21300 s)
+lambda=2 (CSS, kappa=1): 810 rays tried, 9 realised and independently verified (21407s)
+certificates -> css_sweep.npz (graphs with at most 64 qubits), all hits -> css_sweep.plain.npz
+row 416: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True, 'stabcert': True}
+row 9: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True, 'stabcert': True}
+row 22: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True, 'stabcert': True}
+row 11: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True, 'stabcert': True}
+row 50: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True, 'stabcert': True}
+row 121: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True, 'stabcert': True}
+row 323: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True, 'stabcert': True}
+row 264: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True, 'stabcert': True}
+row 457: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True, 'stabcert': True}
+9 plain certificates, 9 graph certificates: ALL OK

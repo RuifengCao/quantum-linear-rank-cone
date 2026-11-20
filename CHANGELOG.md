@@ -1,5 +1,40 @@
 # CHANGELOG
 
+## R53 (2026-11-20) -- results of `css-sweep` and `s32-new3`: nine more undecided orbits realised; 101 orbits certified for every d; gate G48; jobs `css-sweep2` and `s32-new4`
+- `results/2026-11-20_css-sweep/` (job `css-sweep`, 5.9 h on a 32-thread laptop, as copied by `finish_jobs.sh`): the
+  CSS search of R52 on the 810 rows of `results/2026-11-19_r52-sandbox/undecided_reps.npy` realised 9 at λ = 2, each
+  re-verified by the script before it was written and again by its `--check`: 1 of the 3 rows with N ≤ 22 (four
+  searches of 3,600 s each), 8 of the 278 with N = 23–32 (1,800 s), none of the 529 with N = 33–64 (300 s).
+- `results/2026-11-20_s32-new3/` (job `s32-new3`, 4.0 h on the same laptop): the unimodular search (neutral, 1,800 s
+  per row) certified 15 of the 259 rows it searched; with the 86 of `s32-new2`, 101 of the 345 rows realised after
+  submission up to R52 have unimodular realisations (certificates for every d); `--check --full`: ALL OK.
+- `results/2026-11-20_r53-sandbox/` (sandbox): the nine hits filed by their R30 rows (16, 18, 37, 91, 196, 427, 499,
+  641 and 690; N = 22–30 qubits at λ = 1, 44–60 at λ = 2) and re-checked (s41's verify on the matrices, stabcert on
+  the graphs; the same matrices and graphs as in `css_sweep.npz`); each an extreme ray of QLR₅ (tight rank 30) in a
+  new S₆ orbit: 641 + 141 + 126 + 73 + 5 + 9 = 995 known orbits, 801 undecided (`undecided_reps.npy`, same order as
+  the R30 list). `status.json`: counts by N band; the provenance of the nine; `css-sweep` by budget band, with the
+  best residual (column-group ranks still wrong) of every search that found nothing: 1 for one row with N ≤ 22 and
+  7 with N = 23–32, 2 for one and 46, at least 5 for every row with N ≥ 33 (empirical: at N ≥ 33 the 300 s searches
+  were not close); every d, as R30 rows: 101 certified, 253 open (the 244 left by `s32-new3` and the nine).
+  `frontier_995.npz`: 32 of the 354 classes of R52 are violated by one of the nine; with the other 322 and 20 new
+  classes from the linear program on the 20 rows that none of the 322 cuts, every undecided row violates a facet of
+  the cone of the 995 known orbits (433,082 rays) in one of 342 classes, 181 of which cover all 801 rows.
+- `selftest.py`: gate G48 checks the nine certificates twice and against the hits of `css-sweep`, their extremality
+  in QLR₅, that their S₆ orbits are new, the accounting (995 / 801), the 101 unimodular realisations of `s32-new3`
+  (exact; they contain those of `s32-new2`) and the open rows of `status.json`, the frontier's greedy cover, and the
+  manifests of the three new folders.
+- `jobs.json`: the run-time bounds of `css-sweep` and `s32-new3` corrected. (12 × 3,600 + 278 × 1,800 + 529 ×
+  300) / 32 = 21,947 s and 259 × 1,800 s / 32 = 4.0 h are the mean loads per thread, not upper bounds: with the
+  longest searches first the runs take at most 22,200 s and nine rounds of 1,800 s (4.5 h).
+- `jobs.json`, README §2b: `css-sweep2` (the CSS search on the 154 rows with N ≤ 30 still undecided, 3,600 s each, new
+  seed; five rounds on 32 threads, at most 5.0 h) and `s32-new4` (neutral, 1,800 s per row, new seed, for the 253 rows
+  without a certificate for every d, the nine of R53 at κ = 2 from their λ = 2 certificates; catalogue extended by the
+  five realisation files; eight rounds, at most 4.0 h). Both smoke variants pass in the sandbox, and both full commands
+  with tiny budgets select 154 rows and 253 searches.
+- `VERSION`: R53. `README.md` (header; §2, §3 and §9: 65 gate lines; §2b: both jobs done, two new jobs; §7 ⓪(b), (c)
+  and ⓪′), CHANGELOG.md: this section. `data/` and gates G0–G47 are unchanged. `selftest.py`: 48 gate lines, ALL PASS;
+  `selftest.py --full`: 65 gate lines, ALL PASS.
+
 ## R52 (2026-11-19) -- the CSS search; five more undecided orbits realised; gates G47, G47b; jobs `css-sweep` and `s32-new3`
 - **Numbering.** The rounds go on after R48: R49, R50 and R51 (gates G44–G46; `results/2026-11-17_r49-sandbox/`,
   `results/2026-11-18_r50-sandbox/`, `results/2026-11-18_r51-sandbox/`) are recorded below as addenda 19, 20 and 21

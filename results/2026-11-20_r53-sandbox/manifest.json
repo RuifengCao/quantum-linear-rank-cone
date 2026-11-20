@@ -1,0 +1,29 @@
+{
+ "date": "2026-11-20",
+ "tag": "r53-sandbox",
+ "note": "R53: nine undecided orbits realised at lambda = 2 by the job css-sweep (laptop, re-checked in the sandbox), status for every d after s32-new3, frontier of the 995 known orbits",
+ "files": {
+  "README.txt": {
+   "bytes": 4680,
+   "sha256": "a1e2bd5e99ae931d297816fb945312a071e29476b68832a54d5ab5328a27005a"
+  },
+  "realisations_9.npz": {
+   "bytes": 17127,
+   "sha256": "68633eb5eca97ac5c44f5618e493af992b46b094dff568a1d10d7b307bb3caf0"
+  },
+  "undecided_reps.npy": {
+   "bytes": 49790,
+   "sha256": "72210e98de2164d04cdce7325528621fe5dc427e6bcb915ed70b7dd6cd5e3e0d",
+   "rows": 801,
+   "sha_rows": "a2870c7a21d4df00ad570474da2741acced562ed1cf88d2bfd342d78896f5e20"
+  },
+  "status.json": {
+   "bytes": 9239,
+   "sha256": "081235d8908f7f5a3ef28fcd4dd6d810c4c78e6704eae8fb22fc9c4166081441"
+  },
+  "frontier_995.npz": {
+   "bytes": 12835,
+   "sha256": "5b938b1661fdb8964f6916e56dc3269a39b9045bf3801435197d6f5dc1ecd9cb"
+  }
+ }
+}

@@ -1,0 +1,23 @@
+{
+ "date": "2026-11-20",
+ "tag": "s32-new3",
+ "note": "run_job s32-new3 exit 0 on ClarkDellG16",
+ "files": {
+  "s32n3_unimodular.npz": {
+   "bytes": 23648,
+   "sha256": "a5c92e2149c257f72e0824c687807efe946f209b63a5d3cdee3e2f655fd6d0de"
+  },
+  "s32n3_raw.txt": {
+   "bytes": 35681,
+   "sha256": "d85b38325db2100db7c5c6d3ae3d774c16f42153fbafe30bad24b92e33d2c3ff"
+  },
+  "s32-new3.log": {
+   "bytes": 264,
+   "sha256": "3c01d428c48eb91843e22526c94ba328811a376c576a3c0cff869282e003ba39"
+  },
+  "JOB_STATUS.json": {
+   "bytes": 1345,
+   "sha256": "6716d8638cc4f8a975c387080402a7704885151e6419ec55b3092bd78daf4641"
+  }
+ }
+}
