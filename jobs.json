@@ -360,6 +360,34 @@
    ],
    "tag": "s32-new5",
    "checks": "the search prints 'certified rows: n of 362' (the 111 of s32-new4 included) and the final --check --full prints ALL OK; rows of s32n5_unimodular.npz index the catalogue extended by realisations_141.npz, realisations_126.npz, realisations_73.npz, realisations_5.npz, realisations_9.npz and realisations_8.npz, in that order"
+  },
+  "css-scale": {
+   "tier": "X",
+   "needs": [
+    "gcc"
+   ],
+   "runtime": "at most 1.0 h on 32 threads: a budget-scaling test of the CSS search of R52 (scripts/s41_css_search.py, kernel cc/s41_css_anneal.c; a hit is a qubit realisation at lambda = 2) on the 8 orbits with 33 <= N <= 40 (N, the qubit count at lambda = 1) that css-sweep (one search of 300 s each) left at the lowest best residuals, 5, 5, 5, 6, 6, 6, 6 and 7 column-group ranks (rows 135, 341, 608, 46, 586, 616, 617 and 67 of results/2026-11-23_r54-sandbox/undecided_reps.npy, all with N = 34): four searches of 3,600 s each per orbit with a new seed, 48 times the earlier search time; 32 searches are one round on 32 threads. css-sweep realised none of the 529 rows with N >= 33; the question is whether the best residual falls with the budget",
+   "cmd": "rm -f css_scale.npz css_scale.npz.json css_scale.plain.npz && python3 scripts/s41_css_search.py results/2026-11-23_r54-sandbox/undecided_reps.npy --rows 135,341,608,46,586,616,617,67 --budget 34:3600x4 --seed 20261125 --out css_scale.npz && python3 scripts/s41_css_search.py --check css_scale.npz results/2026-11-23_r54-sandbox/undecided_reps.npy",
+   "smoke": "rm -f css_scale.npz css_scale.npz.json css_scale.plain.npz && python3 scripts/s41_css_search.py results/2026-11-23_r54-sandbox/undecided_reps.npy --rows 135,341 --budget 34:3x2 --seed 20261125 --out css_scale.npz && python3 scripts/s41_css_search.py --check css_scale.npz results/2026-11-23_r54-sandbox/undecided_reps.npy",
+   "outputs": [
+    "css_scale.npz",
+    "css_scale.npz.json",
+    "css_scale.plain.npz"
+   ],
+   "tag": "css-scale",
+   "checks": "a 'kernel: ... OpenMP threads <all cores>' line; one 'row k: FOUND after ... verified (...)' line for each hit (every hit is re-verified by the script before it is written: column-group ranks, cut ranks of the graph, and epr1kit/stabcert.py up to 64 qubits); the line 'lambda=2 (CSS, kappa=1): 8 rays tried, n realised and independently verified'; no WARNING lines (NOTE lines are informational); the --check run ends with ALL OK. Row indices in the outputs refer to results/2026-11-23_r54-sandbox/undecided_reps.npy; css_scale.npz.json holds the best residual of each row over its four searches, to be compared with css-sweep (results/2026-11-20_css-sweep/css_sweep.npz.json, rows of results/2026-11-19_r52-sandbox/undecided_reps.npy)"
+  },
+  "ci2-ingleton": {
+   "tier": "X",
+   "needs": [],
+   "runtime": "at most 6.0 h on 32 threads (--hours 6: no row and no LP is started after 6 h; rows cut off are left out of the output, and a later run with --resume does them): two common informations plus set-valued conditional Ingleton on the 8-element extension, nested second pairs included (scripts/s42_ci2_ingleton.py, maxsize 2), for all 793 orbits still undecided after R54 (results/2026-11-23_r54-sandbox/undecided_reps.npy), largest N first: about 14 million LPs, 18,300 per row for the 647 rows with N >= 31. At the 35 ms per LP of the sandbox that is about 4.4 h of mean load per thread, if a thread of the laptop is as fast as a sandbox core (not measured)",
+   "cmd": "rm -f ci2_ingleton.json && python3 scripts/s42_ci2_ingleton.py results/2026-11-23_r54-sandbox/undecided_reps.npy --maxsize 2 --nested --hours 6 --out ci2_ingleton.json",
+   "smoke": "rm -f ci2_ingleton.json && python3 scripts/s42_ci2_ingleton.py results/2026-11-23_r54-sandbox/undecided_reps.npy --rows 651,535 --maxsize 1 --nested --out ci2_ingleton.json",
+   "outputs": [
+    "ci2_ingleton.json"
+   ],
+   "tag": "ci2-ingleton",
+   "checks": "the line 's42 self-test: ... True' before any row; one line 'row k (N = n): feasible; d/c LPs, t solver troubles, ...' per row, or 'INFEASIBLE at [[X1, Y1], [X2, Y2]]' for a candidate exclusion (floating point: it counts only after an exact certificate, to be built in the sandbox); the summary line 'tested t of 793 rows (u cut off by the deadline), ... infeasible (candidate exclusions): ...'; then COMPLETE, or INCOMPLETE if the 6 h ran out (the rows tested are kept). Row indices refer to results/2026-11-23_r54-sandbox/undecided_reps.npy"
   }
  }
 }

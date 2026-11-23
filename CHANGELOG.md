@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## R55 (2026-11-23) -- jobs `ci2-ingleton` and `css-scale` for the undecided orbits; `scripts/s42_ci2_ingleton.py`
+- `scripts/s42_ci2_ingleton.py` (new): two common informations on the 8-element extension A..F, Z₁, Z₂, the second of
+  a pair that may contain Z₁, with every Shannon row and every set-valued conditional Ingleton instance that involves
+  Z₁ or Z₂ (A, B, C, D disjoint nonempty unions of elements, K a union of the others: 119,616 rows; R29 used single
+  elements, which are among them), added by cutting planes; one LP per pair of pairs, in parallel over rows,
+  `--hours` deadline and `--resume`. Floating-point verdicts: an infeasible row is a candidate exclusion until
+  certified exactly. `--self-test` (also run before every job): every row holds on random subspace arrangements over
+  GF(2) and GF(3); rows excluded in R30 stay infeasible with a second common information added; known extreme rays
+  stay feasible; cutting planes agree with the LP that has all rows.
+- `jobs.json`, README §2b: `ci2-ingleton` (s42 at maxsize 2 with nested pairs on all 793 undecided orbits, about 14
+  million LPs, at most 6.0 h) and `css-scale` (the eight orbits with 33 ≤ N ≤ 40 that `css-sweep` left at the lowest
+  best residuals, all with N = 34: four CSS searches of 3,600 s each, 48 times the earlier 300 s; one round on 32
+  threads, at most 1.0 h). Both smoke variants pass in the sandbox; the full commands with tiny budgets select 793
+  rows and 32 searches.
+- README: header, §2b, the script table (s42), §7. `data/`, `selftest.py` and gates G0–G49 are unchanged.
+
 ## R54 (2026-11-23) -- results of `css-sweep2` and `s32-new4`: eight more undecided orbits realised; 111 orbits certified for every d; gate G49; jobs `css-sweep3` and `s32-new5`
 - `results/2026-11-23_css-sweep2/` (job `css-sweep2`, 5.0 h on a 32-thread laptop, as copied by `finish_jobs.sh`): one
   CSS search of 3,600 s with a new seed for each of the 154 rows with N ≤ 30 of
