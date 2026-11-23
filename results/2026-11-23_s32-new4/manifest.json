@@ -1,0 +1,23 @@
+{
+ "date": "2026-11-23",
+ "tag": "s32-new4",
+ "note": "run_job s32-new4 exit 0 on ClarkDellG16",
+ "files": {
+  "s32n4_unimodular.npz": {
+   "bytes": 25892,
+   "sha256": "34bc868df037641dba3032da273d9e127a6b069be697b791bbed02f2fd116cdb"
+  },
+  "s32n4_raw.txt": {
+   "bytes": 28251,
+   "sha256": "f8acf20bcb9ef0e1a33811fca3ccca1c69f9fab5dfb45088787cfbef1c2df369"
+  },
+  "s32-new4.log": {
+   "bytes": 265,
+   "sha256": "35375e4d436e6259d2b0d90dfa89361fec139769a7b4c53e8e492aa4c2e2f5b8"
+  },
+  "JOB_STATUS.json": {
+   "bytes": 1466,
+   "sha256": "8a19bff0518ab3ac9572aa218f9df344d50872c4958570c9de3abafb82c55179"
+  }
+ }
+}

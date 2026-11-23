@@ -1,0 +1,12 @@
+{
+ "job": "s32-new4",
+ "mode": "full",
+ "host": "ClarkDellG16",
+ "nproc": 32,
+ "start_utc": "2026-11-23T04:38:01Z",
+ "end_utc": "2026-11-23T08:38:05Z",
+ "elapsed_s": 14404.4,
+ "exit_code": 0,
+ "cmd": "rm -f s32n4_unimodular.npz s32n4_raw.txt && cp results/2026-11-20_s32-new3/s32n3_unimodular.npz s32n4_unimodular.npz && python3 scripts/s32_unimodular.py --search --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz,results/2026-11-18_r51-sandbox/realisations_73.npz,results/2026-11-19_r52-sandbox/realisations_5.npz,results/2026-11-20_r53-sandbox/realisations_9.npz --rows $(python3 -c \"print(','.join(map(str, range(641, 995))))\") --strategies neutral --seconds 1800 --seed 20261121 --out s32n4_unimodular.npz --resume --raw s32n4_raw.txt && python3 scripts/s32_unimodular.py --check --full --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz,results/2026-11-18_r51-sandbox/realisations_73.npz,results/2026-11-19_r52-sandbox/realisations_5.npz,results/2026-11-20_r53-sandbox/realisations_9.npz --out s32n4_unimodular.npz",
+ "checks": "the search prints 'certified rows: n of 354' (the 101 of s32-new3 included) and the final --check --full prints ALL OK; rows of s32n4_unimodular.npz index the catalogue extended by realisations_141.npz, realisations_126.npz, realisations_73.npz, realisations_5.npz and realisations_9.npz, in that order"
+}

@@ -1,5 +1,37 @@
 # CHANGELOG
 
+## R54 (2026-11-23) -- results of `css-sweep2` and `s32-new4`: eight more undecided orbits realised; 111 orbits certified for every d; gate G49; jobs `css-sweep3` and `s32-new5`
+- `results/2026-11-23_css-sweep2/` (job `css-sweep2`, 5.0 h on a 32-thread laptop, as copied by `finish_jobs.sh`): one
+  CSS search of 3,600 s with a new seed for each of the 154 rows with N ≤ 30 of
+  `results/2026-11-20_r53-sandbox/undecided_reps.npy` realised 8 at λ = 2, each re-verified by the script before it was
+  written and again by its `--check`.
+- `results/2026-11-23_s32-new4/` (job `s32-new4`, 4.0 h on the same laptop): the unimodular search (neutral, 1,800 s
+  per row) certified 10 of the 253 rows it searched (none of the nine of R53, searched at κ = 2); with the 101 of
+  `s32-new3`, 111 of the 354 rows realised after submission up to R53 have unimodular realisations (certificates for
+  every d); `--check --full`: ALL OK.
+- `results/2026-11-23_r54-sandbox/` (sandbox): the eight hits filed by their R30 rows (6, 26, 85, 314, 339, 720, 907
+  and 1065; N = 28 or 30 qubits at λ = 1, 56 or 60 at λ = 2) and re-checked (s41's verify on the matrices, stabcert on
+  the graphs; the same matrices and graphs as in `css_sweep2.npz`); each an extreme ray of QLR₅ (tight rank 30) in a new
+  S₆ orbit: 641 + 141 + 126 + 73 + 5 + 9 + 8 = 1,003 known orbits, 793 undecided (`undecided_reps.npy`, same order as
+  the R30 list). `status.json`: counts by N band; the provenance of the eight; `css-sweep2` by the best residual the
+  same row had reached in `css-sweep` (empirical: 2 of 8 rows at residual 1 realised, 3 of 47 at 2, 3 of 67 at 3–4,
+  none of 32 at 5 or more), with the best residuals reached now; every d, as R30 rows: 111 certified, 251 open (the 243
+  left by `s32-new4` and the eight). `frontier_1003.npz`: 22 of the 342 classes of R53 are violated by one of the
+  eight; with the other 320 and 20 new classes from the linear program on the 23 rows that none of the 320 cuts, every
+  undecided row violates a facet of the cone of the 1,003 known orbits (436,682 rays) in one of 340 classes, 182 of
+  which cover all 793 rows.
+- `selftest.py`: gate G49, the checks of G48 for this batch (the eight certificates twice and against the hits of
+  `css-sweep2`, extremality, new S₆ orbits, the accounting 1,003 / 793, the 111 unimodular realisations of `s32-new4`
+  and the open rows, the frontier's greedy cover, the manifests of the three new folders).
+- `jobs.json`, README §2b: `css-sweep3` (the CSS search on the 146 rows with N ≤ 30 still undecided, 3,600 s each, new
+  seed; five rounds on 32 threads, at most 5.0 h) and `s32-new5` (neutral, 1,800 s per row, new seed, for the 251 rows
+  without a certificate for every d, the eight of R54 at κ = 2 from their λ = 2 certificates; catalogue extended by the
+  six realisation files; eight rounds, at most 4.0 h). Both smoke variants pass in the sandbox, and both full commands
+  with tiny budgets select 146 rows and 251 searches.
+- `VERSION`: R54. `README.md` (header; §2, §3 and §9: 66 gate lines; §2b: both jobs done, two new jobs; §7 ⓪(b) and
+  ⓪′), CHANGELOG.md: this section. `data/` and gates G0–G48 are unchanged. `selftest.py`: 49 gate lines, ALL PASS;
+  `selftest.py --full`: 66 gate lines, ALL PASS.
+
 ## R53 (2026-11-20) -- results of `css-sweep` and `s32-new3`: nine more undecided orbits realised; 101 orbits certified for every d; gate G48; jobs `css-sweep2` and `s32-new4`
 - `results/2026-11-20_css-sweep/` (job `css-sweep`, 5.9 h on a 32-thread laptop, as copied by `finish_jobs.sh`): the
   CSS search of R52 on the 810 rows of `results/2026-11-19_r52-sandbox/undecided_reps.npy` realised 9 at λ = 2, each

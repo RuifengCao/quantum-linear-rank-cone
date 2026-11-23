@@ -1,0 +1,29 @@
+{
+ "date": "2026-11-23",
+ "tag": "r54-sandbox",
+ "note": "R54: eight undecided orbits realised at lambda = 2 by the job css-sweep2 (laptop, re-checked in the sandbox), status for every d after s32-new4, frontier of the 1,003 known orbits",
+ "files": {
+  "README.txt": {
+   "bytes": 4732,
+   "sha256": "6f4a480721240f9074d1a76e0e683ad55f9e89f6db99e3b7692ed207b639b97e"
+  },
+  "realisations_8.npz": {
+   "bytes": 15466,
+   "sha256": "e84ddaf431aae5af5d30da271bbd87a80502830fb67e26466156f2a700e4ddb7"
+  },
+  "undecided_reps.npy": {
+   "bytes": 49294,
+   "sha256": "40e16fd692c04327a73ef9211e4952a055dd764d463dbe18b642de4225efa350",
+   "rows": 793,
+   "sha_rows": "10ea0a6b25ef3462513bb14dc7fb6335f9f8caa61f798de01663e7305ddd546b"
+  },
+  "status.json": {
+   "bytes": 7511,
+   "sha256": "5744febf7d7105a194d807208aa4dce77e8df4a607a7e3da6c1d571c8a5ddbd4"
+  },
+  "frontier_1003.npz": {
+   "bytes": 12737,
+   "sha256": "dbc55af32287828d7bd31c6402672e080b77e71dcac30a30293531dac0050ca3"
+  }
+ }
+}

@@ -1130,6 +1130,74 @@ def main():
          f'(s32-new3; kappa {S48["kappa"]}), {len(open48)} open; frontier {F48["classes"].shape[0]} classes, greedy '
          f'cover {len(F48["greedy_cover"])} covers all rows {fr48}; files match the manifests {file48}')
 
+    # G49 (R54): the sixth batch, results/2026-11-23_r54-sandbox: eight rows of the R30 list realised at lambda = 2 by the
+    # job css-sweep2 (results/2026-11-23_css-sweep2), and the certificates for every d of the job s32-new4
+    # (results/2026-11-23_s32-new4).  The checks of G48, one batch later: each certificate checked twice and equal to the
+    # hit stored by the job; rows of the R30 list (and of the R53 list that css-sweep2 searched) not realised before;
+    # extreme rays of QLR5 with tight rank 30; S6 orbits new with respect to all 995 known before and each other;
+    # undecided_reps.npy the rest of the R30 list; status.json 1003 known / 793 undecided.  The unimodular realisations of
+    # s32n4_unimodular.npz (rows: the catalogue extended by the five realisation files of R49-R53) are exact, include
+    # those of s32-new3 and match status.json, open rows included; the frontier's greedy cover; the three manifests.
+    D49 = os.path.join(base44, '2026-11-23_r54-sandbox')
+    file49 = True
+    for d49, n49 in ((D49, 5), (os.path.join(base44, '2026-11-23_css-sweep2'), 5),
+                     (os.path.join(base44, '2026-11-23_s32-new4'), 4)):
+        M49 = _js20.load(open(os.path.join(d49, 'manifest.json')))
+        file49 = file49 and len(M49['files']) == n49 and all(
+            _h33.sha256(open(os.path.join(d49, f), 'rb').read()).hexdigest() == e['sha256'] for f, e in M49['files'].items())
+    R49 = np.load(os.path.join(D49, 'realisations_8.npz'), allow_pickle=False)
+    rows49 = [int(x) for x in R49['row']]
+    L49 = np.load(os.path.join(D49, 'undecided_reps.npy')).astype(np.int64)
+    keep49 = keep48.copy()
+    keep49[rows49] = False
+    CS49 = np.load(os.path.join(base44, '2026-11-23_css-sweep2', 'css_sweep2.npz'), allow_pickle=False)
+    j49 = {int(x): i for i, x in enumerate(CS49['index'])}
+    same49 = (sorted(j49) == sorted(int(x) for x in R49['row53']) and all(
+        np.array_equal(CS49['cols'][j49[int(q)]], R49['cols'][k]) and np.array_equal(CS49['rows'][j49[int(q)]], R49['rows'][k])
+        and np.array_equal(CS49['sizes'][j49[int(q)]], R49['sizes'][k]) for k, q in enumerate(R49['row53'])))
+    ok49a = (len(rows49) == len(set(rows49)) == 8
+             and not set(rows49) & (set(rows44) | set(rows45) | set(rows46) | set(rows47) | set(rows48))
+             and np.array_equal(R49['rep'].astype(np.int64), U44[rows49])
+             and np.array_equal(L48[[int(x) for x in R49['row53']]], U44[rows49])
+             and np.array_equal(L49, U44[keep49]) and (R49['lam'] == 2).all() and same49)
+    nv49 = sum(_sc.verify_realisation(U44[r], int(R49['lam'][k]), R49['sizes'][k], R49['rows'][k])
+               for k, r in enumerate(rows49))
+    nc49 = sum(_css47.verify(U44[r], 1, [int(c) for c in R49['cols'][k][:int(R49['m'][k])]])[0] for k, r in enumerate(rows49))
+    V49 = HF44 @ U44[rows49].T
+    ne49 = sum(1 for k in range(len(rows49)) if V49[:, k].min() >= 0 and core.rank_mod_p(HF44[V49[:, k] == 0]) == 30)
+    c49, _ = core.class_reps(U44[rows49], core.perms31_s6(), offset=4096, width='u16')
+    no49 = len(set(c49)) == 8 and not (set(c49) & (set(c44) | set(c45) | set(c46) | set(c47) | set(c48)))
+    ST49 = _js20.load(open(os.path.join(D49, 'status.json')))
+    acc49 = (ST49['known_extreme_ray_orbits'] == 641 + 141 + 126 + 73 + 5 + 9 + 8 == 1003
+             and ST49['undecided'] == L49.shape[0] == 793 and ST49['realised_rows_r54'] == rows49)
+    P49 = os.path.join(base44, '2026-11-23_s32-new4', 's32n4_unimodular.npz')
+    EV49 = np.load(P49, allow_pickle=False)
+    _s36.APPEND = [os.path.join(D44, 'realisations_141.npz'), os.path.join(D45, 'realisations_126.npz'),
+                   os.path.join(D46, 'realisations_73.npz'), os.path.join(D47, 'realisations_5.npz'),
+                   os.path.join(D48, 'realisations_9.npz')]
+    try:
+        S49 = _s36.check(P49, full=False, log=lambda *_x: None)
+    finally:
+        _s36.APPEND = None
+    cat49 = cat48 + rows48
+    rows49e = sorted(cat49[int(k) - 641] for k in EV49['row'])
+    open49 = sorted((set(cat49) | set(rows49)) - set(rows49e))
+    ok49e = (S49['ok'] == S49['stored'] == S49['distinct_rows'] == ST49['every_d']['unimodular'] == 111 and S49['rep_ok']
+             and all(641 <= int(k) < 995 for k in EV49['row']) and rows49e == ST49['every_d']['rows']
+             and open49 == ST49['every_d']['open_rows'] and ST49['every_d']['open'] == len(open49) == 251
+             and set(int(k) for k in EV48['row']) <= set(int(k) for k in EV49['row']))
+    F49 = np.load(os.path.join(D49, 'frontier_1003.npz'), allow_pickle=False)
+    fr49 = (F49['cut'].shape == (F49['classes'].shape[0], 793) and F49['cut'].any(0).all()
+            and F49['cut'][F49['greedy_cover']].any(0).all())
+    gate('G49 sixth batch (css-sweep2) and s32-new4', ok49a and nv49 == 8 and nc49 == 8 and ne49 == 8 and no49 and acc49
+         and ok49e and fr49 and file49,
+         f'{nv49}/8 graph certificates re-verified at lambda 2 (GF(2) cut ranks); {nc49}/8 CSS matrices re-verified '
+         f'(column-group ranks = h_S, graph cut ranks, stabcert), equal to the hits of css-sweep2 {same49}; {ne49}/8 '
+         f'extreme rays of QLR5 (tight rank 30); new S6 orbits {no49}; {ST49["known_extreme_ray_orbits"]} known / '
+         f'{ST49["undecided"]} undecided; every d: {S49["ok"]}/{S49["stored"]} unimodular realisations exact '
+         f'(s32-new4; kappa {S49["kappa"]}), {len(open49)} open; frontier {F49["classes"].shape[0]} classes, greedy '
+         f'cover {len(F49["greedy_cover"])} covers all rows {fr49}; files match the manifests {file49}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:

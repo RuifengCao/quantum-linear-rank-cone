@@ -78,6 +78,10 @@ data bundled, a static Normaliz binary included, resumable long runs.
 > N ≥ 33, so 995 orbits are known and 801 remain undecided; `s32-new3` certified 15 more of the orbits realised after
 > submission for every local dimension (101 of 354 so far). `data/` and gates G0–G47 are unchanged; the new gate G48
 > checks the three new folders. The jobs `css-sweep2` and `s32-new4` are registered.
+> Round R54 (2026-11-23) adds their results (32-thread laptop): `css-sweep2` realised eight more undecided orbits at
+> λ = 2 (`results/2026-11-23_r54-sandbox/`), so 1,003 orbits are known and 793 remain undecided; `s32-new4` certified
+> 10 more for every local dimension (111 of 362 so far). `data/` and gates G0–G48 are unchanged; the new gate G49
+> checks the three new folders. The jobs `css-sweep3` and `s32-new5` are registered.
 > Release R37 ([10.5281/zenodo.23303466](https://doi.org/10.5281/zenodo.23303466))
 > is the archived version cited by the first version of the paper *Stabilizer entropy cones as self-dual slices of
 > linear rank cones: a five-party gap and dependence on the local dimension* (X. Song and R. Cao,
@@ -703,7 +707,7 @@ single-source lines in `data/dfz_ref28.csv`; optional `rays5` cross-check.
 
 ```
 # ---- A. Verify the completed results (optional, ~3 minutes in total) ----
-python3 selftest.py --full            # 65 gate lines + ALL PASS, ~8 min; must be all green first
+python3 selftest.py --full            # 66 gate lines + ALL PASS, ~8 min; must be all green first
 python3 scripts/s1_build_qlr.py --variant pure28 --workers 25     # seconds
 python3 scripts/s2_judge.py QLR_H_pure28.npy                      # expect: violated 0
 python3 scripts/s3_rank19.py QLR_H_pure28.npy                     # expect: 18/19, only #19 has rank 29
@@ -785,8 +789,10 @@ Release instead). Engine options can be overridden after `--`.
 | `a2-long3` | X | done 2026-11-18 (3.9 h on a 32-thread laptop, `results/2026-11-18_a2-long3/`): the 241 orbits with N ≤ 30 still undecided after addendum 20 (`results/2026-11-18_r50-sandbox/undecided_reps.npy`) at λ = 1 for 1,800 s (72 realised), and the 8 with N ≤ 21 at λ = 2 for 1,800 s, four searches per orbit (row 517 realised) | 3 orbits, 4 copies of 1, 3 s (~15 s) |
 | `css-sweep` | X | done 2026-11-20 (5.9 h on a 32-thread laptop, `results/2026-11-20_css-sweep/`): the CSS search (`scripts/s41_css_search.py`; hits are realisations at λ = 2) on the 810 orbits still undecided after R52 (`results/2026-11-19_r52-sandbox/undecided_reps.npy`): four searches of 3,600 s for each of the 3 with N ≤ 22 (1 realised), 1,800 s for the 278 with N = 23–32 (8 realised), 300 s for the 529 with N = 33–64 (none); 9 in all (R53) | 3 orbits, 3 s (~10 s) |
 | `s32-new3` | X | done 2026-11-20 (4.0 h on a 32-thread laptop, `results/2026-11-20_s32-new3/`): unimodular search (neutral, 1,800 s per row, new seed) for the 259 rows realised after submission without a certificate for every d (254 of addenda 19–21; the 5 of R52 at κ = 2), catalogue extended by the four realisation files; resumes from the 86 of `s32-new2`: 15 certified, 101 in all (R53) | 3 rows, 3 s (~15 s) |
-| `css-sweep2` | X | at most 5.0 h on 32 threads (R53): the CSS search on the 154 orbits with N ≤ 30 still undecided after R53 (`results/2026-11-20_r53-sandbox/undecided_reps.npy`), 3,600 s each, new seed; 55 of them ended `css-sweep` at a best residual of at most 2 | 3 orbits, 3 s (~10 s) |
-| `s32-new4` | X | at most 4.0 h on 32 threads (R53): unimodular search (neutral, 1,800 s per row, new seed) for the 253 rows realised after submission without a certificate for every d (244 left by `s32-new3`; the 9 of R53 at κ = 2), catalogue extended by the five realisation files; resumes from the 101 of `s32-new3` | 3 rows, 3 s (~15 s) |
+| `css-sweep2` | X | done 2026-11-23 (5.0 h on a 32-thread laptop, `results/2026-11-23_css-sweep2/`): the CSS search on the 154 orbits with N ≤ 30 still undecided after R53 (`results/2026-11-20_r53-sandbox/undecided_reps.npy`), 3,600 s each, new seed; 55 of them ended `css-sweep` at a best residual of at most 2; 8 realised (R54) | 3 orbits, 3 s (~10 s) |
+| `s32-new4` | X | done 2026-11-23 (4.0 h on a 32-thread laptop, `results/2026-11-23_s32-new4/`): unimodular search (neutral, 1,800 s per row, new seed) for the 253 rows realised after submission without a certificate for every d (244 left by `s32-new3`; the 9 of R53 at κ = 2), catalogue extended by the five realisation files; resumes from the 101 of `s32-new3`: 10 certified, 111 in all (R54) | 3 rows, 3 s (~15 s) |
+| `css-sweep3` | X | at most 5.0 h on 32 threads (R54): the CSS search on the 146 orbits with N ≤ 30 still undecided after R54 (`results/2026-11-23_r54-sandbox/undecided_reps.npy`), 3,600 s each, new seed; 61 of them ended `css-sweep2` at a best residual of at most 2 | 3 orbits, 3 s (~10 s) |
+| `s32-new5` | X | at most 4.0 h on 32 threads (R54): unimodular search (neutral, 1,800 s per row, new seed) for the 251 rows realised after submission without a certificate for every d (243 left by `s32-new4`; the 8 of R54 at κ = 2), catalogue extended by the six realisation files; resumes from the 111 of `s32-new4` | 3 rows, 3 s (~15 s) |
 
 **Rule:** every tier-X job is handed over only after its smoke variant has
 passed in the sandbox (and, optionally, in the manual CI workflow
@@ -797,7 +803,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 
 | Stage | Command essentials | Purpose / expectation |
 | --- | --- | --- |
-| selftest | `selftest.py [--full] [--workers N]` | 65 regression gate lines (G0–G48 with G2b and G10b, G29b, G31b–G36b, G38b–G43b, G47b) + ALL PASS; run first on any machine |
+| selftest | `selftest.py [--full] [--workers N]` | 66 regression gate lines (G0–G49 with G2b and G10b, G29b, G31b–G36b, G38b–G43b, G47b) + ALL PASS; run first on any machine |
 | s1 | `--variant pure28` (current) / `pure`, `v3`, `pure2` (historical) | build the H-representation; seconds |
 | s2 | `s2_judge.py <H.npy>` | 760 graph-state judge; `pure*` variants must give 0 violations |
 | s3 | `s3_rank19.py <H.npy> [--extra-rows X]` | tight-rank test of the 19 HEC rays; pure28 → 18/19 |
@@ -1122,8 +1128,13 @@ the graph-state search, and samples of the undecided rows with N = 26–40 (60�
 278 with N = 23–32 (1,800 s), none of the 529 with N = 33–64 (300 s; no search there came closer than five
 column-group ranks). 995 orbits are known, 801 undecided (N ≤ 21: 2, N = 22–32: 270, N = 33–40: 373,
 N = 41–64: 156). 32 of the 354 classes are violated by one of the nine; the frontier of the cone of the 995 orbits
-has 342 classes, 181 of which cover all 801 rows. The job `css-sweep2` searches the 154 undecided rows with N ≤ 30
-again (3,600 s each, new seed).
+has 342 classes, 181 of which cover all 801 rows. The job `css-sweep2` (R54, 5.0 h) searched the 154 undecided
+rows with N ≤ 30 again (3,600 s each, new seed) and realised eight (`results/2026-11-23_r54-sandbox/`, gate G49; N = 28
+and 30): 2 of the 8 rows that had ended `css-sweep` one column-group rank short, 3 of the 47 two short, 3 of the 67
+three or four short, none of the 32 five or more short [empirical]. 1,003 orbits are known, 793 undecided (N ≤ 21: 2,
+N = 22–32: 262, N = 33–40: 373, N = 41–64: 156); 22 of the 342 classes are violated by one of the eight, and the
+frontier of the cone of the 1,003 orbits has 340 classes, 182 of which cover all 793 rows. The job `css-sweep3`
+searches the 146 undecided rows with N ≤ 30 once more (3,600 s each, new seed).
 Excluding the undecided rows amounts to proving such
 classes for Stab₅, which one common information, even with Ingleton on the extension, cannot do (every undecided row
 passes those tests).
@@ -1149,12 +1160,13 @@ The A1′ catalogue campaign is closed (R26); `s4c_qlr.py` remains available.
 (`data/s32_stab5_unimodular.npz`) and 75 by covering certificates
 (`data/s32_stab5_cover.npz`). A five-party dimension dependence would now need an extreme ray of Stab₅ that is not
 yet known (or, for d divisible by a square, a vector of Stab^(Z_d)_5 outside Stab₅). The server job
-`s32-unimodular` has nothing left to do. The 354 orbits realised after submission (rounds R49–R53) are not yet in
-`data/`: 101 have unimodular realisations (`results/2026-11-20_s32-new3/s32n3_unimodular.npz`, gate G48; it contains
-the 86 of `results/2026-11-18_s32-new2/`, gate G46, which contain the 48 of `results/2026-11-18_s32-new/`, gate G45,
-and the first 10 are also in `results/2026-11-17_r49-sandbox/every_d_sandbox.npz`, gate G44); 253 are open: the 244
-rows that `s32-new3` searched without success (1,800 s each) and the nine of R53 (listed in
-`results/2026-11-20_r53-sandbox/status.json`; the job `s32-new4` searches these 253). The odd-characteristic
+`s32-unimodular` has nothing left to do. The 362 orbits realised after submission (rounds R49–R54) are not yet in
+`data/`: 111 have unimodular realisations (`results/2026-11-23_s32-new4/s32n4_unimodular.npz`, gate G49; it contains
+the 101 of `results/2026-11-20_s32-new3/`, gate G48, which contain the 86 of `results/2026-11-18_s32-new2/`, gate G46,
+and those the 48 of `results/2026-11-18_s32-new/`, gate G45; the first 10 are also in
+`results/2026-11-17_r49-sandbox/every_d_sandbox.npz`, gate G44); 251 are open: the 243 rows that `s32-new4` searched
+without success (1,800 s each; the nine of R53 among them, at κ = 2) and the eight of R54 (listed in
+`results/2026-11-23_r54-sandbox/status.json`; the job `s32-new5` searches these 251). The odd-characteristic
 common-information screen of `scripts/s33_ci_oddchar.py` excludes none of the 254 of addenda 19–21 from Stab^(p)_5 for
 odd p (`results/2026-11-19_r52-sandbox/s33_screen_254.json`; floating-point verdicts). A pilot of the covering search on two of them (rows 642 and 647; 60 s per job, two rounds) ended at
 rational residuals 7–40 at κ = 1, while a covering certificate starts from a rational realisation (residual 0).
@@ -1244,7 +1256,7 @@ This repository is public at
 
 - **CI:** `.github/workflows/selftest.yml` installs `lrslib` and the Python
   requirements and runs `python3 selftest.py --full` on every push and pull
-  request (all 65 gate lines must pass). Every step has a time cap (job 60 min, `selftest.py --full` 40 min;
+  request (all 66 gate lines must pass). Every step has a time cap (job 60 min, `selftest.py --full` 40 min;
   each `apt-get update` attempt 150 s, three attempts), so a stalled package
   mirror fails the run within minutes instead of hanging for GitHub's 6-hour
   default; such a failure says nothing about the code -- re-run the job.

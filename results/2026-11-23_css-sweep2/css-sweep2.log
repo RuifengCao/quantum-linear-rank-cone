@@ -1,0 +1,23 @@
+kernel: gcc -O3 -march=native -fopenmp; OpenMP threads 32
+row 13: FOUND after 48.2 s, verified (shape, column_ranks, graph_cut_ranks, stabcert); 1 found, 1 of 154 searches done (48 s)
+row 4: FOUND after 2246.5 s, verified (shape, column_ranks, graph_cut_ranks, stabcert); 2 found, 2 of 154 searches done (2247 s)
+row 43: FOUND after 2974.1 s, verified (shape, column_ranks, graph_cut_ranks, stabcert); 3 found, 3 of 154 searches done (2974 s)
+row 186: FOUND after 2184.1 s, verified (shape, column_ranks, graph_cut_ranks, stabcert); 4 found, 34 of 154 searches done (5784 s)
+row 204: FOUND after 2289.1 s, verified (shape, column_ranks, graph_cut_ranks, stabcert); 5 found, 36 of 154 searches done (5889 s)
+50 of 154 searches done, 5 found (7200 s)
+row 473: FOUND after 194.2 s, verified (shape, column_ranks, graph_cut_ranks, stabcert); 6 found, 66 of 154 searches done (7394 s)
+100 of 154 searches done, 6 found (13046 s)
+row 614: FOUND after 2770.2 s, verified (shape, column_ranks, graph_cut_ranks, stabcert); 7 found, 102 of 154 searches done (13570 s)
+row 721: FOUND after 54.2 s, verified (shape, column_ranks, graph_cut_ranks, stabcert); 8 found, 130 of 154 searches done (14454 s)
+150 of 154 searches done, 8 found (18000 s)
+lambda=2 (CSS, kappa=1): 154 rays tried, 8 realised and independently verified (18000s)
+certificates -> css_sweep2.npz (graphs with at most 64 qubits), all hits -> css_sweep2.plain.npz
+row 13: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True, 'stabcert': True}
+row 4: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True, 'stabcert': True}
+row 43: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True, 'stabcert': True}
+row 186: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True, 'stabcert': True}
+row 204: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True, 'stabcert': True}
+row 473: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True, 'stabcert': True}
+row 614: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True, 'stabcert': True}
+row 721: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True, 'stabcert': True}
+8 plain certificates, 8 graph certificates: ALL OK
