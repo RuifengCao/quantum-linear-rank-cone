@@ -321,6 +321,97 @@ def verify_single_ci_feasible(r, pairs, den, num):
     return ok, G.shape[1], used
 
 
+# ---------------------------------------------------------------- R56: two common informations (s42 / s43)
+def _cmi(X, Y, Z):
+    """the form g(XZ) + g(YZ) - g(XYZ) - g(Z) of I(X; Y | Z) over bitmasks (g(0) = 0 dropped)."""
+    d = {}
+    for m, c in ((X | Z, 1), (Y | Z, 1), (X | Y | Z, -1), (Z, -1)):
+        if m:
+            d[m] = d.get(m, 0) + c
+    return d
+
+
+def verify_exclusion_ci2(r, P1, P2, terms, F_S=None):
+    """Exclusion certificate with two common informations (R56; certificates of scripts/s43_certify_ci2.py).
+
+    Elements: A..F (bits 0..5), Z1 (bit 6), Z2 (bit 7).  P1 = (X1, Y1): disjoint nonempty subsets of A..F, and
+    Z1 = W_X1 cap W_Y1; P2 = (X2, Y2): disjoint nonempty subsets of A..F, Z1, and Z2 = W_X2 cap W_Y2.  For a subspace
+    arrangement over any field the extension satisfies every Shannon inequality, every Ingleton inequality of four
+    unions of elements conditioned on a fifth (Ingleton 1971; contraction by W_K keeps the arrangement linear), and
+    g(Xi Zi) - g(Xi) = 0, g(Yi Zi) - g(Yi) = 0, g(Zi) - g(Xi) - g(Yi) + g(Xi Yi) = 0.  terms = [(descriptor,
+    multiplier)]: ('H', i) for g(all) - g(all - i), ('M', i, j, K) for I(i; j | K), ('I', A, B, C, D, K) for
+    I(A;B|CK) + I(A;B|DK) + I(C;D|K) - I(A;B|K) (multipliers >= 0), ('C', k) for the k-th equality above in the
+    order listed (any sign).  The combination must cancel on every mask that meets Z1 or Z2, leaving a form F on A..F
+    with F(h_norm(r)) < 0: then F(h_norm(S)) >= 0 for every stabilizer state of every prime dimension and r is not in
+    the stabilizer cone.  Built from the formulas here, independently of scripts/s42 and s43.
+    Returns (ok, F(h_norm(r)))."""
+    ALL, Z1b, Z2b = 255, 64, 128
+    try:
+        (X1, Y1), (X2, Y2) = [(int(p[0]), int(p[1])) for p in (P1, P2)]
+    except (TypeError, ValueError):
+        return False, None
+    if not (0 < X1 < 64 and 0 < Y1 < 64 and not X1 & Y1 and 0 < X2 < 128 and 0 < Y2 < 128 and not X2 & Y2):
+        return False, None
+    eqs = []
+    for (X, Y), Z in (((X1, Y1), Z1b), ((X2, Y2), Z2b)):
+        eqs.append({X | Z: 1, X: -1})
+        eqs.append({Y | Z: 1, Y: -1})
+        d = {Z: 1, X: -1, Y: -1}
+        d[X | Y] = d.get(X | Y, 0) + 1
+        eqs.append(d)
+    tot = {}
+    for desc, v in terms:
+        v = Fraction(v)
+        kind = desc[0]
+        if kind == 'C':
+            k = int(desc[1])
+            if not 0 <= k < 6:
+                return False, None
+            row = eqs[k]
+        else:
+            if v < 0:
+                return False, None
+            if kind == 'H':
+                i = int(desc[1])
+                if not 0 <= i < 8:
+                    return False, None
+                row = {ALL: 1, ALL ^ (1 << i): -1}
+            elif kind == 'M':
+                i, j, K = (int(t) for t in desc[1:4])
+                if not (0 <= i < 8 and 0 <= j < 8 and i != j and 0 <= K <= ALL and not K & ((1 << i) | (1 << j))):
+                    return False, None
+                row = _cmi(1 << i, 1 << j, K)
+            elif kind == 'I':
+                A, B, C, D, K = (int(t) for t in desc[1:6])
+                parts = (A, B, C, D, K)
+                if not (A and B and C and D) or any(not 0 <= p <= ALL for p in parts) \
+                        or any(parts[s] & parts[t] for s in range(5) for t in range(s + 1, 5)):
+                    return False, None
+                row = {}
+                for d, sg in ((_cmi(A, B, C | K), 1), (_cmi(A, B, D | K), 1), (_cmi(C, D, K), 1), (_cmi(A, B, K), -1)):
+                    for m, c in d.items():
+                        row[m] = row.get(m, 0) + sg * c
+            else:
+                return False, None
+        for m, c in row.items():
+            tot[m] = tot.get(m, 0) + v * c
+    if any(c != 0 and m & (Z1b | Z2b) for m, c in tot.items()):
+        return False, None
+    F = {m: c for m, c in tot.items() if c != 0}
+    h = h_norm(r)
+    val = sum(c * h[m] for m, c in F.items())
+    if F_S is not None:
+        coef = []
+        for i in range(31):
+            e = [0] * 31; e[i] = 1
+            he = h_norm(e)
+            coef.append(sum(c * he[m] for m, c in F.items()))
+        ratios = {Fraction(a) / b for a, b in zip(coef, F_S) if b != 0}
+        if any((a != 0) != (b != 0) for a, b in zip(coef, F_S)) or len(ratios) != 1 or next(iter(ratios)) <= 0:
+            return False, val
+    return val < 0, val
+
+
 # ---------------------------------------------------------------- compact storage (R28)
 def pack_exclusions(certs, maxk=None):
     """certs: list of dicts with ray, X, Y, F_S, y ({k: 'a/b'}).  Returns dict of arrays for np.savez."""

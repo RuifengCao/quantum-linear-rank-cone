@@ -388,6 +388,34 @@
    ],
    "tag": "ci2-ingleton",
    "checks": "the line 's42 self-test: ... True' before any row; one line 'row k (N = n): feasible; d/c LPs, t solver troubles, ...' per row, or 'INFEASIBLE at [[X1, Y1], [X2, Y2]]' for a candidate exclusion (floating point: it counts only after an exact certificate, to be built in the sandbox); the summary line 'tested t of 793 rows (u cut off by the deadline), ... infeasible (candidate exclusions): ...'; then COMPLETE, or INCOMPLETE if the 6 h ran out (the rows tested are kept). Row indices refer to results/2026-11-23_r54-sandbox/undecided_reps.npy"
+  },
+  "ci2-ingleton2": {
+   "tier": "X",
+   "needs": [],
+   "runtime": "at most 5.5 h on 32 threads (--hours 5.5: no row and no LP is started after 5.5 h; rows cut off are left out of the output, and a later run with --resume does them): resumes ci2-ingleton (R56), whose 6 h deadline cut it off after 433 of the 793 rows of results/2026-11-23_r54-sandbox/undecided_reps.npy. The 360 rows left all have N <= 34 (96 with N = 34, 118 with N = 32, 72 with N = 30, 63 with N = 28, 9 with N = 26 or 27, and the two rows with N = 18 and 16): about 6.5 million LPs. At the 84 ms per LP per thread measured on average in ci2-ingleton (per-row averages 51-130 ms; 70 ms for its rows with N = 34) that is about 4-5 h. Seven of the rows were resolved in R56 by realisations (rows 35, 250, 327, 419 and 526 by qubits, 535 and 651 by qutrits); they stay in as controls and must come out feasible",
+   "cmd": "rm -f ci2_ingleton2.json && cp results/2026-11-23_ci2-ingleton/ci2_ingleton.json ci2_ingleton2.json && python3 scripts/s42_ci2_ingleton.py results/2026-11-23_r54-sandbox/undecided_reps.npy --maxsize 2 --nested --hours 5.5 --resume --out ci2_ingleton2.json",
+   "smoke": "rm -f ci2_ingleton2.json && cp results/2026-11-23_ci2-ingleton/ci2_ingleton.json ci2_ingleton2.json && python3 scripts/s42_ci2_ingleton.py results/2026-11-23_r54-sandbox/undecided_reps.npy --rows 537,651,535 --maxsize 1 --nested --resume --out ci2_ingleton2.json",
+   "outputs": [
+    "ci2_ingleton2.json"
+   ],
+   "tag": "ci2-ingleton2",
+   "checks": "the line 's42 self-test: ... True' before any row; 'resume: 433 rows already in ci2_ingleton2.json' (the smoke then tests only rows 535 and 651, at maxsize 1; its counts include the 433 rows carried over, so it ends with 'tested 435 of 3 rows' and INCOMPLETE, as it should); one line 'row k (N = n): feasible; d/c LPs, t solver troubles, ...' per row, or 'INFEASIBLE at [[X1, Y1], [X2, Y2]]' for a candidate exclusion (floating point: it counts only after an exact certificate, to be built in the sandbox); rows 35, 250, 327, 419, 526, 535 and 651 feasible; the summary line 'tested t of 793 rows (u cut off by the deadline), ... infeasible (candidate exclusions): ...' (the 3 rows of ci2-ingleton, 537, 643 and 785, are among them, carried over); then COMPLETE, or INCOMPLETE if the 5.5 h ran out (the rows tested are kept). Row indices refer to results/2026-11-23_r54-sandbox/undecided_reps.npy"
+  },
+  "s44-sweep": {
+   "tier": "X",
+   "needs": [
+    "gcc"
+   ],
+   "runtime": "at most 4.3 h on 32 threads: the fixed-structure CSS search of R56 (scripts/s44_fixed_search.py, kernel cc/s44_fixed_anneal.c; a hit is a qubit realisation at lambda = 2) on the 183 orbits of results/2026-11-23_r56-sandbox/undecided_reps.npy that have a forced triple (the script skips the other 602), searches of 900 s by N, the qubit count at lambda = 1: 4 for each of the 71 rows with N <= 32, 3 for the 59 with N = 33-36, 2 for the 29 with N = 37-40, 1 for the 24 with N = 41-64. The 543 searches are 17 rounds on 32 threads (4.2 h of mean load per thread); first copies of all rows run before second copies, and a realised row skips its remaining searches. The kernel stops each search after its wall-clock budget, so the time does not depend on the speed of a thread. In the sandbox (R56), searches of 30 s realised 2 of the 76 such rows with N <= 32 and none of the 112 with N >= 33; of the 8 rows with N <= 32 that ended 2 or 3 ranks short, searches of 300 s realised 3 (42-158 s to the hit) and searches of 600 s none of the other 5",
+   "cmd": "rm -f s44_sweep.npz s44_sweep.npz.json s44_sweep.plain.npz && python3 scripts/s44_fixed_search.py results/2026-11-23_r56-sandbox/undecided_reps.npy --budget 32:900x4,36:900x3,40:900x2,64:900x1 --seed 20261126 --out s44_sweep.npz && python3 scripts/s44_fixed_search.py --check s44_sweep.npz results/2026-11-23_r56-sandbox/undecided_reps.npy",
+   "smoke": "rm -f s44_sweep.npz s44_sweep.npz.json s44_sweep.plain.npz && python3 scripts/s44_fixed_search.py --self-test && python3 scripts/s44_fixed_search.py results/2026-11-23_r56-sandbox/undecided_reps.npy --rows 320,30 --budget 32:3x2 --seed 20261126 --out s44_sweep.npz && python3 scripts/s44_fixed_search.py --check s44_sweep.npz results/2026-11-23_r56-sandbox/undecided_reps.npy",
+   "outputs": [
+    "s44_sweep.npz",
+    "s44_sweep.npz.json",
+    "s44_sweep.plain.npz"
+   ],
+   "tag": "s44-sweep",
+   "checks": "the line 's44 self-test: ... True' (smoke only); a NOTE line with the number of rows skipped for want of a forced triple; one 'row k: FOUND after ... verified (...)' line for each hit (every hit is re-verified by s41's verify before it is written: column-group ranks, cut ranks of the graph, epr1kit/stabcert.py up to 64 qubits); the line 'lambda=2 (CSS, forced structure fixed): 183 rays tried, n realised and independently verified (...)'; no WARNING lines; the --check run ends with ALL OK. Row indices refer to results/2026-11-23_r56-sandbox/undecided_reps.npy; s44_sweep.npz.json holds the best residual of every row searched without a hit and the forced triple of every row"
   }
  }
 }

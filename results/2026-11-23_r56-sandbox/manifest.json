@@ -1,0 +1,35 @@
+{
+ "date": "2026-11-23",
+ "tag": "r56-sandbox",
+ "files": {
+  "README.txt": {
+   "bytes": 6818,
+   "sha256": "0e382b313702c54df675c4e443d842869d936db46f1c46a1eeb116556a5f647c"
+  },
+  "certificates_ci2.json": {
+   "bytes": 20182,
+   "sha256": "3e36fd96a4ea2f4cd437ecce34502fd3ccfd09ceb219f0e58c3853f2da977146"
+  },
+  "frontier_1008.npz": {
+   "bytes": 14202,
+   "sha256": "4619d30a2a1f632d63110a3d72c58ef7ed5fb27b14d42be96376f0fd8ec43f06"
+  },
+  "realisations_5.npz": {
+   "bytes": 10503,
+   "sha256": "fbb651c1dafe320d7b63e5ed432c91d4dd9edb99d3086d2cb787bba014da1c34"
+  },
+  "realisations_gf3.json": {
+   "bytes": 19261,
+   "sha256": "cf84237d78626886794a990ecdeb75b93806ac47fb405a91ed3a89f97ea03a0b"
+  },
+  "status.json": {
+   "bytes": 11224,
+   "sha256": "5e726cace76295fee0c9c5dd13a46abdc38ecce80a71cbb041d963c0d6c1d5d4"
+  },
+  "undecided_reps.npy": {
+   "bytes": 48798,
+   "sha256": "ecbe5886c18e9afc1e3efe3dab25ddfd6e0b860f481efd61508d9761c9b6ea5d"
+  }
+ },
+ "note": "sha256 of every other file of this folder"
+}

@@ -1,0 +1,12 @@
+{
+ "job": "ci2-ingleton",
+ "mode": "full",
+ "host": "ClarkDellG16",
+ "nproc": 32,
+ "start_utc": "2026-11-23T12:53:40Z",
+ "end_utc": "2026-11-23T18:53:42Z",
+ "elapsed_s": 21601.8,
+ "exit_code": 0,
+ "cmd": "rm -f ci2_ingleton.json && python3 scripts/s42_ci2_ingleton.py results/2026-11-23_r54-sandbox/undecided_reps.npy --maxsize 2 --nested --hours 6 --out ci2_ingleton.json",
+ "checks": "the line 's42 self-test: ... True' before any row; one line 'row k (N = n): feasible; d/c LPs, t solver troubles, ...' per row, or 'INFEASIBLE at [[X1, Y1], [X2, Y2]]' for a candidate exclusion (floating point: it counts only after an exact certificate, to be built in the sandbox); the summary line 'tested t of 793 rows (u cut off by the deadline), ... infeasible (candidate exclusions): ...'; then COMPLETE, or INCOMPLETE if the 6 h ran out (the rows tested are kept). Row indices refer to results/2026-11-23_r54-sandbox/undecided_reps.npy"
+}

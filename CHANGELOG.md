@@ -1,5 +1,47 @@
 # CHANGELOG
 
+## R56 (2026-11-23) -- Gate 1: three undecided orbits excluded by two common informations (exact certificates); five realised by a fixed-structure CSS search, two by qutrits; gate G50; jobs `ci2-ingleton2` and `s44-sweep`
+- `results/2026-11-23_ci2-ingleton/` (job `ci2-ingleton`, 6.0 h on a 32-thread laptop, as staged by `run_job.py`):
+  `scripts/s42_ci2_ingleton.py` at maxsize 2 with nested pairs, largest N first, cut off by its deadline after 433 of
+  the 793 rows (all 401 with N ≥ 36, 32 of the 128 with N = 34; 7,901,818 LPs, none with solver trouble; 84 ms per
+  LP per thread on average, per-row averages 51–130 ms, about 2.4 times the sandbox's 35 ms). Three rows were
+  infeasible: 537, 643 and 785 of the R54 list (R30 rows 810, 962 and 1146; N = 58, 42 and 36).
+- `scripts/s43_certify_ci2.py` (new): exact certificates for such rows. The cutting-plane LP of s42 is run until it is
+  infeasible, the Farkas dual is solved over the rows it used and its support exactly over the rationals (as in
+  `s17_certify`). A certificate lists Shannon, set-valued conditional Ingleton and common-information rows with
+  rational multipliers, and the five-party inequality F_S it proves, valid for the stabilizer states of every prime
+  dimension and violated by the ray. `epr1kit/stabcert.py`: `verify_exclusion_ci2`, the checker, which rebuilds
+  every row from its descriptor (as conditional mutual informations) without the row-building code of s42 and s43;
+  s43 runs it before writing a certificate and in `--check`. `--self-test`: rows excluded in R30 get certificates
+  with a second common information, plain and nested, that the checker accepts; it rejects all tampered versions (an
+  inequality multiplier made negative or doubled, a common-information term dropped, the certificate applied to a
+  known extreme ray); a known extreme ray gets none.
+- `scripts/s44_fixed_search.py`, `cc/s44_fixed_anneal.c` (new): the CSS search of s41 (λ = 2) with a forced part
+  fixed. When three parties meet pairwise in one common subspace T and their sum is T plus a direct sum (read off h;
+  proved for any field), they are fixed as coordinate subspaces and only the other three are annealed. Rows without
+  such a triple are skipped; first copies of all rows run before second copies, and a realised row skips its
+  remaining searches. Every hit is re-verified by s41's verify before it is written. `--check`; `--self-test`.
+- `results/2026-11-23_r56-sandbox/` (sandbox): `certificates_ci2.json` (the three rows, certified; each certificate
+  checked by `stabcert.verify_exclusion_ci2` when written, by s43's `--check` and by gate G50; the three inequalities
+  lie in three S₆ orbits, hold in all their images on the 1,008 known orbits and cut no other undecided row);
+  `realisations_5.npz` (R30 rows 73, 418, 518, 662 and 793, N = 30, 30, 28, 32 and 27, realised at λ = 2 by
+  `s44_fixed_search.py`; rows 73 and 418 were found first by a sandbox prototype driver of the same kernel; re-checked
+  as in R54; extreme rays of QLR₅ in new S₆ orbits); `realisations_gf3.json` (R30 rows 807 and 973, the two undecided
+  orbits with the fewest qubits, N = 18 and 16, realised over GF(3) at λ = 2: extreme rays of the qutrit cone; whether
+  qubits realise them is open, so they stay undecided); `undecided_reps.npy` (785 rows); `status.json`;
+  `frontier_1008.npz` (334 classes, greedy cover 182). 1,915,910 + 3 orbits of the R30 list are excluded, 1,003 + 5 =
+  1,008 known, 793 − 5 − 3 = 785 undecided.
+- `selftest.py`: gate G50 (every certificate re-checked by `stabcert.verify_exclusion_ci2` and equal to the job's
+  candidates; the five qubit realisations as in G49; the two qutrit realisations: GF(3) column-group ranks and the
+  qutrit graph; no row both realised and excluded; the accounting; the frontier's greedy cover; the manifests of both
+  new folders).
+- `jobs.json`, README §2b: `ci2-ingleton2` (resumes `ci2-ingleton` on the 360 rows left, all with N ≤ 34, about 6.5
+  million LPs, at most 5.5 h; the seven rows realised in R56 stay in as controls) and `s44-sweep` (the 183 undecided
+  rows with a forced triple, searches of 900 s by N, at most 4.3 h). Both smoke variants pass in the sandbox.
+- `VERSION`: R56. README: header; §2b; the script table (s43, s44) and 67 gate lines (§2, §3, §9); §7 ⓪(b) and (c).
+  `data/` and gates G0–G49 are unchanged. `selftest.py`: 50 gate lines, ALL PASS; `selftest.py --full`: 67 gate
+  lines, ALL PASS.
+
 ## R55 (2026-11-23) -- jobs `ci2-ingleton` and `css-scale` for the undecided orbits; `scripts/s42_ci2_ingleton.py`
 - `scripts/s42_ci2_ingleton.py` (new): two common informations on the 8-element extension A..F, Z₁, Z₂, the second of
   a pair that may contain Z₁, with every Shannon row and every set-valued conditional Ingleton instance that involves

@@ -1198,6 +1198,98 @@ def main():
          f'(s32-new4; kappa {S49["kappa"]}), {len(open49)} open; frontier {F49["classes"].shape[0]} classes, greedy '
          f'cover {len(F49["greedy_cover"])} covers all rows {fr49}; files match the manifests {file49}')
 
+    # G50 (R56): Gate 1, results/2026-11-23_r56-sandbox.  (a) The rows of the R54 list that the job ci2-ingleton
+    # (results/2026-11-23_ci2-ingleton; scripts/s42_ci2_ingleton.py: two common informations and the set-valued
+    # conditional Ingleton inequalities on the 8-element extension, floating point) reported infeasible: each has an
+    # exact certificate (scripts/s43_certify_ci2.py), re-checked here by epr1kit.stabcert.verify_exclusion_ci2, which
+    # rebuilds every Shannon, Ingleton and common-information row from its descriptor, on the ray of the R54 list; the
+    # certificates' (X1, Y1), (X2, Y2) are those of the job.  (b) The qubit realisations of the fixed-structure search
+    # (scripts/s44_fixed_search.py and its sandbox prototype): the checks of G49 (s41 verify, stabcert on the stored
+    # graph, extreme rays of QLR5 with tight rank 30, S6 orbits new against all 1,003 known before and each other).
+    # (c) The qutrit realisations (GF(3), lambda = 2): the 63 column-group ranks of the stored matrix over GF(3)
+    # (stabcert.gfp_rank) and the stored weighted qutrit graph (stabcert.verify_realisation_gfp).  (d) No row is both
+    # realised and excluded; undecided_reps.npy is the rest of the R54 list (the qutrit rows stay in it); status.json
+    # counts.  (e) The frontier: its rows are the undecided rows, its greedy cover cuts every one.  (f) The manifests.
+    D50 = os.path.join(base44, '2026-11-23_r56-sandbox')
+    J50d = os.path.join(base44, '2026-11-23_ci2-ingleton')
+    ST50 = _js20.load(open(os.path.join(D50, 'status.json')))
+    RN50, FN50 = ST50['realisations_file'], ST50['frontier']['file']
+    file50 = True
+    for d50, f50 in ((D50, ['README.txt', 'certificates_ci2.json', RN50, 'realisations_gf3.json', 'undecided_reps.npy',
+                            'status.json', FN50]),
+                     (J50d, ['ci2_ingleton.json', 'ci2-ingleton.log', 'JOB_STATUS.json'])):
+        M50 = _js20.load(open(os.path.join(d50, 'manifest.json')))
+        file50 = file50 and sorted(M50['files']) == sorted(f50) and all(
+            _h33.sha256(open(os.path.join(d50, f), 'rb').read()).hexdigest() == e['sha256'] for f, e in M50['files'].items())
+    from fractions import Fraction as _Fr50
+    J50 = _js20.load(open(os.path.join(J50d, 'ci2_ingleton.json')))
+    C50 = _js20.load(open(os.path.join(D50, 'certificates_ci2.json')))
+    cand50 = sorted(int(k) for k, v in J50['results'].items() if v['infeasible'])
+    rows50x = sorted(int(c['index']) for c in C50['certificates'])
+    okx50 = 0
+    for c in C50['certificates']:
+        r = L49[int(c['index'])]
+        okc, _v = _sc.verify_exclusion_ci2(r, c['P1'], c['P2'], [(tuple(t[0]), _Fr50(t[1])) for t in c['terms']],
+                                           F_S=c['F_S'])
+        inf = J50['results'][str(c['index'])]['infeasible']
+        okx50 += bool(okc and [int(x) for x in r] == c['ray'] and list(c['P1']) == list(inf[0])
+                      and list(c['P2']) == list(inf[1])
+                      and sum(a * int(b) for a, b in zip(c['F_S'], r)) == c['F_S_at_ray'] < 0)
+    ex50 = (J50['rays'] == 'results/2026-11-23_r54-sandbox/undecided_reps.npy' and len(set(rows50x)) == len(rows50x)
+            and sorted(rows50x + [int(x) for x in C50['failed']]) == cand50 and okx50 == len(rows50x))
+    R50 = np.load(os.path.join(D50, RN50), allow_pickle=False)
+    rows50 = [int(x) for x in R50['row']]
+    i49 = np.flatnonzero(keep49)
+    ok50a = (len(rows50) == len(set(rows50)) > 0 and keep49[rows50].all()
+             and [int(i49[int(x)]) for x in R50['row54']] == rows50
+             and np.array_equal(R50['rep'].astype(np.int64), U44[rows50]) and (R50['lam'] == 2).all())
+    nv50 = sum(_sc.verify_realisation(U44[r], 2, R50['sizes'][k], R50['rows'][k]) for k, r in enumerate(rows50))
+    nc50 = sum(_css47.verify(U44[r], 1, [int(c) for c in R50['cols'][k][:int(R50['m'][k])]])[0] for k, r in enumerate(rows50))
+    V50 = HF44 @ U44[rows50].T
+    ne50 = sum(1 for k in range(len(rows50)) if V50[:, k].min() >= 0 and core.rank_mod_p(HF44[V50[:, k] == 0]) == 30)
+    c50, _ = core.class_reps(U44[rows50], core.perms31_s6(), offset=4096, width='u16')
+    no50 = len(set(c50)) == len(rows50) and not (set(c50) & (set(c44) | set(c45) | set(c46) | set(c47) | set(c48) | set(c49)))
+    Q50 = _js20.load(open(os.path.join(D50, 'realisations_gf3.json')))
+    nq50 = 0
+    for q in Q50:
+        r = U44[q['row']]
+        hq = _sc.h_norm(r)
+        off = [0]
+        for i in range(6):
+            off.append(off[-1] + int(hq[1 << i]))
+        cols = [tuple(int(x, 16) for x in s.split(':')) for s in q['cols']]
+        Mq = [[1 if pp >> i & 1 else 2 if qq >> i & 1 else 0 for (pp, qq) in cols] for i in range(int(hq[63]))]
+        okr = len(cols) == off[6] and all(not pp & qq for pp, qq in cols) and all(
+            _sc.gfp_rank([[row[c] for j in range(6) if X >> j & 1 for c in range(off[j], off[j + 1])] for row in Mq], 3)
+            == hq[X] for X in range(1, 64))
+        nq50 += bool(okr and keep49[q['row']] and int(i49[q['row54']]) == q['row'] and q['p'] == 3 and q['lam'] == 2
+                     and _sc.verify_realisation_gfp(r, 2, q['sizes'], q['graph_weights'], 3))
+    x30_50 = [int(i49[k]) for k in rows50x]
+    q30_50 = [int(q['row']) for q in Q50]
+    keep50 = keep49.copy()
+    keep50[rows50] = False
+    keep50[x30_50] = False
+    L50 = np.load(os.path.join(D50, 'undecided_reps.npy')).astype(np.int64)
+    acc50 = (not (set(x30_50) & (set(rows50) | set(q30_50))) and keep50[q30_50].all()
+             and np.array_equal(L50, U44[keep50])
+             and ST50['known_extreme_ray_orbits'] == 1003 + len(rows50) and ST50['realised_rows_r56'] == rows50
+             and ST50['undecided'] == L50.shape[0] == 793 - len(rows50) - len(rows50x)
+             and ST50['excluded'] == 1915910 + len(rows50x) and ST50['excluded_rows_r56'] == x30_50
+             and ST50['qutrit_r56']['rows'] == q30_50
+             and ST50['every_d']['open'] == len(ST50['every_d']['open_rows']) == 251 + len(rows50))
+    F50 = np.load(os.path.join(D50, FN50), allow_pickle=False)
+    fr50 = (np.array_equal(F50['rows'], np.flatnonzero(keep50)) and F50['cut'].shape == (F50['classes'].shape[0], L50.shape[0])
+            and F50['cut'].any(0).all() and F50['cut'][F50['greedy_cover']].any(0).all())
+    gate('G50 Gate 1: two common informations; fixed-structure and qutrit realisations',
+         ex50 and ok50a and nv50 == nc50 == ne50 == len(rows50) and no50 and nq50 == len(Q50) and acc50 and fr50 and file50,
+         f'{okx50}/{len(rows50x)} exclusion certificates re-checked exactly (stabcert.verify_exclusion_ci2) = the rows '
+         f'ci2-ingleton reported infeasible ({len(cand50)}, failed {len(C50["failed"])}) {ex50}; {nv50}/{len(rows50)} '
+         f'graph certificates and {nc50}/{len(rows50)} CSS matrices re-verified at lambda 2, {ne50} extreme rays of '
+         f'QLR5, new S6 orbits {no50}; {nq50}/{len(Q50)} qutrit realisations (GF(3) column ranks, qutrit graph); '
+         f'{ST50["known_extreme_ray_orbits"]} known / {ST50["undecided"]} undecided {acc50}; frontier '
+         f'{F50["classes"].shape[0]} classes, greedy cover {len(F50["greedy_cover"])} cuts every row {fr50}; files '
+         f'match the manifests {file50}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:

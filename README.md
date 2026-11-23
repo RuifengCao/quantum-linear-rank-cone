@@ -86,6 +86,14 @@ data bundled, a static Normaliz binary included, resumable long runs.
 > informations plus set-valued conditional Ingleton on the 8-element extension, nested pairs included (new script
 > `scripts/s42_ci2_ingleton.py`), and `css-scale` searches the eight with N = 34 that came closest in `css-sweep` for
 > 48 times as long. `data/`, `selftest.py` and gates G0–G49 are unchanged.
+> Round R56 (2026-11-23) adds the result of `ci2-ingleton` (32-thread laptop; its 6 h deadline cut it off after the
+> 433 rows with the largest N): two common informations exclude three undecided orbits, each with an exact certificate
+> (new `scripts/s43_certify_ci2.py`, checked independently by `epr1kit/stabcert.py`). A fixed-structure CSS search
+> (new `scripts/s44_fixed_search.py`, `cc/s44_fixed_anneal.c`) realises five more orbits, and the two undecided orbits
+> with the fewest qubits are realised by qutrits; qubits remain open for them
+> (`results/2026-11-23_r56-sandbox/`). 1,008 orbits are known, 785 undecided. `data/` and gates G0–G49 are unchanged;
+> the new gate G50 checks the two new folders. The jobs `ci2-ingleton2` (the 360 rows left) and `s44-sweep` are
+> registered.
 > Release R37 ([10.5281/zenodo.23303466](https://doi.org/10.5281/zenodo.23303466))
 > is the archived version cited by the first version of the paper *Stabilizer entropy cones as self-dual slices of
 > linear rank cones: a five-party gap and dependence on the local dimension* (X. Song and R. Cao,
@@ -711,7 +719,7 @@ single-source lines in `data/dfz_ref28.csv`; optional `rays5` cross-check.
 
 ```
 # ---- A. Verify the completed results (optional, ~3 minutes in total) ----
-python3 selftest.py --full            # 66 gate lines + ALL PASS, ~8 min; must be all green first
+python3 selftest.py --full            # 67 gate lines + ALL PASS, ~8 min; must be all green first
 python3 scripts/s1_build_qlr.py --variant pure28 --workers 25     # seconds
 python3 scripts/s2_judge.py QLR_H_pure28.npy                      # expect: violated 0
 python3 scripts/s3_rank19.py QLR_H_pure28.npy                     # expect: 18/19, only #19 has rank 29
@@ -798,7 +806,9 @@ Release instead). Engine options can be overridden after `--`.
 | `css-sweep3` | X | at most 5.0 h on 32 threads (R54): the CSS search on the 146 orbits with N ≤ 30 still undecided after R54 (`results/2026-11-23_r54-sandbox/undecided_reps.npy`), 3,600 s each, new seed; 61 of them ended `css-sweep2` at a best residual of at most 2 | 3 orbits, 3 s (~10 s) |
 | `s32-new5` | X | at most 4.0 h on 32 threads (R54): unimodular search (neutral, 1,800 s per row, new seed) for the 251 rows realised after submission without a certificate for every d (243 left by `s32-new4`; the 8 of R54 at κ = 2), catalogue extended by the six realisation files; resumes from the 111 of `s32-new4` | 3 rows, 3 s (~15 s) |
 | `css-scale` | X | at most 1.0 h on 32 threads (R55): a budget-scaling test of the CSS search on the 8 orbits with 33 ≤ N ≤ 40 that `css-sweep` (300 s each) left at the lowest best residuals (5–7 column-group ranks; all N = 34; `results/2026-11-23_r54-sandbox/undecided_reps.npy` rows 135, 341, 608, 46, 586, 616, 617, 67): four searches of 3,600 s each, new seed, 48 times the earlier time; one round on 32 threads | 2 orbits, 2 × 3 s (~10 s) |
-| `ci2-ingleton` | X | at most 6.0 h on 32 threads (R55; `--hours 6`, rows cut off are redone by a later run with `--resume`): `scripts/s42_ci2_ingleton.py` at maxsize 2 with nested pairs on all 793 orbits still undecided after R54, largest N first; about 14 million LPs (18,300 per row with N ≥ 31); an infeasible row is a candidate exclusion until certified exactly | 2 orbits at maxsize 1 (~20 s) |
+| `ci2-ingleton` | X | done 2026-11-23 (6.0 h on a 32-thread laptop, `results/2026-11-23_ci2-ingleton/`): `scripts/s42_ci2_ingleton.py` at maxsize 2 with nested pairs on the 793 orbits undecided after R54, largest N first; the deadline cut it off after 433 rows (all 401 with N ≥ 36, 32 of the 128 with N = 34; 7.9 million LPs, 84 ms per LP per thread on average, none with solver trouble); 3 infeasible, all certified exactly (R56) | 2 orbits at maxsize 1 (~20 s) |
+| `ci2-ingleton2` | X | at most 5.5 h on 32 threads (R56; `--hours 5.5`): resumes `ci2-ingleton` on the 360 rows it did not reach (all N ≤ 34; about 6.5 million LPs, about 4–5 h at the measured speed); the seven rows realised in R56 stay in as controls and must come out feasible | `--resume` from the first run's output, 2 orbits at maxsize 1 (~20 s) |
+| `s44-sweep` | X | at most 4.3 h on 32 threads (R56): the fixed-structure CSS search (`scripts/s44_fixed_search.py`; hits are realisations at λ = 2) on the 183 orbits of `results/2026-11-23_r56-sandbox/undecided_reps.npy` with a forced triple, searches of 900 s: 4 for each with N ≤ 32, 3 for N = 33–36, 2 for N = 37–40, 1 for N = 41–64; first copies before second copies, a realised row skips the rest | self-test + 2 orbits, 2 × 3 s (~30 s) |
 
 **Rule:** every tier-X job is handed over only after its smoke variant has
 passed in the sandbox (and, optionally, in the manual CI workflow
@@ -809,7 +819,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 
 | Stage | Command essentials | Purpose / expectation |
 | --- | --- | --- |
-| selftest | `selftest.py [--full] [--workers N]` | 66 regression gate lines (G0–G49 with G2b and G10b, G29b, G31b–G36b, G38b–G43b, G47b) + ALL PASS; run first on any machine |
+| selftest | `selftest.py [--full] [--workers N]` | 67 regression gate lines (G0–G50 with G2b and G10b, G29b, G31b–G36b, G38b–G43b, G47b) + ALL PASS; run first on any machine |
 | s1 | `--variant pure28` (current) / `pure`, `v3`, `pure2` (historical) | build the H-representation; seconds |
 | s2 | `s2_judge.py <H.npy>` | 760 graph-state judge; `pure*` variants must give 0 violations |
 | s3 | `s3_rank19.py <H.npy> [--extra-rows X]` | tight-rank test of the 19 HEC rays; pure28 → 18/19 |
@@ -834,6 +844,8 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 | s32 | `s32_unimodular.py --check [--full]` ; `--search --seconds S [--resume] [--rows …] [--strategies …] --out …` ; `--cover --out … --cover-out … [--rows …] [--seconds S] [--rounds R] [--rings …] [--kappa2]` ; `--check-cover` ; `--self-test` | R38–R40: unimodular realisations and covering certificates of the known extreme rays of Stab₅ (kernel `cc/s32_unimodular.c`: annealing over {-1, 0, 1}, neutral moves, restriction of scalars from quadratic orders); exact certification by diagonal forms over Z, rational rank + minors with gcd 1, GF(p) ranks and Z_d state vectors; covering certificates by recomputed bad primes |
 | s41 | `s41_css_search.py rays.npy --seconds S \| --budget N:S[xC],… --out … [--rows …] [--kappa K]` ; `--check certs.npz rays.npy` ; `--self-test` | R52: CSS search (kernel `cc/s41_css_anneal.c`): a binary matrix whose column groups A..F have the rank function κ·h_S gives a CSS state with entropy 2κS (R32 note, Theorem 1, proof), i.e. a qubit realisation at λ = 2κ found in a search space of the size of the graph-state search at κ; every hit re-verified (column-group ranks, cut ranks of the equivalent bipartite graph, `epr1kit/stabcert.py`); graph certificates in the format of s16 |
 | s42 | `s42_ci2_ingleton.py rays.npy [--rows …] [--maxsize M] [--nested] [--workers W] [--hours H] --out out.json [--resume]` ; `--self-test` | R55: two common informations on the 8-element extension A..F, Z₁, Z₂ (Z₂ of a pair that may contain Z₁) with every Shannon row and every set-valued conditional Ingleton instance that involves Z₁ or Z₂ (A, B, C, D disjoint unions of elements, K a union of others; R29 used single elements), by cutting planes; one LP per pair of pairs, a row stops at its first infeasible one; floating-point verdicts, so an infeasible row is a candidate exclusion until certified exactly. `--self-test`: every row on random subspace arrangements over GF(2) and GF(3), known answers, cutting planes against the LP with all rows |
+| s43 | `s43_certify_ci2.py rays.npy --ci2 ci2.json --out certs.json [--workers W]` ; `--check certs.json` ; `--self-test` | R56: exact certificates for the rows that s42 reports infeasible. The cutting-plane LP of s42 is run until it is infeasible, the Farkas dual is solved over the rows it used and its support exactly over the rationals (as in `s17_certify`). A certificate lists Shannon, set-valued conditional Ingleton and common-information rows with rational multipliers, and the five-party inequality F_S it proves: valid for the stabilizer states of every prime dimension, violated by the ray. The checker `epr1kit.stabcert.verify_exclusion_ci2` rebuilds every row from its descriptor without the row-building code of s42 and s43; s43 runs it before writing a certificate and in `--check`, gate G50 runs it again. `--self-test`: rows excluded in R30 get certificates with a second common information (plain and nested) that the checker accepts; it rejects all tampered versions (an inequality multiplier made negative or doubled, a common-information term dropped, the certificate applied to a known extreme ray); a known extreme ray gets none |
+| s44 | `s44_fixed_search.py rays.npy [--rows …] (--seconds S [--copies C] \| --budget N:S[xC],…) [--workers W] --out certs.npz` ; `--check certs.npz rays.npy` ; `--self-test` | R56: the CSS search of s41 (λ = 2) with a forced part fixed. When three parties meet pairwise in one common subspace T and their sum is T plus a direct sum (both read off h; proved for any field), the three are fixed as coordinate subspaces and the other three are annealed (kernel `cc/s44_fixed_anneal.c`); rows without such a triple are skipped. Every hit is re-verified by s41's verify before it is written; outputs in the formats of s41 |
 | s33 | `s33_ci_oddchar.py --rows … [--pairs disjoint/all] [--out …]` | R38: exploratory screen -- common information + the seven-variable forms valid in odd characteristic (DFZ (65), (LB)_2, BKL (6.17) corrected) on the extension; floating-point verdicts |
 | s34 | `s34_six_party_survey.py --check [--full]` ; `--self-test` ; `--enumerate --out …` ; `--survey --lists … --out … --seconds S` ; `--nonfano --lams 2,3 --seconds S` ; `--fields 2,3,4,5,7,8,9 [--controls K]` ; `--fields-python 2,3,4` ; `--transfer [--full --trials N]` ; `--transfer-anneal "n0,…,n6;…" --seconds S [--pull-nf μ]` | R40: six parties, the other direction -- every entropy vector of seven-system qubit and qutrit stabilizer states with at most one qudit per system (`cc/s35_enum7.c`, weighted graphs up to scaling), the qutrit-only orbits and their qubit realisations at multiplicity 2 (`cc/s34_anneal7.c`), and graphs over GF(q) with a prescribed cut-rank vector (`cc/s36_target7.c`; Proposition 10); exact checks over GF(2), GF(3) and GF(q). R42: Theorem 12 -- the inequality f12, every step of its proof on given states (gates G39/G39b), and the adversarial search `cc/s37_minform7.c` |
 | s35 | `s35_two_power_transfer.py --check [--full --trials N]` ; `--anneal "a:rows:n0,…,n6;…" --seconds S [--pull μ [--singles]] [--weakened c]` | R44: Theorem 14 -- the inequality f^(a) = f12 + (1 − 1/a)·U_Z on Z_{2^a} stabilizer states: exact linear algebra over Z_{2^a}, stabilizer states as Lagrangian subgroups (graph, CSS of non-free codes, non-free Lagrangians after random symplectic maps), every step of the proof on given states without compressing them (gates G40/G40b), Lemma 4(G′) tests; annealing over CSS codes and exhaustive families of codes B + 2^s·P (`cc/s38_minform_zn.c`) |
@@ -1149,21 +1161,46 @@ Excluding the undecided rows amounts to proving such
 classes for Stab₅, which one common information, even with Ingleton on the extension, cannot do (every undecided row
 passes those tests). `scripts/s42_ci2_ingleton.py` (R55) adds a second common information, of a pair that may contain
 the first, with every set-valued conditional Ingleton instance on the 8-element extension (R29 used single
-elements); the job `ci2-ingleton` runs it at maxsize 2 on all 793 rows.
+elements); the job `ci2-ingleton` runs it at maxsize 2 on all 793 rows. It ran for 6 h on 32 threads (R56; 84 ms per
+LP per thread on average, per-row averages 51–130 ms, about 2.4 times the sandbox's 35 ms) and was cut off after the
+433 rows with the largest N (all 401 with N ≥ 36 and 32 of the 128 with N = 34). Three were infeasible: R30 rows 810,
+962 and 1146 (N = 58, 42 and 36). `scripts/s43_certify_ci2.py` (R56) turned each into an exact certificate: a
+rational combination of Shannon rows and set-valued conditional Ingleton rows, with nonnegative multipliers, and of
+the common-information equalities, with multipliers of either sign, that cancels on every set meeting Z₁ or Z₂. What
+is left is a five-party inequality with small integer coefficients, valid for the stabilizer states of every prime
+dimension, that takes the value −2 on the excluded ray. The checker `epr1kit.stabcert.verify_exclusion_ci2` rebuilds
+every row from its descriptor without the row-building code of s42 and s43; s43 calls it before it writes a
+certificate and in `--check`, and gate G50 calls it again (`results/2026-11-23_r56-sandbox/`). The three
+inequalities lie in three S₆ orbits; their images hold on all known orbits and cut none of the other undecided rows
+[computed]. The job `ci2-ingleton2` resumes the run on the 360 rows left (all with N ≤ 34).
+R56 also adds a fixed-structure CSS search (`scripts/s44_fixed_search.py`, `cc/s44_fixed_anneal.c`). When three
+parties X, Y, Z satisfy dim(X∩Y) = dim(X∩Z) = dim(Y∩Z) = dim((X+Y)∩Z) = t > 0 (all read off h), every realisation
+over any field has the three pairwise intersections equal to one subspace T and
+X + Y + Z = T ⊕ X′ ⊕ Y′ ⊕ Z′ [proved]; so the three can be fixed as coordinate subspaces and only the other three
+annealed. 188 of the 793 rows have such a triple. In the sandbox the search realised five of them at λ = 2 (R30 rows
+73, 418, 518, 662 and 793; N = 30, 30, 28, 32 and 27), all missed by the CSS search without fixing in `css-sweep` and
+`css-sweep2` (1,800–3,600 s per search); fixing two parties only, which is always possible, did not help [empirical].
+1,008 orbits are known, 785 undecided (N ≤ 21: 2, N = 22–32: 257, N = 33–40: 372, N = 41–64: 154); 14 of the 340
+classes are violated by one of the five, and the frontier of the cone of the 1,008 orbits has 334 classes, 182 of
+which cover all 785 rows. The job `s44-sweep` runs the search on the 183 undecided rows with a forced triple.
 (c) Of the 10 orbits with at most 20 qubits, eight are realised at λ = 2: by `a2-long` (addendum 19) row 981, which
 is frontier ray 294, the last undecided ray of the R27 frontier (`docs/A2_stabilizer_vs_QLR.md`; 12 qubits at λ = 1,
 a 24-qubit certificate), and row 484 (15 qubits; 30); by `a2-long2` (addendum 20) rows 434 (13; 26) and 273 (15; 30); by `a2-long3` (addendum 21) row 517 (15; 30); by the CSS search (R52) rows 970 (17; 34), 396 and 995
 (18; 36), and also rows 551 and 847 with 21 qubits (42).
-The other 2 (rows 973 and 807, 16 and 18 qubits) survive
-everything tried (qubits at λ = 1, 2, 3, qutrits, p = 5, 7, GF(4), CI+Ingleton, CI+Ingleton+DFZ, two common
-informations on small pairs, the CSS search: four searches of 3,600 s each in `css-sweep`, best residuals 2 and 1
-column-group ranks). Untried: second
-common informations of pairs that involve the first, larger pairs, DFZ
-instances with unions of elements in one slot, and DFZ's own
-six-variable list (arXiv:0910.0284 §6: 3,490 inequalities, 2,395,095 with
-permuted forms; "hundreds" need two common informations) — if that list can
-be obtained (the authors' site `code.ucsd.edu/zeger/linrank`, which also hosts
-`rays5`), testing h_norm of the remaining small orbits against it is cheap. (d) S7′ (all
+The other 2 (rows 973 and 807, 16 and 18 qubits) are realised by qutrits at λ = 2 (R56: the fixed-structure search
+over GF(3) found each in seconds; `results/2026-11-23_r56-sandbox/realisations_gf3.json`, gate G50). Being extreme
+rays of QLR₅, which contains the qutrit stabilizer cone, they are extreme rays of that cone, and no inequality valid
+in every characteristic can exclude them for qubits. For qubits they survive everything tried: λ = 1, 2, 3, CI+Ingleton, CI+Ingleton+DFZ, the CSS search (four
+searches of 3,600 s each in `css-sweep`, best residuals 2 and 1 column-group ranks), the fixed-structure search over
+GF(2) (best residual 1; for row 807 the one rank missed is always h(ABD)), and the characteristic-2 forms DFZ (91),
+(LA)₂, Peña–Sarria (a), BKL (6.8) and f₁₂∘π (R32 §4.11) on the extensions by one common information and by two
+(maxsize 2, nested) [empirical]. If either is not in the qubit cone, the five-party stabilizer cone depends on the
+local dimension (open; for four parties it does not, for six it does: R32 §4.7, §4.8, §4.11). Untried for them:
+characteristic-2 forms with unions of elements in one slot and three or more common informations. DFZ's own
+six-variable list (arXiv:0910.0284 §6: 3,490 inequalities, 2,395,095 with permuted forms; "hundreds" need two
+common informations) holds in every characteristic, so it cannot exclude these two, but it may exclude other
+undecided rows — if that list can be obtained (the authors' site `code.ucsd.edu/zeger/linrank`, which also hosts
+`rays5`), testing h_norm of the undecided orbits against it is cheap. (d) S7′ (all
 six-variable linear rank inequalities) holds (R32, Theorem 1).
 The A1′ catalogue campaign is closed (R26); `s4c_qlr.py` remains available.
 
@@ -1268,7 +1305,7 @@ This repository is public at
 
 - **CI:** `.github/workflows/selftest.yml` installs `lrslib` and the Python
   requirements and runs `python3 selftest.py --full` on every push and pull
-  request (all 66 gate lines must pass). Every step has a time cap (job 60 min, `selftest.py --full` 40 min;
+  request (all 67 gate lines must pass). Every step has a time cap (job 60 min, `selftest.py --full` 40 min;
   each `apt-get update` attempt 150 s, three attempts), so a stalled package
   mirror fails the run within minutes instead of hanging for GitHub's 6-hour
   default; such a failure says nothing about the code -- re-run the job.
