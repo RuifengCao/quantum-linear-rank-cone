@@ -98,6 +98,8 @@ data bundled, a static Normaliz binary included, resumable long runs.
 > maxsize 2 have now been tried on all 793 orbits undecided after R54, and they exclude one more, R30 row 885, with
 > an exact certificate (`results/2026-11-24_r57-sandbox/`); four in all. 1,008 orbits are known, 784 undecided.
 > `data/` and gates G0–G50 are unchanged; the new gate G51 checks the two new folders.
+> Round R58 (2026-11-24) splits the three long jobs still to run (`s44-sweep`, `css-sweep3`, `s32-new5`) into
+> twelve pieces of at most 1.25 h each for daytime use on the laptop (README §2b). Nothing else changed.
 > Release R37 ([10.5281/zenodo.23303466](https://doi.org/10.5281/zenodo.23303466))
 > is the archived version cited by the first version of the paper *Stabilizer entropy cones as self-dual slices of
 > linear rank cones: a five-party gap and dependence on the local dimension* (X. Song and R. Cao,
@@ -813,6 +815,9 @@ Release instead). Engine options can be overridden after `--`.
 | `ci2-ingleton` | X | done 2026-11-23 (6.0 h on a 32-thread laptop, `results/2026-11-23_ci2-ingleton/`): `scripts/s42_ci2_ingleton.py` at maxsize 2 with nested pairs on the 793 orbits undecided after R54, largest N first; the deadline cut it off after 433 rows (all 401 with N ≥ 36, 32 of the 128 with N = 34; 7.9 million LPs, 84 ms per LP per thread on average, none with solver trouble); 3 infeasible, all certified exactly (R56) | 2 orbits at maxsize 1 (~20 s) |
 | `ci2-ingleton2` | X | done 2026-11-24 (4.7 h on a 32-thread laptop, `results/2026-11-24_ci2-ingleton2/`): resumed `ci2-ingleton` on the 360 rows it had not reached, so all 793 rows are tested at maxsize 2 with nested pairs (14.4 million LPs in all, none with solver trouble); the seven rows realised in R56 came out feasible; one new infeasible row, certified exactly (R57) | `--resume` from the first run's output, 2 orbits at maxsize 1 (~20 s) |
 | `s44-sweep` | X | at most 4.3 h on 32 threads (R56): the fixed-structure CSS search (`scripts/s44_fixed_search.py`; hits are realisations at λ = 2) on the 183 orbits of `results/2026-11-23_r56-sandbox/undecided_reps.npy` with a forced triple, searches of 900 s: 4 for each with N ≤ 32, 3 for N = 33–36, 2 for N = 37–40, 1 for N = 41–64; first copies before second copies, a realised row skips the rest | self-test + 2 orbits, 2 × 3 s (~30 s) |
+| `s44-a`, `s44-b`, `s44-c` | X | at most 1.25, 1.0 and 0.75 h on 32 threads (R58): pieces of `s44-sweep` for daytime use, by N band (71 rows with N ≤ 32, 59 with N = 33–36, 53 with N = 37–64; two searches of 900 s each, one above N = 40); together `s44-sweep` less its third and fourth searches for N ≤ 32 and its third for N = 33–36. Run either `s44-sweep` or the pieces | self-test + 2 orbits, 3 s (~30 s) |
+| `css-sweep3a` … `css-sweep3e` | X | at most 1.0 h each on 32 threads (R58): pieces of `css-sweep3` for daytime use, on the 142 rows with N ≤ 30 of `results/2026-11-24_r57-sandbox/undecided_reps.npy` (the 146 of `css-sweep3` less the four realised in R56), 32 rows each (14 in the last), one search of 3,600 s per row. Run either `css-sweep3` or the pieces | 2 orbits, 3 s |
+| `s32-new5a` … `s32-new5d` | X | at most 1.0 h each on 32 threads (R58): pieces of `s32-new5` for daytime use, 64 of its 251 rows each (59 in the last), 1,800 s per row. Run either `s32-new5` or the pieces | 2 rows, 3 s |
 
 **Rule:** every tier-X job is handed over only after its smoke variant has
 passed in the sandbox (and, optionally, in the manual CI workflow

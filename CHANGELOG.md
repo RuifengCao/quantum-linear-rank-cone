@@ -1,5 +1,13 @@
 # CHANGELOG
 
+## R58 (2026-11-24) -- the three long jobs split into pieces of at most 1.25 h for daytime use
+- `jobs.json`, README §2b: `s44-a`, `s44-b`, `s44-c` (`s44-sweep` by N band: N ≤ 32, 33–36, 37–64; at most 1.25,
+  1.0 and 0.75 h), `css-sweep3a` … `css-sweep3e` (`css-sweep3` on the 142 rows with N ≤ 30 of the R57 list, 32
+  rows each; at most 1.0 h each) and `s32-new5a` … `s32-new5d` (`s32-new5`, 64 of its 251 rows each; at most 1.0 h
+  each). The original jobs stay registered; run either a whole job or its pieces. Smoke variants of `s44-b`,
+  `s44-c`, `css-sweep3e` and `s32-new5d` pass in the sandbox.
+- `VERSION`: R58. README: header, §2b. No code, data or gate changed. `selftest.py`: 51 gate lines, ALL PASS.
+
 ## R57 (2026-11-24) -- E2 at maxsize 2 completed: one more undecided orbit excluded by two common informations; gate G51
 - `results/2026-11-24_ci2-ingleton2/` (job `ci2-ingleton2`, 4.7 h on the 32-thread laptop): it resumed `ci2-ingleton`
   on the 360 rows that run had not reached, so all 793 rows of the R54 list are tested at maxsize 2 with nested pairs
