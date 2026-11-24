@@ -1345,6 +1345,60 @@ def main():
          f'{ST51["known_extreme_ray_orbits"]} known / {ST51["undecided"]} undecided {acc51}; the R56 frontier and its '
          f'greedy cover still cut every remaining row {fr51}; files match the manifests {file51}')
 
+    # G52 (R59): laptop pieces of 2026-11-24, results/2026-11-24_r59-sandbox.  The jobs css-scale
+    # (results/2026-11-24_css-scale; eight rows, no realisation) and s44-a (results/2026-11-24_s44-a): the rows s44-a
+    # realised are those of the realisations file, each re-checked as in G49 (s41 verify, stabcert on the stored graph,
+    # extreme ray of QLR5 with tight rank 30, S6 orbit new against all known orbits) and still undecided in R57;
+    # undecided_reps.npy is the R57 list without them; status.json counts; the frontier: its rows are the undecided
+    # rows, every row cut, the greedy cover cuts every row; the manifests of the three new folders.
+    D52 = os.path.join(base44, '2026-11-24_r59-sandbox')
+    ST52 = _js20.load(open(os.path.join(D52, 'status.json')))
+    RN52, FN52 = ST52['realisations_file'], ST52['frontier']['file']
+    file52 = True
+    for d52, f52 in ((D52, ['README.txt', RN52, 'undecided_reps.npy', 'status.json', FN52]),
+                     (os.path.join(base44, '2026-11-24_css-scale'),
+                      ['JOB_STATUS.json', 'css-scale.log', 'css_scale.npz', 'css_scale.npz.json', 'css_scale.plain.npz']),
+                     (os.path.join(base44, '2026-11-24_s44-a'),
+                      ['JOB_STATUS.json', 's44-a.log', 's44_a.npz', 's44_a.npz.json', 's44_a.plain.npz'])):
+        M52 = _js20.load(open(os.path.join(d52, 'manifest.json')))
+        file52 = file52 and sorted(M52['files']) == sorted(f52) and all(
+            _h33.sha256(open(os.path.join(d52, f), 'rb').read()).hexdigest() == e['sha256'] for f, e in M52['files'].items())
+    CS52 = _js20.load(open(os.path.join(base44, '2026-11-24_css-scale', 'css_scale.npz.json')))
+    SA52 = _js20.load(open(os.path.join(base44, '2026-11-24_s44-a', 's44_a.npz.json')))
+    R52 = np.load(os.path.join(D52, RN52), allow_pickle=False)
+    rows52 = [int(x) for x in R52['row']]
+    i50 = np.flatnonzero(keep50)
+    ok52a = (len(rows52) == len(set(rows52)) > 0 and keep51[rows52].all()
+             and [int(i50[int(x)]) for x in R52['row56']] == rows52
+             and sorted(int(x) for x in R52['row56']) == sorted(SA52['found_rows'])
+             and np.array_equal(R52['rep'].astype(np.int64), U44[rows52]) and (R52['lam'] == 2).all()
+             and CS52['found'] == 0 and CS52['rows'] == 8)
+    nv52 = sum(_sc.verify_realisation(U44[r], 2, R52['sizes'][k], R52['rows'][k]) for k, r in enumerate(rows52))
+    nc52 = sum(_css47.verify(U44[r], 1, [int(c) for c in R52['cols'][k][:int(R52['m'][k])]])[0] for k, r in enumerate(rows52))
+    V52 = HF44 @ U44[rows52].T
+    ne52 = sum(1 for k in range(len(rows52)) if V52[:, k].min() >= 0 and core.rank_mod_p(HF44[V52[:, k] == 0]) == 30)
+    c52, _ = core.class_reps(U44[rows52], core.perms31_s6(), offset=4096, width='u16')
+    no52 = len(set(c52)) == len(rows52) and not (
+        set(c52) & (set(c44) | set(c45) | set(c46) | set(c47) | set(c48) | set(c49) | set(c50)))
+    keep52 = keep51.copy()
+    keep52[rows52] = False
+    L52 = np.load(os.path.join(D52, 'undecided_reps.npy')).astype(np.int64)
+    acc52 = (np.array_equal(L52, U44[keep52])
+             and ST52['known_extreme_ray_orbits'] == ST51['known_extreme_ray_orbits'] + len(rows52)
+             and ST52['realised_rows_r59'] == rows52 and ST52['excluded'] == ST51['excluded']
+             and ST52['undecided'] == L52.shape[0] == ST51['undecided'] - len(rows52))
+    F52 = np.load(os.path.join(D52, FN52), allow_pickle=False)
+    fr52 = bool(np.array_equal(F52['rows'], np.flatnonzero(keep52))
+                and F52['cut'].shape == (F52['classes'].shape[0], L52.shape[0])
+                and F52['cut'].any(0).all() and F52['cut'][F52['greedy_cover']].any(0).all())
+    gate('G52 laptop pieces of 2026-11-24: css-scale, s44-a',
+         ok52a and nv52 == nc52 == ne52 == len(rows52) and no52 and acc52 and fr52 and file52,
+         f'css-scale {CS52["rows"]} rows, {CS52["found"]} realised; s44-a realised {len(rows52)}: {nv52} graph '
+         f'certificates and {nc52} CSS matrices re-verified at lambda 2, {ne52} extreme rays of QLR5, new S6 orbits {no52}; '
+         f'{ST52["known_extreme_ray_orbits"]} known / {ST52["undecided"]} undecided {acc52}; frontier '
+         f'{F52["classes"].shape[0]} classes, greedy cover {len(F52["greedy_cover"])} cuts every row {fr52}; files match '
+         f'the manifests {file52}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:

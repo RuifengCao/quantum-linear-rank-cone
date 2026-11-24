@@ -1,0 +1,12 @@
+{
+ "job": "css-scale",
+ "mode": "full",
+ "host": "ClarkDellG16",
+ "nproc": 32,
+ "start_utc": "2026-11-24T09:10:32Z",
+ "end_utc": "2026-11-24T10:10:33Z",
+ "elapsed_s": 3601.2,
+ "exit_code": 0,
+ "cmd": "rm -f css_scale.npz css_scale.npz.json css_scale.plain.npz && python3 scripts/s41_css_search.py results/2026-11-23_r54-sandbox/undecided_reps.npy --rows 135,341,608,46,586,616,617,67 --budget 34:3600x4 --seed 20261125 --out css_scale.npz && python3 scripts/s41_css_search.py --check css_scale.npz results/2026-11-23_r54-sandbox/undecided_reps.npy",
+ "checks": "a 'kernel: ... OpenMP threads <all cores>' line; one 'row k: FOUND after ... verified (...)' line for each hit (every hit is re-verified by the script before it is written: column-group ranks, cut ranks of the graph, and epr1kit/stabcert.py up to 64 qubits); the line 'lambda=2 (CSS, kappa=1): 8 rays tried, n realised and independently verified'; no WARNING lines (NOTE lines are informational); the --check run ends with ALL OK. Row indices in the outputs refer to results/2026-11-23_r54-sandbox/undecided_reps.npy; css_scale.npz.json holds the best residual of each row over its four searches, to be compared with css-sweep (results/2026-11-20_css-sweep/css_sweep.npz.json, rows of results/2026-11-19_r52-sandbox/undecided_reps.npy)"
+}

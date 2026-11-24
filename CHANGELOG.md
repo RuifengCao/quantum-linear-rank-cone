@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## R59 (2026-11-24) -- the first laptop pieces: two more orbits realised by `s44-a`; `css-scale`; gate G52
+- `results/2026-11-24_s44-a/` (job `s44-a`, 1.25 h on the 32-thread laptop): the fixed-structure search on the 71
+  undecided rows of the R56 list with a forced triple and N ≤ 32, two searches of 900 s each; it realised rows 500 and
+  647 of that list (R30 rows 768 and 979; N = 28 and 30) after 890 and 124 s.
+- `results/2026-11-24_css-scale/` (job `css-scale`, 1.0 h): four searches of 3,600 s with the plain CSS search on
+  eight rows with N = 34; none realised. Their best residuals fell from 5, 5, 5, 6, 6, 6, 6 and 7 (one search of
+  300 s in `css-sweep`) to 3, 4, 2, 7, 4, 5, 3 and 6 column-group ranks, 46 to 34 in all [empirical].
+- `results/2026-11-24_r59-sandbox/` (sandbox): `realisations_2.npz` (the two rows of `s44-a`, re-checked as in R56:
+  s41's verify, stabcert on the stored graph, extreme rays of QLR₅ in new S₆ orbits, still undecided in R57);
+  `undecided_reps.npy` (782 rows); `status.json` (with the css-scale comparison); `frontier_1010.npz` (2 of the 334
+  classes of R56 fall to the new orbits, the 332 others still cut all 782 rows; greedy cover 179). 1,008 + 2 = 1,010
+  orbits known, 784 − 2 = 782 undecided.
+- `selftest.py`: gate G52 (the manifests of the three new folders; the realisations as in G49 and equal to the rows
+  `s44-a` reports; css-scale found none; the accounting; the frontier).
+- `VERSION`: R59. README: header; §2b (`css-scale` and `s44-a` done); 69 gate lines (§2, §3, §9); §7 ⓪(b). `data/`
+  and gates G0–G51 are unchanged. `selftest.py`: 52 gate lines, ALL PASS; `selftest.py --full`: 69 gate lines, ALL
+  PASS.
+
 ## R58 (2026-11-24) -- the three long jobs split into pieces of at most 1.25 h for daytime use
 - `jobs.json`, README §2b: `s44-a`, `s44-b`, `s44-c` (`s44-sweep` by N band: N ≤ 32, 33–36, 37–64; at most 1.25,
   1.0 and 0.75 h), `css-sweep3a` … `css-sweep3e` (`css-sweep3` on the 142 rows with N ≤ 30 of the R57 list, 32

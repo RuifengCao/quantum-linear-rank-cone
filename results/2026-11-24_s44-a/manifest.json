@@ -1,0 +1,27 @@
+{
+ "date": "2026-11-24",
+ "tag": "s44-a",
+ "note": "run_job s44-a exit 0 on ClarkDellG16",
+ "files": {
+  "s44_a.npz": {
+   "bytes": 5666,
+   "sha256": "7c5f6bf83ba92a75fa1187cb2bda6bf300f174550cd1268b95c4be30a41ccdac"
+  },
+  "s44_a.npz.json": {
+   "bytes": 8477,
+   "sha256": "2308a057d2f9ef69866d0c15aa20a99f4f5dd23ee99535cec8913c66aa13617f"
+  },
+  "s44_a.plain.npz": {
+   "bytes": 3810,
+   "sha256": "f8ebe89c22ba83a63e1226803646691afb3afa768d30aadde2502a894bb66513"
+  },
+  "s44-a.log": {
+   "bytes": 822,
+   "sha256": "31fe897b3fc6862b203ddef6b330a9b67d13a7ae74ebda7052bf1f3cee3f025e"
+  },
+  "JOB_STATUS.json": {
+   "bytes": 996,
+   "sha256": "3113a9505296d2f2ad020db3ca53503986956628b0a07b1e2bd7fb4773b3dcb3"
+  }
+ }
+}

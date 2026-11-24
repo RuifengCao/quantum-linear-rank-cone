@@ -1,0 +1,27 @@
+{
+ "date": "2026-11-24",
+ "tag": "css-scale",
+ "note": "run_job css-scale exit 0 on ClarkDellG16",
+ "files": {
+  "css_scale.npz": {
+   "bytes": 1938,
+   "sha256": "f1c95c1470b771388e628f48c3f80c551907567995867e9e43cf5a82b9f2a132"
+  },
+  "css_scale.npz.json": {
+   "bytes": 316,
+   "sha256": "ae0aa86568b90670f509fc3f7c89575898b165c62c6d284567861d7d21fbd63c"
+  },
+  "css_scale.plain.npz": {
+   "bytes": 1218,
+   "sha256": "808a6c2c5e453d24264c1acd6be1b4fd2907ee024592d8d449f8d78a02cad46c"
+  },
+  "css-scale.log": {
+   "bytes": 289,
+   "sha256": "492a55a49e91fd6a9ba6aac7fe01470f01acb94a522a5d5a0927eafcde76f5c8"
+  },
+  "JOB_STATUS.json": {
+   "bytes": 1300,
+   "sha256": "7369b897cf19b1da567b53bc87de9c13798554593c27cd6256b23680caa89f99"
+  }
+ }
+}
