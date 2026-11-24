@@ -104,6 +104,10 @@ data bundled, a static Normaliz binary included, resumable long runs.
 > the fixed-structure search, and `css-scale` shows that 48 times the time lowers the plain CSS search's residuals
 > on N = 34 orbits only slowly, without a realisation (`results/2026-11-24_r59-sandbox/`). 1,010 orbits are known,
 > 782 undecided. `data/` and gates G0–G51 are unchanged; the new gate G52 checks the three new folders.
+> Round R60 (2026-11-24) adds five more laptop pieces: `s44-b` realises one more orbit (R30 row 96; 68 qubits, more
+> than a stored graph holds, so it is checked from its CSS matrix) and `css-sweep3a` four (R30 rows 17, 40, 97 and
+> 161); `s44-c`, `css-sweep3b` and `css-sweep3c` realise none (`results/2026-11-24_r60-sandbox/`). 1,015 orbits are
+> known, 777 undecided. `data/` and gates G0–G52 are unchanged; the new gate G53 checks the six new folders.
 > Release R37 ([10.5281/zenodo.23303466](https://doi.org/10.5281/zenodo.23303466))
 > is the archived version cited by the first version of the paper *Stabilizer entropy cones as self-dual slices of
 > linear rank cones: a five-party gap and dependence on the local dimension* (X. Song and R. Cao,
@@ -729,7 +733,7 @@ single-source lines in `data/dfz_ref28.csv`; optional `rays5` cross-check.
 
 ```
 # ---- A. Verify the completed results (optional, ~3 minutes in total) ----
-python3 selftest.py --full            # 69 gate lines + ALL PASS, ~8 min; must be all green first
+python3 selftest.py --full            # 70 gate lines + ALL PASS, ~8 min; must be all green first
 python3 scripts/s1_build_qlr.py --variant pure28 --workers 25     # seconds
 python3 scripts/s2_judge.py QLR_H_pure28.npy                      # expect: violated 0
 python3 scripts/s3_rank19.py QLR_H_pure28.npy                     # expect: 18/19, only #19 has rank 29
@@ -819,8 +823,8 @@ Release instead). Engine options can be overridden after `--`.
 | `ci2-ingleton` | X | done 2026-11-23 (6.0 h on a 32-thread laptop, `results/2026-11-23_ci2-ingleton/`): `scripts/s42_ci2_ingleton.py` at maxsize 2 with nested pairs on the 793 orbits undecided after R54, largest N first; the deadline cut it off after 433 rows (all 401 with N ≥ 36, 32 of the 128 with N = 34; 7.9 million LPs, 84 ms per LP per thread on average, none with solver trouble); 3 infeasible, all certified exactly (R56) | 2 orbits at maxsize 1 (~20 s) |
 | `ci2-ingleton2` | X | done 2026-11-24 (4.7 h on a 32-thread laptop, `results/2026-11-24_ci2-ingleton2/`): resumed `ci2-ingleton` on the 360 rows it had not reached, so all 793 rows are tested at maxsize 2 with nested pairs (14.4 million LPs in all, none with solver trouble); the seven rows realised in R56 came out feasible; one new infeasible row, certified exactly (R57) | `--resume` from the first run's output, 2 orbits at maxsize 1 (~20 s) |
 | `s44-sweep` | X | at most 4.3 h on 32 threads (R56): the fixed-structure CSS search (`scripts/s44_fixed_search.py`; hits are realisations at λ = 2) on the 183 orbits of `results/2026-11-23_r56-sandbox/undecided_reps.npy` with a forced triple, searches of 900 s: 4 for each with N ≤ 32, 3 for N = 33–36, 2 for N = 37–40, 1 for N = 41–64; first copies before second copies, a realised row skips the rest | self-test + 2 orbits, 2 × 3 s (~30 s) |
-| `s44-a`, `s44-b`, `s44-c` | X | `s44-a` done 2026-11-24 (`results/2026-11-24_s44-a/`, R59: R30 rows 768 and 979 realised, after 890 and 124 s). At most 1.25, 1.0 and 0.75 h on 32 threads (R58): pieces of `s44-sweep` for daytime use, by N band (71 rows with N ≤ 32, 59 with N = 33–36, 53 with N = 37–64; two searches of 900 s each, one above N = 40); together `s44-sweep` less its third and fourth searches for N ≤ 32 and its third for N = 33–36. Run either `s44-sweep` or the pieces | self-test + 2 orbits, 3 s (~30 s) |
-| `css-sweep3a` … `css-sweep3e` | X | at most 1.0 h each on 32 threads (R58): pieces of `css-sweep3` for daytime use, on the 142 rows with N ≤ 30 of `results/2026-11-24_r57-sandbox/undecided_reps.npy` (the 146 of `css-sweep3` less the four realised in R56), 32 rows each (14 in the last), one search of 3,600 s per row. Run either `css-sweep3` or the pieces | 2 orbits, 3 s |
+| `s44-a`, `s44-b`, `s44-c` | X | done 2026-11-24: `s44-a` (`results/2026-11-24_s44-a/`, R59: R30 rows 768 and 979 realised, after 890 and 124 s); `s44-b` (`results/2026-11-24_s44-b/`, R60: 118 searches on 59 rows, R30 row 96 realised after 303 s, 68 qubits); `s44-c` (`results/2026-11-24_s44-c/`, R60: 82 searches on 53 rows, none realised). Registered in R58 as: at most 1.25, 1.0 and 0.75 h on 32 threads: pieces of `s44-sweep` for daytime use, by N band (71 rows with N ≤ 32, 59 with N = 33–36, 53 with N = 37–64; two searches of 900 s each, one above N = 40); together `s44-sweep` less its third and fourth searches for N ≤ 32 and its third for N = 33–36. Run either `s44-sweep` or the pieces | self-test + 2 orbits, 3 s (~30 s) |
+| `css-sweep3a` … `css-sweep3e` | X | `a`, `b`, `c` done 2026-11-24 (`results/2026-11-24_css-sweep3a/` etc., R60): `css-sweep3a` realised R30 rows 17, 40, 97 and 161 (after 1,874, 3,377, 819 and 1,955 s), `b` and `c` none; against `css-sweep2` (one search of 3,600 s with another seed) the best residual is lower on 31 of the 96 rows, the same on 40, higher on 25 [empirical]. Set up on the R57 list before R59, so piece `c` searched R30 row 768 and piece `d` holds row 979, both realised in R59. Registered in R58 as: at most 1.0 h each on 32 threads: pieces of `css-sweep3` for daytime use, on the 142 rows with N ≤ 30 of `results/2026-11-24_r57-sandbox/undecided_reps.npy` (the 146 of `css-sweep3` less the four realised in R56), 32 rows each (14 in the last), one search of 3,600 s per row. Run either `css-sweep3` or the pieces | 2 orbits, 3 s |
 | `s32-new5a` … `s32-new5d` | X | at most 1.0 h each on 32 threads (R58): pieces of `s32-new5` for daytime use, 64 of its 251 rows each (59 in the last), 1,800 s per row. Run either `s32-new5` or the pieces | 2 rows, 3 s |
 
 **Rule:** every tier-X job is handed over only after its smoke variant has
@@ -832,7 +836,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 
 | Stage | Command essentials | Purpose / expectation |
 | --- | --- | --- |
-| selftest | `selftest.py [--full] [--workers N]` | 69 regression gate lines (G0–G52 with G2b and G10b, G29b, G31b–G36b, G38b–G43b, G47b) + ALL PASS; run first on any machine |
+| selftest | `selftest.py [--full] [--workers N]` | 70 regression gate lines (G0–G53 with G2b and G10b, G29b, G31b–G36b, G38b–G43b, G47b) + ALL PASS; run first on any machine |
 | s1 | `--variant pure28` (current) / `pure`, `v3`, `pure2` (historical) | build the H-representation; seconds |
 | s2 | `s2_judge.py <H.npy>` | 760 graph-state judge; `pure*` variants must give 0 violations |
 | s3 | `s3_rank19.py <H.npy> [--extra-rows X]` | tight-rank test of the 19 HEC rays; pure28 → 18/19 |
@@ -1203,7 +1207,13 @@ which cover all 785 rows. The job `s44-sweep` runs the search on the 183 undecid
 first piece `s44-a` (the 71 with N ≤ 32, two searches of 900 s each) realised two more, R30 rows 768 and 979 (N = 28
 and 30), so 1,010 orbits are known and 782 undecided; two frontier classes fell, and the other 332 still cut every
 undecided row (greedy cover 179). The plain CSS search, given 48 times the time on eight orbits with N = 34
-(`css-scale`), lowered their residuals from 46 to 34 column-group ranks in all and realised none [empirical].
+(`css-scale`), lowered their residuals from 46 to 34 column-group ranks in all and realised none [empirical]. In R60
+the second piece `s44-b` (N = 33–36) realised R30 row 96 (N = 34; 68 qubits at λ = 2, so the certificate is the CSS
+matrix, checked by its column-group ranks and the cut ranks of the graph built from it), the third piece `s44-c`
+(N = 37–64) none, and the first three pieces of `css-sweep3` (one search of 3,600 s with a new seed on 96 rows with
+N ≤ 30) realised R30 rows 17, 40, 97 and 161 (N = 28, 26, 28, 26), none of which has a forced triple; 1,015 orbits are
+known and 777 undecided. 22 frontier classes fell to the five; with 19 new classes the frontier has 329, and a greedy
+cover of 183 cuts all 777 rows.
 (c) Of the 10 orbits with at most 20 qubits, eight are realised at λ = 2: by `a2-long` (addendum 19) row 981, which
 is frontier ray 294, the last undecided ray of the R27 frontier (`docs/A2_stabilizer_vs_QLR.md`; 12 qubits at λ = 1,
 a 24-qubit certificate), and row 484 (15 qubits; 30); by `a2-long2` (addendum 20) rows 434 (13; 26) and 273 (15; 30); by `a2-long3` (addendum 21) row 517 (15; 30); by the CSS search (R52) rows 970 (17; 34), 396 and 995
@@ -1326,7 +1336,7 @@ This repository is public at
 
 - **CI:** `.github/workflows/selftest.yml` installs `lrslib` and the Python
   requirements and runs `python3 selftest.py --full` on every push and pull
-  request (all 69 gate lines must pass). Every step has a time cap (job 60 min, `selftest.py --full` 40 min;
+  request (all 70 gate lines must pass). Every step has a time cap (job 60 min, `selftest.py --full` 40 min;
   each `apt-get update` attempt 150 s, three attempts), so a stalled package
   mirror fails the run within minutes instead of hanging for GitHub's 6-hour
   default; such a failure says nothing about the code -- re-run the job.

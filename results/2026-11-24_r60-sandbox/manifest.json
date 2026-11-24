@@ -1,0 +1,27 @@
+{
+ "date": "2026-11-24",
+ "tag": "r60-sandbox",
+ "files": {
+  "README.txt": {
+   "bytes": 4998,
+   "sha256": "9aae9cbe7d99688bd64f9331d25545b238730f84d6d9807c93843d15361e4794"
+  },
+  "frontier_1015.npz": {
+   "bytes": 13987,
+   "sha256": "3cc18b6da6f063d5ac6d0bcd2105d9cdabd3d21b48b41688364f7254246e32a8"
+  },
+  "realisations_5.npz": {
+   "bytes": 11490,
+   "sha256": "a4fe0e03671194e239c6efa2810bd3da40153e091403930b20eec71ff7303451"
+  },
+  "status.json": {
+   "bytes": 14425,
+   "sha256": "b65d12e2c809a19956e2d6815fe5393b20368456c2067da03512b3f803d6ba83"
+  },
+  "undecided_reps.npy": {
+   "bytes": 48302,
+   "sha256": "b498fc4e0e1f04070470e2fd19574c09678613b32a0a99f7054fe5fca7507780"
+  }
+ },
+ "note": "sha256 of every other file of this folder"
+}

@@ -1,5 +1,37 @@
 # CHANGELOG
 
+## R60 (2026-11-24) -- five more laptop pieces: five more orbits realised by `s44-b` and `css-sweep3a`; gate G53
+- `results/2026-11-24_s44-b/` (job `s44-b`, 1.0 h on the 32-thread laptop): the fixed-structure search on the 59 rows
+  of the R56 list with a forced triple and N = 33–36, two searches of 900 s each; it realised row 47 of that list (R30
+  row 96; N = 34) after 303 s. With 68 qubits at λ = 2 the certificate is the CSS matrix alone: s41's verify checks
+  its column-group ranks and the cut ranks of the graph it builds (integers of any size); stabcert and the stored
+  graphs stop at 64 qubits.
+- `results/2026-11-24_s44-c/` (job `s44-c`, 0.75 h): the same on the 53 rows with N = 37–64 (82 searches); none
+  realised.
+- `results/2026-11-24_css-sweep3a/`, `css-sweep3b/`, `css-sweep3c/` (1.0 h each): the plain CSS search, one search of
+  3,600 s with a new seed on each of the first 96 of the 142 rows with N ≤ 30 of the R57 list; `css-sweep3a` realised
+  rows 48, 8, 90 and 20 of that list (R30 rows 97, 17, 161 and 40; N = 28, 28, 26 and 26) after 819, 1,874, 1,955 and
+  3,377 s, `b` and `c` none. Against `css-sweep2` (3,600 s, another seed) the best residual is lower on 31 rows, the
+  same on 40 and higher on 25; the four realised rows had `css-sweep2` residuals 1, 1, 2 and 3 [empirical]. Piece `c`
+  searched R30 row 768, which `s44-a` had realised in R59 (the pieces were set up on the R57 list).
+- `results/2026-11-24_r60-sandbox/` (sandbox): `realisations_5.npz` (the five rows, with `row56`, `row57`, `job` and
+  `graph`, false for row 96; re-checked by s41's verify, stabcert on the four stored graphs, extreme rays of QLR₅ in
+  new S₆ orbits, still undecided in R59); `undecided_reps.npy` (777 rows); `status.json` (with the `css-sweep3`
+  comparison); `frontier_1015.npz` (22 of the 332 classes of R59 fall to the new orbits; 310 survive, 19 new classes
+  cut the 22 rows they missed; 329 classes, greedy cover 183). 1,010 + 5 = 1,015 orbits known, 782 − 5 = 777
+  undecided. An independent check with the library of the R56 review (own GF(2) ranks; the entropy of the subspace
+  state computed from the measured column-group ranks equals 2r on all 31 sets of parties, for any number of qubits)
+  passed; it is in the sandbox bundle.
+- `selftest.py`: gate G53 (the manifests of the six new folders; the realisations equal to the rows `s44-b` and
+  `css-sweep3a` report and re-checked as above, a stored graph exactly when there are at most 64 qubits; the other
+  three pieces found none; the accounting; the frontier). A tamper test in the sandbox (a graph claimed for row 96, a
+  column of its CSS matrix copied onto another, a row dropped from the undecided list) makes G53 fail each time and
+  no other gate. A single flipped bit of a CSS matrix can leave every column-group rank unchanged, and then the
+  matrix is still a valid certificate [checked on row 96].
+- `VERSION`: R60. README: header; §2b (`s44-b`, `s44-c`, `css-sweep3a`–`c` done); 70 gate lines (§2, §3, §9); §7
+  ⓪(b). `data/` and gates G0–G52 are unchanged. `selftest.py`: 53 gate lines, ALL PASS; `selftest.py --full`: 70
+  gate lines, ALL PASS.
+
 ## R59 (2026-11-24) -- the first laptop pieces: two more orbits realised by `s44-a`; `css-scale`; gate G52
 - `results/2026-11-24_s44-a/` (job `s44-a`, 1.25 h on the 32-thread laptop): the fixed-structure search on the 71
   undecided rows of the R56 list with a forced triple and N ≤ 32, two searches of 900 s each; it realised rows 500 and

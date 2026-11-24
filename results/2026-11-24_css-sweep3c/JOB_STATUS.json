@@ -1,0 +1,12 @@
+{
+ "job": "css-sweep3c",
+ "mode": "full",
+ "host": "ClarkDellG16",
+ "nproc": 32,
+ "start_utc": "2026-11-24T20:22:51Z",
+ "end_utc": "2026-11-24T21:22:52Z",
+ "elapsed_s": 3601.4,
+ "exit_code": 0,
+ "cmd": "rm -f css_sweep3c.npz css_sweep3c.npz.json css_sweep3c.plain.npz && python3 scripts/s41_css_search.py results/2026-11-24_r57-sandbox/undecided_reps.npy --rows $(python3 -c \"import sys, numpy as np; sys.path.insert(0, 'scripts'); from s41_css_search import singles; U = np.load('results/2026-11-24_r57-sandbox/undecided_reps.npy').astype(np.int64); r = [k for k in range(len(U)) if sum(singles(U[k])) <= 30]; print(','.join(map(str, r[64:96])))\") --budget 30:3600 --seed 20261130 --out css_sweep3c.npz && python3 scripts/s41_css_search.py --check css_sweep3c.npz results/2026-11-24_r57-sandbox/undecided_reps.npy",
+ "checks": "a 'kernel: ... OpenMP threads <all cores>' line; one 'row k: FOUND after ... verified (...)' line for each hit; the line 'lambda=2 (CSS, kappa=1): 32 rays tried, n realised and independently verified'; no WARNING lines; the --check run ends with ALL OK. Row indices refer to results/2026-11-24_r57-sandbox/undecided_reps.npy; the outputs are rewritten after every hit"
+}

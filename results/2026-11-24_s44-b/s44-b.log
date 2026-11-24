@@ -1,0 +1,7 @@
+NOTE 602 rows skipped (no forced triple): [0, 1, 2, 3, 5, 6, 7, 8, 10, 11, 12, 13] ...
+NOTE 53 rows skipped (N above every band): [38, 59, 83, 96, 128, 130, 156, 181, 218, 234, 255, 256] ...
+118 searches (29.5 h in all) on 59 rows, 32 workers
+row 47: FOUND after 303.4 s, verified (shape, column_ranks, graph_cut_ranks); 1 found (304 s)
+lambda=2 (CSS, forced structure fixed): 59 rays tried, 1 realised and independently verified (3600s; 1 searches of realised rows skipped)
+row 47: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True}
+1 plain certificates, 0 graph certificates: ALL OK
