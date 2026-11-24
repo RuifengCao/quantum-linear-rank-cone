@@ -1,0 +1,12 @@
+{
+ "job": "ci2-ingleton2",
+ "mode": "full",
+ "host": "ClarkDellG16",
+ "nproc": 32,
+ "start_utc": "2026-11-24T01:16:47Z",
+ "end_utc": "2026-11-24T05:58:40Z",
+ "elapsed_s": 16913.2,
+ "exit_code": 0,
+ "cmd": "rm -f ci2_ingleton2.json && cp results/2026-11-23_ci2-ingleton/ci2_ingleton.json ci2_ingleton2.json && python3 scripts/s42_ci2_ingleton.py results/2026-11-23_r54-sandbox/undecided_reps.npy --maxsize 2 --nested --hours 5.5 --resume --out ci2_ingleton2.json",
+ "checks": "the line 's42 self-test: ... True' before any row; 'resume: 433 rows already in ci2_ingleton2.json' (the smoke then tests only rows 535 and 651, at maxsize 1; its counts include the 433 rows carried over, so it ends with 'tested 435 of 3 rows' and INCOMPLETE, as it should); one line 'row k (N = n): feasible; d/c LPs, t solver troubles, ...' per row, or 'INFEASIBLE at [[X1, Y1], [X2, Y2]]' for a candidate exclusion (floating point: it counts only after an exact certificate, to be built in the sandbox); rows 35, 250, 327, 419, 526, 535 and 651 feasible; the summary line 'tested t of 793 rows (u cut off by the deadline), ... infeasible (candidate exclusions): ...' (the 3 rows of ci2-ingleton, 537, 643 and 785, are among them, carried over); then COMPLETE, or INCOMPLETE if the 5.5 h ran out (the rows tested are kept). Row indices refer to results/2026-11-23_r54-sandbox/undecided_reps.npy"
+}

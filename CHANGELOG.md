@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## R57 (2026-11-24) -- E2 at maxsize 2 completed: one more undecided orbit excluded by two common informations; gate G51
+- `results/2026-11-24_ci2-ingleton2/` (job `ci2-ingleton2`, 4.7 h on the 32-thread laptop): it resumed `ci2-ingleton`
+  on the 360 rows that run had not reached, so all 793 rows of the R54 list are tested at maxsize 2 with nested pairs
+  (14,362,340 LPs in all, 6,460,522 in this run, none with solver trouble; 82 ms per LP per thread on average). The
+  433 rows of the first run were carried over unchanged, and the seven rows realised in R56 came out feasible, as
+  they must. Four rows are infeasible: the three certified in R56, reported with the same pairs, and row 591 (R30 row
+  885, N = 32; P1 = (A, BC), P2 = (B, AF)).
+- `results/2026-11-24_r57-sandbox/` (sandbox): `certificates_ci2.json` (the certificate of row 591 by
+  `scripts/s43_certify_ci2.py`, 69 terms, checked by `stabcert.verify_exclusion_ci2`; its inequality lies in a fourth
+  S₆ orbit, holds in all its images on the 1,008 known orbits and the two qutrit rows, and cuts no other undecided
+  row); `undecided_reps.npy` (784 rows); `status.json` (with the R30 rows of the undecided list; the 334 frontier
+  classes of R56 stand, and restricted to the remaining rows they and their greedy cover still cut every row).
+  1,915,913 + 1 orbits of the R30 list are excluded, 1,008 known, 785 − 1 = 784 undecided. None of the four
+  certificates of maxsize 2 uses a nested pair.
+- `selftest.py`: gate G51 (the run complete with the first run carried over and the controls feasible; its
+  infeasible rows = the three of R56 with their pairs + the rows certified here, each re-checked by
+  `stabcert.verify_exclusion_ci2`; the accounting; the frontier on the remaining rows; the manifests of both new
+  folders).
+- `VERSION`: R57. README: header; §2b (`ci2-ingleton2` done); 68 gate lines (§2, §3, §9); §7 ⓪(b). `data/` and gates
+  G0–G50 are unchanged. `selftest.py`: 51 gate lines, ALL PASS; `selftest.py --full`: 68 gate lines, ALL PASS.
+
 ## R56 (2026-11-23) -- Gate 1: three undecided orbits excluded by two common informations (exact certificates); five realised by a fixed-structure CSS search, two by qutrits; gate G50; jobs `ci2-ingleton2` and `s44-sweep`
 - `results/2026-11-23_ci2-ingleton/` (job `ci2-ingleton`, 6.0 h on a 32-thread laptop, as staged by `run_job.py`):
   `scripts/s42_ci2_ingleton.py` at maxsize 2 with nested pairs, largest N first, cut off by its deadline after 433 of

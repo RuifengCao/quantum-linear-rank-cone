@@ -1,0 +1,19 @@
+{
+ "date": "2026-11-24",
+ "tag": "ci2-ingleton2",
+ "note": "run_job ci2-ingleton2 exit 0 on ClarkDellG16",
+ "files": {
+  "ci2_ingleton2.json": {
+   "bytes": 101271,
+   "sha256": "b28336010b401d19243f627f49c567109b8b837f0bb842d22c219ddaa951c827"
+  },
+  "ci2-ingleton2.log": {
+   "bytes": 38110,
+   "sha256": "a1e84b0387d6d0d949960e23cfdfbe77bd8278cbaa02e7a638cbb9435add79bc"
+  },
+  "JOB_STATUS.json": {
+   "bytes": 1375,
+   "sha256": "9c015a2eacad75125986cf6bb0fcdfc500c5e2dc11ab2075b9a45322e64fd3da"
+  }
+ }
+}

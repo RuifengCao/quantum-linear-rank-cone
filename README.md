@@ -94,6 +94,10 @@ data bundled, a static Normaliz binary included, resumable long runs.
 > (`results/2026-11-23_r56-sandbox/`). 1,008 orbits are known, 785 undecided. `data/` and gates G0–G49 are unchanged;
 > the new gate G50 checks the two new folders. The jobs `ci2-ingleton2` (the 360 rows left) and `s44-sweep` are
 > registered.
+> Round R57 (2026-11-24) adds the result of `ci2-ingleton2` (4.7 h on the laptop): two common informations at
+> maxsize 2 have now been tried on all 793 orbits undecided after R54, and they exclude one more, R30 row 885, with
+> an exact certificate (`results/2026-11-24_r57-sandbox/`); four in all. 1,008 orbits are known, 784 undecided.
+> `data/` and gates G0–G50 are unchanged; the new gate G51 checks the two new folders.
 > Release R37 ([10.5281/zenodo.23303466](https://doi.org/10.5281/zenodo.23303466))
 > is the archived version cited by the first version of the paper *Stabilizer entropy cones as self-dual slices of
 > linear rank cones: a five-party gap and dependence on the local dimension* (X. Song and R. Cao,
@@ -719,7 +723,7 @@ single-source lines in `data/dfz_ref28.csv`; optional `rays5` cross-check.
 
 ```
 # ---- A. Verify the completed results (optional, ~3 minutes in total) ----
-python3 selftest.py --full            # 67 gate lines + ALL PASS, ~8 min; must be all green first
+python3 selftest.py --full            # 68 gate lines + ALL PASS, ~8 min; must be all green first
 python3 scripts/s1_build_qlr.py --variant pure28 --workers 25     # seconds
 python3 scripts/s2_judge.py QLR_H_pure28.npy                      # expect: violated 0
 python3 scripts/s3_rank19.py QLR_H_pure28.npy                     # expect: 18/19, only #19 has rank 29
@@ -807,7 +811,7 @@ Release instead). Engine options can be overridden after `--`.
 | `s32-new5` | X | at most 4.0 h on 32 threads (R54): unimodular search (neutral, 1,800 s per row, new seed) for the 251 rows realised after submission without a certificate for every d (243 left by `s32-new4`; the 8 of R54 at κ = 2), catalogue extended by the six realisation files; resumes from the 111 of `s32-new4` | 3 rows, 3 s (~15 s) |
 | `css-scale` | X | at most 1.0 h on 32 threads (R55): a budget-scaling test of the CSS search on the 8 orbits with 33 ≤ N ≤ 40 that `css-sweep` (300 s each) left at the lowest best residuals (5–7 column-group ranks; all N = 34; `results/2026-11-23_r54-sandbox/undecided_reps.npy` rows 135, 341, 608, 46, 586, 616, 617, 67): four searches of 3,600 s each, new seed, 48 times the earlier time; one round on 32 threads | 2 orbits, 2 × 3 s (~10 s) |
 | `ci2-ingleton` | X | done 2026-11-23 (6.0 h on a 32-thread laptop, `results/2026-11-23_ci2-ingleton/`): `scripts/s42_ci2_ingleton.py` at maxsize 2 with nested pairs on the 793 orbits undecided after R54, largest N first; the deadline cut it off after 433 rows (all 401 with N ≥ 36, 32 of the 128 with N = 34; 7.9 million LPs, 84 ms per LP per thread on average, none with solver trouble); 3 infeasible, all certified exactly (R56) | 2 orbits at maxsize 1 (~20 s) |
-| `ci2-ingleton2` | X | at most 5.5 h on 32 threads (R56; `--hours 5.5`): resumes `ci2-ingleton` on the 360 rows it did not reach (all N ≤ 34; about 6.5 million LPs, about 4–5 h at the measured speed); the seven rows realised in R56 stay in as controls and must come out feasible | `--resume` from the first run's output, 2 orbits at maxsize 1 (~20 s) |
+| `ci2-ingleton2` | X | done 2026-11-24 (4.7 h on a 32-thread laptop, `results/2026-11-24_ci2-ingleton2/`): resumed `ci2-ingleton` on the 360 rows it had not reached, so all 793 rows are tested at maxsize 2 with nested pairs (14.4 million LPs in all, none with solver trouble); the seven rows realised in R56 came out feasible; one new infeasible row, certified exactly (R57) | `--resume` from the first run's output, 2 orbits at maxsize 1 (~20 s) |
 | `s44-sweep` | X | at most 4.3 h on 32 threads (R56): the fixed-structure CSS search (`scripts/s44_fixed_search.py`; hits are realisations at λ = 2) on the 183 orbits of `results/2026-11-23_r56-sandbox/undecided_reps.npy` with a forced triple, searches of 900 s: 4 for each with N ≤ 32, 3 for N = 33–36, 2 for N = 37–40, 1 for N = 41–64; first copies before second copies, a realised row skips the rest | self-test + 2 orbits, 2 × 3 s (~30 s) |
 
 **Rule:** every tier-X job is handed over only after its smoke variant has
@@ -819,7 +823,7 @@ passed in the sandbox (and, optionally, in the manual CI workflow
 
 | Stage | Command essentials | Purpose / expectation |
 | --- | --- | --- |
-| selftest | `selftest.py [--full] [--workers N]` | 67 regression gate lines (G0–G50 with G2b and G10b, G29b, G31b–G36b, G38b–G43b, G47b) + ALL PASS; run first on any machine |
+| selftest | `selftest.py [--full] [--workers N]` | 68 regression gate lines (G0–G51 with G2b and G10b, G29b, G31b–G36b, G38b–G43b, G47b) + ALL PASS; run first on any machine |
 | s1 | `--variant pure28` (current) / `pure`, `v3`, `pure2` (historical) | build the H-representation; seconds |
 | s2 | `s2_judge.py <H.npy>` | 760 graph-state judge; `pure*` variants must give 0 violations |
 | s3 | `s3_rank19.py <H.npy> [--extra-rows X]` | tight-rank test of the 19 HEC rays; pure28 → 18/19 |
@@ -1172,7 +1176,11 @@ dimension, that takes the value −2 on the excluded ray. The checker `epr1kit.s
 every row from its descriptor without the row-building code of s42 and s43; s43 calls it before it writes a
 certificate and in `--check`, and gate G50 calls it again (`results/2026-11-23_r56-sandbox/`). The three
 inequalities lie in three S₆ orbits; their images hold on all known orbits and cut none of the other undecided rows
-[computed]. The job `ci2-ingleton2` resumes the run on the 360 rows left (all with N ≤ 34).
+[computed]. The job `ci2-ingleton2` resumed the run on the 360 rows left (all with N ≤ 34; R57, 4.7 h): one more
+row is infeasible, R30 row 885 (N = 32), certified in the same way (`results/2026-11-24_r57-sandbox/`, gate G51); its
+inequality lies in a fourth S₆ orbit and cuts no other undecided row. So two common informations at maxsize 2 with
+nested pairs exclude four of the 793 orbits (with the five realised below, 784 remain undecided after R57); none of
+the four certificates uses a nested pair [computed].
 R56 also adds a fixed-structure CSS search (`scripts/s44_fixed_search.py`, `cc/s44_fixed_anneal.c`). When three
 parties X, Y, Z satisfy dim(X∩Y) = dim(X∩Z) = dim(Y∩Z) = dim((X+Y)∩Z) = t > 0 (all read off h), every realisation
 over any field has the three pairwise intersections equal to one subspace T and
@@ -1305,7 +1313,7 @@ This repository is public at
 
 - **CI:** `.github/workflows/selftest.yml` installs `lrslib` and the Python
   requirements and runs `python3 selftest.py --full` on every push and pull
-  request (all 67 gate lines must pass). Every step has a time cap (job 60 min, `selftest.py --full` 40 min;
+  request (all 68 gate lines must pass). Every step has a time cap (job 60 min, `selftest.py --full` 40 min;
   each `apt-get update` attempt 150 s, three attempts), so a stalled package
   mirror fails the run within minutes instead of hanging for GitHub's 6-hour
   default; such a failure says nothing about the code -- re-run the job.

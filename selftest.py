@@ -1290,6 +1290,61 @@ def main():
          f'{F50["classes"].shape[0]} classes, greedy cover {len(F50["greedy_cover"])} cuts every row {fr50}; files '
          f'match the manifests {file50}')
 
+    # G51 (R57): E2 at maxsize 2 completed, results/2026-11-24_r57-sandbox.  The job ci2-ingleton2
+    # (results/2026-11-24_ci2-ingleton2) resumed ci2-ingleton: all 793 rows of the R54 list tested, the 433 rows of the
+    # first run carried over unchanged, the seven rows realised in R56 feasible (as they must be).  The rows it reports
+    # infeasible are the three certified in R56 (with the pairs of their certificates) and the rows certified here, each
+    # re-checked by epr1kit.stabcert.verify_exclusion_ci2 on the ray of the R54 list; undecided_reps.npy is the R56 list
+    # without them; status.json counts; on the remaining rows the R56 frontier still cuts every row and its greedy cover
+    # still covers them all; the manifests of both new folders.
+    D51 = os.path.join(base44, '2026-11-24_r57-sandbox')
+    J51d = os.path.join(base44, '2026-11-24_ci2-ingleton2')
+    file51 = True
+    for d51, f51 in ((D51, ['README.txt', 'certificates_ci2.json', 'undecided_reps.npy', 'status.json']),
+                     (J51d, ['ci2_ingleton2.json', 'ci2-ingleton2.log', 'JOB_STATUS.json'])):
+        M51 = _js20.load(open(os.path.join(d51, 'manifest.json')))
+        file51 = file51 and sorted(M51['files']) == sorted(f51) and all(
+            _h33.sha256(open(os.path.join(d51, f), 'rb').read()).hexdigest() == e['sha256'] for f, e in M51['files'].items())
+    J51 = _js20.load(open(os.path.join(J51d, 'ci2_ingleton2.json')))
+    ctl51 = [int(k) for k in R50['row54']] + [int(q['row54']) for q in Q50]
+    run51 = (J51['rays'] == J50['rays'] and J51['rows'] == 793 and len(J51['results']) == 793 and J51['summary']['complete']
+             and all(J51['results'][k] == v for k, v in J50['results'].items())
+             and all(J51['results'][str(k)]['infeasible'] is None for k in ctl51))
+    C51 = _js20.load(open(os.path.join(D51, 'certificates_ci2.json')))
+    cand51 = sorted(int(k) for k, v in J51['results'].items() if v['infeasible'])
+    rows51x = sorted(int(c['index']) for c in C51['certificates'])
+    okx51 = 0
+    for c in C51['certificates']:
+        r = L49[int(c['index'])]
+        okc, _v = _sc.verify_exclusion_ci2(r, c['P1'], c['P2'], [(tuple(t[0]), _Fr50(t[1])) for t in c['terms']],
+                                           F_S=c['F_S'])
+        inf = J51['results'][str(c['index'])]['infeasible']
+        okx51 += bool(okc and [int(x) for x in r] == c['ray'] and list(c['P1']) == list(inf[0])
+                      and list(c['P2']) == list(inf[1])
+                      and sum(a * int(b) for a, b in zip(c['F_S'], r)) == c['F_S_at_ray'] < 0)
+    old51 = all(J51['results'][str(int(c['index']))]['infeasible'] == [list(c['P1']), list(c['P2'])]
+                for c in C50['certificates'])
+    ex51 = (okx51 == len(rows51x) > 0 and not C51['failed'] and old51 and not set(rows50x) & set(rows51x)
+            and sorted(rows50x + rows51x) == cand51)
+    x30_51 = [int(i49[k]) for k in rows51x]
+    keep51 = keep50.copy()
+    keep51[x30_51] = False
+    L51 = np.load(os.path.join(D51, 'undecided_reps.npy')).astype(np.int64)
+    ST51 = _js20.load(open(os.path.join(D51, 'status.json')))
+    acc51 = (np.array_equal(L51, U44[keep51]) and not (set(x30_51) & (set(rows50) | set(q30_50)))
+             and ST51['excluded'] == ST50['excluded'] + len(rows51x) and ST51['excluded_rows_r57'] == x30_51
+             and ST51['known_extreme_ray_orbits'] == ST50['known_extreme_ray_orbits']
+             and ST51['undecided'] == L51.shape[0] == ST50['undecided'] - len(rows51x))
+    k51 = keep51[np.flatnonzero(keep50)]
+    fr51 = bool(F50['cut'][:, k51].any(0).all() and F50['cut'][F50['greedy_cover']][:, k51].any(0).all())
+    gate('G51 E2 at maxsize 2 completed: ci2-ingleton2',
+         run51 and ex51 and acc51 and fr51 and file51,
+         f'all 793 rows tested, the first run carried over, the {len(ctl51)} rows realised in R56 feasible {run51}; '
+         f'infeasible rows = the {len(rows50x)} of R56 (same pairs {old51}) + {len(rows51x)} certified here, '
+         f'{okx51}/{len(rows51x)} re-checked exactly (stabcert.verify_exclusion_ci2) {ex51}; '
+         f'{ST51["known_extreme_ray_orbits"]} known / {ST51["undecided"]} undecided {acc51}; the R56 frontier and its '
+         f'greedy cover still cut every remaining row {fr51}; files match the manifests {file51}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:
