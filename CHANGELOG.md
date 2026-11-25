@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## R62 (2026-11-25) -- seven short daytime jobs registered (`s44-d`, `s44-e`, `css-sweep4a` … `css-sweep4e`)
+- `jobs.json`: `s44-d` and `s44-e`, the fixed-structure search (`scripts/s44_fixed_search.py`) again with new seeds on
+  the 180 rows of the R60 list with a forced triple: two searches of 900 s on each of the 69 rows with N ≤ 32 (138
+  searches, at most 1.25 h) and one on each of the 58 rows with N = 33–36 (0.5 h), i.e. the copies of `s44-sweep` that
+  the pieces left out. `css-sweep4a` … `css-sweep4e`, the CSS search with a new seed, one search of 3,600 s on each of
+  the 136 rows of the R60 list with N ≤ 30, in five pieces of 27–28 rows (at most 1.0 h each); the five row sets are
+  disjoint and cover the 136 rows (checked).
+- The smoke variants of `s44-d`, `s44-e`, `css-sweep4a`, `css-sweep4c` and `css-sweep4e` pass in the sandbox.
+- README: header; §2b (the seven jobs). `VERSION`: R62. `data/`, `results/` and the gates are unchanged.
+
 ## R61 (2026-11-25) -- E2 at maxsize 3 registered as one resumable run in pieces (`ci3-3h` … `ci3-10h`)
 - `jobs.json`: `ci3-3h` … `ci3-10h`, E2 at maxsize 3 without nesting on the 777 rows of the R60 list. The eight jobs
   differ only in the deadline (`--hours` 0.1 h below the name) and all continue `ci3.json` in the repository root
