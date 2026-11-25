@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## R61 (2026-11-25) -- E2 at maxsize 3 registered as one resumable run in pieces (`ci3-3h` … `ci3-10h`)
+- `jobs.json`: `ci3-3h` … `ci3-10h`, E2 at maxsize 3 without nesting on the 777 rows of the R60 list. The eight jobs
+  differ only in the deadline (`--hours` 0.1 h below the name) and all continue `ci3.json` in the repository root
+  with `--resume`, so a night of any length from 3 to 10 hours takes the matching piece; rows in progress at the
+  deadline are left out and done again by the next piece. A guard stops the run if `ci3.json` belongs to another run
+  (another rays file, another maxsize, or nesting). No `resume` key: `run_job.py` never copies a staged `ci3.json`
+  over the local one, because a file brought in by `git pull` would look newer than the laptop's own progress.
+- Cost: 22.29 million LPs (s42's own enumeration on the R60 list); in the sandbox an LP at maxsize 3 took 1.18 times
+  as long as one at maxsize 2 with nesting on the same row (mean of ten rows with N = 26–58; median 1.16, range
+  1.06–1.36) [empirical], so about 610 thread-hours, 19 h on the 32-thread laptop. Fixed pieces would lose 11–24% to
+  idle workers at the end of each piece, since s42 orders rows by N and not by cost (simulated); a deadline loses
+  only the rows in progress, about 0.5 h per piece.
+- Checked in the sandbox on a copy of the repository: the smoke variant; a deadline that cuts off every row still
+  writes `ci3.json` (INCOMPLETE); `--resume` continues it; the guard refuses a `ci3.json` of another run.
+- README: header; §2b (the eight jobs). `VERSION`: R61. `data/`, `results/` and the gates are unchanged.
+
 ## R60 (2026-11-24) -- five more laptop pieces: five more orbits realised by `s44-b` and `css-sweep3a`; gate G53
 - `results/2026-11-24_s44-b/` (job `s44-b`, 1.0 h on the 32-thread laptop): the fixed-structure search on the 59 rows
   of the R56 list with a forced triple and N = 33–36, two searches of 900 s each; it realised row 47 of that list (R30

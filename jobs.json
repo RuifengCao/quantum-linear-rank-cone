@@ -604,6 +604,102 @@
    ],
    "tag": "s32-new5d",
    "checks": "the search prints 'certified rows: n of m' (m: the rows of this piece; n counts the 111 certificates of s32-new4 carried over, so n >= 111; the smoke prints 'certified rows: 111 of 2') and the final --check --full prints ALL OK; rows of the output index the catalogue extended as in s32-new5"
+  },
+  "ci3-3h": {
+   "tier": "X",
+   "needs": [],
+   "runtime": "3 h on 32 threads (R61): E2 at maxsize 3 without nesting (scripts/s42_ci2_ingleton.py --maxsize 3) on the 777 rows of results/2026-11-24_r60-sandbox/undecided_reps.npy, one resumable run in pieces of any length: ci3-3h ... ci3-10h differ only in the deadline (--hours 2.9 here: no LP is begun after it; the rows then in progress are left out and done again by the next piece), and each continues ci3.json in the repository root (--resume; a guard stops if ci3.json is from another run).  In all about 22 million LPs, about 610 thread-hours (19 h on 32 threads; per-row times of ci2-ingleton times 1.18, the sandbox ratio of maxsize 3 to maxsize 2 per LP), plus about 0.5 h per piece for the rows cut off.  Rows go largest N first.  A row stops at its first infeasible pair of pairs; an infeasible row is a candidate exclusion until certified exactly in the sandbox (s43)",
+   "cmd": "python3 -c \"import json, os, sys; m = json.load(open('ci3.json')) if os.path.exists('ci3.json') else None; sys.exit(0 if m is None or (m['rays'] == 'results/2026-11-24_r60-sandbox/undecided_reps.npy' and m['maxsize'] == 3 and not m['nested']) else 'ci3.json in the repository root belongs to another run: move it away first')\" && python3 scripts/s42_ci2_ingleton.py results/2026-11-24_r60-sandbox/undecided_reps.npy --maxsize 3 --hours 2.9 --resume --out ci3.json",
+   "smoke": "rm -f ci3_smoke.json && python3 scripts/s42_ci2_ingleton.py results/2026-11-24_r60-sandbox/undecided_reps.npy --rows 145,467 --maxsize 1 --out ci3_smoke.json",
+   "outputs": [
+    "ci3.json"
+   ],
+   "tag": "ci3",
+   "checks": "the line 's42 self-test: ... True' before any row; 'resume: n rows already in ci3.json' with n the rows of the earlier pieces (absent in the first piece); one line 'row k (N = n): feasible; d/c LPs, ...' per row, or 'INFEASIBLE at [[X1, Y1], [X2, Y2]]' for a candidate exclusion; the summary line 'tested t of 777 rows (u cut off by the deadline), ...'; INCOMPLETE until the last piece, then COMPLETE. Row indices refer to results/2026-11-24_r60-sandbox/undecided_reps.npy"
+  },
+  "ci3-4h": {
+   "tier": "X",
+   "needs": [],
+   "runtime": "4 h on 32 threads (R61): E2 at maxsize 3 without nesting (scripts/s42_ci2_ingleton.py --maxsize 3) on the 777 rows of results/2026-11-24_r60-sandbox/undecided_reps.npy, one resumable run in pieces of any length: ci3-3h ... ci3-10h differ only in the deadline (--hours 3.9 here: no LP is begun after it; the rows then in progress are left out and done again by the next piece), and each continues ci3.json in the repository root (--resume; a guard stops if ci3.json is from another run).  In all about 22 million LPs, about 610 thread-hours (19 h on 32 threads; per-row times of ci2-ingleton times 1.18, the sandbox ratio of maxsize 3 to maxsize 2 per LP), plus about 0.5 h per piece for the rows cut off.  Rows go largest N first.  A row stops at its first infeasible pair of pairs; an infeasible row is a candidate exclusion until certified exactly in the sandbox (s43)",
+   "cmd": "python3 -c \"import json, os, sys; m = json.load(open('ci3.json')) if os.path.exists('ci3.json') else None; sys.exit(0 if m is None or (m['rays'] == 'results/2026-11-24_r60-sandbox/undecided_reps.npy' and m['maxsize'] == 3 and not m['nested']) else 'ci3.json in the repository root belongs to another run: move it away first')\" && python3 scripts/s42_ci2_ingleton.py results/2026-11-24_r60-sandbox/undecided_reps.npy --maxsize 3 --hours 3.9 --resume --out ci3.json",
+   "smoke": "rm -f ci3_smoke.json && python3 scripts/s42_ci2_ingleton.py results/2026-11-24_r60-sandbox/undecided_reps.npy --rows 145,467 --maxsize 1 --out ci3_smoke.json",
+   "outputs": [
+    "ci3.json"
+   ],
+   "tag": "ci3",
+   "checks": "the line 's42 self-test: ... True' before any row; 'resume: n rows already in ci3.json' with n the rows of the earlier pieces (absent in the first piece); one line 'row k (N = n): feasible; d/c LPs, ...' per row, or 'INFEASIBLE at [[X1, Y1], [X2, Y2]]' for a candidate exclusion; the summary line 'tested t of 777 rows (u cut off by the deadline), ...'; INCOMPLETE until the last piece, then COMPLETE. Row indices refer to results/2026-11-24_r60-sandbox/undecided_reps.npy"
+  },
+  "ci3-5h": {
+   "tier": "X",
+   "needs": [],
+   "runtime": "5 h on 32 threads (R61): E2 at maxsize 3 without nesting (scripts/s42_ci2_ingleton.py --maxsize 3) on the 777 rows of results/2026-11-24_r60-sandbox/undecided_reps.npy, one resumable run in pieces of any length: ci3-3h ... ci3-10h differ only in the deadline (--hours 4.9 here: no LP is begun after it; the rows then in progress are left out and done again by the next piece), and each continues ci3.json in the repository root (--resume; a guard stops if ci3.json is from another run).  In all about 22 million LPs, about 610 thread-hours (19 h on 32 threads; per-row times of ci2-ingleton times 1.18, the sandbox ratio of maxsize 3 to maxsize 2 per LP), plus about 0.5 h per piece for the rows cut off.  Rows go largest N first.  A row stops at its first infeasible pair of pairs; an infeasible row is a candidate exclusion until certified exactly in the sandbox (s43)",
+   "cmd": "python3 -c \"import json, os, sys; m = json.load(open('ci3.json')) if os.path.exists('ci3.json') else None; sys.exit(0 if m is None or (m['rays'] == 'results/2026-11-24_r60-sandbox/undecided_reps.npy' and m['maxsize'] == 3 and not m['nested']) else 'ci3.json in the repository root belongs to another run: move it away first')\" && python3 scripts/s42_ci2_ingleton.py results/2026-11-24_r60-sandbox/undecided_reps.npy --maxsize 3 --hours 4.9 --resume --out ci3.json",
+   "smoke": "rm -f ci3_smoke.json && python3 scripts/s42_ci2_ingleton.py results/2026-11-24_r60-sandbox/undecided_reps.npy --rows 145,467 --maxsize 1 --out ci3_smoke.json",
+   "outputs": [
+    "ci3.json"
+   ],
+   "tag": "ci3",
+   "checks": "the line 's42 self-test: ... True' before any row; 'resume: n rows already in ci3.json' with n the rows of the earlier pieces (absent in the first piece); one line 'row k (N = n): feasible; d/c LPs, ...' per row, or 'INFEASIBLE at [[X1, Y1], [X2, Y2]]' for a candidate exclusion; the summary line 'tested t of 777 rows (u cut off by the deadline), ...'; INCOMPLETE until the last piece, then COMPLETE. Row indices refer to results/2026-11-24_r60-sandbox/undecided_reps.npy"
+  },
+  "ci3-6h": {
+   "tier": "X",
+   "needs": [],
+   "runtime": "6 h on 32 threads (R61): E2 at maxsize 3 without nesting (scripts/s42_ci2_ingleton.py --maxsize 3) on the 777 rows of results/2026-11-24_r60-sandbox/undecided_reps.npy, one resumable run in pieces of any length: ci3-3h ... ci3-10h differ only in the deadline (--hours 5.9 here: no LP is begun after it; the rows then in progress are left out and done again by the next piece), and each continues ci3.json in the repository root (--resume; a guard stops if ci3.json is from another run).  In all about 22 million LPs, about 610 thread-hours (19 h on 32 threads; per-row times of ci2-ingleton times 1.18, the sandbox ratio of maxsize 3 to maxsize 2 per LP), plus about 0.5 h per piece for the rows cut off.  Rows go largest N first.  A row stops at its first infeasible pair of pairs; an infeasible row is a candidate exclusion until certified exactly in the sandbox (s43)",
+   "cmd": "python3 -c \"import json, os, sys; m = json.load(open('ci3.json')) if os.path.exists('ci3.json') else None; sys.exit(0 if m is None or (m['rays'] == 'results/2026-11-24_r60-sandbox/undecided_reps.npy' and m['maxsize'] == 3 and not m['nested']) else 'ci3.json in the repository root belongs to another run: move it away first')\" && python3 scripts/s42_ci2_ingleton.py results/2026-11-24_r60-sandbox/undecided_reps.npy --maxsize 3 --hours 5.9 --resume --out ci3.json",
+   "smoke": "rm -f ci3_smoke.json && python3 scripts/s42_ci2_ingleton.py results/2026-11-24_r60-sandbox/undecided_reps.npy --rows 145,467 --maxsize 1 --out ci3_smoke.json",
+   "outputs": [
+    "ci3.json"
+   ],
+   "tag": "ci3",
+   "checks": "the line 's42 self-test: ... True' before any row; 'resume: n rows already in ci3.json' with n the rows of the earlier pieces (absent in the first piece); one line 'row k (N = n): feasible; d/c LPs, ...' per row, or 'INFEASIBLE at [[X1, Y1], [X2, Y2]]' for a candidate exclusion; the summary line 'tested t of 777 rows (u cut off by the deadline), ...'; INCOMPLETE until the last piece, then COMPLETE. Row indices refer to results/2026-11-24_r60-sandbox/undecided_reps.npy"
+  },
+  "ci3-7h": {
+   "tier": "X",
+   "needs": [],
+   "runtime": "7 h on 32 threads (R61): E2 at maxsize 3 without nesting (scripts/s42_ci2_ingleton.py --maxsize 3) on the 777 rows of results/2026-11-24_r60-sandbox/undecided_reps.npy, one resumable run in pieces of any length: ci3-3h ... ci3-10h differ only in the deadline (--hours 6.9 here: no LP is begun after it; the rows then in progress are left out and done again by the next piece), and each continues ci3.json in the repository root (--resume; a guard stops if ci3.json is from another run).  In all about 22 million LPs, about 610 thread-hours (19 h on 32 threads; per-row times of ci2-ingleton times 1.18, the sandbox ratio of maxsize 3 to maxsize 2 per LP), plus about 0.5 h per piece for the rows cut off.  Rows go largest N first.  A row stops at its first infeasible pair of pairs; an infeasible row is a candidate exclusion until certified exactly in the sandbox (s43)",
+   "cmd": "python3 -c \"import json, os, sys; m = json.load(open('ci3.json')) if os.path.exists('ci3.json') else None; sys.exit(0 if m is None or (m['rays'] == 'results/2026-11-24_r60-sandbox/undecided_reps.npy' and m['maxsize'] == 3 and not m['nested']) else 'ci3.json in the repository root belongs to another run: move it away first')\" && python3 scripts/s42_ci2_ingleton.py results/2026-11-24_r60-sandbox/undecided_reps.npy --maxsize 3 --hours 6.9 --resume --out ci3.json",
+   "smoke": "rm -f ci3_smoke.json && python3 scripts/s42_ci2_ingleton.py results/2026-11-24_r60-sandbox/undecided_reps.npy --rows 145,467 --maxsize 1 --out ci3_smoke.json",
+   "outputs": [
+    "ci3.json"
+   ],
+   "tag": "ci3",
+   "checks": "the line 's42 self-test: ... True' before any row; 'resume: n rows already in ci3.json' with n the rows of the earlier pieces (absent in the first piece); one line 'row k (N = n): feasible; d/c LPs, ...' per row, or 'INFEASIBLE at [[X1, Y1], [X2, Y2]]' for a candidate exclusion; the summary line 'tested t of 777 rows (u cut off by the deadline), ...'; INCOMPLETE until the last piece, then COMPLETE. Row indices refer to results/2026-11-24_r60-sandbox/undecided_reps.npy"
+  },
+  "ci3-8h": {
+   "tier": "X",
+   "needs": [],
+   "runtime": "8 h on 32 threads (R61): E2 at maxsize 3 without nesting (scripts/s42_ci2_ingleton.py --maxsize 3) on the 777 rows of results/2026-11-24_r60-sandbox/undecided_reps.npy, one resumable run in pieces of any length: ci3-3h ... ci3-10h differ only in the deadline (--hours 7.9 here: no LP is begun after it; the rows then in progress are left out and done again by the next piece), and each continues ci3.json in the repository root (--resume; a guard stops if ci3.json is from another run).  In all about 22 million LPs, about 610 thread-hours (19 h on 32 threads; per-row times of ci2-ingleton times 1.18, the sandbox ratio of maxsize 3 to maxsize 2 per LP), plus about 0.5 h per piece for the rows cut off.  Rows go largest N first.  A row stops at its first infeasible pair of pairs; an infeasible row is a candidate exclusion until certified exactly in the sandbox (s43)",
+   "cmd": "python3 -c \"import json, os, sys; m = json.load(open('ci3.json')) if os.path.exists('ci3.json') else None; sys.exit(0 if m is None or (m['rays'] == 'results/2026-11-24_r60-sandbox/undecided_reps.npy' and m['maxsize'] == 3 and not m['nested']) else 'ci3.json in the repository root belongs to another run: move it away first')\" && python3 scripts/s42_ci2_ingleton.py results/2026-11-24_r60-sandbox/undecided_reps.npy --maxsize 3 --hours 7.9 --resume --out ci3.json",
+   "smoke": "rm -f ci3_smoke.json && python3 scripts/s42_ci2_ingleton.py results/2026-11-24_r60-sandbox/undecided_reps.npy --rows 145,467 --maxsize 1 --out ci3_smoke.json",
+   "outputs": [
+    "ci3.json"
+   ],
+   "tag": "ci3",
+   "checks": "the line 's42 self-test: ... True' before any row; 'resume: n rows already in ci3.json' with n the rows of the earlier pieces (absent in the first piece); one line 'row k (N = n): feasible; d/c LPs, ...' per row, or 'INFEASIBLE at [[X1, Y1], [X2, Y2]]' for a candidate exclusion; the summary line 'tested t of 777 rows (u cut off by the deadline), ...'; INCOMPLETE until the last piece, then COMPLETE. Row indices refer to results/2026-11-24_r60-sandbox/undecided_reps.npy"
+  },
+  "ci3-9h": {
+   "tier": "X",
+   "needs": [],
+   "runtime": "9 h on 32 threads (R61): E2 at maxsize 3 without nesting (scripts/s42_ci2_ingleton.py --maxsize 3) on the 777 rows of results/2026-11-24_r60-sandbox/undecided_reps.npy, one resumable run in pieces of any length: ci3-3h ... ci3-10h differ only in the deadline (--hours 8.9 here: no LP is begun after it; the rows then in progress are left out and done again by the next piece), and each continues ci3.json in the repository root (--resume; a guard stops if ci3.json is from another run).  In all about 22 million LPs, about 610 thread-hours (19 h on 32 threads; per-row times of ci2-ingleton times 1.18, the sandbox ratio of maxsize 3 to maxsize 2 per LP), plus about 0.5 h per piece for the rows cut off.  Rows go largest N first.  A row stops at its first infeasible pair of pairs; an infeasible row is a candidate exclusion until certified exactly in the sandbox (s43)",
+   "cmd": "python3 -c \"import json, os, sys; m = json.load(open('ci3.json')) if os.path.exists('ci3.json') else None; sys.exit(0 if m is None or (m['rays'] == 'results/2026-11-24_r60-sandbox/undecided_reps.npy' and m['maxsize'] == 3 and not m['nested']) else 'ci3.json in the repository root belongs to another run: move it away first')\" && python3 scripts/s42_ci2_ingleton.py results/2026-11-24_r60-sandbox/undecided_reps.npy --maxsize 3 --hours 8.9 --resume --out ci3.json",
+   "smoke": "rm -f ci3_smoke.json && python3 scripts/s42_ci2_ingleton.py results/2026-11-24_r60-sandbox/undecided_reps.npy --rows 145,467 --maxsize 1 --out ci3_smoke.json",
+   "outputs": [
+    "ci3.json"
+   ],
+   "tag": "ci3",
+   "checks": "the line 's42 self-test: ... True' before any row; 'resume: n rows already in ci3.json' with n the rows of the earlier pieces (absent in the first piece); one line 'row k (N = n): feasible; d/c LPs, ...' per row, or 'INFEASIBLE at [[X1, Y1], [X2, Y2]]' for a candidate exclusion; the summary line 'tested t of 777 rows (u cut off by the deadline), ...'; INCOMPLETE until the last piece, then COMPLETE. Row indices refer to results/2026-11-24_r60-sandbox/undecided_reps.npy"
+  },
+  "ci3-10h": {
+   "tier": "X",
+   "needs": [],
+   "runtime": "10 h on 32 threads (R61): E2 at maxsize 3 without nesting (scripts/s42_ci2_ingleton.py --maxsize 3) on the 777 rows of results/2026-11-24_r60-sandbox/undecided_reps.npy, one resumable run in pieces of any length: ci3-3h ... ci3-10h differ only in the deadline (--hours 9.9 here: no LP is begun after it; the rows then in progress are left out and done again by the next piece), and each continues ci3.json in the repository root (--resume; a guard stops if ci3.json is from another run).  In all about 22 million LPs, about 610 thread-hours (19 h on 32 threads; per-row times of ci2-ingleton times 1.18, the sandbox ratio of maxsize 3 to maxsize 2 per LP), plus about 0.5 h per piece for the rows cut off.  Rows go largest N first.  A row stops at its first infeasible pair of pairs; an infeasible row is a candidate exclusion until certified exactly in the sandbox (s43)",
+   "cmd": "python3 -c \"import json, os, sys; m = json.load(open('ci3.json')) if os.path.exists('ci3.json') else None; sys.exit(0 if m is None or (m['rays'] == 'results/2026-11-24_r60-sandbox/undecided_reps.npy' and m['maxsize'] == 3 and not m['nested']) else 'ci3.json in the repository root belongs to another run: move it away first')\" && python3 scripts/s42_ci2_ingleton.py results/2026-11-24_r60-sandbox/undecided_reps.npy --maxsize 3 --hours 9.9 --resume --out ci3.json",
+   "smoke": "rm -f ci3_smoke.json && python3 scripts/s42_ci2_ingleton.py results/2026-11-24_r60-sandbox/undecided_reps.npy --rows 145,467 --maxsize 1 --out ci3_smoke.json",
+   "outputs": [
+    "ci3.json"
+   ],
+   "tag": "ci3",
+   "checks": "the line 's42 self-test: ... True' before any row; 'resume: n rows already in ci3.json' with n the rows of the earlier pieces (absent in the first piece); one line 'row k (N = n): feasible; d/c LPs, ...' per row, or 'INFEASIBLE at [[X1, Y1], [X2, Y2]]' for a candidate exclusion; the summary line 'tested t of 777 rows (u cut off by the deadline), ...'; INCOMPLETE until the last piece, then COMPLETE. Row indices refer to results/2026-11-24_r60-sandbox/undecided_reps.npy"
   }
  }
 }
