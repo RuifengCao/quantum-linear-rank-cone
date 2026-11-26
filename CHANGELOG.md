@@ -1,5 +1,32 @@
 # CHANGELOG
 
+## R64 (2026-11-26) -- results of `s44-d` and `s44-e`: one more orbit realised (R30 row 150); gate G55
+- `results/2026-11-26_s44-d/` (job `s44-d`, 1.25 h on the 32-thread laptop, run on the R62 commit): the
+  fixed-structure search again with a new seed, two searches of 900 s on each of the 69 rows with a forced triple and
+  N ≤ 32 of the R60 list. It realised row 80 of the list, R30 row 150 (N = 32, so 64 qubits at λ = 2; party sizes 12,
+  12, 10, 10, 10, 10), after 171 s in the first search; `s44-a` had searched the same row in R59 (two searches of
+  900 s, another seed) and stopped at best residual 1 [empirical].
+- `results/2026-11-26_s44-e/` (0.5 h): one search of 900 s on each of the 58 rows with a forced triple and
+  N = 33–36; none realised.
+- `results/2026-11-26_r64-sandbox/` (sandbox): `realisations_1.npz` (the certificate: CSS matrix and the 64-qubit
+  graph); `undecided_reps.npy`, the R60 list without the row (776 rows); `frontier_1016.npz` (one of the 329 classes of
+  R60 is violated by the new orbit; the other 328 still cut all 776 rows, greedy cover 182; every class re-checked
+  exactly); `status.json` (counts, provenance, the summaries of both jobs, every_d, the ci3 block, the frontier) and
+  README.txt. Re-checked: the job's `--check`, s41's verify, stabcert on the stored graph, extreme ray of QLR5 with
+  tight rank 30, S6 orbit new against the 1,015 known; and with independent code (the library of the R56 review:
+  column-group ranks, cut ranks of the stored graph, subspace-state entropy 2r on all 31 sets of parties, QLR5
+  extreme, new orbit).
+- Counts: 1,915,914 excluded (unchanged), 1,016 known, 776 undecided; 375 orbits realised after submission, 114 of
+  them certified for every d and 261 open (the new row open; the s32 searches so far used the catalogue of the
+  realisation files of R49–R54 only, so the 13 rows realised in R56, R59, R60 and R64 have not been searched).
+  `ci3` goes on over the R60 list, in which row 80 is still to do; its LP has to come out feasible.
+- `selftest.py`: gate G55 (the three manifests; the realisation re-verified as in G53; s44-e found nothing; the
+  undecided list, counts and every_d; the frontier). A tamper test in the sandbox (a column of the CSS matrix copied
+  onto another, the new row claimed certified for every d, a row dropped from the undecided list) makes G55 fail each
+  time and no other gate.
+- `VERSION`: R64. README: header; §2b (`s44-d`, `s44-e`, `ci3`); §7; 72 gate lines (§2, §3, §9). `data/` and gates
+  G0–G54 are unchanged. `selftest.py`: 55 gate lines, ALL PASS; `selftest.py --full`: 72 gate lines, ALL PASS.
+
 ## R63 (2026-11-26) -- results of `ci3-8h`, `css-sweep3d`/`e` and `s32-new5a`–`d`: three more orbits certified for every d; gate G54
 - `results/2026-11-25_ci3/` (job `ci3-8h`, 7.9 h on the 32-thread laptop): the first piece of E2 at maxsize 3 without
   nesting on the 777 rows of the R60 list. 283 rows done (N = 38–64, largest first; 8,193,065 LPs, none with solver

@@ -1,0 +1,12 @@
+{
+ "job": "s44-d",
+ "mode": "full",
+ "host": "ClarkDellG16",
+ "nproc": 32,
+ "start_utc": "2026-11-26T11:16:44Z",
+ "end_utc": "2026-11-26T12:31:46Z",
+ "elapsed_s": 4501.3,
+ "exit_code": 0,
+ "cmd": "rm -f s44_d.npz s44_d.npz.json s44_d.plain.npz && python3 scripts/s44_fixed_search.py results/2026-11-24_r60-sandbox/undecided_reps.npy --budget 32:900x2 --seed 20261201 --out s44_d.npz && python3 scripts/s44_fixed_search.py --check s44_d.npz results/2026-11-24_r60-sandbox/undecided_reps.npy",
+ "checks": "the line 's44 self-test: ... True' (smoke only); NOTE lines with the rows skipped (no forced triple, or N outside this piece's bands); one 'row k: FOUND after ... verified (...)' line for each hit; the line 'lambda=2 (CSS, forced structure fixed): 69 rays tried, ...'; no WARNING lines; the --check run ends with ALL OK. Row indices refer to results/2026-11-24_r60-sandbox/undecided_reps.npy"
+}

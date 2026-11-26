@@ -1,0 +1,27 @@
+{
+ "date": "2026-11-26",
+ "tag": "r64-sandbox",
+ "files": {
+  "README.txt": {
+   "bytes": 3966,
+   "sha256": "caaf33705b29ba862b5ebee96d3a82b209db1548176d78c7e2641e75a71a3639"
+  },
+  "frontier_1016.npz": {
+   "bytes": 13989,
+   "sha256": "e005c458e7f382d973ef60ab2318a20868a421b263a54efb2bcbebeefa6c587f"
+  },
+  "realisations_1.npz": {
+   "bytes": 4368,
+   "sha256": "2d2a1182829ed2d89b2468cb9d47462f0daa73b2c382b62dc53952aa8c8026a1"
+  },
+  "status.json": {
+   "bytes": 12614,
+   "sha256": "133c7b0bf5659b9f49dafeac3e2325411ae518903ef7005566b9f0d03e2e9c5b"
+  },
+  "undecided_reps.npy": {
+   "bytes": 48240,
+   "sha256": "00d646d3f44849a78c19071db93cc4a4dfcf67aa749d75e904cc014341ecd5da"
+  }
+ },
+ "note": "sha256 of every other file of this folder"
+}

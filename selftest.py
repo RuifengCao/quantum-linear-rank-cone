@@ -1530,6 +1530,73 @@ def main():
          f'counts unchanged ({ST54["known_extreme_ray_orbits"]} known / {ST54["undecided"]} undecided) {acc54}; files match '
          f'the manifests {file54}')
 
+    # G55 (R64): laptop pieces of the afternoon of 2026-11-26, results/2026-11-26_r64-sandbox.  The jobs s44-d and s44-e
+    # (the fixed-structure search again, with new seeds, on the R60 list), results/2026-11-26_<job>: the row s44-d
+    # realised is that of the realisations file, re-checked by s41's verify (column-group ranks; cut ranks of the graph
+    # it builds), by stabcert on the stored graph (64 qubits), as an extreme ray of QLR5 with tight rank 30 in an S6
+    # orbit new against all known orbits, still undecided in R63; s44-e found nothing; undecided_reps.npy is the R60
+    # list without it; status.json: counts, and every_d with the new row open; the frontier: its rows are the undecided
+    # rows, every row cut, the greedy cover cuts every row; the manifests of the three new folders.
+    D55 = os.path.join(base44, '2026-11-26_r64-sandbox')
+    ST55 = _js20.load(open(os.path.join(D55, 'status.json')))
+    RN55, FN55 = ST55['realisations_file'], ST55['frontier']['file']
+    file55 = True
+    J55 = {}
+    for d55, f55 in [(D55, ['README.txt', RN55, 'undecided_reps.npy', 'status.json', FN55])] + [
+            (os.path.join(base44, '2026-11-26_' + j), ['JOB_STATUS.json', j + '.log'] + [
+                j.replace('-', '_') + e for e in ('.npz', '.npz.json', '.plain.npz')])
+            for j in ('s44-d', 's44-e')]:
+        M55 = _js20.load(open(os.path.join(d55, 'manifest.json')))
+        file55 = file55 and sorted(M55['files']) == sorted(f55) and all(
+            _h33.sha256(open(os.path.join(d55, f), 'rb').read()).hexdigest() == e['sha256'] for f, e in M55['files'].items())
+        if d55 != D55:
+            J55[f55[1][:-4]] = _js20.load(open(os.path.join(d55, f55[3])))
+    R55 = np.load(os.path.join(D55, RN55), allow_pickle=False)
+    rows55 = [int(x) for x in R55['row']]
+    job55 = [str(x) for x in R55['job']]
+    i53 = np.flatnonzero(keep53)
+    gr55 = [bool(x) for x in R55['graph']]
+    Ze55 = np.load(os.path.join(base44, '2026-11-26_s44-e', 's44_e.npz'), allow_pickle=False)
+    ok55a = (len(rows55) == len(set(rows55)) > 0 and keep53[rows55].all()
+             and [int(i53[int(x)]) for x in R55['row60']] == rows55
+             and sorted(int(x) for x in R55['row60']) == sorted(J55['s44-d']['found_rows'])
+             and set(job55) == {'s44-d'} and J55['s44-d']['found'] == len(rows55)
+             and J55['s44-e']['found'] == 0 and J55['s44-e']['found_rows'] == [] and len(Ze55['index']) == 0
+             and np.array_equal(R55['rep'].astype(np.int64), U44[rows55]) and (R55['lam'] == 2).all()
+             and gr55 == [int(R55['sizes'][k].sum()) <= 64 for k in range(len(rows55))])
+    nv55 = sum(_sc.verify_realisation(U44[r], 2, R55['sizes'][k], R55['rows'][k]) for k, r in enumerate(rows55)
+               if gr55[k] and int(R55['sizes'][k].sum()) <= 64)
+    nc55 = sum(_css47.verify(U44[r], 1, [int(c) for c in R55['cols'][k][:int(R55['m'][k])]])[0] for k, r in enumerate(rows55))
+    V55 = HF44 @ U44[rows55].T
+    ne55 = sum(1 for k in range(len(rows55)) if V55[:, k].min() >= 0 and core.rank_mod_p(HF44[V55[:, k] == 0]) == 30)
+    c55, _ = core.class_reps(U44[rows55], core.perms31_s6(), offset=4096, width='u16')
+    no55 = len(set(c55)) == len(rows55) and not (
+        set(c55) & (set(c44) | set(c45) | set(c46) | set(c47) | set(c48) | set(c49) | set(c50) | set(c52) | set(c53)))
+    keep55 = keep53.copy()
+    keep55[rows55] = False
+    L55 = np.load(os.path.join(D55, 'undecided_reps.npy')).astype(np.int64)
+    EV55, EV54 = ST55['every_d'], ST54['every_d']
+    acc55 = (np.array_equal(L55, U44[keep55])
+             and ST55['known_extreme_ray_orbits'] == ST54['known_extreme_ray_orbits'] + len(rows55)
+             and ST55['realised_after_submission'] == ST54['realised_after_submission'] + len(rows55)
+             and ST55['realised_rows_r64'] == rows55 and ST55['excluded'] == ST54['excluded']
+             and ST55['undecided'] == L55.shape[0] == ST54['undecided'] - len(rows55)
+             and EV55['rows'] == EV54['rows'] and EV55['unimodular'] == EV54['unimodular']
+             and EV55['open_rows'] == sorted(EV54['open_rows'] + rows55) and EV55['open'] == len(EV55['open_rows'])
+             and EV55['unimodular'] + EV55['open'] == ST55['realised_after_submission'])
+    F55 = np.load(os.path.join(D55, FN55), allow_pickle=False)
+    fr55 = bool(np.array_equal(F55['rows'], np.flatnonzero(keep55))
+                and F55['cut'].shape == (F55['classes'].shape[0], L55.shape[0])
+                and F55['cut'].any(0).all() and F55['cut'][F55['greedy_cover']].any(0).all())
+    gate('G55 laptop pieces of 2026-11-26 (afternoon): s44-d, s44-e',
+         ok55a and nv55 == sum(gr55) and nc55 == ne55 == len(rows55) and no55 and acc55 and fr55 and file55,
+         f'{len(rows55)} realised by s44-d (R30 rows {rows55}), none by s44-e: {nc55} CSS matrices re-verified at lambda 2 '
+         f'(s41: column-group ranks, cut ranks of the graph), {nv55}/{sum(gr55)} stored graphs by stabcert, {ne55} '
+         f'extreme rays of QLR5, new S6 orbits {no55}; {ST55["known_extreme_ray_orbits"]} known / {ST55["undecided"]} '
+         f'undecided, every d {EV55["unimodular"]} certified / {EV55["open"]} open {acc55}; frontier '
+         f'{F55["classes"].shape[0]} classes, greedy cover {len(F55["greedy_cover"])} cuts every row {fr55}; files match '
+         f'the manifests {file55}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:
