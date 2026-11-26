@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## R67 (2026-11-26) -- `css-sweep5` registered (two more CSS searches on the 15 rows at residual 1)
+- `jobs.json`: `css-sweep5`, the CSS search of R52 (`scripts/s41_css_search.py`, seed 20261206, budget `30:3600x2`) on
+  the 15 rows that `css-sweep4` left at best residual 1, as rows of the R66 list (24, 44, 67, 91, 137, 155, 169, 235,
+  351, 433, 520, 543, 555, 649, 721; N = 18–30): two searches of 3,600 s each, 30 searches in one round, at most 1.0 h
+  on 32 threads. In `css-sweep4`, 2 of the 14 rows that `css-sweep3` had left at residual 1 were realised, against 1 of
+  the 122 at residual 2 or more [empirical, small sample].
+- Sandbox: the smoke passes through `scripts/run_job.py` (ALL OK); all 30 searches ran for 5 s each ('15 rays
+  tried', nothing found).
+- README: header; §2b (`css-sweep5`). `VERSION`: R67. Nothing else changed: no script, no gate, no data.
+  `selftest.py`: 56 gate lines, ALL PASS; `selftest.py --full`: 73 gate lines, ALL PASS.
+
 ## R66 (2026-11-26) -- results of `css-sweep4a` … `css-sweep4e`: three more orbits realised; `s32-new6` extended; gate G56
 - `results/2026-11-26_css-sweep4a/` … `_css-sweep4e/` (jobs `css-sweep4a`–`e`, 1.0 h each on the 32-thread laptop,
   run on the R63 commit): the CSS search (`scripts/s41_css_search.py`, budget 30:3600, seed 20261203), one search of
