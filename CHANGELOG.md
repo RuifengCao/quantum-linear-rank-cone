@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## R65 (2026-11-26) -- `s32-new6` registered (every-d search on the 12 rows realised since R56 with a stored graph)
+- `jobs.json`: `s32-new6`, the unimodular search for every local dimension (`scripts/s32_unimodular.py --search`,
+  strategy `neutral`, 3,600 s per row, one round; at most 1.0 h on 32 threads) on the 12 rows realised in R56, R59,
+  R60 and R64 that have a stored graph (R30 rows 73, 418, 518, 662, 793, 768, 979, 17, 40, 97, 161 and 150). The
+  earlier `s32` searches used the catalogue extended by the six realisation files of R49–R54 only; the job writes
+  `s32n6_append.npz` (row, rep, lam, sizes, rows) from the realisation files of R56, R59, R60 and R64, keeping the
+  rows whose certificate is a stored graph, and appends it after the six files, so the rows are catalogue rows
+  1003–1014; it resumes from the 111 certificates of `s32-new4` and ends with `--check --full`. R30 row 96 (R60; 68
+  qubits) is left out: the s32 kernel works on at most 64 vertices and starts from the stored qubit graph.
+- Sandbox: the smoke passes through `scripts/run_job.py` ('certified rows: 111 of 2', ALL OK); all 12 rows ran
+  for 20 s each (best residuals 51–142, nothing found) [empirical].
+- README: header; §2b (`s32-new6`). `VERSION`: R65. Nothing else changed: no script, no gate, no data.
+  `selftest.py`: 55 gate lines, ALL PASS; `selftest.py --full`: 72 gate lines, ALL PASS.
+
 ## R64 (2026-11-26) -- results of `s44-d` and `s44-e`: one more orbit realised (R30 row 150); gate G55
 - `results/2026-11-26_s44-d/` (job `s44-d`, 1.25 h on the 32-thread laptop, run on the R62 commit): the
   fixed-structure search again with a new seed, two searches of 900 s on each of the 69 rows with a forced triple and
