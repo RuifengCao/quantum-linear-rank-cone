@@ -1,0 +1,27 @@
+{
+ "date": "2026-11-26",
+ "tag": "r66-sandbox",
+ "files": {
+  "README.txt": {
+   "bytes": 4321,
+   "sha256": "6eb22c6044cfeab0a8d7ac84fc24508e57e1c38c45858b203dc8b157b950b222"
+  },
+  "frontier_1019.npz": {
+   "bytes": 13708,
+   "sha256": "231664dd3cd2971b793489c0886de76e632d10bedcb9ad4c70a4da17ccc67921"
+  },
+  "realisations_3.npz": {
+   "bytes": 8054,
+   "sha256": "491e4191fcbade43aa12e14577df1fae40f39c0e28a5c5458b2a7ec81fcac53e"
+  },
+  "status.json": {
+   "bytes": 16025,
+   "sha256": "40731a560ce2ac17047caa0e3cf19b4f37c526e378f8ad4e6b4201f700e66ef5"
+  },
+  "undecided_reps.npy": {
+   "bytes": 48054,
+   "sha256": "e4dd930743b4f466ab5abe0021629c879a48f702860f866cdea3e0f10a668924"
+  }
+ },
+ "note": "sha256 of every other file of this folder"
+}

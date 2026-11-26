@@ -1,0 +1,27 @@
+{
+ "date": "2026-11-26",
+ "tag": "css-sweep4d",
+ "note": "run_job css-sweep4d exit 0 on ClarkDellG16",
+ "files": {
+  "css_sweep4d.npz": {
+   "bytes": 1938,
+   "sha256": "f1c95c1470b771388e628f48c3f80c551907567995867e9e43cf5a82b9f2a132"
+  },
+  "css_sweep4d.npz.json": {
+   "bytes": 585,
+   "sha256": "aaa16e9f37410908427c16c78ad3f3cd43df8e1724eb9d2707799a2fbd893cdb"
+  },
+  "css_sweep4d.plain.npz": {
+   "bytes": 1218,
+   "sha256": "808a6c2c5e453d24264c1acd6be1b4fd2907ee024592d8d449f8d78a02cad46c"
+  },
+  "css-sweep4d.log": {
+   "bytes": 294,
+   "sha256": "1975470724027b9528dc5268301fd04122cc2da53d81d7156f8e4f2ddf5b1726"
+  },
+  "JOB_STATUS.json": {
+   "bytes": 1202,
+   "sha256": "e0f6c8388ea1f8144191a6f43aa3eaefbdf23fb207efbb264d32bd09e6b5379f"
+  }
+ }
+}

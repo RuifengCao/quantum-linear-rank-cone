@@ -1597,6 +1597,78 @@ def main():
          f'{F55["classes"].shape[0]} classes, greedy cover {len(F55["greedy_cover"])} cuts every row {fr55}; files match '
          f'the manifests {file55}')
 
+    # G56 (R66): laptop pieces of the afternoon of 2026-11-26, results/2026-11-26_r66-sandbox.  The jobs css-sweep4a ...
+    # css-sweep4e (the CSS search again, with a new seed, on the 136 rows with N <= 30 of the R60 list, split
+    # 27/27/28/27/27), results/2026-11-26_<job>: the rows 4a, 4b and 4c realised are those of the realisations file,
+    # re-checked by s41's verify (column-group ranks; cut ranks of the graph it builds), by stabcert on the stored graphs,
+    # as extreme rays of QLR5 with tight rank 30 in S6 orbits new against all known orbits, still undecided in R64; 4d and
+    # 4e found nothing; undecided_reps.npy is the R64 list without the new rows; status.json: counts, and every_d with
+    # the new rows open; the frontier: its rows are the undecided rows, every row cut, the greedy cover cuts every row;
+    # the manifests of the six new folders.
+    D56 = os.path.join(base44, '2026-11-26_r66-sandbox')
+    ST56 = _js20.load(open(os.path.join(D56, 'status.json')))
+    RN56, FN56 = ST56['realisations_file'], ST56['frontier']['file']
+    JB56 = [f'css-sweep4{x}' for x in 'abcde']
+    file56 = True
+    J56 = {}
+    for d56, f56 in [(D56, ['README.txt', RN56, 'undecided_reps.npy', 'status.json', FN56])] + [
+            (os.path.join(base44, '2026-11-26_' + j), ['JOB_STATUS.json', j + '.log'] + [
+                j.replace('-', '_') + e for e in ('.npz', '.npz.json', '.plain.npz')]) for j in JB56]:
+        M56 = _js20.load(open(os.path.join(d56, 'manifest.json')))
+        file56 = file56 and sorted(M56['files']) == sorted(f56) and all(
+            _h33.sha256(open(os.path.join(d56, f), 'rb').read()).hexdigest() == e['sha256'] for f, e in M56['files'].items())
+        if d56 != D56:
+            J56[f56[1][:-4]] = _js20.load(open(os.path.join(d56, f56[3])))
+    Q56 = np.load(os.path.join(D56, RN56), allow_pickle=False)
+    rows56 = [int(x) for x in Q56['row']]
+    job56 = [str(x) for x in Q56['job']]
+    gr56 = [bool(x) for x in Q56['graph']]
+    i55 = np.flatnonzero(keep55)
+    le56 = [k for k in range(len(L53)) if sum(_css47.singles(L53[k])) <= 30]
+    cut56 = [0, 27, 54, 82, 109, 136]
+    tr56 = {j: sorted(set(int(k.split(':')[0]) for k in J56[j]['best_residual']) | set(J56[j]['found_rows'])) for j in JB56}
+    emp56 = all(len(np.load(os.path.join(base44, '2026-11-26_' + j, j.replace('-', '_') + e))['index']) == 0
+                for j in JB56 if not J56[j]['found_rows'] for e in ('.npz', '.plain.npz'))
+    ok56a = (len(rows56) == len(set(rows56)) > 0 and keep55[rows56].all() and emp56
+             and [int(i53[int(x)]) for x in Q56['row60']] == rows56 and [int(i55[int(x)]) for x in Q56['row64']] == rows56
+             and all(sorted(int(x) for k, x in enumerate(Q56['row60']) if job56[k] == j) == sorted(J56[j]['found_rows'])
+                     for j in JB56) and set(job56) <= set(JB56)
+             and len(le56) == 136 and all(tr56[j] == le56[cut56[t]:cut56[t + 1]] for t, j in enumerate(JB56))
+             and np.array_equal(Q56['rep'].astype(np.int64), U44[rows56]) and (Q56['lam'] == 2).all()
+             and gr56 == [int(Q56['sizes'][k].sum()) <= 64 for k in range(len(rows56))])
+    nv56 = sum(_sc.verify_realisation(U44[r], 2, Q56['sizes'][k], Q56['rows'][k]) for k, r in enumerate(rows56) if gr56[k])
+    nc56 = sum(_css47.verify(U44[r], 1, [int(c) for c in Q56['cols'][k][:int(Q56['m'][k])]])[0] for k, r in enumerate(rows56))
+    V56 = HF44 @ U44[rows56].T
+    ne56 = sum(1 for k in range(len(rows56)) if V56[:, k].min() >= 0 and core.rank_mod_p(HF44[V56[:, k] == 0]) == 30)
+    c56, _ = core.class_reps(U44[rows56], core.perms31_s6(), offset=4096, width='u16')
+    no56 = len(set(c56)) == len(rows56) and not (
+        set(c56) & (set(c44) | set(c45) | set(c46) | set(c47) | set(c48) | set(c49) | set(c50) | set(c52) | set(c53)
+                    | set(c55)))
+    keep56 = keep55.copy()
+    keep56[rows56] = False
+    L56 = np.load(os.path.join(D56, 'undecided_reps.npy')).astype(np.int64)
+    EV56 = ST56['every_d']
+    acc56 = (np.array_equal(L56, U44[keep56])
+             and ST56['known_extreme_ray_orbits'] == ST55['known_extreme_ray_orbits'] + len(rows56)
+             and ST56['realised_after_submission'] == ST55['realised_after_submission'] + len(rows56)
+             and ST56['realised_rows_r66'] == rows56 and ST56['excluded'] == ST55['excluded']
+             and ST56['undecided'] == L56.shape[0] == ST55['undecided'] - len(rows56)
+             and EV56['rows'] == EV55['rows'] and EV56['unimodular'] == EV55['unimodular']
+             and EV56['open_rows'] == sorted(EV55['open_rows'] + rows56) and EV56['open'] == len(EV56['open_rows'])
+             and EV56['unimodular'] + EV56['open'] == ST56['realised_after_submission'])
+    F56 = np.load(os.path.join(D56, FN56), allow_pickle=False)
+    fr56 = bool(np.array_equal(F56['rows'], np.flatnonzero(keep56))
+                and F56['cut'].shape == (F56['classes'].shape[0], L56.shape[0])
+                and F56['cut'].any(0).all() and F56['cut'][F56['greedy_cover']].any(0).all())
+    gate('G56 laptop pieces of 2026-11-26 (afternoon): css-sweep4a-e',
+         ok56a and nv56 == sum(gr56) and nc56 == ne56 == len(rows56) and no56 and acc56 and fr56 and file56,
+         f'{len(rows56)} realised by css-sweep4a-c (R30 rows {rows56}), none by 4d and 4e, the pieces cover the 136 rows '
+         f'with N <= 30: {nc56} CSS matrices re-verified at lambda 2 (s41: column-group ranks, cut ranks of the graph), '
+         f'{nv56}/{sum(gr56)} stored graphs by stabcert, {ne56} extreme rays of QLR5, new S6 orbits {no56}; '
+         f'{ST56["known_extreme_ray_orbits"]} known / {ST56["undecided"]} undecided, every d {EV56["unimodular"]} '
+         f'certified / {EV56["open"]} open {acc56}; frontier {F56["classes"].shape[0]} classes, greedy cover '
+         f'{len(F56["greedy_cover"])} cuts every row {fr56}; files match the manifests {file56}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:

@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## R66 (2026-11-26) -- results of `css-sweep4a` … `css-sweep4e`: three more orbits realised; `s32-new6` extended; gate G56
+- `results/2026-11-26_css-sweep4a/` … `_css-sweep4e/` (jobs `css-sweep4a`–`e`, 1.0 h each on the 32-thread laptop,
+  run on the R63 commit): the CSS search (`scripts/s41_css_search.py`, budget 30:3600, seed 20261203), one search of
+  3,600 s on each of the 136 rows with N ≤ 30 of the R60 list, split 27/27/28/27/27. `4a` realised R30 row 54 (row 25
+  of the R60 list) after 889 s, `4b` R30 row 539 (row 334) after 1,052 s, `4c` R30 row 644 (row 397) after 3,352 s; all
+  three have N = 28, so 56 qubits at λ = 2. `4d` and `4e` realised none. Two of the three had ended `css-sweep3` (another
+  seed, the same time) at best residual 1 and one at 3; of the 133 rows not realised, 42 ended lower than in
+  `css-sweep3`, 64 equal and 27 higher, and 15 at residual 1 [empirical].
+- `results/2026-11-26_r66-sandbox/` (sandbox): `realisations_3.npz` (CSS matrices and the 56-qubit graphs);
+  `undecided_reps.npy`, the R64 list without the three rows (773 rows); `frontier_1019.npz` (15 of the 328 classes of
+  R64 are violated by the new orbits; the other 313 leave 10 rows uncut, which got 9 new classes, so 322 classes cut
+  all 773 rows, greedy cover 184; every class re-checked exactly; the LP of each uncut row was solved over all inner
+  rays at once, because the cutting-plane loop was still running after 15 min on R30 row 1071); `status.json` (counts,
+  provenance, the summary of `css-sweep4`, every_d, the ci3 block, the frontier) and README.txt. Re-checked: the jobs'
+  `--check`, s41's verify, stabcert on the stored graphs, extreme rays of QLR5 with tight rank 30, S6 orbits new
+  against the 1,016 known; and with independent code (the library of the R56 review: column-group ranks, cut ranks of
+  the stored graphs, subspace-state entropy 2r on all 31 sets of parties, QLR5 extreme, new orbits).
+- Counts: 1,915,914 excluded (unchanged), 1,019 known, 773 undecided; 378 orbits realised after submission, 114 of
+  them certified for every d and 264 open. `ci3` goes on over the R60 list, in which rows 25, 334 and 397 are still to
+  do; their LPs have to come out feasible.
+- `jobs.json`: `s32-new6` (registered in R65, not run yet) now also takes the three rows realised here: 15 rows,
+  catalogue rows 1003–1017, still one round of 3,600 s on 32 threads. Its smoke passes through `scripts/run_job.py` in
+  the sandbox ('s32n6_append.npz: 15 rows', 'certified rows: 111 of 2', ALL OK).
+- `selftest.py`: gate G56 (the six manifests; the realisations re-verified as in G55; the pieces cover the 136 rows;
+  4d and 4e found nothing; the undecided list, counts and every_d; the frontier). A tamper test in the sandbox (a
+  column of a CSS matrix copied onto another, a new row claimed certified for every d, a row dropped from the
+  undecided list) makes G56 fail each time and no other gate.
+- `VERSION`: R66. README: header; §2b (`css-sweep4`, `ci3`, `s32-new6`); §7; 73 gate lines (§2, §3, §9). `data/` and
+  gates G0–G55 are unchanged. `selftest.py`: 56 gate lines, ALL PASS; `selftest.py --full`: 73 gate lines, ALL PASS.
+
 ## R65 (2026-11-26) -- `s32-new6` registered (every-d search on the 12 rows realised since R56 with a stored graph)
 - `jobs.json`: `s32-new6`, the unimodular search for every local dimension (`scripts/s32_unimodular.py --search`,
   strategy `neutral`, 3,600 s per row, one round; at most 1.0 h on 32 threads) on the 12 rows realised in R56, R59,
