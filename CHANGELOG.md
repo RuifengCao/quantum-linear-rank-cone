@@ -1,5 +1,29 @@
 # CHANGELOG
 
+## R63 (2026-11-26) -- results of `ci3-8h`, `css-sweep3d`/`e` and `s32-new5a`–`d`: three more orbits certified for every d; gate G54
+- `results/2026-11-25_ci3/` (job `ci3-8h`, 7.9 h on the 32-thread laptop): the first piece of E2 at maxsize 3 without
+  nesting on the 777 rows of the R60 list. 283 rows done (N = 38–64, largest first; 8,193,065 LPs, none with solver
+  trouble), every one feasible, so no candidate exclusion yet; 494 rows (N = 16–38) left for the next pieces, which
+  continue `ci3.json` on the laptop. Per LP 1.23 times the time of maxsize 2 on the same rows (sandbox estimate 1.18);
+  about 13 h left [empirical].
+- `results/2026-11-26_css-sweep3d/`, `css-sweep3e/` (1.0 h each): the last 46 of the 142 rows with N ≤ 30 of the R57
+  list, one search of 3,600 s each; none realised (against `css-sweep2`: best residual lower on 11, the same on 24,
+  higher on 11). Piece `d` held R30 row 979, realised in R59. With `css-sweep3a`–`c`: 142 rows, 4 realised.
+- `results/2026-11-26_s32-new5a/` … `s32-new5d/` (1.0 h each): the unimodular search for every local dimension on
+  the 251 rows of `s32-new5`; new certificates for R30 rows 588 (`a`), 313 and 361 (`b`), none in `c` and `d`. Each
+  file holds the 111 of `s32-new4` plus its own. 114 of the 374 orbits realised after submission are now certified
+  for every d, 260 open. The three new certificates were also checked with independent code (Smith invariants in
+  {0, 1} and rank κ·r(X) of all 31 cut blocks, sympy over ZZ).
+- `results/2026-11-26_r63-sandbox/` (sandbox): `status.json` (counts unchanged; every_d; the ci3 progress; the
+  css-sweep3d/e summary) and README.txt. The undecided list and the frontier of R60 stand.
+- `selftest.py`: gate G54 (the eight manifests; ci3 row by row against s42's enumeration; css-sweep3d/e found
+  nothing; the four certificate files exact and their union equal to status.json, open rows included; counts). A
+  tamper test in the sandbox (one row of ci3.json one LP short, one open row claimed certified, one row dropped from
+  css-sweep3e's summary) makes G54 fail each time and no other gate.
+- `VERSION`: R63. README: header; §2b (`ci3`, `css-sweep3d`/`e`, `s32-new5a`–`d`); 71 gate lines (§2, §3, §9).
+  `data/` and gates G0–G53 are unchanged. `selftest.py`: 54 gate lines, ALL PASS; `selftest.py --full`: 71 gate
+  lines, ALL PASS.
+
 ## R62 (2026-11-25) -- seven short daytime jobs registered (`s44-d`, `s44-e`, `css-sweep4a` … `css-sweep4e`)
 - `jobs.json`: `s44-d` and `s44-e`, the fixed-structure search (`scripts/s44_fixed_search.py`) again with new seeds on
   the 180 rows of the R60 list with a forced triple: two searches of 900 s on each of the 69 rows with N ≤ 32 (138

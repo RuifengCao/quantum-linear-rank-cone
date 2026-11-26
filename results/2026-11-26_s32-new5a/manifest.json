@@ -1,0 +1,23 @@
+{
+ "date": "2026-11-26",
+ "tag": "s32-new5a",
+ "note": "run_job s32-new5a exit 0 on ClarkDellG16",
+ "files": {
+  "s32n5a_unimodular.npz": {
+   "bytes": 26091,
+   "sha256": "d675be2f86c27d9905b77b7014e00ab12d04355d262d8f3aa35a244ef956b674"
+  },
+  "s32n5a_raw.txt": {
+   "bytes": 4587,
+   "sha256": "07d583c47c72f83e658323630840905cf4d42b613974bae3e672123cd7d60cb6"
+  },
+  "s32-new5a.log": {
+   "bytes": 261,
+   "sha256": "d4b7f9799c7a87272c7b38a5d20e34a36ddc531bfaef620b542ffcd6e0447723"
+  },
+  "JOB_STATUS.json": {
+   "bytes": 1708,
+   "sha256": "5a697ebdbe77bd40231d4b07dde43dc8f0e229901d6e9bc65a6be6e1eae7bc48"
+  }
+ }
+}

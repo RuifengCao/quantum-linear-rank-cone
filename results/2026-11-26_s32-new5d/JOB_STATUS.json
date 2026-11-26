@@ -1,0 +1,12 @@
+{
+ "job": "s32-new5d",
+ "mode": "full",
+ "host": "ClarkDellG16",
+ "nproc": 32,
+ "start_utc": "2026-11-26T09:56:37Z",
+ "end_utc": "2026-11-26T10:56:42Z",
+ "elapsed_s": 3604.9,
+ "exit_code": 0,
+ "cmd": "rm -f s32n5d_unimodular.npz s32n5d_raw.txt && cp results/2026-11-23_s32-new4/s32n4_unimodular.npz s32n5d_unimodular.npz && python3 scripts/s32_unimodular.py --search --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz,results/2026-11-18_r51-sandbox/realisations_73.npz,results/2026-11-19_r52-sandbox/realisations_5.npz,results/2026-11-20_r53-sandbox/realisations_9.npz,results/2026-11-23_r54-sandbox/realisations_8.npz --rows $(python3 -c \"import numpy as np; c = set(np.load('results/2026-11-23_s32-new4/s32n4_unimodular.npz')['row'].tolist()); r = [x for x in range(641, 1003) if x not in c]; print(','.join(map(str, r[192:251])))\") --strategies neutral --seconds 1800 --seed 20261130 --out s32n5d_unimodular.npz --resume --raw s32n5d_raw.txt && python3 scripts/s32_unimodular.py --check --full --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz,results/2026-11-18_r51-sandbox/realisations_73.npz,results/2026-11-19_r52-sandbox/realisations_5.npz,results/2026-11-20_r53-sandbox/realisations_9.npz,results/2026-11-23_r54-sandbox/realisations_8.npz --out s32n5d_unimodular.npz",
+ "checks": "the search prints 'certified rows: n of m' (m: the rows of this piece; n counts the 111 certificates of s32-new4 carried over, so n >= 111; the smoke prints 'certified rows: 111 of 2') and the final --check --full prints ALL OK; rows of the output index the catalogue extended as in s32-new5"
+}

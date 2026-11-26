@@ -1,0 +1,4 @@
+kernel: gcc -O3 -march=native -fopenmp; OpenMP threads 32
+lambda=2 (CSS, kappa=1): 32 rays tried, 0 realised and independently verified (3600s)
+certificates -> css_sweep3d.npz (graphs with at most 64 qubits), all hits -> css_sweep3d.plain.npz
+0 plain certificates, 0 graph certificates: ALL OK

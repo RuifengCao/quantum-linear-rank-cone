@@ -1,0 +1,2282 @@
+{
+ "rays": "results/2026-11-24_r60-sandbox/undecided_reps.npy",
+ "rows": 777,
+ "maxsize": 3,
+ "nested": false,
+ "ingleton": "set-valued",
+ "cutting_planes": true,
+ "note": "rows refer to the input rays file; verdicts are floating point; an infeasible row is a candidate exclusion until certified exactly",
+ "summary": {
+  "tested": 283,
+  "infeasible_rows": [],
+  "trouble_lps": 0,
+  "lps": 8193065,
+  "complete": false
+ },
+ "results": {
+  "54": {
+   "N": 52,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2133.4
+  },
+  "404": {
+   "N": 58,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2970.9
+  },
+  "407": {
+   "N": 58,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2982.8
+  },
+  "649": {
+   "N": 58,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2984.1
+  },
+  "61": {
+   "N": 50,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2991.1
+  },
+  "414": {
+   "N": 54,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3028.1
+  },
+  "412": {
+   "N": 54,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3049.6
+  },
+  "430": {
+   "N": 52,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3070.6
+  },
+  "413": {
+   "N": 54,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3096.8
+  },
+  "425": {
+   "N": 52,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3130.9
+  },
+  "647": {
+   "N": 52,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3212.1
+  },
+  "50": {
+   "N": 54,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3237.6
+  },
+  "774": {
+   "N": 52,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3267.7
+  },
+  "38": {
+   "N": 50,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3283.3
+  },
+  "227": {
+   "N": 54,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3283.9
+  },
+  "581": {
+   "N": 54,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3290.1
+  },
+  "645": {
+   "N": 52,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3294.4
+  },
+  "148": {
+   "N": 58,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3304.7
+  },
+  "264": {
+   "N": 54,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3316.2
+  },
+  "580": {
+   "N": 60,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3317.0
+  },
+  "611": {
+   "N": 52,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3333.7
+  },
+  "39": {
+   "N": 50,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3352.6
+  },
+  "538": {
+   "N": 54,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3381.9
+  },
+  "467": {
+   "N": 62,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3444.4
+  },
+  "322": {
+   "N": 52,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3472.9
+  },
+  "142": {
+   "N": 56,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3626.3
+  },
+  "754": {
+   "N": 56,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3642.8
+  },
+  "143": {
+   "N": 50,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3684.8
+  },
+  "146": {
+   "N": 52,
+   "combos": 29890,
+   "done": 29890,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3715.3
+  },
+  "669": {
+   "N": 56,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3741.8
+  },
+  "759": {
+   "N": 56,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3751.5
+  },
+  "145": {
+   "N": 64,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3976.7
+  },
+  "527": {
+   "N": 50,
+   "combos": 27028,
+   "done": 27028,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2196.1
+  },
+  "180": {
+   "N": 50,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3219.1
+  },
+  "11": {
+   "N": 46,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2246.2
+  },
+  "496": {
+   "N": 50,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3145.5
+  },
+  "498": {
+   "N": 50,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3179.7
+  },
+  "531": {
+   "N": 48,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2925.5
+  },
+  "281": {
+   "N": 48,
+   "combos": 27966,
+   "done": 27966,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3010.7
+  },
+  "309": {
+   "N": 48,
+   "combos": 27730,
+   "done": 27730,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3020.4
+  },
+  "53": {
+   "N": 46,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2723.4
+  },
+  "390": {
+   "N": 48,
+   "combos": 29890,
+   "done": 29890,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3076.3
+  },
+  "107": {
+   "N": 48,
+   "combos": 27966,
+   "done": 27966,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3167.4
+  },
+  "466": {
+   "N": 50,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3422.2
+  },
+  "79": {
+   "N": 48,
+   "combos": 29890,
+   "done": 29890,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3218.3
+  },
+  "744": {
+   "N": 50,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3363.5
+  },
+  "272": {
+   "N": 46,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2729.5
+  },
+  "471": {
+   "N": 48,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3155.1
+  },
+  "750": {
+   "N": 50,
+   "combos": 27966,
+   "done": 27966,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3459.3
+  },
+  "646": {
+   "N": 48,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3208.7
+  },
+  "469": {
+   "N": 50,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3610.3
+  },
+  "753": {
+   "N": 50,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3473.5
+  },
+  "628": {
+   "N": 48,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3285.8
+  },
+  "692": {
+   "N": 48,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3244.0
+  },
+  "112": {
+   "N": 46,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3003.6
+  },
+  "223": {
+   "N": 48,
+   "combos": 27966,
+   "done": 27966,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3417.0
+  },
+  "209": {
+   "N": 46,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3048.2
+  },
+  "294": {
+   "N": 46,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2811.0
+  },
+  "442": {
+   "N": 48,
+   "combos": 27966,
+   "done": 27966,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3492.3
+  },
+  "282": {
+   "N": 48,
+   "combos": 27966,
+   "done": 27966,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3583.1
+  },
+  "464": {
+   "N": 50,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3949.1
+  },
+  "147": {
+   "N": 46,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3427.0
+  },
+  "273": {
+   "N": 46,
+   "combos": 28203,
+   "done": 28203,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3533.8
+  },
+  "712": {
+   "N": 48,
+   "combos": 29890,
+   "done": 29890,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3844.7
+  },
+  "307": {
+   "N": 46,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2861.0
+  },
+  "295": {
+   "N": 46,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3167.1
+  },
+  "243": {
+   "N": 44,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2333.4
+  },
+  "36": {
+   "N": 44,
+   "combos": 29890,
+   "done": 29890,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2530.4
+  },
+  "472": {
+   "N": 46,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2873.9
+  },
+  "429": {
+   "N": 46,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2932.2
+  },
+  "432": {
+   "N": 44,
+   "combos": 27730,
+   "done": 27730,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2340.2
+  },
+  "745": {
+   "N": 46,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2878.2
+  },
+  "103": {
+   "N": 44,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2774.8
+  },
+  "323": {
+   "N": 46,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3678.0
+  },
+  "364": {
+   "N": 46,
+   "combos": 27495,
+   "done": 27495,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3241.7
+  },
+  "310": {
+   "N": 44,
+   "combos": 27028,
+   "done": 27028,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2774.8
+  },
+  "676": {
+   "N": 46,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3149.0
+  },
+  "648": {
+   "N": 46,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3267.7
+  },
+  "683": {
+   "N": 46,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3230.2
+  },
+  "695": {
+   "N": 46,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3217.7
+  },
+  "685": {
+   "N": 46,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3236.1
+  },
+  "705": {
+   "N": 46,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3223.4
+  },
+  "56": {
+   "N": 44,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3139.9
+  },
+  "729": {
+   "N": 46,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3266.6
+  },
+  "359": {
+   "N": 46,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3571.2
+  },
+  "312": {
+   "N": 44,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3049.4
+  },
+  "64": {
+   "N": 44,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3364.5
+  },
+  "318": {
+   "N": 44,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3239.9
+  },
+  "65": {
+   "N": 44,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3658.0
+  },
+  "374": {
+   "N": 44,
+   "combos": 29890,
+   "done": 29890,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3471.6
+  },
+  "487": {
+   "N": 44,
+   "combos": 30135,
+   "done": 30135,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3103.5
+  },
+  "232": {
+   "N": 44,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3781.3
+  },
+  "156": {
+   "N": 44,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3925.7
+  },
+  "468": {
+   "N": 44,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3517.2
+  },
+  "314": {
+   "N": 44,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 4138.3
+  },
+  "446": {
+   "N": 44,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 4035.5
+  },
+  "497": {
+   "N": 44,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3037.2
+  },
+  "771": {
+   "N": 44,
+   "combos": 27730,
+   "done": 27730,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2151.6
+  },
+  "29": {
+   "N": 42,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2209.8
+  },
+  "507": {
+   "N": 44,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2884.6
+  },
+  "570": {
+   "N": 44,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2887.6
+  },
+  "166": {
+   "N": 42,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2291.2
+  },
+  "602": {
+   "N": 44,
+   "combos": 27495,
+   "done": 27495,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2982.6
+  },
+  "170": {
+   "N": 42,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2303.5
+  },
+  "512": {
+   "N": 44,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3346.0
+  },
+  "123": {
+   "N": 42,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2705.2
+  },
+  "610": {
+   "N": 44,
+   "combos": 27495,
+   "done": 27495,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3147.9
+  },
+  "684": {
+   "N": 44,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3078.5
+  },
+  "490": {
+   "N": 44,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 4323.7
+  },
+  "732": {
+   "N": 44,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3184.2
+  },
+  "72": {
+   "N": 42,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2969.0
+  },
+  "769": {
+   "N": 44,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3154.3
+  },
+  "89": {
+   "N": 42,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3027.3
+  },
+  "13": {
+   "N": 42,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3108.0
+  },
+  "15": {
+   "N": 42,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3095.5
+  },
+  "709": {
+   "N": 44,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3341.5
+  },
+  "241": {
+   "N": 42,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2249.9
+  },
+  "204": {
+   "N": 42,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2767.1
+  },
+  "100": {
+   "N": 42,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3211.4
+  },
+  "154": {
+   "N": 42,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3258.8
+  },
+  "251": {
+   "N": 42,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2583.5
+  },
+  "213": {
+   "N": 42,
+   "combos": 29890,
+   "done": 29890,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3203.5
+  },
+  "762": {
+   "N": 44,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 4060.1
+  },
+  "236": {
+   "N": 42,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3355.3
+  },
+  "224": {
+   "N": 42,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3439.8
+  },
+  "226": {
+   "N": 42,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3502.0
+  },
+  "263": {
+   "N": 42,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3115.4
+  },
+  "257": {
+   "N": 42,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3382.6
+  },
+  "265": {
+   "N": 42,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3216.3
+  },
+  "274": {
+   "N": 42,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3024.6
+  },
+  "408": {
+   "N": 42,
+   "combos": 28203,
+   "done": 28203,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2680.2
+  },
+  "324": {
+   "N": 42,
+   "combos": 27966,
+   "done": 27966,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3055.9
+  },
+  "462": {
+   "N": 42,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2644.9
+  },
+  "325": {
+   "N": 42,
+   "combos": 27966,
+   "done": 27966,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3140.3
+  },
+  "389": {
+   "N": 42,
+   "combos": 29890,
+   "done": 29890,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2997.4
+  },
+  "366": {
+   "N": 42,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3145.4
+  },
+  "492": {
+   "N": 42,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2856.0
+  },
+  "555": {
+   "N": 42,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2760.2
+  },
+  "605": {
+   "N": 42,
+   "combos": 26796,
+   "done": 26796,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2775.7
+  },
+  "724": {
+   "N": 42,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2696.6
+  },
+  "449": {
+   "N": 42,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3235.2
+  },
+  "720": {
+   "N": 42,
+   "combos": 29890,
+   "done": 29890,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2821.4
+  },
+  "748": {
+   "N": 42,
+   "combos": 29890,
+   "done": 29890,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2732.0
+  },
+  "691": {
+   "N": 42,
+   "combos": 29890,
+   "done": 29890,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2897.2
+  },
+  "6": {
+   "N": 40,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2173.4
+  },
+  "593": {
+   "N": 42,
+   "combos": 26565,
+   "done": 26565,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3112.5
+  },
+  "606": {
+   "N": 42,
+   "combos": 27966,
+   "done": 27966,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3123.3
+  },
+  "18": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2094.4
+  },
+  "621": {
+   "N": 42,
+   "combos": 27261,
+   "done": 27261,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3215.8
+  },
+  "546": {
+   "N": 42,
+   "combos": 29890,
+   "done": 29890,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3556.3
+  },
+  "752": {
+   "N": 42,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3236.7
+  },
+  "742": {
+   "N": 42,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3380.2
+  },
+  "17": {
+   "N": 40,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2421.8
+  },
+  "766": {
+   "N": 42,
+   "combos": 29890,
+   "done": 29890,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2907.1
+  },
+  "755": {
+   "N": 42,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3429.2
+  },
+  "516": {
+   "N": 42,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3996.1
+  },
+  "770": {
+   "N": 42,
+   "combos": 29890,
+   "done": 29890,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3025.8
+  },
+  "30": {
+   "N": 40,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2208.2
+  },
+  "23": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2625.1
+  },
+  "52": {
+   "N": 40,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2354.5
+  },
+  "55": {
+   "N": 40,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2215.8
+  },
+  "26": {
+   "N": 40,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2868.5
+  },
+  "78": {
+   "N": 40,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2354.9
+  },
+  "92": {
+   "N": 40,
+   "combos": 27730,
+   "done": 27730,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2408.3
+  },
+  "73": {
+   "N": 40,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2637.6
+  },
+  "165": {
+   "N": 40,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2197.1
+  },
+  "125": {
+   "N": 40,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2471.6
+  },
+  "32": {
+   "N": 40,
+   "combos": 29890,
+   "done": 29890,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3241.4
+  },
+  "77": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2926.5
+  },
+  "216": {
+   "N": 40,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2186.6
+  },
+  "108": {
+   "N": 40,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2781.6
+  },
+  "203": {
+   "N": 40,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2504.0
+  },
+  "137": {
+   "N": 40,
+   "combos": 27028,
+   "done": 27028,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2967.0
+  },
+  "234": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2533.6
+  },
+  "127": {
+   "N": 40,
+   "combos": 27966,
+   "done": 27966,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3115.9
+  },
+  "132": {
+   "N": 40,
+   "combos": 27966,
+   "done": 27966,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3142.9
+  },
+  "198": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2882.5
+  },
+  "250": {
+   "N": 40,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2712.0
+  },
+  "141": {
+   "N": 40,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3146.3
+  },
+  "197": {
+   "N": 40,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3175.3
+  },
+  "278": {
+   "N": 40,
+   "combos": 27261,
+   "done": 27261,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2691.2
+  },
+  "276": {
+   "N": 40,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2794.4
+  },
+  "176": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3438.8
+  },
+  "255": {
+   "N": 40,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2988.3
+  },
+  "254": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3167.8
+  },
+  "303": {
+   "N": 40,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2839.3
+  },
+  "298": {
+   "N": 40,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2976.9
+  },
+  "292": {
+   "N": 40,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3106.1
+  },
+  "285": {
+   "N": 40,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3331.9
+  },
+  "304": {
+   "N": 40,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3109.3
+  },
+  "300": {
+   "N": 40,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3259.9
+  },
+  "342": {
+   "N": 40,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2459.9
+  },
+  "339": {
+   "N": 40,
+   "combos": 28203,
+   "done": 28203,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2873.9
+  },
+  "341": {
+   "N": 40,
+   "combos": 28203,
+   "done": 28203,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2845.2
+  },
+  "317": {
+   "N": 40,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3057.0
+  },
+  "344": {
+   "N": 40,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2741.5
+  },
+  "349": {
+   "N": 40,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2787.4
+  },
+  "356": {
+   "N": 40,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2614.9
+  },
+  "403": {
+   "N": 40,
+   "combos": 27495,
+   "done": 27495,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2667.6
+  },
+  "394": {
+   "N": 40,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2914.9
+  },
+  "355": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3198.7
+  },
+  "388": {
+   "N": 40,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3006.5
+  },
+  "458": {
+   "N": 40,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2604.9
+  },
+  "440": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2917.9
+  },
+  "502": {
+   "N": 40,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2559.7
+  },
+  "424": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3224.9
+  },
+  "460": {
+   "N": 40,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2804.7
+  },
+  "441": {
+   "N": 40,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3049.7
+  },
+  "447": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3049.6
+  },
+  "476": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2994.3
+  },
+  "520": {
+   "N": 40,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2700.0
+  },
+  "522": {
+   "N": 40,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2714.4
+  },
+  "508": {
+   "N": 40,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2845.1
+  },
+  "491": {
+   "N": 40,
+   "combos": 27966,
+   "done": 27966,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3119.3
+  },
+  "503": {
+   "N": 40,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3018.7
+  },
+  "535": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2784.8
+  },
+  "540": {
+   "N": 40,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2810.3
+  },
+  "537": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3113.8
+  },
+  "545": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3141.3
+  },
+  "560": {
+   "N": 40,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2901.1
+  },
+  "548": {
+   "N": 40,
+   "combos": 29890,
+   "done": 29890,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3177.5
+  },
+  "550": {
+   "N": 40,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3145.4
+  },
+  "561": {
+   "N": 40,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3236.3
+  },
+  "562": {
+   "N": 40,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3170.4
+  },
+  "591": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2840.6
+  },
+  "564": {
+   "N": 40,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3149.6
+  },
+  "563": {
+   "N": 40,
+   "combos": 28203,
+   "done": 28203,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3302.8
+  },
+  "565": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3192.1
+  },
+  "596": {
+   "N": 40,
+   "combos": 27495,
+   "done": 27495,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3124.6
+  },
+  "599": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3189.8
+  },
+  "601": {
+   "N": 40,
+   "combos": 27730,
+   "done": 27730,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3249.2
+  },
+  "615": {
+   "N": 40,
+   "combos": 27495,
+   "done": 27495,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3055.4
+  },
+  "737": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2479.6
+  },
+  "690": {
+   "N": 40,
+   "combos": 29890,
+   "done": 29890,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3023.1
+  },
+  "624": {
+   "N": 40,
+   "combos": 27261,
+   "done": 27261,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3186.2
+  },
+  "0": {
+   "N": 38,
+   "combos": 27261,
+   "done": 27261,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2226.7
+  },
+  "738": {
+   "N": 40,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2595.3
+  },
+  "719": {
+   "N": 40,
+   "combos": 29890,
+   "done": 29890,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3039.4
+  },
+  "10": {
+   "N": 38,
+   "combos": 27261,
+   "done": 27261,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 1956.4
+  },
+  "717": {
+   "N": 40,
+   "combos": 28203,
+   "done": 28203,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3108.0
+  },
+  "730": {
+   "N": 40,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2962.2
+  },
+  "723": {
+   "N": 40,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3211.1
+  },
+  "2": {
+   "N": 38,
+   "combos": 27261,
+   "done": 27261,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2308.2
+  },
+  "734": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3115.7
+  },
+  "776": {
+   "N": 40,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2777.0
+  },
+  "775": {
+   "N": 40,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2828.4
+  },
+  "716": {
+   "N": 40,
+   "combos": 27966,
+   "done": 27966,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3575.9
+  },
+  "747": {
+   "N": 40,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2924.8
+  },
+  "746": {
+   "N": 40,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3003.7
+  },
+  "768": {
+   "N": 40,
+   "combos": 29890,
+   "done": 29890,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3628.7
+  },
+  "117": {
+   "N": 38,
+   "combos": 27495,
+   "done": 27495,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2121.7
+  },
+  "12": {
+   "N": 38,
+   "combos": 28203,
+   "done": 28203,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2925.7
+  },
+  "31": {
+   "N": 38,
+   "combos": 29646,
+   "done": 29646,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2959.2
+  },
+  "14": {
+   "N": 38,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3133.1
+  },
+  "48": {
+   "N": 38,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3004.2
+  },
+  "91": {
+   "N": 38,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2683.4
+  },
+  "88": {
+   "N": 38,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3014.8
+  },
+  "114": {
+   "N": 38,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2831.8
+  },
+  "71": {
+   "N": 38,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3156.4
+  },
+  "133": {
+   "N": 38,
+   "combos": 28203,
+   "done": 28203,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2762.1
+  },
+  "98": {
+   "N": 38,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3119.2
+  },
+  "159": {
+   "N": 38,
+   "combos": 27730,
+   "done": 27730,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2415.9
+  },
+  "189": {
+   "N": 38,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2543.5
+  },
+  "140": {
+   "N": 38,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3198.9
+  },
+  "164": {
+   "N": 38,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2976.9
+  },
+  "186": {
+   "N": 38,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2787.2
+  },
+  "247": {
+   "N": 38,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2641.8
+  },
+  "178": {
+   "N": 38,
+   "combos": 28203,
+   "done": 28203,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2903.5
+  },
+  "244": {
+   "N": 38,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2842.0
+  },
+  "261": {
+   "N": 38,
+   "combos": 27966,
+   "done": 27966,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2535.7
+  },
+  "229": {
+   "N": 38,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2913.7
+  },
+  "267": {
+   "N": 38,
+   "combos": 29161,
+   "done": 29161,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2592.7
+  },
+  "249": {
+   "N": 38,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2793.5
+  },
+  "218": {
+   "N": 38,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3070.1
+  },
+  "144": {
+   "N": 38,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3468.5
+  },
+  "151": {
+   "N": 38,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3656.1
+  },
+  "256": {
+   "N": 38,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3163.4
+  },
+  "288": {
+   "N": 38,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3136.2
+  },
+  "296": {
+   "N": 38,
+   "combos": 28441,
+   "done": 28441,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3073.8
+  },
+  "252": {
+   "N": 38,
+   "combos": 29403,
+   "done": 29403,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3302.6
+  },
+  "289": {
+   "N": 38,
+   "combos": 28680,
+   "done": 28680,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 3182.3
+  },
+  "297": {
+   "N": 38,
+   "combos": 28203,
+   "done": 28203,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2809.1
+  },
+  "331": {
+   "N": 38,
+   "combos": 28920,
+   "done": 28920,
+   "infeasible": null,
+   "trouble": 0,
+   "seconds": 2744.9
+  }
+ }
+}

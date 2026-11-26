@@ -1,0 +1,15 @@
+{
+ "date": "2026-11-26",
+ "tag": "r63-sandbox",
+ "files": {
+  "README.txt": {
+   "bytes": 3443,
+   "sha256": "fd868e94793ac861f614c5b59b59d4b6a7c07cc2f27ac97b72e3caf9a23c7807"
+  },
+  "status.json": {
+   "bytes": 7301,
+   "sha256": "7b0d52d3794faf38582c306b71439208858c0c0d524c0be04cffb076a3a27964"
+  }
+ },
+ "note": "sandbox build (build_r63.py; not in the repository)"
+}

@@ -1,0 +1,23 @@
+{
+ "date": "2026-11-26",
+ "tag": "s32-new5c",
+ "note": "run_job s32-new5c exit 0 on ClarkDellG16",
+ "files": {
+  "s32n5c_unimodular.npz": {
+   "bytes": 25892,
+   "sha256": "34bc868df037641dba3032da273d9e127a6b069be697b791bbed02f2fd116cdb"
+  },
+  "s32n5c_raw.txt": {
+   "bytes": 3301,
+   "sha256": "8ae3ca6a4a575ad0e2da12ae3d3c57932c0de9e0113369ed26ec14e300a22caf"
+  },
+  "s32-new5c.log": {
+   "bytes": 261,
+   "sha256": "f521146793cdef72a8dc1d85c572269a7aaf6f64fe0496d8a07b34357d6988fa"
+  },
+  "JOB_STATUS.json": {
+   "bytes": 1711,
+   "sha256": "67c1d9cae33a20b9610fdfd1e8c0907cba63f72672845a32f2d9dc3101bd704f"
+  }
+ }
+}

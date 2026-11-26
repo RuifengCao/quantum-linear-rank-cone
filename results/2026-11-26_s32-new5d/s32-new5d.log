@@ -1,0 +1,5 @@
+  neutral seed 20261130: 59 jobs, 0 reported, 3600 s
+  after neutral: 111 rows certified
+certified rows: 111 of 59
+{"stored": 111, "distinct_rows": 111, "rep_ok": true, "ok": 111, "kappa": {"1": 109, "2": 2}, "zd_checked": 0, "zd_ok": 0, "seconds": 1.4}
+ALL OK

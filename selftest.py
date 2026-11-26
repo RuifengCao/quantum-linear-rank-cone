@@ -1462,6 +1462,74 @@ def main():
          f'undecided {acc53}; frontier {F53["classes"].shape[0]} classes, greedy cover {len(F53["greedy_cover"])} cuts '
          f'every row {fr53}; files match the manifests {file53}')
 
+    # G54 (R63): laptop jobs of 2026-11-25/26, results/2026-11-26_r63-sandbox.  (a) ci3-8h (results/2026-11-25_ci3), the
+    # first piece of E2 at maxsize 3 on the R60 list: every row of ci3.json feasible, done = combos = s42's own count at
+    # maxsize 3 without nesting, no solver trouble, the summary equal to the rows, status.json's ci3 block.  (b)
+    # css-sweep3d and css-sweep3e: nothing found, 32 and 14 rows tried.  (c) s32-new5a ... s32-new5d: each certificate
+    # file exact (s32_unimodular check on the catalogue extended by the six realisation files of R49-R54) and holding
+    # those of s32-new4; their union, as R30 rows, is status.json's every_d rows, and the open rows are those of R60
+    # without them.  (d) Counts unchanged from R60.  (e) The manifests of the eight folders.
+    D54 = os.path.join(base44, '2026-11-26_r63-sandbox')
+    ST54 = _js20.load(open(os.path.join(D54, 'status.json')))
+    file54 = True
+    for d54, f54 in [(D54, ['README.txt', 'status.json']),
+                     (os.path.join(base44, '2026-11-25_ci3'), ['JOB_STATUS.json', 'ci3-8h.log', 'ci3.json'])] + [
+            (os.path.join(base44, '2026-11-26_css-sweep3' + x), ['JOB_STATUS.json', f'css-sweep3{x}.log', f'css_sweep3{x}.npz',
+                                                                f'css_sweep3{x}.npz.json', f'css_sweep3{x}.plain.npz'])
+            for x in 'de'] + [
+            (os.path.join(base44, '2026-11-26_s32-new5' + x), ['JOB_STATUS.json', f's32-new5{x}.log', f's32n5{x}_raw.txt',
+                                                              f's32n5{x}_unimodular.npz'])
+            for x in 'abcd']:
+        M54 = _js20.load(open(os.path.join(d54, 'manifest.json')))
+        file54 = file54 and sorted(M54['files']) == sorted(f54) and all(
+            _h33.sha256(open(os.path.join(d54, f), 'rb').read()).hexdigest() == e['sha256'] for f, e in M54['files'].items())
+    import s42_ci2_ingleton as _ci54
+    L54n = 'results/2026-11-24_r60-sandbox/undecided_reps.npy'
+    J54 = _js20.load(open(os.path.join(base44, '2026-11-25_ci3', 'ci3.json')))
+    R54c = J54['results']
+    ok54a = ((J54['rays'], J54['rows'], J54['maxsize'], J54['nested']) == (L54n, 777, 3, False)
+             and all(e['infeasible'] is None and e['trouble'] == 0
+                     and e['done'] == e['combos'] == len(_ci54.combos(_ci22.h_norm(L53[int(k)]), 3, False))
+                     for k, e in R54c.items())
+             and J54['summary']['tested'] == len(R54c) == ST54['ci3']['rows_done'] == 777 - ST54['ci3']['rows_left']
+             and J54['summary']['infeasible_rows'] == [] and J54['summary']['trouble_lps'] == 0
+             and J54['summary']['lps'] == sum(e['done'] for e in R54c.values()) == ST54['ci3']['pieces'][0]['lps'])
+    ok54b = True
+    for x54, n54 in (('d', 32), ('e', 14)):
+        Jx54 = _js20.load(open(os.path.join(base44, '2026-11-26_css-sweep3' + x54, f'css_sweep3{x54}.npz.json')))
+        Zx54 = np.load(os.path.join(base44, '2026-11-26_css-sweep3' + x54, f'css_sweep3{x54}.npz'), allow_pickle=False)
+        ok54b = ok54b and Jx54['found'] == 0 and len(Zx54['index']) == 0 and len(Jx54['best_residual']) == n54
+    _s36.APPEND = [os.path.join(D44, 'realisations_141.npz'), os.path.join(D45, 'realisations_126.npz'),
+                   os.path.join(D46, 'realisations_73.npz'), os.path.join(D47, 'realisations_5.npz'),
+                   os.path.join(D48, 'realisations_9.npz'), os.path.join(D49, 'realisations_8.npz')]
+    u54, ok54c = set(), True
+    try:
+        for x54 in 'abcd':
+            P54 = os.path.join(base44, '2026-11-26_s32-new5' + x54, f's32n5{x54}_unimodular.npz')
+            S54 = _s36.check(P54, full=False, log=lambda *_x: None)
+            r54 = set(int(k) for k in np.load(P54, allow_pickle=False)['row'])
+            ok54c = (ok54c and S54['ok'] == S54['stored'] == S54['distinct_rows'] == len(r54) and S54['rep_ok']
+                     and set(int(k) for k in EV49['row']) <= r54 and all(641 <= k < 1003 for k in r54))
+            u54 |= r54
+    finally:
+        _s36.APPEND = None
+    cat54 = cat49 + rows49
+    rows54e = sorted(cat54[k - 641] for k in u54)
+    ST53e = ST53['every_d']
+    open54 = sorted(set(ST53e['open_rows']) - set(rows54e))
+    ok54c = (ok54c and rows54e == ST54['every_d']['rows'] and ST54['every_d']['unimodular'] == len(u54)
+             and open54 == ST54['every_d']['open_rows'] and ST54['every_d']['open'] == len(open54)
+             and len(u54) + len(open54) == ST54['realised_after_submission'])
+    acc54 = all(ST54[k] == ST53[k] for k in ('excluded', 'known_extreme_ray_orbits', 'realised_after_submission',
+                                             'undecided'))
+    gate('G54 laptop jobs of 2026-11-25/26: ci3-8h, css-sweep3d-e, s32-new5a-d',
+         ok54a and ok54b and ok54c and acc54 and file54,
+         f'ci3 first piece: {len(R54c)} of 777 rows feasible, done = combos = s42 count at maxsize 3, '
+         f'{J54["summary"]["lps"]} LPs, no trouble {ok54a}; css-sweep3d/e nothing found {ok54b}; every d: '
+         f'{len(u54)} certificates exact over the four s32-new5 files (s32-new4 included), {len(open54)} open {ok54c}; '
+         f'counts unchanged ({ST54["known_extreme_ray_orbits"]} known / {ST54["undecided"]} undecided) {acc54}; files match '
+         f'the manifests {file54}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:
