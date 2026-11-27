@@ -1,0 +1,15 @@
+{
+ "date": "2026-11-27",
+ "tag": "r68-sandbox",
+ "files": {
+  "README.txt": {
+   "bytes": 1996,
+   "sha256": "0724f28e35626641916864a1cbfcb88967279dfddae2738ef284ea75fc01cc45"
+  },
+  "status.json": {
+   "bytes": 6271,
+   "sha256": "58d33763be61367ee2a2697953f63b0484c6797c6b657427c69de853ab4ac896"
+  }
+ },
+ "note": "sha256 of every other file of this folder"
+}

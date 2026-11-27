@@ -1669,6 +1669,53 @@ def main():
          f'certified / {EV56["open"]} open {acc56}; frontier {F56["classes"].shape[0]} classes, greedy cover '
          f'{len(F56["greedy_cover"])} cuts every row {fr56}; files match the manifests {file56}')
 
+    # G57 (R68): the second piece of E2 at maxsize 3 (job ci3-8h, results/2026-11-27_ci3) on the R60 list,
+    # results/2026-11-27_r68-sandbox: the rows of the first piece carried over unchanged; every row of ci3.json feasible,
+    # done = combos = s42's own count at maxsize 3 without nesting, no solver trouble, the summary equal to the rows;
+    # status.json's ci3 block (both pieces, rows and LPs left); the rows of the R60 list realised in R64 and R66 that the
+    # run reached are feasible, the others still to do; counts, every_d, frontier and undecided list those of R66; the
+    # manifests of the two new folders.
+    D57 = os.path.join(base44, '2026-11-27_r68-sandbox')
+    ST57 = _js20.load(open(os.path.join(D57, 'status.json')))
+    file57 = True
+    for d57, f57 in [(D57, ['README.txt', 'status.json']),
+                     (os.path.join(base44, '2026-11-27_ci3'), ['JOB_STATUS.json', 'ci3-8h.log', 'ci3.json'])]:
+        M57 = _js20.load(open(os.path.join(d57, 'manifest.json')))
+        file57 = file57 and sorted(M57['files']) == sorted(f57) and all(
+            _h33.sha256(open(os.path.join(d57, f), 'rb').read()).hexdigest() == e['sha256'] for f, e in M57['files'].items())
+    J57 = _js20.load(open(os.path.join(base44, '2026-11-27_ci3', 'ci3.json')))
+    R57c, C57 = J57['results'], ST57['ci3']
+    left57 = [k for k in range(len(L53)) if str(k) not in R57c]
+    ok57a = ((J57['rays'], J57['rows'], J57['maxsize'], J57['nested']) == (L54n, 777, 3, False)
+             and all(k in R57c and R57c[k] == v for k, v in R54c.items())
+             and all(e['infeasible'] is None and e['trouble'] == 0
+                     and e['done'] == e['combos'] == len(_ci54.combos(_ci22.h_norm(L53[int(k)]), 3, False))
+                     for k, e in R57c.items())
+             and J57['summary']['tested'] == len(R57c) == C57['rows_done'] == 777 - C57['rows_left'] == 777 - len(left57)
+             and J57['summary']['infeasible_rows'] == [] and J57['summary']['trouble_lps'] == 0
+             and J57['summary']['lps'] == sum(e['done'] for e in R57c.values()) == C57['lps_done']
+             == sum(p['lps'] for p in C57['pieces'])
+             and C57['pieces'][0] == ST56['ci3']['pieces'][0] and C57['pieces'][1]['rows_done'] == len(R57c) - len(R54c)
+             and C57['lps_left'] == sum(len(_ci54.combos(_ci22.h_norm(L53[k]), 3, False)) for k in left57))
+    real57 = [int(x) for x in R55['row60']] + [int(x) for x in Q56['row60']]
+    ok57b = ({int(k): v['ci3'] for k, v in C57['realised_rows60'].items()}
+             == {k: 'feasible' if str(k) in R57c else 'still to do' for k in real57}
+             and all(R57c[str(k)]['infeasible'] is None for k in real57 if str(k) in R57c))
+    acc57 = (ST57['known_extreme_ray_orbits'] == ST56['known_extreme_ray_orbits'] and ST57['undecided'] == ST56['undecided']
+             and ST57['excluded'] == ST56['excluded']
+             and ST57['realised_after_submission'] == ST56['realised_after_submission']
+             and ST57['every_d'] == ST56['every_d'] and ST57['frontier'] == 'unchanged: results/2026-11-26_r66-sandbox/'
+             + ST56['frontier']['file']
+             and ST57['undecided_reps'].startswith('unchanged: results/2026-11-26_r66-sandbox/undecided_reps.npy'))
+    gate('G57 laptop job of 2026-11-26/27: ci3-8h (second piece)',
+         ok57a and ok57b and acc57 and file57,
+         f'ci3: {len(R57c)} of 777 rows feasible ({len(R57c) - len(R54c)} new in this piece, the {len(R54c)} of the first '
+         f'carried over), done = combos = s42 count at maxsize 3, no solver trouble, {C57["rows_left"]} rows and '
+         f'{C57["lps_left"]} LPs left {ok57a}; realised rows of the R60 list reached by the run feasible '
+         f'({sum(1 for k in real57 if str(k) in R57c)} of {len(real57)}) {ok57b}; counts unchanged '
+         f'({ST57["known_extreme_ray_orbits"]} known / {ST57["undecided"]} undecided) {acc57}; files match the manifests '
+         f'{file57}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:

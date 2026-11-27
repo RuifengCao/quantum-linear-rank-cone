@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## R68 (2026-11-27) -- the second piece of E2 at maxsize 3 (`ci3-8h`): 591 of 777 rows done, all feasible; gate G57
+- `results/2026-11-27_ci3/` (job `ci3-8h`, 7.9 h on the 32-thread laptop, run on the R67 commit): `ci3.json` continued
+  from the 283 rows of the first piece; 308 more rows (N = 32–38), 8,819,416 LPs, all feasible, no solver trouble. In
+  all 591 of the 777 rows of the R60 list are done (17,012,481 LPs); 186 are left (N = 16–32, 5,273,482 LPs, about 4.7 h
+  at the rate of this piece [estimate]). Row 80 of the list (R30 row 150, realised in R64) came out feasible, as a
+  realised row has to; rows 25, 334 and 397 (realised in R66) are still to do.
+- `results/2026-11-27_r68-sandbox/` (sandbox): `status.json` (the counts of R66; the ci3 block with both pieces, the rows
+  and LPs left, and the realised rows of the list) and README.txt. Nothing is realised or excluded: 1,915,914 excluded,
+  1,019 known, 773 undecided; the undecided list and frontier of R66 stand.
+- `selftest.py`: gate G57 (the manifests; every row of the first piece carried over unchanged; every row feasible with
+  done = combos = s42's own count at maxsize 3 without nesting; the summary and the ci3 block; the realised rows; counts
+  unchanged). A tamper test in the sandbox (one row's LP count lowered, a row of the first piece dropped, the rows left
+  misstated) makes G57 fail each time and no other gate.
+- `VERSION`: R68. README: header; §2b (`ci3`); 74 gate lines (§2, §3, §9). `data/` and gates G0–G56 are unchanged.
+  `selftest.py`: 57 gate lines, ALL PASS; `selftest.py --full`: 74 gate lines, ALL PASS.
+
 ## R67 (2026-11-26) -- `css-sweep5` registered (two more CSS searches on the 15 rows at residual 1)
 - `jobs.json`: `css-sweep5`, the CSS search of R52 (`scripts/s41_css_search.py`, seed 20261206, budget `30:3600x2`) on
   the 15 rows that `css-sweep4` left at best residual 1, as rows of the R66 list (24, 44, 67, 91, 137, 155, 169, 235,

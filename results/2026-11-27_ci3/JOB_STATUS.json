@@ -1,0 +1,12 @@
+{
+ "job": "ci3-8h",
+ "mode": "full",
+ "host": "ClarkDellG16",
+ "nproc": 32,
+ "start_utc": "2026-11-26T23:45:10Z",
+ "end_utc": "2026-11-27T07:39:11Z",
+ "elapsed_s": 28441.5,
+ "exit_code": 0,
+ "cmd": "python3 -c \"import json, os, sys; m = json.load(open('ci3.json')) if os.path.exists('ci3.json') else None; sys.exit(0 if m is None or (m['rays'] == 'results/2026-11-24_r60-sandbox/undecided_reps.npy' and m['maxsize'] == 3 and not m['nested']) else 'ci3.json in the repository root belongs to another run: move it away first')\" && python3 scripts/s42_ci2_ingleton.py results/2026-11-24_r60-sandbox/undecided_reps.npy --maxsize 3 --hours 7.9 --resume --out ci3.json",
+ "checks": "the line 's42 self-test: ... True' before any row; 'resume: n rows already in ci3.json' with n the rows of the earlier pieces (absent in the first piece); one line 'row k (N = n): feasible; d/c LPs, ...' per row, or 'INFEASIBLE at [[X1, Y1], [X2, Y2]]' for a candidate exclusion; the summary line 'tested t of 777 rows (u cut off by the deadline), ...'; INCOMPLETE until the last piece, then COMPLETE. Row indices refer to results/2026-11-24_r60-sandbox/undecided_reps.npy"
+}
