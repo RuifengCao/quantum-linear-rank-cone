@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## R72 (2026-11-27) -- `css-sweep7` registered (eight more CSS searches on the 4 rows still at residual 1)
+- `jobs.json`: `css-sweep7`, the CSS search of R52 (`scripts/s41_css_search.py`, seed 20261208, budget `30:3600x8`) on
+  the 4 rows that `css-sweep6` left at best residual 1, as rows of the R71 list (165, 346, 515, 538; N = 18–28): eight
+  searches of 3,600 s each, 32 searches in one round, at most 1.0 h on 32 threads. These rows have had 8 searches each
+  so far, all ending at residual 1; in the last three sweeps the rows at residual 1 were realised at 2 of 14, 2 of 15
+  and 3 of 8 [empirical, small samples].
+- Sandbox: the smoke passes through `scripts/run_job.py` (ALL OK); all 32 searches ran for 5 s each ('4 rays tried',
+  nothing found).
+- README: header; §2b (`css-sweep7`). `VERSION`: R72. Nothing else changed: no script, no gate, no data.
+  `selftest.py`: 59 gate lines, ALL PASS; `selftest.py --full`: 76 gate lines, ALL PASS.
+
 ## R71 (2026-11-27) -- results of `css-sweep6`: three more orbits realised (R30 rows 98, 172, 409); gate G59
 - `results/2026-11-27_css-sweep6/` (job `css-sweep6`, 1.0 h on the 32-thread laptop, run on the R70 commit): four
   searches of 3,600 s with seed 20261207 on each of the 8 rows that `css-sweep5` had left at best residual 1, as rows of
