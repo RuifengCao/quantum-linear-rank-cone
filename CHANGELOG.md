@@ -1,5 +1,28 @@
 # CHANGELOG
 
+## R71 (2026-11-27) -- results of `css-sweep6`: three more orbits realised (R30 rows 98, 172, 409); gate G59
+- `results/2026-11-27_css-sweep6/` (job `css-sweep6`, 1.0 h on the 32-thread laptop, run on the R70 commit): four
+  searches of 3,600 s with seed 20261207 on each of the 8 rows that `css-sweep5` had left at best residual 1, as rows of
+  the R69 list. Realised rows 44, 91 and 233 (R30 rows 98, 172 and 409; N = 28, so 56 qubits at λ = 2) after 331 s,
+  566 s and 1,270 s; of the other 5, row 24 ended at residual 2 and rows 167, 349, 518 and 541 at 1. Over the last
+  three sweeps the rows left at residual 1 were realised at a far higher rate than the others: 2 of 14, 2 of 15 and
+  3 of 8 [empirical, small samples].
+- `results/2026-11-27_r71-sandbox/` (sandbox): `realisations_3.npz`; `undecided_reps.npy`, the R69 list without the
+  three rows (768 rows); `frontier_1024.npz` (19 of the 320 classes of R69 are violated by the new orbits; the other
+  301 leave 8 rows uncut, which got 8 new classes, so 309 classes cut all 768 rows, greedy cover 181; every class
+  re-checked exactly); `status.json` and README.txt. Re-checked: the job's `--check`, s41's verify, stabcert on the
+  stored graphs, extreme rays of QLR5 with tight rank 30, S6 orbits new against the 1,021 known; and with independent
+  code (the library of the R56 review).
+- Counts: 1,915,914 excluded (unchanged), 1,024 known, 768 undecided; 383 orbits realised after submission, 114 of
+  them certified for every d and 269 open. `ci3` goes on over the R60 list, in which rows 45, 93 and 237 (the rows
+  realised here) are still to do; their LPs have to come out feasible.
+- `selftest.py`: gate G59 (the two manifests; the realisations re-verified as in G56 and the 8 rows tried; the
+  undecided list, counts, every_d and the ci3 block; the frontier). A tamper test in the sandbox (a column of a CSS
+  matrix copied onto another, a new row claimed certified for every d, a row dropped from the undecided list) makes G59
+  fail each time and no other gate.
+- `VERSION`: R71. README: header; §2b (`css-sweep6`, `ci3`); §7; 76 gate lines (§2, §3, §9). `data/` and gates G0–G58
+  are unchanged. `selftest.py`: 59 gate lines, ALL PASS; `selftest.py --full`: 76 gate lines, ALL PASS.
+
 ## R70 (2026-11-27) -- `css-sweep6` registered (four more CSS searches on the 8 rows still at residual 1)
 - `jobs.json`: `css-sweep6`, the CSS search of R52 (`scripts/s41_css_search.py`, seed 20261207, budget `30:3600x4`) on
   the 8 rows that `css-sweep5` left at best residual 1, as rows of the R69 list (24, 44, 91, 167, 233, 349, 518, 541;
