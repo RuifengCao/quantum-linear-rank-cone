@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## R70 (2026-11-27) -- `css-sweep6` registered (four more CSS searches on the 8 rows still at residual 1)
+- `jobs.json`: `css-sweep6`, the CSS search of R52 (`scripts/s41_css_search.py`, seed 20261207, budget `30:3600x4`) on
+  the 8 rows that `css-sweep5` left at best residual 1, as rows of the R69 list (24, 44, 91, 167, 233, 349, 518, 541;
+  N = 18–30): four searches of 3,600 s each, 32 searches in one round, at most 1.0 h on 32 threads. `css-sweep4` realised
+  2 of the 14 rows `css-sweep3` had left at residual 1, and `css-sweep5` 2 of the 15 `css-sweep4` had left there
+  [empirical, small samples].
+- Sandbox: the smoke passes through `scripts/run_job.py` (ALL OK); all 32 searches ran for 5 s each ('8 rays tried',
+  nothing found).
+- README: header; §2b (`css-sweep6`). `VERSION`: R70. Nothing else changed: no script, no gate, no data.
+  `selftest.py`: 58 gate lines, ALL PASS; `selftest.py --full`: 75 gate lines, ALL PASS.
+
 ## R69 (2026-11-27) -- results of `s32-new6` (none certified) and `css-sweep5` (two more orbits realised); gate G58
 - `results/2026-11-27_s32-new6/` (job `s32-new6`, 1.0 h on the 32-thread laptop, run on the R68 commit): the
   unimodular search for every local dimension (strategy `neutral`, 3,600 s per row, κ = 2 from the stored qubit graphs)

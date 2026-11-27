@@ -844,6 +844,22 @@
    ],
    "tag": "css-sweep5",
    "checks": "a 'kernel: ... OpenMP threads <all cores>' line; one 'row k: FOUND after ... verified (...)' line for each hit; the line 'lambda=2 (CSS, kappa=1): 15 rays tried, n realised and independently verified'; no WARNING lines; the --check run ends with ALL OK. Row indices refer to results/2026-11-26_r66-sandbox/undecided_reps.npy; the outputs are rewritten after every hit"
+  },
+  "css-sweep6": {
+   "tier": "X",
+   "needs": [
+    "gcc"
+   ],
+   "runtime": "at most 1.0 h on 32 threads (R70, for daytime use): the CSS search of R52 (scripts/s41_css_search.py) with a new seed, four searches of 3,600 s (budget 30:3600x4) on each of the 8 rows that css-sweep5 left at best residual 1 (rows 24, 44, 91, 167, 233, 349, 518, 541 of results/2026-11-27_r69-sandbox/undecided_reps.npy; rows 24, 44, 91, 169, 235, 351, 520, 543 of the R66 list; N = 18-30): 32 searches, one round",
+   "cmd": "rm -f css_sweep6.npz css_sweep6.npz.json css_sweep6.plain.npz && python3 scripts/s41_css_search.py results/2026-11-27_r69-sandbox/undecided_reps.npy --rows 24,44,91,167,233,349,518,541 --budget 30:3600x4 --seed 20261207 --out css_sweep6.npz && python3 scripts/s41_css_search.py --check css_sweep6.npz results/2026-11-27_r69-sandbox/undecided_reps.npy",
+   "smoke": "rm -f css_sweep6.npz css_sweep6.npz.json css_sweep6.plain.npz && python3 scripts/s41_css_search.py results/2026-11-27_r69-sandbox/undecided_reps.npy --rows 24,44 --budget 30:3 --seed 20261207 --out css_sweep6.npz && python3 scripts/s41_css_search.py --check css_sweep6.npz results/2026-11-27_r69-sandbox/undecided_reps.npy",
+   "outputs": [
+    "css_sweep6.npz",
+    "css_sweep6.npz.json",
+    "css_sweep6.plain.npz"
+   ],
+   "tag": "css-sweep6",
+   "checks": "a 'kernel: ... OpenMP threads <all cores>' line; one 'row k: FOUND after ... verified (...)' line for each hit; the line 'lambda=2 (CSS, kappa=1): 8 rays tried, n realised and independently verified'; no WARNING lines; the --check run ends with ALL OK. Row indices refer to results/2026-11-27_r69-sandbox/undecided_reps.npy; the outputs are rewritten after every hit"
   }
  }
 }
