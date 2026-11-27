@@ -1,0 +1,8 @@
+kernel: gcc -O3 -march=native -fopenmp; OpenMP threads 32
+row 155: FOUND after 512.7 s, verified (shape, column_ranks, graph_cut_ranks, stabcert); 1 found, 1 of 30 searches done (513 s)
+row 137: FOUND after 2511.2 s, verified (shape, column_ranks, graph_cut_ranks, stabcert); 2 found, 2 of 30 searches done (2511 s)
+lambda=2 (CSS, kappa=1): 15 rays tried, 2 realised and independently verified (3600s)
+certificates -> css_sweep5.npz (graphs with at most 64 qubits), all hits -> css_sweep5.plain.npz
+row 155: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True, 'stabcert': True}
+row 137: ok {'shape': True, 'column_ranks': True, 'graph_cut_ranks': True, 'stabcert': True}
+2 plain certificates, 2 graph certificates: ALL OK

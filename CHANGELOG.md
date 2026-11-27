@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## R69 (2026-11-27) -- results of `s32-new6` (none certified) and `css-sweep5` (two more orbits realised); gate G58
+- `results/2026-11-27_s32-new6/` (job `s32-new6`, 1.0 h on the 32-thread laptop, run on the R68 commit): the
+  unimodular search for every local dimension (strategy `neutral`, 3,600 s per row, κ = 2 from the stored qubit graphs)
+  on the 15 rows realised in R56, R59, R60, R64 and R66 that have a stored graph (catalogue rows 1003–1017 by
+  `s32n6_append.npz`). None certified; best residuals 38–148. The certificate file holds the 111 certificates of
+  `s32-new4`, unchanged, and is exact by `--check --full` on the extended catalogue.
+- `results/2026-11-27_css-sweep5/` (job `css-sweep5`, 1.0 h): two searches of 3,600 s with seed 20261206 on each of the
+  15 rows that `css-sweep4` had left at best residual 1, as rows of the R66 list. Realised row 155 (R30 row 282; N = 30,
+  60 qubits) after 513 s and row 137 (R30 row 258; N = 28, 56 qubits) after 2,511 s; the other 13 ended at residual 1
+  (8 rows), 2 (2) and 3 (3) [empirical].
+- `results/2026-11-27_r69-sandbox/` (sandbox): `realisations_2.npz`; `undecided_reps.npy`, the R66 list without the two
+  rows (771 rows); `frontier_1021.npz` (3 of the 322 classes of R66 are violated by the new orbits; the other 319 leave
+  R30 row 1052 uncut, which got a new class, so 320 classes cut all 771 rows, greedy cover 183; every class re-checked
+  exactly); `status.json` (counts, provenance, the summaries of both jobs, every_d, the ci3 block, the frontier) and
+  README.txt. Re-checked: the job's `--check`, s41's verify, stabcert on the stored graphs, extreme rays of QLR5 with
+  tight rank 30, S6 orbits new against the 1,019 known; and with independent code (the library of the R56 review).
+- Counts: 1,915,914 excluded (unchanged), 1,021 known, 771 undecided; 380 orbits realised after submission, 114 of
+  them certified for every d and 266 open. `ci3` goes on over the R60 list, in which rows 139 and 157 (the two rows
+  realised here) are still to do; their LPs have to come out feasible.
+- `selftest.py`: gate G58 (the three manifests; s32-new6's append file by its rule, its certificates exact and equal to
+  those of s32-new4; the realisations re-verified as in G56 and the 15 rows tried; the undecided list, counts, every_d
+  and the ci3 block; the frontier). A tamper test in the sandbox (a column of a CSS matrix copied onto another, a row of
+  the append file changed, a row dropped from the undecided list) makes G58 fail each time and no other gate.
+- `VERSION`: R69. README: header; §2b (`s32-new6`, `css-sweep5`, `ci3`); §7; 75 gate lines (§2, §3, §9). `data/` and
+  gates G0–G57 are unchanged. `selftest.py`: 58 gate lines, ALL PASS; `selftest.py --full`: 75 gate lines, ALL PASS.
+
 ## R68 (2026-11-27) -- the second piece of E2 at maxsize 3 (`ci3-8h`): 591 of 777 rows done, all feasible; gate G57
 - `results/2026-11-27_ci3/` (job `ci3-8h`, 7.9 h on the 32-thread laptop, run on the R67 commit): `ci3.json` continued
   from the 283 rows of the first piece; 308 more rows (N = 32–38), 8,819,416 LPs, all feasible, no solver trouble. In

@@ -1,0 +1,12 @@
+{
+ "job": "s32-new6",
+ "mode": "full",
+ "host": "ClarkDellG16",
+ "nproc": 32,
+ "start_utc": "2026-11-27T09:02:24Z",
+ "end_utc": "2026-11-27T10:02:29Z",
+ "elapsed_s": 3604.4,
+ "exit_code": 0,
+ "cmd": "rm -f s32n6_unimodular.npz s32n6_raw.txt s32n6_append.npz && python3 -c \"import numpy as np; F = ['results/2026-11-23_r56-sandbox/realisations_5.npz', 'results/2026-11-24_r59-sandbox/realisations_2.npz', 'results/2026-11-24_r60-sandbox/realisations_5.npz', 'results/2026-11-26_r64-sandbox/realisations_1.npz', 'results/2026-11-26_r66-sandbox/realisations_3.npz']; Z = [np.load(f) for f in F]; K = [(z, i) for z in Z for i in range(len(z['rep'])) if int(z['sizes'][i].sum()) <= 64]; np.savez('s32n6_append.npz', **{f: np.array([z[f][i] for z, i in K]) for f in ('row', 'rep', 'lam', 'sizes', 'rows')}); print('s32n6_append.npz:', len(K), 'rows, R30 rows', [int(z['row'][i]) for z, i in K], '-> catalogue rows 1003 ...', 1002 + len(K))\" && cp results/2026-11-23_s32-new4/s32n4_unimodular.npz s32n6_unimodular.npz && python3 scripts/s32_unimodular.py --search --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz,results/2026-11-18_r51-sandbox/realisations_73.npz,results/2026-11-19_r52-sandbox/realisations_5.npz,results/2026-11-20_r53-sandbox/realisations_9.npz,results/2026-11-23_r54-sandbox/realisations_8.npz,s32n6_append.npz --rows 1003,1004,1005,1006,1007,1008,1009,1010,1011,1012,1013,1014,1015,1016,1017 --strategies neutral --seconds 3600 --seed 20261205 --out s32n6_unimodular.npz --resume --raw s32n6_raw.txt && python3 scripts/s32_unimodular.py --check --full --append results/2026-11-17_r49-sandbox/realisations_141.npz,results/2026-11-18_r50-sandbox/realisations_126.npz,results/2026-11-18_r51-sandbox/realisations_73.npz,results/2026-11-19_r52-sandbox/realisations_5.npz,results/2026-11-20_r53-sandbox/realisations_9.npz,results/2026-11-23_r54-sandbox/realisations_8.npz,s32n6_append.npz --out s32n6_unimodular.npz",
+ "checks": "the line 's32n6_append.npz: 15 rows, R30 rows [...] -> catalogue rows 1003 ... 1017'; the search prints 'certified rows: n of 15' (n counts the 111 certificates of s32-new4 carried over, so n >= 111; the smoke prints 'certified rows: 111 of 2') and the final --check --full prints ALL OK; rows of the output index the catalogue extended by the six files and s32n6_append.npz"
+}

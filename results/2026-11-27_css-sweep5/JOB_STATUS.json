@@ -1,0 +1,12 @@
+{
+ "job": "css-sweep5",
+ "mode": "full",
+ "host": "ClarkDellG16",
+ "nproc": 32,
+ "start_utc": "2026-11-27T10:02:29Z",
+ "end_utc": "2026-11-27T11:02:30Z",
+ "elapsed_s": 3601.1,
+ "exit_code": 0,
+ "cmd": "rm -f css_sweep5.npz css_sweep5.npz.json css_sweep5.plain.npz && python3 scripts/s41_css_search.py results/2026-11-26_r66-sandbox/undecided_reps.npy --rows 24,44,67,91,137,155,169,235,351,433,520,543,555,649,721 --budget 30:3600x2 --seed 20261206 --out css_sweep5.npz && python3 scripts/s41_css_search.py --check css_sweep5.npz results/2026-11-26_r66-sandbox/undecided_reps.npy",
+ "checks": "a 'kernel: ... OpenMP threads <all cores>' line; one 'row k: FOUND after ... verified (...)' line for each hit; the line 'lambda=2 (CSS, kappa=1): 15 rays tried, n realised and independently verified'; no WARNING lines; the --check run ends with ALL OK. Row indices refer to results/2026-11-26_r66-sandbox/undecided_reps.npy; the outputs are rewritten after every hit"
+}

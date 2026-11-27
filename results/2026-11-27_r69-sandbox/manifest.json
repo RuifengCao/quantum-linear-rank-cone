@@ -1,0 +1,27 @@
+{
+ "date": "2026-11-27",
+ "tag": "r69-sandbox",
+ "files": {
+  "README.txt": {
+   "bytes": 4164,
+   "sha256": "560b501f52c6a4acc0ec01189afc7073556cc8077b43f48e743d2e65b9160adf"
+  },
+  "frontier_1021.npz": {
+   "bytes": 13645,
+   "sha256": "445644373dc93594c5e880664cb5a1e911a83e673c18143629d9bbd9436e714a"
+  },
+  "realisations_2.npz": {
+   "bytes": 6336,
+   "sha256": "4b2e28f1116218d27f4892a49a89d6a845161629f5c42a1db0a60e2bdc1e48da"
+  },
+  "status.json": {
+   "bytes": 14436,
+   "sha256": "7e918ccc5dc06dccdcf322ff41e121d52344830775138eba05d4affa97969426"
+  },
+  "undecided_reps.npy": {
+   "bytes": 47930,
+   "sha256": "da5db2b4b82f4c4038a99e615bcffebe86f37ec04573008ea48f3d8bae8014cd"
+  }
+ },
+ "note": "sha256 of every other file of this folder"
+}

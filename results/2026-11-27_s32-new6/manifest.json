@@ -1,0 +1,27 @@
+{
+ "date": "2026-11-27",
+ "tag": "s32-new6",
+ "note": "run_job s32-new6 exit 0 on ClarkDellG16",
+ "files": {
+  "s32n6_unimodular.npz": {
+   "bytes": 25892,
+   "sha256": "34bc868df037641dba3032da273d9e127a6b069be697b791bbed02f2fd116cdb"
+  },
+  "s32n6_raw.txt": {
+   "bytes": 827,
+   "sha256": "c8a3d3a258d62aaf5a0ebbd29968f8017f979423ba9c7832038685b9c17993ad"
+  },
+  "s32n6_append.npz": {
+   "bytes": 10143,
+   "sha256": "f9c2f1aabf75b9f30959de344dcfc0043bc2061f151e61e67567f91be90b4a4d"
+  },
+  "s32-new6.log": {
+   "bytes": 400,
+   "sha256": "003f4f3d6b93fd7c80c240539011826b3800ea48bb017a84a32c0616d9bf8cc4"
+  },
+  "JOB_STATUS.json": {
+   "bytes": 2381,
+   "sha256": "94990efefa02603ff0925f4bae5898f6a056ef7f1e40ed1a1aa84f73345e9e14"
+  }
+ }
+}

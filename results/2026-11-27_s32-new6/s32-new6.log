@@ -1,0 +1,6 @@
+s32n6_append.npz: 15 rows, R30 rows [73, 418, 518, 662, 793, 768, 979, 17, 40, 97, 161, 150, 54, 539, 644] -> catalogue rows 1003 ... 1017
+  neutral seed 20261205: 15 jobs, 0 reported, 3600 s
+  after neutral: 111 rows certified
+certified rows: 111 of 15
+{"stored": 111, "distinct_rows": 111, "rep_ok": true, "ok": 111, "kappa": {"1": 109, "2": 2}, "zd_checked": 0, "zd_ok": 0, "seconds": 1.4}
+ALL OK
