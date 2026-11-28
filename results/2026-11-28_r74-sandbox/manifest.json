@@ -1,0 +1,27 @@
+{
+ "date": "2026-11-28",
+ "tag": "r74-sandbox",
+ "files": {
+  "README.txt": {
+   "bytes": 3899,
+   "sha256": "a7a1f7752010445ef589d22a232697fbfba460fcf78a771db8d333d3830937ba"
+  },
+  "frontier_1025.npz": {
+   "bytes": 13030,
+   "sha256": "022c558b5f78e0b260df47ffe4ecd217cf0888bb91a3c008f8638b96c3ee61cf"
+  },
+  "realisations_1.npz": {
+   "bytes": 4618,
+   "sha256": "853bebee4ea518e6e2feaee7086c64eeee8e6e7473c0e6cef29b0fa301be7e83"
+  },
+  "status.json": {
+   "bytes": 15317,
+   "sha256": "c7960d23e80678ceea0b24647e01cb933e4448ce4b104f80d8b59bd7a64088f2"
+  },
+  "undecided_reps.npy": {
+   "bytes": 47682,
+   "sha256": "bc2fd44aab7d53895d4aa89216ccee11547b13740ab563d2555a65a1e250bdf2"
+  }
+ },
+ "note": "sha256 of every other file of this folder"
+}

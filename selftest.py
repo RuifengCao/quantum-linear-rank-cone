@@ -1936,6 +1936,103 @@ def main():
          f'undecided rows tested {ok60b}; counts unchanged ({ST60["known_extreme_ray_orbits"]} known / '
          f'{ST60["undecided"]} undecided) {acc60}; files match the manifests {file60}')
 
+    # G61 (R74): laptop piece of the morning of 2026-11-28, results/2026-11-28_r74-sandbox.  css-sweep7
+    # (results/2026-11-28_css-sweep7; the CSS search again, eight searches with a new seed, on the 4 rows css-sweep6 left at
+    # residual 1, as rows of the R71 list): the row it realised is that of the realisations file, re-checked as in G56;
+    # undecided_reps.npy is the R71 list without it; status.json: counts, every_d of R73 with the new row open, the ci3
+    # block of R73 with the new row of the R60 list feasible in the completed run; the frontier; the manifests of the two
+    # new folders.  css-sweep8 (registered here) runs on the rows of the new list with N <= 32 whose best residual over the
+    # lambda = 2 laptop searches css-sweep ... css-sweep6 and s44-a ... s44-e is 1, less the rows css-sweep7 searched.
+    import re as _re61
+    D61 = os.path.join(base44, '2026-11-28_r74-sandbox')
+    ST61 = _js20.load(open(os.path.join(D61, 'status.json')))
+    RN61, FN61 = ST61['realisations_file'], ST61['frontier']['file']
+    file61 = True
+    for d61, f61 in [(D61, ['README.txt', RN61, 'undecided_reps.npy', 'status.json', FN61]),
+                     (os.path.join(base44, '2026-11-28_css-sweep7'), ['JOB_STATUS.json', 'css-sweep7.log', 'css_sweep7.npz',
+                                                                      'css_sweep7.npz.json', 'css_sweep7.plain.npz'])]:
+        M61 = _js20.load(open(os.path.join(d61, 'manifest.json')))
+        file61 = file61 and sorted(M61['files']) == sorted(f61) and all(
+            _h33.sha256(open(os.path.join(d61, f), 'rb').read()).hexdigest() == e['sha256'] for f, e in M61['files'].items())
+    J61 = _js20.load(open(os.path.join(base44, '2026-11-28_css-sweep7', 'css_sweep7.npz.json')))
+    Q61 = np.load(os.path.join(D61, RN61), allow_pickle=False)
+    rows61 = [int(x) for x in Q61['row']]
+    gr61 = [bool(x) for x in Q61['graph']]
+    i59 = np.flatnonzero(keep59)
+    tr61 = sorted(set(int(k.split(':')[0]) for k in J61['best_residual']) | set(J61['found_rows']))
+    want61 = sorted(int(np.searchsorted(i59, i58[int(k)])) for k, v in ST59['css_sweep6']['best_residual'].items() if v == 1)
+    ok61b = (len(rows61) == len(set(rows61)) > 0 and keep59[rows61].all() and tr61 == want61 and len(tr61) == 4
+             and sorted(J61['found_rows']) == sorted(int(x) for x in Q61['row71'])
+             and [int(i59[int(x)]) for x in Q61['row71']] == rows61 and [int(i53[int(x)]) for x in Q61['row60']] == rows61
+             and set(str(x) for x in Q61['job']) == {'css-sweep7'}
+             and np.array_equal(Q61['rep'].astype(np.int64), U44[rows61]) and (Q61['lam'] == 2).all()
+             and gr61 == [int(Q61['sizes'][k].sum()) <= 64 for k in range(len(rows61))])
+    nv61 = sum(_sc.verify_realisation(U44[r], 2, Q61['sizes'][k], Q61['rows'][k]) for k, r in enumerate(rows61) if gr61[k])
+    nc61 = sum(_css47.verify(U44[r], 1, [int(c) for c in Q61['cols'][k][:int(Q61['m'][k])]])[0] for k, r in enumerate(rows61))
+    V61 = HF44 @ U44[rows61].T
+    ne61 = sum(1 for k in range(len(rows61)) if V61[:, k].min() >= 0 and core.rank_mod_p(HF44[V61[:, k] == 0]) == 30)
+    c61r, _ = core.class_reps(U44[rows61], core.perms31_s6(), offset=4096, width='u16')
+    no61 = len(set(c61r)) == len(rows61) and not (
+        set(c61r) & (set(c44) | set(c45) | set(c46) | set(c47) | set(c48) | set(c49) | set(c50) | set(c52) | set(c53)
+                     | set(c55) | set(c56) | set(c58) | set(c59r)))
+    keep61 = keep59.copy()
+    keep61[rows61] = False
+    L61 = np.load(os.path.join(D61, 'undecided_reps.npy')).astype(np.int64)
+    EV61 = ST61['every_d']
+    acc61 = (np.array_equal(L61, U44[keep61])
+             and ST61['known_extreme_ray_orbits'] == ST60['known_extreme_ray_orbits'] + len(rows61)
+             and ST61['realised_after_submission'] == ST60['realised_after_submission'] + len(rows61)
+             and ST61['realised_rows_r74'] == rows61 and ST61['excluded'] == ST60['excluded']
+             and ST61['undecided'] == L61.shape[0] == ST60['undecided'] - len(rows61)
+             and EV61['rows'] == EV59['rows'] and EV61['unimodular'] == EV59['unimodular']
+             and EV61['open_rows'] == sorted(EV59['open_rows'] + rows61) and EV61['open'] == len(EV61['open_rows'])
+             and EV61['unimodular'] + EV61['open'] == ST61['realised_after_submission'])
+    C61 = ST61['ci3']
+    new61 = [int(x) for x in Q61['row60']]
+    ok61c = ({k: v for k, v in C61.items() if k != 'realised_rows60'}
+             == {k: v for k, v in C60.items() if k != 'realised_rows60'}
+             and {k: v for k, v in C61['realised_rows60'].items() if int(k) not in new61} == C60['realised_rows60']
+             and all(C61['realised_rows60'][str(k)]['ci3'] == 'feasible' and R60c[str(k)]['infeasible'] is None
+                     for k in new61))
+    F61 = np.load(os.path.join(D61, FN61), allow_pickle=False)
+    fr61 = bool(np.array_equal(F61['rows'], np.flatnonzero(keep61))
+                and F61['cut'].shape == (F61['classes'].shape[0], L61.shape[0])
+                and F61['cut'].any(0).all() and F61['cut'][F61['greedy_cover']].any(0).all())
+    # css-sweep8: its rows by the rule, from the outputs of the earlier jobs (rows matched by the ray)
+    JJ61 = _js20.load(open(os.path.join(os.path.dirname(base44), 'jobs.json')))['jobs']
+    best61 = {}
+    for j61, fd61 in (('css-sweep', '2026-11-20_css-sweep'), ('css-sweep2', '2026-11-23_css-sweep2'),
+                     ('css-scale', '2026-11-24_css-scale'), ('css-sweep3a', '2026-11-24_css-sweep3a'),
+                     ('css-sweep3b', '2026-11-24_css-sweep3b'), ('css-sweep3c', '2026-11-24_css-sweep3c'),
+                     ('css-sweep3d', '2026-11-26_css-sweep3d'), ('css-sweep3e', '2026-11-26_css-sweep3e'),
+                     ('css-sweep4a', '2026-11-26_css-sweep4a'), ('css-sweep4b', '2026-11-26_css-sweep4b'),
+                     ('css-sweep4c', '2026-11-26_css-sweep4c'), ('css-sweep4d', '2026-11-26_css-sweep4d'),
+                     ('css-sweep4e', '2026-11-26_css-sweep4e'), ('css-sweep5', '2026-11-27_css-sweep5'),
+                     ('css-sweep6', '2026-11-27_css-sweep6'), ('s44-a', '2026-11-24_s44-a'), ('s44-b', '2026-11-24_s44-b'),
+                     ('s44-c', '2026-11-24_s44-c'), ('s44-d', '2026-11-26_s44-d'), ('s44-e', '2026-11-26_s44-e')):
+        inp61 = _re61.search(r'scripts/s4[14]_\w+\.py (results/\S+undecided_reps\.npy)', JJ61[j61]['cmd']).group(1)
+        UU61 = np.load(os.path.join(os.path.dirname(base44), inp61)).astype(np.int64)
+        for kk61, v61 in _js20.load(open(os.path.join(base44, fd61, j61.replace('-', '_') + '.npz.json')))['best_residual'].items():
+            t61 = tuple(int(x) for x in UU61[int(kk61.split(':')[0])])
+            best61[t61] = min(best61.get(t61, 99), v61)
+    s7_61 = {tuple(int(x) for x in U44[i59[k]]) for k in want61}
+    rows8_61 = [k for k in range(L61.shape[0]) if int(L61[k][[0, 1, 3, 7, 15, 30]].sum()) <= 32
+                and best61.get(tuple(int(x) for x in L61[k])) == 1 and tuple(int(x) for x in L61[k]) not in s7_61]
+    cmd8_61 = JJ61['css-sweep8']['cmd']
+    ok61d = (len(rows8_61) == 20 and ST61['css_sweep8_registered']['rows74'] == rows8_61
+             and _re61.search(r'--rows (\S+)', cmd8_61).group(1) == ','.join(map(str, rows8_61))
+             and cmd8_61.count('results/2026-11-28_r74-sandbox/undecided_reps.npy') == 2
+             and '--budget 32:3600x3 --seed 20261209 --out css_sweep8.npz' in cmd8_61)
+    gate('G61 laptop piece of 2026-11-28 (morning): css-sweep7; css-sweep8 registered',
+         ok61b and ok61c and ok61d and nv61 == sum(gr61) and nc61 == ne61 == len(rows61) and no61 and acc61 and fr61
+         and file61,
+         f'{len(rows61)} realised by css-sweep7 (R30 rows {rows61}) of the 4 rows at residual 1 {ok61b}: {nc61} CSS matrix '
+         f're-verified at lambda 2, {nv61}/{sum(gr61)} stored graphs by stabcert, {ne61} extreme rays of QLR5, new S6 '
+         f'orbits {no61}; {ST61["known_extreme_ray_orbits"]} known / {ST61["undecided"]} undecided, every d '
+         f'{EV61["unimodular"]} certified / {EV61["open"]} open {acc61}; ci3 block {ok61c}; frontier '
+         f'{F61["classes"].shape[0]} classes, greedy cover {len(F61["greedy_cover"])} cuts every row {fr61}; css-sweep8 on '
+         f'the {len(rows8_61)} rows of its rule {ok61d}; files match the manifests {file61}')
+
     if a.full:
         R29l = _r29.lrs_rays(A29)
         if R29l is None:

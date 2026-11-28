@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## R74 (2026-11-28) -- results of `css-sweep7`: one more orbit realised (R30 row 572); `css-sweep8` registered; gate G61
+- `results/2026-11-28_css-sweep7/` (job `css-sweep7`, 1.0 h on the 32-thread laptop, run on the R72 commit): eight
+  searches of 3,600 s with seed 20261208 on each of the 4 rows that `css-sweep6` had left at best residual 1, as rows of
+  the R71 list. Realised row 346 (R30 row 572; N = 28, so 56 qubits at λ = 2) after 3,511 s; rows 165, 515 and 538
+  (R30 rows 303, 807 and 838) ended at residual 1 again. R30 row 807 is one of the two undecided rows realised over
+  GF(3) in R56; whether qubits realise it stays open.
+- `results/2026-11-28_r74-sandbox/` (sandbox): `realisations_1.npz`; `undecided_reps.npy`, the R71 list without the
+  row (767 rows); `frontier_1025.npz` (1 of the 309 classes of R71 is violated by the new orbit; the other 308 still cut
+  all 767 rows, greedy cover 180; every class re-checked exactly); `status.json` and README.txt. Re-checked: the job's
+  `--check`, s41's verify, stabcert on the stored graph, extreme ray of QLR5 with tight rank 30, S6 orbit new against
+  the 1,024 known; and with independent code (the library of the R56 review).
+- Counts: 1,915,914 excluded (unchanged), 1,025 known, 767 undecided; 384 orbits realised after submission, 114 of
+  them certified for every d and 270 open. The new row is row 354 of the R60 list, which the completed `ci3` run found
+  feasible, as a realised row has to be.
+- `jobs.json`: `css-sweep8`, the CSS search of R52 (`scripts/s41_css_search.py`, seed 20261209, budget `32:3600x3`) on
+  the 20 rows of the R74 list with N ≤ 32 whose best residual over all earlier λ = 2 laptop searches (`css-sweep` …
+  `css-sweep6`, `s44-a` … `s44-e`; rows matched by the ray) is 1, less the rows `css-sweep7` searched (N = 26–32):
+  three searches of 3,600 s each, 60 searches in two rounds, at most 2.0 h on 32 threads. Why: `css-sweep5`, `6` and `7`
+  took only the rows the previous sweep had left at residual 1, so rows that had reached 1 earlier and ended higher in
+  the last sweep were dropped; yet in `css-sweep3` and `css-sweep4` such rows were realised in 3 of 16 one-hour
+  searches, about as often as the others [empirical, small samples]. Sandbox: the smoke passes through
+  `scripts/run_job.py` (ALL OK); all 60 searches ran for 3 s each ('20 rays tried', nothing found).
+- `selftest.py`: gate G61 (the two manifests; the realisation re-verified as in G56 and the 4 rows tried; the
+  undecided list, counts, every_d and the ci3 block; the frontier; the rows of `css-sweep8` re-derived from the outputs
+  of the earlier jobs). A tamper test in the sandbox (a column of the CSS matrix copied onto another, the new row
+  claimed certified for every d, a row dropped from the undecided list, one row of `css-sweep8` swapped for another
+  undecided row) makes G61 fail each time and no other gate.
+- `VERSION`: R74. README: header; §2b (`css-sweep7`, `css-sweep8`); §7; 78 gate lines (§2, §3, §9). `data/` and gates
+  G0–G60 are unchanged. `selftest.py`: 61 gate lines, ALL PASS; `selftest.py --full`: 78 gate lines, ALL PASS.
+
 ## R73 (2026-11-28) -- E2 at maxsize 3 complete (`ci3-6h`): all 777 rows feasible, no exclusion; gate G60
 - `results/2026-11-28_ci3/` (job `ci3-6h`, 4.7 h on the 32-thread laptop, run on the R71 commit): `ci3.json` continued
   from the 591 rows of the first two pieces; the last 186 rows (N = 16–32), 5,273,482 LPs, all feasible, no solver

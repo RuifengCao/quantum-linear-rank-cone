@@ -1,0 +1,23 @@
+{
+ "rays": 768,
+ "rows": 4,
+ "kappa": 1,
+ "lam": 2,
+ "seed": 20261208,
+ "found": 1,
+ "by_lambda": {
+  "2": 1
+ },
+ "best_residual": {
+  "165:2": 1,
+  "538:2": 1,
+  "515:2": 1
+ },
+ "found_rows": [
+  346
+ ],
+ "seconds": {
+  "346": 3510.796
+ },
+ "note": "rows refer to the input rays file"
+}

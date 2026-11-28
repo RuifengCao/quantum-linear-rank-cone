@@ -876,6 +876,22 @@
    ],
    "tag": "css-sweep7",
    "checks": "a 'kernel: ... OpenMP threads <all cores>' line; one 'row k: FOUND after ... verified (...)' line for each hit; the line 'lambda=2 (CSS, kappa=1): 4 rays tried, n realised and independently verified'; no WARNING lines; the --check run ends with ALL OK. Row indices refer to results/2026-11-27_r71-sandbox/undecided_reps.npy; the outputs are rewritten after every hit"
+  },
+  "css-sweep8": {
+   "tier": "X",
+   "needs": [
+    "gcc"
+   ],
+   "runtime": "at most 2.0 h on 32 threads (R74, for daytime use): the CSS search of R52 (scripts/s41_css_search.py) with a new seed, three searches of 3,600 s (budget 32:3600x3) on each of the 20 undecided rows whose best residual over all earlier lambda = 2 searches (css-sweep ... css-sweep6, s44-a ... s44-e) is 1 and which css-sweep7 did not take (rows 22, 24, 27, 66, 95, 124, 166, 178, 231, 375, 389, 427, 447, 470, 534, 549, 643, 678, 698, 715 of results/2026-11-28_r74-sandbox/undecided_reps.npy; N = 26-32): 60 searches, two rounds",
+   "cmd": "rm -f css_sweep8.npz css_sweep8.npz.json css_sweep8.plain.npz && python3 scripts/s41_css_search.py results/2026-11-28_r74-sandbox/undecided_reps.npy --rows 22,24,27,66,95,124,166,178,231,375,389,427,447,470,534,549,643,678,698,715 --budget 32:3600x3 --seed 20261209 --out css_sweep8.npz && python3 scripts/s41_css_search.py --check css_sweep8.npz results/2026-11-28_r74-sandbox/undecided_reps.npy",
+   "smoke": "rm -f css_sweep8.npz css_sweep8.npz.json css_sweep8.plain.npz && python3 scripts/s41_css_search.py results/2026-11-28_r74-sandbox/undecided_reps.npy --rows 22,24 --budget 32:3 --seed 20261209 --out css_sweep8.npz && python3 scripts/s41_css_search.py --check css_sweep8.npz results/2026-11-28_r74-sandbox/undecided_reps.npy",
+   "outputs": [
+    "css_sweep8.npz",
+    "css_sweep8.npz.json",
+    "css_sweep8.plain.npz"
+   ],
+   "tag": "css-sweep8",
+   "checks": "a 'kernel: ... OpenMP threads <all cores>' line; one 'row k: FOUND after ... verified (...)' line for each hit; the line 'lambda=2 (CSS, kappa=1): 20 rays tried, n realised and independently verified'; no WARNING lines; the --check run ends with ALL OK. Row indices refer to results/2026-11-28_r74-sandbox/undecided_reps.npy; the outputs are rewritten after every hit"
   }
  }
 }

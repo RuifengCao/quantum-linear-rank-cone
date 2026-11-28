@@ -1,0 +1,27 @@
+{
+ "date": "2026-11-28",
+ "tag": "css-sweep7",
+ "note": "run_job css-sweep7 exit 0 on ClarkDellG16",
+ "files": {
+  "css_sweep7.npz": {
+   "bytes": 3802,
+   "sha256": "0b9b783d2f3701d9438dd7677c8f0cbdab1a4e9043bfbec817f0977f84ecdfe4"
+  },
+  "css_sweep7.npz.json": {
+   "bytes": 287,
+   "sha256": "58439715c7eb0c6076ac24933a3de266e7a90fb51e4147716ac180fa8d983a3e"
+  },
+  "css_sweep7.plain.npz": {
+   "bytes": 2514,
+   "sha256": "4a033439f240f0c0bde1be8c19c92fa49ef5f8f4fe067723d9c2d3f1454fe331"
+  },
+  "css-sweep7.log": {
+   "bytes": 514,
+   "sha256": "c139c6c55cb3812567f7bafbff6996a0f178f49557b7a1f819376e3c8deccb12"
+  },
+  "JOB_STATUS.json": {
+   "bytes": 923,
+   "sha256": "6c2cf984098de77f209bb32b18283d44aa9e82bac1de31887f56d73d4b9aee9a"
+  }
+ }
+}
