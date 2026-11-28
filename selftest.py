@@ -1833,25 +1833,25 @@ def main():
         file59 = file59 and sorted(M59['files']) == sorted(f59) and all(
             _h33.sha256(open(os.path.join(d59, f), 'rb').read()).hexdigest() == e['sha256'] for f, e in M59['files'].items())
     J59 = _js20.load(open(os.path.join(base44, '2026-11-27_css-sweep6', 'css_sweep6.npz.json')))
-    Q59 = np.load(os.path.join(D59, RN59), allow_pickle=False)
-    rows59 = [int(x) for x in Q59['row']]
-    gr59 = [bool(x) for x in Q59['graph']]
+    Q59r = np.load(os.path.join(D59, RN59), allow_pickle=False)
+    rows59 = [int(x) for x in Q59r['row']]
+    gr59 = [bool(x) for x in Q59r['graph']]
     i58 = np.flatnonzero(keep58)
     tr59 = sorted(set(int(k.split(':')[0]) for k in J59['best_residual']) | set(J59['found_rows']))
     want59 = sorted(int(np.searchsorted(i58, i56[int(k)])) for k, v in ST58['css_sweep5']['best_residual'].items() if v == 1)
     ok59b = (len(rows59) == len(set(rows59)) > 0 and keep58[rows59].all() and tr59 == want59 and len(tr59) == 8
-             and sorted(J59['found_rows']) == sorted(int(x) for x in Q59['row69'])
-             and [int(i58[int(x)]) for x in Q59['row69']] == rows59 and [int(i53[int(x)]) for x in Q59['row60']] == rows59
-             and set(str(x) for x in Q59['job']) == {'css-sweep6'}
-             and np.array_equal(Q59['rep'].astype(np.int64), U44[rows59]) and (Q59['lam'] == 2).all()
-             and gr59 == [int(Q59['sizes'][k].sum()) <= 64 for k in range(len(rows59))])
-    nv59 = sum(_sc.verify_realisation(U44[r], 2, Q59['sizes'][k], Q59['rows'][k]) for k, r in enumerate(rows59) if gr59[k])
-    nc59 = sum(_css47.verify(U44[r], 1, [int(c) for c in Q59['cols'][k][:int(Q59['m'][k])]])[0] for k, r in enumerate(rows59))
+             and sorted(J59['found_rows']) == sorted(int(x) for x in Q59r['row69'])
+             and [int(i58[int(x)]) for x in Q59r['row69']] == rows59 and [int(i53[int(x)]) for x in Q59r['row60']] == rows59
+             and set(str(x) for x in Q59r['job']) == {'css-sweep6'}
+             and np.array_equal(Q59r['rep'].astype(np.int64), U44[rows59]) and (Q59r['lam'] == 2).all()
+             and gr59 == [int(Q59r['sizes'][k].sum()) <= 64 for k in range(len(rows59))])
+    nv59 = sum(_sc.verify_realisation(U44[r], 2, Q59r['sizes'][k], Q59r['rows'][k]) for k, r in enumerate(rows59) if gr59[k])
+    nc59 = sum(_css47.verify(U44[r], 1, [int(c) for c in Q59r['cols'][k][:int(Q59r['m'][k])]])[0] for k, r in enumerate(rows59))
     V59 = HF44 @ U44[rows59].T
     ne59 = sum(1 for k in range(len(rows59)) if V59[:, k].min() >= 0 and core.rank_mod_p(HF44[V59[:, k] == 0]) == 30)
-    c59, _ = core.class_reps(U44[rows59], core.perms31_s6(), offset=4096, width='u16')
-    no59 = len(set(c59)) == len(rows59) and not (
-        set(c59) & (set(c44) | set(c45) | set(c46) | set(c47) | set(c48) | set(c49) | set(c50) | set(c52) | set(c53)
+    c59r, _ = core.class_reps(U44[rows59], core.perms31_s6(), offset=4096, width='u16')
+    no59 = len(set(c59r)) == len(rows59) and not (
+        set(c59r) & (set(c44) | set(c45) | set(c46) | set(c47) | set(c48) | set(c49) | set(c50) | set(c52) | set(c53)
                     | set(c55) | set(c56) | set(c58)))
     keep59 = keep58.copy()
     keep59[rows59] = False
@@ -1866,7 +1866,7 @@ def main():
              and EV59['open_rows'] == sorted(EV58['open_rows'] + rows59) and EV59['open'] == len(EV59['open_rows'])
              and EV59['unimodular'] + EV59['open'] == ST59['realised_after_submission'])
     C59 = ST59['ci3']
-    new59 = [int(x) for x in Q59['row60']]
+    new59 = [int(x) for x in Q59r['row60']]
     ok59c = ({k: v for k, v in C59.items() if k != 'realised_rows60'}
              == {k: v for k, v in C58.items() if k != 'realised_rows60'}
              and {k: v for k, v in C59['realised_rows60'].items() if int(k) not in new59} == C58['realised_rows60']
@@ -1884,6 +1884,57 @@ def main():
          f'{EV59["unimodular"]} certified / {EV59["open"]} open {acc59}; ci3 block {ok59c}; frontier '
          f'{F59["classes"].shape[0]} classes, greedy cover {len(F59["greedy_cover"])} cuts every row {fr59}; files match '
          f'the manifests {file59}')
+
+    # G60 (R73): the third and last piece of E2 at maxsize 3 (job ci3-6h, results/2026-11-28_ci3) on the R60 list,
+    # results/2026-11-28_r73-sandbox: the rows of the earlier pieces carried over unchanged; all 777 rows of ci3.json
+    # feasible, done = combos = s42's own count at maxsize 3 without nesting, no solver trouble, the summary equal to the
+    # rows and complete; status.json's ci3 block (three pieces, nothing left); every row of the R60 list realised in
+    # R64-R71 feasible, and every row undecided in R71 tested; counts, every_d, frontier and undecided list those of R71;
+    # the manifests of the two new folders.
+    D60 = os.path.join(base44, '2026-11-28_r73-sandbox')
+    ST60 = _js20.load(open(os.path.join(D60, 'status.json')))
+    file60 = True
+    for d60, f60 in [(D60, ['README.txt', 'status.json']),
+                     (os.path.join(base44, '2026-11-28_ci3'), ['JOB_STATUS.json', 'ci3-6h.log', 'ci3.json'])]:
+        M60 = _js20.load(open(os.path.join(d60, 'manifest.json')))
+        file60 = file60 and sorted(M60['files']) == sorted(f60) and all(
+            _h33.sha256(open(os.path.join(d60, f), 'rb').read()).hexdigest() == e['sha256'] for f, e in M60['files'].items())
+    J60 = _js20.load(open(os.path.join(base44, '2026-11-28_ci3', 'ci3.json')))
+    R60c, C60 = J60['results'], ST60['ci3']
+    ok60a = ((J60['rays'], J60['rows'], J60['maxsize'], J60['nested']) == (L54n, 777, 3, False)
+             and sorted(int(k) for k in R60c) == list(range(len(L53))) == list(range(777))
+             and all(k in R60c and R60c[k] == v for k, v in R57c.items())
+             and all(e['infeasible'] is None and e['trouble'] == 0
+                     and e['done'] == e['combos'] == len(_ci54.combos(_ci22.h_norm(L53[int(k)]), 3, False))
+                     for k, e in R60c.items())
+             and J60['summary']['tested'] == 777 == C60['rows_done'] and C60['rows_left'] == 0 == C60['lps_left']
+             and J60['summary']['complete'] is True and C60['complete'] is True
+             and J60['summary']['infeasible_rows'] == [] == C60['infeasible'] and J60['summary']['trouble_lps'] == 0
+             and J60['summary']['lps'] == sum(e['done'] for e in R60c.values()) == C60['lps_done']
+             == sum(p['lps'] for p in C60['pieces'])
+             and C60['pieces'][:2] == C59['pieces'] and C60['pieces'][2]['rows_done'] == 777 - len(R57c))
+    real60 = ([int(x) for x in R55['row60']] + [int(x) for x in Q56['row60']] + [int(x) for x in Q58['row60']]
+              + [int(x) for x in Q59r['row60']])
+    und60 = [int(np.searchsorted(i53, r)) for r in np.flatnonzero(keep59)]
+    ok60b = (sorted(int(k) for k in C60['realised_rows60']) == sorted(real60)
+             and all(v['ci3'] == 'feasible' for v in C60['realised_rows60'].values())
+             and all(R60c[str(k)]['infeasible'] is None for k in real60)
+             and all(int(i53[k]) == r for k, r in zip(und60, np.flatnonzero(keep59)))
+             and all(str(k) in R60c and R60c[str(k)]['infeasible'] is None for k in und60)
+             and len(und60) == ST59['undecided'] == C60['undecided_r71_tested'])
+    acc60 = (ST60['known_extreme_ray_orbits'] == ST59['known_extreme_ray_orbits'] and ST60['undecided'] == ST59['undecided']
+             and ST60['excluded'] == ST59['excluded']
+             and ST60['realised_after_submission'] == ST59['realised_after_submission']
+             and ST60['every_d'] == ST59['every_d'] and ST60['frontier'] == 'unchanged: results/2026-11-27_r71-sandbox/'
+             + ST59['frontier']['file']
+             and ST60['undecided_reps'].startswith('unchanged: results/2026-11-27_r71-sandbox/undecided_reps.npy'))
+    gate('G60 laptop job of 2026-11-27/28: ci3-6h (last piece; E2 at maxsize 3 complete)',
+         ok60a and ok60b and acc60 and file60,
+         f'ci3: all {len(R60c)} rows of the R60 list feasible ({C60["pieces"][2]["rows_done"]} in this piece, the '
+         f'{len(R57c)} of the first two carried over), done = combos = s42 count at maxsize 3, no solver trouble, '
+         f'{J60["summary"]["lps"]} LPs, complete {ok60a}; the {len(real60)} realised rows feasible and the {len(und60)} '
+         f'undecided rows tested {ok60b}; counts unchanged ({ST60["known_extreme_ray_orbits"]} known / '
+         f'{ST60["undecided"]} undecided) {acc60}; files match the manifests {file60}')
 
     if a.full:
         R29l = _r29.lrs_rays(A29)

@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## R73 (2026-11-28) -- E2 at maxsize 3 complete (`ci3-6h`): all 777 rows feasible, no exclusion; gate G60
+- `results/2026-11-28_ci3/` (job `ci3-6h`, 4.7 h on the 32-thread laptop, run on the R71 commit): `ci3.json` continued
+  from the 591 rows of the first two pieces; the last 186 rows (N = 16–32), 5,273,482 LPs, all feasible, no solver
+  trouble; the run is complete: all 777 rows of the R60 list, 22,285,963 LPs. So E2 at maxsize 3 without nesting
+  excludes none of the 768 rows undecided in R71 [computed; floating-point LP verdicts]. The 9 rows of the R60 list
+  realised in R64, R66, R69 and R71 came out feasible, as realised rows have to.
+- `results/2026-11-28_r73-sandbox/` (sandbox): `status.json` (the counts of R71; the ci3 block with the three pieces,
+  complete) and README.txt. Nothing is realised or excluded: 1,915,914 excluded, 1,024 known, 768 undecided; the
+  undecided list and frontier of R71 stand.
+- `selftest.py`: gate G60 (the manifests; every row of the earlier pieces carried over unchanged; all 777 rows feasible
+  with done = combos = s42's own count at maxsize 3 without nesting; the summary complete; the realised rows feasible
+  and every undecided row tested; counts unchanged). G59's local names `Q59` and `c59` renamed to `Q59r` and `c59r`:
+  they shadowed G16's names (no gate's behaviour changes). A tamper test in the sandbox (one row's LP count lowered, a
+  row of the second piece dropped, the run claimed incomplete in status.json) makes G60 fail each time and no other
+  gate.
+- `VERSION`: R73. README: header; §2b (`ci3`); §7; 77 gate lines (§2, §3, §9). `data/` and gates G0–G59 are unchanged
+  in what they check. `selftest.py`: 60 gate lines, ALL PASS; `selftest.py --full`: 77 gate lines, ALL PASS.
+
 ## R72 (2026-11-27) -- `css-sweep7` registered (eight more CSS searches on the 4 rows still at residual 1)
 - `jobs.json`: `css-sweep7`, the CSS search of R52 (`scripts/s41_css_search.py`, seed 20261208, budget `30:3600x8`) on
   the 4 rows that `css-sweep6` left at best residual 1, as rows of the R71 list (165, 346, 515, 538; N = 18–28): eight

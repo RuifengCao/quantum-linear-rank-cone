@@ -1,0 +1,15 @@
+{
+ "date": "2026-11-28",
+ "tag": "r73-sandbox",
+ "files": {
+  "README.txt": {
+   "bytes": 2099,
+   "sha256": "de6dca8f175d790ab3e4d7590239bd38de8bc5ee71f8c6b8eb8820b6c3f4bd0f"
+  },
+  "status.json": {
+   "bytes": 7603,
+   "sha256": "e5ac64864640c0bf37a8961dcf7214c236f2b2bf9566e36fe3d91e7bcbb5bfb6"
+  }
+ },
+ "note": "sha256 of every other file of this folder"
+}

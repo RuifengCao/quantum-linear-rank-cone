@@ -1,0 +1,19 @@
+{
+ "date": "2026-11-28",
+ "tag": "ci3",
+ "note": "run_job ci3-6h exit 0 on ClarkDellG16",
+ "files": {
+  "ci3.json": {
+   "bytes": 99010,
+   "sha256": "985bd977b00bb821a3bf2d95eba7a6001565eafd6bc144e27975f2a1685a96d5"
+  },
+  "ci3-6h.log": {
+   "bytes": 19925,
+   "sha256": "cc1ce585c004d73a471e88637f437c86795556e1b8788bac1fcb7d745d0e82e8"
+  },
+  "JOB_STATUS.json": {
+   "bytes": 1154,
+   "sha256": "ff526fdf09d0edfdd828044a89b3820a406dcd74d10c66f2e3fabd1ccf1793c1"
+  }
+ }
+}
